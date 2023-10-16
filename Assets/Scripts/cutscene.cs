@@ -4,43 +4,41 @@ using UnityEngine;
 
 public class cutscene : MonoBehaviour
 {
+    //dialog strings to be set in the inspector
     public string[] dialogs;
     public string[] dialogs2;
     public string[] dialogs3;
     public string[] dialogs4;
     public string[] dialogs5;
-    private int counter = 0;
-    private int cutSceneCount = 0;
+
+    private int counter = 0; //counter for text within current cutscene
+    private int cutSceneCount = 0; // countr for current cutscene
+
+    // reference to the main menu script
     public mainMenu mainScript;
 
+    // references to the objects for the characters in the cutscene
     public GameObject p1;
     public GameObject p2;
+
+    // text mesh pro objects for the text for each character
     public TMPro.TextMeshProUGUI p1Text;
     public TMPro.TextMeshProUGUI p2Text;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       // NextStep();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnEnable()
     {
+        // if we are in hosted mode, no cut scene, proceed to the main menu
         if (mainScript.hostedMode)
         {
             mainScript.ExitToMain();
         } else
         {
-
+            // if we are in story mode play the next cutscene
             NextStep();
         }
     }
 
+    // called from scene, plays the first cutscene
     public void GoTime()
     {
         counter = dialogs.Length;
@@ -49,6 +47,7 @@ public class cutscene : MonoBehaviour
 
     public void NextStep()
     {
+        // if we have finished the dialogs for this cutscene, progress to next cut scene and disable object
         if(counter >= dialogs.Length)
         {
             mainScript.NextGame();
@@ -74,6 +73,7 @@ public class cutscene : MonoBehaviour
             }
             gameObject.SetActive(false);
         }
+        // if we are mid cutscene, display p1 or p2 with corresponding text
         else if(counter %2 == 0)
         {
             p1Text.text = dialogs[counter];

@@ -26,18 +26,12 @@ public class happyHouseGame : MonoBehaviour
     private float timer = 0;
     private bool playing = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void PlayGame()
     {
         playing = true;
     }
 
-    // Update is called once per frame
+    // TODO: replace phase timer with time increments based on specific items selected
     void Update()
     {
 

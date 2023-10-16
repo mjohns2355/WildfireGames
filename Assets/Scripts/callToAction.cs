@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class callToAction : MonoBehaviour
 {
-
+    // links to relevant sources should be added in the inspector
     public string[] links;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void FollowLink(int l)
     {
+        // launch the corresponding link in a new browser tab
+        // link l is set by the button in the scene
         Application.OpenURL(links[l]);
     }
 }
