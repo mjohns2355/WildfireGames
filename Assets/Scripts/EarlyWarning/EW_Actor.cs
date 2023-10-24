@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EW_Actor : MonoBehaviour
 {
-    private Queue<MoveCommand> moveQueue = new Queue<MoveCommand>();
+    private Queue<EW_MoveCommand> moveQueue = new Queue<EW_MoveCommand>();
     private bool executing = false;
 
     // Start is called before the first frame update
@@ -12,13 +12,20 @@ public class EW_Actor : MonoBehaviour
     {
         EnqueueMoveCommand(3, 2, 1);
         EnqueueMoveCommand(0, 2, 1.5f);
-        StartCoroutine(ExecuteWholeQueue());
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            StartCoroutine(ExecuteWholeQueue());
+        }
     }
 
     public void EnqueueMoveCommand(float x, float y, float duration)
     {
         Vector2 targetPosition = new Vector2(x, y);
-        MoveCommand moveCommand = new MoveCommand(targetPosition, duration);
+        EW_MoveCommand moveCommand = new EW_MoveCommand(targetPosition, duration);
         moveQueue.Enqueue(moveCommand);
     }
 
@@ -35,7 +42,7 @@ public class EW_Actor : MonoBehaviour
     {
         if (moveQueue.Count > 0)
         {
-            MoveCommand nextMove = moveQueue.Dequeue();
+            EW_MoveCommand nextMove = moveQueue.Dequeue();
             StartCoroutine(MoveTo(nextMove.TargetPosition, nextMove.Duration));
         }
     }
@@ -62,12 +69,12 @@ public class EW_Actor : MonoBehaviour
 }
 
 
-public class MoveCommand
+public class EW_MoveCommand
 {
     public Vector2 TargetPosition;
     public float Duration;
 
-    public MoveCommand(Vector2 targetPosition, float duration)
+    public EW_MoveCommand(Vector2 targetPosition, float duration)
     {
         TargetPosition = targetPosition;
         Duration = duration;
