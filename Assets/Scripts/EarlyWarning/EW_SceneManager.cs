@@ -7,6 +7,7 @@ public class EW_SceneManager : MonoBehaviour
 {
     EW_EventNode curNode = null;
     public EW_Actor actor;
+    public bool done;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +22,15 @@ public class EW_SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") && !done)
         {
             Debug.Log("space");
             curNode.Play();
             curNode = curNode.Next();
+            if (curNode == null)
+            {
+                done = true;
+            }
         }
     }
 }
