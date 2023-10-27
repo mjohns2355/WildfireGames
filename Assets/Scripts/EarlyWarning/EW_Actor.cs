@@ -4,52 +4,25 @@ using UnityEngine;
 
 public class EW_Actor : MonoBehaviour
 {
-    private Queue<EW_MoveCommand> moveQueue = new Queue<EW_MoveCommand>();
-    private bool executing = false;
+    public bool executing = false;
+    Coroutine curMove;
+    Vector2 targetPos;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Execute(EW_MoveCommand command)
     {
-        EnqueueMoveCommand(3, 2, 1);
-        EnqueueMoveCommand(0, 2, 1.5f);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
+        if (executing)
         {
-            StartCoroutine(ExecuteWholeQueue());
+            transform.position = targetPos;
+            StopCoroutine(curMove);
         }
-    }
-
-    public void EnqueueMoveCommand(float x, float y, float duration)
-    {
-        Vector2 targetPosition = new Vector2(x, y);
-        EW_MoveCommand moveCommand = new EW_MoveCommand(targetPosition, duration);
-        moveQueue.Enqueue(moveCommand);
-    }
-
-    private IEnumerator ExecuteWholeQueue()
-    {
-        while (moveQueue.Count > 0)
-        {
-            ExecuteNext();
-            yield return new WaitUntil(() => !executing);
-        }
-    }
-
-    private void ExecuteNext()
-    {
-        if (moveQueue.Count > 0)
-        {
-            EW_MoveCommand nextMove = moveQueue.Dequeue();
-            StartCoroutine(MoveTo(nextMove.TargetPosition, nextMove.Duration));
-        }
+        Debug.Log("Executing move command");
+        curMove = StartCoroutine(MoveTo(command.targetPosition, command.duration));
     }
 
     private IEnumerator MoveTo(Vector2 targetPosition, float duration)
     {
         executing = true;
+        targetPos = targetPosition;
 
         Vector2 initialPosition = transform.position;
         float elapsedTime = 0f;
@@ -63,20 +36,10 @@ public class EW_Actor : MonoBehaviour
             yield return null;
         }
 
+        //Make sure we hit it exactly
         transform.position = targetPosition;
+
         executing = false;
-    }
-}
-
-
-public class EW_MoveCommand
-{
-    public Vector2 TargetPosition;
-    public float Duration;
-
-    public EW_MoveCommand(Vector2 targetPosition, float duration)
-    {
-        TargetPosition = targetPosition;
-        Duration = duration;
+        curMove = null;
     }
 }
