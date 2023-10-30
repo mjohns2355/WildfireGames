@@ -7,6 +7,7 @@ public class EW_Actor : MonoBehaviour
     public bool executing = false;
     Coroutine curMove;
     Vector2 targetPos;
+    float moveSpeed = 1;
 
     public void Execute(EW_MoveCommand command)
     {
@@ -16,15 +17,16 @@ public class EW_Actor : MonoBehaviour
             StopCoroutine(curMove);
         }
         Debug.Log("Executing move command");
-        curMove = StartCoroutine(MoveTo(command.targetPosition, command.duration));
+        curMove = StartCoroutine(MoveTo(command.targetPosition));
     }
 
-    private IEnumerator MoveTo(Vector2 targetPosition, float duration)
+    private IEnumerator MoveTo(Vector2 targetPosition)
     {
         executing = true;
         targetPos = targetPosition;
-
         Vector2 initialPosition = transform.position;
+        float distance = Vector2.Distance(initialPosition, targetPosition);
+        float duration = distance / moveSpeed;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
