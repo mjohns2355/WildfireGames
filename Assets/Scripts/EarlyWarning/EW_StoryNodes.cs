@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface EW_StoryNode
 {
-    public EW_StoryNode Next();
+    public EW_StoryNode Advance();
     public void Play();
     public void SetNext(EW_StoryNode next);
 }
@@ -21,12 +21,15 @@ public class EW_MoveEvent : EW_StoryNode
         Debug.Log("moveEvent constructor");
     }
 
-    public EW_StoryNode Next()
+    public EW_StoryNode Advance()
     {
+        Debug.Log("Advance");
         if (moves.Count > 0)
         {
+            Play();
             return this;
         }
+        nextNode?.Play();
         return nextNode;
     }
 
@@ -47,7 +50,7 @@ public class EW_MoveEvent : EW_StoryNode
         bool wasFinal = move.Execute();
         if (wasFinal)
         {
-            manager.MoveToNode(nextNode);
+            manager.ChangeStoryNode(nextNode);
         }
     }
 }
@@ -62,18 +65,21 @@ public class EW_DialogueEvent : EW_StoryNode
         this.lines = lines;
     }
 
-    public EW_StoryNode Next()
+    public EW_StoryNode Advance()
     {
+        Debug.Log("Advance");
         if (lines.Count > 0)
         {
             ReadLine();
             return this;
         }
+        nextNode?.Play();
         return nextNode;
     }
 
     public void Play()
     {
+        Debug.Log("Play");
         ReadLine();
     }
 
