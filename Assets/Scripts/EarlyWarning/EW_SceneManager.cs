@@ -41,14 +41,14 @@ public class EW_SceneManager : MonoBehaviour
             new EW_MoveCommand(actor, new Vector2(5, 3), true)
         });
 
-        curNode = new EW_MoveEvent(this, moveQueue);
+        curNode = new EW_MoveNode(this, moveQueue);
 
         Queue<string> lines = new Queue<string>(new[] {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         });
 
-        curNode.SetNext(new EW_DialogueEvent(lines));
+        curNode.SetNext(new EW_DialogueNode(lines));
 
         Debug.Log(curNode);
     }

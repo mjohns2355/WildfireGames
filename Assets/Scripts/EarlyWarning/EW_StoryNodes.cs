@@ -8,13 +8,13 @@ public interface EW_StoryNode
     public void SetNext(EW_StoryNode next);
 }
 
-public class EW_MoveEvent : EW_StoryNode
+public class EW_MoveNode : EW_StoryNode
 {
     Queue<EW_MoveCommand> moves;
     EW_StoryNode nextNode;
     EW_SceneManager manager;
 
-    public EW_MoveEvent(EW_SceneManager _manager, Queue<EW_MoveCommand> commands)
+    public EW_MoveNode(EW_SceneManager _manager, Queue<EW_MoveCommand> commands)
     {
         manager = _manager;
         moves = commands;
@@ -55,12 +55,12 @@ public class EW_MoveEvent : EW_StoryNode
     }
 }
 
-public class EW_DialogueEvent : EW_StoryNode
+public class EW_DialogueNode : EW_StoryNode
 {
     Queue<string> lines; //This might change to a more complex type later
     EW_StoryNode nextNode;
 
-    public EW_DialogueEvent(Queue<string> lines)
+    public EW_DialogueNode(Queue<string> lines)
     {
         this.lines = lines;
     }
