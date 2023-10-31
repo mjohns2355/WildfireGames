@@ -9,10 +9,10 @@ public class EW_SceneManager : MonoBehaviour
 {
     private EW_StoryNode curNode = null;
     public EW_Actor actor;
-    public bool done;
+    public bool done = false;
 
     [SerializeField]
-    private GameObject dialogueBox;
+    private Image dialogueBox;
     [SerializeField]
     private TextMeshProUGUI textComponent;
     private float timeBetweenLetters = 0.04f;
@@ -24,10 +24,12 @@ public class EW_SceneManager : MonoBehaviour
     {
         Debug.Log("Start");
 
-        dialogueBox.SetActive(false);
+        dialogueBox.enabled = false;
         textComponent.text = "";
 
         EW_EventSystem.TriggerDialogueEvent += BeginDialogue;
+
+        EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
 
         SetUpNodeList();
     }
@@ -36,7 +38,7 @@ public class EW_SceneManager : MonoBehaviour
     {
         Queue<EW_MoveCommand> moveQueue = new Queue<EW_MoveCommand>(new[] {
             new EW_MoveCommand(actor, new Vector2(0, 3)),
-            new EW_MoveCommand(actor, new Vector2(2, 3), true)
+            new EW_MoveCommand(actor, new Vector2(5, 3), true)
         });
 
         curNode = new EW_MoveEvent(this, moveQueue);
@@ -51,6 +53,7 @@ public class EW_SceneManager : MonoBehaviour
         Debug.Log(curNode);
     }
 
+    int counter = 0;
     // Update is called once per frame
     void Update()
     {
@@ -64,35 +67,34 @@ public class EW_SceneManager : MonoBehaviour
                 return;
             }
 
-            MoveToNode(curNode.Next());
-            if (curNode != null)
-            {
-                curNode.Play();
-            }
+            ChangeStoryNode(curNode.Advance());
+
+            Debug.Log("Curnode: " + curNode);
         }
     }
 
-    public void MoveToNode(EW_StoryNode node)
+    public void ChangeStoryNode(EW_StoryNode node)
     {
         curNode = node;
         if (curNode == null)
         {
             done = true;
+            return;
         }
     }
 
     public void BeginDialogue(string textToType)
     {
         curTargetText = textToType;
-        dialogueBox.SetActive(true);
+        dialogueBox.enabled = true;
         typingCoroutine = StartCoroutine(TypeTextCoroutine());
     }
 
     public void EndDialogue()
     {
         curTargetText = "";
-        dialogueBox.SetActive(false);
-        MoveToNode(curNode.Next());
+        dialogueBox.enabled = false;
+        ChangeStoryNode(curNode.Advance());
     }
 
     private void SkipTyping()
@@ -120,13 +122,15 @@ public class EW_SceneManager : MonoBehaviour
 
 public static class EW_EventSystem
 {
-    public static event Action EndStoryNode;
     public delegate void DialogueDelegate(string line);
     public static event DialogueDelegate TriggerDialogueEvent, SkipDialogueEvent;
 
-    public static void InvokeEndStoryNode()
+    public delegate void StoryNodeDelegate(EW_StoryNode node);
+    public static event StoryNodeDelegate ChangeStoryNodeEvent;
+
+    public static void InvokeEndStoryNodeEvent(EW_StoryNode node)
     {
-        EndStoryNode?.Invoke();
+        ChangeStoryNodeEvent?.Invoke(node);
     }
 
     public static void InvokeTriggerDialogueEvent(string line)

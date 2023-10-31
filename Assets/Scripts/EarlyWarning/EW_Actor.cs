@@ -7,7 +7,7 @@ public class EW_Actor : MonoBehaviour
     public bool executing = false;
     Coroutine curMove;
     Vector2 targetPos;
-    float moveSpeed = 1;
+    float moveSpeed = 2;
 
     public void Execute(EW_MoveCommand command)
     {
