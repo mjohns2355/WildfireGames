@@ -7,27 +7,15 @@ using UnityEngine.UI;
 
 public class EW_SceneManager : MonoBehaviour
 {
-    private EW_StoryNode curNode = null;
+    public EW_StoryNode curNode = null;
     public EW_Actor actor;
-    public bool done = false;
-
-    [SerializeField]
-    private Image dialogueBox;
-    [SerializeField]
-    private TextMeshProUGUI textComponent;
-    private float timeBetweenLetters = 0.04f;
-    private string curTargetText;
-    private Coroutine typingCoroutine = null;
+    private bool done = false;
+    public EW_UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start");
-
-        dialogueBox.enabled = false;
-        textComponent.text = "";
-
-        EW_EventSystem.TriggerDialogueEvent += BeginDialogue;
 
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
 
@@ -48,12 +36,35 @@ public class EW_SceneManager : MonoBehaviour
             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         });
 
-        curNode.SetNext(new EW_DialogueNode(lines));
+        EW_DialogueNode dNode = new EW_DialogueNode(lines);
+
+        curNode.SetNext(dNode);
+
+        List<EW_Choice> choices = new List<EW_Choice>
+        {
+            new EW_Choice("Choice 1", () =>
+            {
+                Debug.Log("Choice 1 selected");
+            }),
+
+            new EW_Choice("Choice 2", () =>
+            {
+                Debug.Log("Choice 2 selected");
+            }),
+
+            new EW_Choice("Choice 3", () =>
+            {
+                Debug.Log("Choice 3 selected");
+            })
+        };
+
+        EW_ChoiceNode choiceNode = new EW_ChoiceNode(choices);
+
+        dNode.SetNext(choiceNode);
 
         Debug.Log(curNode);
     }
 
-    int counter = 0;
     // Update is called once per frame
     void Update()
     {
@@ -61,9 +72,9 @@ public class EW_SceneManager : MonoBehaviour
         {
             Debug.Log("space");
 
-            if (typingCoroutine != null)
+            if (uiManager.typingCoroutine != null)
             {
-                SkipTyping();
+                uiManager.SkipTyping();
                 return;
             }
 
@@ -73,73 +84,22 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
+    public void Advance()
+    {
+        ChangeStoryNode(curNode.Advance());
+    }
+
     public void ChangeStoryNode(EW_StoryNode node)
     {
+        if (curNode != node)
+        {
+            EW_EventSystem.InvokeLeaveStoryNodeEvent();
+        }
         curNode = node;
         if (curNode == null)
         {
             done = true;
             return;
         }
-    }
-
-    public void BeginDialogue(string textToType)
-    {
-        curTargetText = textToType;
-        dialogueBox.enabled = true;
-        typingCoroutine = StartCoroutine(TypeTextCoroutine());
-    }
-
-    public void EndDialogue()
-    {
-        curTargetText = "";
-        dialogueBox.enabled = false;
-        ChangeStoryNode(curNode.Advance());
-    }
-
-    private void SkipTyping()
-    {
-        textComponent.text = curTargetText;
-        StopCoroutine(typingCoroutine);
-        typingCoroutine = null;
-    }
-
-    private IEnumerator TypeTextCoroutine()
-    {
-        textComponent.text = ""; // Clear the text
-
-        for (int i = 0; i < curTargetText.Length; i++)
-        {
-            textComponent.text += curTargetText[i]; // Add one character at a time
-
-            // Wait for a short duration to control the typing speed
-            yield return new WaitForSeconds(timeBetweenLetters);
-        }
-
-        typingCoroutine = null;
-    }
-}
-
-public static class EW_EventSystem
-{
-    public delegate void DialogueDelegate(string line);
-    public static event DialogueDelegate TriggerDialogueEvent, SkipDialogueEvent;
-
-    public delegate void StoryNodeDelegate(EW_StoryNode node);
-    public static event StoryNodeDelegate ChangeStoryNodeEvent;
-
-    public static void InvokeEndStoryNodeEvent(EW_StoryNode node)
-    {
-        ChangeStoryNodeEvent?.Invoke(node);
-    }
-
-    public static void InvokeTriggerDialogueEvent(string line)
-    {
-        TriggerDialogueEvent?.Invoke(line);
-    }
-
-    public static void InvokeSkipDialogueEvent(string line)
-    {
-        SkipDialogueEvent?.Invoke(line);
     }
 }

@@ -11,13 +11,19 @@ public class EW_Actor : MonoBehaviour
 
     public void Execute(EW_MoveCommand command)
     {
+        FinishMove();
+        EW_EventSystem.LeaveStoryNodeEvent += FinishMove;
+        Debug.Log("Executing move command");
+        curMove = StartCoroutine(MoveTo(command.targetPosition));
+    }
+
+    private void FinishMove()
+    {
         if (executing)
         {
             transform.position = targetPos;
             StopCoroutine(curMove);
         }
-        Debug.Log("Executing move command");
-        curMove = StartCoroutine(MoveTo(command.targetPosition));
     }
 
     private IEnumerator MoveTo(Vector2 targetPosition)

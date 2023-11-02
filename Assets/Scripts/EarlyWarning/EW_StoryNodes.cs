@@ -96,6 +96,48 @@ public class EW_DialogueNode : EW_StoryNode
     }
 }
 
+public class EW_ChoiceNode : EW_StoryNode
+{
+    List<EW_Choice> choices;
+
+    public EW_ChoiceNode(List<EW_Choice> choices)
+    {
+        this.choices = choices;
+    }
+
+    public EW_StoryNode Advance()
+    {
+        //A choice node essentially does not implement Advance
+        //The function that creates a Choice provides a function for the choice to make happen
+        //The scene manager handles the logic of selecting a choice
+        return this;
+    }
+
+    public void Play()
+    {
+        EW_EventSystem.InvokeChoiceSetupEvent(choices);
+    }
+
+    public void SetNext(EW_StoryNode next)
+    {
+        //SetNext similarly does nothing for , since there are multiple next nodes
+        Debug.LogError("SetNext called on choice node!");
+        return;
+    }
+}
+
+public class EW_Choice
+{
+    public string text { get; }
+    public System.Action onSelect { get; }
+
+    public EW_Choice(string _text, System.Action _onSelect)
+    {
+        text = _text;
+        onSelect = _onSelect;
+    }
+}
+
 public class EW_MoveCommand
 {
     public Vector2 targetPosition;
