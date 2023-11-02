@@ -31,30 +31,43 @@ public class EW_SceneManager : MonoBehaviour
 
         curNode = new EW_MoveNode(this, moveQueue);
 
-        Queue<string> lines = new Queue<string>(new[] {
+        EW_DialogueNode dNode = new EW_DialogueNode(new[] {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         });
 
-        EW_DialogueNode dNode = new EW_DialogueNode(lines);
-
         curNode.SetNext(dNode);
+
+        EW_DialogueNode choiceNode1 = new EW_DialogueNode(new[] {
+            "Choice 1 selected"
+        });
+
+        EW_DialogueNode choiceNode2 = new EW_DialogueNode(new[] {
+            "Choice 2 selected"
+        });
+
+        EW_DialogueNode choiceNode3 = new EW_DialogueNode(new[] {
+            "Choice 3 selected"
+        });
 
         List<EW_Choice> choices = new List<EW_Choice>
         {
             new EW_Choice("Choice 1", () =>
             {
                 Debug.Log("Choice 1 selected");
+                ChangeStoryNode(choiceNode1);
             }),
 
             new EW_Choice("Choice 2", () =>
             {
                 Debug.Log("Choice 2 selected");
+                ChangeStoryNode(choiceNode2);
             }),
 
             new EW_Choice("Choice 3", () =>
             {
                 Debug.Log("Choice 3 selected");
+                ChangeStoryNode(choiceNode3);
             })
         };
 
@@ -101,5 +114,6 @@ public class EW_SceneManager : MonoBehaviour
             done = true;
             return;
         }
+        curNode.Play();
     }
 }

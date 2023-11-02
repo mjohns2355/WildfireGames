@@ -29,7 +29,6 @@ public class EW_MoveNode : EW_StoryNode
             Play();
             return this;
         }
-        nextNode?.Play();
         return nextNode;
     }
 
@@ -60,8 +59,9 @@ public class EW_DialogueNode : EW_StoryNode
     Queue<string> lines; //This might change to a more complex type later
     EW_StoryNode nextNode;
 
-    public EW_DialogueNode(Queue<string> lines)
+    public EW_DialogueNode(string[] _lines)
     {
+        Queue<string> lines = new Queue<string>(_lines);
         this.lines = lines;
     }
 
@@ -73,7 +73,6 @@ public class EW_DialogueNode : EW_StoryNode
             ReadLine();
             return this;
         }
-        nextNode?.Play();
         return nextNode;
     }
 
