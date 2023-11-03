@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EW_Actor : MonoBehaviour
@@ -11,13 +10,13 @@ public class EW_Actor : MonoBehaviour
 
     public void Execute(EW_MoveCommand command)
     {
-        FinishMove();
-        EW_EventSystem.LeaveStoryNodeEvent += FinishMove;
+        SkipCurrentMove();
+        EW_EventSystem.LeaveStoryNodeEvent += SkipCurrentMove;
         Debug.Log("Executing move command");
         curMove = StartCoroutine(MoveTo(command.targetPosition));
     }
 
-    private void FinishMove()
+    private void SkipCurrentMove()
     {
         if (executing)
         {

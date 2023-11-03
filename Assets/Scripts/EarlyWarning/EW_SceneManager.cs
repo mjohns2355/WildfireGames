@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EW_SceneManager : MonoBehaviour
 {
@@ -15,8 +11,6 @@ public class EW_SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
-
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
 
         SetUpNodeList();
@@ -29,25 +23,9 @@ public class EW_SceneManager : MonoBehaviour
             new EW_MoveCommand(actor, new Vector2(5, 3), true)
         });
 
-        curNode = new EW_MoveNode(this, moveQueue);
-
         EW_DialogueNode dNode = new EW_DialogueNode(new[] {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        });
-
-        curNode.SetNext(dNode);
-
-        EW_DialogueNode choiceNode1 = new EW_DialogueNode(new[] {
-            "Choice 1 selected"
-        });
-
-        EW_DialogueNode choiceNode2 = new EW_DialogueNode(new[] {
-            "Choice 2 selected"
-        });
-
-        EW_DialogueNode choiceNode3 = new EW_DialogueNode(new[] {
-            "Choice 3 selected"
         });
 
         List<EW_Choice> choices = new List<EW_Choice>
@@ -55,24 +33,29 @@ public class EW_SceneManager : MonoBehaviour
             new EW_Choice("Choice 1", () =>
             {
                 Debug.Log("Choice 1 selected");
-                ChangeStoryNode(choiceNode1);
+                ChangeStoryNode(new EW_DialogueNode(new[] {
+                    "Choice 1 selected"
+                }));
             }),
-
             new EW_Choice("Choice 2", () =>
             {
                 Debug.Log("Choice 2 selected");
-                ChangeStoryNode(choiceNode2);
+                ChangeStoryNode(new EW_DialogueNode(new[] {
+                    "Choice 2 selected"
+                }));
             }),
-
             new EW_Choice("Choice 3", () =>
             {
                 Debug.Log("Choice 3 selected");
-                ChangeStoryNode(choiceNode3);
+                ChangeStoryNode(new EW_DialogueNode(new[] {
+                    "Choice 3 selected"
+                }));
             })
         };
-
         EW_ChoiceNode choiceNode = new EW_ChoiceNode(choices);
 
+        curNode = new EW_MoveNode(this, moveQueue);
+        curNode.SetNext(dNode);
         dNode.SetNext(choiceNode);
 
         Debug.Log(curNode);
@@ -83,8 +66,6 @@ public class EW_SceneManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && !done)
         {
-            Debug.Log("space");
-
             if (uiManager.typingCoroutine != null)
             {
                 uiManager.SkipTyping();
