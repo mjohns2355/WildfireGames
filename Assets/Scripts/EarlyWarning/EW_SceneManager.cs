@@ -97,23 +97,18 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
-    public void Advance()
-    {
-        ChangeStoryNode(curNode.Advance());
-    }
-
     public void ChangeStoryNode(EW_StoryNode node)
     {
         if (curNode != node)
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
+            curNode = node;
+            if (curNode == null)
+            {
+                done = true;
+                return;
+            }
+            curNode.Play();
         }
-        curNode = node;
-        if (curNode == null)
-        {
-            done = true;
-            return;
-        }
-        curNode.Play();
     }
 }

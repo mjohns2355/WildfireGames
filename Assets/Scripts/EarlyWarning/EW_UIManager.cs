@@ -88,13 +88,6 @@ public class EW_UIManager : MonoBehaviour
         typingCoroutine = StartCoroutine(TypeTextCoroutine());
     }
 
-    public void EndDialogue()
-    {
-        curTargetText = "";
-        dialogueBox.enabled = false;
-        sceneManager.Advance();
-    }
-
     public void SkipTyping()
     {
         textComponent.text = curTargetText;
