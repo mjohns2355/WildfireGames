@@ -45,8 +45,10 @@ public class InventoryManager : MonoBehaviour
         collectable.SetActive(false);
 
         newItem.GetComponent<Button>().onClick.AddListener(() => {
-            newItem.SetActive(false);
+            
             collectable.SetActive(true);
+            Destroy(newItem);
+            //updatePlacement(); // for when the array works
             //items.Remove(newItem);
         });
 
@@ -59,9 +61,15 @@ public class InventoryManager : MonoBehaviour
 
     private void updatePlacement() 
     {
+        // hoping to use this to reformat the inventory text, but we need to be able to add each 
+        // button to the array first
+        Vector2 localOffset = new Vector3(0, 25);
         foreach (GameObject item in items)
         {
-
+            RectTransform itemRect = item.GetComponent<RectTransform>();
+            itemRect.anchoredPosition = itemRect.anchoredPosition - offset;
+            offset.y += 25;
         }
+        offset = localOffset;
     }
 }
