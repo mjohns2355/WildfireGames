@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
     public GameObject itemPrefab;
-    private Vector2 offset = new Vector3(0, 0);
+    private Vector2 offset = new Vector3(0, 25);
 
 	private void Awake() {
         // if there is already a value assigned to the private variable and its not this, destroy this
