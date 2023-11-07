@@ -11,7 +11,9 @@ public class InventoryManager : MonoBehaviour
 
     private List<GameObject> items;
     public TMPro.TextMeshProUGUI inventoryText;
+    private RectTransform inventoryRect;
     public GameObject itemPrefab;
+    private Vector2 offset = new Vector3(0, 25);
 
 	private void Awake() {
         // if there is already a value assigned to the private variable and its not this, destroy this
@@ -21,12 +23,11 @@ public class InventoryManager : MonoBehaviour
         // if there is no value assigned to the private variable, assign this as the reference
         	_instance = this;
         }	
-        // DontDestroyOnLoad(this.gameObject); // while working with one scene, commenting out for now
     }
 
     void Start()
     {
-
+        inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -36,7 +37,9 @@ public class InventoryManager : MonoBehaviour
 
     public void addItem(string item)
     {
-        GameObject newItem = Instantiate(itemPrefab, inventoryText.gameObject.GetComponent<RectTransform>());
+        GameObject newItem = Instantiate(itemPrefab, inventoryRect);
+        RectTransform newRect = newItem.GetComponent<RectTransform>();
+        newRect.anchoredPosition = newRect.anchoredPosition - offset;
         GameObject collectable = GameObject.Find(item);
 
         collectable.SetActive(false);
@@ -50,6 +53,8 @@ public class InventoryManager : MonoBehaviour
         TMPro.TextMeshProUGUI itemText = newItem.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>();
         itemText.text = item;
         //items.Add(newItem); // currently this doesn't work
+
+        offset.y += 25;
     }
 
     private void updatePlacement() 
