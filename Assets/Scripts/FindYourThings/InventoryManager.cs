@@ -74,4 +74,21 @@ public class InventoryManager : MonoBehaviour
         }
         offset = localOffset;
     }
+
+    //takes arg int length, for the number of random items chosen from items list
+    List<GameObject> randomization(int length)
+    {
+        Random rand = new Random();
+        List<GameObject> randItems;
+        randItems = rand.GenerateRandomLoop(items)
+        List<GameObject> finalItemList;
+
+        for(int i = 0; i < length; i++)
+        {
+            finalItemList.add(randItems[i]);
+        }
+
+        return finalItemList;
+    }
+
 }
