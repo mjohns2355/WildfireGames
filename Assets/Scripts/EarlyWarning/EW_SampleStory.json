@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "Move",
+      "commands": [
+        { "targetPosition": { "x": -4.5, "y": 0 }, "actorName": "Paul" },
+        {
+          "targetPosition": { "x": -4.5, "y": 2.5 },
+          "actorName": "Paul",
+          "final": true
+        }
+      ],
+      "nextNodeID": 1
+    },
+    {
+      "id": 1,
+      "type": "Dialogue",
+      "lines": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      ],
+      "nextNodeID": 2
+    },
+    {
+      "id": 2,
+      "type": "Choice",
+      "choices": [
+        { "text": "Choice 1", "onSelect": "HandleChoice1", "nextNodeID": 3 },
+        { "text": "Choice 2", "onSelect": "HandleChoice2", "nextNodeID": 4 },
+        { "text": "Choice 3", "onSelect": "HandleChoice3", "nextNodeID": 5 }
+      ],
+      "nextNodeID": -1
+    },
+    {
+      "id": 3,
+      "type": "Dialogue",
+      "lines": ["Choice 1 selected", "And that's the demo!"],
+      "nextNodeID": -1
+    },
+    {
+      "id": 4,
+      "type": "Dialogue",
+      "lines": ["Choice 2 selected"],
+      "nextNodeID": -1
+    },
+    {
+      "id": 5,
+      "type": "Dialogue",
+      "lines": ["Choice 3 selected"],
+      "nextNodeID": -1
+    }
+  ]
+}

@@ -59,7 +59,7 @@ public class EW_DialogueNode : EW_StoryNode
     Queue<string> lines; //This might change to a more complex type later
     EW_StoryNode nextNode;
 
-    public EW_DialogueNode(string[] _lines)
+    public EW_DialogueNode(List<string> _lines)
     {
         Queue<string> lines = new Queue<string>(_lines);
         this.lines = lines;
@@ -129,6 +129,7 @@ public class EW_Choice
 {
     public string text { get; }
     public System.Action onSelect { get; }
+    public EW_StoryNode nextNode;
 
     public EW_Choice(string _text, System.Action _onSelect)
     {
@@ -143,9 +144,13 @@ public class EW_MoveCommand
     public EW_Actor actor;
     private bool final;
 
-    public EW_MoveCommand(EW_Actor _actor, Vector2 _targetPos, bool final = false)
+    public EW_MoveCommand(string _actorName, Vector2 _targetPos, bool final = false)
     {
-        actor = _actor;
+        actor = GameObject.Find(_actorName).GetComponent<EW_Actor>();
+        if (actor == null)
+        {
+            Debug.LogError("Invalid actor name found in json!");
+        }
         targetPosition = _targetPos;
         this.final = false;
     }

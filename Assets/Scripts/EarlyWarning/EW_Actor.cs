@@ -8,6 +8,35 @@ public class EW_Actor : MonoBehaviour
     Vector2 targetPos;
     float moveSpeed = 2;
 
+    public Sprite upSprite;
+    public Sprite downSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
+    private SpriteRenderer spriteRenderer;
+    private Vector3 previousPosition;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        previousPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        Vector3 currentPosition = transform.position;
+        Vector3 movementDirection = currentPosition - previousPosition;
+
+        if (movementDirection != Vector3.zero)
+        {
+            if (Mathf.Abs(movementDirection.x) > Mathf.Abs(movementDirection.y))
+                spriteRenderer.sprite = (movementDirection.x > 0) ? rightSprite : leftSprite;
+            else
+                spriteRenderer.sprite = (movementDirection.y > 0) ? upSprite : downSprite;
+        }
+    }
+
+
     public void Execute(EW_MoveCommand command)
     {
         SkipCurrentMove();
@@ -37,6 +66,7 @@ public class EW_Actor : MonoBehaviour
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
+            previousPosition = transform.position;
             transform.position = Vector2.Lerp(initialPosition, targetPosition, t);
 
             elapsedTime += Time.deltaTime;
