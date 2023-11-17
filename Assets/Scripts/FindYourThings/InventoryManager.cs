@@ -4,12 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+Represents the items currently in the inventory. Should persist across the different panels/"rooms"
+and clicking on the textual representation of the item should put the item back into the room.
+*/
 public class InventoryManager : MonoBehaviour
 {
     private static InventoryManager _instance; // static private variable of the component data type
 	public static InventoryManager Instance { get { return _instance; } } // public way to access the private variable
 
-    private List<GameObject> items;
+    private List<GameObject> inventoryItems;
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
     public GameObject itemPrefab;
@@ -28,7 +32,7 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
         inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
-        items = new List<GameObject>();
+        inventoryItems = new List<GameObject>();
     }
 
     void Update()
@@ -42,36 +46,35 @@ public class InventoryManager : MonoBehaviour
         RectTransform newRect = newItem.GetComponent<RectTransform>();
         newRect.anchoredPosition = newRect.anchoredPosition - offset;
         GameObject collectable = GameObject.Find(item);
-
+        collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Remove(collectable);
+        // collectable.transform.parent.GetComponent<SceneSetup>().printItems();
         collectable.SetActive(false);
 
         newItem.GetComponent<Button>().onClick.AddListener(() => {
-            
             collectable.SetActive(true);
+            collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Add(collectable);
             Destroy(newItem);
-            items.Remove(newItem);
-            updatePlacement(); // for when the array works
+            inventoryItems.Remove(newItem);
+            updatePlacement();
         });
 
         TMPro.TextMeshProUGUI itemText = newItem.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>();
         itemText.text = item;
-        items.Add(newItem); // currently this doesn't work
+        inventoryItems.Add(newItem);
 
         offset.y += 25;
     }
 
     private void updatePlacement() 
     {
-        // hoping to use this to reformat the inventory text, but we need to be able to add each 
-        // button to the array first
         Vector2 localOffset = new Vector3(0, 25);
-        foreach (GameObject item in items)
+        foreach (GameObject item in inventoryItems)
         {
-            Debug.Log(item);
             RectTransform itemRect = item.GetComponent<RectTransform>();
             itemRect.anchoredPosition = new Vector2(0, inventoryRect.anchoredPosition.y - offset.y);
             offset.y += 25;
         }
         offset = localOffset;
     }
+    
 }
