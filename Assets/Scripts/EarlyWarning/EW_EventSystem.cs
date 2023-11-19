@@ -7,13 +7,15 @@ public static class EW_EventSystem
     public static event DialogueDelegate TriggerDialogueEvent, SkipDialogueEvent;
 
     public delegate void StoryNodeDelegate(EW_StoryNode node);
-    public static event StoryNodeDelegate ChangeStoryNodeEvent;
     public static event Action LeaveStoryNodeEvent;
 
     public delegate void ChoicesDelegate(List<EW_Choice> choices);
     public static event ChoicesDelegate ChoiceSetupEvent;
 
-    public static void InvokeChangeStoryNodeEvent(EW_StoryNode node)
+    public delegate void ChangeStoryNodeDelegate(int node);
+    public static event ChangeStoryNodeDelegate ChangeStoryNodeEvent;
+
+    public static void InvokeChangeStoryNodeEvent(int node)
     {
         ChangeStoryNodeEvent?.Invoke(node);
     }

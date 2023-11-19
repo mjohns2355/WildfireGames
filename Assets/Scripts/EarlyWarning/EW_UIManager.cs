@@ -30,6 +30,11 @@ public class EW_UIManager : MonoBehaviour
 
     public void SetupChoices(List<EW_Choice> choices)
     {
+        if (choiceButtons.Count != 0)
+        {
+            return;
+        }
+        Debug.Log("Setting up choices");
         dialogueBox.enabled = false;
         textComponent.text = "";
 

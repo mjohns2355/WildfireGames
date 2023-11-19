@@ -3,25 +3,28 @@ using UnityEngine;
 using System.Reflection;
 using System;
 using System.IO;
-using System.Linq;
 
 public class EW_StoryParser
 {
     public static EW_StoryNode Parse(string jsonFilePath, EW_SceneManager sceneManager, List<EW_StoryNode> nodeList)
     {
-        string jsonString = System.IO.File.ReadAllText(jsonFilePath);
+        string jsonString = File.ReadAllText(jsonFilePath);
         NodeDataWrapper dataWrapper = JsonUtility.FromJson<NodeDataWrapper>(jsonString);
         List<StoryNodeData> nodeDataList = dataWrapper.nodes;
 
         foreach (var nodeData in nodeDataList)
         {
             EW_StoryNode node = CreateNode(nodeData, sceneManager);
+            node.setID(nodeData.id);
             nodeList.Add(node);
         }
 
         for (int i = 0; i < nodeDataList.Count; i++)
         {
-            ConnectNodes(nodeDataList[i], nodeList, nodeList[i]);
+            if (nodeDataList[i].nextNodeID < nodeList.Count)
+            {
+                nodeList[i].SetNext(nodeDataList[i].nextNodeID);
+            }
         }
 
         // Return the first node
@@ -33,7 +36,6 @@ public class EW_StoryParser
         switch (nodeData.type)
         {
             case "Move":
-                Debug.Log("Movecommand lines: " + nodeData.lines);
                 return new EW_MoveNode(sceneManager, ParseMoveCommands(nodeData.commands));
             case "Dialogue":
                 return new EW_DialogueNode(nodeData.lines);
@@ -65,8 +67,6 @@ public class EW_StoryParser
         List<EW_Choice> parsedChoices = new List<EW_Choice>();
         foreach (var choiceData in choices)
         {
-            Debug.Log(choiceData.text);
-            Debug.Log(choiceData.onSelect);
             Type sceneMan = typeof(EW_SceneManager);
             MethodInfo method = sceneMan.GetMethod(choiceData.onSelect);
             if (method == null)
@@ -79,25 +79,15 @@ public class EW_StoryParser
         }
         return parsedChoices;
     }
-
-    private static void ConnectNodes(StoryNodeData nodeData, List<EW_StoryNode> nodeList, EW_StoryNode fromNode)
-    {
-        Debug.Log(nodeData.nextNodeID);
-        if (nodeData.nextNodeID != -1 && nodeData.nextNodeID < nodeList.Count)
-        {
-            Debug.Log("From node: " + fromNode);
-            fromNode.SetNext(nodeList[nodeData.nextNodeID]);
-        }
-    }
 }
 
-[System.Serializable]
+[Serializable]
 public class NodeDataWrapper
 {
     public List<StoryNodeData> nodes;
 }
 
-[System.Serializable]
+[Serializable]
 public class StoryNodeData
 {
     public int id;
@@ -108,7 +98,7 @@ public class StoryNodeData
     public int nextNodeID;
 }
 
-[System.Serializable]
+[Serializable]
 public class MoveCommandData
 {
     public Vector2 targetPosition;
@@ -116,7 +106,7 @@ public class MoveCommandData
     public bool final;
 }
 
-[System.Serializable]
+[Serializable]
 public class ChoiceData
 {
     public string text;

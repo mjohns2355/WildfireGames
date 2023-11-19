@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EW_SceneManager : MonoBehaviour
 {
-    public List<EW_StoryNode> nodeList = new List<EW_StoryNode>();
+    static List<EW_StoryNode> nodeList;
     private bool done = false;
     public EW_UIManager uiManager;
     static EW_StoryNode curNode;
@@ -14,38 +14,15 @@ public class EW_SceneManager : MonoBehaviour
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
         nodeList = new List<EW_StoryNode>();
 
-        //SetUpNodeList();
         string storyPath = "Assets/Scripts/EarlyWarning/EW_SampleStory.json";
         curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
-        Debug.Log("Curnode: " + curNode);
-    }
 
-    public void HandleChoice1()
-    {
-        Debug.Log("Choice 1 selected");
-        EW_DialogueNode dNode = new EW_DialogueNode(new List<string> {
-                    "Choice 1 selected",
-                    "And that's the demo!"
-                });
-        ChangeStoryNode(dNode);
-    }
-
-    public void HandleChoice2()
-    {
-        Debug.Log("Choice 2 selected");
-        ChangeStoryNode(new EW_DialogueNode(new List<string> {
-                    "Choice 2 selected",
-                    "And that's the demo!"
-                }));
-    }
-
-    public void HandleChoice3()
-    {
-        Debug.Log("Choice 3 selected");
-        ChangeStoryNode(new EW_DialogueNode(new List<string> {
-                    "Choice 3 selected",
-                    "And that's the demo!"
-                }));
+        string list = "";
+        foreach (var node in nodeList)
+        {
+            list += node.ToString() + "\n";
+        }
+        Debug.Log("Node list: " + list);
     }
 
     // Update is called once per frame
@@ -60,26 +37,44 @@ public class EW_SceneManager : MonoBehaviour
             }
 
             ChangeStoryNode(curNode.Advance());
-
-            Debug.Log("Curnode: " + curNode);
         }
     }
 
-    public void ChangeStoryNode(EW_StoryNode node)
+    public void ChangeStoryNode(int nodeIndex)
     {
-        Debug.Log("Changing");
-        Debug.Log(curNode);
-        Debug.Log(node);
-        if (curNode != node)
+        if (nodeIndex == -1)
+        {
+            Debug.Log("Story finished!");
+            curNode = null;
+            done = true;
+            return;
+        }
+        // Debug.Log("Changing from " + curNode + " at index " + nodeList.IndexOf(curNode) + " to " + nodeList[nodeIndex] + " at index " + nodeIndex);
+        if (curNode != nodeList[nodeIndex])
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
-            curNode = node;
-            if (curNode == null)
-            {
-                done = true;
-                return;
-            }
-            curNode.Play();
+            curNode = nodeList[nodeIndex];
         }
+        curNode.Play();
+    }
+
+    //CHOICE FUNCTIONS
+
+    public void HandleChoice1()
+    {
+        Debug.Log("Choice 1 selected");
+        ChangeStoryNode(3);
+    }
+
+    public void HandleChoice2()
+    {
+        Debug.Log("Choice 2 selected");
+        ChangeStoryNode(4);
+    }
+
+    public void HandleChoice3()
+    {
+        Debug.Log("Choice 3 selected");
+        ChangeStoryNode(5);
     }
 }

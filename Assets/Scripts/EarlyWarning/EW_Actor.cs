@@ -41,7 +41,6 @@ public class EW_Actor : MonoBehaviour
     {
         SkipCurrentMove();
         EW_EventSystem.LeaveStoryNodeEvent += SkipCurrentMove;
-        Debug.Log("Executing move command");
         curMove = StartCoroutine(MoveTo(command.targetPosition));
     }
 

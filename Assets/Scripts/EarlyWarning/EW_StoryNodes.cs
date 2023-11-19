@@ -3,48 +3,50 @@ using UnityEngine;
 
 public interface EW_StoryNode
 {
-    public EW_StoryNode Advance();
+    public int Advance();
     public void Play();
-    public void SetNext(EW_StoryNode next);
+    public void SetNext(int next);
+    public void setID(int value);
 }
 
 public class EW_MoveNode : EW_StoryNode
 {
     Queue<EW_MoveCommand> moves;
-    EW_StoryNode nextNode;
+    int id, nextNode;
     EW_SceneManager manager;
 
     public EW_MoveNode(EW_SceneManager _manager, Queue<EW_MoveCommand> commands)
     {
         manager = _manager;
         moves = commands;
-        Debug.Log("moveEvent constructor");
     }
 
-    public EW_StoryNode Advance()
+    public int Advance()
     {
-        Debug.Log("Advance");
+        // Debug.Log("Advancing move node. CurNode: " + id + " Moves left: " + moves.Count + "  nextNode: " + nextNode);
         if (moves.Count > 0)
         {
-            Play();
-            return this;
+            return id;
         }
         return nextNode;
     }
 
     public void Play()
     {
-        Debug.Log("Play");
         DequeueMove();
     }
 
-    public void SetNext(EW_StoryNode next)
+    public void SetNext(int next)
     {
         nextNode = next;
     }
 
     private void DequeueMove()
     {
+        if (moves.Count == 0)
+        {
+            return;
+        }
         var move = moves.Dequeue();
         bool wasFinal = move.Execute();
         if (wasFinal)
@@ -52,33 +54,41 @@ public class EW_MoveNode : EW_StoryNode
             manager.ChangeStoryNode(nextNode);
         }
     }
+
+    public int getID()
+    {
+        return id;
+    }
+
+    public void setID(int value)
+    {
+        id = value;
+    }
 }
 
 public class EW_DialogueNode : EW_StoryNode
 {
     Queue<string> lines; //This might change to a more complex type later
-    EW_StoryNode nextNode;
+    int id, nextNode;
 
     public EW_DialogueNode(List<string> _lines)
     {
-        Queue<string> lines = new Queue<string>(_lines);
-        this.lines = lines;
+        lines = new Queue<string>(_lines);
     }
 
-    public EW_StoryNode Advance()
+    public int Advance()
     {
-        Debug.Log("Advance");
+        // Debug.Log("Advancing dialogue node. CurNode: " + id + " Lines left: " + lines.Count + "  nextNode: " + nextNode);
         if (lines.Count > 0)
         {
-            ReadLine();
-            return this;
+            return id;
         }
         return nextNode;
     }
 
     public void Play()
     {
-        Debug.Log("Play");
+        // Debug.Log("Playing dialogue. Current Line: " + lines.Peek() + " Lines: " + lines.ToArray().ToString());
         ReadLine();
     }
 
@@ -89,27 +99,38 @@ public class EW_DialogueNode : EW_StoryNode
         EW_EventSystem.InvokeTriggerDialogueEvent(line);
     }
 
-    public void SetNext(EW_StoryNode next)
+    public void SetNext(int next)
     {
         nextNode = next;
+    }
+
+    public int getID()
+    {
+        return id;
+    }
+
+    public void setID(int value)
+    {
+        id = value;
     }
 }
 
 public class EW_ChoiceNode : EW_StoryNode
 {
     List<EW_Choice> choices;
+    int id;
 
     public EW_ChoiceNode(List<EW_Choice> choices)
     {
         this.choices = choices;
     }
 
-    public EW_StoryNode Advance()
+    public int Advance()
     {
         //A choice node essentially does not implement Advance
         //The function that creates a Choice provides a function for the choice to make happen
         //The scene manager handles the logic of selecting a choice
-        return this;
+        return id;
     }
 
     public void Play()
@@ -117,11 +138,20 @@ public class EW_ChoiceNode : EW_StoryNode
         EW_EventSystem.InvokeChoiceSetupEvent(choices);
     }
 
-    public void SetNext(EW_StoryNode next)
+    public void SetNext(int next)
     {
-        //SetNext similarly does nothing for , since there are multiple next nodes
-        Debug.LogError("SetNext called on choice node!");
+        //SetNext similarly does nothing, since there are sort of multiple next nodes
         return;
+    }
+
+    public int getID()
+    {
+        return id;
+    }
+
+    public void setID(int value)
+    {
+        id = value;
     }
 }
 
@@ -157,7 +187,6 @@ public class EW_MoveCommand
 
     public bool Execute()
     {
-        Debug.Log("movecommand");
         actor.Execute(this);
         return final;
     }
