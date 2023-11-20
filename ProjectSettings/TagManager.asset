@@ -7,6 +7,8 @@ TagManager:
   - msgPopup
   - vehicle
   - marker
+  - InteractableObject
+  - PickupObject
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Cannot Touch
+  - Background
   - 
   - 
   - 
@@ -41,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1351756149
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
