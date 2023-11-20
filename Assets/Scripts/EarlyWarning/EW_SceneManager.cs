@@ -8,6 +8,8 @@ public class EW_SceneManager : MonoBehaviour
     static EW_UIManager uiManager;
     static EW_StoryNode curNode;
     static int minutesRemaining = 120;
+    private SpriteRenderer background, paulSprite;
+    public Sprite livingRoomSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,10 @@ public class EW_SceneManager : MonoBehaviour
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
         nodeList = new List<EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
+        background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
+        paulSprite = GameObject.Find("Paul").GetComponent<SpriteRenderer>();
+        paulSprite.enabled = false;
+        uiManager.timerText.text = "";
 
         string storyPath = "Assets/Scripts/EarlyWarning/EW_PaulStory.json";
         curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
@@ -44,6 +50,12 @@ public class EW_SceneManager : MonoBehaviour
 
     public void ChangeStoryNode(int nodeIndex)
     {
+        if (nodeIndex == 1)
+        {
+            background.sprite = livingRoomSprite;
+            paulSprite.enabled = true;
+        }
+
         if (nodeIndex == -1)
         {
             Debug.Log("Story finished!");
