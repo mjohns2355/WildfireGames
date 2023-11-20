@@ -5,16 +5,18 @@ public class EW_SceneManager : MonoBehaviour
 {
     static List<EW_StoryNode> nodeList;
     private bool done = false;
-    public EW_UIManager uiManager;
+    static EW_UIManager uiManager;
     static EW_StoryNode curNode;
+    static int minutesRemaining = 120;
 
     // Start is called before the first frame update
     void Start()
     {
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
         nodeList = new List<EW_StoryNode>();
+        uiManager = GetComponent<EW_UIManager>();
 
-        string storyPath = "Assets/Scripts/EarlyWarning/EW_SampleStory.json";
+        string storyPath = "Assets/Scripts/EarlyWarning/EW_PaulStory.json";
         curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
 
         string list = "";
@@ -59,22 +61,73 @@ public class EW_SceneManager : MonoBehaviour
     }
 
     //CHOICE FUNCTIONS
-
-    public void HandleChoice1()
+    public void useUpTime(int time)
     {
-        Debug.Log("Choice 1 selected");
-        ChangeStoryNode(3);
+        minutesRemaining -= time;
+        uiManager.updateTimer(minutesRemaining);
     }
 
-    public void HandleChoice2()
+    public void HandleBreakfast()
     {
-        Debug.Log("Choice 2 selected");
-        ChangeStoryNode(4);
+        useUpTime(30);
+        ChangeStoryNode(7);
     }
 
-    public void HandleChoice3()
+    public void HandleGoBag()
     {
-        Debug.Log("Choice 3 selected");
+        useUpTime(30);
+        ChangeStoryNode(9);
+    }
+
+    public void HandleCheckYard()
+    {
+        Debug.Log("Paul checks the yard");
+        ChangeStoryNode(11);
+    }
+
+    public void HandleCheckBackyard()
+    {
+        Debug.Log("Paul checks the backyard");
+        ChangeStoryNode(19);
+    }
+
+    public void HandleCheckFrontyard()
+    {
+        Debug.Log("Paul checks the frontyard");
+        ChangeStoryNode(13);
+    }
+
+    public void HandleCheckDownstairs()
+    {
+        Debug.Log("Paul checks downstairs");
         ChangeStoryNode(5);
+    }
+
+    public void HandleCutLawn()
+    {
+        useUpTime(30);
+        Debug.Log("Paul cuts the lawn");
+        ChangeStoryNode(15);
+    }
+
+    public void HandleAldoTalk()
+    {
+        useUpTime(30);
+        Debug.Log("Paul talks to Aldo");
+        ChangeStoryNode(17);
+    }
+
+    public void HandleCutTree()
+    {
+        useUpTime(30);
+        Debug.Log("Paul cuts the tree");
+        ChangeStoryNode(-1);
+    }
+
+    public void HandleCleanGutter()
+    {
+        useUpTime(30);
+        Debug.Log("Paul cleans the gutter");
+        ChangeStoryNode(-1);
     }
 }

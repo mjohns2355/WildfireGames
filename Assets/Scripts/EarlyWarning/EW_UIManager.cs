@@ -10,14 +10,18 @@ public class EW_UIManager : MonoBehaviour
     private Image dialogueBox;
     [SerializeField]
     private TextMeshProUGUI textComponent;
+
     private float timeBetweenLetters = 0.04f;
     private string curTargetText;
     public Coroutine typingCoroutine = null;
+
     private List<Button> choiceButtons = new List<Button>();
     [SerializeField]
     private GameObject buttonPrefab;
     [SerializeField]
+
     private EW_SceneManager sceneManager;
+    public TextMeshProUGUI timerText;
 
     public void Start()
     {
@@ -112,5 +116,10 @@ public class EW_UIManager : MonoBehaviour
         }
 
         typingCoroutine = null;
+    }
+
+    public void updateTimer(int minutesRemaining)
+    {
+        timerText.text = "Time left: " + minutesRemaining + " minutes";
     }
 }

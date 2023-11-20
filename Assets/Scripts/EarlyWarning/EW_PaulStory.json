@@ -1,0 +1,364 @@
+{
+    "nodes": [
+        
+        {"id": 0,
+        "type": "Dialogue",
+        "lines": [
+            "Not many folks around here can boast a life lived like Paul's. A retired army engineer, he's seen his share of the world, molded by the rigors of service and solitude. His home? Well, it's been just him for quite a stretch of years now.",
+
+            "Mary... his better half, she passed on a lifetime ago, leaving Paul to his own devices. But Paul had endured. You see, the army taught him more than just a dresscode and following orders. He's got a knack for fixing things, a real all-in-one handyman.",
+            
+            "He ain't the type to brag, well, not too much anyway. There's a bit of an ego there, sure, but who could blame him? He's earned his stripes.",
+            
+            "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these little moments, these brief exchanges.",
+            
+            "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away.",
+            
+            "Faint Mumbling wakes Paul from his sleep..."
+        ],
+        "nextNodeID": 1
+        },
+        
+        {
+        "id": 1,
+        "type": "Dialogue",
+        "lines": [
+            "Paul gets up seeing the chatter is coming from the TV.",
+
+            "The TV blares",
+
+            "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires.",
+            
+            "Please stay vigilant and ensure your homes and properties are safeguarded. Again, there is no fire folks, however we here atr Channel 10 want to make sure we are doing our part to complete the county we love safe.",
+
+            "And that's gonna wrap up our Great Morning America show! I'm Mitch Tucker and have a spectacular day Marin County.",
+            
+            "Paul, groggy and disoriented, rubs his eyes and sits up, his gaze shifting from the TV to a framed photograph on the bedside table."
+        ],
+        "nextNodeID": 2
+        },
+
+        {
+        "id": 2,
+        "type": "Dialogue",
+        "lines": [
+            "A fire warning? Over a bit of heat?",
+
+            "Paul chuckles softly shaking his head as he looks at a picture of Mary on his nightstand.",
+            
+            "Things have really changed... Haven’t they, Mary?...",
+            
+            "But we'll be fine. Just like we always are",
+            
+            "Despite his reassuring words, there’s a hint of concern in Paul's eyes, a glimmer of uncertainty. Maybe it’s time to make sure everything’s in order."
+        ],
+        "nextNodeID": 3
+        },
+
+        {
+            "id": 3,
+            "type": "Dialogue",
+            "lines": [
+              "Should I even bother checking up on this? It's probably nothing, just like the last time.",
+
+              "I guess I could check the yard since its been awhile",
+              
+              "but I'm also really hungry and should check downstairs",
+              
+              "There's only so much time in the day - Your actions will have consequences.",
+              
+              "You have 2 hours.(120 minutes)"
+            ],
+            "nextNodeID": 4
+        },
+
+        {
+            "id": 4,
+            "type": "Choice",
+            "choices": [
+              { "text": "Check Downstairs", "onSelect": "HandleCheckDownstairs" },
+              { "text": "Explore the Yard", "onSelect": "HandleCheckYard" }
+            ],
+            "nextNodeID": -1
+        },
+
+        {
+            "id": 5,
+            "type": "Dialogue",
+            "lines": [
+                "Paul’s mind is a battleground of practicality and skepticism as he stands in the heart of his home. The fire warning still rings in his ears, but so does the rumble of his empty stomach.",
+
+                "Maybe they're right. Maybe I should take some precautions... but I can't help thinking it’s just a lot of fuss over nothing",
+               
+                "Breakfast(30 minutes) does sound good right about now. A hearty meal to start the day.",
+             
+                "Or... should I prepare my go bag(30 minutes) Just in case the smoke decides to pay a visit. Mary always said better safe than sorry.",
+             
+                "I could always check around the yard"
+            ],
+            "nextNodeID": 6
+        },
+        {
+            "id": 6,
+            "type": "Choice",
+            "choices": [
+              { "text": "Make Breakfast", "onSelect": "HandleBreakfast" },
+              { "text": "Prepare Go Bag", "onSelect": "HandleGoBag" },
+              { "text": "Explore the Yard", "onSelect": "HandleCheckYard" }
+            ],
+            "nextNodeID": -1
+        },
+        {
+            "id": 7,
+            "type": "Dialogue",
+            "lines": [
+              "Paul roams around the kitchen quickly",
+
+              "Nothing like the sizzle of eggs in the morning to start the day right",
+              
+              "He quickly scorfs down the breakfast while reading the Marin Examiner.",
+              
+              "The front headline reads.",
+              
+              "Record High Heat Brings Concern Over Fires",
+                     
+              "Paul Scoffs to himself",
+              
+              "They've even got the media convinced",
+
+              "I hate that smell, maybe I should make a go bag just in case I have to leave(30 minutes)",
+              
+              "I could see if there's anything else to do in the kitchen too"
+              
+            ],
+            "nextNodeID": 8
+          },
+
+          {
+            "id": 8,
+            "type": "Choice",
+            "choices": [
+              { "text": "Check Downstairs", "onSelect": "HandleCheckDownstairs" },
+              { "text": "Prepare Go Bag", "onSelect": "HandleGoBag" }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 9,
+            "type": "Dialogue",
+            "lines": [
+              "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)",
+
+              "As he sets the photo of Mary inside he quietly whispers",
+              
+              "We'll be fine darling",
+                
+              "I'm still pretty hungry. Eggs and Bacon sounds great",
+              
+              "I should clean up and go out, This fire doesn't seem to be getting any closer though"
+              
+            ],
+            "nextNodeID": 10
+          },
+
+          {
+            "id": 10,
+            "type": "Choice",
+            "choices": [
+              { "text": "Make Breakfast", "onSelect": "HandleBreakfast" },
+              { "text": "Go Back Downstairs", "onSelect": "HandleCheckDownstairs" }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 11,
+            "type": "Dialogue",
+            "lines": [
+              "Paul's yard is huge with a fence surrounding his house abut 500ft. out. His yard is split into two main sections.",
+
+              "The Backyard has the pool and a big oak tree.",
+              
+              "I should probably make sure nothing is ignitable",
+              
+              "The Frontyard has a spawning grassy lawn. it's gone yellow since mary passed.", 
+              
+              "It also looks like Aldo the neighbor is out-front.",
+
+              "I could go check in with him too",
+              
+              "I could also go back inside"
+            ],
+            "nextNodeID": 12
+          },
+
+          {
+            "id": 12,
+            "type": "Choice",
+            "choices": [
+              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" },
+              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" },
+              { "text": "Head Back inside", "onSelect": "HandleCheckDownstairs" }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 13,
+            "type": "Dialogue",
+            "lines": [
+              "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died.",
+
+              "The lawn looks pretty yellow I should cut it down",
+              
+              "I think I see Aldo outside maybe I should make sure he's okay",
+              
+              "the rest of the yard looks like it has more work to do too"
+              
+            ],
+            "nextNodeID": 14
+          },
+
+          {
+            "id": 14,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Lawn", "onSelect": "HandleCutLawn" },
+              { "text": "Talk to Aldo", "onSelect": "HandleAldoTalk" },
+              { "text": "Check other parts of the yard", "onSelect": "HandleCheckYard" }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 15,
+            "type": "Dialogue",
+            "lines": [
+              "Paul quickly mows the yellowed lawn down and sweeps the clippings up.",
+
+              "I always hated looking at that yellow mess anyways",
+              
+              "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home.",
+              
+              "I think I see Aldo outside still, maybe I should check in with him"
+            ],
+            "nextNodeID": 16
+          },
+          {
+            "id": 16,
+            "type": "Choice",
+            "choices": [
+              { "text": "Talk to Aldo", "onSelect": "HandleAldoTalk" },
+              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 17,
+            "type": "Dialogue",
+            "lines": [
+              "Paul goes over to talk to Aldo",
+
+              "Paul The fire is looking really bad. If you want to comne with us when the evacuation alert goes out, which it will. please let us know its no issue at all.",
+              
+              "Thank you Aldo but I don't think that will be necessary. I'll let you know.",
+              
+              "The grass looks pretty dead, I should probably mow it down"
+            ],
+            "nextNodeID": 18
+          },
+          {
+            "id": 18,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Lawn", "onSelect": "HandleCutLawn" },
+              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" }
+            ],
+            "nextNodeID": -1
+          },
+          {
+            "id": 19,
+            "type": "Dialogue",
+            "lines": [
+              "The backyard is relatively big. ",
+
+              "Paul had a pool installed when he and Mary first moved in. ",
+              
+              "I really should stop servicing this money hole at this point",
+              
+              "Roof has a large overgrown branch connected to the house, maybe it should get cut? - Paul thinks to himself",
+
+              "Paul looks up and notices the gutter is filled with leaves and dry material that fell off the tree",
+              
+              "I could also check the rest of the yard too"
+              
+            ],
+            "nextNodeID": 20
+          },
+          {
+            "id": 20,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Tree", "onSelect": "HandleCutTree" },
+              { "text": "Clean the Gutter", "onSelect": "HandleCleanGutter" },
+              { "text": "Check other parts of the yard", "onSelect": "HandleCheckYard" }
+            ],
+            "nextNodeID": -1
+          },
+          {
+            "id": 21,
+            "type": "Dialogue",
+            "lines": [
+              "Paul carefuly climbs to the roof and begins sawing different parts of the tree causing branches to fall.",
+
+              "I don't think I've been up here since we moved in",
+              
+              "Once finished, he collects the branches placing them in his yard-waste dedicated bin.",
+
+              "Once down, he notices the gutter overfilling with leaves.",
+              
+              "Maybe I should clean those out since I'm already here."
+              
+              
+            ],
+            "nextNodeID": 22
+          },
+          {
+            "id": 22,
+            "type": "Choice",
+            "choices": [
+              { "text": "Clean the Gutter", "onSelect": "HandleCleanGutter" },
+              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" }
+            ],
+            "nextNodeID": -1
+          },
+          {
+            "id": 23,
+            "type": "Dialogue",
+            "lines": [
+              "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below.",
+
+              "No wonder the gutter had been flooding last winter",
+              
+              "By the time he's done, the waste bin is filled to the brim",
+              
+              "Finished, he notices the large branch from his tree is hitting his house.",
+              
+              "I really should trim that tree before it gets any larger"
+            ],
+            "nextNodeID": 24
+          },
+          {
+            "id": 24,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Tree", "onSelect": "HandleCutTree" },
+              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" }
+            ],
+            "nextNodeID": -1
+          }
+
+    ]
+}

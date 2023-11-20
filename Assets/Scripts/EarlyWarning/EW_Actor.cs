@@ -10,8 +10,7 @@ public class EW_Actor : MonoBehaviour
 
     public Sprite upSprite;
     public Sprite downSprite;
-    public Sprite leftSprite;
-    public Sprite rightSprite;
+    public Sprite sideSprite;
 
     private SpriteRenderer spriteRenderer;
     private Vector3 previousPosition;
@@ -30,9 +29,17 @@ public class EW_Actor : MonoBehaviour
         if (movementDirection != Vector3.zero)
         {
             if (Mathf.Abs(movementDirection.x) > Mathf.Abs(movementDirection.y))
-                spriteRenderer.sprite = (movementDirection.x > 0) ? rightSprite : leftSprite;
+            {
+                spriteRenderer.sprite = sideSprite;
+                if (movementDirection.x < 0)
+                    spriteRenderer.flipX = true;
+                else
+                    spriteRenderer.flipX = false;
+            }
             else
+            {
                 spriteRenderer.sprite = (movementDirection.y > 0) ? upSprite : downSprite;
+            }
         }
     }
 

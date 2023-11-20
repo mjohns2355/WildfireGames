@@ -71,7 +71,7 @@ public class EW_StoryParser
             MethodInfo method = sceneMan.GetMethod(choiceData.onSelect);
             if (method == null)
             {
-                Debug.LogError("Invalid method!");
+                Debug.LogError("No method found with name " + choiceData.onSelect);
                 break;
             }
             Action action = (Action)Delegate.CreateDelegate(typeof(Action), null, method);
