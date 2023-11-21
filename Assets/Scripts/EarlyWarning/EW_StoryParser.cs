@@ -15,7 +15,7 @@ public class EW_StoryParser
         foreach (var nodeData in nodeDataList)
         {
             EW_StoryNode node = CreateNode(nodeData, sceneManager);
-            node.SetID(nodeData.id);
+            node.id = nodeData.id;
             nodeList.Add(node);
         }
 
@@ -23,7 +23,7 @@ public class EW_StoryParser
         {
             if (nodeDataList[i].nextNodeID < nodeList.Count)
             {
-                nodeList[i].SetNext(nodeDataList[i].nextNodeID);
+                nodeList[i].nextNode = nodeDataList[i].nextNodeID;
             }
         }
 

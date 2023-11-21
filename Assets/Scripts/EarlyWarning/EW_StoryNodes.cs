@@ -2,22 +2,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public interface EW_StoryNode
+public abstract class EW_StoryNode
 {
-    public int Advance();
-    public void Play();
-    public void SetNext(int next);
-    public void SetID(int value);
-    public void SetEnterFunction(System.Action function);
-    public void Enter();
+    public int id, nextNode;
+    Action enterAction;
+    public abstract int Advance();
+    public abstract void Play();
+    public void SetEnterFunction(Action function)
+    {
+        enterAction = function;
+    }
+    public void Enter()
+    {
+        if (enterAction != null)
+        {
+            enterAction();
+        }
+    }
 }
 
 public class EW_MoveNode : EW_StoryNode
 {
     Queue<EW_MoveCommand> moves;
-    int id, nextNode;
     EW_SceneManager manager;
-    Action enterAction;
 
     public EW_MoveNode(EW_SceneManager _manager, Queue<EW_MoveCommand> commands)
     {
@@ -25,7 +32,7 @@ public class EW_MoveNode : EW_StoryNode
         moves = commands;
     }
 
-    public int Advance()
+    public override int Advance()
     {
         // Debug.Log("Advancing move node. CurNode: " + id + " Moves left: " + moves.Count + "  nextNode: " + nextNode);
         if (moves.Count > 0)
@@ -35,14 +42,9 @@ public class EW_MoveNode : EW_StoryNode
         return nextNode;
     }
 
-    public void Play()
+    public override void Play()
     {
         DequeueMove();
-    }
-
-    public void SetNext(int next)
-    {
-        nextNode = next;
     }
 
     private void DequeueMove()
@@ -58,43 +60,18 @@ public class EW_MoveNode : EW_StoryNode
             manager.ChangeStoryNode(nextNode);
         }
     }
-
-    public int getID()
-    {
-        return id;
-    }
-
-    public void SetID(int value)
-    {
-        id = value;
-    }
-
-    public void SetEnterFunction(Action function)
-    {
-        enterAction = function;
-    }
-
-    public void Enter()
-    {
-        if (enterAction != null)
-        {
-            enterAction();
-        }
-    }
 }
 
 public class EW_DialogueNode : EW_StoryNode
 {
-    Queue<string> lines; //This might change to a more complex type later
-    int id, nextNode;
-    Action enterAction;
+    Queue<string> lines;
 
     public EW_DialogueNode(List<string> _lines)
     {
         lines = new Queue<string>(_lines);
     }
 
-    public int Advance()
+    public override int Advance()
     {
         // Debug.Log("Advancing dialogue node. CurNode: " + id + " Lines left: " + lines.Count + "  nextNode: " + nextNode);
         if (lines.Count > 0)
@@ -104,7 +81,7 @@ public class EW_DialogueNode : EW_StoryNode
         return nextNode;
     }
 
-    public void Play()
+    public override void Play()
     {
         // Debug.Log("Playing dialogue. Current Line: " + lines.Peek() + " Lines: " + lines.ToArray().ToString());
         ReadLine();
@@ -113,43 +90,14 @@ public class EW_DialogueNode : EW_StoryNode
     private void ReadLine()
     {
         string line = lines.Dequeue();
-        Debug.Log(line);
+        //Debug.Log(line);
         EW_EventSystem.InvokeTriggerDialogueEvent(line);
-    }
-
-    public void SetNext(int next)
-    {
-        nextNode = next;
-    }
-
-    public int getID()
-    {
-        return id;
-    }
-
-    public void SetID(int value)
-    {
-        id = value;
-    }
-
-    public void SetEnterFunction(Action function)
-    {
-        enterAction = function;
-    }
-
-    public void Enter()
-    {
-        if (enterAction != null)
-        {
-            enterAction();
-        }
     }
 }
 
 public class EW_ChoiceNode : EW_StoryNode
 {
     List<EW_Choice> choices;
-    int id;
     Action enterAction;
 
     public EW_ChoiceNode(List<EW_Choice> choices)
@@ -157,7 +105,7 @@ public class EW_ChoiceNode : EW_StoryNode
         this.choices = choices;
     }
 
-    public int Advance()
+    public override int Advance()
     {
         //A choice node essentially does not implement Advance
         //The function that creates a Choice provides a function for the choice to make happen
@@ -165,38 +113,9 @@ public class EW_ChoiceNode : EW_StoryNode
         return id;
     }
 
-    public void Play()
+    public override void Play()
     {
         EW_EventSystem.InvokeChoiceSetupEvent(choices);
-    }
-
-    public void SetNext(int next)
-    {
-        //SetNext similarly does nothing, since there are sort of multiple next nodes
-        return;
-    }
-
-    public int getID()
-    {
-        return id;
-    }
-
-    public void SetID(int value)
-    {
-        id = value;
-    }
-
-    public void SetEnterFunction(Action function)
-    {
-        enterAction = function;
-    }
-
-    public void Enter()
-    {
-        if (enterAction != null)
-        {
-            enterAction();
-        }
     }
 }
 
