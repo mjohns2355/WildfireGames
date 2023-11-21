@@ -5,14 +5,14 @@ using System;
 public abstract class EW_StoryNode
 {
     public int id, nextNode;
-    Action enterAction;
+    protected Action enterAction;
     public abstract int Advance();
     public abstract void Play();
     public void SetEnterFunction(Action function)
     {
         enterAction = function;
     }
-    public void Enter()
+    public virtual void Enter()
     {
         if (enterAction != null)
         {
@@ -64,17 +64,19 @@ public class EW_MoveNode : EW_StoryNode
 
 public class EW_DialogueNode : EW_StoryNode
 {
-    Queue<string> lines;
+    Queue<string> linesLeft;
+    List<string> allLines;
 
     public EW_DialogueNode(List<string> _lines)
     {
-        lines = new Queue<string>(_lines);
+        allLines = new List<string>(_lines);
+        linesLeft = new Queue<string>(_lines);
     }
 
     public override int Advance()
     {
         // Debug.Log("Advancing dialogue node. CurNode: " + id + " Lines left: " + lines.Count + "  nextNode: " + nextNode);
-        if (lines.Count > 0)
+        if (linesLeft.Count > 0)
         {
             return id;
         }
@@ -89,16 +91,27 @@ public class EW_DialogueNode : EW_StoryNode
 
     private void ReadLine()
     {
-        string line = lines.Dequeue();
+        string line = linesLeft.Dequeue();
         //Debug.Log(line);
         EW_EventSystem.InvokeTriggerDialogueEvent(line);
+    }
+
+    public override void Enter()
+    {
+        if (linesLeft.Count == 0)
+        {
+            linesLeft = new Queue<string>(allLines);
+        }
+        if (enterAction != null)
+        {
+            enterAction();
+        }
     }
 }
 
 public class EW_ChoiceNode : EW_StoryNode
 {
     List<EW_Choice> choices;
-    Action enterAction;
 
     public EW_ChoiceNode(List<EW_Choice> choices)
     {
