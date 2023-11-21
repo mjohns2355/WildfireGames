@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public interface EW_StoryNode
 {
     public int Advance();
     public void Play();
     public void SetNext(int next);
-    public void setID(int value);
+    public void SetID(int value);
+    public void SetEnterFunction(System.Action function);
+    public void Enter();
 }
 
 public class EW_MoveNode : EW_StoryNode
@@ -14,6 +17,7 @@ public class EW_MoveNode : EW_StoryNode
     Queue<EW_MoveCommand> moves;
     int id, nextNode;
     EW_SceneManager manager;
+    Action enterAction;
 
     public EW_MoveNode(EW_SceneManager _manager, Queue<EW_MoveCommand> commands)
     {
@@ -60,9 +64,22 @@ public class EW_MoveNode : EW_StoryNode
         return id;
     }
 
-    public void setID(int value)
+    public void SetID(int value)
     {
         id = value;
+    }
+
+    public void SetEnterFunction(Action function)
+    {
+        enterAction = function;
+    }
+
+    public void Enter()
+    {
+        if (enterAction != null)
+        {
+            enterAction();
+        }
     }
 }
 
@@ -70,6 +87,7 @@ public class EW_DialogueNode : EW_StoryNode
 {
     Queue<string> lines; //This might change to a more complex type later
     int id, nextNode;
+    Action enterAction;
 
     public EW_DialogueNode(List<string> _lines)
     {
@@ -109,9 +127,22 @@ public class EW_DialogueNode : EW_StoryNode
         return id;
     }
 
-    public void setID(int value)
+    public void SetID(int value)
     {
         id = value;
+    }
+
+    public void SetEnterFunction(Action function)
+    {
+        enterAction = function;
+    }
+
+    public void Enter()
+    {
+        if (enterAction != null)
+        {
+            enterAction();
+        }
     }
 }
 
@@ -119,6 +150,7 @@ public class EW_ChoiceNode : EW_StoryNode
 {
     List<EW_Choice> choices;
     int id;
+    Action enterAction;
 
     public EW_ChoiceNode(List<EW_Choice> choices)
     {
@@ -149,19 +181,32 @@ public class EW_ChoiceNode : EW_StoryNode
         return id;
     }
 
-    public void setID(int value)
+    public void SetID(int value)
     {
         id = value;
+    }
+
+    public void SetEnterFunction(Action function)
+    {
+        enterAction = function;
+    }
+
+    public void Enter()
+    {
+        if (enterAction != null)
+        {
+            enterAction();
+        }
     }
 }
 
 public class EW_Choice
 {
     public string text { get; }
-    public System.Action onSelect { get; }
+    public Action onSelect { get; }
     public EW_StoryNode nextNode;
 
-    public EW_Choice(string _text, System.Action _onSelect)
+    public EW_Choice(string _text, Action _onSelect)
     {
         text = _text;
         onSelect = _onSelect;

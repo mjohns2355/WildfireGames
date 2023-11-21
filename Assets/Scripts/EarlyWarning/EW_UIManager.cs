@@ -28,6 +28,8 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         textComponent.text = "";
 
+        EW_StoryFunctions.uiManager = this;
+
         EW_EventSystem.TriggerDialogueEvent += BeginDialogue;
         EW_EventSystem.ChoiceSetupEvent += SetupChoices;
     }

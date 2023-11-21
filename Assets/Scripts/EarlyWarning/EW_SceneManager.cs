@@ -7,8 +7,8 @@ public class EW_SceneManager : MonoBehaviour
     private bool done = false;
     static EW_UIManager uiManager;
     static EW_StoryNode curNode;
-    static int minutesRemaining = 120;
-    private SpriteRenderer background, paulSprite;
+    public static int minutesRemaining = 120;
+    public SpriteRenderer background, paulSprite;
     public Sprite livingRoomSprite;
 
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class EW_SceneManager : MonoBehaviour
         paulSprite = GameObject.Find("Paul").GetComponent<SpriteRenderer>();
         paulSprite.enabled = false;
         uiManager.timerText.text = "";
+        EW_StoryFunctions.sceneManager = this;
 
         string storyPath = "Assets/Scripts/EarlyWarning/EW_PaulStory.json";
         curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
@@ -68,78 +69,8 @@ public class EW_SceneManager : MonoBehaviour
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
             curNode = nodeList[nodeIndex];
+            curNode.Enter();
         }
         curNode.Play();
-    }
-
-    //CHOICE FUNCTIONS
-    public void useUpTime(int time)
-    {
-        minutesRemaining -= time;
-        uiManager.updateTimer(minutesRemaining);
-    }
-
-    public void HandleBreakfast()
-    {
-        useUpTime(30);
-        ChangeStoryNode(7);
-    }
-
-    public void HandleGoBag()
-    {
-        useUpTime(30);
-        ChangeStoryNode(9);
-    }
-
-    public void HandleCheckYard()
-    {
-        Debug.Log("Paul checks the yard");
-        ChangeStoryNode(11);
-    }
-
-    public void HandleCheckBackyard()
-    {
-        Debug.Log("Paul checks the backyard");
-        ChangeStoryNode(19);
-    }
-
-    public void HandleCheckFrontyard()
-    {
-        Debug.Log("Paul checks the frontyard");
-        ChangeStoryNode(13);
-    }
-
-    public void HandleCheckDownstairs()
-    {
-        Debug.Log("Paul checks downstairs");
-        ChangeStoryNode(5);
-    }
-
-    public void HandleCutLawn()
-    {
-        useUpTime(30);
-        Debug.Log("Paul cuts the lawn");
-        ChangeStoryNode(15);
-    }
-
-    public void HandleAldoTalk()
-    {
-        useUpTime(30);
-        Debug.Log("Paul talks to Aldo");
-        ChangeStoryNode(17);
-    }
-
-    public void HandleCutTree()
-    {
-        useUpTime(30);
-        Debug.Log("Paul cuts the tree");
-        ChangeStoryNode(-1);
-    }
-
-    public void HandleCleanGutter()
-    {
-        useUpTime(30);
-        Debug.Log("Paul cleans the gutter");
-        ChangeStoryNode(-1);
     }
 }

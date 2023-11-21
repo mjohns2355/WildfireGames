@@ -22,6 +22,7 @@
         {
         "id": 1,
         "type": "Dialogue",
+        "function": "HandleWakeUp",
         "lines": [
             "Paul gets up seeing the chatter is coming from the TV.",
 
@@ -75,6 +76,7 @@
         {
             "id": 4,
             "type": "Choice",
+            "function": "ShowTimer",
             "choices": [
               { "text": "Check Downstairs", "onSelect": "HandleCheckDownstairs" },
               { "text": "Explore the Yard", "onSelect": "HandleCheckYard" }

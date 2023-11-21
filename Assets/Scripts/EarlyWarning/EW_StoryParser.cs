@@ -15,7 +15,7 @@ public class EW_StoryParser
         foreach (var nodeData in nodeDataList)
         {
             EW_StoryNode node = CreateNode(nodeData, sceneManager);
-            node.setID(nodeData.id);
+            node.SetID(nodeData.id);
             nodeList.Add(node);
         }
 
@@ -33,19 +33,39 @@ public class EW_StoryParser
 
     private static EW_StoryNode CreateNode(StoryNodeData nodeData, EW_SceneManager sceneManager)
     {
+        EW_StoryNode node;
         switch (nodeData.type)
         {
             case "Move":
-                return new EW_MoveNode(sceneManager, ParseMoveCommands(nodeData.commands));
+                node = new EW_MoveNode(sceneManager, ParseMoveCommands(nodeData.commands));
+                break;
             case "Dialogue":
-                return new EW_DialogueNode(nodeData.lines);
+                node = new EW_DialogueNode(nodeData.lines);
+                break;
             case "Choice":
-                return new EW_ChoiceNode(ParseChoices(nodeData.choices));
-            // Add more cases for additional node types if needed
+                node = new EW_ChoiceNode(ParseChoices(nodeData.choices));
+                break;
             default:
                 Debug.LogError("Unknown node type: " + nodeData.type);
                 return null;
         }
+        if (nodeData.function != null)
+        {
+            SetFunction(node, nodeData.function);
+        }
+        return node;
+    }
+
+    private static void SetFunction(EW_StoryNode node, string functionName)
+    {
+        Type functionClass = typeof(EW_StoryFunctions);
+        MethodInfo method = functionClass.GetMethod(functionName);
+        if (method == null)
+        {
+            Debug.LogError("No method found with name " + functionName);
+        }
+        Action action = (Action)Delegate.CreateDelegate(typeof(Action), null, method);
+        node.SetEnterFunction(action);
     }
 
     private static Queue<EW_MoveCommand> ParseMoveCommands(List<MoveCommandData> commands)
@@ -67,12 +87,11 @@ public class EW_StoryParser
         List<EW_Choice> parsedChoices = new List<EW_Choice>();
         foreach (var choiceData in choices)
         {
-            Type sceneMan = typeof(EW_SceneManager);
-            MethodInfo method = sceneMan.GetMethod(choiceData.onSelect);
+            Type functionClass = typeof(EW_StoryFunctions);
+            MethodInfo method = functionClass.GetMethod(choiceData.onSelect);
             if (method == null)
             {
                 Debug.LogError("No method found with name " + choiceData.onSelect);
-                break;
             }
             Action action = (Action)Delegate.CreateDelegate(typeof(Action), null, method);
             parsedChoices.Add(new EW_Choice(choiceData.text, action));
@@ -92,6 +111,7 @@ public class StoryNodeData
 {
     public int id;
     public string type;
+    public string function = null;
     public List<MoveCommandData> commands;
     public List<string> lines;
     public List<ChoiceData> choices;
