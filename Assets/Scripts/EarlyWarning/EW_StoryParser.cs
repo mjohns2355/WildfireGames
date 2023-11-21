@@ -87,14 +87,7 @@ public class EW_StoryParser
         List<EW_Choice> parsedChoices = new List<EW_Choice>();
         foreach (var choiceData in choices)
         {
-            Type functionClass = typeof(EW_StoryFunctions);
-            MethodInfo method = functionClass.GetMethod(choiceData.onSelect);
-            if (method == null)
-            {
-                Debug.LogError("No method found with name " + choiceData.onSelect);
-            }
-            Action action = (Action)Delegate.CreateDelegate(typeof(Action), null, method);
-            parsedChoices.Add(new EW_Choice(choiceData.text, action));
+            parsedChoices.Add(new EW_Choice(choiceData.text, choiceData.goesTo));
         }
         return parsedChoices;
     }
@@ -130,6 +123,6 @@ public class MoveCommandData
 public class ChoiceData
 {
     public string text;
-    public string onSelect;
+    public int goesTo;
     public int nextNodeID;
 }

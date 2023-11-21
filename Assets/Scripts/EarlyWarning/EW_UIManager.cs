@@ -76,7 +76,7 @@ public class EW_UIManager : MonoBehaviour
         choiceButton.onClick.AddListener(() =>
         {
             RemoveChoiceButtons();
-            choice.onSelect.Invoke();
+            EW_EventSystem.InvokeChangeStoryNodeEvent(choice.goesTo);
         });
 
         choiceButtons.Add(choiceButton);

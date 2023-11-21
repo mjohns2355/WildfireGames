@@ -122,13 +122,12 @@ public class EW_ChoiceNode : EW_StoryNode
 public class EW_Choice
 {
     public string text { get; }
-    public Action onSelect { get; }
-    public EW_StoryNode nextNode;
+    public int goesTo;
 
-    public EW_Choice(string _text, Action _onSelect)
+    public EW_Choice(string _text, int _goesTo)
     {
         text = _text;
-        onSelect = _onSelect;
+        goesTo = _goesTo;
     }
 }
 

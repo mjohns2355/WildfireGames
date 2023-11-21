@@ -78,8 +78,8 @@
             "type": "Choice",
             "function": "ShowTimer",
             "choices": [
-              { "text": "Check Downstairs", "onSelect": "HandleCheckDownstairs" },
-              { "text": "Explore the Yard", "onSelect": "HandleCheckYard" }
+              { "text": "Check Downstairs", "goesTo": 5 },
+              { "text": "Explore the Yard", "goesTo": 11 }
             ],
             "nextNodeID": -1
         },
@@ -104,15 +104,16 @@
             "id": 6,
             "type": "Choice",
             "choices": [
-              { "text": "Make Breakfast", "onSelect": "HandleBreakfast" },
-              { "text": "Prepare Go Bag", "onSelect": "HandleGoBag" },
-              { "text": "Explore the Yard", "onSelect": "HandleCheckYard" }
+              { "text": "Make Breakfast", "goesTo": 7 },
+              { "text": "Prepare Go Bag", "goesTo": 9 },
+              { "text": "Explore the Yard", "goesTo": 11 }
             ],
             "nextNodeID": -1
         },
         {
             "id": 7,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul roams around the kitchen quickly",
 
@@ -140,8 +141,8 @@
             "id": 8,
             "type": "Choice",
             "choices": [
-              { "text": "Check Downstairs", "onSelect": "HandleCheckDownstairs" },
-              { "text": "Prepare Go Bag", "onSelect": "HandleGoBag" }
+              { "text": "Check Downstairs", "goesTo": 5 },
+              { "text": "Prepare Go Bag", "goesTo": 9 }
             ],
             "nextNodeID": -1
           },
@@ -149,6 +150,7 @@
           {
             "id": 9,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)",
 
@@ -168,8 +170,8 @@
             "id": 10,
             "type": "Choice",
             "choices": [
-              { "text": "Make Breakfast", "onSelect": "HandleBreakfast" },
-              { "text": "Go Back Downstairs", "onSelect": "HandleCheckDownstairs" }
+              { "text": "Make Breakfast", "goesTo": 7 },
+              { "text": "Go Back Downstairs", "goesTo": 5 }
             ],
             "nextNodeID": -1
           },
@@ -199,9 +201,9 @@
             "id": 12,
             "type": "Choice",
             "choices": [
-              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" },
-              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" },
-              { "text": "Head Back inside", "onSelect": "HandleCheckDownstairs" }
+              { "text": "Explore Frontyard", "goesTo": 13 },
+              { "text": "Explore Backyard", "goesTo": 19 },
+              { "text": "Head Back inside", "goesTo": 5 }
             ],
             "nextNodeID": -1
           },
@@ -226,9 +228,9 @@
             "id": 14,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn", "onSelect": "HandleCutLawn" },
-              { "text": "Talk to Aldo", "onSelect": "HandleAldoTalk" },
-              { "text": "Check other parts of the yard", "onSelect": "HandleCheckYard" }
+              { "text": "Cut the Lawn", "goesTo": 15 },
+              { "text": "Talk to Aldo", "goesTo": 17 },
+              { "text": "Check other parts of the yard", "goesTo": 11 }
             ],
             "nextNodeID": -1
           },
@@ -236,6 +238,7 @@
           {
             "id": 15,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul quickly mows the yellowed lawn down and sweeps the clippings up.",
 
@@ -251,8 +254,8 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Talk to Aldo", "onSelect": "HandleAldoTalk" },
-              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" }
+              { "text": "Talk to Aldo", "goesTo": 17 },
+              { "text": "Explore Frontyard", "goesTo": 13 }
             ],
             "nextNodeID": -1
           },
@@ -260,6 +263,7 @@
           {
             "id": 17,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul goes over to talk to Aldo",
 
@@ -275,8 +279,8 @@
             "id": 18,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn", "onSelect": "HandleCutLawn" },
-              { "text": "Explore Frontyard", "onSelect": "HandleCheckFrontyard" }
+              { "text": "Cut the Lawn", "goesTo": 15 },
+              { "text": "Explore Frontyard", "goesTo": 13 }
             ],
             "nextNodeID": -1
           },
@@ -303,15 +307,16 @@
             "id": 20,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "onSelect": "HandleCutTree" },
-              { "text": "Clean the Gutter", "onSelect": "HandleCleanGutter" },
-              { "text": "Check other parts of the yard", "onSelect": "HandleCheckYard" }
+              { "text": "Cut the Tree", "goesTo": 21 },
+              { "text": "Clean the Gutter", "goesTo": 23 },
+              { "text": "Check other parts of the yard", "goesTo": 11 }
             ],
             "nextNodeID": -1
           },
           {
             "id": 21,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul carefuly climbs to the roof and begins sawing different parts of the tree causing branches to fall.",
 
@@ -331,14 +336,15 @@
             "id": 22,
             "type": "Choice",
             "choices": [
-              { "text": "Clean the Gutter", "onSelect": "HandleCleanGutter" },
-              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" }
+              { "text": "Clean the Gutter", "goesTo": 23 },
+              { "text": "Explore Backyard", "goesTo": 19 }
             ],
             "nextNodeID": -1
           },
           {
             "id": 23,
             "type": "Dialogue",
+            "function": "Use30Minutes",
             "lines": [
               "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below.",
 
@@ -356,8 +362,8 @@
             "id": 24,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "onSelect": "HandleCutTree" },
-              { "text": "Explore Backyard", "onSelect": "HandleCheckBackyard" }
+              { "text": "Cut the Tree", "goesTo": 21 },
+              { "text": "Explore Backyard", "goesTo": 19 }
             ],
             "nextNodeID": -1
           }
