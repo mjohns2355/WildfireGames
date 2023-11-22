@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 
 /* 
@@ -17,12 +18,21 @@ public class SceneSetup : MonoBehaviour
     [SerializeField] private int numberOfItems;
     [SerializeField] private List<GameObject> allItems;
     public List<GameObject> sceneItems;
+    public GameObject medicine;
+    public GameObject glasses;
 
     // Start is called before the first frame update
     void Start()
     {
         //sceneItems = randomization(numberOfItems);
         sceneItems = allItems; // just for debugging purposes
+        if (SettingsData.medsNeeded) {
+            sceneItems.Add(medicine);
+        }
+        if (SettingsData.glassesNeeded) {
+            sceneItems.Add(glasses);
+        }
+        
         setup();
     }
 

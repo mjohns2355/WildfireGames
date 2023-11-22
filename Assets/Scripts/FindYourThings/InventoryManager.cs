@@ -46,13 +46,12 @@ public class InventoryManager : MonoBehaviour
         RectTransform newRect = newItem.GetComponent<RectTransform>();
         newRect.anchoredPosition = newRect.anchoredPosition - offset;
         GameObject collectable = GameObject.Find(item);
-        //collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Remove(collectable);
-        // collectable.transform.parent.GetComponent<SceneSetup>().printItems();
+        collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Remove(collectable);
         collectable.SetActive(false);
 
         newItem.GetComponent<Button>().onClick.AddListener(() => {
             collectable.SetActive(true);
-            //collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Add(collectable);
+            collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Add(collectable);
             Destroy(newItem);
             inventoryItems.Remove(newItem);
             updatePlacement();

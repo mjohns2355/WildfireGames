@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEditor.SearchService;
 
 public class GameModeManager : MonoBehaviour
 {
@@ -31,37 +32,32 @@ public class GameModeManager : MonoBehaviour
     private bool meds;
     private bool eyesAndEars;
     private bool pets;
+
     void Update(){
         goBag = goBagToggle.isOn;
         meds = medicationToggle.isOn;
         eyesAndEars = eyesAndEarsToggle.isOn;
         pets = petToggle.isOn;
         if(goBagGameUI.activeSelf){
-            if((medicationToggle.isOn) == false){
-                Destroy(medicationItem);
+            if(meds == true){
+                SettingsData.medsNeeded = true;
             }
-            if((eyesAndEarsToggle.isOn) == false){
-                Destroy(glassesItem);
+            if(eyesAndEars == true){
+                SettingsData.glassesNeeded = true;
             }
-            else if((medicationToggle.isOn) == false && (eyesAndEarsToggle.isOn) == false){
-                Destroy(medicationItem);
-                Destroy(glassesItem);
+            if(pets == false){
+                //Debug.Log("No pets.");
             }
         }
         else if(CritListGameUI.activeSelf){
-            Debug.Log("critListUI active");
-            if((medicationToggle.isOn) == false){
-                Destroy(medicationItemCrit);
-                Debug.Log("1");
+            if(meds == true){
+                SettingsData.medsNeeded = true;
             }
-            if((eyesAndEarsToggle.isOn) == false){
-                Destroy(glassesItemCrit);
-                Debug.Log("2");
+            if(eyesAndEars == true){
+                SettingsData.glassesNeeded = true;
             }
-            else if((medicationToggle.isOn) == false && (eyesAndEarsToggle.isOn) == false){
-                Destroy(medicationItemCrit);
-                Destroy(glassesItemCrit);
-                Debug.Log("3");
+            if(pets == false){
+                //Debug.Log("No pets.");
             }
         }
 
