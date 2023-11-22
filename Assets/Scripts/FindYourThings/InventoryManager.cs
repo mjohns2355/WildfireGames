@@ -46,13 +46,13 @@ public class InventoryManager : MonoBehaviour
         RectTransform newRect = newItem.GetComponent<RectTransform>();
         newRect.anchoredPosition = newRect.anchoredPosition - offset;
         GameObject collectable = GameObject.Find(item);
-        collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Remove(collectable);
+        //collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Remove(collectable);
         // collectable.transform.parent.GetComponent<SceneSetup>().printItems();
         collectable.SetActive(false);
 
         newItem.GetComponent<Button>().onClick.AddListener(() => {
             collectable.SetActive(true);
-            collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Add(collectable);
+            //collectable.transform.parent.GetComponent<SceneSetup>().sceneItems.Add(collectable);
             Destroy(newItem);
             inventoryItems.Remove(newItem);
             updatePlacement();
@@ -71,8 +71,8 @@ public class InventoryManager : MonoBehaviour
         foreach (GameObject item in inventoryItems)
         {
             RectTransform itemRect = item.GetComponent<RectTransform>();
-            itemRect.anchoredPosition = new Vector2(0, inventoryRect.anchoredPosition.y - offset.y);
-            offset.y += 25;
+            itemRect.anchoredPosition = new Vector2(0, -localOffset.y);
+            localOffset.y += 25;
         }
         offset = localOffset;
     }
