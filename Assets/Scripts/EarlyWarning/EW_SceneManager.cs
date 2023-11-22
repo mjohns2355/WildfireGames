@@ -37,7 +37,8 @@ public class EW_SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space") && !done)
+        bool newTouch = Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began);
+        if ((newTouch || Input.anyKeyDown) && !done)
         {
             if (uiManager.typingCoroutine != null)
             {
