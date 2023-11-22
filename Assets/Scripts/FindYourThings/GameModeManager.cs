@@ -7,44 +7,68 @@ using System;
 
 public class GameModeManager : MonoBehaviour
 {
-    public TMP_Dropdown toGoBag; //next menu will be GoBag else critList
-    public TMP_Dropdown addMedication; //Add medication to list yes or no
-    public TMP_Dropdown addEyesAndEars; //Add glasses and hearing aids to list yes or no
-    public TMP_Dropdown addPet; //Add Pet yes or no
-    public bool goBag;
-    public bool meds;
-    public bool eyesAndEars;
-    public bool pets;
+    
+    [Header("Toggles")]
+    public Toggle goBagToggle;
+    public Toggle medicationToggle;
+    public Toggle eyesAndEarsToggle;
+    public Toggle petToggle;
+
+    [Header("Menus")]
     public GameObject toGoBagObject;
     public GameObject toCritListObject;
     public GameObject menu;
+    public GameObject goBagGameUI;
+    public GameObject CritListGameUI;
+
+    [Header("Game Objects")]
     public GameObject medicationItem;
     public GameObject glassesItem;
-    public GameObject goBagGameUI;
-    //public GameObject pets;
-    private bool setItems;
+    public GameObject medicationItemCrit;
+    public GameObject glassesItemCrit;
 
-    public void Start(){
-    }
+    private bool goBag;
+    private bool meds;
+    private bool eyesAndEars;
+    private bool pets;
     void Update(){
-        OnDropdownValueChanged();
-    }
-    public void OnDropdownValueChanged()
-    {
-        goBag = (toGoBag.value == 0);
-        meds = (addMedication.value == 0);
-        eyesAndEars = (addEyesAndEars.value == 0);
-        pets = (addPet.value == 0);
-        if(addMedication.value == 1 || addEyesAndEars.value == 1){
-            if(goBagGameUI.activeSelf){
-                medicationItem.SetActive(meds);
-                glassesItem.SetActive(eyesAndEars);
-                addMedication.value = 0;
-                addEyesAndEars.value = 0;
+        goBag = goBagToggle.isOn;
+        meds = medicationToggle.isOn;
+        eyesAndEars = eyesAndEarsToggle.isOn;
+        pets = petToggle.isOn;
+        if(goBagGameUI.activeSelf){
+            if((medicationToggle.isOn) == false){
+                Destroy(medicationItem);
+            }
+            if((eyesAndEarsToggle.isOn) == false){
+                Destroy(glassesItem);
+            }
+            else if((medicationToggle.isOn) == false && (eyesAndEarsToggle.isOn) == false){
+                Destroy(medicationItem);
+                Destroy(glassesItem);
             }
         }
+        else if(CritListGameUI.activeSelf){
+            Debug.Log("critListUI active");
+            if((medicationToggle.isOn) == false){
+                Destroy(medicationItemCrit);
+                Debug.Log("1");
+            }
+            if((eyesAndEarsToggle.isOn) == false){
+                Destroy(glassesItemCrit);
+                Debug.Log("2");
+            }
+            else if((medicationToggle.isOn) == false && (eyesAndEarsToggle.isOn) == false){
+                Destroy(medicationItemCrit);
+                Destroy(glassesItemCrit);
+                Debug.Log("3");
+            }
+        }
+
     }
-    public void continueGame(){
+
+    public void continueGame()
+    {
         toGoBagObject.SetActive(goBag);
         toCritListObject.SetActive(!goBag);
         menu.SetActive(false);
