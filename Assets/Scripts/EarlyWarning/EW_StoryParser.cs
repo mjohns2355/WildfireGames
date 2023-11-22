@@ -87,7 +87,7 @@ public class EW_StoryParser
         List<EW_Choice> parsedChoices = new List<EW_Choice>();
         foreach (var choiceData in choices)
         {
-            parsedChoices.Add(new EW_Choice(choiceData.text, choiceData.goesTo));
+            parsedChoices.Add(new EW_Choice(choiceData.text, choiceData.goesTo, choiceData.repeatable));
         }
         return parsedChoices;
     }
@@ -125,4 +125,5 @@ public class ChoiceData
     public string text;
     public int goesTo;
     public int nextNodeID;
+    public bool repeatable;
 }

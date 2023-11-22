@@ -23,7 +23,7 @@ public class EW_SceneManager : MonoBehaviour
         uiManager.timerText.text = "";
         EW_StoryFunctions.sceneManager = this;
 
-        string storyPath = "Assets/Scripts/EarlyWarning/EW_PaulStory.json";
+        string storyPath = "Assets/Scripts/EarlyWarning/EW_SampleStory.json";
         curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
 
         string list = "";

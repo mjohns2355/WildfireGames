@@ -136,11 +136,13 @@ public class EW_Choice
 {
     public string text { get; }
     public int goesTo;
+    public bool repeatable = false;
 
-    public EW_Choice(string _text, int _goesTo)
+    public EW_Choice(string _text, int _goesTo, bool _repeatable)
     {
         text = _text;
         goesTo = _goesTo;
+        repeatable = _repeatable;
     }
 }
 

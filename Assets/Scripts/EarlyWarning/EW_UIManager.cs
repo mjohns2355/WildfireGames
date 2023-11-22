@@ -22,11 +22,13 @@ public class EW_UIManager : MonoBehaviour
 
     private EW_SceneManager sceneManager;
     public TextMeshProUGUI timerText;
+    private List<EW_Choice> selectedChoices;
 
     public void Start()
     {
         dialogueBox.enabled = false;
         textComponent.text = "";
+        selectedChoices = new List<EW_Choice>();
 
         EW_StoryFunctions.uiManager = this;
 
@@ -44,6 +46,14 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         textComponent.text = "";
 
+        for (int i = 0; i < choices.Count; i++)
+        {
+            if (selectedChoices.Contains(choices[i]))
+            {
+                choices.RemoveAt(i);
+                i--;
+            }
+        }
         for (int i = 0; i < choices.Count; i++)
         {
             CreateChoiceButton(choices[i], i, choices.Count);
@@ -76,6 +86,10 @@ public class EW_UIManager : MonoBehaviour
         choiceButton.onClick.AddListener(() =>
         {
             RemoveChoiceButtons();
+            if (!choice.repeatable)
+            {
+                selectedChoices.Add(choice);
+            }
             EW_EventSystem.InvokeChangeStoryNodeEvent(choice.goesTo);
         });
 

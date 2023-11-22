@@ -3,6 +3,7 @@
     {
       "id": 0,
       "type": "Move",
+      "function": "HandleWakeUp",
       "commands": [
         { "targetPosition": { "x": -4.5, "y": 0 }, "actorName": "Paul" },
         {
@@ -27,29 +28,29 @@
       "id": 2,
       "type": "Choice",
       "choices": [
-        { "text": "Choice 1", "onSelect": "HandleChoice1" },
-        { "text": "Choice 2", "onSelect": "HandleChoice2" },
-        { "text": "Choice 3", "onSelect": "HandleChoice3" }
+        { "text": "Choice 1", "goesTo": 3, "repeatable": false },
+        { "text": "Choice 2", "goesTo": 4, "repeatable": false},
+        { "text": "Choice 3 (repeatable)", "goesTo": 5, "repeatable": true }
       ],
       "nextNodeID": -1
     },
     {
       "id": 3,
       "type": "Dialogue",
-      "lines": ["Choice 1 selected", "And that's the demo!"],
-      "nextNodeID": -1
+      "lines": ["Choice 1 selected"],
+      "nextNodeID": 2
     },
     {
       "id": 4,
       "type": "Dialogue",
       "lines": ["Choice 2 selected"],
-      "nextNodeID": -1
+      "nextNodeID": 2
     },
     {
       "id": 5,
       "type": "Dialogue",
       "lines": ["Choice 3 selected"],
-      "nextNodeID": -1
+      "nextNodeID": 2
     }
   ]
 }
