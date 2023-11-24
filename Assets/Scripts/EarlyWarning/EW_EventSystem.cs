@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class EW_EventSystem
 {
-    public delegate void DialogueDelegate(string line);
+    public delegate void DialogueDelegate(EW_DialogueLine line);
     public static event DialogueDelegate TriggerDialogueEvent, SkipDialogueEvent;
 
     public delegate void StoryNodeDelegate(EW_StoryNode node);
@@ -28,12 +28,12 @@ public static class EW_EventSystem
         LeaveStoryNodeEvent?.Invoke();
     }
 
-    public static void InvokeTriggerDialogueEvent(string line)
+    public static void InvokeTriggerDialogueEvent(EW_DialogueLine line)
     {
         TriggerDialogueEvent?.Invoke(line);
     }
 
-    public static void InvokeSkipDialogueEvent(string line)
+    public static void InvokeSkipDialogueEvent(EW_DialogueLine line)
     {
         SkipDialogueEvent?.Invoke(line);
     }

@@ -19,8 +19,8 @@
       "type": "Dialogue",
       "function": "ShowTimer",
       "lines": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        { "speaker": "Paul", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+        { "speaker": "Narrator", "text": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
       ],
       "nextNodeID": 2
     },
@@ -37,19 +37,19 @@
     {
       "id": 3,
       "type": "Dialogue",
-      "lines": ["Choice 1 selected"],
+      "lines": [{ "speaker": "Narrator", "text": "Choice 1 selected" }],
       "nextNodeID": 2
     },
     {
       "id": 4,
       "type": "Dialogue",
-      "lines": ["Choice 2 selected"],
+      "lines": [{ "speaker": "Narrator", "text": "Choice 2 selected" }],
       "nextNodeID": 2
     },
     {
       "id": 5,
       "type": "Dialogue",
-      "lines": ["Choice 3 selected"],
+      "lines": [{ "speaker": "Narrator", "text": "Choice 3 selected" }],
       "nextNodeID": 2
     }
   ]

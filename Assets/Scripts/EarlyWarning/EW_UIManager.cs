@@ -36,6 +36,19 @@ public class EW_UIManager : MonoBehaviour
         EW_EventSystem.ChoiceSetupEvent += SetupChoices;
     }
 
+    void CreateStoryButton(string name, int x)
+    {
+        string storyPath = "Assets/Scripts/EarlyWarning/{name}";
+        Debug.Log(storyPath);
+
+        GameObject button = Instantiate(buttonPrefab, buttonPrefab.transform.parent);
+        button.GetComponentInChildren<TextMeshProUGUI>().text = name;
+        button.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            EW_StoryParser.Parse(storyPath, sceneManager);
+        });
+    }
+
     public void SetupChoices(List<EW_Choice> choices)
     {
         if (choiceButtons.Count != 0)
@@ -80,6 +93,7 @@ public class EW_UIManager : MonoBehaviour
         TMP_Text buttonTextComponent = choiceButtonObject.GetComponentInChildren<TMP_Text>();
         if (buttonTextComponent != null)
         {
+            Debug.Log("Setting button text to " + choice.text);
             buttonTextComponent.text = choice.text;
         }
 
@@ -105,9 +119,9 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Clear();
     }
 
-    public void BeginDialogue(string textToType)
+    public void BeginDialogue(EW_DialogueLine line)
     {
-        curTargetText = textToType;
+        curTargetText = line.text;
         dialogueBox.enabled = true;
         typingCoroutine = StartCoroutine(TypeTextCoroutine());
     }

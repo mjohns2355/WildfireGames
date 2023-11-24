@@ -64,13 +64,13 @@ public class EW_MoveNode : EW_StoryNode
 
 public class EW_DialogueNode : EW_StoryNode
 {
-    Queue<string> linesLeft;
-    List<string> allLines;
+    Queue<EW_DialogueLine> linesLeft;
+    List<EW_DialogueLine> allLines;
 
-    public EW_DialogueNode(List<string> _lines)
+    public EW_DialogueNode(List<EW_DialogueLine> _lines)
     {
-        allLines = new List<string>(_lines);
-        linesLeft = new Queue<string>(_lines);
+        allLines = new List<EW_DialogueLine>(_lines);
+        linesLeft = new Queue<EW_DialogueLine>(_lines);
     }
 
     public override int Advance()
@@ -91,7 +91,7 @@ public class EW_DialogueNode : EW_StoryNode
 
     private void ReadLine()
     {
-        string line = linesLeft.Dequeue();
+        EW_DialogueLine line = linesLeft.Dequeue();
         //Debug.Log(line);
         EW_EventSystem.InvokeTriggerDialogueEvent(line);
     }
@@ -100,7 +100,7 @@ public class EW_DialogueNode : EW_StoryNode
     {
         if (linesLeft.Count == 0)
         {
-            linesLeft = new Queue<string>(allLines);
+            linesLeft = new Queue<EW_DialogueLine>(allLines);
         }
         if (enterAction != null)
         {
@@ -132,9 +132,10 @@ public class EW_ChoiceNode : EW_StoryNode
     }
 }
 
+[Serializable]
 public class EW_Choice
 {
-    public string text { get; }
+    public string text;
     public int goesTo;
     public bool repeatable = false;
 
@@ -143,6 +144,19 @@ public class EW_Choice
         text = _text;
         goesTo = _goesTo;
         repeatable = _repeatable;
+    }
+}
+
+[Serializable]
+public class EW_DialogueLine
+{
+    public string text;
+    public string actorName;
+
+    public EW_DialogueLine(string _actorName, string _text)
+    {
+        actorName = _actorName;
+        text = _text;
     }
 }
 

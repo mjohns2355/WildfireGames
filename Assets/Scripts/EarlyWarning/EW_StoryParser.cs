@@ -6,7 +6,7 @@ using System.IO;
 
 public class EW_StoryParser
 {
-    public static EW_StoryNode Parse(string jsonFilePath, EW_SceneManager sceneManager, List<EW_StoryNode> nodeList)
+    public static EW_StoryNode Parse(string jsonFilePath, EW_SceneManager sceneManager)
     {
         string jsonString = File.ReadAllText(jsonFilePath);
         NodeDataWrapper dataWrapper = JsonUtility.FromJson<NodeDataWrapper>(jsonString);
@@ -16,19 +16,19 @@ public class EW_StoryParser
         {
             EW_StoryNode node = CreateNode(nodeData, sceneManager);
             node.id = nodeData.id;
-            nodeList.Add(node);
+            EW_SceneManager.nodeList.Add(node);
         }
 
         for (int i = 0; i < nodeDataList.Count; i++)
         {
-            if (nodeDataList[i].nextNodeID < nodeList.Count)
+            if (nodeDataList[i].nextNodeID < EW_SceneManager.nodeList.Count)
             {
-                nodeList[i].nextNode = nodeDataList[i].nextNodeID;
+                EW_SceneManager.nodeList[i].nextNode = nodeDataList[i].nextNodeID;
             }
         }
 
         // Return the first node
-        return nodeList.Count > 0 ? nodeList[0] : null;
+        return EW_SceneManager.nodeList.Count > 0 ? EW_SceneManager.nodeList[0] : null;
     }
 
     private static EW_StoryNode CreateNode(StoryNodeData nodeData, EW_SceneManager sceneManager)
@@ -43,7 +43,7 @@ public class EW_StoryParser
                 node = new EW_DialogueNode(nodeData.lines);
                 break;
             case "Choice":
-                node = new EW_ChoiceNode(ParseChoices(nodeData.choices));
+                node = new EW_ChoiceNode(nodeData.choices);
                 break;
             default:
                 Debug.LogError("Unknown node type: " + nodeData.type);
@@ -73,23 +73,11 @@ public class EW_StoryParser
         Queue<EW_MoveCommand> moveCommands = new Queue<EW_MoveCommand>();
         foreach (var commandData in commands)
         {
-            string name = commandData.actorName;
             Vector2 target = new Vector2(commandData.targetPosition.x, commandData.targetPosition.y);
-            bool final = commandData.final;
-            EW_MoveCommand command = new EW_MoveCommand(name, target, final);
+            EW_MoveCommand command = new EW_MoveCommand(commandData.actorName, target, commandData.final);
             moveCommands.Enqueue(command);
         }
         return moveCommands;
-    }
-
-    private static List<EW_Choice> ParseChoices(List<ChoiceData> choices)
-    {
-        List<EW_Choice> parsedChoices = new List<EW_Choice>();
-        foreach (var choiceData in choices)
-        {
-            parsedChoices.Add(new EW_Choice(choiceData.text, choiceData.goesTo, choiceData.repeatable));
-        }
-        return parsedChoices;
     }
 }
 
@@ -106,8 +94,9 @@ public class StoryNodeData
     public string type;
     public string function = null;
     public List<MoveCommandData> commands;
-    public List<string> lines;
-    public List<ChoiceData> choices;
+    public string speaker;
+    public List<EW_DialogueLine> lines;
+    public List<EW_Choice> choices;
     public int nextNodeID;
 }
 
@@ -117,13 +106,4 @@ public class MoveCommandData
     public Vector2 targetPosition;
     public string actorName;
     public bool final;
-}
-
-[Serializable]
-public class ChoiceData
-{
-    public string text;
-    public int goesTo;
-    public int nextNodeID;
-    public bool repeatable;
 }

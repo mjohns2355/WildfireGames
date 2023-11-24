@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EW_SceneManager : MonoBehaviour
 {
-    static List<EW_StoryNode> nodeList;
+    public static List<EW_StoryNode> nodeList;
     private bool done = false;
     static EW_UIManager uiManager;
     static EW_StoryNode curNode;
@@ -24,14 +24,9 @@ public class EW_SceneManager : MonoBehaviour
         EW_StoryFunctions.sceneManager = this;
 
         string storyPath = "Assets/Scripts/EarlyWarning/EW_SampleStory.json";
-        curNode = EW_StoryParser.Parse(storyPath, this, nodeList);
-
-        string list = "";
-        foreach (var node in nodeList)
-        {
-            list += node.ToString() + "\n";
-        }
-        Debug.Log("Node list: " + list);
+        EW_StoryParser.Parse(storyPath, this);
+        curNode = nodeList[0];
+        curNode.Enter();
     }
 
     // Update is called once per frame

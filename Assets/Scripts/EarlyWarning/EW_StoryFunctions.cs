@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 public class EW_StoryFunctions
 {
     public static EW_SceneManager sceneManager;
