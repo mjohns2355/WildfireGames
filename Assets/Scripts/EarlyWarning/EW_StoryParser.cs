@@ -94,7 +94,6 @@ public class StoryNodeData
     public string type;
     public string function = null;
     public List<MoveCommandData> commands;
-    public string speaker;
     public List<EW_DialogueLine> lines;
     public List<EW_Choice> choices;
     public int nextNodeID;

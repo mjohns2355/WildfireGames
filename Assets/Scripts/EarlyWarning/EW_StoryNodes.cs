@@ -34,7 +34,6 @@ public class EW_MoveNode : EW_StoryNode
 
     public override int Advance()
     {
-        // Debug.Log("Advancing move node. CurNode: " + id + " Moves left: " + moves.Count + "  nextNode: " + nextNode);
         if (moves.Count > 0)
         {
             return id;
@@ -75,7 +74,6 @@ public class EW_DialogueNode : EW_StoryNode
 
     public override int Advance()
     {
-        // Debug.Log("Advancing dialogue node. CurNode: " + id + " Lines left: " + lines.Count + "  nextNode: " + nextNode);
         if (linesLeft.Count > 0)
         {
             return id;
@@ -85,20 +83,18 @@ public class EW_DialogueNode : EW_StoryNode
 
     public override void Play()
     {
-        // Debug.Log("Playing dialogue. Current Line: " + lines.Peek() + " Lines: " + lines.ToArray().ToString());
         ReadLine();
     }
 
     private void ReadLine()
     {
         EW_DialogueLine line = linesLeft.Dequeue();
-        //Debug.Log(line);
         EW_EventSystem.InvokeTriggerDialogueEvent(line);
     }
 
     public override void Enter()
     {
-        if (linesLeft.Count == 0)
+        if (linesLeft.Count == 0) //Allows for repeating dialogue nodes
         {
             linesLeft = new Queue<EW_DialogueLine>(allLines);
         }
@@ -121,7 +117,6 @@ public class EW_ChoiceNode : EW_StoryNode
     public override int Advance()
     {
         //A choice node essentially does not implement Advance
-        //The function that creates a Choice provides a function for the choice to make happen
         //The scene manager handles the logic of selecting a choice
         return id;
     }
@@ -132,32 +127,20 @@ public class EW_ChoiceNode : EW_StoryNode
     }
 }
 
+//These two classes don't need constructors, since they are serialized directly from JSON
 [Serializable]
 public class EW_Choice
 {
     public string text;
     public int goesTo;
     public bool repeatable = false;
-
-    public EW_Choice(string _text, int _goesTo, bool _repeatable)
-    {
-        text = _text;
-        goesTo = _goesTo;
-        repeatable = _repeatable;
-    }
 }
 
 [Serializable]
 public class EW_DialogueLine
 {
     public string text;
-    public string actorName;
-
-    public EW_DialogueLine(string _actorName, string _text)
-    {
-        actorName = _actorName;
-        text = _text;
-    }
+    public string speaker;
 }
 
 public class EW_MoveCommand

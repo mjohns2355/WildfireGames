@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class EW_UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Image dialogueBox;
+    private Image dialogueBox, nameplate;
     [SerializeField]
-    private TextMeshProUGUI textComponent;
+    private TextMeshProUGUI dialogueTextComponent, nameplateTextComponent;
 
     private float timeBetweenLetters = 0.04f;
-    private string curTargetText;
+    private EW_DialogueLine curLine;
     public Coroutine typingCoroutine = null;
 
     private List<Button> choiceButtons = new List<Button>();
@@ -27,13 +27,15 @@ public class EW_UIManager : MonoBehaviour
     public void Start()
     {
         dialogueBox.enabled = false;
-        textComponent.text = "";
+        dialogueTextComponent.text = "";
         selectedChoices = new List<EW_Choice>();
 
         EW_StoryFunctions.uiManager = this;
 
         EW_EventSystem.TriggerDialogueEvent += BeginDialogue;
         EW_EventSystem.ChoiceSetupEvent += SetupChoices;
+        EW_EventSystem.LeaveStoryNodeEvent += HideNameplate;
+        HideNameplate();
     }
 
     void CreateStoryButton(string name, int x)
@@ -57,7 +59,7 @@ public class EW_UIManager : MonoBehaviour
         }
         Debug.Log("Setting up choices");
         dialogueBox.enabled = false;
-        textComponent.text = "";
+        dialogueTextComponent.text = "";
 
         for (int i = 0; i < choices.Count; i++)
         {
@@ -121,25 +123,45 @@ public class EW_UIManager : MonoBehaviour
 
     public void BeginDialogue(EW_DialogueLine line)
     {
-        curTargetText = line.text;
+        curLine = line;
         dialogueBox.enabled = true;
+        ShowNameplate();
         typingCoroutine = StartCoroutine(TypeTextCoroutine());
     }
 
     public void SkipTyping()
     {
-        textComponent.text = curTargetText;
+        dialogueTextComponent.text = curLine.text;
         StopCoroutine(typingCoroutine);
         typingCoroutine = null;
     }
 
+    private void ShowNameplate()
+    {
+        if (curLine.speaker == "")
+        {
+            HideNameplate();
+        }
+        else
+        {
+            nameplate.enabled = true;
+            nameplateTextComponent.text = curLine.speaker;
+        }
+    }
+
+    private void HideNameplate()
+    {
+        nameplate.enabled = false;
+        nameplateTextComponent.text = "";
+    }
+
     private IEnumerator TypeTextCoroutine()
     {
-        textComponent.text = ""; // Clear the text
+        dialogueTextComponent.text = ""; // Clear the text
 
-        for (int i = 0; i < curTargetText.Length; i++)
+        for (int i = 0; i < curLine.text.Length; i++)
         {
-            textComponent.text += curTargetText[i]; // Add one character at a time
+            dialogueTextComponent.text += curLine.text[i]; // Add one character at a time
 
             // Wait for a short duration to control the typing speed
             yield return new WaitForSeconds(timeBetweenLetters);
