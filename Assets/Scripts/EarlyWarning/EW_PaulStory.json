@@ -4,17 +4,17 @@
         {"id": 0,
         "type": "Dialogue",
         "lines": [
-            "Not many folks around here can boast a life lived like Paul's. A retired army engineer, he's seen his share of the world, molded by the rigors of service and solitude. His home? Well, it's been just him for quite a stretch of years now.",
+            {"speaker": "Narrator", "text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."},
 
-            "Mary... his better half, she passed on a lifetime ago, leaving Paul to his own devices. But Paul had endured. You see, the army taught him more than just a dresscode and following orders. He's got a knack for fixing things, a real all-in-one handyman.",
+            {"speaker": "Narrator", "text":"Mary was his better half, she passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
             
-            "He isn't the bragadocious type, at least not much. There's a bit of an ego there, sure, but who could blame him? He's earned his stripes.",
+            {"speaker": "Narrator", "text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."},
             
-            "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes the 'Howdy Neighbors' and 'good mornings'",
+            {"speaker": "Narrator", "text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."},
             
-            "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away.",
+            {"speaker": "Narrator", "text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
             
-            "Faint Mumbling wakes Paul from his sleep..."
+            {"speaker": "Narrator", "text": "*Faint Mumbling wakes Paul from his sleep...*"}
         ],
         "nextNodeID": 1
         },
@@ -24,17 +24,17 @@
         "type": "Dialogue",
         "function": "HandleWakeUp",
         "lines": [
-            "Paul gets up seeing the chatter is coming from the TV.",
+            {"speaker": "Narrator", "text": "Paul gets up seeing the chatter is coming from the TV."},
 
-            "The TV blares",
+            {"speaker": "Narrator", "text": "The TV blares"},
 
-            "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires.",
+            {"speaker": "Narrator", "text": "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires."},
             
-            "Please stay vigilant and ensure your homes and properties are safeguarded. Again, there is no fire folks, however we here atr Channel 10 want to make sure we are doing our part to complete the county we love safe.",
+            {"speaker": "Narrator", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, there is no fire folks, however we here at Channel 10 want to make sure we are doing our part to keep the county we love, safe."},
 
-            "And that's gonna wrap up our Great Morning America show! I'm Mitch Tucker and have a spectacular day Marin County.",
+            {"speaker": "Narrator", "text": "And that's gonna wrap up our Great Morning America show! I'm Mitch Tucker and have a spectacular day Marin County."},
             
-            "Paul, groggy and disoriented, rubs his eyes and sits up, his gaze shifting from the TV to a framed photograph on the bedside table."
+            {"speaker": "Narrator", "text": "Paul, groggy and disoriented, rubs his eyes and sits up, his gaze shifting from the TV to a framed photograph on the bedside table."}
         ],
         "nextNodeID": 2
         },
@@ -43,15 +43,15 @@
         "id": 2,
         "type": "Dialogue",
         "lines": [
-            "A fire warning? Over a bit of heat?",
+            {"speaker": "Paul", "text": "A fire warning? Over a bit of heat?"},
 
-            "Paul chuckles softly shaking his head as he looks at a picture of Mary on his nightstand.",
+            {"speaker": "Narrator", "text": "Paul chuckles softly shaking his head as he looks at a picture of Mary on his nightstand."},
             
-            "Things have really changed... Haven’t they, Mary?...",
+            {"speaker": "Paul", "text": "Things have really changed... Haven’t they, Mary?..."},
             
-            "But we'll be fine. Just like we always are",
+            {"speaker": "Paul", "text": "We'll be fine. Just like we always are"},
             
-            "Despite his reassuring words, there’s a hint of concern in Paul's eyes, a glimmer of uncertainty. Maybe it’s time to make sure everything’s in order."
+            {"speaker": "Narrator", "text": "Despite his reassuring words, there’s a hint of concern in Paul's eyes, a glimmer of uncertainty. Maybe it’s time to make sure everything’s in order."}
         ],
         "nextNodeID": 3
         },
@@ -60,15 +60,15 @@
             "id": 3,
             "type": "Dialogue",
             "lines": [
-              "Should I even bother checking up on this? It's probably nothing, just like the last time.",
+              {"speaker": "Paul", "text": "Should I even bother checking up on this? It's probably nothing, just like last summer."},
 
-              "I guess I could check the yard since its been awhile",
+              {"speaker": "Paul", "text": "I guess I could check the yard since its been ages"},
               
-              "but I'm also really hungry and should check downstairs",
+              {"speaker": "Paul", "text": "but I'm also really hungry and should check downstairs"},
               
-              "There's only so much time in the day - Your actions will have consequences.",
+              {"speaker": "Narrator", "text": "There's only so much time in the day - Your actions will have consequences."},
               
-              "You have 2 hours.(120 minutes)"
+              {"speaker": "Narrator", "text": "You have 2 hours.(120 minutes)"}
             ],
             "nextNodeID": 4
         },
@@ -78,8 +78,8 @@
             "type": "Choice",
             "function": "ShowTimer",
             "choices": [
-              { "text": "Check Downstairs", "goesTo": 5 },
-              { "text": "Explore the Yard", "goesTo": 11 }
+              { "text": "Check Downstairs", "goesTo": 5, "repeatable": true },
+              { "text": "Explore the Yard", "goesTo": 11, "repeatable": true }
             ],
             "nextNodeID": -1
         },
@@ -88,15 +88,15 @@
             "id": 5,
             "type": "Dialogue",
             "lines": [
-                "Paul’s mind is a battleground of practicality and skepticism as he stands in the heart of his home. The fire warning still rings in his ears, but so does the rumble of his empty stomach.",
+                {"speaker": "Narrator", "text": "Paul’s mind is a battleground of practicality and skepticism as he stands in the heart of his home. The fire warning still rings in his ears, but so does the rumble of his empty stomach."},
 
-                "Maybe they're right. Maybe I should take some precautions... but I can't help thinking it’s just a lot of fuss over nothing",
+                {"speaker": "Paul", "text": "Maybe they're right. Maybe I should take some precautions... but I can't help thinking it’s just a lot of fuss over nothing"},
                
-                "Breakfast(30 minutes) does sound good right about now. A hearty meal to start the day.",
+                {"speaker": "Paul", "text": "Breakfast(30 minutes) does sound good right about now. A hearty meal to start the day."},
              
-                "Or... should I prepare my go bag(30 minutes) Just in case the smoke decides to pay a visit. Mary always said better safe than sorry.",
+                {"speaker": "Paul", "text": "Or... should I prepare my go bag(30 minutes) Just in case the smoke decides to pay a visit. Mary always said better safe than sorry."},
              
-                "I could always check around the yard"
+                {"speaker": "Paul", "text": "I always could check the yard to see if there's any work to be done too."}
             ],
             "nextNodeID": 6
         },
@@ -104,9 +104,9 @@
             "id": 6,
             "type": "Choice",
             "choices": [
-              { "text": "Make Breakfast", "goesTo": 7 },
-              { "text": "Prepare Go Bag", "goesTo": 9 },
-              { "text": "Explore the Yard", "goesTo": 11 }
+              { "text": "Make Breakfast", "goesTo": 7, "repeatable": false},
+              { "text": "Prepare Go Bag", "goesTo": 9, "repeatable": false },
+              { "text": "Explore the Yard", "goesTo": 11, "repeatable": true }
             ],
             "nextNodeID": -1
         },
@@ -115,23 +115,25 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul roams around the kitchen quickly",
+              {"speaker": "Narrator", "text": "Paul roams around the kitchen quickly"},
 
-              "Nothing like the sizzle of eggs in the morning to start the day right",
+              {"speaker": "Paul", "text": "Nothing like the sizzle of eggs in the morning to start the day right"},
               
-              "He quickly scorfs down the breakfast while reading the Marin Examiner.",
+              {"speaker": "Narrator", "text": " As his stomach grumbles, Paul quickly scorfs down the breakfast while reading the Marin Examiner."},
               
-              "The front headline reads.",
+              {"speaker": "Narrator", "text": "The front headline reads:"},
               
-              "Record High Heat Brings Concern Over Fires",
+              {"speaker": "Narrator", "text": "Meltdown!: Record High Heat Brings Concern Over Fires"},
                      
-              "Paul Scoffs to himself",
+              {"speaker": "Narrator", "text": "Paul Scoffs to himself"},
               
-              "They've even got the media convinced",
+              {"speaker": "Paul", "text": "They've even got the media convinced"},
 
-              "I hate that smell, maybe I should make a go bag just in case I have to leave(30 minutes)",
+              {"speaker": "Narrator", "text": "Paul notices a light linger of smoke in the air."},
+
+              {"speaker": "Paul", "text": "That smells awful, maybe I should make a go bag just in case I have to leave(30 minutes)"},
               
-              "I could see if there's anything else to do in the kitchen too"
+              {"speaker": "Paul", "text": "I could see if there's anything else to do in the kitchen or yard too"}
               
             ],
             "nextNodeID": 8
@@ -141,8 +143,8 @@
             "id": 8,
             "type": "Choice",
             "choices": [
-              { "text": "Check Downstairs", "goesTo": 5 },
-              { "text": "Prepare Go Bag", "goesTo": 9 }
+              { "text": "Check Downstairs", "goesTo": 5, "repeatable": true},
+              { "text": "Prepare Go Bag", "goesTo": 9 , "repeatable": false}
             ],
             "nextNodeID": -1
           },
@@ -152,15 +154,17 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)",
+              {"speaker": "Narrator", "text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
 
-              "As he sets the photo of Mary inside he quietly whispers",
+              {"speaker": "Narrator", "text": "Cal fire suggests a go bag containing: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc."},
+
+              {"speaker": "Narrator", "text": "As he sets the photo of Mary inside he quietly whispers"},
               
-              "We'll be fine darling",
+              {"speaker": "Paul", "text": "We'll be fine darling"},
                 
-              "I'm still pretty hungry. Eggs and Bacon sounds great",
+              {"speaker": "Paul", "text": "I'm still pretty hungry. Eggs and Bacon does sound good"},
               
-              "I should clean up and go out, This fire doesn't seem to be getting any closer though"
+              {"speaker": "Paul", "text": "I should clean up and go out, This fire doesn't seem to be getting any closer though"}
               
             ],
             "nextNodeID": 10
@@ -170,8 +174,8 @@
             "id": 10,
             "type": "Choice",
             "choices": [
-              { "text": "Make Breakfast", "goesTo": 7 },
-              { "text": "Go Back Downstairs", "goesTo": 5 }
+              { "text": "Make Breakfast", "goesTo": 7, "repeatable":false },
+              { "text": "Go Back Downstairs", "goesTo": 5, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -180,19 +184,17 @@
             "id": 11,
             "type": "Dialogue",
             "lines": [
-              "Paul's yard is huge with a fence surrounding his house abut 500ft. out. His yard is split into two main sections.",
+              {"speaker": "Narrator", "text": "Paul's yard is huge with a fence surrounding his house abut 500ft. out. His yard is split into two main sections."},
 
-              "The Backyard has the pool and a big oak tree.",
+              {"speaker": "Narrator", "text": "The Backyard has the pool and a big, overgrown oak tree."},
               
-              "I should probably make sure nothing is ignitable",
+              {"speaker": "Paul", "text": "I should probably make sure nothing is ignitable"},
               
-              "The Frontyard has a spawning grassy lawn. it's gone yellow since mary passed.", 
+              {"speaker": "Narrator", "text": "The Frontyard has a spawning grassy lawn. it's gone yellow since mary passed."}, 
               
-              "It also looks like Aldo the neighbor is out-front.",
-
-              "I could go check in with him too",
+              {"speaker": "Narrator", "text": "It looks like Aldo the neighbor is out-front."},
               
-              "I could also go back inside"
+              {"speaker": "Paul", "text": "I could also go back inside"}
             ],
             "nextNodeID": 12
           },
@@ -201,9 +203,9 @@
             "id": 12,
             "type": "Choice",
             "choices": [
-              { "text": "Explore Frontyard", "goesTo": 13 },
-              { "text": "Explore Backyard", "goesTo": 19 },
-              { "text": "Head Back inside", "goesTo": 5 }
+              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true },
+              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true },
+              { "text": "Head Back inside", "goesTo": 5, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -212,13 +214,13 @@
             "id": 13,
             "type": "Dialogue",
             "lines": [
-              "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died.",
+              {"speaker": "Narrator", "text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died."},
 
-              "The lawn looks pretty yellow I should cut it down",
+              {"speaker": "Paul", "text": "The lawn looks awfully yellow I really should cut it down"},
               
-              "I think I see Aldo outside maybe I should make sure he's okay",
+              {"speaker": "Paul", "text": "I haven't talked to Aldo in awhile, maybe I should see what he thinks about all this."},
               
-              "the rest of the yard looks like it has more work to do too"
+              {"speaker": "Narrator", "text": "the rest of the yard looks like it has more work to do too"}
               
             ],
             "nextNodeID": 14
@@ -228,9 +230,9 @@
             "id": 14,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn", "goesTo": 15 },
-              { "text": "Talk to Aldo", "goesTo": 17 },
-              { "text": "Check other parts of the yard", "goesTo": 11 }
+              { "text": "Cut the Lawn", "goesTo": 15, "repeatable": false },
+              { "text": "Talk to Aldo", "goesTo": 17, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 11, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -240,13 +242,13 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul quickly mows the yellowed lawn down and sweeps the clippings up.",
+              {"speaker": "Narrator", "text": "Paul quickly mows the yellowed lawn down and sweeps the clippings up."},
 
-              "I always hated looking at that yellow mess anyways",
+              {"speaker": "Paul", "text":  "I always hated looking at that yellow mess anyways"},
               
-              "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home.",
+              {"speaker": "Narrator", "text": "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home."},
               
-              "I think I see Aldo outside still, maybe I should check in with him"
+              {"speaker": "Paul", "text": "I think I see Aldo outside still, maybe I should check in with him"}
             ],
             "nextNodeID": 16
           },
@@ -254,8 +256,8 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Talk to Aldo", "goesTo": 17 },
-              { "text": "Explore Frontyard", "goesTo": 13 }
+              { "text": "Talk to Aldo", "goesTo": 17, "repeatable": false },
+              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -265,13 +267,13 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul goes over to talk to Aldo",
+              {"speaker": "Narrator", "text": "Paul goes over to talk to Aldo"},
 
-              "Paul The fire is looking really bad. If you want to comne with us when the evacuation alert goes out, which it will. please let us know its no issue at all.",
+              {"speaker": "Aldo", "text": "Paul The fire is looking really bad. If you want to comne with us when the evacuation alert goes out, which it will. please let us know its no issue at all."},
               
-              "Thank you Aldo but I don't think that will be necessary. I'll let you know.",
+              {"speaker": "Paul", "text": "Thank you Aldo but I don't think that will be necessary. I'll let you know."},
               
-              "The grass looks pretty dead, I should probably mow it down"
+              {"speaker": "Paul", "text": "The grass looks pretty dead, I should probably mow it down"}
             ],
             "nextNodeID": 18
           },
@@ -279,8 +281,8 @@
             "id": 18,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn", "goesTo": 15 },
-              { "text": "Explore Frontyard", "goesTo": 13 }
+              { "text": "Cut the Lawn", "goesTo": 15, "repeatable": false },
+              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -288,17 +290,17 @@
             "id": 19,
             "type": "Dialogue",
             "lines": [
-              "The backyard is relatively big. ",
+              {"speaker": "Narrator", "text": "The backyard is relatively big with trees and a brick wall surrounding it. "},
 
-              "Paul had a pool installed when he and Mary first moved in. ",
+              {"speaker": "Narrator", "text":"Paul had a pool installed when he and Mary first moved in. "},
               
-              "I really should stop servicing this money hole at this point",
+              {"speaker": "Paul", "text": "I really should stop servicing this money hole I never use it and the upkeep is ridiculous"},
               
-              "Roof has a large overgrown branch connected to the house, maybe it should get cut? - Paul thinks to himself",
+              {"speaker": "Narrator", "text": "Roof has a large overgrown branch connected to the house, maybe it should get cut? - Paul thinks to himself"},
 
-              "Paul looks up and notices the gutter is filled with leaves and dry material that fell off the tree",
+              {"speaker": "Narrator", "text": "Paul looks up and notices the gutter is filled with leaves and dry material that fell off the tree"},
               
-              "I could also check the rest of the yard too"
+              {"speaker": "Paul", "text": "I could also check the rest of the yard too"}
               
             ],
             "nextNodeID": 20
@@ -307,9 +309,9 @@
             "id": 20,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "goesTo": 21 },
-              { "text": "Clean the Gutter", "goesTo": 23 },
-              { "text": "Check other parts of the yard", "goesTo": 11 }
+              { "text": "Cut the Tree", "goesTo": 21, "repeatable": false },
+              { "text": "Clean the Gutter", "goesTo": 23, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 11, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -318,15 +320,15 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul carefuly climbs to the roof and begins sawing different parts of the tree causing branches to fall.",
+              {"speaker": "Narrator", "text": "Paul carefuly climbs to the roof and begins sawing different parts of the tree causing branches to fall."},
 
-              "I don't think I've been up here since we moved in",
+              {"speaker": "Paul", "text": "I don't think I've been up here since we moved in"},
               
-              "Once finished, he collects the branches placing them in his yard-waste dedicated bin.",
+              {"speaker": "Narrator", "text": "Once finished, he collects the branches placing them in his yard-waste dedicated bin."},
 
-              "Once down, he notices the gutter overfilling with leaves.",
+              {"speaker": "Narrator", "text": "Once down, he notices the gutter overfilling with leaves."},
               
-              "Maybe I should clean those out since I'm already here."
+              {"speaker": "Paul", "text": "Maybe I should clean those out since I'm already here."}
               
               
             ],
@@ -336,8 +338,8 @@
             "id": 22,
             "type": "Choice",
             "choices": [
-              { "text": "Clean the Gutter", "goesTo": 23 },
-              { "text": "Explore Backyard", "goesTo": 19 }
+              { "text": "Clean the Gutter", "goesTo": 23, "repeatable": false },
+              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true  }
             ],
             "nextNodeID": -1
           },
@@ -346,15 +348,15 @@
             "type": "Dialogue",
             "function": "Use30Minutes",
             "lines": [
-              "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below.",
+              {"speaker": "Narrator", "text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below."},
 
-              "No wonder the gutter had been flooding last winter",
+              {"speaker": "Paul", "text": "No wonder the gutter had been flooding last winter"},
               
-              "By the time he's done, the waste bin is filled to the brim",
+              {"speaker": "Narrator", "text": "By the time he's done, the waste bin is filled to the brim"},
               
-              "Finished, he notices the large branch from his tree is hitting his house.",
+              {"speaker": "Narrator", "text": "Finished, he notices the large branch from his tree is hitting his house."},
               
-              "I really should trim that tree before it gets any larger"
+              {"speaker": "Paul", "text": "I really should trim that tree before it gets any larger, it looks like its hitting the roof by now..."}
             ],
             "nextNodeID": 24
           },
@@ -362,8 +364,8 @@
             "id": 24,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "goesTo": 21 },
-              { "text": "Explore Backyard", "goesTo": 19 }
+              { "text": "Cut the Tree", "goesTo": 21, "repeatable": false},
+              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true }
             ],
             "nextNodeID": -1
           }
