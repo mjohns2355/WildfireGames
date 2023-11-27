@@ -6,10 +6,11 @@ public class EW_SceneManager : MonoBehaviour
     public static List<EW_StoryNode> nodeList;
     private bool done = false;
     static EW_UIManager uiManager;
-    static EW_StoryNode curNode;
+    public static EW_StoryNode curNode;
     public static int minutesRemaining = 120;
     public SpriteRenderer background, paulSprite;
     public Sprite livingRoomSprite;
+    public bool storySelected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +24,18 @@ public class EW_SceneManager : MonoBehaviour
         uiManager.timerText.text = "";
         EW_StoryFunctions.sceneManager = this;
 
-        string storyPath = "Assets/Scripts/EarlyWarning/EW_SampleStory.json";
-        EW_StoryParser.Parse(storyPath, this);
-        curNode = nodeList[0];
-        curNode.Enter();
+        string[] storyNames = new string[] {
+            "EW_SampleStory",
+            "EW_PaulStory"
+        };
+        uiManager.CreateStoryButtons(storyNames);
     }
 
     // Update is called once per frame
     void Update()
     {
         bool newTouch = Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began);
-        if ((newTouch || Input.anyKeyDown) && !done)
+        if ((newTouch || Input.anyKeyDown) && !done && storySelected)
         {
             if (uiManager.typingCoroutine != null)
             {
