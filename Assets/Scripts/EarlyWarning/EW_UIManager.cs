@@ -38,17 +38,35 @@ public class EW_UIManager : MonoBehaviour
         HideNameplate();
     }
 
-    void CreateStoryButton(string name, int x)
+    public void CreateStoryButtons(string[] names)
     {
-        string storyPath = "Assets/Scripts/EarlyWarning/{name}";
-        Debug.Log(storyPath);
+        Debug.Log("Creating story buttons");
+        List<GameObject> buttons = new List<GameObject>();
 
-        GameObject button = Instantiate(buttonPrefab, buttonPrefab.transform.parent);
-        button.GetComponentInChildren<TextMeshProUGUI>().text = name;
-        button.GetComponent<Button>().onClick.AddListener(() =>
+        foreach (string name in names)
         {
-            EW_StoryParser.Parse(storyPath, sceneManager);
-        });
+            Debug.Log("Name: " + name);
+        }
+        for (int i = 0; i < names.Length; i++)
+        {
+            GameObject button = Instantiate(buttonPrefab, GameObject.Find("Canvas").transform);
+            float buttonY = (Screen.height / names.Length) * (i + 1);
+            RectTransform buttonRect = button.GetComponent<RectTransform>();
+            buttonRect.sizeDelta = new Vector2(400, 100);
+            buttonRect.anchoredPosition = new Vector2(0, -buttonY);
+
+            button.GetComponentInChildren<TextMeshProUGUI>().text = names[i];
+            int buttonIndex = i;
+            button.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                sceneManager.storySelected = true;
+                string storyPath = "Assets/Scripts/EarlyWarning/" + names[buttonIndex] + ".json";
+                buttons.ForEach(b => Destroy(b));
+                EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
+                EW_SceneManager.curNode.Enter();
+            });
+            buttons.Add(button);
+        }
     }
 
     public void SetupChoices(List<EW_Choice> choices)
