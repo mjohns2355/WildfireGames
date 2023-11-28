@@ -50,7 +50,7 @@ public class EW_UIManager : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             GameObject button = Instantiate(buttonPrefab, GameObject.Find("Canvas").transform);
-            float buttonY = (Screen.height / names.Length) * (i + 1);
+            float buttonY = (Screen.height * 0.5f) - ((Screen.height * 0.4f) * (i + 1) / names.Length);
             RectTransform buttonRect = button.GetComponent<RectTransform>();
             buttonRect.sizeDelta = new Vector2(400, 100);
             buttonRect.anchoredPosition = new Vector2(0, -buttonY);

@@ -19,17 +19,17 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
-    public void HandleWakeUp()
+    public void GoToLivingRoom()
     {
         sceneManager.GoToArea("PaulLivingRoom");
     }
 
-    public void ChangeToBackyard()
+    public void GoToBackYard()
     {
         sceneManager.GoToArea("PaulBackyard");
     }
 
-    public void ChangeToFrontYard()
+    public void GoToFrontYard()
     {
         sceneManager.GoToArea("PaulFrontYard");
     }

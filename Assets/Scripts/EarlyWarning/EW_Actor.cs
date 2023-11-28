@@ -58,6 +58,7 @@ public class EW_Actor : MonoBehaviour
             transform.position = targetPos;
             StopCoroutine(curMove);
         }
+        EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
     }
 
     private IEnumerator MoveTo(Vector2 targetPosition)

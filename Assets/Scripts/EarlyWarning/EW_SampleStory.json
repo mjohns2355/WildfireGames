@@ -3,7 +3,7 @@
     {
       "id": 0,
       "type": "Move",
-      "function": "HandleWakeUp",
+      "function": "GoToLivingRoom",
       "commands": [
         { "targetPosition": { "x": -4.5, "y": 0 }, "actorName": "Paul" },
         {
@@ -28,6 +28,7 @@
     {
       "id": 2,
       "type": "Choice",
+      "function": "GoToBackYard",
       "choices": [
         { "text": "Choice 1", "goesTo": 3, "repeatable": false },
         { "text": "Choice 2", "goesTo": 4, "repeatable": false},
