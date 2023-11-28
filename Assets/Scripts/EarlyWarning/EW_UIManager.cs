@@ -24,6 +24,14 @@ public class EW_UIManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     private List<EW_Choice> selectedChoices;
 
+    [Header("Camera")]
+    [SerializeField]
+    private Camera mainCamera;
+    [SerializeField]
+    private float landscapeOrthographicSize = 5f;
+    [SerializeField]
+    private float portraitOrthographicSize = 9f;
+
     public void Start()
     {
         dialogueBox.enabled = false;
@@ -36,6 +44,18 @@ public class EW_UIManager : MonoBehaviour
         EW_EventSystem.ChoiceSetupEvent += SetupChoices;
         EW_EventSystem.LeaveStoryNodeEvent += HideNameplate;
         HideNameplate();
+    }
+
+    public void Update()
+    {
+        if (Screen.width > Screen.height)
+        {
+            mainCamera.orthographicSize = landscapeOrthographicSize;
+        }
+        else
+        {
+            mainCamera.orthographicSize = portraitOrthographicSize;
+        }
     }
 
     public void CreateStoryButtons(string[] names)
