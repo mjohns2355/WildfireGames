@@ -146,22 +146,23 @@ public class EW_DialogueLine
 public class EW_MoveCommand
 {
     public Vector2 targetPosition;
-    public EW_Actor actor;
+    public string actorName;
     private bool final;
 
-    public EW_MoveCommand(string _actorName, Vector2 _targetPos, bool final = false)
+    public EW_MoveCommand(string _actorName, Vector2 _targetPos, bool _final = false)
     {
-        actor = GameObject.Find(_actorName).GetComponent<EW_Actor>();
-        if (actor == null)
-        {
-            Debug.LogError("Invalid actor name found in json!");
-        }
+        actorName = _actorName;
         targetPosition = _targetPos;
-        this.final = false;
+        final = _final;
     }
 
     public bool Execute()
     {
+        EW_Actor actor = GameObject.Find(actorName).GetComponent<EW_Actor>();
+        if (actor == null)
+        {
+            Debug.LogError("Invalid actor name " + actorName + " attached to move command!");
+        }
         actor.Execute(this);
         return final;
     }

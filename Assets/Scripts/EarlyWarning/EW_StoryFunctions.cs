@@ -21,7 +21,16 @@ public class EW_StoryFunctions
 
     public void HandleWakeUp()
     {
-        sceneManager.background.sprite = sceneManager.livingRoomSprite;
-        sceneManager.paulSprite.enabled = true;
+        sceneManager.GoToArea("PaulLivingRoom");
+    }
+
+    public void ChangeToBackyard()
+    {
+        sceneManager.GoToArea("PaulBackyard");
+    }
+
+    public void ChangeToFrontYard()
+    {
+        sceneManager.GoToArea("PaulFrontYard");
     }
 }

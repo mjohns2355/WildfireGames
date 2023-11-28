@@ -8,8 +8,8 @@ public class EW_SceneManager : MonoBehaviour
     static EW_UIManager uiManager;
     public static EW_StoryNode curNode;
     public static int minutesRemaining = 120;
-    public SpriteRenderer background, paulSprite;
-    public Sprite livingRoomSprite;
+    public SpriteRenderer background;
+    public GameObject actorParent;
     public bool storySelected = false;
 
     // Start is called before the first frame update
@@ -19,8 +19,6 @@ public class EW_SceneManager : MonoBehaviour
         nodeList = new List<EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
         background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
-        paulSprite = GameObject.Find("Paul").GetComponent<SpriteRenderer>();
-        paulSprite.enabled = false;
         uiManager.timerText.text = "";
         EW_StoryFunctions.sceneManager = this;
 
@@ -49,12 +47,6 @@ public class EW_SceneManager : MonoBehaviour
 
     public void ChangeStoryNode(int nodeIndex)
     {
-        if (nodeIndex == 1)
-        {
-            background.sprite = livingRoomSprite;
-            paulSprite.enabled = true;
-        }
-
         if (nodeIndex == -1)
         {
             Debug.Log("Story finished!");
@@ -70,5 +62,33 @@ public class EW_SceneManager : MonoBehaviour
             curNode.Enter();
         }
         curNode.Play();
+    }
+
+    public void GoToArea(string areaName)
+    {
+        Debug.Log("Going to area " + areaName);
+
+        string backgroundPath = "EarlyWarning/Art/" + areaName;
+        Sprite backgroundSprite = Resources.Load<Sprite>(backgroundPath);
+        if (backgroundSprite != null)
+        {
+            background.sprite = backgroundSprite;
+        }
+
+        string actorPath = "EarlyWarning/ActorPacks/" + areaName;
+        GameObject actorPrefab = Resources.Load<GameObject>(actorPath);
+        if (actorPrefab != null)
+        {
+            if (actorParent != null)
+            {
+                Destroy(actorParent);
+            }
+            actorParent = Instantiate(actorPrefab);
+            actorParent.transform.SetParent(transform);
+        }
+        else
+        {
+            Debug.LogError("No actor prefab found at " + actorPath);
+        }
     }
 }
