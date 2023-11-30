@@ -119,6 +119,11 @@ public class mainMenu : MonoBehaviour
 
     }
 
+    public void ChangeScene(int g)
+    {
+        SceneManager.LoadScene(g);
+    }
+
     public void MinigameSelect(int g)
     {
         currentGame = g;
