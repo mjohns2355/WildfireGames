@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectToggleScript : MonoBehaviour
+public class FYT_SelectToggleScript : MonoBehaviour
 {
     [Header("Q1")]
     public Toggle goBagToggleYes;

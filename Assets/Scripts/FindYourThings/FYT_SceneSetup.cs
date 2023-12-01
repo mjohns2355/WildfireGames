@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 
 /* 
@@ -13,7 +12,7 @@ the room with the randomly selected items.
 Currently, this script assumes that all items will be put into the scene, and will be set
 inactive to start.
 */
-public class SceneSetup : MonoBehaviour
+public class FYT_SceneSetup : MonoBehaviour
 {
     [SerializeField] private int numberOfItems;
     [SerializeField] private List<GameObject> allItems;
@@ -26,10 +25,10 @@ public class SceneSetup : MonoBehaviour
     {
         //sceneItems = randomization(numberOfItems);
         sceneItems = allItems; // just for debugging purposes
-        if (SettingsData.medsNeeded) {
+        if (FYT_SettingsData.medsNeeded) {
             sceneItems.Add(medicine);
         }
-        if (SettingsData.glassesNeeded) {
+        if (FYT_SettingsData.glassesNeeded) {
             sceneItems.Add(glasses);
         }
         
