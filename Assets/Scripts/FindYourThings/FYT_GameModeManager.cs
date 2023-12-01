@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEditor.SearchService;
 
-public class GameModeManager : MonoBehaviour
+public class FYT_GameModeManager : MonoBehaviour
 {
     
     [Header("Toggles")]
@@ -40,10 +39,10 @@ public class GameModeManager : MonoBehaviour
         pets = petToggle.isOn;
         if(goBagGameUI.activeSelf){
             if(meds == true){
-                SettingsData.medsNeeded = true;
+                FYT_SettingsData.medsNeeded = true;
             }
             if(eyesAndEars == true){
-                SettingsData.glassesNeeded = true;
+                FYT_SettingsData.glassesNeeded = true;
             }
             if(pets == false){
                 //Debug.Log("No pets.");
@@ -51,10 +50,10 @@ public class GameModeManager : MonoBehaviour
         }
         else if(CritListGameUI.activeSelf){
             if(meds == true){
-                SettingsData.medsNeeded = true;
+                FYT_SettingsData.medsNeeded = true;
             }
             if(eyesAndEars == true){
-                SettingsData.glassesNeeded = true;
+                FYT_SettingsData.glassesNeeded = true;
             }
             if(pets == false){
                 //Debug.Log("No pets.");

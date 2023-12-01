@@ -18,11 +18,14 @@ public class EW_UIManager : MonoBehaviour
     private List<Button> choiceButtons = new List<Button>();
     [SerializeField]
     private GameObject buttonPrefab;
-    [SerializeField]
+    private List<GameObject> storyButtons;
 
+    [SerializeField]
     private EW_SceneManager sceneManager;
     public TextMeshProUGUI timerText;
     private List<EW_Choice> selectedChoices;
+    [SerializeField]
+    private GameObject taskList;
 
     [Header("Camera")]
     [SerializeField]
@@ -37,6 +40,7 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         selectedChoices = new List<EW_Choice>();
+        taskList.SetActive(false);
 
         EW_StoryFunctions.uiManager = this;
 
@@ -58,34 +62,49 @@ public class EW_UIManager : MonoBehaviour
         }
     }
 
+    public void HideUI()
+    {
+        dialogueBox.enabled = false;
+        dialogueTextComponent.text = "";
+        HideNameplate();
+        timerText.text = "";
+    }
+
+    public void ShowTaskList()
+    {
+        taskList.SetActive(true);
+        taskList.GetComponentInChildren<TextMeshProUGUI>().text = GetTaskListText();
+    }
+
+    private string GetTaskListText()
+    {
+        string text = "Tasks Completed:\n\n";
+        text += "Cleaned the yard:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
+        text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
+        text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
+        text += "Made breakfast: " + (EW_SceneManager.madeBreakfast ? "YES" : "NO") + "\n";
+        return text;
+    }
+
     public void CreateStoryButtons(string[] names)
     {
+        storyButtons = new List<GameObject>();
         Debug.Log("Creating story buttons");
-        List<GameObject> buttons = new List<GameObject>();
 
-        foreach (string name in names)
-        {
-            Debug.Log("Name: " + name);
-        }
         for (int i = 0; i < names.Length; i++)
         {
-            GameObject button = Instantiate(buttonPrefab, GameObject.Find("Canvas").transform);
-            float buttonY = (Screen.height * 0.5f) - ((Screen.height * 0.4f) * (i + 1) / names.Length);
-            RectTransform buttonRect = button.GetComponent<RectTransform>();
-            buttonRect.sizeDelta = new Vector2(400, 100);
-            buttonRect.anchoredPosition = new Vector2(0, -buttonY);
-
+            GameObject button = Instantiate(buttonPrefab, GameObject.Find("StoryButtonParent").transform);
             button.GetComponentInChildren<TextMeshProUGUI>().text = names[i];
             int buttonIndex = i;
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
                 sceneManager.storySelected = true;
                 string storyPath = "Assets/Scripts/EarlyWarning/" + names[buttonIndex] + ".json";
-                buttons.ForEach(b => Destroy(b));
+                storyButtons.ForEach(b => Destroy(b));
                 EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
                 EW_SceneManager.curNode.Enter();
             });
-            buttons.Add(button);
+            storyButtons.Add(button);
         }
     }
 

@@ -12,6 +12,14 @@ public class EW_SceneManager : MonoBehaviour
     public GameObject actorParent;
     public bool storySelected = false;
 
+    //Task list
+    public static bool neighborTalk = false;
+    public static bool goBag = false;
+    public static bool cutLawn = false;
+    public static bool cutTree = false;
+    public static bool cleanedGutters = false;
+    public static bool madeBreakfast = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,19 +53,38 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
+    public void EndPrefirePhase()
+    {
+        uiManager.HideUI();
+        if (actorParent != null)
+        {
+            Destroy(actorParent);
+        }
+        curNode = null;
+        background.enabled = false;
+        done = true;
+        uiManager.
+        ShowTaskList();
+
+        Invoke("ChangeStoryNodeWrapper", 3.0f);
+    }
+    
+    private void EndOfPreFireWrapper()
+    {
+        ChangeStoryNode(25);
+    }
     public void ChangeStoryNode(int nodeIndex)
     {
         if (nodeIndex == -1)
         {
-            Debug.Log("Story finished!");
-            curNode = null;
-            done = true;
+            EndPrefirePhase();
             return;
         }
         // Debug.Log("Changing from " + curNode + " at index " + nodeList.IndexOf(curNode) + " to " + nodeList[nodeIndex] + " at index " + nodeIndex);
         if (curNode != nodeList[nodeIndex])
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
+            if (done) { return; }
             curNode = nodeList[nodeIndex];
             curNode.Enter();
         }

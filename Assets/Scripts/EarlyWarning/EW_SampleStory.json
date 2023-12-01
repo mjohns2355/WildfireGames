@@ -39,20 +39,29 @@
     {
       "id": 3,
       "type": "Dialogue",
+      "function": "CleanGutters",
       "lines": [{ "speaker": "Narrator", "text": "Choice 1 selected" }],
       "nextNodeID": 2
     },
     {
       "id": 4,
       "type": "Dialogue",
+      "function": "GoToFrontYard",
       "lines": [{ "speaker": "Narrator", "text": "Choice 2 selected" }],
-      "nextNodeID": 2
+      "nextNodeID": 6
     },
     {
       "id": 5,
       "type": "Dialogue",
+      "function": "Use30Minutes",
       "lines": [{ "speaker": "Narrator", "text": "Choice 3 selected" }],
       "nextNodeID": 2
+    },
+    {
+      "id": 6,
+      "type": "Dialogue",
+      "lines": [{ "speaker": "Narrator", "text": "There we have it" }],
+      "nextNodeID": -1
     }
   ]
 }
