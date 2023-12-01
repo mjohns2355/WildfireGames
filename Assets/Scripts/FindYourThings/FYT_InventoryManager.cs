@@ -17,7 +17,8 @@ public class FYT_InventoryManager : MonoBehaviour
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
     public GameObject itemPrefab;
-    private Vector2 offset = new Vector3(0, 25);
+    private int offsetAmount = 50;
+    private Vector2 offset = new Vector3(0, 50);
 
 	private void Awake() {
         // if there is already a value assigned to the private variable and its not this, destroy this
@@ -61,17 +62,17 @@ public class FYT_InventoryManager : MonoBehaviour
         itemText.text = item;
         inventoryItems.Add(newItem);
 
-        offset.y += 25;
+        offset.y += offsetAmount;
     }
 
     private void updatePlacement() 
     {
-        Vector2 localOffset = new Vector3(0, 25);
+        Vector2 localOffset = new Vector3(0, 50);
         foreach (GameObject item in inventoryItems)
         {
             RectTransform itemRect = item.GetComponent<RectTransform>();
             itemRect.anchoredPosition = new Vector2(0, -localOffset.y);
-            localOffset.y += 25;
+            localOffset.y += offsetAmount;
         }
         offset = localOffset;
     }

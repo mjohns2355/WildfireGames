@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -86,6 +87,7 @@ public class SD_UITest : MonoBehaviour
     }
     private void CheckDoubleClick(GameObject obj)
     {
+        bool checkChild = transform.IsChildOf(obj.transform);
         if (doubleClickHold == obj)
         {
             if(doubleClickHold.CompareTag("InteractableObject") == true)
@@ -97,6 +99,14 @@ public class SD_UITest : MonoBehaviour
                 Debug.Log("TEST");
                 pickupItem(obj);
             }
+            if(obj.CompareTag("SwitchStateObject") == true)
+            {
+                Debug.Log("Hello");
+            }
+        }
+        else if (checkChild == true)
+        {
+            
         }
         else
         {
