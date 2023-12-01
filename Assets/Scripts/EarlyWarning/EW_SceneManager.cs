@@ -13,6 +13,8 @@ public class EW_SceneManager : MonoBehaviour
     public bool storySelected = false;
 
     //Task list
+    public static bool neighborTalk = false;
+    public static bool goBag = false;
     public static bool cutLawn = false;
     public static bool cutTree = false;
     public static bool cleanedGutters = false;
@@ -62,8 +64,14 @@ public class EW_SceneManager : MonoBehaviour
         done = true;
         uiManager.
         ShowTaskList();
-    }
 
+        Invoke("ChangeStoryNodeWrapper", 3.0f);
+    }
+    
+    private void EndOfPreFireWrapper()
+    {
+        ChangeStoryNode(25);
+    }
     public void ChangeStoryNode(int nodeIndex)
     {
         if (nodeIndex == -1)

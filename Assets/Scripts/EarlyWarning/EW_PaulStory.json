@@ -79,7 +79,7 @@
             "function": "ShowTimer",
             "choices": [
               { "text": "Check Downstairs", "goesTo": 5, "repeatable": true },
-              { "text": "Explore the Yard", "goesTo": 11, "repeatable": true }
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
         },
@@ -88,32 +88,27 @@
             "id": 5,
             "type": "Dialogue",
             "lines": [
-                {"speaker": "", "text": "Paul’s mind is a battleground of practicality and skepticism as he stands in the heart of his home. The fire warning still rings in his ears, but so does the rumble of his empty stomach."},
-
-                {"speaker": "Paul", "text": "Maybe they're right. Maybe I should take some precautions... but I can't help thinking it’s just a lot of fuss over nothing"},
-               
-                {"speaker": "Paul", "text": "Breakfast (30 minutes) does sound good right about now. A hearty meal to start the day."},
-             
-                {"speaker": "Paul", "text": "Or... should I prepare my go bag (30 minutes) Just in case the smoke decides to pay a visit. Mary always said better safe than sorry."},
-             
-                {"speaker": "Paul", "text": "I always could check the yard to see if there's any work to be done too."}
+                {"speaker": "", "text": "Paul arrives downstairs looking around his kitchen, he thinks to himself"},
+                {"speaker": "Paul", "text": "* There are things to do...whether I do them or not...is another story *"}
+                
             ],
             "nextNodeID": 6
         },
         {
             "id": 6,
             "type": "Choice",
+            "function": "GoToLivingRoom",
             "choices": [
-              { "text": "Make Breakfast", "goesTo": 7, "repeatable": false},
-              { "text": "Prepare Go Bag", "goesTo": 9, "repeatable": false },
-              { "text": "Explore the Yard", "goesTo": 11, "repeatable": true }
+              { "text": "Make Breakfast (30 Minutes)", "goesTo": 7, "repeatable": false},
+              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 8, "repeatable": false },
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
         },
         {
             "id": 7,
             "type": "Dialogue",
-            "function": "Use30Minutes",
+            "function": "MakeBreakfast",
             "lines": [
               {"speaker": "", "text": "Paul roams around the kitchen quickly"},
 
@@ -136,27 +131,17 @@
               {"speaker": "Paul", "text": "I could see if there's anything else to do in the kitchen or yard too"}
               
             ],
-            "nextNodeID": 8
+            "nextNodeID": 6
           },
 
           {
             "id": 8,
-            "type": "Choice",
-            "choices": [
-              { "text": "Check Downstairs", "goesTo": 5, "repeatable": true},
-              { "text": "Prepare Go Bag", "goesTo": 9 , "repeatable": false}
-            ],
-            "nextNodeID": -1
-          },
-
-          {
-            "id": 9,
             "type": "Dialogue",
-            "function": "Use30Minutes",
+            "function": "GoBag",
             "lines": [
               {"speaker": "", "text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
 
-              {"speaker": "", "text": "Cal Fire suggests a go bag containing: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)"},
+              {"speaker": "Cal Fire", "text": "a go-bag could contain: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)"},
 
               {"speaker": "", "text": "As he sets the photo of Mary inside he quietly whispers"},
               
@@ -167,6 +152,26 @@
               {"speaker": "Paul", "text": "I should clean up and go out, This fire doesn't seem to be getting any closer though"}
               
             ],
+            "nextNodeID": 6
+          },
+          {
+            "id": 9,
+            "type": "Dialogue",
+            "lines": [
+              {"speaker": "", "text": "Paul heads outside to his yard."},
+
+              {"speaker": "", "text": "The yard is huge and surrounbded by a white picket fence. The yard has two main areas..."},
+
+              {"speaker": "", "text": "The Backyard has the pool and a big, overgrown oak tree."},
+              
+              {"speaker": "Paul", "text": "I should probably make sure nothing is ignitable"},
+              
+              {"speaker": "", "text": "The Frontyard has a huge patch. it's gone yellow since mary passed."}, 
+              
+              {"speaker": "", "text": "It looks like Aldo the neighbor is still bird-watching out front"},
+              
+              {"speaker": "Paul", "text": "I could also go back inside"}
+            ],
             "nextNodeID": 10
           },
 
@@ -174,8 +179,9 @@
             "id": 10,
             "type": "Choice",
             "choices": [
-              { "text": "Make Breakfast", "goesTo": 7, "repeatable": false },
-              { "text": "Go Back Downstairs", "goesTo": 5, "repeatable": true }
+              { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
+              { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
+              { "text": "Head Back inside", "goesTo": 6, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -183,18 +189,14 @@
           {
             "id": 11,
             "type": "Dialogue",
+            "function": "GoToFrontYard",
             "lines": [
-              {"speaker": "", "text": "Paul's yard is huge with a fence surrounding his house abut 500ft. out. His yard is split into two main sections."},
+              {"speaker": "", "text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died. Paul Chuckles..."},
 
-              {"speaker": "", "text": "The Backyard has the pool and a big, overgrown oak tree."},
+              {"speaker": "Paul", "text": "let's see how my P.S.V.(Porch Side View) is"},
+      
+              {"speaker": "", "text": "the rest of the yard looks like it has more work to do too"}
               
-              {"speaker": "Paul", "text": "I should probably make sure nothing is ignitable"},
-              
-              {"speaker": "", "text": "The Frontyard has a spawning grassy lawn. it's gone yellow since mary passed."}, 
-              
-              {"speaker": "", "text": "It looks like Aldo the neighbor is out-front."},
-              
-              {"speaker": "Paul", "text": "I could also go back inside"}
             ],
             "nextNodeID": 12
           },
@@ -203,9 +205,9 @@
             "id": 12,
             "type": "Choice",
             "choices": [
-              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true },
-              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true },
-              { "text": "Head Back inside", "goesTo": 5, "repeatable": true }
+              { "text": "Cut the Lawn (30 minutes)", "goesTo": 13, "repeatable": false },
+              { "text": "Talk to Aldo (30 Minutes)", "goesTo": 14, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
           },
@@ -213,60 +215,22 @@
           {
             "id": 13,
             "type": "Dialogue",
-            "function": "GoToBackYard",
-            "lines": [
-              {"speaker": "", "text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died."},
-
-              {"speaker": "Paul", "text": "The lawn looks awfully yellow I really should cut it down"},
-              
-              {"speaker": "Paul", "text": "I haven't talked to Aldo in awhile, maybe I should see what he thinks about all this."},
-              
-              {"speaker": "", "text": "the rest of the yard looks like it has more work to do too"}
-              
-            ],
-            "nextNodeID": 14
-          },
-
-          {
-            "id": 14,
-            "type": "Choice",
-            "choices": [
-              { "text": "Cut the Lawn", "goesTo": 15, "repeatable": false },
-              { "text": "Talk to Aldo", "goesTo": 17, "repeatable": false },
-              { "text": "Check other parts of the yard", "goesTo": 11, "repeatable": true }
-            ],
-            "nextNodeID": -1
-          },
-
-          {
-            "id": 15,
-            "type": "Dialogue",
             "function": "CutLawn",
             "lines": [
               {"speaker": "", "text": "Paul quickly mows the yellowed lawn down and sweeps the clippings up."},
 
               {"speaker": "Paul", "text":  "I always hated looking at that yellow mess anyways"},
               
-              {"speaker": "", "text": "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home."},
+              {"speaker": "Cal Fire", "text": "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home."},
               
               {"speaker": "Paul", "text": "I think I see Aldo outside still, maybe I should check in with him"}
             ],
-            "nextNodeID": 16
+            "nextNodeID": 12
           },
           {
-            "id": 16,
-            "type": "Choice",
-            "choices": [
-              { "text": "Talk to Aldo", "goesTo": 17, "repeatable": false },
-              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true }
-            ],
-            "nextNodeID": -1
-          },
-
-          {
-            "id": 17,
+            "id": 14,
             "type": "Dialogue",
-            "function": "Use30Minutes",
+            "function": "AldoTalk",
             "lines": [
               {"speaker": "", "text": "Paul goes over to talk to Aldo"},
 
@@ -276,49 +240,35 @@
               
               {"speaker": "Paul", "text": "The grass looks pretty dead, I should probably mow it down"}
             ],
-            "nextNodeID": 18
+            "nextNodeID": 12
           },
           {
-            "id": 18,
-            "type": "Choice",
-            "choices": [
-              { "text": "Cut the Lawn", "goesTo": 15, "repeatable": false },
-              { "text": "Explore Frontyard", "goesTo": 13, "repeatable": true }
-            ],
-            "nextNodeID": -1
-          },
-          {
-            "id": 19,
+            "id": 15,
             "type": "Dialogue",
             "function": "GoToBackYard",
             "lines": [
               {"speaker": "", "text": "The backyard is relatively big with trees and a brick wall surrounding it. "},
 
-              {"speaker": "", "text":"Paul had a pool installed when he and Mary first moved in. "},
+              {"speaker": "", "text": "Paul had a pool installed when he and Mary first moved in. "},
               
-              {"speaker": "Paul", "text": "I really should stop servicing this money hole I never use it and the upkeep is ridiculous"},
+              {"speaker": "Paul", "text": "I really should stop servicing this money hole I never use it and the upkeep is ridiculous"}
               
-              {"speaker": "", "text": "Roof has a large overgrown branch connected to the house, maybe it should get cut? - Paul thinks to himself"},
-
-              {"speaker": "", "text": "Paul looks up and notices the gutter is filled with leaves and dry material that fell off the tree"},
-              
-              {"speaker": "Paul", "text": "I could also check the rest of the yard too"}
               
             ],
-            "nextNodeID": 20
+            "nextNodeID": 16
           },
           {
-            "id": 20,
+            "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "goesTo": 21, "repeatable": false },
-              { "text": "Clean the Gutter", "goesTo": 23, "repeatable": false },
-              { "text": "Check other parts of the yard", "goesTo": 11, "repeatable": true }
+              { "text": "Cut the Tree (30 Minutes)", "goesTo": 17, "repeatable": false },
+              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 18, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
           },
           {
-            "id": 21,
+            "id": 17,
             "type": "Dialogue",
             "function": "CutTree",
             "lines": [
@@ -328,25 +278,15 @@
               
               {"speaker": "", "text": "Once finished, he collects the branches placing them in his yard-waste dedicated bin."},
 
-              {"speaker": "", "text": "Once down, he notices the gutter overfilling with leaves."},
-              
-              {"speaker": "Paul", "text": "Maybe I should clean those out since I'm already here."}
+              {"speaker": "Cal Fire", "text": "Remove all branches within 10 feet of any chimney or stovepipe outlet as they intrude yoour home's defensible zone."}
+
               
               
             ],
-            "nextNodeID": 22
+            "nextNodeID": 16
           },
           {
-            "id": 22,
-            "type": "Choice",
-            "choices": [
-              { "text": "Clean the Gutter", "goesTo": 23, "repeatable": false },
-              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true  }
-            ],
-            "nextNodeID": -1
-          },
-          {
-            "id": 23,
+            "id": 18,
             "type": "Dialogue",
             "function": "CleanGutters",
             "lines": [
@@ -355,22 +295,11 @@
               {"speaker": "Paul", "text": "No wonder the gutter had been flooding last winter"},
               
               {"speaker": "", "text": "By the time he's done, the waste bin is filled to the brim"},
-              
-              {"speaker": "", "text": "Finished, he notices the large branch from his tree is hitting his house."},
-              
-              {"speaker": "Paul", "text": "I really should trim that tree before it gets any larger, it looks like its hitting the roof by now..."}
-            ],
-            "nextNodeID": 24
-          },
-          {
-            "id": 24,
-            "type": "Choice",
-            "choices": [
-              { "text": "Cut the Tree", "goesTo": 21, "repeatable": false},
-              { "text": "Explore Backyard", "goesTo": 19, "repeatable": true }
-            ],
-            "nextNodeID": -1
-          }
 
+              {"speaker": "Cal Fire", "text": "Defensible space is the buffer between your structure and the surrounding area. The accumulation of debris in guttersserves as one of the greatest fire hazards for a standing structure. In the event that embers ignite debris the resulting fire will directly expose the edge of the roof to flames."}
+        
+            ],
+            "nextNodeID": 16
+          }
     ]
 }

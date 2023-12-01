@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEngine;
 public class EW_StoryFunctions
 {
     public static EW_SceneManager sceneManager;
@@ -21,6 +23,17 @@ public class EW_StoryFunctions
     public void ShowTimer()
     {
         useUpTime(0);
+    }
+
+    public void GoBag(){
+        EW_SceneManager.goBag = true;
+        Debug.Log("GoBag()_called");
+        useUpTime(30);
+    }
+
+    public void AldoTalk(){
+        EW_SceneManager.neighborTalk = true;
+        useUpTime(30);
     }
 
     public void CutLawn()
