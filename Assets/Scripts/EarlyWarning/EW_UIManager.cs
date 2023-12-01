@@ -65,7 +65,7 @@ public class EW_UIManager : MonoBehaviour
     public void ShowTaskList()
     {
         taskList.SetActive(true);
-        taskList.GetComponent<TextMeshProUGUI>().text = GetTaskListText();
+        taskList.GetComponentInChildren<TextMeshProUGUI>().text = GetTaskListText();
     }
 
     private string GetTaskListText()
