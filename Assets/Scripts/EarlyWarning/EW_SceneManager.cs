@@ -53,11 +53,12 @@ public class EW_SceneManager : MonoBehaviour
 
     public void EndPrefirePhase()
     {
-        uiManager.timerText.text = "";
+        uiManager.HideUI();
         if (actorParent != null)
         {
             Destroy(actorParent);
         }
+        curNode = null;
         background.enabled = false;
         done = true;
         uiManager.
@@ -69,14 +70,13 @@ public class EW_SceneManager : MonoBehaviour
         if (nodeIndex == -1)
         {
             EndPrefirePhase();
-            curNode = null;
-            done = true;
             return;
         }
         // Debug.Log("Changing from " + curNode + " at index " + nodeList.IndexOf(curNode) + " to " + nodeList[nodeIndex] + " at index " + nodeIndex);
         if (curNode != nodeList[nodeIndex])
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
+            if (done) { return; }
             curNode = nodeList[nodeIndex];
             curNode.Enter();
         }

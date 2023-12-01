@@ -62,6 +62,14 @@ public class EW_UIManager : MonoBehaviour
         }
     }
 
+    public void HideUI()
+    {
+        dialogueBox.enabled = false;
+        dialogueTextComponent.text = "";
+        HideNameplate();
+        timerText.text = "";
+    }
+
     public void ShowTaskList()
     {
         taskList.SetActive(true);
