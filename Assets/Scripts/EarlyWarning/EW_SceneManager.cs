@@ -12,6 +12,12 @@ public class EW_SceneManager : MonoBehaviour
     public GameObject actorParent;
     public bool storySelected = false;
 
+    //Task list
+    public static bool cutLawn = false;
+    public static bool cutTree = false;
+    public static bool cleanedGutters = false;
+    public static bool madeBreakfast = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +51,24 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
+    public void EndPrefirePhase()
+    {
+        uiManager.timerText.text = "";
+        if (actorParent != null)
+        {
+            Destroy(actorParent);
+        }
+        background.enabled = false;
+        done = true;
+        uiManager.
+        ShowTaskList();
+    }
+
     public void ChangeStoryNode(int nodeIndex)
     {
         if (nodeIndex == -1)
         {
-            Debug.Log("Story finished!");
+            EndPrefirePhase();
             curNode = null;
             done = true;
             return;
