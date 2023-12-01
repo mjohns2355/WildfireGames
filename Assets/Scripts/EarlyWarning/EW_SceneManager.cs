@@ -81,6 +81,7 @@ public class EW_SceneManager : MonoBehaviour
             return;
         }
         // Debug.Log("Changing from " + curNode + " at index " + nodeList.IndexOf(curNode) + " to " + nodeList[nodeIndex] + " at index " + nodeIndex);
+        Debug.Log("Node Index:" + nodeIndex);
         if (curNode != nodeList[nodeIndex])
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();

@@ -178,7 +178,7 @@
             "type": "Choice",
             "choices": [
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
-              { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
+              { "text": "Explore Backyard", "goesTo": 16, "repeatable": true },
               { "text": "Stay inside", "goesTo": 6, "repeatable": true }
             ],
             "nextNodeID": -1
@@ -225,8 +225,20 @@
             ],
             "nextNodeID": 12
           },
+
           {
             "id": 14,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": -4.25, "y": 0 }, "actorName": "Paul" },
+
+              { "targetPosition": { "x": 4.5, "y": 0 }, "actorName": "Paul" }
+
+            ],
+            "nextNodeID": 15
+          },
+          {
+            "id": 15,
             "type": "Dialogue",
             "function": "AldoTalk",
             "lines": [
@@ -241,7 +253,7 @@
             "nextNodeID": 12
           },
           {
-            "id": 15,
+            "id": 16,
             "type": "Dialogue",
             "function": "GoToBackYard",
             "lines": [
@@ -253,20 +265,20 @@
               
               
             ],
-            "nextNodeID": 16
+            "nextNodeID": 17
           },
           {
-            "id": 16,
+            "id": 17,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree (30 Minutes)", "goesTo": 17, "repeatable": false },
-              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 18, "repeatable": false },
+              { "text": "Cut the Tree (30 Minutes)", "goesTo": 18, "repeatable": false },
+              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 19, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
           },
           {
-            "id": 17,
+            "id": 18,
             "type": "Dialogue",
             "function": "CutTree",
             "lines": [
@@ -281,10 +293,10 @@
               
               
             ],
-            "nextNodeID": 16
+            "nextNodeID": 17
           },
           {
-            "id": 18,
+            "id": 19,
             "type": "Dialogue",
             "function": "CleanGutters",
             "lines": [
@@ -297,7 +309,7 @@
               {"speaker": "Cal Fire", "text": "Defensible space is the buffer between your structure and the surrounding area. The accumulation of debris in guttersserves as one of the greatest fire hazards for a standing structure. In the event that embers ignite debris the resulting fire will directly expose the edge of the roof to flames."}
         
             ],
-            "nextNodeID": 16
+            "nextNodeID": 17
           }
     ]
 }
