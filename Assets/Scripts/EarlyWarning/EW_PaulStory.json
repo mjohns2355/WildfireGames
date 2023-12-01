@@ -158,9 +158,7 @@
             "id": 9,
             "type": "Dialogue",
             "lines": [
-              {"speaker": "", "text": "Paul heads outside to his yard."},
-
-              {"speaker": "", "text": "The yard is huge and surrounbded by a white picket fence. The yard has two main areas..."},
+              {"speaker": "", "text": "Go to the front yard or the back yard?"},
 
               {"speaker": "", "text": "The Backyard has the pool and a big, overgrown oak tree."},
               
@@ -170,7 +168,7 @@
               
               {"speaker": "", "text": "It looks like Aldo the neighbor is still bird-watching out front"},
               
-              {"speaker": "Paul", "text": "I could also go back inside"}
+              {"speaker": "Paul", "text": "There's still stuff I can do inside though"}
             ],
             "nextNodeID": 10
           },
@@ -181,7 +179,7 @@
             "choices": [
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
               { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
-              { "text": "Head Back inside", "goesTo": 6, "repeatable": true }
+              { "text": "Stay inside", "goesTo": 6, "repeatable": true }
             ],
             "nextNodeID": -1
           },
