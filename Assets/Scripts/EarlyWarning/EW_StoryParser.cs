@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System;
-using System.IO;
 
 public class EW_StoryParser
 {
     public static EW_StoryNode Parse(string jsonFilePath, EW_SceneManager sceneManager)
     {
-        string jsonString = File.ReadAllText(jsonFilePath);
+        TextAsset textData = Resources.Load<TextAsset>(jsonFilePath);
+        string jsonString = textData.text;
         NodeDataWrapper dataWrapper = JsonUtility.FromJson<NodeDataWrapper>(jsonString);
         List<StoryNodeData> nodeDataList = dataWrapper.nodes;
 

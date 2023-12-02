@@ -5,7 +5,7 @@ public class EW_StoryFunctions
     public static EW_SceneManager sceneManager;
     public static EW_UIManager uiManager;
 
-    private void useUpTime(int time)
+    private static void useUpTime(int time)
     {
         EW_SceneManager.minutesRemaining -= time;
         uiManager.updateTimer(EW_SceneManager.minutesRemaining);
@@ -15,62 +15,64 @@ public class EW_StoryFunctions
         }
     }
 
-    public void Use30Minutes()
+    public static void Use30Minutes()
     {
         useUpTime(30);
     }
 
-    public void ShowTimer()
+    public static void ShowTimer()
     {
         useUpTime(0);
     }
 
-    public void GoBag(){
+    public static void GoBag()
+    {
         EW_SceneManager.goBag = true;
         Debug.Log("GoBag()_called");
         useUpTime(30);
     }
 
-    public void AldoTalk(){
+    public static void AldoTalk()
+    {
         EW_SceneManager.neighborTalk = true;
         useUpTime(30);
     }
 
-    public void CutLawn()
+    public static void CutLawn()
     {
         EW_SceneManager.cutLawn = true;
         useUpTime(30);
     }
 
-    public void CutTree()
+    public static void CutTree()
     {
         EW_SceneManager.cutTree = true;
         useUpTime(30);
     }
 
-    public void CleanGutters()
+    public static void CleanGutters()
     {
         EW_SceneManager.cleanedGutters = true;
         useUpTime(30);
     }
 
-    public void MakeBreakfast()
+    public static void MakeBreakfast()
     {
         EW_SceneManager.madeBreakfast = true;
         useUpTime(30);
     }
 
-    public void GoToLivingRoom()
+    public static void GoToLivingRoom()
     {
         sceneManager.GoToArea("PaulLivingRoom");
     }
 
-    public void GoToBackYard()
+    public static void GoToBackYard()
     {
         sceneManager.GoToArea("PaulBackyard");
     }
 
-    public void GoToFrontYard()
+    public static void GoToFrontYard()
     {
         sceneManager.GoToArea("PaulFrontYard");
     }

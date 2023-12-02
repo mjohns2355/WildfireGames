@@ -99,7 +99,7 @@ public class EW_UIManager : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
                 sceneManager.storySelected = true;
-                string storyPath = "Assets/Scripts/EarlyWarning/" + names[buttonIndex] + ".json";
+                string storyPath = "EarlyWarning/StoryJSONs/" + names[buttonIndex];
                 storyButtons.ForEach(b => Destroy(b));
                 EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
                 EW_SceneManager.curNode.Enter();

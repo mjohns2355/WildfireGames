@@ -49,7 +49,8 @@ public class EW_SceneManager : MonoBehaviour
                 return;
             }
 
-            ChangeStoryNode(curNode.Advance());
+            int nextNode = curNode.Advance();
+            ChangeStoryNode(nextNode);
         }
     }
 
@@ -68,7 +69,7 @@ public class EW_SceneManager : MonoBehaviour
 
         Invoke("ChangeStoryNodeWrapper", 3.0f);
     }
-    
+
     private void EndOfPreFireWrapper()
     {
         ChangeStoryNode(25);
