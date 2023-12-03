@@ -24,8 +24,8 @@ public class FYT_SceneSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //sceneItems = randomization(numberOfItems);
-        sceneItems = allItems; // just for debugging purposes
+        sceneItems = randomization(numberOfItems);
+        // sceneItems = allItems; // just for debugging purposes
         if (FYT_SettingsData.medsNeeded && livingRoom.activeSelf) {
             sceneItems.Add(medicine);
         }
