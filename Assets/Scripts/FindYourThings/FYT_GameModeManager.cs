@@ -37,6 +37,7 @@ public class FYT_GameModeManager : MonoBehaviour
         meds = medicationToggle.isOn;
         eyesAndEars = eyesAndEarsToggle.isOn;
         pets = petToggle.isOn;
+
         if(goBagGameUI.activeSelf){
             if(meds == true){
                 FYT_SettingsData.medsNeeded = true;
@@ -48,7 +49,7 @@ public class FYT_GameModeManager : MonoBehaviour
                 //Debug.Log("No pets.");
             }
         }
-        else if(CritListGameUI.activeSelf){
+        if(CritListGameUI.activeSelf){
             if(meds == true){
                 FYT_SettingsData.medsNeeded = true;
             }
@@ -59,7 +60,6 @@ public class FYT_GameModeManager : MonoBehaviour
                 //Debug.Log("No pets.");
             }
         }
-
     }
 
     public void continueGame()
