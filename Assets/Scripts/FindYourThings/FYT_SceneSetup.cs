@@ -24,15 +24,7 @@ public class FYT_SceneSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneItems = randomization(numberOfItems);
-        // sceneItems = allItems; // just for debugging purposes
-        if (FYT_SettingsData.medsNeeded && livingRoom.activeSelf) {
-            sceneItems.Add(medicine);
-        }
-        if (FYT_SettingsData.glassesNeeded && livingRoom.activeSelf) {
-            sceneItems.Add(glasses);
-        }
-        
+        startUp();
         setup();
     }
 
@@ -43,6 +35,7 @@ public class FYT_SceneSetup : MonoBehaviour
     }
     
     void OnEnable() {
+        // Debug.Log("enabled"); 
         setup();
     }
 
@@ -69,7 +62,7 @@ public class FYT_SceneSetup : MonoBehaviour
         return finalItemList;
     }
 
-    void setup() 
+    public void setup() 
     {
         foreach (GameObject item in sceneItems)
         {
@@ -83,6 +76,30 @@ public class FYT_SceneSetup : MonoBehaviour
         foreach (GameObject item in sceneItems)
         {
             Debug.Log(item);
+        }
+    }
+
+    public void startUp()
+    {
+        // Debug.Log(FYT_SettingsData.medsNeeded);
+        // Debug.Log(FYT_SettingsData.glassesNeeded);
+        foreach (GameObject item in allItems)
+        {
+            item.SetActive(false);
+        }
+        sceneItems = randomization(numberOfItems);
+        // sceneItems = allItems; // just for debugging purposes
+        if (FYT_SettingsData.medsNeeded && livingRoom.activeSelf) {
+            sceneItems.Add(medicine);
+        } else if (FYT_SettingsData.medsNeeded==false && livingRoom.activeSelf)
+        {
+            medicine.SetActive(false);
+        }
+        if (FYT_SettingsData.glassesNeeded && livingRoom.activeSelf) {
+            sceneItems.Add(glasses);
+        } else if (FYT_SettingsData.glassesNeeded==false && livingRoom.activeSelf)
+        {
+           glasses.SetActive(false);
         }
     }
 

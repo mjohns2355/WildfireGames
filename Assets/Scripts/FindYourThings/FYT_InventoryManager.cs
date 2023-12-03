@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +12,6 @@ and clicking on the textual representation of the item should put the item back 
 */
 public class FYT_InventoryManager : MonoBehaviour
 {
-    private static FYT_InventoryManager _instance; // static private variable of the component data type
-	public static FYT_InventoryManager Instance { get { return _instance; } } // public way to access the private variable
-
     private List<GameObject> inventoryItems;
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
@@ -20,20 +19,26 @@ public class FYT_InventoryManager : MonoBehaviour
     private int offsetAmount = 50;
     private Vector2 offset = new Vector3(0, 50);
 
-	private void Awake() {
-        // if there is already a value assigned to the private variable and its not this, destroy this
-    	if (_instance != null && _instance != this) {
-        	Destroy(this.gameObject);
-    	} else { 
-        // if there is no value assigned to the private variable, assign this as the reference
-        	_instance = this;
-        }	
-    }
-
     void Start()
     {
         inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
         inventoryItems = new List<GameObject>();
+    }
+
+    void OnEnable()
+    {
+        if (inventoryItems != null)
+        {
+            resetInventory();
+            foreach (Transform child in transform)
+            {
+                if (child.tag == "Room")
+                {
+                    child.GetComponent<FYT_SceneSetup>().startUp();
+                    child.GetComponent<FYT_SceneSetup>().setup();
+                }
+            }
+        }
     }
 
     void Update()
@@ -75,6 +80,16 @@ public class FYT_InventoryManager : MonoBehaviour
             localOffset.y += offsetAmount;
         }
         offset = localOffset;
+    }
+
+    private void resetInventory()
+    {
+        foreach (GameObject item in inventoryItems.ToArray())
+        {
+            item.GetComponent<Button>().onClick.Invoke();
+            Destroy(item);
+            inventoryItems.Remove(item);
+        }
     }
 }
     

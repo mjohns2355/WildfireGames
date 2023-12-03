@@ -39,23 +39,15 @@ public class FYT_GameModeManager : MonoBehaviour
         pets = petToggle.isOn;
 
         if(goBagGameUI.activeSelf){
-            if(meds == true){
-                FYT_SettingsData.medsNeeded = true;
-            }
-            if(eyesAndEars == true){
-                FYT_SettingsData.glassesNeeded = true;
-            }
+            FYT_SettingsData.medsNeeded = meds;
+            FYT_SettingsData.glassesNeeded = eyesAndEars;
             if(pets == false){
                 //Debug.Log("No pets.");
             }
         }
         if(CritListGameUI.activeSelf){
-            if(meds == true){
-                FYT_SettingsData.medsNeeded = true;
-            }
-            if(eyesAndEars == true){
-                FYT_SettingsData.glassesNeeded = true;
-            }
+            FYT_SettingsData.medsNeeded = meds;
+            FYT_SettingsData.glassesNeeded = eyesAndEars;
             if(pets == false){
                 //Debug.Log("No pets.");
             }
