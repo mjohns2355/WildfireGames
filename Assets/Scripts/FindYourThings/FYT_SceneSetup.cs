@@ -16,6 +16,7 @@ public class FYT_SceneSetup : MonoBehaviour
 {
     [SerializeField] private int numberOfItems;
     [SerializeField] private List<GameObject> allItems;
+    public GameObject livingRoom;
     public List<GameObject> sceneItems;
     public GameObject medicine;
     public GameObject glasses;
@@ -25,10 +26,10 @@ public class FYT_SceneSetup : MonoBehaviour
     {
         //sceneItems = randomization(numberOfItems);
         sceneItems = allItems; // just for debugging purposes
-        if (FYT_SettingsData.medsNeeded) {
+        if (FYT_SettingsData.medsNeeded && livingRoom.activeSelf) {
             sceneItems.Add(medicine);
         }
-        if (FYT_SettingsData.glassesNeeded) {
+        if (FYT_SettingsData.glassesNeeded && livingRoom.activeSelf) {
             sceneItems.Add(glasses);
         }
         
