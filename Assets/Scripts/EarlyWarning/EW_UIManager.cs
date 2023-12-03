@@ -89,8 +89,6 @@ public class EW_UIManager : MonoBehaviour
     public void CreateStoryButtons(string[] names)
     {
         storyButtons = new List<GameObject>();
-        Debug.Log("Creating story buttons");
-
         for (int i = 0; i < names.Length; i++)
         {
             GameObject button = Instantiate(buttonPrefab, GameObject.Find("StoryButtonParent").transform);
@@ -103,6 +101,7 @@ public class EW_UIManager : MonoBehaviour
                 storyButtons.ForEach(b => Destroy(b));
                 EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
                 EW_SceneManager.curNode.Enter();
+                EW_SceneManager.curNode.Play();
             });
             storyButtons.Add(button);
         }
@@ -114,7 +113,6 @@ public class EW_UIManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Setting up choices");
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
 
