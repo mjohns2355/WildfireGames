@@ -9,6 +9,7 @@ public class EW_StoryFunctions
     {
         EW_SceneManager.minutesRemaining -= time;
         uiManager.updateTimer(EW_SceneManager.minutesRemaining);
+
         if (EW_SceneManager.minutesRemaining <= 0)
         {
             EW_EventSystem.LeaveStoryNodeEvent += sceneManager.EndPrefirePhase;

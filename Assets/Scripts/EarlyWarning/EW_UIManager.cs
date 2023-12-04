@@ -86,7 +86,7 @@ public class EW_UIManager : MonoBehaviour
     private string GetTaskListText()
     {
         string text = "Tasks Completed:\n\n";
-        text += "Cleaned the yard:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
+        text += "Mow the lawn:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
         text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
         text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
         text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
@@ -181,6 +181,9 @@ public class EW_UIManager : MonoBehaviour
             Destroy(button.gameObject);
         }
         choiceButtons.Clear();
+    }
+
+    public void RemoveEscapeButton(){
         if (escapeButton != null)
         {
             escapeButton.gameObject.SetActive(false);

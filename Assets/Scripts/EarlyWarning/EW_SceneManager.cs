@@ -77,7 +77,7 @@ public class EW_SceneManager : MonoBehaviour
 
     public void Escape()
     {
-        uiManager.RemoveChoiceButtons();
+        uiManager.RemoveEscapeButton();
         ChangeStoryNode(1000);
         EW_EventSystem.LeaveStoryNodeEvent += EndPrefirePhase;
     }
