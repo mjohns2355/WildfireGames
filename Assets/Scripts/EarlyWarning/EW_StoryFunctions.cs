@@ -25,7 +25,9 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
-
+    public static void WarningHeard(){
+        uiManager.ShowEscapeButton();
+    }
 
     public static void GoBag()
     {

@@ -35,6 +35,8 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private float portraitOrthographicSize = 9f;
 
+    public Button EscapeButton;
+
     public void Start()
     {
         dialogueBox.enabled = false;
@@ -69,6 +71,11 @@ public class EW_UIManager : MonoBehaviour
         HideNameplate();
         timerText.text = "";
     }
+
+    public void ShowEscapeButton() {
+        EscapeButton.gameObject.SetActive(true);
+    }
+
 
     public void ShowTaskList()
     {
@@ -174,6 +181,7 @@ public class EW_UIManager : MonoBehaviour
             Destroy(button.gameObject);
         }
         choiceButtons.Clear();
+        EscapeButton.gameObject.SetActive(false);
     }
 
     public void BeginDialogue(EW_DialogueLine line)
@@ -229,7 +237,7 @@ public class EW_UIManager : MonoBehaviour
 
         for (int i = 0; i < curLine.text.Length; i++)
         {
-            dialogueTextComponent.text += curLine.text[i]; // Add one character at a time
+            dialogueTextComponent.text += curLine.text[i]; 
 
             // Wait for a short duration to control the typing speed
             yield return new WaitForSeconds(letterDelay);
