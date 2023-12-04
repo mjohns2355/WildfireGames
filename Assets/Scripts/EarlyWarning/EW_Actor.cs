@@ -6,7 +6,7 @@ public class EW_Actor : MonoBehaviour
     public bool executing = false;
     Coroutine curMove;
     Vector2 targetPos;
-    float moveSpeed = 2;
+    float moveSpeed = 4;
 
     public Sprite upSprite;
     public Sprite downSprite;
@@ -48,7 +48,7 @@ public class EW_Actor : MonoBehaviour
     {
         SkipCurrentMove();
         EW_EventSystem.LeaveStoryNodeEvent += SkipCurrentMove;
-        curMove = StartCoroutine(MoveTo(command.targetPosition));
+        curMove = StartCoroutine(Move(command.deltaPos));
     }
 
     private void SkipCurrentMove()
@@ -57,33 +57,40 @@ public class EW_Actor : MonoBehaviour
         {
             transform.position = targetPos;
             StopCoroutine(curMove);
+            executing = false;
+            curMove = null;
         }
         EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
     }
 
-    private IEnumerator MoveTo(Vector2 targetPosition)
+    private IEnumerator Move(Vector2 deltaPosition)
     {
+        Debug.Log("Move()");
         executing = true;
-        targetPos = targetPosition;
+        targetPos = (Vector2)transform.position + deltaPosition;
         Vector2 initialPosition = transform.position;
-        float distance = Vector2.Distance(initialPosition, targetPosition);
+        float distance = Vector2.Distance(initialPosition, targetPos);
         float duration = distance / moveSpeed;
         float elapsedTime = 0f;
+
+        Debug.LogFormat("Moving from {0} to {1} in {2} seconds", initialPosition, targetPos, duration);
 
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
             previousPosition = transform.position;
-            transform.position = Vector2.Lerp(initialPosition, targetPosition, t);
+            transform.position = Vector2.Lerp(initialPosition, targetPos, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         //Make sure we hit it exactly
-        transform.position = targetPosition;
+        transform.position = targetPos;
 
+        EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
         executing = false;
         curMove = null;
+        EW_EventSystem.InvokeEndMoveEvent();
     }
 }

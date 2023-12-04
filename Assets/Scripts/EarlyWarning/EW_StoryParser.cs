@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System;
-using System.IO;
 
 public class EW_StoryParser
 {
     public static EW_StoryNode Parse(string jsonFilePath, EW_SceneManager sceneManager)
     {
-        string jsonString = File.ReadAllText(jsonFilePath);
+        TextAsset textData = Resources.Load<TextAsset>(jsonFilePath);
+        string jsonString = textData.text;
         NodeDataWrapper dataWrapper = JsonUtility.FromJson<NodeDataWrapper>(jsonString);
         List<StoryNodeData> nodeDataList = dataWrapper.nodes;
 
@@ -16,19 +16,17 @@ public class EW_StoryParser
         {
             EW_StoryNode node = CreateNode(nodeData, sceneManager);
             node.id = nodeData.id;
-            EW_SceneManager.nodeList.Add(node);
+            EW_SceneManager.nodeDict.Add(node.id, node);
         }
 
-        for (int i = 0; i < nodeDataList.Count; i++)
+        foreach (var nodeData in nodeDataList)
         {
-            if (nodeDataList[i].nextNodeID < EW_SceneManager.nodeList.Count)
-            {
-                EW_SceneManager.nodeList[i].nextNode = nodeDataList[i].nextNodeID;
-            }
+            var data = nodeDataList.Find(item => item.id == nodeData.id);
+            EW_SceneManager.nodeDict[nodeData.id].nextNode = data.nextNodeID;
         }
 
         // Return the first node
-        return EW_SceneManager.nodeList.Count > 0 ? EW_SceneManager.nodeList[0] : null;
+        return EW_SceneManager.nodeDict.Count > 0 ? EW_SceneManager.nodeDict[0] : null;
     }
 
     private static EW_StoryNode CreateNode(StoryNodeData nodeData, EW_SceneManager sceneManager)

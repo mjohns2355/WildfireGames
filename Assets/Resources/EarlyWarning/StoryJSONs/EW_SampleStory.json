@@ -7,7 +7,7 @@
       "commands": [
         { "targetPosition": { "x": -4.5, "y": 0 }, "actorName": "Paul" },
         {
-          "targetPosition": { "x": -4.5, "y": 2.5 },
+          "targetPosition": { "x": 0, "y": 2.5 },
           "actorName": "Paul",
           "final": true
         }
@@ -20,7 +20,7 @@
       "function": "ShowTimer",
       "lines": [
         { "speaker": "Paul", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
-        { "speaker": "", "text": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+        { "text": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "important": true },
         { "speaker": "Narrator", "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
       ],
       "nextNodeID": 2

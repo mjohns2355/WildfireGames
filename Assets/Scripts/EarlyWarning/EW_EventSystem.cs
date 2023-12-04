@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class EW_EventSystem
 {
+    public static event Action EndMoveEvent;
+
     public delegate void DialogueDelegate(EW_DialogueLine line);
     public static event DialogueDelegate TriggerDialogueEvent, SkipDialogueEvent;
 
-    public delegate void StoryNodeDelegate(EW_StoryNode node);
+    // public delegate void StoryNodeDelegate(EW_StoryNode node);
     public static event Action LeaveStoryNodeEvent;
 
     public delegate void ChoicesDelegate(List<EW_Choice> choices);
@@ -41,5 +44,11 @@ public static class EW_EventSystem
     public static void InvokeChoiceSetupEvent(List<EW_Choice> choices)
     {
         ChoiceSetupEvent?.Invoke(choices);
+    }
+
+    public static void InvokeEndMoveEvent()
+    {
+        Debug.Log("Invoking EndMoveEvent");
+        EndMoveEvent?.Invoke();
     }
 }

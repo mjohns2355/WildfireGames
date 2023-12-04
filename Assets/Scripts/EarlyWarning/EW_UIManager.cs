@@ -15,7 +15,7 @@ public class EW_UIManager : MonoBehaviour
     private EW_DialogueLine curLine;
     public Coroutine typingCoroutine = null;
 
-    private List<Button> choiceButtons = new List<Button>();
+    public List<Button> choiceButtons = new List<Button>();
     [SerializeField]
     private GameObject buttonPrefab;
     private List<GameObject> storyButtons;
@@ -31,12 +31,13 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
     [SerializeField]
-    private float landscapeOrthographicSize = 5f;
-    [SerializeField]
-    private float portraitOrthographicSize = 9f;
+    private float landscapeOrthographicSize = 5f, portraitOrthographicSize = 9f;
+
+    public Button escapeButton;
 
     public void Start()
     {
+        escapeButton.gameObject.SetActive(false);
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         selectedChoices = new List<EW_Choice>();
@@ -67,8 +68,19 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         HideNameplate();
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
         timerText.text = "";
     }
+
+    public void ShowEscapeButton()
+    {
+        escapeButton.gameObject.SetActive(true);
+    }
+
 
     public void ShowTaskList()
     {
@@ -79,18 +91,16 @@ public class EW_UIManager : MonoBehaviour
     private string GetTaskListText()
     {
         string text = "Tasks Completed:\n\n";
-        text += "Cleaned the yard:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
+        text += "Mow the lawn:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
         text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
         text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
-        text += "Made breakfast: " + (EW_SceneManager.madeBreakfast ? "YES" : "NO") + "\n";
+        text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
         return text;
     }
 
     public void CreateStoryButtons(string[] names)
     {
         storyButtons = new List<GameObject>();
-        Debug.Log("Creating story buttons");
-
         for (int i = 0; i < names.Length; i++)
         {
             GameObject button = Instantiate(buttonPrefab, GameObject.Find("StoryButtonParent").transform);
@@ -99,10 +109,11 @@ public class EW_UIManager : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
                 sceneManager.storySelected = true;
-                string storyPath = "Assets/Scripts/EarlyWarning/" + names[buttonIndex] + ".json";
+                string storyPath = "EarlyWarning/StoryJSONs/" + names[buttonIndex];
                 storyButtons.ForEach(b => Destroy(b));
                 EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
                 EW_SceneManager.curNode.Enter();
+                EW_SceneManager.curNode.Play();
             });
             storyButtons.Add(button);
         }
@@ -114,7 +125,6 @@ public class EW_UIManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Setting up choices");
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
 
@@ -169,7 +179,7 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Add(choiceButton);
     }
 
-    private void RemoveChoiceButtons()
+    public void RemoveChoiceButtons()
     {
         foreach (Button button in choiceButtons)
         {
@@ -178,19 +188,34 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Clear();
     }
 
+    public void RemoveEscapeButton()
+    {
+        if (escapeButton != null)
+        {
+            escapeButton.gameObject.SetActive(false);
+        }
+    }
+
     public void BeginDialogue(EW_DialogueLine line)
     {
         curLine = line;
         dialogueBox.enabled = true;
         ShowNameplate();
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
         typingCoroutine = StartCoroutine(TypeTextCoroutine());
     }
 
     public void SkipTyping()
     {
-        dialogueTextComponent.text = curLine.text;
-        StopCoroutine(typingCoroutine);
-        typingCoroutine = null;
+        if (!curLine.important)
+        {
+            dialogueTextComponent.text = curLine.text;
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
     }
 
     private void ShowNameplate()
@@ -214,14 +239,25 @@ public class EW_UIManager : MonoBehaviour
 
     private IEnumerator TypeTextCoroutine()
     {
+        Debug.Log("Starting to type");
         dialogueTextComponent.text = ""; // Clear the text
+        float letterDelay = timeBetweenLetters;
+        if (curLine.important)
+        {
+            dialogueTextComponent.color = Color.red;
+            letterDelay *= 1.1f;
+        }
+        else
+        {
+            dialogueTextComponent.color = Color.black;
+        }
 
         for (int i = 0; i < curLine.text.Length; i++)
         {
-            dialogueTextComponent.text += curLine.text[i]; // Add one character at a time
+            dialogueTextComponent.text += curLine.text[i];
 
             // Wait for a short duration to control the typing speed
-            yield return new WaitForSeconds(timeBetweenLetters);
+            yield return new WaitForSeconds(letterDelay);
         }
 
         typingCoroutine = null;

@@ -1,0 +1,394 @@
+{
+    "nodes": [
+        {
+        "id": 0,
+        "type": "Dialogue",
+        "function": "ShowImage1",
+        "lines": [
+            {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."}
+        ],
+        "nextNodeID": 101
+        },
+
+        {
+        "id": 101,
+        "type": "Dialogue",
+        "function": "ShowImage2",
+        "lines": [
+            {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
+            
+            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."}
+        ],
+        "nextNodeID": 102
+        },
+
+        {
+        "id": 102,
+        "type": "Dialogue",
+        "function": "ShowImage4",
+        "lines": [
+            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
+        ],
+        "nextNodeID": 103
+        },
+
+        {
+        "id": 103,
+        "type": "Dialogue",
+        "function": "ShowImage3",
+        "lines": [
+            {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
+            
+            {"text": "*Faint Mumbling wakes Paul from his sleep...*"}
+        ],
+        "nextNodeID": 1
+        },
+        
+        {
+        "id": 1,
+        "type": "Dialogue",
+        "function": "GoToLivingRoom",
+        "lines": [
+            {"text": "Paul gets up seeing the chatter is coming from the TV."},
+
+            {"text": "The TV blares"},
+
+            {"speaker": "TV", "text": "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires."},
+            
+            {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, there is no fire folks, however we here at Channel 10 want to make sure we are doing our part to keep the county we love, safe."},
+
+            {"speaker": "TV", "text": "And that's gonna wrap up our Great Morning America show! I'm Mitch Tucker and have a spectacular day Marin County."},
+            
+            {"text": "Paul, groggy and disoriented, rubs his eyes and sits up, his gaze shifting from the TV to a framed photograph on the bedside table."}
+        ],
+        "nextNodeID": 2
+        },
+
+        {
+        "id": 2,
+        "type": "Dialogue",
+        "function": "WarningHeard",
+        "lines": [
+            {"speaker": "Paul", "text": "A fire warning? Over a bit of heat?"},
+
+            {"text": "Paul chuckles softly shaking his head as he looks at a picture of Mary on his side table."},
+            
+            {"speaker": "Paul", "text": "Things have really changed... Haven’t they, Mary?..."},
+            
+            {"speaker": "Paul", "text": "We'll be fine. Just like we always are"},
+            
+            {"text": "Despite his reassuring words, there’s a hint of concern in Paul's eyes, a glimmer of uncertainty. Maybe it’s time to make sure everything’s in order."}
+        ],
+        "nextNodeID": 3
+        },
+
+        {
+            "id": 3,
+            "type": "Dialogue",
+            "lines": [
+              {"speaker": "Paul", "text": "Should I even bother checking up on this? It's probably nothing, just like last summer."},
+
+              {"speaker": "Paul", "text": "I guess I could check the yard since its been ages"},
+              
+              {"speaker": "Paul", "text": "but I'm also really hungry and should check downstairs"},
+              
+              {"text": "There's only so much time in the day - Your actions will have consequences."},
+              
+              {"text": "You have 2 hours - (120 minutes)"}
+            ],
+            "nextNodeID": 4
+        },
+
+        {
+            "id": 4,
+            "type": "Choice",
+            "function": "ShowTimer",
+            "choices": [
+              { "text": "Check Downstairs", "goesTo": 5, "repeatable": true },
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
+            ],
+            "nextNodeID": -1
+        },
+
+        {
+            "id": 5,
+            "type": "Dialogue",
+            "lines": [
+                {"text": "Paul arrives downstairs looking around his kitchen, he thinks to himself"},
+                {"speaker": "Paul", "text": "* There are things to do...whether I do them or not...is another story *"}
+                
+            ],
+            "nextNodeID": 6
+        },
+        {
+            "id": 6,
+            "type": "Choice",
+            "function": "GoToLivingRoom",
+            "choices": [
+              { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
+              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
+            ],
+            "nextNodeID": -1
+        },
+        {
+          "id": 602,
+          "type": "Move",
+          "commands": [
+            { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
+            {  "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
+            
+          ],
+          "nextNodeID": 8
+        },
+
+        {
+          "id": 603,
+          "type": "Move",
+          "commands": [
+            { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
+            {  "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}
+            
+          ],
+          "nextNodeID": 7
+        },
+
+
+        {
+            "id": 7,
+            "type": "Dialogue",
+            "function": "MakeBreakfast",
+            "lines": [
+              {"text": "Paul roams around the kitchen quickly"},
+
+              {"speaker": "Paul", "text": "Nothing like the sizzle of eggs in the morning to start the day right"},
+              
+              {"text": " As his stomach grumbles, Paul quickly scorfs down the breakfast while reading the Marin Examiner."},
+              
+              {"text": "The front headline reads:"},
+              
+              {"text": "Meltdown: Record High Heat Brings Concern Over Fires"},
+                     
+              {"text": "Paul Scoffs to himself"},
+              
+              {"speaker": "Paul", "text": "They've even got the media convinced"},
+
+              {"text": "Paul notices a light linger of smoke in the air."},
+
+              {"speaker": "Paul", "text": "That smells awful, maybe I should make a go bag just in case I have to leave (30 minutes)"},
+              
+              {"speaker": "Paul", "text": "I could see if there's anything else to do in the kitchen or yard too"}
+              
+            ],
+            "nextNodeID": 6
+          },
+
+          {
+            "id": 8,
+            "type": "Dialogue",
+            "function": "GoBag",
+            "lines": [
+              {"text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
+
+              {"speaker": "Cal Fire", "text": "A go-bag could contain: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)", "important": true },
+
+              {"text": "As he sets the photo of Mary inside he quietly whispers"},
+              
+              {"speaker": "Paul", "text": "We'll be fine darling"},
+                
+              {"speaker": "Paul", "text": "I'm still pretty hungry. Eggs and Bacon does sound good"},
+              
+              {"speaker": "Paul", "text": "I should clean up and go out, This fire doesn't seem to be getting any closer though"}
+              
+            ],
+            "nextNodeID": 6
+          },
+          {
+            "id": 9,
+            "type": "Dialogue",
+            "lines": [
+              {"text": "Go to the front yard or the back yard?"},
+
+              {"text": "The Backyard has the pool and a big, overgrown oak tree."},
+              
+              {"speaker": "Paul", "text": "I should probably make sure nothing is ignitable"},
+              
+              {"text": "The Frontyard has a huge patch. it's gone yellow since mary passed."}, 
+              
+              {"text": "It looks like Aldo the neighbor is still bird-watching out front"},
+              
+              {"speaker": "Paul", "text": "There's still stuff I can do inside though"}
+            ],
+            "nextNodeID": 10
+          },
+
+          {
+            "id": 10,
+            "type": "Choice",
+            "choices": [
+              { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
+              { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
+              { "text": "Stay inside", "goesTo": 6, "repeatable": true }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 11,
+            "type": "Dialogue",
+            "function": "GoToFrontYard",
+            "lines": [
+              {"text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died. Paul Chuckles..."},
+
+              {"speaker": "Paul", "text": "let's see how my P.S.V.(Porch Side View) is"},
+      
+              {"text": "the rest of the yard looks like it has more work to do too"}
+              
+            ],
+            "nextNodeID": 12
+          },
+
+          {
+            "id": 12,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Lawn (30 minutes)", "goesTo": 13, "repeatable": false },
+              { "text": "Talk to Aldo (30 Minutes)", "goesTo": 600, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
+            ],
+            "nextNodeID": -1
+          },
+
+          {
+            "id": 600,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": 0, "y": -2 }, "actorName": "Paul" },
+              {
+                "targetPosition": { "x": 4, "y": 0 },
+                "actorName": "Paul",
+                "final": true
+              }
+            ],
+            "nextNodeID": 14
+          },
+
+          {
+            "id": 13,
+            "type": "Dialogue",
+            "function": "CutLawn",
+            "lines": [
+              {"text": "Paul quickly mows the yellowed lawn down and sweeps the clippings up."},
+
+              {"speaker": "Paul", "text":  "I always hated looking at that yellow mess anyways"},
+              
+              {"speaker": "Cal Fire", "text": "Maintaining a well-trimmed lawn is crucial for wildfire protection as it reduces the amount of readily combustible material, creating a natural firebreak that can slow or stop the spread of wildfires near your home.", "important": true},
+              
+              {"speaker": "Paul", "text": "I think I see Aldo outside still, maybe I should check in with him"}
+            ],
+            "nextNodeID": 12
+          },
+          {
+            "id": 14,
+            "type": "Dialogue",
+            "function": "AldoTalk",
+            "lines": [
+              {"text": "Paul goes over to talk to Aldo"},
+
+              {"speaker": "Aldo", "text": "Paul The fire is looking really bad. If you want to comne with us when the evacuation alert goes out, which it will. please let us know its no issue at all."},
+              
+              {"speaker": "Paul", "text": "Thank you Aldo but I don't think that will be necessary. I'll let you know."},
+              
+              {"speaker": "Paul", "text": "The grass looks pretty dead, I should probably mow it down"}
+            ],
+            "nextNodeID": 12
+          },
+          {
+            "id": 15,
+            "type": "Dialogue",
+            "function": "GoToBackYard",
+            "lines": [
+              {"text": "The backyard is relatively big with trees and a brick wall surrounding it. "},
+
+              {"text": "Paul had a pool installed when he and Mary first moved in. "},
+              
+              {"speaker": "Paul", "text": "I really should stop servicing this money hole I never use it and the upkeep is ridiculous"}
+              
+              
+            ],
+            "nextNodeID": 16
+          },
+          {
+            "id": 16,
+            "type": "Choice",
+            "choices": [
+              { "text": "Cut the Tree (30 Minutes)", "goesTo": 605, "repeatable": false },
+              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 604, "repeatable": false },
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
+            ],
+            "nextNodeID": -1
+          },
+          {
+            "id": 604,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul", "final": true }
+              
+            ],
+            "nextNodeID": 18
+          },
+          {
+            "id": 605,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul", "final": true }
+              
+            ],
+            "nextNodeID": 17
+          },
+          {
+            "id": 17,
+            "type": "Dialogue",
+            "function": "CutTree",
+            "lines": [
+              {"text": "Paul carefully climbs to the roof and begins sawing different parts of the tree causing branches to fall."},
+
+              {"speaker": "Paul", "text": "I don't think I've been up here since we moved in"},
+              
+              {"text": "Once finished, he collects the branches placing them in his yard-waste dedicated bin."},
+
+              {"speaker": "Cal Fire", "text": "Remove all branches within 10 feet of any chimney or stovepipe outlet as they intrude on your home's defensible zone.", "important": true}
+
+              
+              
+            ],
+            "nextNodeID": 16
+          },
+          {
+            "id": 18,
+            "type": "Dialogue",
+            "function": "CleanGutters",
+            "lines": [
+              {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below."},
+
+              {"speaker": "Paul", "text": "No wonder the gutter had been flooding last winter"},
+              
+              {"text": "By the time he's done, the waste bin is filled to the brim"},
+
+              {"speaker": "Cal Fire", "text": "Defensible space is the buffer between your structure and the surrounding area. The accumulation of debris in gutters serves as one of the greatest fire hazards for a standing structure. In the event that embers ignite debris the resulting fire will directly expose the edge of the roof to flames.", "important": true}
+        
+            ],
+            "nextNodeID": 16
+          },
+          {
+            "id": 1000,
+            "type": "Dialogue",
+            "lines": [
+              {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},
+
+              {"speaker":"Cal Fire", "text": "Being safer than sorry is always the best choice. Please heed evacuation notices and get out as early as possible.", "important": true}
+            ],
+            "nextNodeID": 16
+          }
+    ]
+}

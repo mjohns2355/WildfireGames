@@ -14,6 +14,7 @@ public abstract class EW_StoryNode
     }
     public virtual void Enter()
     {
+        Debug.Log("Entering node");
         if (enterAction != null)
         {
             enterAction();
@@ -43,11 +44,13 @@ public class EW_MoveNode : EW_StoryNode
 
     public override void Play()
     {
+        Debug.Log("playing move node");
         DequeueMove();
     }
 
     private void DequeueMove()
     {
+        Debug.Log("Dequeueing move");
         if (moves.Count == 0)
         {
             return;
@@ -56,8 +59,25 @@ public class EW_MoveNode : EW_StoryNode
         bool wasFinal = move.Execute();
         if (wasFinal)
         {
-            manager.ChangeStoryNode(nextNode);
+            EW_EventSystem.EndMoveEvent -= DequeueMove;
+            EW_EventSystem.EndMoveEvent += FinishNode;
         }
+    }
+
+    private void FinishNode()
+    {
+        EW_EventSystem.EndMoveEvent -= FinishNode;
+        manager.ChangeStoryNode(nextNode);
+    }
+
+    public override void Enter()
+    {
+        Debug.Log("Entering move node");
+        if (enterAction != null)
+        {
+            enterAction();
+        }
+        EW_EventSystem.EndMoveEvent += DequeueMove;
     }
 }
 
@@ -140,19 +160,20 @@ public class EW_Choice
 public class EW_DialogueLine
 {
     public string text;
-    public string speaker;
+    public string speaker = "";
+    public bool important = false;
 }
 
 public class EW_MoveCommand
 {
-    public Vector2 targetPosition;
+    public Vector2 deltaPos;
     public string actorName;
     private bool final;
 
-    public EW_MoveCommand(string _actorName, Vector2 _targetPos, bool _final = false)
+    public EW_MoveCommand(string _actorName, Vector2 _deltaPos, bool _final = false)
     {
         actorName = _actorName;
-        targetPosition = _targetPos;
+        deltaPos = _deltaPos;
         final = _final;
     }
 
