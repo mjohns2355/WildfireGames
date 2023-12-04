@@ -31,11 +31,9 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
     [SerializeField]
-    private float landscapeOrthographicSize = 5f;
-    [SerializeField]
-    private float portraitOrthographicSize = 9f;
+    private float landscapeOrthographicSize = 5f, portraitOrthographicSize = 9f;
 
-    public Button EscapeButton;
+    public Button escapeButton;
 
     public void Start()
     {
@@ -72,8 +70,9 @@ public class EW_UIManager : MonoBehaviour
         timerText.text = "";
     }
 
-    public void ShowEscapeButton() {
-        EscapeButton.gameObject.SetActive(true);
+    public void ShowEscapeButton()
+    {
+        escapeButton.gameObject.SetActive(true);
     }
 
 
@@ -89,7 +88,7 @@ public class EW_UIManager : MonoBehaviour
         text += "Cleaned the yard:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
         text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
         text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
-        text += "Made breakfast: " + (EW_SceneManager.madeBreakfast ? "YES" : "NO") + "\n";
+        text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
         return text;
     }
 
@@ -181,7 +180,10 @@ public class EW_UIManager : MonoBehaviour
             Destroy(button.gameObject);
         }
         choiceButtons.Clear();
-        EscapeButton.gameObject.SetActive(false);
+        if (escapeButton != null)
+        {
+            escapeButton.gameObject.SetActive(false);
+        }
     }
 
     public void BeginDialogue(EW_DialogueLine line)
@@ -237,7 +239,7 @@ public class EW_UIManager : MonoBehaviour
 
         for (int i = 0; i < curLine.text.Length; i++)
         {
-            dialogueTextComponent.text += curLine.text[i]; 
+            dialogueTextComponent.text += curLine.text[i];
 
             // Wait for a short duration to control the typing speed
             yield return new WaitForSeconds(letterDelay);

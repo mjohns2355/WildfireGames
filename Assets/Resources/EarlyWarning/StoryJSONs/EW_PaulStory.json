@@ -1,17 +1,42 @@
 {
     "nodes": [
-        
-        {"id": 0,
+        {
+        "id": 0,
         "type": "Dialogue",
+        "function": "ShowImage1",
         "lines": [
-            {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."},
+            {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."}
+        ],
+        "nextNodeID": 101
+        },
 
-            {"text":"Mary was his better half, she passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
+        {
+        "id": 101,
+        "type": "Dialogue",
+        "function": "ShowImage2",
+        "lines": [
+            {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
             
-            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."},
-            
-            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."},
-            
+            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."}
+        ],
+        "nextNodeID": 102
+        },
+
+        {
+        "id": 102,
+        "type": "Dialogue",
+        "function": "ShowImage4",
+        "lines": [
+            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
+        ],
+        "nextNodeID": 103
+        },
+
+        {
+        "id": 103,
+        "type": "Dialogue",
+        "function": "ShowImage3",
+        "lines": [
             {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
             
             {"text": "*Faint Mumbling wakes Paul from his sleep...*"}
@@ -271,13 +296,13 @@
             "type": "Dialogue",
             "function": "CutTree",
             "lines": [
-              {"text": "Paul carefuly climbs to the roof and begins sawing different parts of the tree causing branches to fall."},
+              {"text": "Paul carefully climbs to the roof and begins sawing different parts of the tree causing branches to fall."},
 
               {"speaker": "Paul", "text": "I don't think I've been up here since we moved in"},
               
               {"text": "Once finished, he collects the branches placing them in his yard-waste dedicated bin."},
 
-              {"speaker": "Cal Fire", "text": "Remove all branches within 10 feet of any chimney or stovepipe outlet as they intrude yoour home's defensible zone.", "important": true}
+              {"speaker": "Cal Fire", "text": "Remove all branches within 10 feet of any chimney or stovepipe outlet as they intrude on your home's defensible zone.", "important": true}
 
               
               
@@ -295,13 +320,13 @@
               
               {"text": "By the time he's done, the waste bin is filled to the brim"},
 
-              {"speaker": "Cal Fire", "text": "Defensible space is the buffer between your structure and the surrounding area. The accumulation of debris in guttersserves as one of the greatest fire hazards for a standing structure. In the event that embers ignite debris the resulting fire will directly expose the edge of the roof to flames.", "important": true}
+              {"speaker": "Cal Fire", "text": "Defensible space is the buffer between your structure and the surrounding area. The accumulation of debris in gutters serves as one of the greatest fire hazards for a standing structure. In the event that embers ignite debris the resulting fire will directly expose the edge of the roof to flames.", "important": true}
         
             ],
             "nextNodeID": 16
           },
           {
-            "id": 19,
+            "id": 1000,
             "type": "Dialogue",
             "lines": [
               {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},

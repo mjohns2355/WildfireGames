@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EW_SceneManager : MonoBehaviour
 {
-    public static List<EW_StoryNode> nodeList;
+    public static Dictionary<int, EW_StoryNode> nodeDict;
     private bool done = false;
     static EW_UIManager uiManager;
     public static EW_StoryNode curNode;
@@ -20,13 +20,11 @@ public class EW_SceneManager : MonoBehaviour
     public static bool cleanedGutters = false;
     public static bool madeBreakfast = false;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
-        nodeList = new List<EW_StoryNode>();
+        nodeDict = new Dictionary<int, EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
         background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
         uiManager.timerText.text = "";
@@ -66,8 +64,7 @@ public class EW_SceneManager : MonoBehaviour
         curNode = null;
         background.enabled = false;
         done = true;
-        uiManager.
-        ShowTaskList();
+        uiManager.ShowTaskList();
 
         EW_EventSystem.LeaveStoryNodeEvent -= EndPrefirePhase;
         //Invoke("ChangeStoryNodeWrapper", 3.0f);
@@ -81,11 +78,9 @@ public class EW_SceneManager : MonoBehaviour
     public void Escape()
     {
         uiManager.RemoveChoiceButtons();
-        ChangeStoryNode(19);
+        ChangeStoryNode(1000);
         EW_EventSystem.LeaveStoryNodeEvent += EndPrefirePhase;
     }
-
-
 
     public void ChangeStoryNode(int nodeIndex)
     {
@@ -94,13 +89,11 @@ public class EW_SceneManager : MonoBehaviour
             EndPrefirePhase();
             return;
         }
-        // Debug.Log("Changing from " + curNode + " at index " + nodeList.IndexOf(curNode) + " to " + nodeList[nodeIndex] + " at index " + nodeIndex);
-        Debug.Log("Node Index:" + nodeIndex);
-        if (curNode != nodeList[nodeIndex])
+        if (curNode != nodeDict[nodeIndex])
         {
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
             if (done) { return; }
-            curNode = nodeList[nodeIndex];
+            curNode = nodeDict[nodeIndex];
             curNode.Enter();
         }
         curNode.Play();
