@@ -34,7 +34,7 @@ public class EW_StoryFunctions
 
     public static void ShowImage1()
     {
-        Sprite sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft1");
+        Sprite sprite = Resources.Load<Sprite>("EarlyWarning/Art/Slide2");
         Debug.Log(sprite);
         sceneManager.background.sprite = sprite;
     }
@@ -51,7 +51,7 @@ public class EW_StoryFunctions
 
     public static void ShowImage4()
     {
-        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft4");
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/Slide1");
     }
 
     public static void GoBag()
