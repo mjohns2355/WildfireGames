@@ -8,19 +8,23 @@ public class SD_UISwitchObject : MonoBehaviour
     public GameObject objectSwitch;
     public GameObject itemNeeded;
     public bool trueForNegative = false;
+    public bool trueForNUETRAL = false;
     public void ObjectSwitch()
     {  
         thisObject.SetActive(false);
         objectSwitch.SetActive(true);
-        if(trueForNegative)
+        if(trueForNUETRAL == false)
         {
-            SD_GameSateManager.Instance.NegativeAQINotification();
-            SD_GameSateManager.Instance.AddToCounter();
-        }
-        else
-        {
-            SD_GameSateManager.Instance.PositiveAQINotification();
-            SD_GameSateManager.Instance.RemoveFromCounter();
+            if(trueForNegative)
+            {
+                SD_GameSateManager.Instance.NegativeAQINotification();
+                SD_GameSateManager.Instance.AddToCounter();
+            }
+            if(trueForNegative == false)
+            {
+                SD_GameSateManager.Instance.PositiveAQINotification();
+                SD_GameSateManager.Instance.RemoveFromCounter();
+            }
         }
     }
     public void UseItemToSwitch()
