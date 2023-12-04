@@ -25,8 +25,30 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
-    public static void WarningHeard(){
+    public static void WarningHeard()
+    {
         uiManager.ShowEscapeButton();
+    }
+
+
+    public static void ShowImage1()
+    {
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft1");
+    }
+
+    public static void ShowImage2()
+    {
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft2");
+    }
+
+    public static void ShowImage3()
+    {
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft3");
+    }
+
+    public static void ShowImage4()
+    {
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft4");
     }
 
     public static void GoBag()

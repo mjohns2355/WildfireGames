@@ -1,17 +1,38 @@
 {
     "nodes": [
-        
-        {"id": 0,
+        {
+        "id": 0,
         "type": "Dialogue",
         "lines": [
-            {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."},
+            {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."}
+        ],
+        "nextNodeID": 101
+        },
 
-            {"text":"Mary was his better half, she passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
+        {
+        "id": 101,
+        "type": "Dialogue",
+        "lines": [
+            {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
             
-            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."},
-            
-            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."},
-            
+            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."}
+        ],
+        "nextNodeID": 102
+        },
+
+        {
+        "id": 102,
+        "type": "Dialogue",
+        "lines": [
+            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
+        ],
+        "nextNodeID": 103
+        },
+
+        {
+        "id": 103,
+        "type": "Dialogue",
+        "lines": [
             {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
             
             {"text": "*Faint Mumbling wakes Paul from his sleep...*"}
@@ -301,7 +322,7 @@
             "nextNodeID": 16
           },
           {
-            "id": 19,
+            "id": 1000,
             "type": "Dialogue",
             "lines": [
               {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},

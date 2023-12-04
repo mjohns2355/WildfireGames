@@ -31,9 +31,7 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
     [SerializeField]
-    private float landscapeOrthographicSize = 5f;
-    [SerializeField]
-    private float portraitOrthographicSize = 9f;
+    private float landscapeOrthographicSize = 5f, portraitOrthographicSize = 9f;
 
     public Button EscapeButton;
 
@@ -72,7 +70,8 @@ public class EW_UIManager : MonoBehaviour
         timerText.text = "";
     }
 
-    public void ShowEscapeButton() {
+    public void ShowEscapeButton()
+    {
         EscapeButton.gameObject.SetActive(true);
     }
 
@@ -237,7 +236,7 @@ public class EW_UIManager : MonoBehaviour
 
         for (int i = 0; i < curLine.text.Length; i++)
         {
-            dialogueTextComponent.text += curLine.text[i]; 
+            dialogueTextComponent.text += curLine.text[i];
 
             // Wait for a short duration to control the typing speed
             yield return new WaitForSeconds(letterDelay);
