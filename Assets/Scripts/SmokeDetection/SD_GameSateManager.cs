@@ -12,7 +12,7 @@ public class SD_GameSateManager : MonoBehaviour
 {
     [SerializeField] private SD_GameState gameState;
     [SerializeField] private float AQI = 0f;
-    [SerializeField] private float AQIRate= 0f;
+    // [SerializeField] private float AQIRate= 0f;
     [SerializeField] private float AQIMax = 100f;
     private static SD_GameSateManager instance;    
     private SD_AQIBar AQIBarHealth;
@@ -69,20 +69,21 @@ public class SD_GameSateManager : MonoBehaviour
                     SD_SceneManager.Instance.SetCurrentScene(5);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                if(currentTimer >= timerDuration && counterToWin == currentCounter)
+                if(counterToWin == currentCounter)
                 {
                     switchGameState(SD_GameState.Ended);
                     SD_SceneManager.Instance.SetCurrentScene(6);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                if(AQI < .9)
-                {
-                    TimerCheck();
-                }
-                else if( AQI > .91)
-                {
-                    currentTimer = 0f;
-                }
+                // if(AQI < .9)
+                // {
+                //     TimerCheck();
+                // }
+                // else if( AQI > .91)
+                // {
+                //     currentTimer = 0f;
+                //     //currentTimer >= timerDuration
+                // }
                 break;
             case SD_GameState.Ended:
                 //Bringup Game, reset
