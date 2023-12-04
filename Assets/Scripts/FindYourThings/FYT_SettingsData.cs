@@ -5,5 +5,7 @@ using UnityEngine;
 public static class FYT_SettingsData
 {
     public static bool medsNeeded;
-    public static bool glassesNeeded;    
+    public static bool glassesNeeded;
+    //added code
+    public static bool petNeeded;  
 }

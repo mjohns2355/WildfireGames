@@ -44,6 +44,9 @@ public class FYT_GameModeManager : MonoBehaviour
             if(pets == false){
                 //Debug.Log("No pets.");
             }
+            else {
+                FYT_SettingsData.petNeeded = pets;
+            }
         }
         if(CritListGameUI.activeSelf){
             FYT_SettingsData.medsNeeded = meds;
@@ -51,9 +54,11 @@ public class FYT_GameModeManager : MonoBehaviour
             if(pets == false){
                 //Debug.Log("No pets.");
             }
+            else {
+                FYT_SettingsData.petNeeded = pets;
+            }
         }
     }
-
     public void continueGame()
     {
         toGoBagObject.SetActive(goBag);
