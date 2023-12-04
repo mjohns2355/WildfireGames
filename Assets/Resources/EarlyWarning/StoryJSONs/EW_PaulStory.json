@@ -252,7 +252,7 @@
             "id": 12,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn (30 minutes)", "goesTo": 601, "repeatable": false },
+              { "text": "Cut the Lawn (30 minutes)", "goesTo": 13, "repeatable": false },
               { "text": "Talk to Aldo (30 Minutes)", "goesTo": 600, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
@@ -271,19 +271,6 @@
               }
             ],
             "nextNodeID": 14
-          },
-          {
-            "id": 601,
-            "type": "Move",
-            "commands": [
-              { "targetPosition": { "x": -1, "y": -1 }, "actorName": "Paul" },
-              {
-                "targetPosition": { "x": -2, "y": 0 },
-                "actorName": "Paul",
-                "final": true
-              }
-            ],
-            "nextNodeID": 13
           },
 
           {

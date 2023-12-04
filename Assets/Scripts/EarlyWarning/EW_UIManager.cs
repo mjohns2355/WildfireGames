@@ -68,6 +68,11 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         HideNameplate();
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
         timerText.text = "";
     }
 
@@ -183,7 +188,8 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Clear();
     }
 
-    public void RemoveEscapeButton(){
+    public void RemoveEscapeButton()
+    {
         if (escapeButton != null)
         {
             escapeButton.gameObject.SetActive(false);
