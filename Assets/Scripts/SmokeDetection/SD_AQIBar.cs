@@ -12,6 +12,7 @@ public class SD_AQIBar : MonoBehaviour
     [SerializeField] private Image fill;
     private static SD_AQIBar instance;    
     
+    
     public static SD_AQIBar Instance
     {
         get

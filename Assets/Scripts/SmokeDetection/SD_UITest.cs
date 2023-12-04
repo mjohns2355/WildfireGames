@@ -98,26 +98,19 @@ public class SD_UITest : MonoBehaviour
         {
             pickupItem(obj);
         }
-        if (doubleClickHold == obj)
+        if(obj.CompareTag("InteractableObject") == true)
         {
-            if(doubleClickHold.CompareTag("InteractableObject") == true)
-            {
-                interactObject(obj);
-            }
-            if(obj.CompareTag("SwitchStateObject") == true)
-            {
-                Debug.Log("Hello");
-            }
+            interactObject(obj);
         }
-        else
-        {
-            HideToolTip(doubleClickHold);
-            if (obj != null)
-            {
-                doubleClickHold = obj;
-                ShowToolTip(obj);
-            }
-        }
+        // else
+        // {
+        //     HideToolTip(doubleClickHold);
+        //     if (obj != null)
+        //     {
+        //         doubleClickHold = obj;
+        //         ShowToolTip(obj);
+        //     }
+        // }
     }
     private void ClickedOffItem()
     {

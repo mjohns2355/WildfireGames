@@ -12,11 +12,17 @@ public class SD_GameSateManager : MonoBehaviour
 {
     [SerializeField] private SD_GameState gameState;
     [SerializeField] private float AQI = 0f;
+    // [SerializeField] private float AQIRate= 0f;
     [SerializeField] private float AQIMax = 100f;
     private static SD_GameSateManager instance;    
     private SD_AQIBar AQIBarHealth;
     [SerializeField] private float timerDuration = 5f;
     private float currentTimer = 0f;
+    private int counterToWin = 5;
+    private int currentCounter = 0;
+
+    [SerializeField] private GameObject positiveAQI;
+    [SerializeField] private GameObject negativeAQI;
 
     
     public static SD_GameSateManager Instance
@@ -63,20 +69,21 @@ public class SD_GameSateManager : MonoBehaviour
                     SD_SceneManager.Instance.SetCurrentScene(5);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                if(AQI < .9)
+                if(counterToWin == currentCounter)
                 {
-                    TimerCheck();
-                    if(currentTimer >= timerDuration)
-                    {
-                        switchGameState(SD_GameState.Ended);
-                        SD_SceneManager.Instance.SetCurrentScene(6);
-                        SD_SceneManager.Instance.HUDEnableDisable(false);
-                    }
+                    switchGameState(SD_GameState.Ended);
+                    SD_SceneManager.Instance.SetCurrentScene(6);
+                    SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                else if( AQI > .91)
-                {
-                    currentTimer = 0f;
-                }
+                // if(AQI < .9)
+                // {
+                //     TimerCheck();
+                // }
+                // else if( AQI > .91)
+                // {
+                //     currentTimer = 0f;
+                //     //currentTimer >= timerDuration
+                // }
                 break;
             case SD_GameState.Ended:
                 //Bringup Game, reset
@@ -108,4 +115,34 @@ public class SD_GameSateManager : MonoBehaviour
         currentTimer += Time.deltaTime;
     }
     
-}
+    public void PositiveAQINotification()
+    {
+        Debug.Log("TESTING");
+        Animation positiveAnimation = positiveAQI.GetComponent<Animation>();
+        if(positiveAnimation != null)
+        {
+            Debug.Log("TEGeeeee");
+            positiveAnimation.Play();
+        }
+    }
+
+    public void NegativeAQINotification()
+    {
+        Animation negativeAnimation = negativeAQI.GetComponent<Animation>();
+        if(negativeAnimation != null)
+        {
+            negativeAnimation.Play();
+        }
+    }
+
+    public void AddToCounter()
+    {
+        currentCounter++;
+    }
+    public void RemoveFromCounter()
+    {
+        currentCounter--;
+    }
+
+
+}   
