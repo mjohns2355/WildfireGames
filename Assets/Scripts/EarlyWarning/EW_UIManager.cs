@@ -186,9 +186,12 @@ public class EW_UIManager : MonoBehaviour
 
     public void SkipTyping()
     {
-        dialogueTextComponent.text = curLine.text;
-        StopCoroutine(typingCoroutine);
-        typingCoroutine = null;
+        if (!curLine.important)
+        {
+            dialogueTextComponent.text = curLine.text;
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
     }
 
     private void ShowNameplate()
@@ -213,13 +216,23 @@ public class EW_UIManager : MonoBehaviour
     private IEnumerator TypeTextCoroutine()
     {
         dialogueTextComponent.text = ""; // Clear the text
+        float letterDelay = timeBetweenLetters;
+        if (curLine.important)
+        {
+            dialogueTextComponent.color = Color.red;
+            letterDelay *= 1.1f;
+        }
+        else
+        {
+            dialogueTextComponent.color = Color.black;
+        }
 
         for (int i = 0; i < curLine.text.Length; i++)
         {
             dialogueTextComponent.text += curLine.text[i]; // Add one character at a time
 
             // Wait for a short duration to control the typing speed
-            yield return new WaitForSeconds(timeBetweenLetters);
+            yield return new WaitForSeconds(letterDelay);
         }
 
         typingCoroutine = null;

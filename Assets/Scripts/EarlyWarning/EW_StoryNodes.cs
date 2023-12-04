@@ -161,6 +161,7 @@ public class EW_DialogueLine
 {
     public string text;
     public string speaker;
+    public bool important = false;
 }
 
 public class EW_MoveCommand
