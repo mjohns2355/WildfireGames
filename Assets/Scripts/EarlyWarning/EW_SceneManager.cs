@@ -20,6 +20,8 @@ public class EW_SceneManager : MonoBehaviour
     public static bool cleanedGutters = false;
     public static bool madeBreakfast = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,13 +69,24 @@ public class EW_SceneManager : MonoBehaviour
         uiManager.
         ShowTaskList();
 
-        Invoke("ChangeStoryNodeWrapper", 3.0f);
+        EW_EventSystem.LeaveStoryNodeEvent -= EndPrefirePhase;
+        //Invoke("ChangeStoryNodeWrapper", 3.0f);
     }
 
     private void EndOfPreFireWrapper()
     {
         ChangeStoryNode(25);
     }
+
+    public void Escape()
+    {
+        uiManager.RemoveChoiceButtons();
+        ChangeStoryNode(19);
+        EW_EventSystem.LeaveStoryNodeEvent += EndPrefirePhase;
+    }
+
+
+
     public void ChangeStoryNode(int nodeIndex)
     {
         if (nodeIndex == -1)

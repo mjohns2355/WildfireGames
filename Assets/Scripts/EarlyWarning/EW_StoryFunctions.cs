@@ -25,6 +25,8 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
+
+
     public static void GoBag()
     {
         EW_SceneManager.goBag = true;

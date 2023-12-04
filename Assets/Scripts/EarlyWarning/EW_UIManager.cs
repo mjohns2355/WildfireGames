@@ -15,7 +15,7 @@ public class EW_UIManager : MonoBehaviour
     private EW_DialogueLine curLine;
     public Coroutine typingCoroutine = null;
 
-    private List<Button> choiceButtons = new List<Button>();
+    public List<Button> choiceButtons = new List<Button>();
     [SerializeField]
     private GameObject buttonPrefab;
     private List<GameObject> storyButtons;
@@ -167,7 +167,7 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Add(choiceButton);
     }
 
-    private void RemoveChoiceButtons()
+    public void RemoveChoiceButtons()
     {
         foreach (Button button in choiceButtons)
         {
