@@ -22,14 +22,14 @@ public class SD_UITest : MonoBehaviour
 
         if(checkHoveredObject != null) //checks if its a pickup object
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
-                CheckDoubleClick(checkHoveredObject);
+                ClickedHoveredItem(checkHoveredObject);
             }
         }
         if(checkHoveredObject == null) //checks if u got nothing
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
                 ClickedOffItem();
             }
@@ -54,7 +54,14 @@ public class SD_UITest : MonoBehaviour
     static List<RaycastResult> GetEventSystemRaycastResults()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
+        if (Input.touchCount > 0)
+        {
+            eventData.position = Input.GetTouch(0).position;
+        }
+        else
+        {
+            eventData.position = Input.mousePosition;
+        }
         List<RaycastResult> raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raycastResults);
         return raycastResults;
@@ -85,28 +92,22 @@ public class SD_UITest : MonoBehaviour
             }
         }
     }
-    private void CheckDoubleClick(GameObject obj)
+    private void ClickedHoveredItem(GameObject obj)
     {
-        bool checkChild = transform.IsChildOf(obj.transform);
+        if(obj.CompareTag("PickupObject") == true)
+        {
+            pickupItem(obj);
+        }
         if (doubleClickHold == obj)
         {
             if(doubleClickHold.CompareTag("InteractableObject") == true)
             {
                 interactObject(obj);
             }
-            if(doubleClickHold.CompareTag("PickupObject") == true)
-            {
-                Debug.Log("TEST");
-                pickupItem(obj);
-            }
             if(obj.CompareTag("SwitchStateObject") == true)
             {
                 Debug.Log("Hello");
             }
-        }
-        else if (checkChild == true)
-        {
-            
         }
         else
         {
@@ -128,10 +129,20 @@ public class SD_UITest : MonoBehaviour
     // RECHANGE FOR OTHER
     private void pickupItem(GameObject item)
     {
+        Animation itemAnimation = item.GetComponent<Animation>();
         SD_Inventory playerInventory = SD_Inventory.Instance;
-        item.SetActive(false);
-        playerInventory.AddItem(item);
+        if(itemAnimation != null)
+        {
+            itemAnimation.Play();
+            StartCoroutine(WaitForAnimation(itemAnimation, item));
+        }
+        else
+        {
+            item.SetActive(false);
+            playerInventory.AddItem(item);
+        }
 
+        
     }
 
     private void interactObject(GameObject obj)
@@ -142,5 +153,14 @@ public class SD_UITest : MonoBehaviour
         {
             switchObject.UseItemToSwitch();
         }
+    }
+    private IEnumerator WaitForAnimation(Animation animation, GameObject item)
+    {
+        while (animation.isPlaying)
+        {
+            yield return null;
+        }
+        item.SetActive(false);
+        SD_Inventory.Instance.AddItem(item);
     }
 }

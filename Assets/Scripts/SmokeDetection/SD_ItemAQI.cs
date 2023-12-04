@@ -7,6 +7,7 @@ public class SD_ItemAQI : MonoBehaviour
 {
     [SerializeField] private float AQIPower = .5f;
     [SerializeField] private float AQITickRate = .5f;    
+    [SerializeField] private bool AQIActive = false;
     private float timerCount = 0.0f;
     private SD_GameState currentState;
 
@@ -22,5 +23,9 @@ public class SD_ItemAQI : MonoBehaviour
                 timerCount = 0.0f;
             }
         }
+    }
+    public void SwitchActiveState()
+    {
+        AQIActive = !AQIActive;
     }
 }

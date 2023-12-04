@@ -7,7 +7,6 @@ public class SD_UISwitchObject : MonoBehaviour
     public GameObject thisObject;
     public GameObject objectSwitch;
     public GameObject itemNeeded;
-
     public void ObjectSwitch()
     {  
         thisObject.SetActive(false);
