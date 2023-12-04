@@ -160,7 +160,7 @@ public class EW_Choice
 public class EW_DialogueLine
 {
     public string text;
-    public string speaker;
+    public string speaker = "";
     public bool important = false;
 }
 
