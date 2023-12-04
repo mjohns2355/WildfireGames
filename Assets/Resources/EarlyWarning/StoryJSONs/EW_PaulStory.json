@@ -125,12 +125,35 @@
             "type": "Choice",
             "function": "GoToLivingRoom",
             "choices": [
-              { "text": "Make Breakfast (30 Minutes)", "goesTo": 7, "repeatable": false},
-              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 8, "repeatable": false },
+              { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
+              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
         },
+        {
+          "id": 602,
+          "type": "Move",
+          "commands": [
+            { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
+            {  "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
+            
+          ],
+          "nextNodeID": 8
+        },
+
+        {
+          "id": 603,
+          "type": "Move",
+          "commands": [
+            { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
+            {  "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}
+            
+          ],
+          "nextNodeID": 7
+        },
+
+
         {
             "id": 7,
             "type": "Dialogue",
@@ -229,11 +252,38 @@
             "id": 12,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Lawn (30 minutes)", "goesTo": 13, "repeatable": false },
-              { "text": "Talk to Aldo (30 Minutes)", "goesTo": 14, "repeatable": false },
+              { "text": "Cut the Lawn (30 minutes)", "goesTo": 601, "repeatable": false },
+              { "text": "Talk to Aldo (30 Minutes)", "goesTo": 600, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
+          },
+
+          {
+            "id": 600,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": 0, "y": -2 }, "actorName": "Paul" },
+              {
+                "targetPosition": { "x": 4, "y": 0 },
+                "actorName": "Paul",
+                "final": true
+              }
+            ],
+            "nextNodeID": 14
+          },
+          {
+            "id": 601,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": -1, "y": -1 }, "actorName": "Paul" },
+              {
+                "targetPosition": { "x": -2, "y": 0 },
+                "actorName": "Paul",
+                "final": true
+              }
+            ],
+            "nextNodeID": 13
           },
 
           {
@@ -285,11 +335,29 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree (30 Minutes)", "goesTo": 17, "repeatable": false },
-              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 18, "repeatable": false },
+              { "text": "Cut the Tree (30 Minutes)", "goesTo": 605, "repeatable": false },
+              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 604, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
+          },
+          {
+            "id": 604,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul", "final": true }
+              
+            ],
+            "nextNodeID": 18
+          },
+          {
+            "id": 605,
+            "type": "Move",
+            "commands": [
+              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul", "final": true }
+              
+            ],
+            "nextNodeID": 17
           },
           {
             "id": 17,
