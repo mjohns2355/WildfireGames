@@ -41,19 +41,14 @@ public class FYT_GameModeManager : MonoBehaviour
         if(goBagGameUI.activeSelf){
             FYT_SettingsData.medsNeeded = meds;
             FYT_SettingsData.glassesNeeded = eyesAndEars;
-            if(pets == false){
-                //Debug.Log("No pets.");
-            }
+            FYT_SettingsData.petNeeded = pets;
         }
         if(CritListGameUI.activeSelf){
             FYT_SettingsData.medsNeeded = meds;
             FYT_SettingsData.glassesNeeded = eyesAndEars;
-            if(pets == false){
-                //Debug.Log("No pets.");
-            }
+            FYT_SettingsData.petNeeded = pets;
         }
     }
-
     public void continueGame()
     {
         toGoBagObject.SetActive(goBag);
