@@ -27,7 +27,7 @@ public class EW_StoryFunctions
 
     public static void WarningHeard()
     {
-        // uiManager.ShowEscapeButton();
+         uiManager.ShowEscapeButton();
     }
 
 

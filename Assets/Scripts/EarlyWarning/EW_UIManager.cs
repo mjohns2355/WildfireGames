@@ -37,6 +37,7 @@ public class EW_UIManager : MonoBehaviour
 
     public void Start()
     {
+        escapeButton.gameObject.SetActive(false);
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         selectedChoices = new List<EW_Choice>();
