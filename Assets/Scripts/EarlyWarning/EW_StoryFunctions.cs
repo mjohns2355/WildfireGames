@@ -27,13 +27,15 @@ public class EW_StoryFunctions
 
     public static void WarningHeard()
     {
-        uiManager.ShowEscapeButton();
+        // uiManager.ShowEscapeButton();
     }
 
 
     public static void ShowImage1()
     {
-        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft1");
+        Sprite sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft1");
+        Debug.Log(sprite);
+        sceneManager.background.sprite = sprite;
     }
 
     public static void ShowImage2()
@@ -54,7 +56,6 @@ public class EW_StoryFunctions
     public static void GoBag()
     {
         EW_SceneManager.goBag = true;
-        Debug.Log("GoBag()_called");
         useUpTime(30);
     }
 

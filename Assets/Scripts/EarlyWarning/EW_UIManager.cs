@@ -33,7 +33,7 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private float landscapeOrthographicSize = 5f, portraitOrthographicSize = 9f;
 
-    public Button EscapeButton;
+    public Button escapeButton;
 
     public void Start()
     {
@@ -72,7 +72,7 @@ public class EW_UIManager : MonoBehaviour
 
     public void ShowEscapeButton()
     {
-        EscapeButton.gameObject.SetActive(true);
+        escapeButton.gameObject.SetActive(true);
     }
 
 
@@ -88,7 +88,7 @@ public class EW_UIManager : MonoBehaviour
         text += "Cleaned the yard:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
         text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
         text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
-        text += "Made breakfast: " + (EW_SceneManager.madeBreakfast ? "YES" : "NO") + "\n";
+        text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
         return text;
     }
 
@@ -180,7 +180,10 @@ public class EW_UIManager : MonoBehaviour
             Destroy(button.gameObject);
         }
         choiceButtons.Clear();
-        EscapeButton.gameObject.SetActive(false);
+        if (escapeButton != null)
+        {
+            escapeButton.gameObject.SetActive(false);
+        }
     }
 
     public void BeginDialogue(EW_DialogueLine line)
