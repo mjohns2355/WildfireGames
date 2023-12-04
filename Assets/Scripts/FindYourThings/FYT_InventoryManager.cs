@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 /*
@@ -12,8 +13,12 @@ public class FYT_InventoryManager : MonoBehaviour
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
     public GameObject itemPrefab;
+    public GameObject petPrefab;
     private int offsetAmount = 50;
     private Vector2 offset = new Vector3(0, 50);
+    public int bagLimit = 5;
+    private int bagSize = 0;
+    public bool hasPet = false;
 
     void Start()
     {
@@ -44,26 +49,45 @@ public class FYT_InventoryManager : MonoBehaviour
 
     public void addItem(string item)
     {
-        GameObject newItem = Instantiate(itemPrefab, inventoryRect);
-        RectTransform newRect = newItem.GetComponent<RectTransform>();
-        newRect.anchoredPosition = newRect.anchoredPosition - offset;
-        GameObject collectable = GameObject.Find(item);
-        collectable.transform.parent.GetComponent<FYT_SceneSetup>().sceneItems.Remove(collectable);
-        collectable.SetActive(false);
+        if (bagSize <= 4)
+        {
+            GameObject newItem = Instantiate(itemPrefab, inventoryRect);
+            RectTransform newRect = newItem.GetComponent<RectTransform>();
+            newRect.anchoredPosition = newRect.anchoredPosition - offset;
+            GameObject collectable = GameObject.Find(item);
+            collectable.transform.parent.GetComponent<FYT_SceneSetup>().sceneItems.Remove(collectable);
+            collectable.SetActive(false);
 
-        newItem.GetComponent<Button>().onClick.AddListener(() => {
-            collectable.SetActive(true);
-            collectable.transform.parent.GetComponent<FYT_SceneSetup>().sceneItems.Add(collectable);
-            Destroy(newItem);
-            inventoryItems.Remove(newItem);
-            updatePlacement();
-        });
+            newItem.GetComponent<Button>().onClick.AddListener(() => {
+                collectable.SetActive(true);
+                collectable.transform.parent.GetComponent<FYT_SceneSetup>().sceneItems.Add(collectable);
+                Destroy(newItem);
+                inventoryItems.Remove(newItem);
+                bagSize -= 1;
+                updatePlacement();
+            });
 
-        TMPro.TextMeshProUGUI itemText = newItem.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        itemText.text = item;
-        inventoryItems.Add(newItem);
+            TMPro.TextMeshProUGUI itemText = newItem.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            itemText.text = item;
+            inventoryItems.Add(newItem);
 
-        offset.y += offsetAmount;
+            offset.y += offsetAmount;
+            bagSize += 1;
+        } else
+        {
+            Debug.Log("Bag Limit Exceeded");
+        }
+    }
+
+    public void addPet()
+    {
+        GameObject petItem = Instantiate(petPrefab, inventoryRect);
+        RectTransform petRect = petItem.GetComponent<RectTransform>();
+        Vector2 petOffset = new Vector3(50, 0);
+        petRect.anchoredPosition = petRect.anchoredPosition - petOffset;
+        GameObject pet = GameObject.Find("Pet");
+        pet.SetActive(false);
+        hasPet = true;
     }
 
     private void updatePlacement() 
@@ -87,6 +111,7 @@ public class FYT_InventoryManager : MonoBehaviour
             inventoryItems.Remove(item);
         }
     }
+
 }
     
 

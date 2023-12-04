@@ -22,8 +22,6 @@ public class FYT_SceneSetup : MonoBehaviour
     public GameObject glasses;
     public GameObject pet;
 
-    public int bagLimit = 5;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +32,10 @@ public class FYT_SceneSetup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.parent.GetComponent<FYT_InventoryManager>().hasPet == true)
+        {
+            removePet();
+        }
     }
     
     void OnEnable() {
@@ -112,11 +113,26 @@ public class FYT_SceneSetup : MonoBehaviour
         } else if (FYT_SettingsData.petNeeded==false && livingRoom.activeSelf)
         {
             pet.SetActive(false);
-        } 
+        }
+
+        System.Timers.Timer timer = new (interval: 3000);
+        timer.Elapsed += ( sender, e ) => petPlacement();
+        timer.Start(); 
     }
 
-    public void setBagLimit()
+    public void petPlacement()
     {
+        if (FYT_SettingsData.petNeeded && livingRoom.activeSelf) {
+            sceneItems.Add(pet);
+        } else if (FYT_SettingsData.petNeeded==false && livingRoom.activeSelf)
+        {
+            pet.SetActive(false);
+        }      
+    }
+
+    public void removePet()
+    {
+        pet.SetActive(false);
     }
 
 }
