@@ -26,7 +26,7 @@ public class FYT_PetManager : MonoBehaviour
             petObject.transform.SetParent(null);
             petObject.transform.position = new Vector2(newPoint.position.x, newPoint.position.y);
             petObject.transform.SetParent(newPoint);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1);
         }
     }
 

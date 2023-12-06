@@ -23,12 +23,6 @@ public class FYT_GameModeManager : MonoBehaviour
     public GameObject goBagGameLandscape;
     public GameObject critListGameLandscape;
 
-    [Header("Game Objects")]
-    public GameObject medicationItem;
-    public GameObject glassesItem;
-    public GameObject medicationItemCrit;
-    public GameObject glassesItemCrit;
-
     private bool goBag;
     private bool meds;
     private bool eyesAndEars;

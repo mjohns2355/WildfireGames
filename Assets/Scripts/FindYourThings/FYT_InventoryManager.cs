@@ -25,12 +25,18 @@ public class FYT_InventoryManager : MonoBehaviour
     public int bagLimit = 5;
     private int bagSize = 0;
     public bool hasPet = false;
+    public GameObject endMenu;
 
     void Start()
     {
         inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
         inventoryItems = new List<GameObject>();
         backpackImage = backpack.GetComponent<Image>();
+        if (Screen.width > Screen.height)
+        {
+            offsetAmount = 100;
+            offset = new Vector3(0, 100);
+        }
     }
 
     public void addItem(string item)
@@ -61,9 +67,6 @@ public class FYT_InventoryManager : MonoBehaviour
             offset.y += offsetAmount;
             bagSize += 1;
             backpackImage.sprite = backpackImages[bagSize];
-        } else
-        {
-            Debug.Log("Bag Limit Exceeded");
         }
     }
 
@@ -81,13 +84,27 @@ public class FYT_InventoryManager : MonoBehaviour
     private void updatePlacement() 
     {
         Vector2 localOffset = new Vector3(0, 50);
+        if (Screen.width > Screen.height)
+        {
+            localOffset = new Vector3(0, 100);
+        }
         foreach (GameObject item in inventoryItems)
         {
             RectTransform itemRect = item.GetComponent<RectTransform>();
             itemRect.anchoredPosition = new Vector2(0, -localOffset.y);
+            if (Screen.width > Screen.height)
+            {
+                itemRect.anchoredPosition = new Vector2(-20, -localOffset.y);
+            }
             localOffset.y += offsetAmount;
         }
         offset = localOffset;
+    }
+
+    public void endGame()
+    {
+        FYT_SettingsData.finalInventory = inventoryItems;
+        endMenu.SetActive(true);
     }
 }
     
