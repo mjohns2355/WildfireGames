@@ -9,6 +9,12 @@ and clicking on the textual representation of the item should put the item back 
 */
 public class FYT_InventoryManager : MonoBehaviour
 {
+    [Header("Backpack Sprites")]
+    public GameObject backpack;
+    private Image backpackImage;
+    public Sprite[] backpackImages;
+
+    [Header("Inventory UI")]
     private List<GameObject> inventoryItems;
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
@@ -24,6 +30,7 @@ public class FYT_InventoryManager : MonoBehaviour
     {
         inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
         inventoryItems = new List<GameObject>();
+        backpackImage = backpack.GetComponent<Image>();
     }
 
     public void addItem(string item)
@@ -43,6 +50,7 @@ public class FYT_InventoryManager : MonoBehaviour
                 Destroy(newItem);
                 inventoryItems.Remove(newItem);
                 bagSize -= 1;
+                backpackImage.sprite = backpackImages[bagSize];
                 updatePlacement();
             });
 
@@ -52,6 +60,7 @@ public class FYT_InventoryManager : MonoBehaviour
 
             offset.y += offsetAmount;
             bagSize += 1;
+            backpackImage.sprite = backpackImages[bagSize];
         } else
         {
             Debug.Log("Bag Limit Exceeded");
@@ -80,17 +89,6 @@ public class FYT_InventoryManager : MonoBehaviour
         }
         offset = localOffset;
     }
-
-    private void resetInventory()
-    {
-        foreach (GameObject item in inventoryItems.ToArray())
-        {
-            item.GetComponent<Button>().onClick.Invoke();
-            Destroy(item);
-            inventoryItems.Remove(item);
-        }
-    }
-
 }
     
 

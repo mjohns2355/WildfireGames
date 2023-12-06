@@ -62,10 +62,19 @@ public class FYT_GameModeManager : MonoBehaviour
             // go to portrait mode
             toGoBagMenu.SetActive(false);
             goBagGamePortrait.SetActive(true);
+            if (FYT_SettingsData.petNeeded == false)
+            {
+                goBagGamePortrait.GetComponent<FYT_PetManager>().enabled = false;
+            }
         } else
         {
-            Debug.Log("go to landscape");
             // go to landscape
+            toGoBagMenu.SetActive(false);
+            goBagGameLandscape.SetActive(true);
+            if (FYT_SettingsData.petNeeded == false)
+            {
+                goBagGameLandscape.GetComponent<FYT_PetManager>().enabled = false;
+            }
         }
     }
 
@@ -76,9 +85,19 @@ public class FYT_GameModeManager : MonoBehaviour
             // go to portrait mode
             toCritListMenu.SetActive(false);
             critListGamePortrait.SetActive(true);
+            if (FYT_SettingsData.petNeeded == false)
+            {
+                critListGamePortrait.GetComponent<FYT_PetManager>().enabled = false;
+            }
         } else
         {
             // go to landscape
+            toCritListMenu.SetActive(false);
+            critListGameLandscape.SetActive(true);
+            if (FYT_SettingsData.petNeeded == false)
+            {
+                critListGameLandscape.GetComponent<FYT_PetManager>().enabled = false;
+            }
         }
     }
 }
