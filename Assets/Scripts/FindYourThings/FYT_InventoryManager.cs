@@ -26,27 +26,6 @@ public class FYT_InventoryManager : MonoBehaviour
         inventoryItems = new List<GameObject>();
     }
 
-    void OnEnable()
-    {
-        if (inventoryItems != null)
-        {
-            resetInventory();
-            foreach (Transform child in transform)
-            {
-                if (child.tag == "Room")
-                {
-                    child.GetComponent<FYT_SceneSetup>().startUp();
-                    child.GetComponent<FYT_SceneSetup>().setup();
-                }
-            }
-        }
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void addItem(string item)
     {
         if (bagSize <= 4)

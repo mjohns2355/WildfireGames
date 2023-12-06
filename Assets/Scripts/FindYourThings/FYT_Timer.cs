@@ -9,6 +9,7 @@ public class FYT_Timer : MonoBehaviour
     public float timeLimit = 60;
     public TextMeshProUGUI timerText;
     private float timePassed;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,7 @@ public class FYT_Timer : MonoBehaviour
 
     void UpdateTimeUI(float time) 
     {
-        timerText.text = "Time Remaining: " + Mathf.Max(0, Mathf.Ceil(time));
+        timerText.text = "Time Left: " + Mathf.Max(0, Mathf.Ceil(time));
     } 
 
     void TimerOver()

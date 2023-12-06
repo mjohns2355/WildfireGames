@@ -6,6 +6,6 @@ public static class FYT_SettingsData
 {
     public static bool medsNeeded;
     public static bool glassesNeeded;
-    //added code
-    public static bool petNeeded;  
+    public static bool petNeeded;
+    public static List<GameObject> finalInventory = new List<GameObject>();
 }
