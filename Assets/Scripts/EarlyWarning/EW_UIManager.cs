@@ -200,7 +200,6 @@ public class EW_UIManager : MonoBehaviour
     {
         curLine = line;
         dialogueBox.enabled = true;
-        ShowNameplate();
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
@@ -242,14 +241,12 @@ public class EW_UIManager : MonoBehaviour
         Debug.Log("Starting to type");
         dialogueTextComponent.text = ""; // Clear the text
         float letterDelay = timeBetweenLetters;
+        dialogueTextComponent.color = Color.black;
+        ShowNameplate();
         if (curLine.important)
         {
-            dialogueTextComponent.color = Color.red;
+            dialogueTextComponent.color = new Color(0.7f, 0.0f, 0.0f);
             letterDelay *= 1.1f;
-        }
-        else
-        {
-            dialogueTextComponent.color = Color.black;
         }
 
         for (int i = 0; i < curLine.text.Length; i++)
