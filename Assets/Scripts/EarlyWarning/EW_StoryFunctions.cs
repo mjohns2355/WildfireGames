@@ -26,6 +26,11 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
+    public static void ShowImage(string imageName)
+    {
+        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/" + imageName);
+    }
+
     public static void ShowImage1()
     {
         Sprite sprite = Resources.Load<Sprite>("EarlyWarning/Art/Slide2");
@@ -84,18 +89,8 @@ public class EW_StoryFunctions
         useUpTime(30);
     }
 
-    public static void GoToLivingRoom()
+    public static void GoToArea(string areaName)
     {
-        sceneManager.GoToArea("PaulLivingRoom");
-    }
-
-    public static void GoToBackYard()
-    {
-        sceneManager.GoToArea("PaulBackyard");
-    }
-
-    public static void GoToFrontYard()
-    {
-        sceneManager.GoToArea("PaulFrontYard");
+        sceneManager.GoToArea(areaName);
     }
 }

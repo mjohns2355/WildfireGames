@@ -75,19 +75,18 @@ public class EW_SceneManager : MonoBehaviour
 
     public void ChangeStoryNode(int nodeIndex)
     {
-        if (done || curNode == nodeDict[nodeIndex])
-        {
-            return;
-        }
         if (nodeIndex == -1)
         {
             EndPrefirePhase();
             return;
         }
-
-        curNode = nodeDict[nodeIndex];
-        EW_EventSystem.InvokeLeaveStoryNodeEvent();
-        curNode.Enter();
+        if (curNode != nodeDict[nodeIndex])
+        {
+            if (done) { return; }
+            curNode = nodeDict[nodeIndex];
+            EW_EventSystem.InvokeLeaveStoryNodeEvent();
+            curNode.Enter();
+        }
         curNode.Play();
     }
 

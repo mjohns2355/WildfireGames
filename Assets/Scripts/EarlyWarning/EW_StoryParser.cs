@@ -49,21 +49,19 @@ public class EW_StoryParser
         }
         if (nodeData.function != null)
         {
-            SetFunction(node, nodeData.function);
+            SetFunction(node, nodeData.function, nodeData.argument);
         }
         return node;
     }
 
-    private static void SetFunction(EW_StoryNode node, string functionName)
+    private static void SetFunction(EW_StoryNode node, string functionName, string argument = null)
     {
-        Type functionClass = typeof(EW_StoryFunctions);
-        MethodInfo method = functionClass.GetMethod(functionName);
-        if (method == null)
-        {
-            Debug.LogError("No method found with name " + functionName);
-        }
-        Action action = (Action)Delegate.CreateDelegate(typeof(Action), null, method);
-        node.SetEnterFunction(action);
+        Type funcClass = typeof(EW_StoryFunctions);
+        MethodInfo method = funcClass.GetMethod(functionName);
+
+        var args = argument != null ? new object[] { argument } : null;
+        Action bound = () => method.Invoke(null, args);
+        node.SetEnterFunction(bound);
     }
 
     private static Queue<EW_MoveCommand> ParseMoveCommands(List<MoveCommandData> commands)
@@ -91,6 +89,7 @@ public class StoryNodeData
     public int id;
     public string type;
     public string function = null;
+    public string argument = null;
     public List<MoveCommandData> commands;
     public List<EW_DialogueLine> lines;
     public List<EW_Choice> choices;

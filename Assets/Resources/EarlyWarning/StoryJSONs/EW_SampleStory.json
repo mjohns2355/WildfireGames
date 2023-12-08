@@ -3,7 +3,8 @@
     {
       "id": 0,
       "type": "Move",
-      "function": "GoToLivingRoom",
+      "function": "GoToArea",
+      "argument": "PaulLivingRoom",
       "commands": [
         { "targetPosition": { "x": -4.5, "y": 0 }, "actorName": "Paul" },
         {
@@ -28,7 +29,8 @@
     {
       "id": 2,
       "type": "Choice",
-      "function": "GoToBackYard",
+      "function": "GoToArea",
+      "argument": "PaulBackyard",
       "choices": [
         { "text": "Choice 1", "goesTo": 3, "repeatable": false },
         { "text": "Choice 2 (evacuate early)", "goesTo": 4, "repeatable": false},
@@ -46,7 +48,8 @@
     {
       "id": 4,
       "type": "Dialogue",
-      "function": "GoToFrontYard",
+      "function": "GoToArea",
+      "argument": "PaulFrontYard",
       "lines": [{ "speaker": "Narrator", "text": "Choice 2 selected" }],
       "nextNodeID": 1000
     },

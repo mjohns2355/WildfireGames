@@ -3,7 +3,8 @@
         {
         "id": 0,
         "type": "Dialogue",
-        "function": "ShowImage1",
+        "function": "ShowImage",
+        "argument": "Slide2",
         "lines": [
             {"text": "Not many folks around here can boast a life lived like Paul's. A retired army engineer, his nomadic mindset forged by the rigors of service and solitude. Now, it's been just him for quite a stretch of years."}
         ],
@@ -12,7 +13,8 @@
         {
           "id": 101,
           "type": "Dialogue",
-          "function": "ShowImage2",
+          "function": "ShowImage",
+          "argument": "IntroDraft2",
           "lines": [
               {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
               
@@ -24,7 +26,8 @@
           {
           "id": 102,
           "type": "Dialogue",
-          "function": "ShowImage4",
+          "function": "ShowImage",
+          "argument": "Slide1",
           "lines": [
               {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
           ],
@@ -34,7 +37,8 @@
           {
           "id": 103,
           "type": "Dialogue",
-          "function": "ShowImage3",
+          "function": "ShowImage",
+          "argument": "IntroDraft3",
           "lines": [
               {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
               
@@ -46,7 +50,8 @@
         {
         "id": 1,
         "type": "Dialogue",
-        "function": "GoToLivingRoom",
+        "function": "GoToArea",
+        "argument": "PaulLivingRoom",
         "lines": [
             {"text": "Paul gets up seeing the chatter is coming from the TV."},
 
@@ -122,7 +127,8 @@
         {
             "id": 6,
             "type": "Choice",
-            "function": "GoToLivingRoom",
+            "function": "GoToArea",
+            "argument": "PaulLivingRoom",
             "choices": [
               { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
               { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
@@ -236,7 +242,8 @@
           {
             "id": 11,
             "type": "Dialogue",
-            "function": "GoToFrontYard",
+            "function": "GoToArea",
+            "argument": "PaulFrontYard",
             "lines": [
               {"text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died. Paul Chuckles..."},
 
@@ -306,7 +313,8 @@
           {
             "id": 15,
             "type": "Dialogue",
-            "function": "GoToBackYard",
+            "function": "GoToArea",
+            "argument": "PaulBackyard",
             "lines": [
               {"text": "The backyard is relatively big with trees and a brick wall surrounding it. "},
 
