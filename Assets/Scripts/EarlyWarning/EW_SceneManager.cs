@@ -54,6 +54,12 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
+    public void TimesUp()
+    {
+        EW_EventSystem.LeaveStoryNodeEvent -= TimesUp;
+        ChangeStoryNode(2000);
+    }
+
     public void EndPrefirePhase()
     {
         uiManager.HideUI();
@@ -65,37 +71,23 @@ public class EW_SceneManager : MonoBehaviour
         background.enabled = false;
         done = true;
         uiManager.ShowTaskList();
-
-        EW_EventSystem.LeaveStoryNodeEvent -= EndPrefirePhase;
-        //Invoke("ChangeStoryNodeWrapper", 3.0f);
-    }
-
-    private void EndOfPreFireWrapper()
-    {
-        ChangeStoryNode(25);
-    }
-
-    public void Escape()
-    {
-        uiManager.RemoveEscapeButton();
-        ChangeStoryNode(1000);
-        EW_EventSystem.LeaveStoryNodeEvent += EndPrefirePhase;
     }
 
     public void ChangeStoryNode(int nodeIndex)
     {
+        if (done || curNode == nodeDict[nodeIndex])
+        {
+            return;
+        }
         if (nodeIndex == -1)
         {
             EndPrefirePhase();
             return;
         }
-        if (curNode != nodeDict[nodeIndex])
-        {
-            EW_EventSystem.InvokeLeaveStoryNodeEvent();
-            if (done) { return; }
-            curNode = nodeDict[nodeIndex];
-            curNode.Enter();
-        }
+
+        curNode = nodeDict[nodeIndex];
+        EW_EventSystem.InvokeLeaveStoryNodeEvent();
+        curNode.Enter();
         curNode.Play();
     }
 

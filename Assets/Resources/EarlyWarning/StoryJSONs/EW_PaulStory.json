@@ -9,41 +9,40 @@
         ],
         "nextNodeID": 101
         },
-
         {
-        "id": 101,
-        "type": "Dialogue",
-        "function": "ShowImage2",
-        "lines": [
-            {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
-            
-            {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."}
-        ],
-        "nextNodeID": 102
-        },
-
-        {
-        "id": 102,
-        "type": "Dialogue",
-        "function": "ShowImage4",
-        "lines": [
-            {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
-        ],
-        "nextNodeID": 103
-        },
-
-        {
-        "id": 103,
-        "type": "Dialogue",
-        "function": "ShowImage3",
-        "lines": [
-            {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
-            
-            {"text": "*Faint Mumbling wakes Paul from his sleep...*"}
-        ],
-        "nextNodeID": 1
-        },
-        
+          "id": 101,
+          "type": "Dialogue",
+          "function": "ShowImage2",
+          "lines": [
+              {"text": "Mary was his better half, who passed on a lifetime ago, leaving Paul to his own devices. But Paul endured, the army taught him more than just a dresscode and following orders. He's the go to hadnyman, a real tinkerer."},
+              
+              {"text": "He isn't the bragadocious type, at least not much. In most things however, it's Paul's way or the highway; Paul know's best."}
+          ],
+          "nextNodeID": 102
+          },
+  
+          {
+          "id": 102,
+          "type": "Dialogue",
+          "function": "ShowImage4",
+          "lines": [
+              {"text": "Paul's neighbors get past it though. They're his company, his connection to a world that seems smaller since his family's visits grew fewer and farther between. He cherishes these small interactions."}
+          ],
+          "nextNodeID": 103
+          },
+  
+          {
+          "id": 103,
+          "type": "Dialogue",
+          "function": "ShowImage3",
+          "lines": [
+              {"text": "That's Paul for you, a solitary man with a lifetime of skills and stories, standing strong in the quiet of his own space, with the world just a porch-step away."},
+              
+              {"text": "*Faint Mumbling wakes Paul from his sleep...*"}
+          ],
+          "nextNodeID": 1
+          },
+          
         {
         "id": 1,
         "type": "Dialogue",
@@ -67,7 +66,6 @@
         {
         "id": 2,
         "type": "Dialogue",
-        "function": "WarningHeard",
         "lines": [
             {"speaker": "Paul", "text": "A fire warning? Over a bit of heat?"},
 
@@ -105,7 +103,8 @@
             "function": "ShowTimer",
             "choices": [
               { "text": "Check Downstairs", "goesTo": 5, "repeatable": true },
-              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
+              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
         },
@@ -127,7 +126,8 @@
             "choices": [
               { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
               { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
-              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
+              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
         },
@@ -324,7 +324,8 @@
             "choices": [
               { "text": "Cut the Tree (30 Minutes)", "goesTo": 605, "repeatable": false },
               { "text": "Clean the Gutter (30 Minutes)", "goesTo": 604, "repeatable": false },
-              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true },
+              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
           },
@@ -388,7 +389,17 @@
 
               {"speaker":"Cal Fire", "text": "Being safer than sorry is always the best choice. Please heed evacuation notices and get out as early as possible.", "important": true}
             ],
-            "nextNodeID": 16
+            "nextNodeID": -1
+          },
+          {
+            "id": 2000,
+            "type": "Dialogue",
+            "lines": [
+              {"text": "This event is for when you run out of time. With the fire approaching, Paul grabs what he can and evacuates."},
+
+              {"speaker":"Cal Fire", "text": "Idk what to put here. Tell 'em to evacuate earlier I guess?", "important": true}
+            ],
+            "nextNodeID": -1
           }
     ]
 }

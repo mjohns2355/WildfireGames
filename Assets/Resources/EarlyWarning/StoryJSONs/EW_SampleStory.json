@@ -20,7 +20,7 @@
       "function": "ShowTimer",
       "lines": [
         { "speaker": "Paul", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
-        { "text": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "important": true },
+        { "text": "example", "important": true },
         { "speaker": "Narrator", "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
       ],
       "nextNodeID": 2
@@ -31,7 +31,7 @@
       "function": "GoToBackYard",
       "choices": [
         { "text": "Choice 1", "goesTo": 3, "repeatable": false },
-        { "text": "Choice 2", "goesTo": 4, "repeatable": false},
+        { "text": "Choice 2 (evacuate early)", "goesTo": 4, "repeatable": false},
         { "text": "Choice 3 (repeatable)", "goesTo": 5, "repeatable": true }
       ],
       "nextNodeID": -1
@@ -48,7 +48,7 @@
       "type": "Dialogue",
       "function": "GoToFrontYard",
       "lines": [{ "speaker": "Narrator", "text": "Choice 2 selected" }],
-      "nextNodeID": 6
+      "nextNodeID": 1000
     },
     {
       "id": 5,
@@ -61,6 +61,26 @@
       "id": 6,
       "type": "Dialogue",
       "lines": [{ "speaker": "Narrator", "text": "There we have it" }],
+      "nextNodeID": -1
+    },
+    {
+      "id": 1000,
+      "type": "Dialogue",
+      "lines": [
+        {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},
+
+        {"speaker":"Cal Fire", "text": "Be safe instead of sorry.", "important": true}
+      ],
+      "nextNodeID": -1
+    },
+    {
+      "id": 2000,
+      "type": "Dialogue",
+      "lines": [
+        {"text": "This event is for when you run out of time. With the fire approaching, Paul grabs what he can and evacuates."},
+
+        {"speaker":"Cal Fire", "text": "Idk what to put here. Tell 'em to evacuate earlier I guess?", "important": true}
+      ],
       "nextNodeID": -1
     }
   ]

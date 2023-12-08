@@ -33,11 +33,8 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private float landscapeOrthographicSize = 5f, portraitOrthographicSize = 9f;
 
-    public Button escapeButton;
-
     public void Start()
     {
-        escapeButton.gameObject.SetActive(false);
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         selectedChoices = new List<EW_Choice>();
@@ -75,12 +72,6 @@ public class EW_UIManager : MonoBehaviour
         }
         timerText.text = "";
     }
-
-    public void ShowEscapeButton()
-    {
-        escapeButton.gameObject.SetActive(true);
-    }
-
 
     public void ShowTaskList()
     {
@@ -186,14 +177,6 @@ public class EW_UIManager : MonoBehaviour
             Destroy(button.gameObject);
         }
         choiceButtons.Clear();
-    }
-
-    public void RemoveEscapeButton()
-    {
-        if (escapeButton != null)
-        {
-            escapeButton.gameObject.SetActive(false);
-        }
     }
 
     public void BeginDialogue(EW_DialogueLine line)

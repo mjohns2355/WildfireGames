@@ -12,7 +12,7 @@ public class EW_StoryFunctions
 
         if (EW_SceneManager.minutesRemaining <= 0)
         {
-            EW_EventSystem.LeaveStoryNodeEvent += sceneManager.EndPrefirePhase;
+            EW_EventSystem.LeaveStoryNodeEvent += sceneManager.TimesUp;
         }
     }
 
@@ -25,12 +25,6 @@ public class EW_StoryFunctions
     {
         useUpTime(0);
     }
-
-    public static void WarningHeard()
-    {
-         uiManager.ShowEscapeButton();
-    }
-
 
     public static void ShowImage1()
     {
