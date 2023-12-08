@@ -31,28 +31,6 @@ public class EW_StoryFunctions
         sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/" + imageName);
     }
 
-    public static void ShowImage1()
-    {
-        Sprite sprite = Resources.Load<Sprite>("EarlyWarning/Art/Slide2");
-        Debug.Log(sprite);
-        sceneManager.background.sprite = sprite;
-    }
-
-    public static void ShowImage2()
-    {
-        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft2");
-    }
-
-    public static void ShowImage3()
-    {
-        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/IntroDraft3");
-    }
-
-    public static void ShowImage4()
-    {
-        sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/Slide1");
-    }
-
     public static void GoBag()
     {
         EW_SceneManager.goBag = true;
