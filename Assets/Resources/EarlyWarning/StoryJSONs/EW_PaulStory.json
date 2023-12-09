@@ -397,7 +397,7 @@
 
               {"speaker":"Cal Fire", "text": "Being safer than sorry is always the best choice. Please heed evacuation notices and get out as early as possible.", "important": true}
             ],
-            "nextNodeID": -1
+            "nextNodeID": 9000
           },
           {
             "id": 2000,
@@ -406,6 +406,15 @@
               {"text": "This event is for when you run out of time. With the fire approaching, Paul grabs what he can and evacuates."},
 
               {"speaker":"Cal Fire", "text": "Idk what to put here. Tell 'em to evacuate earlier I guess?", "important": true}
+            ],
+            "nextNodeID": 9000
+          },
+          {
+            "id": 9000,
+            "type": "Dialogue",
+            "function": "ShowEpilogue",
+            "lines": [
+              {"text": "Epilogue text determined in sceneManager"}
             ],
             "nextNodeID": -1
           }

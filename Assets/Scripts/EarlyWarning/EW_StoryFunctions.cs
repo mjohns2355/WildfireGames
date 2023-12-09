@@ -26,6 +26,11 @@ public class EW_StoryFunctions
         useUpTime(0);
     }
 
+    public static void ShowEpilogue()
+    {
+        sceneManager.ShowEpilogue();
+    }
+
     public static void ShowImage(string imageName)
     {
         sceneManager.background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/" + imageName);
