@@ -162,6 +162,13 @@ public class EW_DialogueLine
     public string text;
     public string speaker = "";
     public bool important = false;
+
+    public EW_DialogueLine(string _text, string _speaker = "", bool _important = false)
+    {
+        text = _text;
+        speaker = _speaker;
+        important = _important;
+    }
 }
 
 public class EW_MoveCommand

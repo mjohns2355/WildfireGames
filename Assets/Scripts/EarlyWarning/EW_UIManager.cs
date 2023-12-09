@@ -202,7 +202,7 @@ public class EW_UIManager : MonoBehaviour
 
     private void ShowNameplate()
     {
-        if (curLine.speaker == "")
+        if (curLine.speaker == "" || curLine.speaker == null)
         {
             HideNameplate();
         }

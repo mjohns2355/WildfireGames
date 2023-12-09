@@ -60,7 +60,16 @@ public class EW_SceneManager : MonoBehaviour
         ChangeStoryNode(2000);
     }
 
-    public void EndPrefirePhase()
+    public void ShowEpilogue()
+    {
+        EW_DialogueLine line1 = new EW_DialogueLine("This is the epilogue", "Epilogue", true);
+
+        EW_DialogueNode epilogueNode = new EW_DialogueNode(new List<EW_DialogueLine> { line1 });
+        epilogueNode.nextNode = -1;
+        curNode = epilogueNode;
+    }
+
+    public void EndAndShowTaskList()
     {
         uiManager.HideUI();
         if (actorParent != null)
@@ -77,7 +86,7 @@ public class EW_SceneManager : MonoBehaviour
     {
         if (nodeIndex == -1)
         {
-            EndPrefirePhase();
+            EndAndShowTaskList();
             return;
         }
         if (curNode != nodeDict[nodeIndex])
