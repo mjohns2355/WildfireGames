@@ -45,6 +45,7 @@ public class EW_StoryFunctions
     public static void AldoTalk()
     {
         EW_SceneManager.neighborTalk = true;
+        ShowImage("Slide1");
         useUpTime(30);
     }
 
