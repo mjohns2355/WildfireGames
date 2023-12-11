@@ -124,6 +124,7 @@ public class EW_UIManager : MonoBehaviour
         Button choiceButton = choiceButtonObject.GetComponent<Button>();
 
         // Calculate and set position and size of the button
+        // This makes sure the buttons are evenly spaced vertically and fill the dialogue box
         var boxRect = dialogueBox.GetComponent<RectTransform>().rect;
         float buttonHeight = boxRect.height / numChoices;
         float buttonWidth = boxRect.width;
@@ -136,10 +137,7 @@ public class EW_UIManager : MonoBehaviour
 
         // Add the text
         TMP_Text buttonTextComponent = choiceButtonObject.GetComponentInChildren<TMP_Text>();
-        if (buttonTextComponent != null)
-        {
-            buttonTextComponent.text = choice.text;
-        }
+        buttonTextComponent.text = choice.text;
 
         // Set up the button to move to the appropriate node
         choiceButton.onClick.AddListener(() =>
@@ -147,6 +145,7 @@ public class EW_UIManager : MonoBehaviour
             RemoveChoiceButtons();
             if (!choice.repeatable)
             {
+                // If the choice is not repeatable, note that we have selected it
                 selectedChoices.Add(choice);
             }
             EW_EventSystem.InvokeChangeStoryNodeEvent(choice.goesTo);
@@ -205,9 +204,10 @@ public class EW_UIManager : MonoBehaviour
         nameplateTextComponent.text = "";
     }
 
+    //Writes out the text one letter at a time
     private IEnumerator TypeTextCoroutine()
     {
-        dialogueTextComponent.text = ""; // Clear the text
+        dialogueTextComponent.text = "";
         dialogueTextComponent.color = Color.black;
         ShowNameplate();
         float messageLetterDelay = timeBetweenLetters;

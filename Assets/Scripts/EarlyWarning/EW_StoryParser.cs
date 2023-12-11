@@ -54,6 +54,8 @@ public class EW_StoryParser
         return node;
     }
 
+    //If you provide a "function" item in the JSON, it will call the function with the name provided
+    //An "argument" item in the JSON will pass that as a string argument to the function
     private static void SetFunction(EW_StoryNode node, string functionName, string argument = null)
     {
         Type funcClass = typeof(EW_StoryFunctions);
@@ -77,12 +79,15 @@ public class EW_StoryParser
     }
 }
 
+// These classes are purely data containers used for deserializing the JSON
 [Serializable]
 public class NodeDataWrapper
 {
     public List<StoryNodeData> nodes;
 }
 
+//A StoryNodeData contains all possible fields for a node, 
+//but only the ones relevant to the node type will be used
 [Serializable]
 public class StoryNodeData
 {

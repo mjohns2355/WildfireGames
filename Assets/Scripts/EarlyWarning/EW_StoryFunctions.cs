@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 //This class contains the functions that can be called from the story JSON files
@@ -11,7 +10,7 @@ public class EW_StoryFunctions
 
     public static void ShowTimer()
     {
-        uiManager.UpdatePhaseText(sceneManager.currentPhase);
+        uiManager.UpdatePhaseText(sceneManager.phaseStrings[sceneManager.curPhase]);
     }
 
     public static void ShowEpilogue()

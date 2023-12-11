@@ -13,10 +13,16 @@ public class EW_SceneManager : MonoBehaviour
 
     //Task tracking variables
     //currentPhase is changed in UseUpTime()
-    public string currentPhase = "Fire Season Starting";
     //Each task will be set to currentPhase when it is completed
-
-    public Dictionary<string, string> tasks = new Dictionary<string, string>
+    public int curPhase = 0;
+    public string[] phaseStrings = new string[]
+    {
+        "Fire Season Starting",
+        "Red Flag Day",
+        "Red Flag Day",
+        "Evacuation Warning!"
+    };
+    public Dictionary<string, string> tasksDone = new Dictionary<string, string>
     {
         {"neighborTalk", "notDone"},
         {"goBag", "notDone"},
@@ -29,36 +35,19 @@ public class EW_SceneManager : MonoBehaviour
 
     public void DoTask(string taskName)
     {
-        tasks[taskName] = "done";
+        tasksDone[taskName] = phaseStrings[curPhase];
         UseUpTime();
     }
 
     public bool taskDone(string taskName)
     {
-        return tasks[taskName] != "notDone";
+        return tasksDone[taskName] != "notDone";
     }
 
     public void UseUpTime()
     {
-        switch (currentPhase)
-        {
-            case "Fire Season Starting":
-                currentPhase = "Red Flag Day 1";
-                break;
-            case "Red Flag Day 1":
-                currentPhase = "Red Flag Day 2";
-                break;
-            case "Red Flag Day 2":
-                currentPhase = "Evacuation Warning!";
-                break;
-            case "Evacuation Warning!":
-                EW_EventSystem.LeaveStoryNodeEvent += TimesUp;
-                break;
-            default:
-                break;
-        }
-
-        uiManager.UpdatePhaseText(currentPhase);
+        curPhase++;
+        uiManager.UpdatePhaseText(phaseStrings[curPhase]);
     }
 
     // Start is called before the first frame update
@@ -107,7 +96,7 @@ public class EW_SceneManager : MonoBehaviour
     //Called by Epilogue node after the player either runs out of time or escapes early
     public void ShowEpilogue()
     {
-        background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/Epilogue");
+        background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/PaulEpilogue");
 
         EW_DialogueLine line1 = new EW_DialogueLine("This is the epilogue", "Epilogue", true);
 

@@ -25,7 +25,7 @@ public class EW_Actor : MonoBehaviour
         Vector3 currentPosition = transform.position;
         Vector3 movementDirection = currentPosition - previousPosition;
 
-
+        //Change the actor sprite to be facing the right direction
         if (movementDirection != Vector3.zero)
         {
             if (Mathf.Abs(movementDirection.x) > Mathf.Abs(movementDirection.y))
@@ -40,6 +40,7 @@ public class EW_Actor : MonoBehaviour
         }
     }
 
+    //Takes a move command and begins the movement
     public void Execute(EW_MoveCommand command)
     {
         SkipCurrentMove();
