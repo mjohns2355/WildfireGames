@@ -135,7 +135,7 @@ public class SD_UITest : MonoBehaviour
     public void TVTimer()
     {
         currentTimer += Time.deltaTime;
-        if(currentTimer >= 5f) //CHANGE
+        if(currentTimer >= 10f) //CHANGE
         {
             TV.SetActive(true);
         }
