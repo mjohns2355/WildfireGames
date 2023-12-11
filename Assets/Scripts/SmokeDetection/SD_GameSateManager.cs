@@ -12,19 +12,20 @@ public class SD_GameSateManager : MonoBehaviour
 {
     [SerializeField] private SD_GameState gameState;
     [SerializeField] private float AQI = 0f;
-    // [SerializeField] private float AQIRate= 0f;
+    [SerializeField] private float AQIRate= 0f;
+    [SerializeField] private float AQIRateOfUse= 2f;
     [SerializeField] private float AQIMax = 100f;
     private static SD_GameSateManager instance;    
     private SD_AQIBar AQIBarHealth;
-    [SerializeField] private float timerDuration = 5f;
     private float currentTimer = 0f;
     private int counterToWin = 5;
     private int currentCounter = 0;
 
     [SerializeField] private GameObject positiveAQI;
     [SerializeField] private GameObject negativeAQI;
-
     
+    [SerializeField] private List<GameObject> listOfAQIObjects = new List<GameObject>();
+
     public static SD_GameSateManager Instance
     {
         get
@@ -52,27 +53,51 @@ public class SD_GameSateManager : MonoBehaviour
     {
         switchGameState(SD_GameState.Paused);
         SD_AQIBar.Instance.SetMaxAQI(AQIMax);
+
+        SD_ItemAQI[] itemScripts = Resources.FindObjectsOfTypeAll<SD_ItemAQI>();
+        foreach (SD_ItemAQI itemScript in itemScripts) //Checks every object with ItemAQI script, then adds to 
+        {
+            if (!UnityEditor.EditorUtility.IsPersistent(itemScript.gameObject)) // Checks object if its a scene object (not a prefab or asset)
+            {
+                if (itemScript.checkIsStarterItem()) //Then, checks if startItemBool is active, then adds to the list of active objects for AQI
+                {
+                    listOfAQIObjects.Add(itemScript.gameObject);
+                }
+            }
+        }
+
+        foreach (GameObject starterItems in listOfAQIObjects) //goes through all of them and adds them up for AQIRate
+        {
+            SD_ItemAQI itemScript = starterItems.GetComponent<SD_ItemAQI>();
+            if (itemScript != null)
+            {
+                float aqiPower = itemScript.checkAQIPower();
+                AQIRate += aqiPower;
+            }
+        }
+
     }
 
     void Update()
     {
-        SD_AQIBar.Instance.SetAQI(AQI);
         switch(gameState)
         {
             case SD_GameState.Paused:
                 //Do not tick down on hp
                 break;
             case SD_GameState.Ongoing:
+                AQIMeterIncrease(AQIRate);
+                SD_AQIBar.Instance.SetAQI(AQI);
                 if(AQI >= AQIMax)
                 {
                     switchGameState(SD_GameState.Ended);
-                    SD_SceneManager.Instance.SetCurrentScene(5);
+                    SD_SceneManager.Instance.SetCurrentScene(6);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                if(counterToWin == currentCounter)
+                if(AQIRate <= 0)
                 {
                     switchGameState(SD_GameState.Ended);
-                    SD_SceneManager.Instance.SetCurrentScene(6);
+                    SD_SceneManager.Instance.SetCurrentScene(7);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
                 // if(AQI < .9)
@@ -91,6 +116,7 @@ public class SD_GameSateManager : MonoBehaviour
 
         }
     }
+
     public void switchGameState(SD_GameState switchTo)
     {
         gameState = switchTo;
@@ -101,20 +127,42 @@ public class SD_GameSateManager : MonoBehaviour
     }
     public void AQIMeterIncrease(float increaseAmount)
     {
-        
-        AQI += increaseAmount;
+        currentTimer += Time.deltaTime;
+        if(currentTimer >= AQIRateOfUse)
+        {
+            increaseAmount = increaseAmount * AQIRateOfUse; //Just so i can get a smoother increase in the bar. Its still the rate of number per second :)
+            AQI += increaseAmount;
+            currentTimer = 0f;
+        }
         if(AQI < 0)
         {
             AQI = 0;
         }
     }
-    
 
-    private void TimerCheck()
+    public void addObjectToAQIList(GameObject newItem)
     {
-        currentTimer += Time.deltaTime;
+        listOfAQIObjects.Add(newItem);
+        SD_ItemAQI itemScript = newItem.GetComponent<SD_ItemAQI>();
+        if (itemScript != null)
+        {
+            float aqiPower = itemScript.checkAQIPower();
+            AQIRate += aqiPower;
+        }
+        currentCounter++;
     }
-    
+    public void removeObjectToAQIList(GameObject oldItem)
+    {
+        listOfAQIObjects.Remove(oldItem);
+        SD_ItemAQI itemScript = oldItem.GetComponent<SD_ItemAQI>();
+        if (itemScript != null)
+        {
+            float aqiPower = itemScript.checkAQIPower();
+            AQIRate -= aqiPower;
+        }
+        currentCounter--;
+    }
+
     public void PositiveAQINotification()
     {
         Debug.Log("TESTING");
@@ -135,14 +183,16 @@ public class SD_GameSateManager : MonoBehaviour
         }
     }
 
-    public void AddToCounter()
+    public float getAQIRate()
     {
-        currentCounter++;
-    }
-    public void RemoveFromCounter()
-    {
-        currentCounter--;
+        return AQIRateOfUse;
     }
 
+
+    /*
+    Regis Notes:
+    Create a new 
+
+    */
 
 }   

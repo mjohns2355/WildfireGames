@@ -6,26 +6,23 @@ using UnityEngine;
 public class SD_ItemAQI : MonoBehaviour
 {
     [SerializeField] private float AQIPower = .5f;
-    [SerializeField] private float AQITickRate = .5f;    
-    [SerializeField] private bool AQIActive = false;
-    private float timerCount = 0.0f;
+    // [SerializeField] private float AQITickRate = .5f;    
+    [SerializeField] private bool starterItem = false;
     private SD_GameState currentState;
-
-    void Update()
+    public bool checkIsStarterItem()
     {
-        currentState = SD_GameSateManager.Instance.getGameState();
-        if(gameObject.activeSelf && currentState == SD_GameState.Ongoing)
+        if(starterItem)
         {
-            timerCount += Time.deltaTime;
-            if(timerCount >= AQITickRate)
-            {
-                SD_GameSateManager.Instance.AQIMeterIncrease(AQIPower);
-                timerCount = 0.0f;
-            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-    public void SwitchActiveState()
+
+    public float checkAQIPower()
     {
-        AQIActive = !AQIActive;
+        return AQIPower;
     }
 }

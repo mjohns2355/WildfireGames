@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,12 @@ public class SD_UITest : MonoBehaviour
 {
     int UILayer;
     [SerializeField] GameObject doubleClickHold; //Checks if you click twice
+    [SerializeField] private GameObject TVUIPopup;
+    [SerializeField] private GameObject TV;
+    private float currentTimer = 0f;
+    private bool startTimer;
+    private int counting = 0;
+
     
 
     private void Start()
@@ -27,14 +34,10 @@ public class SD_UITest : MonoBehaviour
                 ClickedHoveredItem(checkHoveredObject);
             }
         }
-        if(checkHoveredObject == null) //checks if u got nothing
+        if(startTimer == true && counting < 2)
         {
-            if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
-            {
-                ClickedOffItem();
-            }
+            TVTimer();
         }
-
     }
 
     // Returns the object being hovered over with the specified tag.
@@ -67,31 +70,7 @@ public class SD_UITest : MonoBehaviour
         return raycastResults;
     }
 
-    // Show the ToolTip of the object.
-    private void ShowToolTip(GameObject obj)
-    {
-        if (obj != null)
-        {
-            Transform toolTip = obj.transform.Find("ToolTip");
-            if (toolTip != null)
-            {
-                toolTip.gameObject.SetActive(true);
-            }
-        }
-    }
 
-    // Hide the ToolTip of the object.
-    private void HideToolTip(GameObject obj)
-    {
-        if (obj != null)
-        {
-            Transform toolTip = obj.transform.Find("ToolTip");
-            if (toolTip != null)
-            {
-                toolTip.gameObject.SetActive(false);
-            }
-        }
-    }
     private void ClickedHoveredItem(GameObject obj)
     {
         if(obj.CompareTag("PickupObject") == true)
@@ -102,22 +81,11 @@ public class SD_UITest : MonoBehaviour
         {
             interactObject(obj);
         }
-        // else
-        // {
-        //     HideToolTip(doubleClickHold);
-        //     if (obj != null)
-        //     {
-        //         doubleClickHold = obj;
-        //         ShowToolTip(obj);
-        //     }
-        // }
+        if(obj.CompareTag("msgPopup") == true)
+        {
+            interactPopup(obj);
+        }
     }
-    private void ClickedOffItem()
-    {
-        HideToolTip(doubleClickHold);
-        doubleClickHold = null;
-    }
-
 
     // RECHANGE FOR OTHER
     private void pickupItem(GameObject item)
@@ -133,9 +101,7 @@ public class SD_UITest : MonoBehaviour
         {
             item.SetActive(false);
             playerInventory.AddItem(item);
-        }
-
-        
+        }        
     }
 
     private void interactObject(GameObject obj)
@@ -147,6 +113,15 @@ public class SD_UITest : MonoBehaviour
             switchObject.UseItemToSwitch();
         }
     }
+
+    private void interactPopup(GameObject obj)
+    {
+        obj.SetActive(false);
+        SD_GameSateManager.Instance.switchGameState(SD_GameState.Paused);
+        TVUIPopup.SetActive(true);
+        startTimer = false;
+        currentTimer = 0f;
+    }
     private IEnumerator WaitForAnimation(Animation animation, GameObject item)
     {
         while (animation.isPlaying)
@@ -155,5 +130,25 @@ public class SD_UITest : MonoBehaviour
         }
         item.SetActive(false);
         SD_Inventory.Instance.AddItem(item);
+    }
+
+    public void TVTimer()
+    {
+        currentTimer += Time.deltaTime;
+        if(currentTimer >= 15f)
+        {
+            TV.SetActive(true);
+        }
+    }
+    public void startTVTimer()
+    {
+        startTimer = true;
+    }
+    public void TVcounter()
+    {
+        if(counting < 2)
+        {
+            counting++;
+        }
     }
 }

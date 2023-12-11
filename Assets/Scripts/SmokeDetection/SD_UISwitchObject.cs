@@ -13,17 +13,17 @@ public class SD_UISwitchObject : MonoBehaviour
     {  
         thisObject.SetActive(false);
         objectSwitch.SetActive(true);
+        SD_GameSateManager.Instance.addObjectToAQIList(objectSwitch);
+        SD_GameSateManager.Instance.removeObjectToAQIList(thisObject);
         if(trueForNUETRAL == false)
         {
             if(trueForNegative)
             {
                 SD_GameSateManager.Instance.NegativeAQINotification();
-                SD_GameSateManager.Instance.AddToCounter();
             }
             if(trueForNegative == false)
             {
                 SD_GameSateManager.Instance.PositiveAQINotification();
-                SD_GameSateManager.Instance.RemoveFromCounter();
             }
         }
     }
