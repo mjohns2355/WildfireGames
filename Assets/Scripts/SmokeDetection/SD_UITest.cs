@@ -34,7 +34,7 @@ public class SD_UITest : MonoBehaviour
                 ClickedHoveredItem(checkHoveredObject);
             }
         }
-        if(startTimer == true && counting < 2)
+        if(startTimer == true && counting <= 2)
         {
             TVTimer();
         }
@@ -135,7 +135,7 @@ public class SD_UITest : MonoBehaviour
     public void TVTimer()
     {
         currentTimer += Time.deltaTime;
-        if(currentTimer >= 15f)
+        if(currentTimer >= 5f) //CHANGE
         {
             TV.SetActive(true);
         }
