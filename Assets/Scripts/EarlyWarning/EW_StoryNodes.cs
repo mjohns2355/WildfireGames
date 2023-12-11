@@ -86,7 +86,7 @@ public class EW_MoveNode : EW_StoryNode
 
 public class EW_DialogueNode : EW_StoryNode
 {
-    Queue<EW_DialogueLine> linesLeft;
+    protected Queue<EW_DialogueLine> linesLeft;
     List<EW_DialogueLine> allLines;
 
     public EW_DialogueNode(List<EW_DialogueLine> _lines)
@@ -147,6 +147,22 @@ public class EW_ChoiceNode : EW_StoryNode
     public override void Play()
     {
         EW_EventSystem.InvokeChoiceSetupEvent(choices);
+    }
+}
+
+public class EW_EpilogueNode : EW_DialogueNode
+{
+    public EW_EpilogueNode(List<EW_DialogueLine> _lines) : base(_lines)
+    {
+    }
+
+    public override int Advance()
+    {
+        if (linesLeft.Count > 0)
+        {
+            return -2;
+        }
+        return nextNode;
     }
 }
 

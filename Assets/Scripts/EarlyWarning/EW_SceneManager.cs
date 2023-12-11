@@ -11,6 +11,8 @@ public class EW_SceneManager : MonoBehaviour
     public GameObject actorParent;
     public bool storySelected = false;
 
+    private bool ranOutOfTime = false;
+
     //Task tracking variables
     //currentPhase is changed in UseUpTime()
     //Each task will be set to currentPhase when it is completed
@@ -88,33 +90,70 @@ public class EW_SceneManager : MonoBehaviour
     //When the player runs out of time by doing enough actions, directs them to the appropriate node
     public void TimesUp()
     {
+        ranOutOfTime = true;
         EW_EventSystem.LeaveStoryNodeEvent -= TimesUp;
         ChangeStoryNode(2000);
     }
 
     //Determines what text goes in the Epilogue based on what tasks were done and whether they escaped early
     //Called by Epilogue node after the player either runs out of time or escapes early
+    //This is a mess, and will need to be changed and modularized when you add more stories or change Paul's story
     public void ShowEpilogue()
     {
+        if (actorParent != null)
+        {
+            Destroy(actorParent);
+        }
         background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/PaulEpilogue");
 
-        EW_DialogueLine line1 = new EW_DialogueLine("This is the epilogue", "Epilogue", true);
+        List<EW_DialogueLine> lines = new List<EW_DialogueLine>();
 
-        //if node 2000 visited(ran out of time/didn't hit escape in time)
-        //  EW_DialogueLine line1 = new EW_DialogueLine("Paul used his Pool as a last ditch escape method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries");
-        //else (means they did some taks and hit escape at decent time which is GOOD)
-        //  if backed car into driveway
-        //      EW_DialogueLine line1 = new EW_DialogueLine("With his car ready to go, Paul sped off to a local church where he was examined by local EMTS");
-        //  else if talked to aldo(didn't back car in + did some tasks)
-        //      EW_DialogueLine line1 = new EW_DialogueLine("Paul runs over to Aldo's task asking if he can join them in escaping. They all quickly exit Marin county to stay at Aldo's parents vacation home in Napa, far from the fire.");
-        //  else
-        //      if(mow lawn)
-        //          EW_DialogueLine line1 = new EW_DialogueLine("Having cut the lawn earlier, Paul is able to use an escape trail down the road from his property. He is met by firefighters who assist him evacuating.");
-        //      else if(cut tree and gutter)
-        //          EW_DialogueLine line1 = new EW_DialogueLine("Having cut the tree and gutter before a red flag day, Paul is able to escape through the back of his property. He is picked up by a firetruck while walking down the auxilary trail.");               
-        EW_DialogueNode epilogueNode = new EW_DialogueNode(new List<EW_DialogueLine> { line1 });
-        epilogueNode.nextNode = -1;
+        if (ranOutOfTime)
+        {
+            lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries"));
+        }
+        else
+        {
+            if (tasksDone["moveCar"] != "notDone")
+            {
+                lines.Add(new EW_DialogueLine("With his car ready to go from previously backing it in, Paul sped off to the local rendezvous point downtown."));
+            }
+            else if (tasksDone["neighborTalk"] != "notDone")
+            {
+                lines.Add(new EW_DialogueLine("Paul runs over to Aldo's asking if he can join them in evacuating. They all quickly exit Marin county to stay at Aldo's parents vacation home in Napa, far from the fire."));
+            }
+            else
+            {
+                if (tasksDone["goBag"] != "notDone")
+                {
+                    lines.Add(new EW_DialogueLine("Paul grabs his go bag and hurries out the door"));
+                }
+                else
+                {
+                    lines.Add(new EW_DialogueLine("Paul hurries out the door, but without a go bag, he can only grab his wallet and keys"));
+                }
+
+                bool cutLawn = tasksDone["cutLawn"] != "notDone";
+                bool cutTree = tasksDone["cutTree"] != "notDone";
+                if ((cutTree || cutLawn) && (tasksDone["cutLawn"] != "Red Flag Day" || tasksDone["cutTree"] != "Red Flag Day"))
+                {
+                    lines.Add(new EW_DialogueLine("Having cleaned up his yard before the red flag day, Paul is able to use an escape trail down the road from his property. He is met by firefighters who assist him evacuating."));
+                }
+                else
+                {
+                    lines.Add(new EW_DialogueLine("Paul runs down the road from his property, but is stopped by a fallen tree. He is forced to turn back and wait for firefighters to assist him evacuating."));
+                }
+            }
+        }
+
+        EW_EpilogueNode epilogueNode = new EW_EpilogueNode(lines)
+        {
+            id = 9000,
+            nextNode = -1
+        };
+        Debug.Log("Pre: Curnode nextnode: " + curNode.nextNode);
         curNode = epilogueNode;
+        Debug.Log("Post: Curnode nextnode: " + curNode.nextNode);
     }
 
     //Called when you leave the epilogue node
@@ -133,6 +172,11 @@ public class EW_SceneManager : MonoBehaviour
 
     public void ChangeStoryNode(int nodeIndex)
     {
+        if (nodeIndex == -2) //Epilogue
+        {
+            curNode.Play();
+            return;
+        }
         if (nodeIndex == -1)
         {
             EndAndShowTaskList();
