@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+
+//These are the functions that can be called from the story JSON files
+//They must be defined as public and static
+//They may take one parameter in the form of a string
 public class EW_StoryFunctions
 {
     public static EW_SceneManager sceneManager;

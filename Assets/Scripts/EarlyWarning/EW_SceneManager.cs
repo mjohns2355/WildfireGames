@@ -27,9 +27,9 @@ public class EW_SceneManager : MonoBehaviour
         nodeDict = new Dictionary<int, EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
         background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
-        uiManager.timerText.text = "";
         EW_StoryFunctions.sceneManager = this;
 
+        //List the names of the JSONs you want to read as options
         string[] storyNames = new string[] {
             "EW_SampleStory",
             "EW_PaulStory"
@@ -43,6 +43,7 @@ public class EW_SceneManager : MonoBehaviour
         bool newTouch = Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began);
         if ((newTouch || Input.anyKeyDown) && !done && storySelected)
         {
+            //If the uiManager is still typing a message, fill the rest of the msg instead of progressing
             if (uiManager.typingCoroutine != null)
             {
                 uiManager.SkipTyping();
@@ -54,14 +55,19 @@ public class EW_SceneManager : MonoBehaviour
         }
     }
 
+    //When the player runs out of time by doing enough actions, directs them to the appropriate node
     public void TimesUp()
     {
         EW_EventSystem.LeaveStoryNodeEvent -= TimesUp;
         ChangeStoryNode(2000);
     }
 
+    //Determines what text goes in the Epilogue based on what tasks were done and whether they escaped early
+    //Called by Epilogue node after the player either runs out of time or escapes early
     public void ShowEpilogue()
     {
+        background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/Epilogue");
+
         EW_DialogueLine line1 = new EW_DialogueLine("This is the epilogue", "Epilogue", true);
 
         EW_DialogueNode epilogueNode = new EW_DialogueNode(new List<EW_DialogueLine> { line1 });
@@ -69,6 +75,7 @@ public class EW_SceneManager : MonoBehaviour
         curNode = epilogueNode;
     }
 
+    //Called when you leave the epilogue node
     public void EndAndShowTaskList()
     {
         uiManager.HideUI();
@@ -92,17 +99,21 @@ public class EW_SceneManager : MonoBehaviour
         if (curNode != nodeDict[nodeIndex])
         {
             if (done) { return; }
+            //Note the order of events here, as it may cause bugs if changed
+            //Switch to the new node, leave the old node, Enter() the new node
             curNode = nodeDict[nodeIndex];
             EW_EventSystem.InvokeLeaveStoryNodeEvent();
-            curNode.Enter();
+            curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
         }
         curNode.Play();
     }
 
     public void GoToArea(string areaName)
     {
+        //Make sure the area name matches the name of the files in the Resources folder
         Debug.Log("Going to area " + areaName);
 
+        //First load the background image
         string backgroundPath = "EarlyWarning/Art/" + areaName;
         Sprite backgroundSprite = Resources.Load<Sprite>(backgroundPath);
         if (backgroundSprite != null)
@@ -110,20 +121,20 @@ public class EW_SceneManager : MonoBehaviour
             background.sprite = backgroundSprite;
         }
 
+        //Then load/replace the actor prefab. This prefab contains each actor that will be present in the scene.
         string actorPath = "EarlyWarning/ActorPacks/" + areaName;
         GameObject actorPrefab = Resources.Load<GameObject>(actorPath);
-        if (actorPrefab != null)
-        {
-            if (actorParent != null)
-            {
-                Destroy(actorParent);
-            }
-            actorParent = Instantiate(actorPrefab);
-            actorParent.transform.SetParent(transform);
-        }
-        else
+        if (actorPrefab == null)
         {
             Debug.LogError("No actor prefab found at " + actorPath);
+            return;
         }
+
+        if (actorParent != null)
+        {
+            Destroy(actorParent);
+        }
+        actorParent = Instantiate(actorPrefab);
+        actorParent.transform.SetParent(transform);
     }
 }

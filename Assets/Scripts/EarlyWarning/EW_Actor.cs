@@ -8,9 +8,8 @@ public class EW_Actor : MonoBehaviour
     Vector2 targetPos;
     float moveSpeed = 4;
 
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite sideSprite;
+    //These should ideally be replaced with animations
+    public Sprite upSprite, downSprite, sideSprite;
 
     private SpriteRenderer spriteRenderer;
     private Vector3 previousPosition;
@@ -26,15 +25,13 @@ public class EW_Actor : MonoBehaviour
         Vector3 currentPosition = transform.position;
         Vector3 movementDirection = currentPosition - previousPosition;
 
+
         if (movementDirection != Vector3.zero)
         {
             if (Mathf.Abs(movementDirection.x) > Mathf.Abs(movementDirection.y))
             {
                 spriteRenderer.sprite = sideSprite;
-                if (movementDirection.x < 0)
-                    spriteRenderer.flipX = true;
-                else
-                    spriteRenderer.flipX = false;
+                spriteRenderer.flipX = movementDirection.x < 0;
             }
             else
             {
@@ -43,7 +40,6 @@ public class EW_Actor : MonoBehaviour
         }
     }
 
-
     public void Execute(EW_MoveCommand command)
     {
         SkipCurrentMove();
@@ -51,29 +47,33 @@ public class EW_Actor : MonoBehaviour
         curMove = StartCoroutine(Move(command.deltaPos));
     }
 
+    // This is called when the player skips a move by tapping the screen
+    // Only goes to the next waypoint in the move, so a move node may require multiple taps
     private void SkipCurrentMove()
     {
-        if (executing)
+        if (!executing)
         {
-            transform.position = targetPos;
-            StopCoroutine(curMove);
-            executing = false;
-            curMove = null;
+            EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
+            return;
         }
-        EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
+
+        transform.position = targetPos;
+        StopCoroutine(curMove);
+        executing = false;
+        curMove = null;
     }
 
+    // Moves the actor to a new position over time
     private IEnumerator Move(Vector2 deltaPosition)
     {
-        Debug.Log("Move()");
         executing = true;
         targetPos = (Vector2)transform.position + deltaPosition;
         Vector2 initialPosition = transform.position;
+
+        //Calculate how long the move should take based on the distance and moveSpeed
         float distance = Vector2.Distance(initialPosition, targetPos);
         float duration = distance / moveSpeed;
         float elapsedTime = 0f;
-
-        Debug.LogFormat("Moving from {0} to {1} in {2} seconds", initialPosition, targetPos, duration);
 
         while (elapsedTime < duration)
         {
@@ -82,8 +82,9 @@ public class EW_Actor : MonoBehaviour
             transform.position = Vector2.Lerp(initialPosition, targetPos, t);
 
             elapsedTime += Time.deltaTime;
-            yield return null;
+            yield return null; //Wait until the next frame
         }
+        //When the while loop exits, we're done moving
 
         //Make sure we hit it exactly
         transform.position = targetPos;

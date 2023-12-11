@@ -6,12 +6,15 @@ public abstract class EW_StoryNode
 {
     public int id, nextNode;
     protected Action enterAction;
+    //Advance() returns the ID of the node to be played on tap. If the node is not finished, it returns its own ID.
     public abstract int Advance();
+    //Play() is called when the node is first entered AND any time the player taps the screen, regardless of whether the node is finished
     public abstract void Play();
     public void SetEnterFunction(Action function)
     {
         enterAction = function;
     }
+    //EnterAction is called when the node is first entered, and is used to call StoryFunctions
     public virtual void Enter()
     {
         Debug.Log("Entering node");
@@ -136,8 +139,8 @@ public class EW_ChoiceNode : EW_StoryNode
 
     public override int Advance()
     {
-        //A choice node essentially does not implement Advance
-        //The scene manager handles the logic of selecting a choice
+        //A choice node cannot move to the next node via Advance()
+        //The ui manager handles the logic of selecting a choice
         return id;
     }
 

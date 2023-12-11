@@ -37,6 +37,7 @@ public class EW_UIManager : MonoBehaviour
     {
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
+        timerText.text = "";
         selectedChoices = new List<EW_Choice>();
         taskList.SetActive(false);
 
@@ -50,14 +51,9 @@ public class EW_UIManager : MonoBehaviour
 
     public void Update()
     {
-        if (Screen.width > Screen.height)
-        {
-            mainCamera.orthographicSize = landscapeOrthographicSize;
-        }
-        else
-        {
-            mainCamera.orthographicSize = portraitOrthographicSize;
-        }
+        // Each frame, checks the current screen orientation and scales the background image accordingly
+        mainCamera.orthographicSize =
+            (Screen.width > Screen.height) ? landscapeOrthographicSize : portraitOrthographicSize;
     }
 
     public void HideUI()
@@ -76,17 +72,12 @@ public class EW_UIManager : MonoBehaviour
     public void ShowTaskList()
     {
         taskList.SetActive(true);
-        taskList.GetComponentInChildren<TextMeshProUGUI>().text = GetTaskListText();
-    }
-
-    private string GetTaskListText()
-    {
         string text = "Tasks Completed:\n\n";
         text += "Mow the lawn:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
         text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
         text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
         text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
-        return text;
+        taskList.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
 
     public void CreateStoryButtons(string[] names)
@@ -119,14 +110,8 @@ public class EW_UIManager : MonoBehaviour
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
 
-        for (int i = 0; i < choices.Count; i++)
-        {
-            if (selectedChoices.Contains(choices[i]))
-            {
-                choices.RemoveAt(i);
-                i--;
-            }
-        }
+        choices.RemoveAll(choice => selectedChoices.Contains(choice));
+
         for (int i = 0; i < choices.Count; i++)
         {
             CreateChoiceButton(choices[i], i, choices.Count);
