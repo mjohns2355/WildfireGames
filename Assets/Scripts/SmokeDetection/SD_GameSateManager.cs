@@ -18,7 +18,7 @@ public class SD_GameSateManager : MonoBehaviour
     private static SD_GameSateManager instance;    
     private SD_AQIBar AQIBarHealth;
     private float currentTimer = 0f;
-    private int counterToWin = 5;
+    // private int counterToWin = 5;
     private int currentCounter = 0;
 
     [SerializeField] private GameObject positiveAQI;
@@ -53,28 +53,28 @@ public class SD_GameSateManager : MonoBehaviour
     {
         switchGameState(SD_GameState.Paused);
         SD_AQIBar.Instance.SetMaxAQI(AQIMax);
-
         SD_ItemAQI[] itemScripts = Resources.FindObjectsOfTypeAll<SD_ItemAQI>();
-        foreach (SD_ItemAQI itemScript in itemScripts) //Checks every object with ItemAQI script, then adds to 
-        {
-            if (!UnityEditor.EditorUtility.IsPersistent(itemScript.gameObject)) // Checks object if its a scene object (not a prefab or asset)
-            {
-                if (itemScript.checkIsStarterItem()) //Then, checks if startItemBool is active, then adds to the list of active objects for AQI
-                {
-                    listOfAQIObjects.Add(itemScript.gameObject);
-                }
-            }
-        }
 
-        foreach (GameObject starterItems in listOfAQIObjects) //goes through all of them and adds them up for AQIRate
+        foreach (SD_ItemAQI itemScript in itemScripts)
         {
-            SD_ItemAQI itemScript = starterItems.GetComponent<SD_ItemAQI>();
-            if (itemScript != null)
+            if (itemScript.checkIsStarterItem())
             {
+                listOfAQIObjects.Add(itemScript.gameObject);
                 float aqiPower = itemScript.checkAQIPower();
                 AQIRate += aqiPower;
             }
         }
+        
+
+        // foreach (GameObject starterItems in listOfAQIObjects) //goes through all of them and adds them up for AQIRate
+        // {
+        //     SD_ItemAQI itemScript = starterItems.GetComponent<SD_ItemAQI>();
+        //     if (itemScript != null)
+        //     {
+        //         float aqiPower = itemScript.checkAQIPower();
+        //         AQIRate += aqiPower;
+        //     }
+        // }
 
     }
 

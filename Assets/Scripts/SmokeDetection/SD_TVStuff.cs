@@ -20,11 +20,9 @@ public class SD_TVStuff : MonoBehaviour
 
         string longText3 = "Remember, the only haze we want indoors is the mystery around why socks disappear in the "+
                             "laundry. Let's make your home a smoke-free haven, because even our air deserves a spa day!";
-        string longText4 = "Hi, this is a placeholder incase of any wrongdoings :)";
         texts.Add(longText1);
         texts.Add(longText2);
         texts.Add(longText3);
-        texts.Add(longText4);
 
         textMeshPro.text = texts[0];
     }
