@@ -94,7 +94,7 @@ public class SD_GameSateManager : MonoBehaviour
                     SD_SceneManager.Instance.SetCurrentScene(6);
                     SD_SceneManager.Instance.HUDEnableDisable(false);
                 }
-                if(counterToWin == currentCounter)
+                if(AQIRate <= 0)
                 {
                     switchGameState(SD_GameState.Ended);
                     SD_SceneManager.Instance.SetCurrentScene(7);
