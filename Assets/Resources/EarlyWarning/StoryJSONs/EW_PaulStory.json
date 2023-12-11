@@ -1,7 +1,6 @@
 {
     "nodes": [
-
-          {
+        {
           "id": 0,
           "type": "Dialogue",
           "function": "ShowImage",
@@ -10,9 +9,7 @@
               {"text": "Meet Paul: Widowed, Retired War-Veteran turned Handy Man. He is the proud leader of the neighborhood watch and always claims to 'know it all'"}
           ],
           "nextNodeID": 1
-          },
-  
-          
+        },
         {
         "id": 1,
         "type": "Dialogue",
@@ -24,11 +21,9 @@
             {"speaker": "TV", "text": "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires."},
             
             {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, it is not a red flag day folks! Make your preperations now instead of later!"}
-
         ],
         "nextNodeID": 3
         },
-
         {
             "id": 3,
             "type": "Dialogue",
@@ -45,7 +40,7 @@
             "choices": [
               { "text": "Check Downstairs", "goesTo": 6, "repeatable": true },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
+              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }       
             ],
             "nextNodeID": -1
         },
@@ -58,8 +53,7 @@
             "choices": [
               { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
               { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
-              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
+              { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
         },
@@ -68,45 +62,38 @@
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            {  "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
-            
+            { "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
           ],
           "nextNodeID": 8
         },
-
         {
           "id": 603,
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            {  "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}
-            
+            { "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}   
           ],
           "nextNodeID": 7
         },
-
-
         {
             "id": 7,
             "type": "Dialogue",
-            "function": "MakeBreakfast",
+            "function": "DoTask",
+            "argument": "makeBreakfast",
             "lines": [
-    
               {"text": "Paul rushes around the kitchen quickly making a huge feast for one, once done with breakfast he reads the newspaper mentioning fire warnings approaching red flag day."}
-              
             ],
             "nextNodeID": 6
           },
-
           {
             "id": 8,
             "type": "Dialogue",
-            "function": "GoBag",
+            "function": "DoTask",
+            "argument": "goBag",
             "lines": [
               {"text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
 
               {"speaker": "Cal Fire", "text": "A go-bag could contain: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)", "important": true }
-
             ],
             "nextNodeID": 6
           },
@@ -115,22 +102,20 @@
             "type": "Dialogue",
             "lines": [
               {"text": "Go to the front yard or the back yard?"}
-
             ],
             "nextNodeID": 10
           },
-
           {
             "id": 10,
             "type": "Choice",
             "choices": [
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
               { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
-              { "text": "Stay inside", "goesTo": 6, "repeatable": true }
+              { "text": "Stay inside", "goesTo": 6, "repeatable": true },
+              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
           },
-
           {
             "id": 11,
             "type": "Dialogue",
@@ -138,25 +123,34 @@
             "argument": "PaulFrontYard",
             "lines": [
               {"text": "Paul's frontyard is wide and large.  A white picket fence surrounds his large front lawn which has turned yellow since Mary died."}
-
-              
             ],
             "nextNodeID": 12
           },
-
           {
             "id": 12,
             "type": "Choice",
             "function": "GoToArea",
             "argument": "PaulFrontYard",
             "choices": [
-              { "text": "Cut the Lawn (30 minutes)", "goesTo": 601, "repeatable": false },
-              { "text": "Talk to Aldo (30 Minutes)", "goesTo": 600, "repeatable": false },
+              { "text": "Cut the Lawn", "goesTo": 601, "repeatable": false },
+              { "text": "Talk to Aldo", "goesTo": 600, "repeatable": false },
+              { "text": "Back car into Driveweay", "goesTo": 700, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
           },
+          {
+            "id": 700,
+            "type": "Dialogue",
+            "function": "DoTask",
+            "argument": "moveCar",
+            "lines": [
+              {"text": "Paul gets into his car and backs it into the driveway."},
 
+              {"speaker": "Cal Fire", "text": "Parking your car in the driveway facing the street is a good idea. It allows for a quick escape in the event of a fire.", "important": true}
+            ],
+            "nextNodeID": 12
+          },
           {
             "id": 600,
             "type": "Move",
@@ -170,7 +164,6 @@
             ],
             "nextNodeID": 14
           },
-
           {
             "id": 601,
             "type": "Move",
@@ -184,11 +177,11 @@
             ],
             "nextNodeID": 13
           },
-
           {
             "id": 13,
             "type": "Dialogue",
-            "function": "CutLawn",
+            "function": "DoTask",
+            "argument": "cutLawn",
             "lines": [
               {"text": "Paul quickly mows the yellowed lawn down and sweeps the clippings up."},
     
@@ -200,7 +193,8 @@
           {
             "id": 14,
             "type": "Dialogue",
-            "function": "AldoTalk",
+            "function": "DoTask",
+            "argument": "neighborTalk",
             "lines": [
               {"text": "Paul goes over to talk to Aldo"},
 
@@ -226,8 +220,8 @@
             "choices": [
               { "text": "Cut the Tree (30 Minutes)", "goesTo": 605, "repeatable": false },
               { "text": "Clean the Gutter (30 Minutes)", "goesTo": 604, "repeatable": false },
-              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
+              { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
+
             ],
             "nextNodeID": -1
           },
@@ -252,21 +246,20 @@
           {
             "id": 17,
             "type": "Dialogue",
-            "function": "CutTree",
+            "function": "DoTask",
+            "argument": "cutTree",
             "lines": [
               {"text": "Paul carefully climbs to the roof and begins sawing different parts of the tree causing branches to fall."},
 
               {"speaker": "Cal Fire", "text": "Remove all branches within 10 feet of any chimney or stovepipe outlet as they intrude on your home's defensible zone. Cleaning your yard should ONLY be done on non-red flag days.", "important": true}
-
-              
-              
             ],
             "nextNodeID": 16
           },
           {
             "id": 18,
             "type": "Dialogue",
-            "function": "CleanGutters",
+            "function": "DoTask",
+            "argument": "cleanGutters",
             "lines": [
               {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below. It quickly fills up"},
 
@@ -291,9 +284,9 @@
             "id": 2000,
             "type": "Dialogue",
             "lines": [
-              {"text": "This event is for when you run out of time. With the fire approaching, Paul grabs what he can and evacuates."},
+              {"text": "Paul ran out of time and the fire encroached. Paul later had to be rescued by fire crews, something he will forever be embarassed by."},
 
-              {"speaker":"Cal Fire", "text": "Idk what to put here. Tell 'em to evacuate earlier I guess?", "important": true}
+              {"speaker":"Cal Fire", "text": "When fire crews tell you to evacuate, EVACUATE!", "important": true}
             ],
             "nextNodeID": 9000
           },

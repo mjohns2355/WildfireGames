@@ -7,18 +7,59 @@ public class EW_SceneManager : MonoBehaviour
     private bool done = false;
     static EW_UIManager uiManager;
     public static EW_StoryNode curNode;
-    public static int minutesRemaining = 120;
     public SpriteRenderer background;
     public GameObject actorParent;
     public bool storySelected = false;
 
-    //Task list
-    public static bool neighborTalk = false;
-    public static bool goBag = false;
-    public static bool cutLawn = false;
-    public static bool cutTree = false;
-    public static bool cleanedGutters = false;
-    public static bool madeBreakfast = false;
+    //Task tracking variables
+    //currentPhase is changed in UseUpTime()
+    public string currentPhase = "Fire Season Starting";
+    //Each task will be set to currentPhase when it is completed
+
+    public Dictionary<string, string> tasks = new Dictionary<string, string>
+    {
+        {"neighborTalk", "notDone"},
+        {"goBag", "notDone"},
+        {"cutLawn", "notDone"},
+        {"cutTree", "notDone"},
+        {"cleanGutters", "notDone"},
+        {"makeBreakfast", "notDone"},
+        {"moveCar", "notDone"}
+    };
+
+    public void DoTask(string taskName)
+    {
+        tasks[taskName] = "done";
+        UseUpTime();
+    }
+
+    public bool taskDone(string taskName)
+    {
+        return tasks[taskName] != "notDone";
+    }
+
+    public void UseUpTime()
+    {
+        switch (currentPhase)
+        {
+            case "Fire Season Starting":
+                currentPhase = "Red Flag Day 1";
+                break;
+            case "Red Flag Day 1":
+                currentPhase = "Red Flag Day 2";
+                break;
+            case "Red Flag Day 2":
+                currentPhase = "Evacuation Warning!";
+                break;
+            case "Evacuation Warning!":
+                EW_EventSystem.LeaveStoryNodeEvent += TimesUp;
+                break;
+            default:
+                break;
+        }
+
+        uiManager.UpdatePhaseText(currentPhase);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +111,18 @@ public class EW_SceneManager : MonoBehaviour
 
         EW_DialogueLine line1 = new EW_DialogueLine("This is the epilogue", "Epilogue", true);
 
+        //if node 2000 visited(ran out of time/didn't hit escape in time)
+        //  EW_DialogueLine line1 = new EW_DialogueLine("Paul used his Pool as a last ditch escape method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries");
+        //else (means they did some taks and hit escape at decent time which is GOOD)
+        //  if backed car into driveway
+        //      EW_DialogueLine line1 = new EW_DialogueLine("With his car ready to go, Paul sped off to a local church where he was examined by local EMTS");
+        //  else if talked to aldo(didn't back car in + did some tasks)
+        //      EW_DialogueLine line1 = new EW_DialogueLine("Paul runs over to Aldo's task asking if he can join them in escaping. They all quickly exit Marin county to stay at Aldo's parents vacation home in Napa, far from the fire.");
+        //  else
+        //      if(mow lawn)
+        //          EW_DialogueLine line1 = new EW_DialogueLine("Having cut the lawn earlier, Paul is able to use an escape trail down the road from his property. He is met by firefighters who assist him evacuating.");
+        //      else if(cut tree and gutter)
+        //          EW_DialogueLine line1 = new EW_DialogueLine("Having cut the tree and gutter before a red flag day, Paul is able to escape through the back of his property. He is picked up by a firetruck while walking down the auxilary trail.");               
         EW_DialogueNode epilogueNode = new EW_DialogueNode(new List<EW_DialogueLine> { line1 });
         epilogueNode.nextNode = -1;
         curNode = epilogueNode;

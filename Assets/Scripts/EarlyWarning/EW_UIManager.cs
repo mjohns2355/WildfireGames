@@ -73,10 +73,10 @@ public class EW_UIManager : MonoBehaviour
     {
         taskList.SetActive(true);
         string text = "Tasks Completed:\n\n";
-        text += "Mow the lawn:" + (EW_SceneManager.cutLawn ? "YES" : "NO") + "\n";
-        text += "Cut the tree:" + (EW_SceneManager.cutTree ? "YES" : "NO") + "\n";
-        text += "Cleaned the gutters: " + (EW_SceneManager.cleanedGutters ? "YES" : "NO") + "\n";
-        text += "Prepared Go Bag: " + (EW_SceneManager.goBag ? "YES" : "NO") + "\n";
+        text += "Mow the lawn:" + (sceneManager.taskDone("cutLawn") ? "YES" : "NO") + "\n";
+        text += "Cut the tree:" + (sceneManager.taskDone("cutTree") ? "YES" : "NO") + "\n";
+        text += "Cleaned the gutters: " + (sceneManager.taskDone("cleanGutters") ? "YES" : "NO") + "\n";
+        text += "Prepared Go Bag: " + (sceneManager.taskDone("goBag") ? "YES" : "NO") + "\n";
         taskList.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
 
@@ -134,14 +134,14 @@ public class EW_UIManager : MonoBehaviour
         buttonRect.sizeDelta = new Vector2(buttonWidth, buttonHeight);
         buttonRect.anchoredPosition = new Vector2(0f, yOffset);
 
-        // Add the text and function
+        // Add the text
         TMP_Text buttonTextComponent = choiceButtonObject.GetComponentInChildren<TMP_Text>();
         if (buttonTextComponent != null)
         {
-            Debug.Log("Setting button text to " + choice.text);
             buttonTextComponent.text = choice.text;
         }
 
+        // Set up the button to move to the appropriate node
         choiceButton.onClick.AddListener(() =>
         {
             RemoveChoiceButtons();
@@ -155,6 +155,7 @@ public class EW_UIManager : MonoBehaviour
         choiceButtons.Add(choiceButton);
     }
 
+    // Clears the choice buttons from the screen
     public void RemoveChoiceButtons()
     {
         foreach (Button button in choiceButtons)
@@ -206,15 +207,14 @@ public class EW_UIManager : MonoBehaviour
 
     private IEnumerator TypeTextCoroutine()
     {
-        Debug.Log("Starting to type");
         dialogueTextComponent.text = ""; // Clear the text
-        float letterDelay = timeBetweenLetters;
         dialogueTextComponent.color = Color.black;
         ShowNameplate();
+        float messageLetterDelay = timeBetweenLetters;
         if (curLine.important)
         {
             dialogueTextComponent.color = new Color(0.7f, 0.0f, 0.0f);
-            letterDelay *= 1.1f;
+            messageLetterDelay *= 1.1f;
         }
 
         for (int i = 0; i < curLine.text.Length; i++)
@@ -222,14 +222,14 @@ public class EW_UIManager : MonoBehaviour
             dialogueTextComponent.text += curLine.text[i];
 
             // Wait for a short duration to control the typing speed
-            yield return new WaitForSeconds(letterDelay);
+            yield return new WaitForSeconds(messageLetterDelay);
         }
 
         typingCoroutine = null;
     }
 
-    public void updateTimer(int minutesRemaining)
+    public void UpdatePhaseText(string text)
     {
-        timerText.text = "Time left: " + minutesRemaining + " minutes";
+        timerText.text = "Phase: " + text;
     }
 }
