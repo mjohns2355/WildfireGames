@@ -125,13 +125,22 @@ public class EW_SceneManager : MonoBehaviour
 
         List<EW_DialogueLine> lines = new List<EW_DialogueLine>();
 
+        // didn't evacuate in time ending
         if (ranOutOfTime)
         {
             lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries"));
         }
         else
         {
-            if (tasksDone["moveCar"] != "notDone")
+            bool cutLawn = tasksDone["cutLawn"] != "notDone";
+            bool cutTree = tasksDone["cutTree"] != "notDone";
+
+            // incorrectly cleared lawn ending
+            if((cutTree || cutLawn) && (tasksDone["cutLawn"] == "Red Flag Day" || tasksDone["cutTree"] == "Red Flag Day")){
+                lines.Add(new EW_DialogueLine("Paul trimmed his lawn on a red flag day and subsequently started a large fire. Firefighters helped rescue him but his property was lost."));
+                lines.Add(new EW_DialogueLine("Clearing ignitable material on a red flag day should never be done as it can quickly ignite.", "Cal Fire", true));
+            }
+            else if (tasksDone["moveCar"] != "notDone")
             {
                 lines.Add(new EW_DialogueLine("With his car ready to go from previously backing it in, Paul sped off to the local rendezvous point downtown."));
             }
@@ -149,9 +158,6 @@ public class EW_SceneManager : MonoBehaviour
                 {
                     lines.Add(new EW_DialogueLine("Paul hurries out the door, but without a go bag, he can only grab his wallet and keys"));
                 }
-
-                bool cutLawn = tasksDone["cutLawn"] != "notDone";
-                bool cutTree = tasksDone["cutTree"] != "notDone";
                 if ((cutTree || cutLawn) && (tasksDone["cutLawn"] != "Red Flag Day" || tasksDone["cutTree"] != "Red Flag Day"))
                 {
                     lines.Add(new EW_DialogueLine("Having cleaned up his yard before the red flag day, Paul is able to use an escape trail down the road from his property. He is met by firefighters who assist him evacuating."));

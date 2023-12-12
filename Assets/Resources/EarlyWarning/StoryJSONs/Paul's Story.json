@@ -51,8 +51,8 @@
             "function": "GoToArea",
             "argument": "PaulLivingRoom",
             "choices": [
-              { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
-              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
+              { "text": "Make Breakfast (Progress Time)", "goesTo": 603, "repeatable": false},
+              { "text": "Prepare Go Bag (Progress Time)", "goesTo": 602, "repeatable": false },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
@@ -132,9 +132,9 @@
             "function": "GoToArea",
             "argument": "PaulFrontYard",
             "choices": [
-              { "text": "Cut the Lawn", "goesTo": 601, "repeatable": false },
-              { "text": "Talk to Aldo", "goesTo": 600, "repeatable": false },
-              { "text": "Back car into Driveweay", "goesTo": 700, "repeatable": false },
+              { "text": "Cut the Lawn (Progress Time)", "goesTo": 601, "repeatable": false },
+              { "text": "Talk to Aldo (Progress Time)", "goesTo": 600, "repeatable": false },
+              { "text": "Back car into Driveweay (Progress Time)", "goesTo": 700, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
@@ -218,8 +218,8 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "goesTo": 605, "repeatable": false },
-              { "text": "Clean the Gutter", "goesTo": 604, "repeatable": false },
+              { "text": "Cut the Tree (Progress Time)", "goesTo": 605, "repeatable": false },
+              { "text": "Clean the Gutter (Progress Time)", "goesTo": 604, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
 
             ],
