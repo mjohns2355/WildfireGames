@@ -17,9 +17,11 @@ public class EW_SceneManager : MonoBehaviour
     //currentPhase is changed in UseUpTime()
     //Each task will be set to currentPhase when it is completed
     public int curPhase = 0;
-    public string[] phaseStrings = new string[]
+    private string[] phaseStrings = new string[]
     {
         "Fire Season Starting",
+        "Fire Season",
+        "Fire Season",
         "Red Flag Day",
         "Red Flag Day",
         "Evacuation Warning!"
@@ -35,23 +37,6 @@ public class EW_SceneManager : MonoBehaviour
         {"moveCar", "notDone"}
     };
 
-    public void DoTask(string taskName)
-    {
-        tasksDone[taskName] = phaseStrings[curPhase];
-        UseUpTime();
-    }
-
-    public bool taskDone(string taskName)
-    {
-        return tasksDone[taskName] != "notDone";
-    }
-
-    public void UseUpTime()
-    {
-        curPhase++;
-        uiManager.UpdatePhaseText(phaseStrings[curPhase]);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -63,8 +48,8 @@ public class EW_SceneManager : MonoBehaviour
 
         //List the names of the JSONs you want to read as options
         string[] storyNames = new string[] {
-            "EW_SampleStory",
-            "EW_PaulStory"
+            // "Sample Story",
+            "Paul's Story"
         };
         uiManager.CreateStoryButtons(storyNames);
     }
@@ -85,6 +70,28 @@ public class EW_SceneManager : MonoBehaviour
             int nextNode = curNode.Advance();
             ChangeStoryNode(nextNode);
         }
+    }
+
+    public void DoTask(string taskName)
+    {
+        tasksDone[taskName] = phaseStrings[curPhase];
+        UseUpTime();
+    }
+
+    public bool taskDone(string taskName)
+    {
+        return tasksDone[taskName] != "notDone";
+    }
+
+    public void UseUpTime()
+    {
+        curPhase++;
+        if (curPhase >= phaseStrings.Length)
+        {
+            EW_EventSystem.LeaveStoryNodeEvent += TimesUp;
+            return;
+        }
+        uiManager.UpdatePhaseText(phaseStrings[curPhase]);
     }
 
     //When the player runs out of time by doing enough actions, directs them to the appropriate node

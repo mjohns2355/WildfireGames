@@ -150,6 +150,7 @@ public class EW_ChoiceNode : EW_StoryNode
     }
 }
 
+//This should be fleshed out with support for modularized logic to replace what is currently in ShowEpilogue()
 public class EW_EpilogueNode : EW_DialogueNode
 {
     public EW_EpilogueNode(List<EW_DialogueLine> _lines) : base(_lines)

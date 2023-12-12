@@ -10,7 +10,12 @@ public class EW_StoryFunctions
 
     public static void ShowTimer()
     {
-        uiManager.UpdatePhaseText(sceneManager.phaseStrings[sceneManager.curPhase]);
+        uiManager.UpdatePhaseText("Fire Season Starting");
+    }
+
+    public static void WasteTime()
+    {
+        sceneManager.UseUpTime();
     }
 
     public static void ShowEpilogue()
