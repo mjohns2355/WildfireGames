@@ -246,6 +246,14 @@ public class EW_UIManager : MonoBehaviour
 
     public void UpdatePhaseText(string text)
     {
+        if (text == "Red Flag Day" || text == "Evacuation Warning!")
+        {
+            timerText.color = new Color(0.7f, 0.0f, 0.0f);
+        }
+        else
+        {
+            timerText.color = Color.black;
+        }
         timerText.text = "Phase: " + text;
     }
 }
