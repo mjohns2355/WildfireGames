@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class EW_EventSystem
+public class EW_EventSystem
 {
     //Events are used for indirect communication between objects
     //When something happens, it sends out an event, 
@@ -20,6 +20,17 @@ public static class EW_EventSystem
 
     public delegate void ChangeStoryNodeDelegate(int node);
     public static event ChangeStoryNodeDelegate ChangeStoryNodeEvent;
+
+    //Called in SceneManager.Start to make sure leftover subscriptions are cleared if you are reentering the scene
+    public static void Clear()
+    {
+        EndMoveEvent = null;
+        TriggerDialogueEvent = null;
+        SkipDialogueEvent = null;
+        LeaveStoryNodeEvent = null;
+        ChoiceSetupEvent = null;
+        ChangeStoryNodeEvent = null;
+    }
 
     public static void InvokeChangeStoryNodeEvent(int node)
     {

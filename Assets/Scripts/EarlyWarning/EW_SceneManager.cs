@@ -10,8 +10,13 @@ public class EW_SceneManager : MonoBehaviour
     public SpriteRenderer background;
     public GameObject actorParent;
     public bool storySelected = false;
-
     private bool ranOutOfTime = false;
+
+    //List the names of stories that should be read from JSON
+    public static string[] storyNames = new string[] {
+        // "Sample Story",
+        "Paul's Story"
+    };
 
     //Task tracking variables
     //currentPhase is changed in UseUpTime()
@@ -36,31 +41,25 @@ public class EW_SceneManager : MonoBehaviour
         {"makeBreakfast", "notDone"},
         {"moveCar", "notDone"}
     };
-    string[] storyNames = new string[] {
-        // "Sample Story",
-        "Paul's Story"
-    };
 
     public void Reset()
     {
+        storySelected = false;
         done = false;
         uiManager.HideUI();
         nodeDict = new Dictionary<int, EW_StoryNode>();
         curNode = null;
-        uiManager.CreateStoryButtons(storyNames);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        EW_EventSystem.Clear();
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
         nodeDict = new Dictionary<int, EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
         background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
         EW_StoryFunctions.sceneManager = this;
-
-        //List the names of the JSONs you want to read as options
-        uiManager.CreateStoryButtons(storyNames);
     }
 
     // Update is called once per frame
@@ -88,11 +87,12 @@ public class EW_SceneManager : MonoBehaviour
         UseUpTime();
     }
 
-    public bool taskDone(string taskName)
+    public bool TaskDone(string taskName)
     {
         return tasksDone[taskName] != "notDone";
     }
 
+    //Advances to the next phase of the story
     public void UseUpTime()
     {
         curPhase++;
@@ -168,9 +168,7 @@ public class EW_SceneManager : MonoBehaviour
             id = 9000,
             nextNode = -1
         };
-        Debug.Log("Pre: Curnode nextnode: " + curNode.nextNode);
         curNode = epilogueNode;
-        Debug.Log("Post: Curnode nextnode: " + curNode.nextNode);
     }
 
     //Called when you leave the epilogue node
