@@ -111,7 +111,7 @@
             "choices": [
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
               { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
-              { "text": "Stay inside", "goesTo": 6, "repeatable": true },
+              { "text": "Stay/Go inside the house", "goesTo": 6, "repeatable": true },
               { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
@@ -218,8 +218,8 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree (30 Minutes)", "goesTo": 605, "repeatable": false },
-              { "text": "Clean the Gutter (30 Minutes)", "goesTo": 604, "repeatable": false },
+              { "text": "Cut the Tree", "goesTo": 605, "repeatable": false },
+              { "text": "Clean the Gutter", "goesTo": 604, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
 
             ],

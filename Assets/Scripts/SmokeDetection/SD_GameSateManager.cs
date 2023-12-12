@@ -140,6 +140,11 @@ public class SD_GameSateManager : MonoBehaviour
         }
     }
 
+    public void AQIBurstIncrease(float increaseAmount)
+    {
+        AQI += increaseAmount;
+    }
+
     public void addObjectToAQIList(GameObject newItem)
     {
         listOfAQIObjects.Add(newItem);
@@ -187,12 +192,5 @@ public class SD_GameSateManager : MonoBehaviour
     {
         return AQIRateOfUse;
     }
-
-
-    /*
-    Regis Notes:
-    Create a new 
-
-    */
 
 }   
