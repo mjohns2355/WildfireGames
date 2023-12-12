@@ -20,10 +20,12 @@ public class SD_UISwitchObject : MonoBehaviour
             if(trueForNegative)
             {
                 SD_GameSateManager.Instance.NegativeAQINotification();
+                SD_GameSateManager.Instance.AQIBurstIncrease(-3);
             }
             if(trueForNegative == false)
             {
                 SD_GameSateManager.Instance.PositiveAQINotification();
+                SD_GameSateManager.Instance.AQIBurstIncrease(3);
             }
         }
     }
