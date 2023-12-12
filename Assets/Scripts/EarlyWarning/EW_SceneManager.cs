@@ -36,6 +36,19 @@ public class EW_SceneManager : MonoBehaviour
         {"makeBreakfast", "notDone"},
         {"moveCar", "notDone"}
     };
+    string[] storyNames = new string[] {
+        // "Sample Story",
+        "Paul's Story"
+    };
+
+    public void Reset()
+    {
+        done = false;
+        uiManager.HideUI();
+        nodeDict = new Dictionary<int, EW_StoryNode>();
+        curNode = null;
+        uiManager.CreateStoryButtons(storyNames);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,16 +60,13 @@ public class EW_SceneManager : MonoBehaviour
         EW_StoryFunctions.sceneManager = this;
 
         //List the names of the JSONs you want to read as options
-        string[] storyNames = new string[] {
-            // "Sample Story",
-            "Paul's Story"
-        };
         uiManager.CreateStoryButtons(storyNames);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (curNode == null) { return; }
         bool newTouch = Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began);
         if ((newTouch || Input.anyKeyDown) && !done && storySelected)
         {
@@ -172,7 +182,7 @@ public class EW_SceneManager : MonoBehaviour
             Destroy(actorParent);
         }
         curNode = null;
-        background.enabled = false;
+        background.sprite = null;
         done = true;
         uiManager.ShowTaskList();
     }

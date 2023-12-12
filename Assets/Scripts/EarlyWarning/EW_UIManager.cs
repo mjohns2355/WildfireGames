@@ -25,7 +25,7 @@ public class EW_UIManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     private List<EW_Choice> selectedChoices;
     [SerializeField]
-    private GameObject taskList;
+    private GameObject taskList, resetButton, mainMenuButton;
 
     [Header("Camera")]
     [SerializeField]
@@ -40,6 +40,16 @@ public class EW_UIManager : MonoBehaviour
         timerText.text = "";
         selectedChoices = new List<EW_Choice>();
         taskList.SetActive(false);
+
+        resetButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            sceneManager.Reset();
+        });
+
+        mainMenuButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            // Go to main menu
+        });
 
         EW_StoryFunctions.uiManager = this;
 
@@ -58,6 +68,7 @@ public class EW_UIManager : MonoBehaviour
 
     public void HideUI()
     {
+        taskList.SetActive(false);
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         HideNameplate();
