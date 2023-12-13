@@ -6,13 +6,8 @@
       "function": "GoToArea",
       "argument": "PaulLivingRoom",
       "commands": [
-        { "targetPosition": { "x": 0, "y": -2 }, "actorName": "Paul" },
-        { "targetPosition": { "x": -6.5, "y": 0 }, "actorName": "Paul" },
-        {
-          "targetPosition": { "x": 0, "y": 3.5 },
-          "actorName": "Paul",
-          "final": true
-        }
+        { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" },
+        { "targetPosition": { "x": 4, "y": 0 }, "actorName": "Paul" }
       ],
       "nextNodeID": 1
     },
@@ -22,7 +17,7 @@
       "function": "ShowTimer",
       "lines": [
         { "speaker": "Paul", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
-        { "text": "example", "important": true },
+        { "text": "This is an important statement", "important": true },
         { "speaker": "Narrator", "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
       ],
       "nextNodeID": 2

@@ -62,7 +62,7 @@
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            { "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
+            { "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul"}
           ],
           "nextNodeID": 8
         },
@@ -71,7 +71,7 @@
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            { "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}   
+            { "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul"}   
           ],
           "nextNodeID": 7
         },
@@ -156,11 +156,7 @@
             "type": "Move",
             "commands": [
               { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" },
-              {
-                "targetPosition": { "x": 7, "y": 0 },
-                "actorName": "Paul",
-                "final": true
-              }
+              { "targetPosition": { "x": 7, "y": 0 }, "actorName": "Paul" }
             ],
             "nextNodeID": 14
           },
@@ -168,11 +164,7 @@
             "id": 601,
             "type": "Move",
             "commands": [
-              {
-                "targetPosition": { "x": 0, "y": -3 },
-                "actorName": "Paul",
-                "final": true
-              }
+              { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" }
             ],
             "nextNodeID": 13
           },
@@ -237,7 +229,7 @@
             "id": 604,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul", "final": true }
+              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul" }
             ],
             "nextNodeID": 18
           },
@@ -245,7 +237,7 @@
             "id": 605,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul", "final": true } 
+              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul" } 
             ],
             "nextNodeID": 17
           },

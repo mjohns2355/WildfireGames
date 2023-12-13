@@ -51,6 +51,7 @@ public class EW_UIManager : MonoBehaviour
         resetButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             sceneManager.Reset();
+            warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/FireSZN");
             HideUI();
             CreateStoryButtons(EW_SceneManager.storyNames);
         });
