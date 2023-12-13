@@ -24,7 +24,7 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private EW_SceneManager sceneManager;
     public TextMeshProUGUI timerText;
-    public Image warningIcon;
+    private Image warningIcon;
     private List<EW_Choice> selectedChoices;
     [SerializeField]
     private GameObject taskList, resetButton, mainMenuButton;
