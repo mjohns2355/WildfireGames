@@ -24,6 +24,7 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private EW_SceneManager sceneManager;
     public TextMeshProUGUI timerText;
+    public Image warningIcon;
     private List<EW_Choice> selectedChoices;
     [SerializeField]
     private GameObject taskList, resetButton, mainMenuButton;
@@ -38,6 +39,9 @@ public class EW_UIManager : MonoBehaviour
     {
         dialogueBox = GameObject.Find("DialogueBox").GetComponent<Image>();
         nameplate = GameObject.Find("Nameplate").GetComponent<Image>();
+        warningIcon = GameObject.Find("WarningIcon").GetComponent<Image>();
+        warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/FireSZN");
+        warningIcon.enabled = false;
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         timerText.text = "";
@@ -47,6 +51,7 @@ public class EW_UIManager : MonoBehaviour
         resetButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             sceneManager.Reset();
+            HideUI();
             CreateStoryButtons(EW_SceneManager.storyNames);
         });
 
@@ -74,6 +79,7 @@ public class EW_UIManager : MonoBehaviour
     public void HideUI()
     {
         taskList.SetActive(false);
+        warningIcon.enabled = false;
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         HideNameplate();
@@ -247,8 +253,17 @@ public class EW_UIManager : MonoBehaviour
 
     public void UpdatePhaseText(string text)
     {
+        warningIcon.enabled = true;
         if (text == "Red Flag Day" || text == "Evacuation Warning!")
         {
+            if (text == "Red Flag Day")
+            {
+                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/RedFlagIcon");
+            }
+            else
+            {
+                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/EvacuationIcon");
+            }
             timerText.color = new Color(0.7f, 0.0f, 0.0f);
         }
         else

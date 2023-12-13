@@ -27,7 +27,8 @@ public class EW_SceneManager : MonoBehaviour
     public int curPhase = 0;
     [NonSerialized]
     public string[] phaseStrings = new string[]
-    {
+    {    
+    //Note: If you change the text of these you may have to change a couple of places where they are referenced
         "Fire Season Starting",
         "Fire Season",
         "Fire Season",
@@ -46,21 +47,6 @@ public class EW_SceneManager : MonoBehaviour
         {"makeBreakfast", "notDone"},
         {"moveCar", "notDone"}
     };
-
-    public void Reset()
-    {
-        ranOutOfTime = false;
-        foreach (string task in tasksDone.Keys)
-        {
-            tasksDone[task] = "notDone";
-        }
-        curPhase = 0;
-        storySelected = false;
-        done = false;
-        uiManager.HideUI();
-        nodeDict = new Dictionary<int, EW_StoryNode>();
-        curNode = null;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -112,11 +98,26 @@ public class EW_SceneManager : MonoBehaviour
     public void ChangeStoryNode(int targetID)
     {
         //Debug.Log("ChangeStoryNode from node " + curNode.id + " to node " + targetID);
+
         //Note the order of events here, as it may cause bugs if changed
         //Switch to the new node, leave the old node, Enter() the new node
         curNode = nodeDict[targetID];
         EW_EventSystem.InvokeLeaveStoryNodeEvent();
         curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
+    }
+
+    public void Reset()
+    {
+        ranOutOfTime = false;
+        foreach (string task in new List<string>(tasksDone.Keys))
+        {
+            tasksDone[task] = "notDone";
+        }
+        curPhase = 0;
+        storySelected = false;
+        done = false;
+        nodeDict = new Dictionary<int, EW_StoryNode>();
+        curNode = null;
     }
 
     public void DoTask(string taskName)
