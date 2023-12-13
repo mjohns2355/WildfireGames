@@ -20,7 +20,7 @@
 
             {"speaker": "TV", "text": "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires."},
             
-            {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, it is not a red flag day folks! Make your preperations now instead of later!"}
+            {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, it is not a red flag day folks! Make your preparations now instead of later!"}
         ],
         "nextNodeID": 3
         },
@@ -81,7 +81,7 @@
             "function": "DoTask",
             "argument": "makeBreakfast",
             "lines": [
-              {"text": "Paul rushes around the kitchen quickly making a huge feast for one, once done with breakfast he reads the newspaper mentioning fire warnings approaching red flag day."}
+              {"text": "Paul rushes around the kitchen quickly making a huge feast for one. Once done with breakfast he reads the newspaper, which mentions fire warnings approaching red flag day."}
             ],
             "nextNodeID": 6
           },
@@ -155,9 +155,9 @@
             "id": 600,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": 0, "y": -2 }, "actorName": "Paul" },
+              { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" },
               {
-                "targetPosition": { "x": 4, "y": 0 },
+                "targetPosition": { "x": 7, "y": 0 },
                 "actorName": "Paul",
                 "final": true
               }
@@ -168,7 +168,6 @@
             "id": 601,
             "type": "Move",
             "commands": [
-
               {
                 "targetPosition": { "x": 0, "y": -3 },
                 "actorName": "Paul",
@@ -191,6 +190,15 @@
             "nextNodeID": 12
           },
           {
+            "id": 1301,
+            "type": "Dialogue",
+            "lines": [
+              { "text": "Paul starts to mow the lawn, but accidentally starts a small fire, and has to stamp it out!" },  
+              { "text": "You should never mow your lawn on a red flag day. The heat from the mower can ignite dry grass and start a fire.", "speaker": "Cal Fire", "important": true }
+            ],
+            "nextNodeID": 12
+          },
+          {
             "id": 14,
             "type": "Dialogue",
             "function": "DoTask",
@@ -198,7 +206,7 @@
             "lines": [
               {"text": "Paul goes over to talk to Aldo"},
 
-              {"speaker": "Aldo", "text": "Paul The fire is looking really bad. If you want to come with us when the evacuation alert goes out, which it will. please let us know its no issue at all."},
+              {"speaker": "Aldo", "text": "Paul, the fire is looking really bad. If you want to come with us when the evacuation alert goes out, which it will, please let us know. It's no issue at all."},
               
               {"speaker": "Paul", "text": "Thank you Aldo but I don't think that will be necessary. I'll let you know."}
             ],

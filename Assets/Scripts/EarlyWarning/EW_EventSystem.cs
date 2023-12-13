@@ -64,7 +64,6 @@ public class EW_EventSystem
     //Send out a message when an actor is finished moving from one waypoint to another
     public static void InvokeEndMoveEvent()
     {
-        Debug.Log("Invoking EndMoveEvent");
         EndMoveEvent?.Invoke();
     }
 }

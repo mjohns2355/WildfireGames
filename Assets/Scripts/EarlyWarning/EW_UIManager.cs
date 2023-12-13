@@ -109,9 +109,9 @@ public class EW_UIManager : MonoBehaviour
                 sceneManager.storySelected = true;
                 string storyPath = "EarlyWarning/StoryJSONs/" + name;
                 storyButtons.ForEach(b => Destroy(b));
-                EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
-                EW_SceneManager.curNode.Enter();
-                EW_SceneManager.curNode.Play();
+                sceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
+                sceneManager.curNode.Enter();
+                sceneManager.curNode.Play();
             });
             storyButtons.Add(button);
         }
@@ -165,6 +165,7 @@ public class EW_UIManager : MonoBehaviour
                 selectedChoices.Add(choice);
             }
             EW_EventSystem.InvokeChangeStoryNodeEvent(choice.goesTo);
+            sceneManager.curNode.Play();
         });
 
         choiceButtons.Add(choiceButton);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +7,10 @@ public class EW_SceneManager : MonoBehaviour
     public static Dictionary<int, EW_StoryNode> nodeDict;
     private bool done = false;
     static EW_UIManager uiManager;
-    public static EW_StoryNode curNode;
+    public EW_StoryNode curNode;
     public SpriteRenderer background;
-    public GameObject actorParent;
+    private GameObject actorParent;
+    [NonSerialized]
     public bool storySelected = false;
     private bool ranOutOfTime = false;
 
@@ -21,8 +23,10 @@ public class EW_SceneManager : MonoBehaviour
     //Task tracking variables
     //currentPhase is changed in UseUpTime()
     //Each task will be set to currentPhase when it is completed
+    [NonSerialized]
     public int curPhase = 0;
-    private string[] phaseStrings = new string[]
+    [NonSerialized]
+    public string[] phaseStrings = new string[]
     {
         "Fire Season Starting",
         "Fire Season",
@@ -31,6 +35,7 @@ public class EW_SceneManager : MonoBehaviour
         "Red Flag Day",
         "Evacuation Warning!"
     };
+    [NonSerialized]
     public Dictionary<string, string> tasksDone = new Dictionary<string, string>
     {
         {"neighborTalk", "notDone"},
@@ -44,6 +49,12 @@ public class EW_SceneManager : MonoBehaviour
 
     public void Reset()
     {
+        ranOutOfTime = false;
+        foreach (string task in tasksDone.Keys)
+        {
+            tasksDone[task] = "notDone";
+        }
+        curPhase = 0;
         storySelected = false;
         done = false;
         uiManager.HideUI();
@@ -76,14 +87,47 @@ public class EW_SceneManager : MonoBehaviour
                 return;
             }
 
-            int nextNode = curNode.Advance();
-            ChangeStoryNode(nextNode);
+            Advance();
         }
+    }
+
+    private void Advance()
+    {
+        int nextNode = curNode.Advance();
+        if (nextNode == curNode.id || nextNode == -2)
+        {
+            curNode.Play();
+        }
+        else if (nextNode == -1)
+        {
+            EndAndShowTaskList();
+        }
+        else
+        {
+            ChangeStoryNode(nextNode);
+            curNode.Play();
+        }
+    }
+
+    public void ChangeStoryNode(int targetID)
+    {
+        //Debug.Log("ChangeStoryNode from node " + curNode.id + " to node " + targetID);
+        //Note the order of events here, as it may cause bugs if changed
+        //Switch to the new node, leave the old node, Enter() the new node
+        curNode = nodeDict[targetID];
+        EW_EventSystem.InvokeLeaveStoryNodeEvent();
+        curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
     }
 
     public void DoTask(string taskName)
     {
         tasksDone[taskName] = phaseStrings[curPhase];
+
+        if (taskName == "cutLawn" && phaseStrings[curPhase] == "Red Flag Day")
+        {
+            ChangeStoryNode(1301);
+        }
+
         UseUpTime();
     }
 
@@ -128,7 +172,7 @@ public class EW_SceneManager : MonoBehaviour
         // didn't evacuate in time ending
         if (ranOutOfTime)
         {
-            lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries"));
+            lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the high school where he was treated for injuries"));
         }
         else
         {
@@ -136,7 +180,8 @@ public class EW_SceneManager : MonoBehaviour
             bool cutTree = tasksDone["cutTree"] != "notDone";
 
             // incorrectly cleared lawn ending
-            if((cutTree || cutLawn) && (tasksDone["cutLawn"] == "Red Flag Day" || tasksDone["cutTree"] == "Red Flag Day")){
+            if ((cutTree || cutLawn) && (tasksDone["cutLawn"] == "Red Flag Day" || tasksDone["cutTree"] == "Red Flag Day"))
+            {
                 lines.Add(new EW_DialogueLine("Paul trimmed his lawn on a red flag day and subsequently started a large fire. Firefighters helped rescue him but his property was lost."));
                 lines.Add(new EW_DialogueLine("Clearing ignitable material on a red flag day should never be done as it can quickly ignite.", "Cal Fire", true));
             }
@@ -189,30 +234,6 @@ public class EW_SceneManager : MonoBehaviour
         background.sprite = null;
         done = true;
         uiManager.ShowTaskList();
-    }
-
-    public void ChangeStoryNode(int nodeIndex)
-    {
-        if (nodeIndex == -2) //Epilogue
-        {
-            curNode.Play();
-            return;
-        }
-        if (nodeIndex == -1)
-        {
-            EndAndShowTaskList();
-            return;
-        }
-        if (curNode != nodeDict[nodeIndex])
-        {
-            if (done) { return; }
-            //Note the order of events here, as it may cause bugs if changed
-            //Switch to the new node, leave the old node, Enter() the new node
-            curNode = nodeDict[nodeIndex];
-            EW_EventSystem.InvokeLeaveStoryNodeEvent();
-            curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
-        }
-        curNode.Play();
     }
 
     public void GoToArea(string areaName)
