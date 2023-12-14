@@ -37,6 +37,7 @@ public class FYT_GameModeManager : MonoBehaviour
             meds = medicationToggle.isOn;
             eyesAndEars = glassesToggle.isOn;
             pets = petToggle.isOn; 
+            FYT_SettingsData.isGoBag = goBag;
             FYT_SettingsData.medsNeeded = meds;
             FYT_SettingsData.glassesNeeded = eyesAndEars;
             FYT_SettingsData.petNeeded = pets;

@@ -19,12 +19,10 @@ public class FYT_InventoryManager : MonoBehaviour
     public TMPro.TextMeshProUGUI inventoryText;
     private RectTransform inventoryRect;
     public GameObject itemPrefab;
-    public GameObject petPrefab;
     private int offsetAmount = 50;
     private Vector2 offset = new Vector3(0, 50);
     private int bagLimit = 7;
     private int bagSize = 0;
-    public bool hasPet = false;
     public GameObject endMenu;
 
     void Start()
@@ -68,17 +66,6 @@ public class FYT_InventoryManager : MonoBehaviour
             bagSize += 1;
             backpackImage.sprite = backpackImages[bagSize];
         }
-    }
-
-    public void addPet()
-    {
-        GameObject petItem = Instantiate(petPrefab, inventoryRect);
-        RectTransform petRect = petItem.GetComponent<RectTransform>();
-        Vector2 petOffset = new Vector3(50, 0);
-        petRect.anchoredPosition = petRect.anchoredPosition - petOffset;
-        GameObject pet = GameObject.Find("Pet");
-        pet.SetActive(false);
-        hasPet = true;
     }
 
     private void updatePlacement() 

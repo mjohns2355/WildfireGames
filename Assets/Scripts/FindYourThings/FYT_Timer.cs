@@ -43,7 +43,7 @@ public class FYT_Timer : MonoBehaviour
 
     void TimerOver()
     {
-        GetComponent<FYT_InventoryManager>().endGame();
-        this.gameObject.SetActive(false);
+        GetComponent<FYT_CriticalList>().endList();
+        gameObject.SetActive(false);
     }
 }

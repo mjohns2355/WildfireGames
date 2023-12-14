@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class FYT_Feedback : MonoBehaviour
 {
-    private List<string> finalItemNames;
+    public List<string> finalItemNames;
     private List<GameObject> queuedFeedback;
     private GameObject lastPanel;
     private GameObject currentPanel;
@@ -22,10 +22,14 @@ public class FYT_Feedback : MonoBehaviour
         lastPanel = null;
         currentPanel = null;
         index = 0;
-        storeFinalItems();
-        printFinalItems();
+        if (FYT_SettingsData.isGoBag)
+        {
+            storeFinalItems();
+        } else
+        {
+            queueList();
+        }
         queueFeedback();
-        printQueue();
     }
 
     public void storeFinalItems()
@@ -35,6 +39,14 @@ public class FYT_Feedback : MonoBehaviour
             TMPro.TextMeshProUGUI itemText = item.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             finalItemNames.Add(itemText.text.ToString());
         }   
+    }
+
+    public void queueList()
+    {
+        foreach (GameObject item in FYT_SettingsData.finalInventory)
+        {
+            finalItemNames.Add(item.name);
+        }  
     }
 
     public void queueFeedback()
@@ -73,6 +85,7 @@ public class FYT_Feedback : MonoBehaviour
         }
     }
 
+    // For debugging purposes
     private void printFinalItems() 
     {
         foreach (string item in finalItemNames)
@@ -81,6 +94,7 @@ public class FYT_Feedback : MonoBehaviour
         }
     }
 
+    // For debugging purposes
     private void printQueue()
     {
         foreach (GameObject feedback in queuedFeedback)

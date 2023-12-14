@@ -32,9 +32,7 @@ public class FYT_PetManager : MonoBehaviour
 
     public void addPet()
     {
-        GameObject petItem = Instantiate(petPrefab, inventoryRect);
-        RectTransform petRect = petItem.GetComponent<RectTransform>();
-        petRect.anchoredPosition = new Vector2(-370, -85);
+        petPrefab.SetActive(true);
         petObject.SetActive(false);
     }
 }
