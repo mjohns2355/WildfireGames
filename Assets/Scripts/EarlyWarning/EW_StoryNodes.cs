@@ -17,7 +17,6 @@ public abstract class EW_StoryNode
     //EnterAction is called when the node is first entered, and is used to call StoryFunctions
     public virtual void Enter()
     {
-        Debug.Log("Entering node");
         if (enterAction != null)
         {
             enterAction();
@@ -47,13 +46,11 @@ public class EW_MoveNode : EW_StoryNode
 
     public override void Play()
     {
-        Debug.Log("playing move node");
         DequeueMove();
     }
 
     private void DequeueMove()
     {
-        Debug.Log("Dequeueing move");
         if (moves.Count == 0)
         {
             return;
@@ -71,11 +68,11 @@ public class EW_MoveNode : EW_StoryNode
     {
         EW_EventSystem.EndMoveEvent -= FinishNode;
         manager.ChangeStoryNode(nextNode);
+        manager.curNode.Play();
     }
 
     public override void Enter()
     {
-        Debug.Log("Entering move node");
         if (enterAction != null)
         {
             enterAction();

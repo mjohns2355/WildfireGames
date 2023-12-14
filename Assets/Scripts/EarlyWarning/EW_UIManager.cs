@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class EW_UIManager : MonoBehaviour
 {
-    [SerializeField]
     private Image dialogueBox, nameplate;
     [SerializeField]
     private TextMeshProUGUI dialogueTextComponent, nameplateTextComponent;
 
     private float timeBetweenLetters = 0.04f;
     private EW_DialogueLine curLine;
+    [HideInInspector]
     public Coroutine typingCoroutine = null;
 
+    [HideInInspector]
     public List<Button> choiceButtons = new List<Button>();
     [SerializeField]
     private GameObject buttonPrefab;
@@ -23,9 +24,10 @@ public class EW_UIManager : MonoBehaviour
     [SerializeField]
     private EW_SceneManager sceneManager;
     public TextMeshProUGUI timerText;
+    private Image warningIcon;
     private List<EW_Choice> selectedChoices;
     [SerializeField]
-    private GameObject taskList;
+    private GameObject taskList, resetButton, mainMenuButton;
 
     [Header("Camera")]
     [SerializeField]
@@ -35,11 +37,29 @@ public class EW_UIManager : MonoBehaviour
 
     public void Start()
     {
+        dialogueBox = GameObject.Find("DialogueBox").GetComponent<Image>();
+        nameplate = GameObject.Find("Nameplate").GetComponent<Image>();
+        warningIcon = GameObject.Find("WarningIcon").GetComponent<Image>();
+        warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/FireSZN");
+        warningIcon.enabled = false;
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         timerText.text = "";
         selectedChoices = new List<EW_Choice>();
         taskList.SetActive(false);
+
+        resetButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            sceneManager.Reset();
+            warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/FireSZN");
+            HideUI();
+            CreateStoryButtons(EW_SceneManager.storyNames);
+        });
+
+        mainMenuButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            // MJ: Go to main menu
+        });
 
         EW_StoryFunctions.uiManager = this;
 
@@ -47,6 +67,7 @@ public class EW_UIManager : MonoBehaviour
         EW_EventSystem.ChoiceSetupEvent += SetupChoices;
         EW_EventSystem.LeaveStoryNodeEvent += HideNameplate;
         HideNameplate();
+        CreateStoryButtons(EW_SceneManager.storyNames);
     }
 
     public void Update()
@@ -58,6 +79,8 @@ public class EW_UIManager : MonoBehaviour
 
     public void HideUI()
     {
+        taskList.SetActive(false);
+        warningIcon.enabled = false;
         dialogueBox.enabled = false;
         dialogueTextComponent.text = "";
         HideNameplate();
@@ -73,29 +96,29 @@ public class EW_UIManager : MonoBehaviour
     {
         taskList.SetActive(true);
         string text = "Tasks Completed:\n\n";
-        text += "Mow the lawn:" + (sceneManager.taskDone("cutLawn") ? "YES" : "NO") + "\n";
-        text += "Cut the tree:" + (sceneManager.taskDone("cutTree") ? "YES" : "NO") + "\n";
-        text += "Cleaned the gutters: " + (sceneManager.taskDone("cleanGutters") ? "YES" : "NO") + "\n";
-        text += "Prepared Go Bag: " + (sceneManager.taskDone("goBag") ? "YES" : "NO") + "\n";
+        text += "Mow the lawn:" + (sceneManager.TaskDone("cutLawn") ? "YES" : "NO") + "\n";
+        text += "Cut the tree:" + (sceneManager.TaskDone("cutTree") ? "YES" : "NO") + "\n";
+        text += "Cleaned the gutters: " + (sceneManager.TaskDone("cleanGutters") ? "YES" : "NO") + "\n";
+        text += "Prepared Go Bag: " + (sceneManager.TaskDone("goBag") ? "YES" : "NO") + "\n";
         taskList.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
 
     public void CreateStoryButtons(string[] names)
     {
         storyButtons = new List<GameObject>();
-        for (int i = 0; i < names.Length; i++)
+        Transform parentTransform = GameObject.Find("StoryButtonParent").transform;
+        foreach (var name in names)
         {
-            GameObject button = Instantiate(buttonPrefab, GameObject.Find("StoryButtonParent").transform);
-            button.GetComponentInChildren<TextMeshProUGUI>().text = names[i];
-            int buttonIndex = i;
+            GameObject button = Instantiate(buttonPrefab, parentTransform);
+            button.GetComponentInChildren<TextMeshProUGUI>().text = name;
             button.GetComponent<Button>().onClick.AddListener(() =>
             {
                 sceneManager.storySelected = true;
-                string storyPath = "EarlyWarning/StoryJSONs/" + names[buttonIndex];
+                string storyPath = "EarlyWarning/StoryJSONs/" + name;
                 storyButtons.ForEach(b => Destroy(b));
-                EW_SceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
-                EW_SceneManager.curNode.Enter();
-                EW_SceneManager.curNode.Play();
+                sceneManager.curNode = EW_StoryParser.Parse(storyPath, sceneManager);
+                sceneManager.curNode.Enter();
+                sceneManager.curNode.Play();
             });
             storyButtons.Add(button);
         }
@@ -149,6 +172,7 @@ public class EW_UIManager : MonoBehaviour
                 selectedChoices.Add(choice);
             }
             EW_EventSystem.InvokeChangeStoryNodeEvent(choice.goesTo);
+            sceneManager.curNode.Play();
         });
 
         choiceButtons.Add(choiceButton);
@@ -230,6 +254,23 @@ public class EW_UIManager : MonoBehaviour
 
     public void UpdatePhaseText(string text)
     {
+        warningIcon.enabled = true;
+        if (text == "Red Flag Day" || text == "Evacuation Warning!")
+        {
+            if (text == "Red Flag Day")
+            {
+                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/RedFlagIcon");
+            }
+            else
+            {
+                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/EvacuationIcon");
+            }
+            timerText.color = new Color(0.7f, 0.0f, 0.0f);
+        }
+        else
+        {
+            timerText.color = Color.black;
+        }
         timerText.text = "Phase: " + text;
     }
 }

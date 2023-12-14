@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 
@@ -47,6 +48,12 @@ public class FYT_GameModeManager : MonoBehaviour
         toGoBagMenu.SetActive(goBag);
         toCritListMenu.SetActive(!goBag);
         menu.SetActive(false);
+    }
+    
+    public void restartGame()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
     public void chooseGoBagLayout()

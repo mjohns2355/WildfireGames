@@ -41,6 +41,8 @@ public class EW_Actor : MonoBehaviour
     }
 
     //Takes a move command and begins the movement
+    //This is not called when you skip the final move in a sequence,
+    //hence the leave event subscription
     public void Execute(EW_MoveCommand command)
     {
         SkipCurrentMove();
@@ -52,9 +54,9 @@ public class EW_Actor : MonoBehaviour
     // Only goes to the next waypoint in the move, so a move node may require multiple taps
     private void SkipCurrentMove()
     {
+        EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
         if (!executing)
         {
-            EW_EventSystem.LeaveStoryNodeEvent -= SkipCurrentMove;
             return;
         }
 

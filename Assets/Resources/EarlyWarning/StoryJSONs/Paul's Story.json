@@ -6,7 +6,7 @@
           "function": "ShowImage",
           "argument": "IntroDraft2",
           "lines": [
-              {"text": "Meet Paul: Widowed, Retired War-Veteran turned Handy Man. He is the proud leader of the neighborhood watch and always claims to 'know it all'"}
+              {"text": "Meet Paul: widowed, retired war-veteran turned handy man. He is the proud leader of the neighborhood watch and always claims to 'know it all'"}
           ],
           "nextNodeID": 1
         },
@@ -20,7 +20,7 @@
 
             {"speaker": "TV", "text": "In other news, residents of Marin County should be warned. With the summer heat reaching its peak, we are now on high alert for potential fires."},
             
-            {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, it is not a red flag day folks! Make your preperations now instead of later!"}
+            {"speaker": "TV", "text": "Please stay vigilant and ensure your homes and properties are safeguarded. Again, it is not a red flag day folks! Make your preparations now instead of later!"}
         ],
         "nextNodeID": 3
         },
@@ -40,7 +40,7 @@
             "choices": [
               { "text": "Check Downstairs", "goesTo": 6, "repeatable": true },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }       
+              { "text": "Evacuate", "goesTo": 1000, "repeatable": false }       
             ],
             "nextNodeID": -1
         },
@@ -51,8 +51,8 @@
             "function": "GoToArea",
             "argument": "PaulLivingRoom",
             "choices": [
-              { "text": "Make Breakfast (30 Minutes)", "goesTo": 603, "repeatable": false},
-              { "text": "Prepare Go Bag (30 Minutes)", "goesTo": 602, "repeatable": false },
+              { "text": "Make Breakfast (Progress Time)", "goesTo": 603, "repeatable": false},
+              { "text": "Prepare Go Bag (Progress Time)", "goesTo": 602, "repeatable": false },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true }
             ],
             "nextNodeID": -1
@@ -62,7 +62,7 @@
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            { "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul", "final": true}
+            { "targetPosition": { "x": -2, "y": 0 }, "actorName": "Paul"}
           ],
           "nextNodeID": 8
         },
@@ -71,7 +71,7 @@
           "type": "Move",
           "commands": [
             { "targetPosition": { "x": 0, "y": -1 }, "actorName": "Paul" },
-            { "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul", "final": true}   
+            { "targetPosition": { "x": 3, "y": 0 }, "actorName": "Paul"}   
           ],
           "nextNodeID": 7
         },
@@ -81,7 +81,7 @@
             "function": "DoTask",
             "argument": "makeBreakfast",
             "lines": [
-              {"text": "Paul rushes around the kitchen quickly making a huge feast for one, once done with breakfast he reads the newspaper mentioning fire warnings approaching red flag day."}
+              {"text": "Paul rushes around the kitchen quickly making a huge feast for one. Once done with breakfast he reads the newspaper, which mentions fire warnings approaching red flag day."}
             ],
             "nextNodeID": 6
           },
@@ -93,7 +93,7 @@
             "lines": [
               {"text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
 
-              {"speaker": "Cal Fire", "text": "A go-bag could contain: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)", "important": true }
+              {"speaker": "Cal Fire", "text": "A go-bag could contain: three-day supply of non-perishable food and three gallons of water per person, prescriptions or special medications, first aid kit, flashlight and extra batteries, copies of important documents (birth certificates, passports, etc.)", "important": true }
             ],
             "nextNodeID": 6
           },
@@ -112,7 +112,7 @@
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
               { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
               { "text": "Stay/Go inside the house", "goesTo": 6, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
+              { "text": "Evacuate", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
           },
@@ -132,9 +132,9 @@
             "function": "GoToArea",
             "argument": "PaulFrontYard",
             "choices": [
-              { "text": "Cut the Lawn", "goesTo": 601, "repeatable": false },
-              { "text": "Talk to Aldo", "goesTo": 600, "repeatable": false },
-              { "text": "Back car into Driveweay", "goesTo": 700, "repeatable": false },
+              { "text": "Cut the Lawn (Progress Time)", "goesTo": 601, "repeatable": false },
+              { "text": "Talk to Aldo (Progress Time)", "goesTo": 600, "repeatable": false },
+              { "text": "Back car into Driveweay (Progress Time)", "goesTo": 700, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
             ],
             "nextNodeID": -1
@@ -155,12 +155,8 @@
             "id": 600,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": 0, "y": -2 }, "actorName": "Paul" },
-              {
-                "targetPosition": { "x": 4, "y": 0 },
-                "actorName": "Paul",
-                "final": true
-              }
+              { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" },
+              { "targetPosition": { "x": 7, "y": 0 }, "actorName": "Paul" }
             ],
             "nextNodeID": 14
           },
@@ -168,12 +164,7 @@
             "id": 601,
             "type": "Move",
             "commands": [
-
-              {
-                "targetPosition": { "x": 0, "y": -3 },
-                "actorName": "Paul",
-                "final": true
-              }
+              { "targetPosition": { "x": 0, "y": -3 }, "actorName": "Paul" }
             ],
             "nextNodeID": 13
           },
@@ -191,6 +182,15 @@
             "nextNodeID": 12
           },
           {
+            "id": 1301,
+            "type": "Dialogue",
+            "lines": [
+              { "text": "Paul starts to mow the lawn, but accidentally starts a small fire, and has to stamp it out!" },  
+              { "text": "You should never mow your lawn on a red flag day. The heat from the mower can ignite dry grass and start a fire.", "speaker": "Cal Fire", "important": true }
+            ],
+            "nextNodeID": 12
+          },
+          {
             "id": 14,
             "type": "Dialogue",
             "function": "DoTask",
@@ -198,7 +198,7 @@
             "lines": [
               {"text": "Paul goes over to talk to Aldo"},
 
-              {"speaker": "Aldo", "text": "Paul The fire is looking really bad. If you want to come with us when the evacuation alert goes out, which it will. please let us know its no issue at all."},
+              {"speaker": "Aldo", "text": "Paul, the fire is looking really bad. If you want to come with us when the evacuation alert goes out, which it will, please let us know. It's no issue at all."},
               
               {"speaker": "Paul", "text": "Thank you Aldo but I don't think that will be necessary. I'll let you know."}
             ],
@@ -218,8 +218,8 @@
             "id": 16,
             "type": "Choice",
             "choices": [
-              { "text": "Cut the Tree", "goesTo": 605, "repeatable": false },
-              { "text": "Clean the Gutter", "goesTo": 604, "repeatable": false },
+              { "text": "Cut the Tree (Progress Time)", "goesTo": 605, "repeatable": false },
+              { "text": "Clean the Gutter (Progress Time)", "goesTo": 604, "repeatable": false },
               { "text": "Check other parts of the yard", "goesTo": 10, "repeatable": true }
 
             ],
@@ -229,7 +229,7 @@
             "id": 604,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul", "final": true }
+              { "targetPosition": { "x": 3, "y": -1 }, "actorName": "Paul" }
             ],
             "nextNodeID": 18
           },
@@ -237,7 +237,7 @@
             "id": 605,
             "type": "Move",
             "commands": [
-              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul", "final": true } 
+              { "targetPosition": { "x": -1, "y": -4 }, "actorName": "Paul" } 
             ],
             "nextNodeID": 17
           },
@@ -259,7 +259,7 @@
             "function": "DoTask",
             "argument": "cleanGutters",
             "lines": [
-              {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below. It quickly fills up"},
+              {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below. It quickly fills up."},
 
               {"speaker": "Paul", "text": "No wonder the gutter had been flooding last winter"},
             
@@ -272,7 +272,7 @@
             "id": 1000,
             "type": "Dialogue",
             "lines": [
-              {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},
+              {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate."},
 
               {"speaker":"Cal Fire", "text": "Being safer than sorry is always the best choice. Please heed evacuation notices and get out as early as possible.", "important": true}
             ],

@@ -69,12 +69,14 @@ public class EW_StoryParser
     private static Queue<EW_MoveCommand> ParseMoveCommands(List<MoveCommandData> commands)
     {
         Queue<EW_MoveCommand> moveCommands = new Queue<EW_MoveCommand>();
-        foreach (var commandData in commands)
+        for (int i = 0; i < commands.Count; i++)
         {
+            var commandData = commands[i];
             Vector2 target = new Vector2(commandData.targetPosition.x, commandData.targetPosition.y);
-            EW_MoveCommand command = new EW_MoveCommand(commandData.actorName, target, commandData.final);
+            EW_MoveCommand command = new EW_MoveCommand(commandData.actorName, target, i == commands.Count - 1);
             moveCommands.Enqueue(command);
         }
+
         return moveCommands;
     }
 }

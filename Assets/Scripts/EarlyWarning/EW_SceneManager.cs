@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,19 +7,28 @@ public class EW_SceneManager : MonoBehaviour
     public static Dictionary<int, EW_StoryNode> nodeDict;
     private bool done = false;
     static EW_UIManager uiManager;
-    public static EW_StoryNode curNode;
+    public EW_StoryNode curNode;
     public SpriteRenderer background;
-    public GameObject actorParent;
+    private GameObject actorParent;
+    [NonSerialized]
     public bool storySelected = false;
-
     private bool ranOutOfTime = false;
+
+    //List the names of stories that should be read from JSON
+    public static string[] storyNames = new string[] {
+        // "Sample Story",
+        "Paul's Story"
+    };
 
     //Task tracking variables
     //currentPhase is changed in UseUpTime()
     //Each task will be set to currentPhase when it is completed
+    [NonSerialized]
     public int curPhase = 0;
-    private string[] phaseStrings = new string[]
-    {
+    [NonSerialized]
+    public string[] phaseStrings = new string[]
+    {    
+    //Note: If you change the text of these you may have to change a couple of places where they are referenced
         "Fire Season Starting",
         "Fire Season",
         "Fire Season",
@@ -26,6 +36,7 @@ public class EW_SceneManager : MonoBehaviour
         "Red Flag Day",
         "Evacuation Warning!"
     };
+    [NonSerialized]
     public Dictionary<string, string> tasksDone = new Dictionary<string, string>
     {
         {"neighborTalk", "notDone"},
@@ -40,23 +51,18 @@ public class EW_SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EW_EventSystem.Clear();
         EW_EventSystem.ChangeStoryNodeEvent += ChangeStoryNode;
         nodeDict = new Dictionary<int, EW_StoryNode>();
         uiManager = GetComponent<EW_UIManager>();
         background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
         EW_StoryFunctions.sceneManager = this;
-
-        //List the names of the JSONs you want to read as options
-        string[] storyNames = new string[] {
-            // "Sample Story",
-            "Paul's Story"
-        };
-        uiManager.CreateStoryButtons(storyNames);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (curNode == null) { return; }
         bool newTouch = Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began);
         if ((newTouch || Input.anyKeyDown) && !done && storySelected)
         {
@@ -67,22 +73,71 @@ public class EW_SceneManager : MonoBehaviour
                 return;
             }
 
-            int nextNode = curNode.Advance();
-            ChangeStoryNode(nextNode);
+            Advance();
         }
+    }
+
+    private void Advance()
+    {
+        int nextNode = curNode.Advance();
+        if (nextNode == curNode.id || nextNode == -2)
+        {
+            curNode.Play();
+        }
+        else if (nextNode == -1)
+        {
+            EndAndShowTaskList();
+        }
+        else
+        {
+            ChangeStoryNode(nextNode);
+            curNode.Play();
+        }
+    }
+
+    public void ChangeStoryNode(int targetID)
+    {
+        //Debug.Log("ChangeStoryNode from node " + curNode.id + " to node " + targetID);
+
+        //Note the order of events here, as it may cause bugs if changed
+        //Switch to the new node, leave the old node, Enter() the new node
+        curNode = nodeDict[targetID];
+        EW_EventSystem.InvokeLeaveStoryNodeEvent();
+        curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
+    }
+
+    public void Reset()
+    {
+        ranOutOfTime = false;
+        foreach (string task in new List<string>(tasksDone.Keys))
+        {
+            tasksDone[task] = "notDone";
+        }
+        curPhase = 0;
+        storySelected = false;
+        done = false;
+        nodeDict = new Dictionary<int, EW_StoryNode>();
+        curNode = null;
     }
 
     public void DoTask(string taskName)
     {
         tasksDone[taskName] = phaseStrings[curPhase];
+
+        if (taskName == "cutLawn" && phaseStrings[curPhase] == "Red Flag Day")
+        {
+            ChangeStoryNode(1301);
+        }
+
         UseUpTime();
     }
 
-    public bool taskDone(string taskName)
+    public bool TaskDone(string taskName)
     {
         return tasksDone[taskName] != "notDone";
     }
 
+    //Advances to the next phase of the story
     public void UseUpTime()
     {
         curPhase++;
@@ -115,13 +170,23 @@ public class EW_SceneManager : MonoBehaviour
 
         List<EW_DialogueLine> lines = new List<EW_DialogueLine>();
 
+        // didn't evacuate in time ending
         if (ranOutOfTime)
         {
-            lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the highschool where he was treated for injuries"));
+            lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the high school where he was treated for injuries"));
         }
         else
         {
-            if (tasksDone["moveCar"] != "notDone")
+            bool cutLawn = tasksDone["cutLawn"] != "notDone";
+            bool cutTree = tasksDone["cutTree"] != "notDone";
+
+            // incorrectly cleared lawn ending
+            if ((cutTree || cutLawn) && (tasksDone["cutLawn"] == "Red Flag Day" || tasksDone["cutTree"] == "Red Flag Day"))
+            {
+                lines.Add(new EW_DialogueLine("Paul trimmed his lawn on a red flag day and subsequently started a large fire. Firefighters helped rescue him but his property was lost."));
+                lines.Add(new EW_DialogueLine("Clearing ignitable material on a red flag day should never be done as it can quickly ignite.", "Cal Fire", true));
+            }
+            else if (tasksDone["moveCar"] != "notDone")
             {
                 lines.Add(new EW_DialogueLine("With his car ready to go from previously backing it in, Paul sped off to the local rendezvous point downtown."));
             }
@@ -139,9 +204,6 @@ public class EW_SceneManager : MonoBehaviour
                 {
                     lines.Add(new EW_DialogueLine("Paul hurries out the door, but without a go bag, he can only grab his wallet and keys"));
                 }
-
-                bool cutLawn = tasksDone["cutLawn"] != "notDone";
-                bool cutTree = tasksDone["cutTree"] != "notDone";
                 if ((cutTree || cutLawn) && (tasksDone["cutLawn"] != "Red Flag Day" || tasksDone["cutTree"] != "Red Flag Day"))
                 {
                     lines.Add(new EW_DialogueLine("Having cleaned up his yard before the red flag day, Paul is able to use an escape trail down the road from his property. He is met by firefighters who assist him evacuating."));
@@ -158,9 +220,7 @@ public class EW_SceneManager : MonoBehaviour
             id = 9000,
             nextNode = -1
         };
-        Debug.Log("Pre: Curnode nextnode: " + curNode.nextNode);
         curNode = epilogueNode;
-        Debug.Log("Post: Curnode nextnode: " + curNode.nextNode);
     }
 
     //Called when you leave the epilogue node
@@ -172,33 +232,9 @@ public class EW_SceneManager : MonoBehaviour
             Destroy(actorParent);
         }
         curNode = null;
-        background.enabled = false;
+        background.sprite = null;
         done = true;
         uiManager.ShowTaskList();
-    }
-
-    public void ChangeStoryNode(int nodeIndex)
-    {
-        if (nodeIndex == -2) //Epilogue
-        {
-            curNode.Play();
-            return;
-        }
-        if (nodeIndex == -1)
-        {
-            EndAndShowTaskList();
-            return;
-        }
-        if (curNode != nodeDict[nodeIndex])
-        {
-            if (done) { return; }
-            //Note the order of events here, as it may cause bugs if changed
-            //Switch to the new node, leave the old node, Enter() the new node
-            curNode = nodeDict[nodeIndex];
-            EW_EventSystem.InvokeLeaveStoryNodeEvent();
-            curNode.Enter(); //See EW_StoryNodes.cs for difference between Enter() and Play()
-        }
-        curNode.Play();
     }
 
     public void GoToArea(string areaName)

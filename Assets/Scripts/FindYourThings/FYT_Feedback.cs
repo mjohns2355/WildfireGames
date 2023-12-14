@@ -11,12 +11,6 @@ public class FYT_Feedback : MonoBehaviour
         printFinalItems();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void printFinalItems()
     {
         foreach (GameObject item in FYT_SettingsData.finalInventory)
