@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FYT_PetManager : MonoBehaviour
 {
+    /* Controls the pet's spawning and movement */
     public TMPro.TextMeshProUGUI inventoryText;
-    private RectTransform inventoryRect;
     public GameObject petObject;
     public GameObject petPrefab;
     public GameObject[] spawnPoints;
@@ -13,7 +12,6 @@ public class FYT_PetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventoryRect = inventoryText.gameObject.GetComponent<RectTransform>();
         petObject.SetActive(true);
         StartCoroutine(Spawn());
     }

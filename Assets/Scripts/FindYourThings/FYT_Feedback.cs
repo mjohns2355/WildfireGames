@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FYT_Feedback : MonoBehaviour
 {
@@ -17,11 +14,14 @@ public class FYT_Feedback : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        finalItemNames = new List<string>();
-        queuedFeedback = new List<GameObject>();
-        lastPanel = null;
-        currentPanel = null;
-        index = 0;
+        finalItemNames = new List<string>(); // used to store the string names of all collected items
+        queuedFeedback = new List<GameObject>(); // used to store feedback for each of the items collected by the player
+        lastPanel = null; // stores the last viewed panel in order to set it inactive
+        currentPanel = null; // stores the current panel that is being viewed
+        index = 0; // used to iterate through queuedFeedback
+
+        // Based on the game mode, the type of object stored inside the inventory will be different,
+        // and so filling finalItemNames will require two different methods
         if (FYT_SettingsData.isGoBag)
         {
             storeFinalItems();
@@ -32,23 +32,29 @@ public class FYT_Feedback : MonoBehaviour
         queueFeedback();
     }
 
+    // Used to store items collected by the player in Go Bag Mode
     public void storeFinalItems()
     {
         foreach (GameObject item in FYT_SettingsData.finalInventory)
         {
+            // since the items collected by the player are buttons, the text is a child of the game object
             TMPro.TextMeshProUGUI itemText = item.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             finalItemNames.Add(itemText.text.ToString());
         }   
     }
 
+    // Used to store items collected by the player in Critical List Mode
     public void queueList()
     {
         foreach (GameObject item in FYT_SettingsData.finalInventory)
         {
+            // the items collected by the player are the item game objects themselves, so the 
+            // string will be taken from the name of the game objects themselves
             finalItemNames.Add(item.name);
         }  
     }
 
+    // Checks which feedback panels are necessary and "queues" them by adding them to the queuedFeedback List
     public void queueFeedback()
     {
         foreach (Transform child in feedbackPanels.transform)
@@ -63,18 +69,19 @@ public class FYT_Feedback : MonoBehaviour
         }
     }
 
+    // The function attached to each "Next ->" button at the bottom of the end and feedback panels
     public void nextFeedback()
     {
-        if (currentPanel == null && lastPanel == null)
+        if (currentPanel == null && lastPanel == null) // checks if the current panel is the end menu, and thus not currently on a feedback panel
         {
             currentPanel = queuedFeedback[index];
             index++;
             currentPanel.SetActive(true);
-        } else if (index == queuedFeedback.Count) 
+        } else if (index == queuedFeedback.Count) // checks if there are no more feedback panels
         {
-            currentPanel.SetActive(false);
-            endMenu.SetActive(true);
-        } else 
+            currentPanel.SetActive(false); // if no more feedback is left to give, set the final panel to inactive
+            endMenu.SetActive(true); // and set the restart menu active
+        } else // otherwise, move to the next feedback panel in queue
         {
             lastPanel = currentPanel;
             currentPanel = queuedFeedback[index];
