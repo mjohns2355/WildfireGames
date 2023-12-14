@@ -6,7 +6,7 @@
           "function": "ShowImage",
           "argument": "IntroDraft2",
           "lines": [
-              {"text": "Meet Paul: Widowed, Retired War-Veteran turned Handy Man. He is the proud leader of the neighborhood watch and always claims to 'know it all'"}
+              {"text": "Meet Paul: widowed, retired war-veteran turned handy man. He is the proud leader of the neighborhood watch and always claims to 'know it all'"}
           ],
           "nextNodeID": 1
         },
@@ -40,7 +40,7 @@
             "choices": [
               { "text": "Check Downstairs", "goesTo": 6, "repeatable": true },
               { "text": "Explore the Yard", "goesTo": 9, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }       
+              { "text": "Evacuate", "goesTo": 1000, "repeatable": false }       
             ],
             "nextNodeID": -1
         },
@@ -93,7 +93,7 @@
             "lines": [
               {"text": "Paul goes around his home collecting everything he might need to leave when a fire starts(radio, photo memories, medical supplies, flashlight, etc.)"},
 
-              {"speaker": "Cal Fire", "text": "A go-bag could contain: Three-day supply of non-perishable food and three gallons of water per person, Prescriptions or special medications, First aid kit, Flashlight and extra batteries, Copies of important documents (birth certificates, passports, etc.)", "important": true }
+              {"speaker": "Cal Fire", "text": "A go-bag could contain: three-day supply of non-perishable food and three gallons of water per person, prescriptions or special medications, first aid kit, flashlight and extra batteries, copies of important documents (birth certificates, passports, etc.)", "important": true }
             ],
             "nextNodeID": 6
           },
@@ -112,7 +112,7 @@
               { "text": "Explore Frontyard", "goesTo": 11, "repeatable": true },
               { "text": "Explore Backyard", "goesTo": 15, "repeatable": true },
               { "text": "Stay/Go inside the house", "goesTo": 6, "repeatable": true },
-              { "text": "Evacuate Early", "goesTo": 1000, "repeatable": false }
+              { "text": "Evacuate", "goesTo": 1000, "repeatable": false }
             ],
             "nextNodeID": -1
           },
@@ -259,7 +259,7 @@
             "function": "DoTask",
             "argument": "cleanGutters",
             "lines": [
-              {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below. It quickly fills up"},
+              {"text": "Paul quickly scoops several handfuls of leaves out of the gutter and into the plant waste bin below. It quickly fills up."},
 
               {"speaker": "Paul", "text": "No wonder the gutter had been flooding last winter"},
             
@@ -272,7 +272,7 @@
             "id": 1000,
             "type": "Dialogue",
             "lines": [
-              {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate and walk to his nearest county rendezvous point."},
+              {"text": "Knowing the impending danger of a fire, Paul drops everything to evacuate."},
 
               {"speaker":"Cal Fire", "text": "Being safer than sorry is always the best choice. Please heed evacuation notices and get out as early as possible.", "important": true}
             ],
