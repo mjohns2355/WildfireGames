@@ -22,7 +22,7 @@ public class FYT_InventoryManager : MonoBehaviour
     public GameObject petPrefab;
     private int offsetAmount = 50;
     private Vector2 offset = new Vector3(0, 50);
-    private int bagLimit = 5;
+    private int bagLimit = 7;
     private int bagSize = 0;
     public bool hasPet = false;
     public GameObject endMenu;
