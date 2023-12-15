@@ -173,7 +173,7 @@ public class EW_SceneManager : MonoBehaviour
         // didn't evacuate in time ending
         if (ranOutOfTime)
         {
-            background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/PaulPoolEnding");
+            background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/lastDitchArt");
             lines.Add(new EW_DialogueLine("Deciding to evacuate too late, Paul used his Pool as a last ditch protection method. Later, he was taken by medical crews to a local rendezvous point at the high school where he was treated for injuries"));
         }
         else
@@ -189,12 +189,12 @@ public class EW_SceneManager : MonoBehaviour
             }
             else if (tasksDone["moveCar"] != "notDone")
             {
-                background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/PaulCarEnding");
+                background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/carBackArt");
                 lines.Add(new EW_DialogueLine("With his car ready to go from previously backing it in, Paul sped off to the local rendezvous point downtown."));
             }
             else if (tasksDone["neighborTalk"] != "notDone")
             {
-                background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/PaulAldoEnding");
+                background.sprite = Resources.Load<Sprite>("EarlyWarning/Art/aldoEndArt");
                 lines.Add(new EW_DialogueLine("Paul runs over to Aldo's asking if he can join them in evacuating. They all quickly exit Marin county to stay at Aldo's parents vacation home in Napa, far from the fire."));
             }
             else

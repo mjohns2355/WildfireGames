@@ -16,13 +16,16 @@ public class SD_TVStuff : MonoBehaviour
         string longText1 = "The AQI monitor alerts you that the air quality is unsafe! Endeavor to make " +
                            "changes and discover what will bring it back to normal levels.";
         string longText2 = "Attention, intrepid resident! The air outside is starting to resemble a dragon's breath" +
-                            " after a fiery feast. Time to transform your humble abode into a fortress of fresh air!";
-
-        string longText3 = "Remember, the only haze we want indoors is the mystery around why socks disappear in the "+
+                            " after a fiery feast. Try to build an airfilter with what you have to transform your fortress!";
+        string longText3 = "Every place deserves to be checked like a warm apple pie. Check every part of your house inside and out "+
+                            "to make sure you don't forget anything, especially pets!";
+        string longText4 = "Remember, the only haze we want indoors is the mystery around why socks disappear in the "+
                             "laundry. Let's make your home a smoke-free haven, because even our air deserves a spa day!";
+    
         texts.Add(longText1);
         texts.Add(longText2);
         texts.Add(longText3);
+        texts.Add(longText4);
 
         textMeshPro.text = texts[0];
     }
