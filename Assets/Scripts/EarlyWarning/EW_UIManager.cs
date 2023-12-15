@@ -257,20 +257,14 @@ public class EW_UIManager : MonoBehaviour
         warningIcon.enabled = true;
         if (text == "Red Flag Day" || text == "Evacuation Warning!")
         {
-            if (text == "Red Flag Day")
-            {
-                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/RedFlagIcon");
-            }
-            else
-            {
-                warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/EvacuationIcon");
-            }
+            string spriteText = (text == "Red Flag Day") ? "RedFlagIcon" : "EvacuationIcon";
+            warningIcon.sprite = Resources.Load<Sprite>("EarlyWarning/Art/" + spriteText);
             timerText.color = new Color(0.7f, 0.0f, 0.0f);
         }
         else
         {
-            timerText.color = Color.black;
+            timerText.color = new Color(0.3f, 0.3f, 0.3f);
         }
-        timerText.text = "Phase: " + text;
+        timerText.text = text;
     }
 }
