@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FYT_Feedback : MonoBehaviour
 {
+    /* Handles giving player feedback at the end of the game */
     public List<string> finalItemNames;
     private List<GameObject> queuedFeedback;
     private GameObject lastPanel;
@@ -72,15 +73,19 @@ public class FYT_Feedback : MonoBehaviour
     // The function attached to each "Next ->" button at the bottom of the end and feedback panels
     public void nextFeedback()
     {
-        if (currentPanel == null && lastPanel == null) // checks if the current panel is the end menu, and thus not currently on a feedback panel
+        if (currentPanel == null && lastPanel == null && queuedFeedback.Count!=0) // checks if the current panel is the end menu, and thus not currently on a feedback panel
         {
             currentPanel = queuedFeedback[index];
             index++;
             currentPanel.SetActive(true);
-        } else if (index == queuedFeedback.Count) // checks if there are no more feedback panels
+        } else if (index == queuedFeedback.Count && index != 0) // checks if there are no more feedback panels
         {
             currentPanel.SetActive(false); // if no more feedback is left to give, set the final panel to inactive
             endMenu.SetActive(true); // and set the restart menu active
+        } else if (queuedFeedback.Count==0)
+        {
+            endMenu.SetActive(true);
+
         } else // otherwise, move to the next feedback panel in queue
         {
             lastPanel = currentPanel;
