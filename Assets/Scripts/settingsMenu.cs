@@ -9,6 +9,14 @@ public class settingsMenu : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+        GameObject[] menus = GameObject.FindGameObjectsWithTag("MainMenu");
+        foreach(GameObject g in menus)
+        {
+            if(g != gameObject)
+            {
+                Destroy(g);
+            }
+        }
     }
 
     // Update is called once per frame
