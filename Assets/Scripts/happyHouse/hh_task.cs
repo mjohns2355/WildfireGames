@@ -8,7 +8,8 @@ public class hh_task : MonoBehaviour
     {
         fireSeason,
         redflag,
-        evacuation
+        evacuation,
+        done
     }
 
     public phase taskPhase;

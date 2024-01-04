@@ -30,6 +30,12 @@ public class hh_level_manager : MonoBehaviour
 
     private int completedTasks = 0;
 
+    public GameObject smoke;
+
+    public string mood = "";
+
+    public AudioSource hammer;
+
     private void Start()
     {
        for(int i = 0; i < taskItems.Length; i++)
@@ -41,8 +47,15 @@ public class hh_level_manager : MonoBehaviour
         }
     }
 
+    public void HeaderAnim(string trig)
+    {
+
+        header.GetComponent<Animator>().SetTrigger(trig);
+    }
+
     public void ChangePhase()
     {
+        GetComponent<hh_sky>().ChangeSky();
         if(currentPhase == hh_task.phase.fireSeason)
         {
             for (int i = 0; i < taskItems.Length; i++)
@@ -59,11 +72,12 @@ public class hh_level_manager : MonoBehaviour
             }
         } else if (currentPhase == hh_task.phase.redflag)
         {
+            currentPhase = hh_task.phase.evacuation;
             signs[0].SetActive(true);
             phaseButton.SetActive(false);
             evacButton.SetActive(true);
-            currentPhase = hh_task.phase.evacuation;
-            header.text = "Phase: Evacuation Order";
+            smoke.SetActive(true);
+            header.text = "Phase: EVACUATION ORDER";
             for (int i = 0; i < taskItems.Length; i++)
             {
                 if (tasks[i].GetComponent<hh_task>().taskPhase == currentPhase)
@@ -85,13 +99,33 @@ public class hh_level_manager : MonoBehaviour
             else
                 tasks[i].GetComponent<hh_task>().FailTask();
         }
-
+        currentPhase = hh_task.phase.done;
         if (completedTasks == taskItems.Length)
+        {
+            header.text = "House: Happy";
+            HeaderAnim("done");
+            header.color = Color.green;
             happy.SetActive(true);
+            mood = "Happy";
+        }
         else if (completedTasks > taskItems.Length / 2)
+        {
+
+            header.text = "House: Worried";
+            HeaderAnim("done");
+            header.color = Color.yellow;
             worried.SetActive(true);
+            mood = "Worried";
+        }
         else
+        {
+
+            header.text = "House: Sad";
+            HeaderAnim("done");
+            header.color = Color.red;
             sad.SetActive(true);
+            mood = "Sad";
+        }
     }
 
     public void Replay()
@@ -108,6 +142,9 @@ public class hh_level_manager : MonoBehaviour
             tasks[0].GetComponent<hh_task>().DoTask();
             bushes[debris].SetActive(false);
             Instantiate(Resources.Load("sticks"), bushes[debris].transform.position, bushes[debris].transform.rotation);
+        } else if (bushes[debris].GetComponent<hh_collectable>().blocker)
+        {
+            bushes[debris].SetActive(false);
         }
     }
 
@@ -117,7 +154,11 @@ public class hh_level_manager : MonoBehaviour
         {
             tasks[1].GetComponent<hh_task>().DoTask();
             roofs[roof].GetComponent<Animator>().SetTrigger("swap");
-
+            if (!hammer.isPlaying)
+            {
+                hammer.pitch = Random.Range(1, 1.4f);
+                hammer.Play();
+            }
         }
     }
 
@@ -129,6 +170,8 @@ public class hh_level_manager : MonoBehaviour
             logs[log].SetActive(false);
             if (log + 1 < logs.Length)
                 logs[log + 1].SetActive(true);
+            else
+                Instantiate(Resources.Load("chop"), logs[log].transform.position, transform.rotation);
         }
     }
 

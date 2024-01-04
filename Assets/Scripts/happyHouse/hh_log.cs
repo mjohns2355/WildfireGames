@@ -8,6 +8,9 @@ public class hh_log : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Chop(log);
+        if (GameObject.FindGameObjectWithTag("Dialog") == null)
+        {
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Chop(log);
+        }
     }
 }

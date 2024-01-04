@@ -8,6 +8,9 @@ public class hh_roof : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().ReplaceRoof(roof);
+        if (GameObject.FindGameObjectWithTag("Dialog") == null)
+        {
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().ReplaceRoof(roof);
+        }
     }
 }

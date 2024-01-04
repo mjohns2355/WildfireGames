@@ -6,6 +6,7 @@ public class hh_sign : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().PlaceSign();
+        if(GameObject.FindGameObjectWithTag("Dialog") == null)
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().PlaceSign();
     }
 }
