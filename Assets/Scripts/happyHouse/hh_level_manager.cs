@@ -36,6 +36,8 @@ public class hh_level_manager : MonoBehaviour
 
     public AudioSource hammer;
 
+    public GameObject gobag;
+
     private void Start()
     {
        for(int i = 0; i < taskItems.Length; i++)
@@ -49,6 +51,7 @@ public class hh_level_manager : MonoBehaviour
 
     public void HeaderAnim(string trig)
     {
+        header.gameObject.transform.parent.gameObject.SetActive(true);
 
         header.GetComponent<Animator>().SetTrigger(trig);
     }
@@ -64,6 +67,7 @@ public class hh_level_manager : MonoBehaviour
                     tasks[i].GetComponent<hh_task>().FailTask();
             }
             currentPhase = hh_task.phase.redflag;
+            gobag.SetActive(true);
             header.text = "Phase: Red Flag Day";
             for (int i = 0; i < taskItems.Length; i++)
             {

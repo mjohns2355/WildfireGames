@@ -36,9 +36,12 @@ public class hh_dialogManager : MonoBehaviour
         if(counter == -1)
         {
             counter = 0;
-            taskList.SetActive(true);
             if (house_level.currentPhase != hh_task.phase.done)
+            {
+
+                taskList.SetActive(true);
                 house_level.HeaderAnim(phaseTrigger);
+            }
             gameObject.SetActive(false);
         } else
         {
