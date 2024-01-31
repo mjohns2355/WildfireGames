@@ -14,4 +14,5 @@ public class hh_collectable : MonoBehaviour
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Clear(debris);
         } 
     }
+
 }

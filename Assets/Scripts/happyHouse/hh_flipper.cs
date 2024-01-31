@@ -9,6 +9,7 @@ public class hh_flipper : MonoBehaviour
 
     private void OnRectTransformDimensionsChange()
     {
+        //swap camera when screen is rotated
         if (Screen.width < Screen.height)
         {
             if (camLand != null && camPort != null)

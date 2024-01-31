@@ -6,7 +6,7 @@ public class hh_flowerbed : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        if (GameObject.FindGameObjectWithTag("Dialog") == null)
+        if (GameObject.FindGameObjectWithTag("Dialog") == null) //prevent any action when dialog is open
         {
             for (int i = 0; i < transform.childCount; i++)
             {

@@ -25,8 +25,12 @@ public class hh_level_manager : MonoBehaviour
     public GameObject replayButton;
 
     public GameObject happy;
+    public GameObject neutral;
     public GameObject worried;
     public GameObject sad;
+
+    public GameObject ffSad;
+    public GameObject ffWorried;
 
     private int completedTasks = 0;
 
@@ -37,6 +41,8 @@ public class hh_level_manager : MonoBehaviour
     public AudioSource hammer;
 
     public GameObject gobag;
+
+    public GameObject houseVFX;
 
     private void Start()
     {
@@ -49,6 +55,28 @@ public class hh_level_manager : MonoBehaviour
         }
     }
 
+    private void HouseMoodChange()
+    {
+        if (currentPhase == hh_task.phase.early && completedTasks == 1)
+        {
+            worried.SetActive(true);
+            sad.SetActive(false);
+        }
+        else if (currentPhase == hh_task.phase.early && completedTasks == 2)
+        {
+
+            worried.SetActive(false);
+            neutral.SetActive(true);
+        }
+        else if (currentPhase == hh_task.phase.early && completedTasks == 3)
+        {
+
+            happy.SetActive(true);
+            neutral.SetActive(false);
+        }
+        houseVFX.SetActive(true);
+    }
+
     public void HeaderAnim(string trig)
     {
         header.gameObject.transform.parent.gameObject.SetActive(true);
@@ -58,9 +86,21 @@ public class hh_level_manager : MonoBehaviour
 
     public void ChangePhase()
     {
+
         GetComponent<hh_sky>().ChangeSky();
-        if(currentPhase == hh_task.phase.fireSeason)
+        if (currentPhase == hh_task.phase.early)
         {
+            currentPhase = hh_task.phase.fireSeason;
+            header.text = "Phase: Fire Season";
+            worried.SetActive(true);
+            sad.SetActive(false);
+            happy.SetActive(false);
+            neutral.SetActive(false);
+            ResetDebris();
+        }
+        else if (currentPhase == hh_task.phase.fireSeason)
+        {
+            
             for (int i = 0; i < taskItems.Length; i++)
             {
                 if (tasks[i].GetComponent<hh_task>().taskPhase == currentPhase)
@@ -94,6 +134,7 @@ public class hh_level_manager : MonoBehaviour
 
     public void Evacuate()
     {
+        completedTasks = 0;
         replayButton.SetActive(true);
         tasks[5].GetComponent<hh_task>().DoTask();
         for (int i = 0; i < taskItems.Length; i++)
@@ -146,9 +187,23 @@ public class hh_level_manager : MonoBehaviour
             tasks[0].GetComponent<hh_task>().DoTask();
             bushes[debris].SetActive(false);
             Instantiate(Resources.Load("sticks"), bushes[debris].transform.position, bushes[debris].transform.rotation);
+            if (tasks[0].GetComponent<hh_task>().complete)
+            {
+                completedTasks++;
+                HouseMoodChange();
+            }
         } else if (bushes[debris].GetComponent<hh_collectable>().blocker)
         {
             bushes[debris].SetActive(false);
+        }
+    }
+
+    public void ResetDebris()
+    {
+        foreach(GameObject b in bushes)
+        {
+            b.SetActive(true);
+            tasks[0].GetComponent<hh_task>().UndoTask();
         }
     }
 
@@ -163,6 +218,11 @@ public class hh_level_manager : MonoBehaviour
                 hammer.pitch = Random.Range(1, 1.4f);
                 hammer.Play();
             }
+            if (tasks[1].GetComponent<hh_task>().complete)
+            {
+                completedTasks++;
+                HouseMoodChange();
+            }
         }
     }
 
@@ -176,6 +236,12 @@ public class hh_level_manager : MonoBehaviour
                 logs[log + 1].SetActive(true);
             else
                 Instantiate(Resources.Load("chop"), logs[log].transform.position, transform.rotation);
+
+            if (tasks[2].GetComponent<hh_task>().complete)
+            {
+                completedTasks++;
+                HouseMoodChange();
+            }
         }
     }
 
@@ -184,5 +250,7 @@ public class hh_level_manager : MonoBehaviour
         tasks[4].GetComponent<hh_task>().DoTask();
         signs[0].SetActive(false);
         signs[1].SetActive(true);
+        completedTasks++;
+        HouseMoodChange();
     }
 }

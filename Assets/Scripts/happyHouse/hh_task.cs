@@ -6,6 +6,7 @@ public class hh_task : MonoBehaviour
 {
     public enum phase
     {
+        early,
         fireSeason,
         redflag,
         evacuation,

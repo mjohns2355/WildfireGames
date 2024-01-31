@@ -8,6 +8,7 @@ public class hh_dialogManager : MonoBehaviour
     public string[] phaseOneDialog;
     public string[] phaseTwoDialog;
     public string[] phaseThreeDialog;
+    public string[] phaseFourDialog;
     public string[] finalHappyDialog;
     public string[] finalWorriedDialog;
     public string[] finalSadDialog;
@@ -17,7 +18,8 @@ public class hh_dialogManager : MonoBehaviour
     private int counter = 0;
     public hh_level_manager house_level;
 
-    public GameObject taskList;
+    public GameObject taskListBtn;
+    public GameObject doneBtn;
 
     public GameObject sadFireFighter;
     public GameObject worriedFireFighter;
@@ -39,13 +41,14 @@ public class hh_dialogManager : MonoBehaviour
             if (house_level.currentPhase != hh_task.phase.done)
             {
 
-                taskList.SetActive(true);
+                taskListBtn.SetActive(true);
+                doneBtn.SetActive(true);
                 house_level.HeaderAnim(phaseTrigger);
             }
             gameObject.SetActive(false);
         } else
         {
-            if (house_level.currentPhase == hh_task.phase.fireSeason)
+            if (house_level.currentPhase == hh_task.phase.early)
             {
                 dialog.text = phaseOneDialog[counter];
                 counter++;
@@ -56,7 +59,7 @@ public class hh_dialogManager : MonoBehaviour
                     counter = -1;
                 }
             }
-            else if (house_level.currentPhase == hh_task.phase.redflag)
+            else if (house_level.currentPhase == hh_task.phase.fireSeason)
             {
                 dialog.text = phaseTwoDialog[counter];
                 counter++;
@@ -68,7 +71,7 @@ public class hh_dialogManager : MonoBehaviour
                     counter = -1;
                 }
             }
-            else if (house_level.currentPhase == hh_task.phase.evacuation)
+            else if (house_level.currentPhase == hh_task.phase.redflag)
             {
                 dialog.text = phaseThreeDialog[counter];
                 counter++;
@@ -76,6 +79,17 @@ public class hh_dialogManager : MonoBehaviour
                 {
 
                     phaseTrigger = "phase3";
+                    counter = -1;
+                }
+            }
+            else if (house_level.currentPhase == hh_task.phase.evacuation)
+            {
+                dialog.text = phaseThreeDialog[counter];
+                counter++;
+                if (counter >= phaseThreeDialog.Length)
+                {
+
+                    phaseTrigger = "phase4";
                     counter = -1;
                 }
             }
