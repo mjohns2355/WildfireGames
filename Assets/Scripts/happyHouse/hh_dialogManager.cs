@@ -33,16 +33,24 @@ public class hh_dialogManager : MonoBehaviour
         StepTextForward();
     }
 
+    public void DoneBtnOn()
+    {
+        if (house_level.currentPhase != hh_task.phase.evacuation && house_level.currentPhase != hh_task.phase.done)
+            doneBtn.SetActive(true);
+    }
+
     public void StepTextForward()
     {
         if(counter == -1)
         {
+            doneBtn.SetActive(false);
             counter = 0;
             if (house_level.currentPhase != hh_task.phase.done)
             {
 
                 taskListBtn.SetActive(true);
-                doneBtn.SetActive(true);
+                if(house_level.currentPhase != hh_task.phase.evacuation)
+                    doneBtn.SetActive(true);
                 house_level.HeaderAnim(phaseTrigger);
             }
             gameObject.SetActive(false);
@@ -66,7 +74,7 @@ public class hh_dialogManager : MonoBehaviour
                 if (counter >= phaseTwoDialog.Length)
                 {
 
-                    GetComponent<AudioSource>().playOnAwake = false;
+                    
                     phaseTrigger = "phase2";
                     counter = -1;
                 }
@@ -77,7 +85,7 @@ public class hh_dialogManager : MonoBehaviour
                 counter++;
                 if (counter >= phaseThreeDialog.Length)
                 {
-
+                    GetComponent<AudioSource>().playOnAwake = false;
                     phaseTrigger = "phase3";
                     counter = -1;
                 }

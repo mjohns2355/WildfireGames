@@ -14,7 +14,7 @@ public class hh_gobag : MonoBehaviour
                 //find the car and play its animation
                 GameObject.FindGameObjectWithTag("vehicle").GetComponent<Animator>().SetTrigger("backup");
                 //complete the task
-                car_task.DoTask();
+                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().CarPacked();
             }
             Instantiate(Resources.Load("bagPoof"), transform.position, transform.rotation);
             gameObject.SetActive(false);
