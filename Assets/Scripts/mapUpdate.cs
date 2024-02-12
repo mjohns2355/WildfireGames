@@ -5,8 +5,9 @@ using UnityEngine;
 public class mapUpdate : MonoBehaviour
 {
     public GameObject winScreen;
-    public GameObject[] maps; //map images to update, need to replace with dynamic map system
-    private int mapCount = 0; //counter for which map image to use
+    public GameObject map; //map image to update, need to replace with dynamic map system
+    public GameObject[] intersections;
+    public GameObject carIcon;
     public GameObject steering;
     public int[] correct; //set in inspector for correct order
     private int turnCount;
@@ -19,13 +20,8 @@ public class mapUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mapCount = 0;
-        maps[0].SetActive(true); //start on first map
+        map.SetActive(true); //start on first map
         steering.SetActive(true);
-        for(int i = 1; i < maps.Length; i++)
-        {
-            maps[i].SetActive(false); //turn off all other map images
-        }
     }
     void Update()
     {
@@ -45,33 +41,14 @@ public class mapUpdate : MonoBehaviour
 
     public void ResponseTime()
     {
-        timer += 2; //add to timer when they open messages (single player only)
+        //when they open message in single player?
     }
 
     public void ChangeMap(int arrow)
     {
-        //if they choose the correct arrow update the map
-        if(arrow == correct[turnCount])
-        {
-            turnCount++;
-            maps[mapCount].SetActive(false);
-            mapCount++;
-            if (mapCount < maps.Length)
-            {
-                maps[mapCount].SetActive(true);
-            }
-            else
-            {
-                playing = false;
-                winScreen.SetActive(true);
-                steering.SetActive(false);
-                GameObject[] messages = GameObject.FindGameObjectsWithTag("msgPopup");
-                foreach (GameObject m in messages)
-                {
-                    Destroy(m);
-                }
-            }
-        }
-        
+        //store desired next turn, use when intersect next intersection
+        //0 left
+        //1 right
+        carIcon.GetComponent<io_carIcon>().SetNextTurn(arrow);
     }
 }

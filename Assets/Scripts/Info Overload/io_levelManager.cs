@@ -12,6 +12,8 @@ public class io_levelManager : MonoBehaviour
     private float brakeOnTimer = -1;
     private bool safe = false;
 
+    public io_carIcon car;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +30,14 @@ public class io_levelManager : MonoBehaviour
             {
                 safe = false;
                 brakes.SetActive(true);
-                brakeOnTimer = 10;
+                brakeOnTimer = Random.Range(2, 3);
             }
         } else
         {
             brakeOnTimer -= Time.deltaTime;
             if(brakeOnTimer <= 0)
             {
-                if (safe)
+                if (car.stopped)
                 {
                     brakeOnTimer = -1;
                     brakeStartTimer = Random.Range(4, 8);
