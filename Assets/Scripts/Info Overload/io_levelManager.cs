@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class io_levelManager : MonoBehaviour
 {
 
-    public GameObject brakes;
+    public GameObject[] brakes;
     public GameObject crashScreen;
     private float brakeStartTimer;
     private float brakeOnTimer = -1;
@@ -29,7 +29,10 @@ public class io_levelManager : MonoBehaviour
             if (brakeStartTimer <= 0)
             {
                 safe = false;
-                brakes.SetActive(true);
+                foreach(GameObject b in brakes)
+                {
+                    b.SetActive(true);
+                }
                 brakeOnTimer = Random.Range(2, 3);
             }
         } else
@@ -41,7 +44,11 @@ public class io_levelManager : MonoBehaviour
                 {
                     brakeOnTimer = -1;
                     brakeStartTimer = Random.Range(4, 8);
-                    brakes.SetActive(false);
+
+                    foreach (GameObject b in brakes)
+                    {
+                        b.SetActive(false);
+                    }
                 } else
                 {
                     crashScreen.SetActive(true);

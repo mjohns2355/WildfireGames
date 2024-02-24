@@ -28,13 +28,18 @@ public class io_intersection : MonoBehaviour
         if(Vector2.Distance(myRect.anchoredPosition,car.anchoredPosition) < 5)
         {
             car.GetComponent<io_carIcon>().intersect = this;
-        } else if(car.GetComponent<io_carIcon>().intersect == this)
-        {
-            car.GetComponent<io_carIcon>().intersect = null;
-        }
+        }// else if(car.GetComponent<io_carIcon>().intersect == this)
+      //  {
+           // car.GetComponent<io_carIcon>().intersect = null;
+      //  }
         else if (Vector2.Distance(myRect.anchoredPosition, car.anchoredPosition) < 40)
         {
             car.GetComponent<io_carIcon>().enterIntersection = true;
+        } else if(car.GetComponent<io_carIcon>().intersect == this)
+        {
+            car.GetComponent<io_carIcon>().intersect = null;
+            car.GetComponent<io_carIcon>().enterIntersection = false;
+            Destroy(gameObject);
         }
     }
 }
