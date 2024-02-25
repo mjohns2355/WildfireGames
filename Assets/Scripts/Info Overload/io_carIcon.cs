@@ -18,6 +18,11 @@ public class io_carIcon : MonoBehaviour
     public GameObject steering;
     public io_brakes brakes;
 
+    public io_levelManager levelManager;
+
+    public GameObject leftSignal;
+    public GameObject rightSignal;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,53 +33,72 @@ public class io_carIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (brakes.isBraking)
+        if (levelManager.playing)
         {
-            stopped = true;
-        } else
-        {
-            stopped = false;
-        }
-        if (enterIntersection)
-        {
-            steering.SetActive(true);
-        }
-        if (!stopped)
-        {
-            switch (currentDirection)
+
+            if (brakes.isBraking)
             {
-                case io_intersection.direction.east://move right
-                    pos.x += Time.deltaTime * speed;
-                    break;
-                case io_intersection.direction.west://move left
-                    pos.x -= Time.deltaTime * speed;
-                    break;
-                case io_intersection.direction.north://move forward
-                    pos.y += Time.deltaTime * speed;
-                    break;
-                case io_intersection.direction.south://move down
-                    pos.y -= Time.deltaTime * speed;
-                    break;
+                stopped = true;
             }
-        }
-        myRect.anchoredPosition = pos;
-        if(intersect != null && desiredDirection != currentDirection)
-        {
-            foreach(io_intersection.direction d in intersect.directions)
+            else
             {
-                if(desiredDirection == d)
+                stopped = false;
+            }
+            if (enterIntersection)
+            {
+                steering.SetActive(true);
+            }
+            if (!stopped)
+            {
+                switch (currentDirection)
                 {
-                    currentDirection = desiredDirection;
+                    case io_intersection.direction.east://move right
+                        pos.x += Time.deltaTime * speed;
+                        break;
+                    case io_intersection.direction.west://move left
+                        pos.x -= Time.deltaTime * speed;
+                        break;
+                    case io_intersection.direction.north://move forward
+                        pos.y += Time.deltaTime * speed;
+                        break;
+                    case io_intersection.direction.south://move down
+                        pos.y -= Time.deltaTime * speed;
+                        break;
                 }
             }
-            enterIntersection = false;
-            steering.SetActive(false);
-            Destroy(intersect.gameObject);
+            myRect.anchoredPosition = pos;
+            if (intersect != null && desiredDirection != currentDirection)
+            {
+                foreach (io_intersection.direction d in intersect.directions)
+                {
+                    if (desiredDirection == d)
+                    {
+                        currentDirection = desiredDirection;
+                    }
+                }
+                enterIntersection = false;
+                steering.SetActive(false);
+
+                rightSignal.SetActive(false);
+                leftSignal.SetActive(false);
+
+                Destroy(intersect.gameObject);
+            }
         }
     }
 
     public void SetNextTurn(int arrow)
     {
+        if(arrow == 0)
+        {
+            rightSignal.SetActive(false);
+            leftSignal.SetActive(true);
+        } else
+        {
+
+            rightSignal.SetActive(true);
+            leftSignal.SetActive(false);
+        }
         switch (currentDirection)
         {
             case io_intersection.direction.east:

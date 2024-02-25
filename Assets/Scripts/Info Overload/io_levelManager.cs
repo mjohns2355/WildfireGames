@@ -14,44 +14,59 @@ public class io_levelManager : MonoBehaviour
 
     public io_carIcon car;
 
+    public bool playing = false;
+
     // Start is called before the first frame update
     void Start()
     {
         brakeStartTimer = Random.Range(4, 8);
     }
 
+    public void StartPlaying()
+    {
+        playing = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (brakeOnTimer <= -1)
+        if (playing)
         {
-            brakeStartTimer -= Time.deltaTime;
-            if (brakeStartTimer <= 0)
-            {
-                safe = false;
-                foreach(GameObject b in brakes)
-                {
-                    b.SetActive(true);
-                }
-                brakeOnTimer = Random.Range(2, 3);
-            }
-        } else
-        {
-            brakeOnTimer -= Time.deltaTime;
-            if(brakeOnTimer <= 0)
-            {
-                if (car.stopped)
-                {
-                    brakeOnTimer = -1;
-                    brakeStartTimer = Random.Range(4, 8);
 
+            if (brakeOnTimer <= -1)
+            {
+                brakeStartTimer -= Time.deltaTime;
+                if (brakeStartTimer <= 0)
+                {
+                    safe = false;
                     foreach (GameObject b in brakes)
                     {
-                        b.SetActive(false);
+                        b.SetActive(true);
+                        b.transform.parent.GetComponent<Animator>().speed = 0.3f;
                     }
-                } else
+                    brakeOnTimer = Random.Range(2, 3);
+                }
+            }
+            else
+            {
+                brakeOnTimer -= Time.deltaTime;
+                if (brakeOnTimer <= 0)
                 {
-                    crashScreen.SetActive(true);
+                    if (car.stopped)
+                    {
+                        brakeOnTimer = -1;
+                        brakeStartTimer = Random.Range(4, 8);
+
+                        foreach (GameObject b in brakes)
+                        {
+                            b.SetActive(false);
+                            b.transform.parent.GetComponent<Animator>().speed = 1;
+                        }
+                    }
+                    else
+                    {
+                        crashScreen.SetActive(true);
+                    }
                 }
             }
         }
