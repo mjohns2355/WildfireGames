@@ -27,11 +27,19 @@ public class io_brakes : MonoBehaviour
         if(isBraking && speed > 0)
         {
             speed -= Time.deltaTime * 100;
+            if(speed < 0)
+            {
+                speed = 0;
+            }
             spedometer.text = ((int)speed).ToString() + " MPH";
         } else if(!isBraking && speed < 40)
         {
 
             speed += Time.deltaTime * 100;
+            if(speed > 40)
+            {
+                speed = 40;
+            }
             spedometer.text = ((int)speed).ToString() + " MPH";
         }
     }

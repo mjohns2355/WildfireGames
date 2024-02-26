@@ -5,7 +5,7 @@ using UnityEngine;
 public class io_treeSpawner : MonoBehaviour
 {
     public RectTransform endPos;
-    public int spawnTime = 2;
+    public float spawnTime = 2;
     private float spawnTimer;
     private GameObject tree;
     public bool stopped = false;

@@ -17,7 +17,7 @@ public class io_trees : MonoBehaviour
     void Start()
     {
         scale = GetComponent<RectTransform>().localScale;
-        finalScale = scale * 4;
+        finalScale = scale * 3.4f;
         myRect = GetComponent<RectTransform>();
         startPos = myRect.position;
     }
