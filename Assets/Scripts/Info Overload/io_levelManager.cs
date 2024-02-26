@@ -8,6 +8,7 @@ public class io_levelManager : MonoBehaviour
 
     public GameObject[] brakes;
     public GameObject crashScreen;
+    public GameObject winScreen;
     private float brakeStartTimer;
     private float brakeOnTimer = -1;
     private bool safe = false;

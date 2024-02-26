@@ -14,9 +14,13 @@ public class io_intersection : MonoBehaviour
 
     public direction[] directions;
 
+    public bool deadEnd = false;
+    public bool shelter = false;
+
     public RectTransform car;
 
     private RectTransform myRect;
+    private bool passed = false;
 
     private void Start()
     {
@@ -27,19 +31,33 @@ public class io_intersection : MonoBehaviour
     {
         if(Vector2.Distance(myRect.anchoredPosition,car.anchoredPosition) < 5)
         {
-            car.GetComponent<io_carIcon>().intersect = this;
-        }// else if(car.GetComponent<io_carIcon>().intersect == this)
-      //  {
-           // car.GetComponent<io_carIcon>().intersect = null;
-      //  }
-        else if (Vector2.Distance(myRect.anchoredPosition, car.anchoredPosition) < 40)
+            if (deadEnd)
+            {
+                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>().crashScreen.SetActive(true);
+            } else if (shelter)
+            {
+                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>().winScreen.SetActive(true);
+            }
+            else
+            {
+                car.GetComponent<io_carIcon>().intersect = this;
+                passed = true;
+            }
+        }
+        else if (Vector2.Distance(myRect.anchoredPosition, car.anchoredPosition) < 40 && !deadEnd && !shelter)
         {
-            car.GetComponent<io_carIcon>().enterIntersection = true;
-        } else if(car.GetComponent<io_carIcon>().intersect == this)
+            if (!passed) {
+                car.GetComponent<io_carIcon>().enterIntersection = true;
+            }
+            else
+            {
+                car.GetComponent<io_carIcon>().intersect = null;
+                car.GetComponent<io_carIcon>().enterIntersection = false;
+            }
+
+        } else
         {
-            car.GetComponent<io_carIcon>().intersect = null;
-            car.GetComponent<io_carIcon>().enterIntersection = false;
-            Destroy(gameObject);
+            passed = false;
         }
     }
 }

@@ -50,6 +50,7 @@ public class io_carIcon : MonoBehaviour
             }
             if (!stopped)
             {
+                pos = myRect.anchoredPosition;
                 switch (currentDirection)
                 {
                     case io_intersection.direction.east://move right
@@ -67,12 +68,13 @@ public class io_carIcon : MonoBehaviour
                 }
             }
             myRect.anchoredPosition = pos;
-            if (intersect != null && desiredDirection != currentDirection)
+            if (!stopped && intersect != null && desiredDirection != currentDirection) //check if turning
             {
                 foreach (io_intersection.direction d in intersect.directions)
                 {
                     if (desiredDirection == d)
                     {
+                        myRect.anchoredPosition = intersect.GetComponent<RectTransform>().anchoredPosition;
                         currentDirection = desiredDirection;
                     }
                 }
@@ -82,7 +84,13 @@ public class io_carIcon : MonoBehaviour
                 rightSignal.SetActive(false);
                 leftSignal.SetActive(false);
 
-                Destroy(intersect.gameObject);
+                intersect = null;
+            } else if (!enterIntersection && intersect == null)
+            {
+                steering.SetActive(false);
+
+                rightSignal.SetActive(false);
+                leftSignal.SetActive(false);
             }
         }
     }
