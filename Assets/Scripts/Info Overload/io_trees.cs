@@ -16,10 +16,15 @@ public class io_trees : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float rng = Random.Range(1, 1.35f);
         scale = GetComponent<RectTransform>().localScale;
+        scale *= rng;
+        GetComponent<RectTransform>().localScale = scale;
         finalScale = scale * 3.4f;
         myRect = GetComponent<RectTransform>();
         startPos = myRect.position;
+        startPos.y += (rng-1)*85;
+        myRect.position = startPos;
     }
 
     // Update is called once per frame

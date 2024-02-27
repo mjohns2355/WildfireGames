@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class io_carIcon : MonoBehaviour
 {
@@ -22,6 +23,12 @@ public class io_carIcon : MonoBehaviour
 
     public GameObject leftSignal;
     public GameObject rightSignal;
+
+    public GameObject turnScreen;
+    public TextMeshProUGUI turnText;
+
+    private string directionText;
+    private string compassText;
 
     // Start is called before the first frame update
     void Start()
@@ -73,9 +80,13 @@ public class io_carIcon : MonoBehaviour
                 foreach (io_intersection.direction d in intersect.directions)
                 {
                     if (desiredDirection == d)
-                    {
+                    {//Do the turn
                         myRect.anchoredPosition = intersect.GetComponent<RectTransform>().anchoredPosition;
                         currentDirection = desiredDirection;
+                        turnText.text = directionText + " Turn\nHeading " + compassText;
+                        turnScreen.SetActive(false);
+                        turnScreen.SetActive(true);
+                        levelManager.ResetBrakes();
                     }
                 }
                 enterIntersection = false;
@@ -101,11 +112,13 @@ public class io_carIcon : MonoBehaviour
         {
             rightSignal.SetActive(false);
             leftSignal.SetActive(true);
+            directionText = "Left";
         } else
         {
 
             rightSignal.SetActive(true);
             leftSignal.SetActive(false);
+            directionText = "Right";
         }
         switch (currentDirection)
         {
@@ -113,36 +126,44 @@ public class io_carIcon : MonoBehaviour
                 if(arrow == 0)
                 {
                     desiredDirection = io_intersection.direction.north;
+                    compassText = "North";
                 } else
                 {
                     desiredDirection = io_intersection.direction.south;
+                    compassText = "South";
                 }
                 break;
             case io_intersection.direction.west:
                 if (arrow == 0)
                 {
                     desiredDirection = io_intersection.direction.south;
+                    compassText = "South";
                 } else
                 {
                     desiredDirection = io_intersection.direction.north;
+                    compassText = "North";
                 }
                 break;
             case io_intersection.direction.north:
                 if (arrow == 0)
                 {
                     desiredDirection = io_intersection.direction.west;
+                    compassText = "West";
                 } else
                 {
                     desiredDirection = io_intersection.direction.east;
+                    compassText = "East";
                 }
                 break;
             case io_intersection.direction.south:
                 if (arrow == 0)
                 {
                     desiredDirection = io_intersection.direction.east;
+                    compassText = "East";
                 } else
                 {
                     desiredDirection = io_intersection.direction.west;
+                    compassText = "West";
                 }
                 break;
         }

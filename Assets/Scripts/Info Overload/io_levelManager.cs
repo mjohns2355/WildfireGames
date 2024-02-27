@@ -28,6 +28,18 @@ public class io_levelManager : MonoBehaviour
         playing = true;
     }
 
+    public void ResetBrakes()
+    {
+        brakeOnTimer = -1;
+        brakeStartTimer = Random.Range(4, 8);
+
+        foreach (GameObject b in brakes)
+        {
+            b.SetActive(false);
+            b.transform.parent.GetComponent<Animator>().speed = 1;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
