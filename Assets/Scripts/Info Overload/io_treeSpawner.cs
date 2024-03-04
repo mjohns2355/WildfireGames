@@ -26,7 +26,14 @@ public class io_treeSpawner : MonoBehaviour
             {
                 Debug.Log("spawn");
                 spawnTimer = spawnTime;
-                tree = Instantiate(Resources.Load("Trees"), transform.position, transform.rotation, transform) as GameObject;
+                if (Random.Range(0, 2f) < 1)
+                {
+
+                    tree = Instantiate(Resources.Load("Trees"), transform.position, transform.rotation, transform) as GameObject;
+                } else
+                {
+                    tree = Instantiate(Resources.Load("Trees1"), transform.position, transform.rotation, transform) as GameObject;
+                }
                 tree.transform.SetAsFirstSibling();
                 tree.GetComponent<io_trees>().endPos = endPos;
                 tree.GetComponent<io_trees>().speed = 6;

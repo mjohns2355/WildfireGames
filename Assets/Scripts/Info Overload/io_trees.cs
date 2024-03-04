@@ -19,6 +19,10 @@ public class io_trees : MonoBehaviour
         float rng = Random.Range(1, 1.35f);
         scale = GetComponent<RectTransform>().localScale;
         scale *= rng;
+        if (Random.Range(0, 2f) < 1)
+        {
+            scale.x *= -1;
+        }
         GetComponent<RectTransform>().localScale = scale;
         finalScale = scale * 3.4f;
         myRect = GetComponent<RectTransform>();
