@@ -14,10 +14,7 @@ public class ATC_PlacementManager : MonoBehaviour
     {
         placementGrid = new Grid(width, height);
     }
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireCube(transform.position, new Vector3(width, 2, height));
-    //}
+
     internal bool CheckIfPositionInBound(Vector3Int pos)
     {
         if (pos.x >= 0 && pos.x < width && pos.z >= 0 && pos.z < height)
@@ -94,15 +91,16 @@ public class ATC_PlacementManager : MonoBehaviour
         tempRoadObjects.Clear();
     }
 
-    internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)
+    internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition, bool isAgent = false)
     {
-        var resultPath = GridSearch.AStarSearch(placementGrid,new Point(startPosition.x,startPosition.z), new Point(endPosition.x, endPosition.z));
+        var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z), isAgent);
         List<Vector3Int> path = new List<Vector3Int>();
-        foreach (Point p in resultPath)
+        foreach (Point point in resultPath)
         {
-            path.Add(new Vector3Int(p.X, 0, p.Y));
+            path.Add(new Vector3Int(point.X, 0, point.Y));
+            //Debug.Log(point);
         }
-        return path;    
+        return path;
     }
 
     internal void AddTempStructureToStructureDict()
@@ -112,5 +110,91 @@ public class ATC_PlacementManager : MonoBehaviour
             structureDict.Add(structure.Key, structure.Value);
         }
         tempRoadObjects.Clear();
+    }
+
+    internal void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type, int width = 1, int height = 1)
+    {
+       ATC_StructureModel structure = CreateANewStructureModel(position, structurePrefab, type);
+
+        var structureNeedingRoad = structure.GetComponent<INeedingRoad>();
+        if (structureNeedingRoad != null)
+        {
+            structureNeedingRoad.RoadPosition = GetNearestRoad(position, width, height).Value;
+            Debug.Log("My nearest road position is: " + structureNeedingRoad.RoadPosition);
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, z);
+                placementGrid[newPosition.x, newPosition.z] = type;
+                structureDict.Add(newPosition, structure);
+            }
+        }
+
+    }
+
+    private Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, y);
+                var roads = GetNeighbourOfTypesFor(newPosition, CellType.Road);
+                if (roads.Count > 0)
+                {
+                    return roads[0];
+                }
+
+
+            }
+        }
+        return null;
+    }
+    public List<ATC_StructureModel> GetAllHouses()
+    {
+        List<ATC_StructureModel> returnList = new List<ATC_StructureModel>();
+        var housePositions = placementGrid.GetAllHouses();
+        foreach (var point in housePositions)
+        {
+            returnList.Add(structureDict[new Vector3Int(point.X, 0, point.Y)]);
+        }
+        return returnList;
+    }
+
+    public ATC_StructureModel GetStructureAt(Vector3Int position)
+    {
+        if (structureDict.ContainsKey(position))
+        {
+            return structureDict[position];
+        }
+        return null;
+    }
+    private ATC_StructureModel GetStructureAt(Point point)
+    {
+        if (point != null)
+        {
+            return structureDict[new Vector3Int(point.X, 0, point.Y)];
+        }
+        return null;
+    }
+    public ATC_StructureModel GetRandomRoad()
+    {
+        var point = placementGrid.GetRandomRoadPoint();
+        return GetStructureAt(point);
+    }
+
+    public ATC_StructureModel GetRandomSpecialStrucutre()
+    {
+        var point = placementGrid.GetRandomSpecialStructurePoint();
+        return GetStructureAt(point);
+    }
+
+    public ATC_StructureModel GetRandomHouseStructure()
+    {
+        var point = placementGrid.GetRandomHouseStructurePoint();
+        return GetStructureAt(point);
     }
 }
