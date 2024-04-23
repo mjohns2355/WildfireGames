@@ -23,7 +23,6 @@ public class ATC_AIDirector : MonoBehaviour
 
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
     {
-        Debug.Log("StartStructure: " +  startStructure + "EnsStructure: " + endStructure);
         if (startStructure != null && endStructure != null)
         {
             var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
@@ -65,7 +64,8 @@ public class ATC_AIDirector : MonoBehaviour
             var roadStructure = placementManager.GetStructureAt(currentPoistion);
             var markersList = roadStructure.GetCarMarkers();
             var limitDistance = markersList.Count > 3;
-            foreach(var marker in markersList) {
+            tempDictionary.Clear();
+            foreach (var marker in markersList) {
 
                 carGraph.AddVertex(marker.Position);
                 foreach (var markerNeighbour in marker.adjacentMarkers)
@@ -86,7 +86,7 @@ public class ATC_AIDirector : MonoBehaviour
                     }
                 }
             }
-            if (limitDistance && tempDictionary.Count > 1)
+            if (limitDistance && tempDictionary.Count > 2)
             {
                 var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value)).ToList();
                 for (int j = 0; j < 2; j++)
