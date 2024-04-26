@@ -14,11 +14,21 @@ public class ATC_InputManager : MonoBehaviour
 	Camera mainCamera;
 
 	public LayerMask groundMask;
-	public Vector2 CameraMovementVector
+    public LayerMask structureMask;
+    public LayerMask uiMask;
+    [SerializeField]
+
+    private LayerMask targetLayer;
+
+    public Vector2 CameraMovementVector
     {
 		get { return cameraMovementVector; }
 	}
 
+    private void Start()
+    {
+        targetLayer = structureMask;
+    }
 
     private void Update()
     {
@@ -32,11 +42,13 @@ public class ATC_InputManager : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out hit, Mathf.Infinity, groundMask)) {
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer)) {
         
             Vector3Int positionInt = Vector3Int.RoundToInt(hit.point);
             return positionInt;
+
         }
+
         return null;
     }
     private void CheckArrowInput()
@@ -70,13 +82,26 @@ public class ATC_InputManager : MonoBehaviour
 
     private void CheckClickDownEvent()
     {
+
         if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false)
         {
             var position = RaycastGround();
             if (position != null)
             {
                 OnMouseClick?.Invoke(position.Value);
+
             }
+        }
+    }
+    public void OnConstructionMode(bool state)
+    {
+        if (state == false)
+        {
+            targetLayer = structureMask;
+        }
+        else
+        {
+            targetLayer = groundMask;
         }
     }
 }

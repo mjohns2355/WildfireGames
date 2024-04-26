@@ -9,7 +9,15 @@ public class StructureManager : MonoBehaviour
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
 
+    public void ClickStructre(Vector3Int position)
+    {
 
+        var clickedStructure = placementManager.GetStructureAt(position);
+        if (clickedStructure == null) return;
+        var structure = clickedStructure.gameObject.GetComponentInChildren<Structure>();
+        if(structure == null) return;
+        structure.OnStructureClick();
+    }
     public void PlaceHouse(Vector3Int position)
     {
         if (CheckPositionBeforePlacement(position))

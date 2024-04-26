@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ATC_AIDirector : MonoBehaviour
+public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 {
     public ATC_PlacementManager placementManager;
 
@@ -12,6 +12,8 @@ public class ATC_AIDirector : MonoBehaviour
     AdjacencyGraph carGraph = new AdjacencyGraph();
 
     List<Vector3> carPath = new List<Vector3>();
+
+    
     public void SpawnACar()
     {
         foreach(var house in placementManager.GetAllHouses())

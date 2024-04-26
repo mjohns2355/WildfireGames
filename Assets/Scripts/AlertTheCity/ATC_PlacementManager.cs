@@ -114,7 +114,8 @@ public class ATC_PlacementManager : MonoBehaviour
 
     internal void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type, int width = 1, int height = 1)
     {
-       ATC_StructureModel structure = CreateANewStructureModel(position, structurePrefab, type);
+        ATC_StructureModel structure = CreateANewStructureModel(position, structurePrefab, type);
+        structure.gameObject.layer = 10;
 
         var structureNeedingRoad = structure.GetComponent<INeedingRoad>();
         if (structureNeedingRoad != null)
@@ -128,6 +129,7 @@ public class ATC_PlacementManager : MonoBehaviour
             for (int z = 0; z < height; z++)
             {
                 var newPosition = position + new Vector3Int(x, 0, z);
+                Debug.Log(newPosition); 
                 placementGrid[newPosition.x, newPosition.z] = type;
                 structureDict.Add(newPosition, structure);
             }
