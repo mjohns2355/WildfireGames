@@ -43,7 +43,6 @@ public class ATC_InputManager : MonoBehaviour
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer)) {
-        
             Vector3Int positionInt = Vector3Int.RoundToInt(hit.point);
             return positionInt;
 

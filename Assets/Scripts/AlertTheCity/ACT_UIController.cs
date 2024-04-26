@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ACT_UIController : MonoBehaviour
 {
+    public GameObject canvas;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
     public GameObject buildingMenu;
