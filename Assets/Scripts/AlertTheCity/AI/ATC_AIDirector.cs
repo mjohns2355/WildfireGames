@@ -14,14 +14,23 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     List<Vector3> carPath = new List<Vector3>();
 
     
+    //random destination
     public void SpawnACar()
     {
         foreach(var house in placementManager.GetAllHouses())
         {
-            
-            TrySpawnACar(house, placementManager.GetRandomSpecialStrucutre());
+            var houseStructure = house.GetComponentInChildren<HouseStructure>();
+            if(houseStructure!= null && houseStructure.CanSpawnCar())
+            {
+                TrySpawnACar(house, placementManager.GetRandomSpecialStrucutre());
+                houseStructure.AfterSpawnACar();
+            }
+
         }
     }
+
+    //specified destination
+
 
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
     {

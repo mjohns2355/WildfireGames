@@ -12,6 +12,13 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_RoadManager roadManager;
     public ACT_UIController uiController;
     private bool constructionMode;
+    private bool assignMode;
+
+    public bool InAssignMode
+    {
+        get { return assignMode; }
+    }
+
 
     public bool ConstructionMode
     {
@@ -78,5 +85,18 @@ public class GameManager : UnitySingleton<GameManager>
         uiController.UpdateConstructionMode(constructionMode);
         inputManager.OnConstructionMode(constructionMode);
         Debug.Log(constructionMode);
+    }
+
+    public void ToggleAssignMode()
+    {
+        assignMode = !assignMode;
+        if (assignMode == false)
+        {
+            ClearInputAction();
+            inputManager.OnMouseClick += structureManager.ClickStructre;
+        }
+        uiController.UpdateConstructionMode(constructionMode);
+        inputManager.OnConstructionMode(constructionMode);
+        Debug.Log(assignMode);
     }
 }

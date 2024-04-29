@@ -5,16 +5,39 @@ using UnityEngine.Events;
 
 public class HouseStructure : Structure
 {
-    UnityEvent onClick;
-    // Start is called before the first frame update
-    void Start()
+    public int pplNum;
+    public int petNum;
+    public int carNum;
+    public bool hasElder;
+    public bool hasPet;
+    private void Awake()
     {
+
+        InitializeInfoDictionary();
+    }
+
+    public override void OnStructureClick()
+    {
+        base.OnStructureClick();
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AfterSpawnACar()
     {
-        
+        if (carNum <= 0) return;
+        carNum--;
+        structureInfoDict["Car(s)"] = carNum;
+    }
+
+    public bool CanSpawnCar()
+    {
+        return carNum > 0;
+    }
+
+    void InitializeInfoDictionary()
+    {
+        structureInfoDict.Add("People", pplNum);
+        structureInfoDict.Add("Car(s)", carNum);
+        structureInfoDict.Add("Pet(s)", petNum);
     }
 }

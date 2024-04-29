@@ -26,7 +26,6 @@ public class StructureContextMenu : MonoBehaviour
         StringBuilder builder = new StringBuilder();
         foreach (var item in structureInfo)
         {
-            Debug.Log(item);
             builder.AppendLine(item.Key + ":" + item.Value + "\n");
         }
         text.text = builder.ToString();
