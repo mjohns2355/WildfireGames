@@ -30,7 +30,15 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     }
 
     //specified destination
-
+    public void SpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
+    {
+        var structure = startStructure.GetComponentInChildren<HouseStructure>();
+        if (structure != null && structure.CanSpawnCar())
+        {
+            TrySpawnACar(startStructure, endStructure);
+            structure.AfterSpawnACar();
+        }
+    }
 
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
     {

@@ -11,7 +11,8 @@ public class ACT_UIController : MonoBehaviour
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
     public GameObject buildingMenu;
     List<Button> buttonList;
-    
+    public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
+    public ShelterStructure selectedShelter;
     private void Start()
     {
         buildingMenu.SetActive(false);
@@ -42,5 +43,15 @@ public class ACT_UIController : MonoBehaviour
             text.text = "Construction OFF";
         }
         buildingMenu.SetActive(state);
+    }
+
+    public void AddSelectedHouse(HouseStructure house)
+    {
+        selectedHouses.Add(house);
+    }
+
+    public void RemoveSelectedStructure(HouseStructure house)
+    {
+        selectedHouses.Remove(house);
     }
 }

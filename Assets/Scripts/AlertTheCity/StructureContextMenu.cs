@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StructureContextMenu : MonoBehaviour
 {
     public GameObject backdrop;
     public TextMeshProUGUI text;
+    public Button closeButton;
+    public Button assignButton;
+    public Structure owner;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
+        assignButton.gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        UpdateText(owner.structureInfoDict);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

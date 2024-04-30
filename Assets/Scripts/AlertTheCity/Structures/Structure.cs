@@ -6,17 +6,36 @@ public class Structure : MonoBehaviour
     public enum StructureType { House, Shelter}
     public StructureType structureType;
     public StructureContextMenu menu;
-    // people, car, pet
-    protected Dictionary<string,int> structureInfoDict = new Dictionary<string,int>();
+    public Outline outline;
+// people, car, pet
+    public Dictionary<string,int> structureInfoDict = new Dictionary<string,int>();
     [SerializeField]
     float menuOffset = 5f;
 
+    virtual public void Awake()
+    {
+        menu.closeButton.onClick.AddListener(StopSturctureClick);
+        menu.owner = this;
+    }
 
     virtual public void OnStructureClick()
     {
         menu.gameObject.SetActive(true);
         menu.UpdateText(structureInfoDict);
+        outline.enabled = true;
     }
 
-    
+    virtual public void StopSturctureClick()
+    {
+        HideUI();
+
+    }
+
+    public void HideUI()
+    {
+        menu.gameObject.SetActive(false);
+        outline.enabled = false;
+    }
+
+
 }

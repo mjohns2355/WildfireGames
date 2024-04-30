@@ -10,23 +10,26 @@ public class HouseStructure : Structure
     public int carNum;
     public bool hasElder;
     public bool hasPet;
-    private void Awake()
+    public override void Awake()
     {
-
+        base.Awake();
         InitializeInfoDictionary();
     }
 
     public override void OnStructureClick()
     {
         base.OnStructureClick();
-
+        GameManager.Instance.uiController.AddSelectedHouse(this);
     }
 
     public void AfterSpawnACar()
     {
         if (carNum <= 0) return;
+        
         carNum--;
+        
         structureInfoDict["Car(s)"] = carNum;
+        
     }
 
     public bool CanSpawnCar()
@@ -39,5 +42,11 @@ public class HouseStructure : Structure
         structureInfoDict.Add("People", pplNum);
         structureInfoDict.Add("Car(s)", carNum);
         structureInfoDict.Add("Pet(s)", petNum);
+    }
+
+    public override void StopSturctureClick()
+    {
+        base.StopSturctureClick();
+        GameManager.Instance.uiController.RemoveSelectedStructure(this);
     }
 }
