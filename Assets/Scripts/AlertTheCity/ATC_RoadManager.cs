@@ -6,22 +6,50 @@ using UnityEngine;
 public class ATC_RoadManager : MonoBehaviour
 {
     public ATC_PlacementManager placementManager;
-
+    public StructureManager structureManager;
+    public GameObject tileMap;
     public List<Vector3Int> tempPlacementPos = new List<Vector3Int>();
     public List<Vector3Int> roadPositionsToRecheck = new List<Vector3Int>();
 
     private Vector3Int startPosition;
     private bool placementMode = false;
     public RoadFixer roadFixer;
-
+ 
     private void Start()
     {
         roadFixer = GetComponent<RoadFixer>();
+
+        PlacePreBuiltRoad();
+        structureManager.PlacePreBuiltStructures();
     }
+
+    void PlacePreBuiltRoad()
+    {
+        List<Vector3Int> prebuiltPos = new List<Vector3Int>();
+        for (int i = 0; i < tileMap.transform.childCount; i++)
+        {
+            Vector3Int pos = Vector3Int.RoundToInt(tileMap.transform.GetChild(i).position);
+            prebuiltPos.Add(pos);
+            Destroy(tileMap.transform.GetChild(i).gameObject);
+        }
+
+        foreach (var pos in prebuiltPos)
+        {
+            tempPlacementPos.Add(pos);
+            placementManager.PlaceTempStructure(pos, roadFixer.deadEnd, CellType.Road);
+
+        }
+        FixRoadPrefabs();
+        FinishPlacingRoad();
+    }
+
     public void PlaceRoad(Vector3Int pos)
     {
+
         if (placementManager.CheckIfPositionInBound(pos) == false) return;
         if (placementManager.CheckIfPositionIsFree(pos) == false) return;
+        Debug.Log(pos);
+
         if (placementMode == false)
         {
             tempPlacementPos.Clear();

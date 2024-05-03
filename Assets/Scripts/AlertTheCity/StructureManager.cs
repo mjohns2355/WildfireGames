@@ -8,10 +8,40 @@ public class StructureManager : MonoBehaviour
     public GameObject housePrefab;
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
+    public GameObject structureTilemap;
 
+
+    public void PlacePreBuiltStructures()
+    {
+        List<Vector3Int> prebuiltHousePos = new List<Vector3Int>();
+        List<Vector3Int> prebuiltSpecialPos = new List<Vector3Int>();
+        for (int i = 0; i < structureTilemap.transform.childCount; i++)
+        {
+            var structure = structureTilemap.transform.GetChild(i);
+            Vector3Int pos = Vector3Int.RoundToInt(structure.position);
+            if (structure.name == "House")
+            {
+                prebuiltHousePos.Add(pos);
+            }
+            else if (structure.name == "Shelter")
+            {
+                prebuiltSpecialPos.Add(pos);
+            }
+            Destroy(structureTilemap.transform.GetChild(i).gameObject);
+        }
+
+        foreach (var pos in prebuiltHousePos)
+        {
+            PlaceHouse(pos);
+        }
+
+        foreach (var pos in prebuiltSpecialPos)
+        {
+            PlaceSpecial(pos);
+        }
+    }
     public void ClickStructre(Vector3Int position)
     {
-
         var clickedStructure = placementManager.GetStructureAt(position);
         if (clickedStructure == null) return;
         var structure = clickedStructure.gameObject.GetComponentInChildren<Structure>();

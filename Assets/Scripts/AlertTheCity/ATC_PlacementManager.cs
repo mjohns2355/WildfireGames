@@ -10,10 +10,15 @@ public class ATC_PlacementManager : MonoBehaviour
 
     private Dictionary<Vector3Int, ATC_StructureModel> tempRoadObjects = new Dictionary<Vector3Int, ATC_StructureModel> ();
     private Dictionary<Vector3Int, ATC_StructureModel> structureDict = new Dictionary<Vector3Int, ATC_StructureModel> ();
-    private void Start()
+
+    private void Awake()
     {
         placementGrid = new Grid(width, height);
     }
+    //private void Start()
+    //{
+    //    placementGrid = new Grid(width, height);
+    //}
 
     internal bool CheckIfPositionInBound(Vector3Int pos)
     {
