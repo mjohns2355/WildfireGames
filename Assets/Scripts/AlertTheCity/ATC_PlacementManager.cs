@@ -126,7 +126,7 @@ public class ATC_PlacementManager : MonoBehaviour
         if (structureNeedingRoad != null)
         {
             structureNeedingRoad.RoadPosition = GetNearestRoad(position, width, height).Value;
-            Debug.Log("My nearest road position is: " + structureNeedingRoad.RoadPosition);
+            //Debug.Log("My nearest road position is: " + structureNeedingRoad.RoadPosition);
         }
 
         for (int x = 0; x < width; x++)
@@ -134,7 +134,7 @@ public class ATC_PlacementManager : MonoBehaviour
             for (int z = 0; z < height; z++)
             {
                 var newPosition = position + new Vector3Int(x, 0, z);
-                Debug.Log(newPosition); 
+                //Debug.Log(newPosition); 
                 placementGrid[newPosition.x, newPosition.z] = type;
                 structureDict.Add(newPosition, structure);
             }
