@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ATC_PlacementManager : MonoBehaviour
 {
+    public Mesh mesh;
     public int width, height;
     Grid placementGrid;
 
@@ -15,10 +16,10 @@ public class ATC_PlacementManager : MonoBehaviour
     {
         placementGrid = new Grid(width, height);
     }
-    //private void Start()
-    //{
-    //    placementGrid = new Grid(width, height);
-    //}
+    private void Start()
+    {
+       
+    }
 
     internal bool CheckIfPositionInBound(Vector3Int pos)
     {
@@ -204,4 +205,6 @@ public class ATC_PlacementManager : MonoBehaviour
         var point = placementGrid.GetRandomHouseStructurePoint();
         return GetStructureAt(point);
     }
+
+    
 }

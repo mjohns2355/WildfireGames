@@ -9,8 +9,8 @@ public class Structure : MonoBehaviour
     public Outline outline;
 // people, car, pet
     public Dictionary<string,int> structureInfoDict = new Dictionary<string,int>();
-    [SerializeField]
-    float menuOffset = 5f;
+    //[SerializeField]
+    //float menuOffset = 5f;
 
     virtual public void Awake()
     {

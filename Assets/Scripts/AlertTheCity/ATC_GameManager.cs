@@ -11,6 +11,7 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_InputManager inputManager;
     public ATC_RoadManager roadManager;
     public ACT_UIController uiController;
+    public FireManager fireManager;
     private bool constructionMode;
     private bool assignMode;
 
