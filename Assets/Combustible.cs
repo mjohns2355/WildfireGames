@@ -22,7 +22,7 @@ public class Combustible : MonoBehaviour
     public void CatchOnFire()
     {
         if (isOnfire) return;
-        GameManager.Instance.fireManager.SpawnFire(fireSpawnPos,0.1f,true);
+        GameManager.Instance.fireManager.SpawnFire(fireSpawnPos,0.3f,true);
         isOnfire = true;
         fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
     }

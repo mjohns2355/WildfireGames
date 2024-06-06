@@ -1,26 +1,31 @@
-﻿//	Created by: Sunny Valley Studio 
-//	https://svstudio.itch.io
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SVS
+
+public class CameraMovement : MonoBehaviour
 {
-
-    public class CameraMovement : MonoBehaviour
+    public Camera gameCamera;
+    public float cameraMovementSpeed = 5;
+    public float cameraZoomSpeed = 5;
+    [SerializeField] private float maxFOV = 60;
+    [SerializeField] private float minFOV = 10;
+    private void Start()
     {
-        public Camera gameCamera;
-        public float cameraMovementSpeed = 5;
+        gameCamera = GetComponent<Camera>();
+    }
+    public void MoveCamera(Vector3 inputVector)
+    {
+        //var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
+        //gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
+        gameCamera.transform.position += inputVector * Time.deltaTime * cameraMovementSpeed;
+    }
 
-        private void Start()
-        {
-            gameCamera = GetComponent<Camera>();
-        }
-        public void MoveCamera(Vector3 inputVector)
-        {
-            var movementVector = Quaternion.Euler(0,30,0) * inputVector;
-            gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
-        }
+    public void ZoomCamera(float mouseAxis)
+    {
+        float FOV = gameCamera.fieldOfView;
+        FOV += mouseAxis * -1 * cameraMovementSpeed;
+        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+        gameCamera.fieldOfView =FOV;
     }
 }

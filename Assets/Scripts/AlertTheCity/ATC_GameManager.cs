@@ -1,4 +1,3 @@
-using SVS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,6 +65,7 @@ public class GameManager : UnitySingleton<GameManager>
     private void Update()
     {
         cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
+        cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
     }
 
     private void ClearInputAction()

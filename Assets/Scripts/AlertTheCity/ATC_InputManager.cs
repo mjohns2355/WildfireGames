@@ -8,8 +8,8 @@ public class ATC_InputManager : MonoBehaviour
 {
     public Action<Vector3Int> OnMouseClick, OnMouseHold;
     public Action OnMouseUp;
+    public Action<int> OnMouseScroll;
 	private Vector2 cameraMovementVector;
-
 	[SerializeField]
 	Camera mainCamera;
 
@@ -24,6 +24,8 @@ public class ATC_InputManager : MonoBehaviour
     {
 		get { return cameraMovementVector; }
 	}
+
+
 
     private void Start()
     {
@@ -92,6 +94,7 @@ public class ATC_InputManager : MonoBehaviour
             }
         }
     }
+
     public void OnConstructionMode(bool state)
     {
         if (state == false)
