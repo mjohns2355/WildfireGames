@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StructureManager : MonoBehaviour
@@ -21,7 +22,12 @@ public class StructureManager : MonoBehaviour
             Vector3Int pos = Vector3Int.RoundToInt(structure.position);
             if (structure.name == "House")
             {
-                prebuiltHousePos.Add(pos);
+                //prebuiltHousePos.Add(pos);
+                if (CheckPositionBeforePlacement(pos))
+                {
+                    structure.localPosition = Vector3.zero;
+                    placementManager.PlaceObjectOnTheMap(pos, structure.gameObject, CellType.Structure);
+                }
             }
             else if (structure.name == "Shelter")
             {
@@ -32,7 +38,7 @@ public class StructureManager : MonoBehaviour
 
         foreach (var pos in prebuiltHousePos)
         {
-            PlaceHouse(pos);
+            //PlaceHouse(pos);
         }
 
         foreach (var pos in prebuiltSpecialPos)

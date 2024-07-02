@@ -13,6 +13,7 @@ public class ACT_UIController : MonoBehaviour
     List<Button> buttonList;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public ShelterStructure selectedShelter;
+    public List<Sprite> iconList;
     private void Start()
     {
         buildingMenu.SetActive(false);
@@ -54,4 +55,6 @@ public class ACT_UIController : MonoBehaviour
     {
         selectedHouses.Remove(house);
     }
+
+    
 }

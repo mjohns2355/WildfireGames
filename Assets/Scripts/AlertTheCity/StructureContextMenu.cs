@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class StructureContextMenu : MonoBehaviour
 {
     public GameObject backdrop;
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI title;
+    public Transform options;
+    public GameObject optionButtonPrefab;
     public Button closeButton;
     public Button assignButton;
     public Structure owner;
@@ -20,7 +22,21 @@ public class StructureContextMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateText(owner.structureInfoDict);
+
+        HouseStructure house = (HouseStructure)owner;
+        if (house.isMainHouse)
+        {
+            UpdateMenuForHouse(house.houseInfo);
+        }
+
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < options.childCount; i++) { 
+        
+            Destroy(options.GetChild(i).gameObject);
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -36,6 +52,31 @@ public class StructureContextMenu : MonoBehaviour
         {
             builder.AppendLine(item.Key + ":" + item.Value + "\n");
         }
-        text.text = builder.ToString();
+        title.text = builder.ToString();
+    }
+
+    public void UpdateMenuForHouse(string text)
+    {
+        //Debug.Log("INFO: " + text);
+        char[] delimiterChars = { ':', '|' };
+        string[] words = text.Split(delimiterChars);
+        //foreach (string word in words) { 
+        //    Debug.Log(word);
+        //}
+        title.text = words[0];
+        for (int i = 1; i < words.Length; i++) {
+            SpawnOptionButtons(words[i],i == words.Length-1);
+        }
+    }
+
+    private void SpawnOptionButtons(string text, bool lastOption = false)
+    {
+        GameObject button = Instantiate(optionButtonPrefab,options);
+        var optionButton = button.GetComponent<OptionButton>();
+        optionButton.SetOptionButtonText(text);
+        if (lastOption)
+        {
+            optionButton.isLocked = true;
+        }
     }
 }

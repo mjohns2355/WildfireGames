@@ -161,6 +161,8 @@ public class ATC_PlacementManager : MonoBehaviour
         }
         return null;
     }
+
+    
     public List<ATC_StructureModel> GetAllHouses()
     {
         List<ATC_StructureModel> returnList = new List<ATC_StructureModel>();

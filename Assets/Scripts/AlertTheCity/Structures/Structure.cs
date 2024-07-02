@@ -8,7 +8,7 @@ public class Structure : MonoBehaviour
     public StructureContextMenu menu;
     public Outline outline;
 // people, car, pet
-    public Dictionary<string,int> structureInfoDict = new Dictionary<string,int>();
+    public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
     //[SerializeField]
     //float menuOffset = 5f;
 
@@ -21,7 +21,7 @@ public class Structure : MonoBehaviour
     virtual public void OnStructureClick()
     {
         menu.gameObject.SetActive(true);
-        menu.UpdateText(structureInfoDict);
+        //menu.UpdateText(structureInfoDict);
         outline.enabled = true;
     }
 

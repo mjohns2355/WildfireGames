@@ -14,8 +14,8 @@ public class ShelterStructure : Structure
         base.Awake();
         capacity = 20;
         availableSpace = capacity;
-        structureInfoDict.Add("Capacity", capacity);
-        structureInfoDict.Add("Available Space", availableSpace);
+        //structureInfoDict.Add("Capacity", capacity);
+        //structureInfoDict.Add("Available Space", availableSpace);
         menu.assignButton.onClick.AddListener(SetAsSelectedShelter);
     }
 
@@ -41,7 +41,7 @@ public class ShelterStructure : Structure
         {
             house.HideUI();
             availableSpace -= house.pplNum;
-            structureInfoDict["Available Space"] = availableSpace;
+            //structureInfoDict["Available Space"] = availableSpace;
             //menu.UpdateText(structureInfoDict);
             ATC_StructureModel start = house.GetComponentInParent<ATC_StructureModel>();
             ATC_AIDirector.Instance.SpawnACar(start, end);
