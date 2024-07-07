@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 [ExecuteInEditMode]
+public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui }
 public class HouseStructure : Structure
 {
-    public enum HouseType { elderly, twoCar, kids, horse, pet, wui }
+    
     public bool isMainHouse;
     public string houseInfo;
     [SerializeField] Image iconSprite;
@@ -22,14 +23,9 @@ public class HouseStructure : Structure
     public override void Awake()
     {
         base.Awake();
-
+        //houseType = HouseType.none;
         
-        if (isMainHouse)
-        {
-           
 
-        }
-        //InitializeInfoDictionary();
     }
 
     private void Start()
@@ -43,6 +39,7 @@ public class HouseStructure : Structure
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
             foreach (var house in houses)
             {
+                if(house == null) continue;
                 var houseStructure = house.GetComponentInChildren<HouseStructure>();
                 if (houseStructure == null) continue;
                 if (houseStructure.houseType == houseType)
@@ -56,6 +53,16 @@ public class HouseStructure : Structure
         //Instantiate(houseModel, transform.position, Quaternion.identity, transform);
     }
 
+    public void RandomizeHouseType()
+    {
+        // 0 is None
+        houseType = (HouseType)Random.Range(1, System.Enum.GetValues(typeof(HouseType)).Length);
+    }
+
+    public void SetHouseType(HouseType type)
+    {
+        houseType = type;
+    }
     public override void OnStructureClick()
     {
         
@@ -136,7 +143,7 @@ public class HouseStructure : Structure
 #if UNITY_EDITOR
     private void OnEnable()
     {
-        if (mesh.childCount != 0) return;
+        if (mesh.childCount >= 1) return;
         GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
         Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
     }

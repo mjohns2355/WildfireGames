@@ -6,6 +6,7 @@ public class Structure : MonoBehaviour
     public enum StructureType { House, Shelter}
     public StructureType structureType;
     public StructureContextMenu menu;
+    public Transform menuSpawnPos;
     public Outline outline;
 // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();

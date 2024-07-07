@@ -7,22 +7,33 @@ using UnityEngine.UI;
 
 public class StructureContextMenu : MonoBehaviour
 {
-    public GameObject backdrop;
+    public GameObject menuUI;
+    public GameObject menu;
+    public GameObject icon;
     public TextMeshProUGUI title;
     public Transform options;
     public GameObject optionButtonPrefab;
     public Button closeButton;
     public Button assignButton;
     public Structure owner;
+    private Camera cam;
     // Start is called before the first frame update
     private void Awake()
     {
         assignButton.gameObject.SetActive(false);
+        
+    }
+    private void Start()
+    {
+        cam = Camera.main;
+      
+
     }
 
-    private void OnEnable()
+    public void OnMenuEnable()
     {
-
+        if(owner == null) return;
+        menu.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
         if (house.isMainHouse)
         {
@@ -31,18 +42,23 @@ public class StructureContextMenu : MonoBehaviour
 
     }
 
-    private void OnDisable()
+    public void OnMenuDisable()
     {
+
         for (int i = 0; i < options.childCount; i++) { 
         
             Destroy(options.GetChild(i).gameObject);
         }
+        menu.SetActive(false);
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        Camera camera = Camera.main;
-        transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+        menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        //icon.transform.position = cam.WorldToScreenPoint(owner.transform.position);
+        //menu.transform.position = cam.WorldToScreenPoint(owner.transform.position);
+        //Camera camera = Camera.main;
+        //transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
     }
 
     public void UpdateText(Dictionary<string,int> structureInfo)

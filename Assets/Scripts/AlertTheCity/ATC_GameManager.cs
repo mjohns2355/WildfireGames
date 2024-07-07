@@ -32,6 +32,7 @@ public class GameManager : UnitySingleton<GameManager>
         uiController.OnRoadPlacement += RoadPlacementHandler;
         uiController.OnHousePlacement += HousePlacementHandler;
         uiController.OnSpecialPlacement += SpecialPlacementHandler;
+        structureManager.InitialMainHouses();
     }
 
     private void RoadPlacementHandler()

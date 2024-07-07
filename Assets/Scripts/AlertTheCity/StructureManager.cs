@@ -10,8 +10,44 @@ public class StructureManager : MonoBehaviour
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
     public GameObject structureTilemap;
+    public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
 
+    private void Start()
+    {
+        
+        
+        
+    }
+    public void InitialMainHouses()
+    {
+        if(allHouses.Count == 0)
+        {
+            allHouses = placementManager.GetAllHouses();
+        }
 
+        
+        //make sure each type has at least one house in the group
+        for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
+        {
+            Debug.Log(allHouses.Count);
+            if (allHouses.Count == 0) return;
+            var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
+            
+            var house = structure.GetComponentInChildren<HouseStructure>();
+            if (house && !house.isMainHouse)
+            {
+                house.isMainHouse = true;
+                house.SetHouseType((HouseType)i);
+                allHouses.Remove(structure);
+            }
+        }
+        foreach (var structure in allHouses)
+        {
+            var house = structure.GetComponentInChildren<HouseStructure>();
+            house.RandomizeHouseType();
+        }
+
+    }
     public void PlacePreBuiltStructures()
     {
         List<Vector3Int> prebuiltHousePos = new List<Vector3Int>();
