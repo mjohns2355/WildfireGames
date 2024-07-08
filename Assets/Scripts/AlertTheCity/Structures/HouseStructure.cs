@@ -19,6 +19,7 @@ public class HouseStructure : Structure
     public int pplNum;
     public int petNum;
     int carNum = 1;
+
     ATC_PlacementManager placementManager;
     public override void Awake()
     {
@@ -106,23 +107,23 @@ public class HouseStructure : Structure
         switch (houseType)
         {
             case HouseType.elderly:
-                houseInfo = "Elderly House:Wait for family member | Ask for ride early";
+                houseInfo = "Elderly House: Wait for family member | Ask for ride early";
                 break;
             case HouseType.twoCar:
-                houseInfo = "Two-car House:Take both cars | Leave one car behind | Relocate second car";
+                houseInfo = "Two-car House: Take both cars | Leave one car behind | Relocate second car ";
                 carNum = 2;
                 break;
             case HouseType.horse:
-                houseInfo = "Horse Owner:Take both cars | Leave one car behind | Relocate second car";
+                houseInfo = "Horse Owner: Wait for evac order | Relocate horses ";
                 break;
             case HouseType.pet:
-                houseInfo = "Pet Owner:Wait for evac order | Plan ahead ";
+                houseInfo = "Pet Owner: Wait for evac order | Plan ahead ";
                 break;
             case HouseType.wui:
-                houseInfo = "WUI House:Take both cars | Leave one car behind | Relocate second car";
+                houseInfo = "WUI House: Wait for evac order | Evacuate early ";
                 break;
             case HouseType.kids:
-                houseInfo = "Kids House:Take both cars | Leave one car behind | Relocate second car";
+                houseInfo = "Kids House: Pick up from school | Plan ahead ";
                 break;
         }
     }

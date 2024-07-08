@@ -8,7 +8,7 @@ public class Structure : MonoBehaviour
     public StructureContextMenu menu;
     public Transform menuSpawnPos;
     public Outline outline;
-// people, car, pet
+    // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
     //[SerializeField]
     //float menuOffset = 5f;

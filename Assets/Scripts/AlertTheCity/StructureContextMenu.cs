@@ -16,7 +16,7 @@ public class StructureContextMenu : MonoBehaviour
     public Button closeButton;
     public Button assignButton;
     public Structure owner;
-    private Camera cam;
+    [SerializeField] Camera cam;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -55,12 +55,22 @@ public class StructureContextMenu : MonoBehaviour
     void FixedUpdate()
     {
         menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        //ZoomMenuUI();
         //icon.transform.position = cam.WorldToScreenPoint(owner.transform.position);
         //menu.transform.position = cam.WorldToScreenPoint(owner.transform.position);
         //Camera camera = Camera.main;
         //transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
     }
 
+    public void ZoomMenuUI()
+    {
+        float zoomSpeed = 2f;
+        float scaler = 1;
+        float axis = Input.GetAxis("Mouse ScrollWheel");
+        scaler -= axis * zoomSpeed;
+        Mathf.Clamp(scaler, 1f, 1.5f);
+        menuUI.GetComponent<RectTransform>().localScale *= scaler;
+    }
     public void UpdateText(Dictionary<string,int> structureInfo)
     {
         StringBuilder builder = new StringBuilder();
