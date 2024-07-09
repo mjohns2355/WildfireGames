@@ -10,8 +10,7 @@ public class HouseStructure : Structure
 {
     
     public bool isMainHouse;
-    public string houseInfo;
-    [SerializeField] Image iconSprite;
+    public HouseInfo info;
     public HouseType houseType;
     [SerializeField] List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
     [SerializeField] GameObject[] houseModels;
@@ -19,7 +18,6 @@ public class HouseStructure : Structure
     public int pplNum;
     public int petNum;
     int carNum = 1;
-
     ATC_PlacementManager placementManager;
     public override void Awake()
     {
@@ -32,12 +30,16 @@ public class HouseStructure : Structure
     private void Start()
     {
         placementManager = GameManager.Instance.structureManager.placementManager;
+        
         if (isMainHouse)
         {
-            SetUpHouseInfoForType(houseType);
-            iconSprite.gameObject.SetActive(true);
-            iconSprite.sprite = ReturnIconForType(houseType);
+            // only main house has info
+            info = new HouseInfo(houseType);
+            //info.gameObject.SetActive(true);
+            menu.icon.SetActive(true);
+            //info.SetIconFor(houseType);
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
+            GameManager.Instance.uiController.AddMenu(menu);
             foreach (var house in houses)
             {
                 if(house == null) continue;
@@ -94,7 +96,7 @@ public class HouseStructure : Structure
 
     public override void StopSturctureClick()
     {
-        menu.gameObject.SetActive(false);
+        //menu.gameObject.SetActive(false);
         foreach (var house in sameTypeHouses)
         {
             house.outline.enabled = false;
@@ -102,43 +104,6 @@ public class HouseStructure : Structure
         }
     }
 
-    private void SetUpHouseInfoForType(HouseType houseType)
-    {
-        switch (houseType)
-        {
-            case HouseType.elderly:
-                houseInfo = "Elderly House: Wait for family member | Ask for ride early";
-                break;
-            case HouseType.twoCar:
-                houseInfo = "Two-car House: Take both cars | Leave one car behind | Relocate second car ";
-                carNum = 2;
-                break;
-            case HouseType.horse:
-                houseInfo = "Horse Owner: Wait for evac order | Relocate horses ";
-                break;
-            case HouseType.pet:
-                houseInfo = "Pet Owner: Wait for evac order | Plan ahead ";
-                break;
-            case HouseType.wui:
-                houseInfo = "WUI House: Wait for evac order | Evacuate early ";
-                break;
-            case HouseType.kids:
-                houseInfo = "Kids House: Pick up from school | Plan ahead ";
-                break;
-        }
-    }
-
-    private Sprite ReturnIconForType(HouseType houseType) {
-        foreach( var icon in GameManager.Instance.uiController.iconList)
-        {
-            if (icon.name == houseType.ToString())
-            {
-                return icon;
-            }
-        }
-
-        return null;
-    }
 
 
 #if UNITY_EDITOR

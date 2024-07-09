@@ -43,7 +43,7 @@ public class FireMovementController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var hit = other.gameObject;
-        if (hit!=null && hit.layer == LayerMask.NameToLayer("Nature"))
+        if (hit!=null && hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
         {
             Debug.Log("Fire collides with: " + other.name);
             gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);

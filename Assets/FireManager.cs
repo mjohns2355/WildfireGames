@@ -12,7 +12,7 @@ public class FireManager : MonoBehaviour
     void Start()
     {
         if (!startFire) return;
-        SpawnFire(fireSpawnPoint,3);
+        SpawnFire(fireSpawnPoint,1);
     }
 
     // Update is called once per frame

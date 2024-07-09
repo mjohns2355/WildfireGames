@@ -5,8 +5,10 @@ using UnityEngine;
 public class Combustible : MonoBehaviour
 {
     public Transform fireSpawnPos;
+    public float fireChance = 1;
     bool isOnfire = false;
     FireMovementController fire;
+
     // Start is called before the first frame update
     void Start()
     {

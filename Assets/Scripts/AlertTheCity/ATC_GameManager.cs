@@ -13,7 +13,6 @@ public class GameManager : UnitySingleton<GameManager>
     public FireManager fireManager;
     private bool constructionMode;
     private bool assignMode;
-
     public bool InAssignMode
     {
         get { return assignMode; }
@@ -100,5 +99,12 @@ public class GameManager : UnitySingleton<GameManager>
         uiController.UpdateConstructionMode(constructionMode);
         inputManager.OnConstructionMode(constructionMode);
         Debug.Log(assignMode);
+    }
+
+    public string[] ParseString( string str, char[] delimiterChars)
+    {
+        string[] words = str.Split(delimiterChars);
+
+        return words;
     }
 }

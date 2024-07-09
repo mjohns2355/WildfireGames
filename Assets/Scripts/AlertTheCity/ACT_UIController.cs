@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ACT_UIController : MonoBehaviour
 {
     public GameObject canvas;
+    public GameObject learnMorePanel;
+    public HouseInfo currentHouseInfo;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
     public GameObject buildingMenu;
@@ -14,6 +16,7 @@ public class ACT_UIController : MonoBehaviour
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public ShelterStructure selectedShelter;
     public List<Sprite> iconList;
+    public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
     private void Start()
     {
         buildingMenu.SetActive(false);
@@ -56,5 +59,12 @@ public class ACT_UIController : MonoBehaviour
         selectedHouses.Remove(house);
     }
 
+    public void AddMenu(StructureContextMenu menu)
+    {
+        if (!contextMenus.Contains(menu))
+        {
+            contextMenus.Add(menu);
+        }
+    }
     
 }

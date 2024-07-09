@@ -29,7 +29,7 @@ public class StructureManager : MonoBehaviour
         //make sure each type has at least one house in the group
         for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
         {
-            Debug.Log(allHouses.Count);
+            //Debug.Log(allHouses.Count);
             if (allHouses.Count == 0) return;
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
