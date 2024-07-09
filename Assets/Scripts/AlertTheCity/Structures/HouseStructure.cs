@@ -27,6 +27,13 @@ public class HouseStructure : Structure
 
     }
 
+    private void OnEnable()
+    {
+        if (mesh.childCount >= 1) return;
+        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
+        Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
+    }
+
     private void Start()
     {
         placementManager = GameManager.Instance.structureManager.placementManager;
@@ -107,12 +114,7 @@ public class HouseStructure : Structure
 
 
 #if UNITY_EDITOR
-    private void OnEnable()
-    {
-        if (mesh.childCount >= 1) return;
-        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
-    }
+
 
 #endif
 
