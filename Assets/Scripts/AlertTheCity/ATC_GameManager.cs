@@ -11,6 +11,7 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_RoadManager roadManager;
     public ACT_UIController uiController;
     public FireManager fireManager;
+    public bool startSim = false;
     private bool constructionMode;
     private bool assignMode;
     public bool InAssignMode
@@ -88,6 +89,10 @@ public class GameManager : UnitySingleton<GameManager>
         Debug.Log(constructionMode);
     }
 
+    public void ToggleSimStatus()
+    {
+        startSim = !startSim;
+    }
     public void ToggleAssignMode()
     {
         assignMode = !assignMode;

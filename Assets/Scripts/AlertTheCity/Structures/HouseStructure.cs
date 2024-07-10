@@ -8,31 +8,20 @@ using UnityEngine.UI;
 public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui }
 public class HouseStructure : Structure
 {
-    
     public bool isMainHouse;
     public HouseInfo info;
     public HouseType houseType;
     [SerializeField] List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
-    public int pplNum;
-    public int petNum;
-    int carNum = 1;
+    [SerializeField] int petNum = 0;
+    [SerializeField] int carNum = 0;
+    [SerializeField] int horseNum = 0;
+    [SerializeField] CarSpeed carSpeed;
+    [SerializeField] float waitSeconds = 0f;
+    //public int petNum;
     ATC_PlacementManager placementManager;
-    public override void Awake()
-    {
-        base.Awake();
-        //houseType = HouseType.none;
-        
-
-    }
-
-    private void OnEnable()
-    {
-        if (mesh.childCount >= 1) return;
-        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
-    }
+    
 
     private void Start()
     {
@@ -42,9 +31,7 @@ public class HouseStructure : Structure
         {
             // only main house has info
             info = new HouseInfo(houseType);
-            //info.gameObject.SetActive(true);
             menu.icon.SetActive(true);
-            //info.SetIconFor(houseType);
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
             GameManager.Instance.uiController.AddMenu(menu);
             foreach (var house in houses)
@@ -55,12 +42,23 @@ public class HouseStructure : Structure
                 if (houseStructure.houseType == houseType)
                 {
                     sameTypeHouses.Add(houseStructure);
+                    houseStructure.carNum = info.carNumber;
+                    houseStructure.petNum = info.petNumber;
+                    houseStructure.carSpeed = info.carSpeed;
                 }
             }
+            menu.onOptionSelected += OnOptionButtonClicked;
         }
 
         //GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
         //Instantiate(houseModel, transform.position, Quaternion.identity, transform);
+    }
+
+    private void OnEnable()
+    {
+        if (mesh.childCount >= 1) return;
+        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
+        Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
     }
 
     public void RandomizeHouseType()
@@ -87,19 +85,21 @@ public class HouseStructure : Structure
     public void AfterSpawnACar()
     {
         if (carNum <= 0) return;
-        
+
         carNum--;
-        
+
         //structureInfoDict["Car(s)"] = carNum;
-        
+
     }
 
     public bool CanSpawnCar()
     {
+
         return carNum > 0;
+        
     }
 
-
+    
 
     public override void StopSturctureClick()
     {
@@ -112,6 +112,41 @@ public class HouseStructure : Structure
     }
 
 
+    void OnOptionButtonClicked(OptionButton button)
+    {
+        
+    }
+
+    void OptionBehaviour(string option)
+    {
+        switch (option)
+        {
+            case "Wait for Notice":
+                
+                waitSeconds = 2;
+                break;
+            case "Leave One Car":
+                
+                break;
+            
+        }
+    }
+
+    public IEnumerator SpawnCarRoutine()
+    {
+        Debug.Log("Wait for sim to start");
+        yield return new WaitUntil(() => { return GameManager.Instance.startSim; });
+        Debug.Log("Spawned " + carNum + " cars");
+        //destination shelter
+        var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
+        foreach (var house in sameTypeHouses)
+        {
+            ATC_AIDirector.Instance.SpawnACar(house.GetComponentInParent<ATC_StructureModel>(), shelter, carSpeed,carNum);
+            
+        }
+
+
+    }
 
 #if UNITY_EDITOR
 

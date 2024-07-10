@@ -11,17 +11,19 @@ public class HouseInfo
     public Dictionary<string,string> lockedOptions = new Dictionary<string, string> ();
     public string longerTitle = string.Empty;
     public string description = string.Empty;
+    public int carNumber = 1;
+    public int horseNumber = 0;
+    public int petNumber = 0;
+    public int kidNumber = 0;
+    public CarSpeed carSpeed = CarSpeed.medium;
     // Start is called before the first frame update
-
+    
 
     public HouseInfo(HouseType type)
     {
         InitHouseInfo(type);
     }
-    public void SetCurrentHouseInfo()
-    {
-        GameManager.Instance.uiController.currentHouseInfo = this;
-    }
+
     public void InitHouseInfo(HouseType type)
     {
         houseType = type;
@@ -54,12 +56,16 @@ public class HouseInfo
         {
 
             case HouseType.elderly:
+                carSpeed = CarSpeed.slow;
                 houseInfo = "Elderly Resident: Wait for Notice | (locked) Evacuate Early | (locked) Help from Neighbor ";
                 break;
             case HouseType.twoCar:
+                carNumber = 2;
                 houseInfo = "Two-Car House: Take Both cars | Leave One Car | (locked) Relocate 2nd Car ";
                 break;
             case HouseType.horse:
+                horseNumber = 1;
+                carSpeed = CarSpeed.slow;
                 houseInfo = "Horse Owner: Wait for Notice | Leave the Horses | (locked) Relocate Horses ";
                 break;
             case HouseType.pet:
@@ -137,5 +143,7 @@ public class HouseInfo
         }
         return str;
     }
+    
+    
     
 }

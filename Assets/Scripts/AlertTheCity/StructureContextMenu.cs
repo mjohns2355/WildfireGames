@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +9,14 @@ using UnityEngine.UI;
 
 public class StructureContextMenu : MonoBehaviour
 {
+    public Action<OptionButton> onOptionSelected;
     public GameObject menuUI;
     public Button changeResponseButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
     public GameObject icon;//ui
     public TextMeshProUGUI title;
-    public Transform options;
+    [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
     public Button closeButton;
     public Button assignButton;
@@ -56,8 +58,9 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnMenuDisable()
     {
-
+        HouseStructure house = (HouseStructure)owner;
         ClearOptionButtons();
+        StartCoroutine(house.SpawnCarRoutine());
         menu.SetActive(false);
     }
 
@@ -126,15 +129,11 @@ public class StructureContextMenu : MonoBehaviour
             optionButton.isLocked = true;
             
         }
-        if (optionButton.isGoodOption)
-        {
-            optionButton.button.onClick.AddListener(OnClickGoodOption);
-        }
 
 
     }
 
-    void OnClickGoodOption()
+    public void OnClickGoodOptionButton()
     {
         changeResponseButton.gameObject.SetActive(true);
         explaination.gameObject.SetActive(true);

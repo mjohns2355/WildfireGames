@@ -15,7 +15,7 @@ public class Structure : MonoBehaviour
 
     virtual public void Awake()
     {
-        menu.closeButton.onClick.AddListener(StopSturctureClick);
+        //menu.closeButton.onClick.AddListener(StopSturctureClick);
         menu.owner = this;
     }
 
