@@ -40,7 +40,7 @@ public class ShelterStructure : Structure
         foreach (var house in GameManager.Instance.uiController.selectedHouses)
         {
             house.HideUI();
-            availableSpace -= house.pplNum;
+            //availableSpace -= house.pplNum;
             //structureInfoDict["Available Space"] = availableSpace;
             //menu.UpdateText(structureInfoDict);
             ATC_StructureModel start = house.GetComponentInParent<ATC_StructureModel>();
@@ -55,7 +55,7 @@ public class ShelterStructure : Structure
         int peopleCount = 0;
         foreach (var house in GameManager.Instance.uiController.selectedHouses)
         {
-            peopleCount += house.pplNum;
+            //peopleCount += house.pplNum;
         }
         return peopleCount <= availableSpace;
     }

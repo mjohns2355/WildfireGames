@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CarSpeed { slow, medium, fast };
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     Rigidbody rb;
-
+    
+    public CarSpeed carSpeed = CarSpeed.medium;
     [SerializeField]
     private float power = 5;
     [SerializeField]
@@ -21,7 +23,18 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    private void Start()
+    {
+        switch (carSpeed)
+        {
+            case CarSpeed.slow:
+                power = 10; break;
+            case CarSpeed.medium:
+                power = 20; break;
+            case CarSpeed.fast:
+                power = 30; break;
+        }
+    }
     public void Move(Vector2 movementInput)
     {
         this.movementVector = movementInput;

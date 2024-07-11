@@ -6,13 +6,14 @@ public class Combustible : MonoBehaviour
 {
     public Transform fireSpawnPos;
     public float fireChance = 1;
-    bool isOnfire = false;
+    float waitTimeBeforeCatchOnFire;
+    [SerializeField]bool isOnfire = false;
     FireMovementController fire;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        waitTimeBeforeCatchOnFire = Random.Range(0.5f, 3f);
     }
 
     // Update is called once per frame
@@ -24,7 +25,14 @@ public class Combustible : MonoBehaviour
     public void CatchOnFire()
     {
         if (isOnfire) return;
-        GameManager.Instance.fireManager.SpawnFire(fireSpawnPos,0.3f,true);
+        StartCoroutine(CatchOnFireRoutine());
+        
+    }
+
+    IEnumerator CatchOnFireRoutine()
+    {
+        yield return new WaitForSeconds(waitTimeBeforeCatchOnFire);
+        GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
         isOnfire = true;
         fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
     }

@@ -30,18 +30,35 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     }
 
     //specified destination
-    public void SpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
+    public void SpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
+        //Debug.Log(startStructure, endStructure);
         var structure = startStructure.GetComponentInChildren<HouseStructure>();
         if (structure != null && structure.CanSpawnCar())
         {
-            TrySpawnACar(startStructure, endStructure);
-            structure.AfterSpawnACar();
+            //for (int i = 0; i < carNum; i++)
+            //{
+
+            //    TrySpawnACar(startStructure, endStructure, carSpeed);
+            //    structure.AfterSpawnACar();
+            //}
+            StartCoroutine(CarSpawn(carNum, startStructure, endStructure, carSpeed));
         }
     }
 
-    private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
+    IEnumerator CarSpawn(int carNum, ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed)
     {
+        for (int i = 0; i < carNum; i++)
+        {
+
+            TrySpawnACar(startStructure, endStructure, carSpeed);
+            //structure.AfterSpawnACar();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)
+    {
+        
         if (startStructure != null && endStructure != null)
         {
             var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
@@ -56,11 +73,10 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
             var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
             carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position);
-
             if (carPath.Count > 0)
             {
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
-
+                car.GetComponent<CarController>().carSpeed = carSpeed;
                 car.GetComponent<CarAI>().SetPath(carPath);
             }
         }

@@ -19,13 +19,24 @@ public class OptionButton : MonoBehaviour
     {
         button.interactable = !isLocked;
         optionText.gameObject.SetActive(!isLocked);
+
     }
 
+    public string GetOptionContent()
+    {
+        return optionText.text;
+    }
     public void InitOptionButton(StructureContextMenu owner, string buttonText)
     {
         this.owner = owner;
         optionText.text = buttonText;
         owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
+        button.onClick.AddListener(() =>
+        {
+            owner.onOptionSelected.Invoke(this);
+            owner.OnClickGoodOptionButton(isGoodOption);
+
+        });
     }
     public void SetOptionButtonText(string text)
     {
@@ -34,6 +45,7 @@ public class OptionButton : MonoBehaviour
 
     public string FindOptionExplaination(HouseStructure house)
     {
+       
         if (house.info.lockedOptions.ContainsKey(optionText.text))
         {
             isGoodOption = true;
@@ -43,7 +55,6 @@ public class OptionButton : MonoBehaviour
 
         return null;
     }
-
 
 
 }

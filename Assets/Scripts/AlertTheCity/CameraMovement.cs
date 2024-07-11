@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
     public Camera gameCamera;
     public float cameraMovementSpeed = 5;
     public float cameraZoomSpeed = 5;
-    [SerializeField] private float maxFOV = 60;
+    [SerializeField] private float maxFOV = 40;
     [SerializeField] private float minFOV = 10;
     private void Start()
     {
@@ -23,8 +23,10 @@ public class CameraMovement : MonoBehaviour
 
     public void ZoomCamera(float mouseAxis)
     {
+        
         float FOV = gameCamera.fieldOfView;
-        FOV += mouseAxis * -1 * cameraMovementSpeed;
+        //FOV += mouseAxis * -1 * cameraMovementSpeed;
+        FOV += mouseAxis * -1 * 0.1f;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
         gameCamera.fieldOfView =FOV;
     }
