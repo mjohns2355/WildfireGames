@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class StructureContextMenu : MonoBehaviour
 {
     public Action<OptionButton> onOptionSelected;
     public GameObject menuUI;
-    public Button changeResponseButton;
+    public OptionButton changeResponseButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
     public GameObject icon;//ui
@@ -42,16 +43,19 @@ public class StructureContextMenu : MonoBehaviour
                 icon.GetComponent<Image>().sprite = iconSprite;
             }
         }
+
+ 
     }
 
     public void OnMenuEnable()
     {
         if(owner == null) return;
         menu.SetActive(true);
+        icon.SetActive(false);
         HouseStructure house = (HouseStructure)owner;
         if (house.isMainHouse)
         {
-            
+            changeResponseButton.InitOptionButton(this, "Change Response");
             UpdateMenuForHouse(house);
         }
     }
@@ -62,6 +66,8 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         StartCoroutine(house.SpawnCarRoutine());
         menu.SetActive(false);
+        icon.SetActive(true);
+        house.StopSturctureClick();
     }
 
     void ClearOptionButtons()
@@ -78,10 +84,6 @@ public class StructureContextMenu : MonoBehaviour
     {
         menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
         //ZoomMenuUI();
-        //icon.transform.position = cam.WorldToScreenPoint(owner.transform.position);
-        //menu.transform.position = cam.WorldToScreenPoint(owner.transform.position);
-        //Camera camera = Camera.main;
-        //transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
     }
 
     public void ZoomMenuUI()
@@ -133,11 +135,19 @@ public class StructureContextMenu : MonoBehaviour
 
     }
 
-    public void OnClickGoodOptionButton()
+    public void OnClickGoodOptionButton(bool isGoodOption)
     {
-        changeResponseButton.gameObject.SetActive(true);
-        explaination.gameObject.SetActive(true);
-        options.gameObject.SetActive(false);
+        if (isGoodOption)
+        {
+            changeResponseButton.gameObject.SetActive(true);
+            explaination.gameObject.SetActive(true);
+            options.gameObject.SetActive(false);
+        }
+        else
+        {
+            OnMenuDisable();
+        }
+
 
     }
 }

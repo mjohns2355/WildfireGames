@@ -27,7 +27,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Start()
     {
-        inputManager.OnMouseClick += structureManager.ClickStructre;
+        //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         uiController.OnRoadPlacement += RoadPlacementHandler;
         uiController.OnHousePlacement += HousePlacementHandler;

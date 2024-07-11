@@ -34,10 +34,8 @@ public class OptionButton : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             owner.onOptionSelected.Invoke(this);
-            if(isGoodOption)
-            {
-                owner.OnClickGoodOptionButton();
-            }
+            owner.OnClickGoodOptionButton(isGoodOption);
+
         });
     }
     public void SetOptionButtonText(string text)
@@ -47,6 +45,7 @@ public class OptionButton : MonoBehaviour
 
     public string FindOptionExplaination(HouseStructure house)
     {
+       
         if (house.info.lockedOptions.ContainsKey(optionText.text))
         {
             isGoodOption = true;

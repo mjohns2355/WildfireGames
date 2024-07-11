@@ -19,6 +19,7 @@ public class HouseStructure : Structure
     [SerializeField] int horseNum = 0;
     [SerializeField] CarSpeed carSpeed;
     [SerializeField] float waitSeconds = 0f;
+    string currentOption;
     //public int petNum;
     ATC_PlacementManager placementManager;
     
@@ -82,6 +83,13 @@ public class HouseStructure : Structure
         //GameManager.Instance.uiController.AddSelectedHouse(this);
     }
 
+    public override void StopSturctureClick()
+    {
+        foreach (var house in sameTypeHouses)
+        {
+            house.outline.enabled=false;
+        }
+    }
     public void AfterSpawnACar()
     {
         if (carNum <= 0) return;
@@ -99,33 +107,33 @@ public class HouseStructure : Structure
         
     }
 
-    
-
-    public override void StopSturctureClick()
-    {
-        //menu.gameObject.SetActive(false);
-        foreach (var house in sameTypeHouses)
-        {
-            house.outline.enabled = false;
-            GameManager.Instance.uiController.RemoveSelectedStructure(house);
-        }
-    }
 
 
     void OnOptionButtonClicked(OptionButton button)
     {
+        var option = button.GetOptionContent();
+        if (option == null) return;
+        currentOption = option;
+        if(button.isGoodOption) return;
+        OptionBehaviour();
+        
+
         
     }
 
-    void OptionBehaviour(string option)
+    void OptionBehaviour()
     {
-        switch (option)
+        if(currentOption == null) return;
+        switch (currentOption)
         {
-            case "Wait for Notice":
-                
+            case " Wait for Notice ":
                 waitSeconds = 2;
                 break;
-            case "Leave One Car":
+            case " Leave One Car ":
+                if (carNum > 1)
+                {
+                    carNum--;
+                }
                 
                 break;
             
@@ -134,8 +142,10 @@ public class HouseStructure : Structure
 
     public IEnumerator SpawnCarRoutine()
     {
+
         Debug.Log("Wait for sim to start");
         yield return new WaitUntil(() => { return GameManager.Instance.startSim; });
+        yield return new WaitForSeconds(waitSeconds);
         Debug.Log("Spawned " + carNum + " cars");
         //destination shelter
         var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();

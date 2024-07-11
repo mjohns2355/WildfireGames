@@ -56,15 +56,17 @@ MonoBehaviour:
   menuSpawnPos: {fileID: 4159125047121432031}
   outline: {fileID: 2910911273183087437}
   isMainHouse: 0
-  info: {fileID: 1113205889888623360}
   houseType: 0
   sameTypeHouses: []
   houseModels:
   - {fileID: 919132149155446097, guid: 1cb7685997106b64498af0c8fa97171d, type: 3}
   - {fileID: 919132149155446097, guid: acc52bf5340f0034f8b45b90d7845830, type: 3}
   mesh: {fileID: 6976986010227459270}
-  pplNum: 2
   petNum: 2
+  carNum: 0
+  horseNum: 0
+  carSpeed: 0
+  waitSeconds: 0
 --- !u!65 &4729918362590646441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -547,14 +549,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2709717304942314001, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5652327618566545278, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4632197263516610888}
+    - target: {fileID: 6095752828999564654, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6652749744439641118, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -635,26 +637,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6762010212171377763, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
---- !u!114 &1113205889888623360 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3116531275692792622, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
-  m_PrefabInstance: {fileID: 2608360943037399086}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a076aa939c0e3d94294673d695fa1c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4512859637257006149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1914636339070479467, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
