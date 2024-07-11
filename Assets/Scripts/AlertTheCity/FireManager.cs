@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FireManager : MonoBehaviour
 {
-    public bool startFire = false;
+    bool startFire = false;
     public Transform fireSpawnPoint;
     public GameObject firePrefab;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
     void Start()
     {
-        if (!startFire) return;
-        SpawnFire(fireSpawnPoint,1);
+        
+        
     }
 
     // Update is called once per frame
@@ -21,6 +21,12 @@ public class FireManager : MonoBehaviour
         
     }
 
+    public void StartFire()
+    {
+        if(startFire) return;
+        startFire = true;
+        SpawnFire(fireSpawnPoint, 1);
+    }
     public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false)
     {
 

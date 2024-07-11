@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireMovementController : MonoBehaviour
 {
     public bool onCombustible = false;
+    public float waitTime = 1f;
     public Vector3 scaler;
     public ParticleSystem fire;
     public ParticleSystem embers;
@@ -36,7 +37,7 @@ public class FireMovementController : MonoBehaviour
     {
         if (onCombustible)
         {
-            StartCoroutine(IncreaseFireSizeRoutine(5f));
+            StartCoroutine(IncreaseFireSizeRoutine(2f));
         }
     }
 
@@ -93,7 +94,7 @@ public class FireMovementController : MonoBehaviour
 
     IEnumerator IncreaseFireSizeRoutine(float maxSize)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(waitTime);
         GraduallyIncreaseFireSize(maxSize);
     }
 }

@@ -65,8 +65,10 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Update()
     {
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
-        cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
+        //Debug.Log(inputManager.cameraMovementVector);
+        cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
+        //cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
+        cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
     }
 
     private void ClearInputAction()
@@ -92,6 +94,8 @@ public class GameManager : UnitySingleton<GameManager>
     public void ToggleSimStatus()
     {
         startSim = !startSim;
+        fireManager.StartFire();
+        WindZone.Instance.isStill = false;
     }
     public void ToggleAssignMode()
     {

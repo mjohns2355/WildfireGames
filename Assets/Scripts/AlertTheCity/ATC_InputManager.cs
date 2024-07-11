@@ -10,8 +10,8 @@ public class ATC_InputManager : MonoBehaviour
     public Action<Vector3Int> OnMouseClick, OnMouseHold;
     public Action OnMouseUp;
     public Action<int> OnMouseScroll;
-
-	private Vector2 cameraMovementVector;
+    public float cameraZoomAxis;
+    public Vector2 cameraMovementVector;
 	[SerializeField]
 	Camera mainCamera;
 
@@ -22,10 +22,10 @@ public class ATC_InputManager : MonoBehaviour
 
     private LayerMask targetLayer;
 
-    public Vector2 CameraMovementVector
-    {
-		get { return cameraMovementVector; }
-	}
+ //   public Vector2 CameraMovementVector
+ //   {
+	//	get { return cameraMovementVector; }
+	//}
 
 
 
@@ -56,8 +56,9 @@ public class ATC_InputManager : MonoBehaviour
     }
     private void CheckArrowInput()
     {
-        cameraMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+       // cameraMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
+
 
     private void CheckClickHoldEvent()
     {
