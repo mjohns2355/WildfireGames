@@ -59,7 +59,7 @@ public class HouseStructure : Structure
     {
         if (mesh.childCount >= 1) return;
         GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        Instantiate(houseModel, transform.position, Quaternion.identity, mesh);
+        Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh);
     }
 
     public void RandomizeHouseType()

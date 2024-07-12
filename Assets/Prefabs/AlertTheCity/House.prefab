@@ -59,8 +59,8 @@ MonoBehaviour:
   houseType: 0
   sameTypeHouses: []
   houseModels:
-  - {fileID: 919132149155446097, guid: 1cb7685997106b64498af0c8fa97171d, type: 3}
-  - {fileID: 919132149155446097, guid: acc52bf5340f0034f8b45b90d7845830, type: 3}
+  - {fileID: 919132149155446097, guid: 298ca68e68495cb47b5b504454fe068e, type: 3}
+  - {fileID: 919132149155446097, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
   mesh: {fileID: 6976986010227459270}
   petNum: 2
   carNum: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSpawnPos: {fileID: 5798525124696370528}
   fireChance: 1
+  isOnfire: 0
 --- !u!1 &4968092969875459776
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,13 +469,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4968092969875459776}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 537812064492321409}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &6885347192110563800
 GameObject:
   m_ObjectHideFlags: 0
