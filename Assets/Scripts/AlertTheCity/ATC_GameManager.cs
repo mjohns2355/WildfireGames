@@ -14,6 +14,11 @@ public class GameManager : UnitySingleton<GameManager>
     public bool startSim = false;
     private bool constructionMode;
     private bool assignMode;
+    private float timer = 0;
+    private bool end = false;
+
+    public ATC_dialogManager dialog;
+
     public bool InAssignMode
     {
         get { return assignMode; }
@@ -69,6 +74,20 @@ public class GameManager : UnitySingleton<GameManager>
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         //cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
+
+        if(startSim)
+        {
+            if(timer < 70)
+            {
+                timer += Time.deltaTime;
+            }
+            else if(!end)
+            {
+                end = true;
+                dialog.gameObject.SetActive(true);
+                dialog.EndDialog();
+            }
+        }
     }
 
     private void ClearInputAction()
@@ -93,6 +112,11 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void ToggleSimStatus()
     {
+        GameObject[] icons = GameObject.FindGameObjectsWithTag("typeIcon");
+        foreach(GameObject g in icons)
+        {
+            g.SetActive(false);
+        }
         startSim = !startSim;
         fireManager.StartFire();
         WindZone.Instance.isStill = false;

@@ -125,7 +125,10 @@ public class HouseInfo
 
                 break;
             case HouseType.twoCar:
-  
+
+                str = "You know too many cars on the road cause traffic congestion, so you relocate your second car on high risk days.";
+                break;
+
             case HouseType.kids:
                 str = "You know the children are safer at school and have a plan that they know: they will stay at school until it is safe to pick them up.";
                 break;

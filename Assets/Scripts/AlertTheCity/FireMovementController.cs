@@ -127,9 +127,14 @@ public class FireMovementController : MonoBehaviour
         yield return new WaitForSeconds(30f);
         Debug.Log("Fire start to shrink");
         fireSize = minSize;
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(10f);
         Debug.Log("Destroy Fire");
-        Destroy(combustible.gameObject);
+        if(combustible.gameObject.layer != 7)
+        {
+
+            Instantiate(Resources.Load("Burned"), combustible.transform.position, combustible.transform.rotation, combustible.transform.parent);
+            Destroy(combustible.gameObject);
+        }
         Destroy(gameObject);
     }
 }
