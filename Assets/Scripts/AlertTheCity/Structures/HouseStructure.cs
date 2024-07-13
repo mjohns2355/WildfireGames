@@ -22,7 +22,7 @@ public class HouseStructure : Structure
     string currentOption;
     //public int petNum;
     ATC_PlacementManager placementManager;
-    
+    [SerializeField]Combustible combustible;
 
     private void Start()
     {
@@ -59,6 +59,7 @@ public class HouseStructure : Structure
     {
         if (mesh.childCount >= 1) return;
         GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
+        //combustible.meshes.Add(houseModel.GetComponent<MeshRenderer>());
         Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh);
     }
 

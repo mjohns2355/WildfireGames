@@ -67,6 +67,7 @@ MonoBehaviour:
   horseNum: 0
   carSpeed: 0
   waitSeconds: 0
+  combustible: {fileID: 4333234518331709959}
 --- !u!65 &4729918362590646441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -444,7 +445,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSpawnPos: {fileID: 5798525124696370528}
   fireChance: 1
+  meshes: []
   isOnfire: 0
+  burntColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4968092969875459776
 GameObject:
   m_ObjectHideFlags: 0

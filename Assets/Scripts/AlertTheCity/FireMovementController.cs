@@ -5,13 +5,19 @@ using UnityEngine;
 public class FireMovementController : MonoBehaviour
 {
     public bool onCombustible = false;
+    public Combustible combustible;
     public float waitTime = 1f;
     public Vector3 scaler;
     public ParticleSystem fire;
     public ParticleSystem embers;
     public ParticleSystem mediumFlame;
+    [Range(0f, 1f)]
+    public float fireGrowthSpeed = 0.2f;
     public float speed;
     public Vector3 windDirection;
+    [SerializeField] float maxSize;
+    [SerializeField] float minSize;
+    float fireSize = 0;
     //ParticleSystem.VelocityOverLifetimeModule emberVelocity;
     //ParticleSystem.VelocityOverLifetimeModule fireVelocity;
     //ParticleSystem.VelocityOverLifetimeModule mediumFlameVelocity;
@@ -21,8 +27,13 @@ public class FireMovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         scaler = transform.localScale;
-
-
+        waitTime = Random.Range(3f, 5f);
+        if(onCombustible)
+        {
+            StartCoroutine(OnDestroyFireRoutine());
+            fireSize = maxSize;
+        }
+        
     }
     private void Update()
     {
@@ -37,7 +48,11 @@ public class FireMovementController : MonoBehaviour
     {
         if (onCombustible)
         {
-            StartCoroutine(IncreaseFireSizeRoutine(2f));
+            StartCoroutine(ChangeFireSizeRoutine(fireSize));
+        }
+        else
+        {
+            StartCoroutine(ChangeFireSizeRoutine(1f));
         }
     }
 
@@ -46,13 +61,13 @@ public class FireMovementController : MonoBehaviour
         var hit = other.gameObject;
         if (hit!=null && hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
         {
-            Debug.Log("Fire collides with: " + other.name);
-            gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-            Combustible combustible;
-            hit.TryGetComponent(out combustible);
-            if (combustible != null)
+            //Debug.Log("Fire collides with: " + other.name);
+            //gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+            Combustible obj;
+            hit.TryGetComponent(out obj);
+            if (obj != null)
             {
-                combustible.CatchOnFire();
+                obj.CatchOnFire();
             }
         }
     }
@@ -61,7 +76,7 @@ public class FireMovementController : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Wind"))
         {
-            Debug.Log("Fire left: " + other.name);
+            //Debug.Log("Fire left: " + other.name);
             speed = 1;
             ImpactFire(1);
         }
@@ -84,17 +99,28 @@ public class FireMovementController : MonoBehaviour
         emberSize.sizeMultiplier = multiplier;
     }
 
-    public void GraduallyIncreaseFireSize(float maxSize)
+    public void GraduallyChangeFireSize(float maxSize)
     {
         transform.localScale = scaler;
-        scaler.x = Mathf.Lerp(scaler.x, maxSize, .03f * Time.deltaTime);
-        scaler.y = Mathf.Lerp(scaler.y, maxSize, .03f * Time.deltaTime);
-        scaler.z = Mathf.Lerp(scaler.z, maxSize, .03f * Time.deltaTime);
+        scaler.x = Mathf.Lerp(scaler.x, maxSize, fireGrowthSpeed * Time.deltaTime);
+        scaler.y = Mathf.Lerp(scaler.y, maxSize, fireGrowthSpeed * Time.deltaTime);
+        scaler.z = Mathf.Lerp(scaler.z, maxSize, fireGrowthSpeed * Time.deltaTime);
     }
 
-    IEnumerator IncreaseFireSizeRoutine(float maxSize)
+    IEnumerator ChangeFireSizeRoutine(float maxSize)
     {
         yield return new WaitForSeconds(waitTime);
-        GraduallyIncreaseFireSize(maxSize);
+        GraduallyChangeFireSize(maxSize);
+    }
+
+    IEnumerator OnDestroyFireRoutine()
+    {
+        yield return new WaitForSeconds(30f);
+        Debug.Log("Fire start to shrink");
+        fireSize = minSize;
+        yield return new WaitForSeconds(30f);
+        Debug.Log("Destroy Fire");
+        Destroy(combustible.gameObject);
+        Destroy(gameObject);
     }
 }

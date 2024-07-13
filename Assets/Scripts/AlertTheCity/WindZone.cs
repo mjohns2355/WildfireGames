@@ -12,7 +12,7 @@ public class WindZone : UnitySingleton<WindZone>
     [SerializeField] float range = 10f;
     [InspectorButton("ChangeWindRange")]
     public bool Change;
-    public bool isStill = false;
+    public bool isStill = true;
     [SerializeField] Vector3 windDirection;
  
     Rigidbody rb;
@@ -48,7 +48,7 @@ public class WindZone : UnitySingleton<WindZone>
         {
             var fire = hit.GetComponent<FireMovementController>();
             fire.windDirection = windDirection;
-            fire.speed = windForce;
+            fire.speed = windSpeed;
             fire.ImpactFire(windForce);
         }
     }

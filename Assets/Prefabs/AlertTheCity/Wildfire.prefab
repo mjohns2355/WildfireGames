@@ -48,12 +48,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCombustible: 0
+  waitTime: 1
   scaler: {x: 0, y: 0, z: 0}
   fire: {fileID: 7248216472382948392}
   embers: {fileID: 7271250849407166730}
   mediumFlame: {fileID: 7248382607346595760}
+  fireGrowthSpeed: 0.2
   speed: 0
   windDirection: {x: 0, y: 0, z: 0}
+  maxSize: 0.5
+  minSize: 0.1
   rb: {fileID: 0}
 --- !u!65 &6024192408599301125
 BoxCollider:
@@ -74,8 +78,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.245634, y: 1.7462275, z: 5.400324}
-  m_Center: {x: 0.081061125, y: 0.373114, z: 0.57147217}
+  m_Size: {x: 6.4497004, y: 1.7462275, z: 6.1094007}
+  m_Center: {x: 0.1088624, y: 0.373114, z: 0.9260106}
 --- !u!54 &2881740856384017965
 Rigidbody:
   m_ObjectHideFlags: 0
