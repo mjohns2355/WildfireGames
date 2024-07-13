@@ -30,10 +30,16 @@ public class FireMovementController : MonoBehaviour
         waitTime = Random.Range(3f, 5f);
         if(onCombustible)
         {
-            StartCoroutine(OnDestroyFireRoutine());
             fireSize = maxSize;
+            StartCoroutine(OnDestroyFireRoutine());
         }
+        //else
+        //{
+        //    fireSize = 1;
+        //}
+
         
+
     }
     private void Update()
     {
@@ -42,10 +48,12 @@ public class FireMovementController : MonoBehaviour
             rb.velocity = windDirection * speed;
         }
 
+
     }
 
     private void FixedUpdate()
     {
+
         if (onCombustible)
         {
             StartCoroutine(ChangeFireSizeRoutine(fireSize));
@@ -61,6 +69,7 @@ public class FireMovementController : MonoBehaviour
         var hit = other.gameObject;
         if (hit!=null && hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
         {
+
             //Debug.Log("Fire collides with: " + other.name);
             //gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
             Combustible obj;

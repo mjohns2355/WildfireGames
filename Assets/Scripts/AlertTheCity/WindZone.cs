@@ -14,7 +14,9 @@ public class WindZone : UnitySingleton<WindZone>
     public bool Change;
     public bool isStill = true;
     [SerializeField] Vector3 windDirection;
- 
+
+    float windDirChangeInterval = 20f;
+    float windTimer = 0f;
     Rigidbody rb;
     BoxCollider collider;
     // Start is called before the first frame update
@@ -34,6 +36,13 @@ public class WindZone : UnitySingleton<WindZone>
             rb.velocity = Vector3.zero;
             return;
         }
+        windTimer += Time.deltaTime;
+        if (windTimer>= windDirChangeInterval)
+        {
+            Debug.Log("Change Wind Direction");
+            RandomizeWindDirection();
+            windTimer = 0f;
+        }
         rb.velocity = windSpeed * windDirection;
     }
 
@@ -51,6 +60,15 @@ public class WindZone : UnitySingleton<WindZone>
             fire.speed = windSpeed;
             fire.ImpactFire(windForce);
         }
+    }
+
+    void RandomizeWindDirection() {
+        float randomX = Random.Range(-1f, 1f);
+        float randomZ = Random.Range(-1f, 1f);
+
+        Vector3 randomDirection = new Vector3(randomX, 0, randomZ);
+        windDirection = randomDirection;
+        //transform.rotation = Random.Range
     }
 
     private void ChangeWindRange()

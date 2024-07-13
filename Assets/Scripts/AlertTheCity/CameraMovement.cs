@@ -26,7 +26,7 @@ public class CameraMovement : MonoBehaviour
         
         float FOV = gameCamera.fieldOfView;
         //FOV += mouseAxis * -1 * cameraMovementSpeed;
-        FOV += mouseAxis * -1 * 0.1f;
+        FOV += mouseAxis * -1 * 0.5f;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
         gameCamera.fieldOfView =FOV;
     }
