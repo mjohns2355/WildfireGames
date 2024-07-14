@@ -84,6 +84,7 @@ public class GameManager : UnitySingleton<GameManager>
             else if(!end)
             {
                 end = true;
+                fireManager.done = true;
                 dialog.gameObject.SetActive(true);
                 dialog.EndDialog();
             }

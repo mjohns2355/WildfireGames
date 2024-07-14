@@ -56,6 +56,7 @@ public class Combustible : MonoBehaviour
             fireChance += Time.deltaTime;
             return;
         }
+        if (dialog.done) return;
         StartCoroutine(CatchOnFireRoutine());
         
     }
@@ -63,10 +64,14 @@ public class Combustible : MonoBehaviour
     public virtual IEnumerator CatchOnFireRoutine()
     {
         yield return new WaitForSeconds(waitTimeBeforeCatchOnFire);
-        GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
-        isOnfire = true;
-        fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
-        fire.combustible = this;
+        if (!dialog.done)
+        {
+
+            GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
+            isOnfire = true;
+            fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
+            fire.combustible = this;
+        }
 
         
     }

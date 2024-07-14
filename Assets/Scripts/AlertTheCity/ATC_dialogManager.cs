@@ -16,6 +16,8 @@ public class ATC_dialogManager : MonoBehaviour
     public int houseDestroyed;
     public int acresDestroyed;
 
+    public bool done;
+
 
     private void Start()
     {
@@ -24,6 +26,7 @@ public class ATC_dialogManager : MonoBehaviour
 
     public void EndDialog()
     {
+        done = true;
         acresDestroyed = houseDestroyed / 5 + 12;
         endDialog = "The fire tore through our community. Thankfuly everyone survived, but " + houseDestroyed + " houses were destroyed and " + acresDestroyed + " acres were burned. ";
         dialog.text = endDialog;

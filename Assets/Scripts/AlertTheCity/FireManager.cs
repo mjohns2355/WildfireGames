@@ -9,6 +9,8 @@ public class FireManager : MonoBehaviour
     public GameObject firePrefab;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
+    public bool done = false;
+
     void Start()
     {
         
@@ -29,10 +31,13 @@ public class FireManager : MonoBehaviour
     }
     public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false)
     {
+        if (!done)
+        {
 
-        var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
-        fire.transform.localScale *= scaleMultiplier;
+            var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
+            fire.transform.localScale *= scaleMultiplier;
 
-        fire.GetComponent<FireMovementController>().onCombustible = onCombustible;
+            fire.GetComponent<FireMovementController>().onCombustible = onCombustible;
+        }
     }
 }
