@@ -9,6 +9,8 @@ public class CarController : MonoBehaviour
     Rigidbody rb;
     
     public CarSpeed carSpeed = CarSpeed.medium;
+    public ATC_StructureModel start;
+    public ATC_StructureModel end;
     [SerializeField]
     private float power = 5;
     [SerializeField]
@@ -18,13 +20,17 @@ public class CarController : MonoBehaviour
 
     [SerializeField]
     private Vector2 movementVector;
-
+    [SerializeField]
+    float currentVelocity;
+    float waitTime = 30f;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
     private void Start()
     {
+        StartCoroutine(CheckIfCarIsMoving());
         switch (carSpeed)
         {
             case CarSpeed.slow:
@@ -37,7 +43,7 @@ public class CarController : MonoBehaviour
     }
     public void Move(Vector2 movementInput)
     {
-        this.movementVector = movementInput;
+        movementVector = movementInput;
     }
 
     private void FixedUpdate()
@@ -49,4 +55,20 @@ public class CarController : MonoBehaviour
         rb.AddTorque(movementVector.x * Vector3.up * torque * movementVector.y);
     }
 
+    IEnumerator CheckIfCarIsMoving()
+    {
+        bool state = true;
+        while (state)
+        {
+            yield return new WaitForSeconds(waitTime);
+            if (rb.velocity.magnitude == 0)
+            {
+                Debug.Log("Car stopped");
+                ATC_AIDirector.Instance.RespawnACar(start,end,carSpeed);
+                state = false;
+                Destroy(gameObject);
+                break;
+            }
+        }
+    }
 }

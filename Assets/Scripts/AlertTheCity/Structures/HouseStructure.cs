@@ -19,7 +19,7 @@ public class HouseStructure : Structure
     [SerializeField] int horseNum = 0;
     [SerializeField] CarSpeed carSpeed;
     [SerializeField] float waitSeconds = 0f;
-    string currentOption;
+    [SerializeField] string currentOption = " Wait for Notice ";
     //public int petNum;
     ATC_PlacementManager placementManager;
     [SerializeField]Combustible combustible;
@@ -115,14 +115,14 @@ public class HouseStructure : Structure
         var option = button.GetOptionContent();
         if (option == null) return;
         currentOption = option;
-        if(button.isGoodOption) return;
-        OptionBehaviour();
+        //if(button.isGoodOption) return;
+        //OptionBehaviour();
         
 
         
     }
 
-    void OptionBehaviour()
+    public void CheckOptionBehaviour()
     {
         if(currentOption == null) return;
         switch (currentOption)
@@ -143,11 +143,11 @@ public class HouseStructure : Structure
 
     public IEnumerator SpawnCarRoutine()
     {
-
-        Debug.Log("Wait for sim to start");
-        yield return new WaitUntil(() => { return GameManager.Instance.startSim; });
+        CheckOptionBehaviour();
+        //Debug.Log("Wait for sim to start");
+        //yield return new WaitUntil(() => { return GameManager.Instance.startSim; });
         yield return new WaitForSeconds(waitSeconds);
-        Debug.Log("Spawned " + carNum + " cars");
+        //Debug.Log("Spawned " + carNum + " cars");
         //destination shelter
         var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
         foreach (var house in sameTypeHouses)

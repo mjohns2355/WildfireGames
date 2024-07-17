@@ -118,6 +118,10 @@ public class GameManager : UnitySingleton<GameManager>
         {
             g.SetActive(false);
         }
+        foreach(var menu in uiController.contextMenus)
+        {
+            menu.ApplyBehavior();
+        }
         startSim = !startSim;
         fireManager.StartFire();
         WindZone.Instance.isStill = false;

@@ -12,7 +12,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     AdjacencyGraph carGraph = new AdjacencyGraph();
 
     List<Vector3> carPath = new List<Vector3>();
-
+    ATC_StructureModel startStructure;
+    ATC_StructureModel endStructure;
     
     //random destination
     public void SpawnACar()
@@ -58,7 +59,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     }
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)
     {
-        
+        this.startStructure = startStructure;
+        this.endStructure = endStructure;
         if (startStructure != null && endStructure != null)
         {
             var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
@@ -76,12 +78,18 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             if (carPath.Count > 0)
             {
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
-                car.GetComponent<CarController>().carSpeed = carSpeed;
+                car.GetComponent<CarController>().carSpeed = carSpeed; 
+                car.GetComponent<CarController>().start = startStructure;
+                car.GetComponent<CarController>().end = endStructure;
                 car.GetComponent<CarAI>().SetPath(carPath);
             }
         }
     }
 
+    public void RespawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
+    {
+        SpawnACar(startStructure, endStructure, carSpeed, carNum);
+    }
     private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
     {
         carGraph.ClearGraph();

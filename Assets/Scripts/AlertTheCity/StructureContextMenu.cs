@@ -23,6 +23,7 @@ public class StructureContextMenu : MonoBehaviour
     public Button assignButton;
     public Structure owner;
     public bool optionsAreLocked = true;
+    //public bool selectedBehavior = false;
     [SerializeField] Camera cam;
     // Start is called before the first frame update
     private void Awake()
@@ -52,6 +53,11 @@ public class StructureContextMenu : MonoBehaviour
         if(owner == null) return;
         menu.SetActive(true);
         icon.SetActive(false);
+
+        var panelRectTransform = menu.GetComponent<RectTransform>();
+        var parentRectTransform = menu.GetComponentInParent<RectTransform>();
+        GameManager.Instance.uiController.ClampToWindow(icon.transform.position, panelRectTransform, parentRectTransform);
+
         HouseStructure house = (HouseStructure)owner;
         if (house.isMainHouse)
         {
@@ -62,12 +68,12 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnMenuDisable()
     {
-        HouseStructure house = (HouseStructure)owner;
         ClearOptionButtons();
-        StartCoroutine(house.SpawnCarRoutine());
+        //StartCoroutine(house.SpawnCarRoutine());
         menu.SetActive(false);
         icon.SetActive(true);
-        house.StopSturctureClick();
+        owner.StopSturctureClick();
+        //selectedBehavior = true;
     }
 
     void ClearOptionButtons()
@@ -83,6 +89,8 @@ public class StructureContextMenu : MonoBehaviour
     void FixedUpdate()
     {
         menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        //icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+
         //ZoomMenuUI();
     }
 
@@ -150,4 +158,12 @@ public class StructureContextMenu : MonoBehaviour
 
 
     }
+
+    public void ApplyBehavior()
+    {
+        HouseStructure house = (HouseStructure)owner;
+        StartCoroutine(house.SpawnCarRoutine());
+    }
+
+
 }
