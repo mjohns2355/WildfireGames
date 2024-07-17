@@ -22,7 +22,7 @@ public class CarController : MonoBehaviour
     private Vector2 movementVector;
     [SerializeField]
     float currentVelocity;
-    float waitTime = 30f;
+    float waitTime = 3f;
     
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class CarController : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(CheckIfCarIsMoving());
+        //StartCoroutine(CheckIfCarIsMoving());
         switch (carSpeed)
         {
             case CarSpeed.slow:

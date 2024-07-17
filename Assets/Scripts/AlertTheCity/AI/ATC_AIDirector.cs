@@ -94,7 +94,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     {
         carGraph.ClearGraph();
         CreateACarGraph(path);
-        Debug.Log(carGraph);
+        //Debug.Log(carGraph);
         return AdjacencyGraph.AStarSearch(carGraph, startPosition, endPosition);
     }
 
