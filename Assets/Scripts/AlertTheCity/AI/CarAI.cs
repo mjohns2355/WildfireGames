@@ -20,6 +20,8 @@ public class CarAI : MonoBehaviour
     [SerializeField]
     private float collisionRaycastLength = 0.1f;
 
+    private float jamTimer = 0;
+
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -75,6 +77,14 @@ public class CarAI : MonoBehaviour
         CheckIfArrived();
         Drive();
         CheckForCollisions();
+        if (collisionStop)
+        {
+            jamTimer += Time.deltaTime;
+            if(jamTimer > 3)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void CheckForCollisions()
@@ -86,6 +96,7 @@ public class CarAI : MonoBehaviour
         else
         {
             collisionStop = false;
+            jamTimer = 0;
         }
     }
 

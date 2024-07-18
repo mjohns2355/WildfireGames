@@ -61,12 +61,15 @@ MonoBehaviour:
   houseModels:
   - {fileID: 919132149155446097, guid: 298ca68e68495cb47b5b504454fe068e, type: 3}
   - {fileID: 919132149155446097, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
+  - {fileID: 4953472650106715381, guid: bd236563fd3fd4fc58b942aad5ee3f08, type: 3}
+  - {fileID: 3478441020381102937, guid: 8b16ad0431543481b832206f64966a64, type: 3}
   mesh: {fileID: 6976986010227459270}
   petNum: 2
   carNum: 0
   horseNum: 0
   carSpeed: 0
   waitSeconds: 0
+  currentOption: ' Wait for Notice '
   combustible: {fileID: 4333234518331709959}
 --- !u!65 &4729918362590646441
 BoxCollider:
@@ -449,6 +452,7 @@ MonoBehaviour:
   isOnfire: 0
   burntColor: {r: 0.26415092, g: 0.028657887, b: 0.028657887, a: 1}
   waitTimeBeforeCatchOnFire: 0
+  burned: 0
 --- !u!1 &4968092969875459776
 GameObject:
   m_ObjectHideFlags: 0

@@ -129,7 +129,7 @@ public class FireMovementController : MonoBehaviour
         fireSize = minSize;
         yield return new WaitForSeconds(10f);
         Debug.Log("Destroy Fire");
-        if(combustible != null && combustible.gameObject.layer != 7)
+        if(combustible != null && combustible.gameObject.layer != 7 && combustible.burned)
         {
 
             Instantiate(Resources.Load("Burned"), combustible.transform.position, combustible.transform.rotation, combustible.transform.parent);

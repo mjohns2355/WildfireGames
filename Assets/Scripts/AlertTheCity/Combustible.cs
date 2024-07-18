@@ -12,7 +12,7 @@ public class Combustible : MonoBehaviour
     [SerializeField] Color burntColor;
     FireMovementController fire;
     [SerializeField] float waitTimeBeforeCatchOnFire;
-    private bool burned = false;
+    public bool burned = false;
     private float burnTime = 0;
 
     private ATC_dialogManager dialog;
@@ -35,7 +35,7 @@ public class Combustible : MonoBehaviour
             {
                 m.material.color = Color.Lerp(m.material.color, burntColor, Time.deltaTime);
             }
-            if(burnTime > 5 && !burned)
+            if(burnTime > 30 && !burned && !dialog.done)
             {
 
                 dialog.houseDestroyed++;
