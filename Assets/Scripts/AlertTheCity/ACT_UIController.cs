@@ -67,19 +67,33 @@ public class ACT_UIController : MonoBehaviour
         }
     }
 
-    public void ClampToWindow(Vector3 uiPos, RectTransform panelRectTransform, RectTransform parentRectTransform)
+    public void ClampToWindow( RectTransform panelRectTransform, float offset)
     {
+        Vector3[] corners = new Vector3[4];
+        panelRectTransform.GetWorldCorners(corners);
+        Vector3 bottomLeft = corners[0];
+        Vector3 topRight = corners[2];
 
-        panelRectTransform.transform.position = uiPos;
+        // Padding from screen edges
+        Vector3 adjustedPosition = panelRectTransform.position;
 
-        Vector3 pos = panelRectTransform.localPosition;
+        if (bottomLeft.x < offset)
+        {
+            adjustedPosition.x += offset - bottomLeft.x;
+        }
+        if (topRight.x > Screen.width - offset)
+        {
+            adjustedPosition.x -= topRight.x - (Screen.width - offset);
+        }
+        if (bottomLeft.y < offset)
+        {
+            adjustedPosition.y += offset - bottomLeft.y;
+        }
+        if (topRight.y > Screen.height - offset)
+        {
+            adjustedPosition.y -= topRight.y - (Screen.height - offset);
+        }
 
-        Vector3 minPosition = parentRectTransform.rect.min - panelRectTransform.rect.min;
-        Vector3 maxPosition = parentRectTransform.rect.max - panelRectTransform.rect.max;
-
-        pos.x = Mathf.Clamp(panelRectTransform.localPosition.x, minPosition.x, maxPosition.x);
-        pos.y = Mathf.Clamp(panelRectTransform.localPosition.y, minPosition.y, maxPosition.y);
-
-        panelRectTransform.localPosition = pos;
+        panelRectTransform.position = adjustedPosition;
     }
 }

@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class StructureContextMenu : MonoBehaviour
 {
     public Action<OptionButton> onOptionSelected;
-    public GameObject menuUI;
     public OptionButton changeResponseButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
@@ -23,8 +22,11 @@ public class StructureContextMenu : MonoBehaviour
     public Button assignButton;
     public Structure owner;
     public bool optionsAreLocked = true;
+    [SerializeField] RectTransform canvasTransform;
+    [SerializeField] RectTransform menuTransform;
+    [SerializeField] float menuOffset = 120f;
     //public bool selectedBehavior = false;
-    [SerializeField] Camera cam;
+    Camera cam;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -35,8 +37,6 @@ public class StructureContextMenu : MonoBehaviour
     {
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
-
-
         foreach (var iconSprite in GameManager.Instance.uiController.iconList)
         {
             if (iconSprite.name == house.houseType.ToString())
@@ -54,16 +54,15 @@ public class StructureContextMenu : MonoBehaviour
         menu.SetActive(true);
         icon.SetActive(false);
 
-        var panelRectTransform = menu.GetComponent<RectTransform>();
-        var parentRectTransform = menu.GetComponentInParent<RectTransform>();
-        GameManager.Instance.uiController.ClampToWindow(icon.transform.position, panelRectTransform, parentRectTransform);
-
         HouseStructure house = (HouseStructure)owner;
         if (house.isMainHouse)
         {
+          
+            //menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position /*+ new Vector3(0,20f,0)*/);
             changeResponseButton.InitOptionButton(this, "Change Response");
             UpdateMenuForHouse(house);
         }
+
     }
 
     public void OnMenuDisable()
@@ -88,21 +87,21 @@ public class StructureContextMenu : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
-        //icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
 
-        //ZoomMenuUI();
+        GameManager.Instance.uiController.ClampToWindow(menuTransform, menuOffset);
     }
 
-    public void ZoomMenuUI()
-    {
-        float zoomSpeed = 2f;
-        float scaler = 1;
-        float axis = Input.GetAxis("Mouse ScrollWheel");
-        scaler -= axis * zoomSpeed;
-        Mathf.Clamp(scaler, 1f, 1.5f);
-        menuUI.GetComponent<RectTransform>().localScale *= scaler;
-    }
+    //public void ZoomMenuUI()
+    //{
+    //    float zoomSpeed = 2f;
+    //    float scaler = 1;
+    //    float axis = Input.GetAxis("Mouse ScrollWheel");
+    //    scaler -= axis * zoomSpeed;
+    //    Mathf.Clamp(scaler, 1f, 1.5f);
+    //    menuUI.GetComponent<RectTransform>().localScale *= scaler;
+    //}
     public void UpdateText(Dictionary<string,int> structureInfo)
     {
         StringBuilder builder = new StringBuilder();
