@@ -115,9 +115,6 @@ public class HouseStructure : Structure
         var option = button.GetOptionContent();
         if (option == null) return;
         currentOption = option;
-        //if(button.isGoodOption) return;
-        //OptionBehaviour();
-        
 
         
     }

@@ -88,13 +88,6 @@ public class LearnMorePanel : MonoBehaviour
             button.btnText.text = pair.Key;
             button.button.onClick.AddListener(OnUnlockedButtonClicked);
         }
-        //for(int i = 0; i < selectedHouseInfo.lockedOptions.Count; i++)
-        //{
-        //    //Debug.Log(info.lockedOptions[i]);
-            
-            
-            
-        //}
     }
 
     void OnUnlockedButtonClicked()

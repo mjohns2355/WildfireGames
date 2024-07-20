@@ -35,7 +35,10 @@ public class OptionButton : MonoBehaviour
         {
             owner.onOptionSelected.Invoke(this);
             owner.OnClickGoodOptionButton(isGoodOption);
-
+            if (isGoodOption)
+            {
+                isGoodOption = false;
+            }
         });
     }
     public void SetOptionButtonText(string text)
