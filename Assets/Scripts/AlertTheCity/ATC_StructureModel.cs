@@ -11,8 +11,9 @@ public class ATC_StructureModel : MonoBehaviour, INeedingRoad
 
     public void CreateModel(GameObject model)
     {
-        var structure = Instantiate(model,transform);
-        yHeight = structure.transform.position.y;
+        //var structure = Instantiate(model,transform);
+        //yHeight = structure.transform.position.y;
+        yHeight = model.transform.position.y;
     }
 
     public void SwapModel(GameObject model, Quaternion rotation)

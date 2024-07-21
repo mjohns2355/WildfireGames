@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
 {
     public bool isLocked = false;
-    public StructureContextMenu owner;
-    public Button button;
-    [SerializeField]TextMeshProUGUI optionText;
     public bool isGoodOption = false;
-    
+    public StructureContextMenu owner;
+    [SerializeField] Button button;
+    [SerializeField]TextMeshProUGUI optionText;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -48,12 +48,19 @@ public class OptionButton : MonoBehaviour
 
     public string FindOptionExplaination(HouseStructure house)
     {
-       
-        if (house.info.lockedOptions.ContainsKey(optionText.text))
+        foreach (var choice in house.houseInfo.lockedChoices)
         {
-            isGoodOption = true;
-            return house.info.lockedOptions[optionText.text];
+            if (choice.choiceName == optionText.text)
+            {
+                isGoodOption = true;
+                return house.houseInfo.lockedOptionDetail;
+            }
         }
+        //if (house.info.lockedOptions.ContainsKey(optionText.text))
+        //{
+        //    isGoodOption = true;
+        //    return house.info.lockedOptions[optionText.text];
+        //}
 
 
         return null;

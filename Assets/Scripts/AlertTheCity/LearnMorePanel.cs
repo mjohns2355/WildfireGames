@@ -15,7 +15,8 @@ public class LearnMorePanel : MonoBehaviour
     public TextMeshProUGUI detailPageDescription;
     [SerializeField] Transform optionBtns;
     [SerializeField] Transform unlockedBtns;
-    HouseInfo selectedHouseInfo;
+    //HouseInfo selectedHouseInfo;
+    HouseTypeInfo targetHouseInfo;
     HouseType houseType;
     // Start is called before the first frame update
     void Start()
@@ -45,14 +46,17 @@ public class LearnMorePanel : MonoBehaviour
     public void OnDetailedPageEnable()
     {
         houseType = (HouseType)Enum.Parse(typeof(HouseType), EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name);
-        
-        selectedHouseInfo = new HouseInfo(houseType);
+        targetHouseInfo = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType);
+
+        //selectedHouseInfo = new HouseInfo(houseType);
         detailPage.SetActive(true);
         homePage.SetActive(false);
-        title.text = "Learn More: " + selectedHouseInfo.longerTitle;
+        //title.text = "Learn More: " + selectedHouseInfo.longerTitle;
+        title.text = "Learn More: " + targetHouseInfo.longerTitle;
 
 
-        detailPageDescription.text = selectedHouseInfo.description;
+        //detailPageDescription.text = selectedHouseInfo.description;
+        detailPageDescription.text = targetHouseInfo.description;
         SpawnUnlockedButtons();
     }
     // Update is called once per frame
@@ -82,12 +86,21 @@ public class LearnMorePanel : MonoBehaviour
 
     void SpawnUnlockedButtons()
     {
-        foreach(var pair in selectedHouseInfo.lockedOptions)
+        //foreach(var pair in selectedHouseInfo.lockedOptions)
+        //{
+        //    var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
+        //    button.btnText.text = pair.Key;
+        //    button.button.onClick.AddListener(OnUnlockedButtonClicked);
+        //}        
+        
+        foreach(var choice in targetHouseInfo.lockedChoices)
         {
             var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
-            button.btnText.text = pair.Key;
+            button.btnText.text = choice.choiceName;
+            Debug.Log(choice.choiceName);
             button.button.onClick.AddListener(OnUnlockedButtonClicked);
         }
+
     }
 
     void OnUnlockedButtonClicked()

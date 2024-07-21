@@ -54,7 +54,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
             TrySpawnACar(startStructure, endStructure, carSpeed);
             //structure.AfterSpawnACar();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
     }
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)

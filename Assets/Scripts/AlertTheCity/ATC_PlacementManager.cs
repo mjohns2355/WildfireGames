@@ -49,11 +49,16 @@ public class ATC_PlacementManager : MonoBehaviour
 
     private ATC_StructureModel CreateANewStructureModel(Vector3Int pos, GameObject structurePrefab, CellType type)
     {
-        GameObject structure = new GameObject(type.ToString());
-        structure.transform.SetParent(transform);
+
+        GameObject structure = Instantiate(structurePrefab,transform);
         structure.transform.localPosition = pos;
         var structureModel = structure.AddComponent<ATC_StructureModel>();
-        structureModel.CreateModel(structurePrefab);
+        structureModel.CreateModel(structure);
+        //GameObject structure = new GameObject(type.ToString());
+        //structure.transform.SetParent(transform);
+        //structure.transform.localPosition = pos;
+        //var structureModel = structure.AddComponent<ATC_StructureModel>();
+        //structureModel.CreateModel(structurePrefab);
         return structureModel;
     }
 

@@ -25,7 +25,7 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
-    //public bool selectedBehavior = false;
+    bool madeSelection = false;
     Camera cam;
     // Start is called before the first frame update
     private void Awake()
@@ -132,15 +132,16 @@ public class StructureContextMenu : MonoBehaviour
     public void UpdateMenuForHouse(HouseStructure house)
     {
         ClearOptionButtons();
-       var houseInfo = house.info;
+        //var houseInfo = house.info;
+        var houseInfo = house.houseInfo;
         title.text = houseInfo.menuTitle;
-        foreach (var option in houseInfo.normalOptions)
+        foreach (var choice in houseInfo.normalChoices)
         {
-            SpawnOptionButtons(option);
+            SpawnOptionButtons(choice.choiceName);
         }
-        foreach(var option in houseInfo.lockedOptions)
+        foreach(var choice in houseInfo.lockedChoices)
         {
-            SpawnOptionButtons(option.Key,optionsAreLocked);
+            SpawnOptionButtons(choice.choiceName,optionsAreLocked);
         }
     }
 

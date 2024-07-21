@@ -19,6 +19,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public ATC_dialogManager dialog;
 
+
     public bool InAssignMode
     {
         get { return assignMode; }

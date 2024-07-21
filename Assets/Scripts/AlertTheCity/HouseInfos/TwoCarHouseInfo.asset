@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0d0e153d21a764da1ca6e6ba5afa2a, type: 3}
+  m_Name: TwoCarHouseInfo
+  m_EditorClassIdentifier: 
+  houseType: 2
+  menuTitle: Two-Car House
+  normalChoices:
+  - choiceName: Take Both Cars
+    carNumberMod: 0
+    carSpawnTimeMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  - choiceName: Leave One Car
+    carNumberMod: -1
+    carSpawnTimeMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  lockedChoices:
+  - choiceName: Relocate 2nd Car
+    carNumberMod: -1
+    carSpawnTimeMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  longerTitle: Multi-Car Household
+  description: 'Households with multiple cars face a dilemma during evacuations.
+    Some wish to keep all their vehicles with them when they evacuate. It is very
+    important to consider the consequences of such choices. Splitting the family
+    into multiple vehicles during an evacuation increases risks of being separated,
+    as well as causing additional congestion during evacuation. If it is important
+    to keep both vehicles, consider relocating one of them to a safe place on red
+    flag days to keep yourselves and your belongings safe.
+
+'
+  lockedOptionDetail: You know too many cars on the road cause traffic congestion,
+    so you relocate your second car on high risk days.
+  carNumber: 2
+  horseNumber: 0
+  petNumber: 0
+  kidNumber: 0
+  carSpeed: 1
+  carSpawnTime: 1

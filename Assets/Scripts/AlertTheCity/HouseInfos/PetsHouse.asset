@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0d0e153d21a764da1ca6e6ba5afa2a, type: 3}
+  m_Name: PetsHouse
+  m_EditorClassIdentifier: 
+  houseType: 5
+  menuTitle: Pets
+  normalChoices:
+  - choiceName: Wait for Notice
+    carNumberMod: 0
+    carSpawnTimeMod: 2
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  lockedChoices:
+  - choiceName: Plan Ahead
+    carNumberMod: 0
+    carSpawnTimeMod: -2
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  - choiceName: Evacuate Early
+    carNumberMod: 0
+    carSpawnTimeMod: -2
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  longerTitle: Pets
+  description: 'Having pets can increase the time needed to evacuate safely. It is
+    very important to make plans in advance and consider multiple scenarios and consequences
+    of choices. Be sure you have a carrier or leash readily available and that the
+    pets are in an easily accessible space on red flag days (ie. keep them inside
+    and in a room where you can find/catch them easily). It may be a good idea to
+    evacuate early and have a plan to stay in a pet-friendly shelter or with friends.
+
+'
+  lockedOptionDetail: Test
+  carNumber: 1
+  horseNumber: 0
+  petNumber: 1
+  kidNumber: 0
+  carSpeed: 1
+  carSpawnTime: 3

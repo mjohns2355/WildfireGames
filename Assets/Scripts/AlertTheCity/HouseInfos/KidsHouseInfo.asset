@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0d0e153d21a764da1ca6e6ba5afa2a, type: 3}
+  m_Name: KidsHouseInfo
+  m_EditorClassIdentifier: 
+  houseType: 3
+  menuTitle: School-Age Children
+  normalChoices:
+  - choiceName: Wait for Notice
+    carNumberMod: 0
+    carSpawnTimeMod: 2
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  - choiceName: Pick up Children
+    carNumberMod: 0
+    carSpawnTimeMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 2
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  lockedChoices:
+  - choiceName: Safer at School
+    carNumberMod: 0
+    carSpawnTimeMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 3
+  longerTitle: School-Age Children
+  description: "Families with children have additional responsibilities to juggle
+    during an evacuation. It is very important to make plans in advance and consider
+    multiple scenarios and consequences of choices. Some parents choose to pick up
+    their children from school when the evacuation notice goes out. However, this
+    causes additional congestion around the school. Schools tend to be extremely
+    safe places to shelter during an emergency. Parents should consider leaving the
+    children at the school and waiting until it is safe to pick them up.\r"
+  lockedOptionDetail: 'You know the children are safer at school and have a plan
+    that they know: they will stay at school until it is safe to pick them up.'
+  carNumber: 1
+  horseNumber: 0
+  petNumber: 0
+  kidNumber: 0
+  carSpeed: 1
+  carSpawnTime: 1

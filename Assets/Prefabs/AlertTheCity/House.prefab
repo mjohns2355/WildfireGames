@@ -56,6 +56,12 @@ MonoBehaviour:
   menuSpawnPos: {fileID: 4159125047121432031}
   outline: {fileID: 2910911273183087437}
   isMainHouse: 0
+  info:
+    menuTitle: 
+    normalOptions: []
+    longerTitle: 
+    description: 
+    choices: []
   houseType: 0
   sameTypeHouses: []
   houseModels:
@@ -64,13 +70,15 @@ MonoBehaviour:
   - {fileID: 4953472650106715381, guid: bd236563fd3fd4fc58b942aad5ee3f08, type: 3}
   - {fileID: 3478441020381102937, guid: 8b16ad0431543481b832206f64966a64, type: 3}
   mesh: {fileID: 6976986010227459270}
-  petNum: 2
-  carNum: 0
+  choices: []
+  petNum: 0
+  carNum: 1
   horseNum: 0
-  carSpeed: 0
-  waitSeconds: 0
-  currentOption: ' Wait for Notice '
+  carSpeed: 1
+  spawnTime: 2
+  currentOption: ' Wait for Notice'
   combustible: {fileID: 4333234518331709959}
+  Apply: 0
 --- !u!65 &4729918362590646441
 BoxCollider:
   m_ObjectHideFlags: 0
