@@ -18,6 +18,8 @@ public class ATC_dialogManager : MonoBehaviour
 
     public bool done;
 
+    public GameObject[] images;
+
 
     private void Start()
     {
@@ -54,6 +56,20 @@ public class ATC_dialogManager : MonoBehaviour
         }
         else
         {
+            if(images.Length >= counter+1)
+            {
+                if (counter >= 1)
+                {
+
+                    images[counter - 1].SetActive(false);
+                }
+                if(counter >= 0)
+                {
+
+                    images[counter].SetActive(true);
+                }
+
+            }
             dialog.text = phaseOneDialog[counter];
             counter++;
             if (counter >= phaseOneDialog.Length)

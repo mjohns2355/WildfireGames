@@ -13,31 +13,38 @@ public class FYT_door : MonoBehaviour
 
     private void OnMouseDown()
     {
-        transit.SetTrigger("Transit");
-        nextCam.SetActive(true);
-        currentCam.SetActive(false);
-        foreach (GameObject b in offButtons)
+        if(GameObject.FindGameObjectWithTag("BagPanel") == null)
         {
-            b.SetActive(false);
-        }
-        foreach (GameObject b in onButtons)
-        {
-            b.SetActive(true);
+
+            transit.SetTrigger("Transit");
+            nextCam.SetActive(true);
+            currentCam.SetActive(false);
+            foreach (GameObject b in offButtons)
+            {
+                b.SetActive(false);
+            }
+            foreach (GameObject b in onButtons)
+            {
+                b.SetActive(true);
+            }
         }
     }
 
     public void ButtonCam()
     {
-        transit.SetTrigger("Transit");
-        nextCam.SetActive(true);
-        currentCam.SetActive(false);
-        foreach(GameObject b in offButtons)
+        if (GameObject.FindGameObjectWithTag("BagPanel") == null)
         {
-            b.SetActive(false);
-        }
-        foreach (GameObject b in onButtons)
-        {
-            b.SetActive(true);
+            transit.SetTrigger("Transit");
+            nextCam.SetActive(true);
+            currentCam.SetActive(false);
+            foreach (GameObject b in offButtons)
+            {
+                b.SetActive(false);
+            }
+            foreach (GameObject b in onButtons)
+            {
+                b.SetActive(true);
+            }
         }
     }
 
@@ -48,9 +55,5 @@ public class FYT_door : MonoBehaviour
         transit = GameObject.FindGameObjectWithTag("Transit").GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

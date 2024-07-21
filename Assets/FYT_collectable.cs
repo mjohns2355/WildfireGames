@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class FYT_collectable : MonoBehaviour
 {
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
-        GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>().AddItem(gameObject.name);
-        Destroy(gameObject);
+        if(GameObject.FindGameObjectWithTag("BagPanel") == null)
+            GameObject.FindGameObjectWithTag("PickupObject").GetComponent<FYTPickUp>().OpenPopup(gameObject);
+      //  GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>().AddItem(gameObject.name);
+      //  Destroy(gameObject);
     }
+
+
 }

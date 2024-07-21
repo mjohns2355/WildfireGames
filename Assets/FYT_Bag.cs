@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FYT_Bag : MonoBehaviour
 {
@@ -17,6 +18,18 @@ public class FYT_Bag : MonoBehaviour
     public void OpenBag()
     {
         bagPanel.SetActive(true);
+    }
+
+    public void Evac()
+    {
+        bagList.text = "";
+        bagList2.text = "Good Job!\nSummary (coming soon)";
+        bagList3.text = "";
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void AddItem(string item)
