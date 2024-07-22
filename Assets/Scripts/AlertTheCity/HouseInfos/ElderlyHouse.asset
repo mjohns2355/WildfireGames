@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: ElderlyHouse
   m_EditorClassIdentifier: 
   houseType: 1
-  menuTitle: Elderly Resident
+  menuTitle: Older Resident
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 2
+    carSpawnTimeMod: 3
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 0
   lockedChoices:
   - choiceName: Help from Neighbor
-    carNumberMod: 0
+    carNumberMod: -1
     carSpawnTimeMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 1
   - choiceName: Evacuate Early
     carNumberMod: 0
     carSpawnTimeMod: -1
@@ -39,16 +39,17 @@ MonoBehaviour:
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 0
   longerTitle: Elderly Resident
-  description: Elderly residents often need additional time and support to evacuate
-    safely. It is very important to make plans in advance and consider multiple scenarios
+  description: Older residents may need additional time and support to evacuate safely.
+    It is very important to make plans in advance and consider multiple scenarios
     and consequences of choices. Some adult children and grand children choose to
     drive a great distance to pick up their elderly relative, but this can cause
     delays and additional congestion. Consider making a plan with a neighbor who
     can help them evacuate, or arranging to evacuate them early before there is an
     evacuation notice.
-  lockedOptionDetail: Test
+  lockedOptionDetail: Getting help from a neighbor will be a great option! This will
+    make evacuating both safer as well as quicker.
   carNumber: 1
   horseNumber: 0
   petNumber: 0

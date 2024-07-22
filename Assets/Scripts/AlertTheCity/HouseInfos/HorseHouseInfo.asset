@@ -17,12 +17,12 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 2
+    carSpawnTimeMod: 4
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 0
   - choiceName: Leave the Horse
     carNumberMod: 0
     carSpawnTimeMod: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 2
   lockedChoices:
   - choiceName: Relocate the Horse
     carNumberMod: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 1
   longerTitle: Large Animals
   description: 'Dealing with large animals, such as horses, during an evacuation
     can be difficult. It is very important to make plans in advance and consider
@@ -50,7 +50,8 @@ MonoBehaviour:
     safety as well as the safety of everyone else who\r\nneeds to evacuate.
 
 '
-  lockedOptionDetail: Test
+  lockedOptionDetail: Relocating the horses before an evacuation is ordered will
+    help reduce congestion during the evacuation, and potentially save lives!
   carNumber: 1
   horseNumber: 1
   petNumber: 0

@@ -17,21 +17,21 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 2
+    carSpawnTimeMod: 4
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 0
   lockedChoices:
   - choiceName: Plan Ahead
     carNumberMod: 0
-    carSpawnTimeMod: -2
+    carSpawnTimeMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 1
   - choiceName: Evacuate Early
     carNumberMod: 0
     carSpawnTimeMod: -2
@@ -39,7 +39,7 @@ MonoBehaviour:
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 3
+    carSpeedMod: 2
   longerTitle: Pets
   description: 'Having pets can increase the time needed to evacuate safely. It is
     very important to make plans in advance and consider multiple scenarios and consequences
@@ -49,7 +49,9 @@ MonoBehaviour:
     evacuate early and have a plan to stay in a pet-friendly shelter or with friends.
 
 '
-  lockedOptionDetail: Test
+  lockedOptionDetail: Having several pets might make the evacuation particularly
+    stressful, so evacuating early can help reduce that stress and make sure all
+    of the pets are safe!
   carNumber: 1
   horseNumber: 0
   petNumber: 1
