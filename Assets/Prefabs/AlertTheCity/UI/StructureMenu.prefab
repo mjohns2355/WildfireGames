@@ -43,13 +43,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220807308758404710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuUI: {fileID: 220807308758404710}
-  changeResponseButton: {fileID: 1816153396995603719}
+  changeResponseButton: {fileID: 0}
   explaination: {fileID: 5816303189262301288}
   menu: {fileID: 6095752828999564654}
   icon: {fileID: 6799858099171305471}
@@ -60,9 +59,9 @@ MonoBehaviour:
   assignButton: {fileID: 7810143412884272293}
   owner: {fileID: 0}
   optionsAreLocked: 1
-  canvasTransform: {fileID: 0}
-  menuTransform: {fileID: 0}
-  cam: {fileID: 0}
+  canvasTransform: {fileID: 6652749744439641118}
+  menuTransform: {fileID: 1745317932652779068}
+  menuOffset: 120
 --- !u!1 &476020899518413421
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,6 +74,7 @@ GameObject:
   - component: {fileID: 7416454450962217958}
   - component: {fileID: 2159992544726925072}
   - component: {fileID: 5931364029632168396}
+  - component: {fileID: 4640754392159891181}
   m_Layer: 5
   m_Name: StructureMenu
   m_TagString: Untagged
@@ -167,6 +167,32 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4640754392159891181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476020899518413421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeResponseButton: {fileID: 3662757453661812057}
+  explaination: {fileID: 5816303189262301288}
+  menu: {fileID: 6095752828999564654}
+  icon: {fileID: 6799858099171305471}
+  title: {fileID: 7592141092548686792}
+  options: {fileID: 3980592266290294632}
+  optionButtonPrefab: {fileID: 8510916420729711054, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
+  closeButton: {fileID: 0}
+  assignButton: {fileID: 7810143412884272293}
+  owner: {fileID: 0}
+  optionsAreLocked: 1
+  canvasTransform: {fileID: 6652749744439641118}
+  menuTransform: {fileID: 1745317932652779068}
+  menuOffset: 120
 --- !u!1 &1202680369609753457
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1745317932652779068
 RectTransform:
   m_ObjectHideFlags: 0
@@ -779,7 +805,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6095752828999564654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -790,8 +816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: 108}
-  m_SizeDelta: {x: 140.17, y: 146.444}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 204.7201, y: 192.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2145372945239085515
 CanvasRenderer:
@@ -835,10 +861,10 @@ RectTransform:
   - {fileID: 3980592266290294632}
   m_Father: {fileID: 1745317932652779068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 187}
+  m_SizeDelta: {x: -4, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5537013350940216879
 CanvasRenderer:
@@ -923,6 +949,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1414239845739311835}
     m_Modifications:
+    - target: {fileID: 3106588821809405511, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4327947350793109106, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
       propertyPath: m_text
       value: Change Response
@@ -1024,15 +1054,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
---- !u!114 &1816153396995603719 stripped
+--- !u!114 &3662757453661812057 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3106588821809405511, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 70981764545353241, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
   m_PrefabInstance: {fileID: 3614305786310468416}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95cd90590be527741b2aa3724f75ba32, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7972933755067705678 stripped
@@ -1158,7 +1188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1482891032112774445, guid: d7e08f8b81ce0cc4e8b13e9e451c781f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482891032112774445, guid: d7e08f8b81ce0cc4e8b13e9e451c781f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1167,7 +1197,7 @@ PrefabInstance:
     - target: {fileID: 1482891032112774445, guid: d7e08f8b81ce0cc4e8b13e9e451c781f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1914636339070479467}
+      objectReference: {fileID: 4640754392159891181}
     - target: {fileID: 1482891032112774445, guid: d7e08f8b81ce0cc4e8b13e9e451c781f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2

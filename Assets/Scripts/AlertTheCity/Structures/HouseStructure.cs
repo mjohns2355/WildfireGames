@@ -4,26 +4,34 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
+
+
 public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui }
 public class HouseStructure : Structure
 {
     public bool isMainHouse;
-    public HouseInfo info;
+    //public HouseInfo info;
+    public HouseTypeInfo houseInfo;
     public HouseType houseType;
     [SerializeField] List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
-    [SerializeField] int petNum = 0;
-    [SerializeField] int carNum = 0;
-    [SerializeField] int horseNum = 0;
-    [SerializeField] CarSpeed carSpeed;
-    [SerializeField] float waitSeconds = 0f;
-    [SerializeField] string currentOption = " Wait for Notice ";
+    [SerializeField] List<HouseChoice> choices = new List<HouseChoice>();
+    public int petNum = 0;
+    public int carNum = 1;
+    public int horseNum = 0;
+    public int kidNum = 0;
+    public CarSpeed carSpeed = CarSpeed.medium;
+    public float spawnTime = 0f;
+    public float homeHardening = 0f;
+    string lastOption = string.Empty;
+    string currentOption = "Wait for Notice";
     //public int petNum;
     ATC_PlacementManager placementManager;
     [SerializeField]Combustible combustible;
-
+    [InspectorButton("ApplyChoice")]
+    public bool Apply;
     private void Start()
     {
         placementManager = GameManager.Instance.structureManager.placementManager;
@@ -31,7 +39,7 @@ public class HouseStructure : Structure
         if (isMainHouse)
         {
             // only main house has info
-            info = new HouseInfo(houseType);
+            //info = new HouseInfo(houseType,this);
             menu.icon.SetActive(true);
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
             GameManager.Instance.uiController.AddMenu(menu);
@@ -43,12 +51,17 @@ public class HouseStructure : Structure
                 if (houseStructure.houseType == houseType)
                 {
                     sameTypeHouses.Add(houseStructure);
-                    houseStructure.carNum = info.carNumber;
-                    houseStructure.petNum = info.petNumber;
-                    houseStructure.carSpeed = info.carSpeed;
+                    foreach(var h in sameTypeHouses)
+                    {
+                        //h.choices = info.choices;
+
+                        h.houseInfo = houseInfo;
+                        h.houseInfo.InitHouseInfo(h);
+                    }
                 }
             }
             menu.onOptionSelected += OnOptionButtonClicked;
+            GameManager.Instance.structureManager.allMainHouses.Add(this);
         }
 
         //GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
@@ -59,7 +72,6 @@ public class HouseStructure : Structure
     {
         if (mesh.childCount >= 1) return;
         GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        //combustible.meshes.Add(houseModel.GetComponent<MeshRenderer>());
         Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh);
     }
 
@@ -72,6 +84,7 @@ public class HouseStructure : Structure
     public void SetHouseType(HouseType type)
     {
         houseType = type;
+        
     }
     public override void OnStructureClick()
     {
@@ -81,7 +94,6 @@ public class HouseStructure : Structure
             house.outline.enabled = true;
             GameManager.Instance.uiController.AddSelectedHouse(house);
         }
-        //GameManager.Instance.uiController.AddSelectedHouse(this);
     }
 
     public override void StopSturctureClick()
@@ -96,8 +108,6 @@ public class HouseStructure : Structure
         if (carNum <= 0) return;
 
         carNum--;
-
-        //structureInfoDict["Car(s)"] = carNum;
 
     }
 
@@ -115,39 +125,31 @@ public class HouseStructure : Structure
         var option = button.GetOptionContent();
         if (option == null) return;
         currentOption = option;
-        //if(button.isGoodOption) return;
-        //OptionBehaviour();
-        
 
         
     }
 
-    public void CheckOptionBehaviour()
+    void ApplyChoice()
     {
-        if(currentOption == null) return;
-        switch (currentOption)
-        {
-            case " Wait for Notice ":
-                waitSeconds = 2;
-                break;
-            case " Leave One Car ":
-                if (carNum > 1)
-                {
-                    carNum--;
-                }
-                
-                break;
-            
-        }
-    }
+        choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
 
+        foreach(var choice in choices)
+        {
+            if(choice.choiceName == currentOption)
+            {
+                if(lastOption == currentOption) return;
+                choice.ApplyEffect(this);
+                lastOption = currentOption;
+            }
+        }
+        
+
+    }
     public IEnumerator SpawnCarRoutine()
     {
-        CheckOptionBehaviour();
-        //Debug.Log("Wait for sim to start");
-        //yield return new WaitUntil(() => { return GameManager.Instance.startSim; });
-        yield return new WaitForSeconds(waitSeconds);
-        //Debug.Log("Spawned " + carNum + " cars");
+        ApplyChoice();
+        yield return new WaitForSeconds(spawnTime);
+        Debug.Log("Spawned " + carNum + " cars");
         //destination shelter
         var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
         foreach (var house in sameTypeHouses)
@@ -156,7 +158,7 @@ public class HouseStructure : Structure
             
         }
 
-
+ 
     }
 
 #if UNITY_EDITOR

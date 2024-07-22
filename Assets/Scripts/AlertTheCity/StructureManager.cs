@@ -10,8 +10,9 @@ public class StructureManager : MonoBehaviour
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
     public GameObject structureTilemap;
+    public List<HouseTypeInfo> houseInfos = new List<HouseTypeInfo>();
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
-
+    public List<HouseStructure> allMainHouses = new List<HouseStructure>();
     private void Start()
     {
         
@@ -33,17 +34,20 @@ public class StructureManager : MonoBehaviour
             if (allHouses.Count == 0) return;
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
-            var house = structure.GetComponentInChildren<HouseStructure>();
+            var house = structure.GetComponent<HouseStructure>();
             if (house && !house.isMainHouse)
             {
                 house.isMainHouse = true;
+                house.houseInfo = ReturnHouseInfoFor((HouseType)i);
+                house.houseInfo.InitHouseInfo(house);
                 house.SetHouseType((HouseType)i);
+
                 allHouses.Remove(structure);
             }
         }
         foreach (var structure in allHouses)
         {
-            var house = structure.GetComponentInChildren<HouseStructure>();
+            var house = structure.GetComponent<HouseStructure>();
             house.RandomizeHouseType();
         }
 
@@ -126,5 +130,17 @@ public class StructureManager : MonoBehaviour
         return true;
     }
 
+
+    public HouseTypeInfo ReturnHouseInfoFor(HouseType type)
+    {
+        foreach(var info in houseInfos)
+        {
+            if (info.houseType == type)
+            {
+                return info;
+            }
+        }
+        return null;
+    }
 
 }

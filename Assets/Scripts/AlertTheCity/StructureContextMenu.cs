@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class StructureContextMenu : MonoBehaviour
 {
     public Action<OptionButton> onOptionSelected;
-    public OptionButton changeResponseButton;
+    public Button changeResponseButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
     public GameObject icon;//ui
@@ -25,7 +25,7 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
-    //public bool selectedBehavior = false;
+    bool madeSelection = false;
     Camera cam;
     // Start is called before the first frame update
     private void Awake()
@@ -37,6 +37,10 @@ public class StructureContextMenu : MonoBehaviour
     {
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
+        changeResponseButton.onClick.AddListener(() =>
+        {
+            ToggleChangeResponsePanel(false);
+        });
         foreach (var iconSprite in GameManager.Instance.uiController.iconList)
         {
             if (iconSprite.name == house.houseType.ToString())
@@ -59,7 +63,7 @@ public class StructureContextMenu : MonoBehaviour
         {
           
             //menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position /*+ new Vector3(0,20f,0)*/);
-            changeResponseButton.InitOptionButton(this, "Change Response");
+            //changeResponseButton.InitOptionButton(this, "Change Response");
             UpdateMenuForHouse(house);
 
             foreach (var menu in GameManager.Instance.uiController.contextMenus)
@@ -83,6 +87,7 @@ public class StructureContextMenu : MonoBehaviour
             menu.icon.SetActive(true);
         }
         owner.StopSturctureClick();
+        changeResponseButton.onClick.RemoveAllListeners();
         //selectedBehavior = true;
 
     }
@@ -114,28 +119,29 @@ public class StructureContextMenu : MonoBehaviour
     //    Mathf.Clamp(scaler, 1f, 1.5f);
     //    menuUI.GetComponent<RectTransform>().localScale *= scaler;
     //}
-    public void UpdateText(Dictionary<string,int> structureInfo)
-    {
-        StringBuilder builder = new StringBuilder();
-        foreach (var item in structureInfo)
-        {
-            builder.AppendLine(item.Key + ":" + item.Value + "\n");
-        }
-        title.text = builder.ToString();
-    }
+    //public void UpdateText(Dictionary<string,int> structureInfo)
+    //{
+    //    StringBuilder builder = new StringBuilder();
+    //    foreach (var item in structureInfo)
+    //    {
+    //        builder.AppendLine(item.Key + ":" + item.Value + "\n");
+    //    }
+    //    title.text = builder.ToString();
+    //}
 
     public void UpdateMenuForHouse(HouseStructure house)
     {
         ClearOptionButtons();
-       var houseInfo = house.info;
+        //var houseInfo = house.info;
+        var houseInfo = house.houseInfo;
         title.text = houseInfo.menuTitle;
-        foreach (var option in houseInfo.normalOptions)
+        foreach (var choice in houseInfo.normalChoices)
         {
-            SpawnOptionButtons(option);
+            SpawnOptionButtons(choice.choiceName);
         }
-        foreach(var option in houseInfo.lockedOptions)
+        foreach(var choice in houseInfo.lockedChoices)
         {
-            SpawnOptionButtons(option.Key,optionsAreLocked);
+            SpawnOptionButtons(choice.choiceName,optionsAreLocked);
         }
     }
 
@@ -158,9 +164,7 @@ public class StructureContextMenu : MonoBehaviour
     {
         if (isGoodOption)
         {
-            changeResponseButton.gameObject.SetActive(true);
-            explaination.gameObject.SetActive(true);
-            options.gameObject.SetActive(false);
+           ToggleChangeResponsePanel(true);
         }
         else
         {
@@ -176,5 +180,10 @@ public class StructureContextMenu : MonoBehaviour
         StartCoroutine(house.SpawnCarRoutine());
     }
 
-
+    void ToggleChangeResponsePanel(bool state)
+    {
+        changeResponseButton.gameObject.SetActive(state);
+        explaination.gameObject.SetActive(state);
+        options.gameObject.SetActive(!state);
+    }
 }

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CarSpeed { slow, medium, fast };
+public enum CarSpeed { slow, medium, fast , none};
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     Rigidbody rb;
     
     public CarSpeed carSpeed = CarSpeed.medium;
-    //public ATC_StructureModel start;
-    //public ATC_StructureModel end;
+    public ATC_StructureModel start;
+    public ATC_StructureModel end;
     [SerializeField]
     private float power = 5;
     [SerializeField]

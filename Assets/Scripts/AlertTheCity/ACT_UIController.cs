@@ -8,7 +8,7 @@ public class ACT_UIController : MonoBehaviour
 {
     public GameObject canvas;
     public GameObject learnMorePanel;
-    public HouseInfo currentHouseInfo;
+    //public HouseInfo currentHouseInfo;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
     public GameObject buildingMenu;
