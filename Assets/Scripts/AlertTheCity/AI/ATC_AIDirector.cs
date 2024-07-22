@@ -78,9 +78,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             if (carPath.Count > 0)
             {
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
-                car.GetComponent<CarController>().carSpeed = carSpeed; 
-                //car.GetComponent<CarController>().start = startStructure;
-                //car.GetComponent<CarController>().end = endStructure;
+                car.GetComponent<CarController>().carSpeed = carSpeed;
+                car.GetComponent<CarController>().start = startStructure;
+                car.GetComponent<CarController>().end = endStructure;
                 car.GetComponent<CarAI>().SetPath(carPath);
             }
         }

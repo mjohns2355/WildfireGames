@@ -9,8 +9,8 @@ public class CarController : MonoBehaviour
     Rigidbody rb;
     
     public CarSpeed carSpeed = CarSpeed.medium;
-    //public ATC_StructureModel start;
-    //public ATC_StructureModel end;
+    public ATC_StructureModel start;
+    public ATC_StructureModel end;
     [SerializeField]
     private float power = 5;
     [SerializeField]

@@ -82,6 +82,8 @@ public class CarAI : MonoBehaviour
             jamTimer += Time.deltaTime;
             if(jamTimer > 3)
             {
+                var car = GetComponent<CarController>();
+                ATC_AIDirector.Instance.RespawnACar(car.start, car.end, car.carSpeed);
                 Destroy(gameObject);
             }
         }
