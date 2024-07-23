@@ -30,9 +30,10 @@ public class OptionButton : MonoBehaviour
     {
         this.owner = owner;
         optionText.text = buttonText;
-        owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
+        
         button.onClick.AddListener(() =>
         {
+            owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
             owner.onOptionSelected.Invoke(this);
             owner.OnClickGoodOptionButton(isGoodOption);
             if (isGoodOption)
@@ -52,8 +53,9 @@ public class OptionButton : MonoBehaviour
         {
             if (choice.choiceName == optionText.text)
             {
+                Debug.Log("Selected " + choice.choiceName);
                 isGoodOption = true;
-                return house.houseInfo.lockedOptionDetail;
+                return choice.choiceDetail;
             }
         }
         //if (house.info.lockedOptions.ContainsKey(optionText.text))

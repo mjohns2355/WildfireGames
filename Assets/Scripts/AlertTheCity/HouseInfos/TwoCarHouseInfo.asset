@@ -23,6 +23,7 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    choiceDetail: 
   - choiceName: Leave One Car
     carNumberMod: -1
     carSpawnTimeMod: 0
@@ -31,6 +32,7 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 2
+    choiceDetail: 
   lockedChoices:
   - choiceName: Relocate 2nd Car
     carNumberMod: -1
@@ -40,6 +42,8 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    choiceDetail: You know too many cars on the road cause traffic congestion, so
+      you relocate your second car on high risk days.
   longerTitle: Multi-Car Household
   description: 'Households with multiple cars face a dilemma during evacuations.
     Some wish to keep all their vehicles with them when they evacuate. It is very
@@ -50,8 +54,7 @@ MonoBehaviour:
     flag days to keep yourselves and your belongings safe.
 
 '
-  lockedOptionDetail: You know too many cars on the road cause traffic congestion,
-    so you relocate your second car on high risk days.
+  lockedOptionDetail: 
   carNumber: 2
   horseNumber: 0
   petNumber: 0

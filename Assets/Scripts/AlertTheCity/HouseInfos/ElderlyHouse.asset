@@ -23,6 +23,7 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 0
+    choiceDetail: 
   lockedChoices:
   - choiceName: Help from Neighbor
     carNumberMod: -1
@@ -32,6 +33,8 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    choiceDetail: Getting help from a neighbor will be a great option! This will
+      make evacuating both safer as well as quicker.
   - choiceName: Evacuate Early
     carNumberMod: 0
     carSpawnTimeMod: -1
@@ -40,6 +43,7 @@ MonoBehaviour:
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 0
+    choiceDetail: Test
   longerTitle: Elderly Resident
   description: Older residents may need additional time and support to evacuate safely.
     It is very important to make plans in advance and consider multiple scenarios
@@ -48,8 +52,7 @@ MonoBehaviour:
     delays and additional congestion. Consider making a plan with a neighbor who
     can help them evacuate, or arranging to evacuate them early before there is an
     evacuation notice.
-  lockedOptionDetail: Getting help from a neighbor will be a great option! This will
-    make evacuating both safer as well as quicker.
+  lockedOptionDetail: 
   carNumber: 1
   horseNumber: 0
   petNumber: 0

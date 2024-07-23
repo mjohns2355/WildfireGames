@@ -12,8 +12,8 @@ public class HouseTypeInfo : ScriptableObject
     public string longerTitle;
     [TextArea(15, 20)]
     public string description;
-    [TextArea(5, 10)]
-    public string lockedOptionDetail;
+    //[TextArea(5, 10)]
+    //public string lockedOptionDetail;
     // house related properties
     public int carNumber = 1;
     public int horseNumber = 0;

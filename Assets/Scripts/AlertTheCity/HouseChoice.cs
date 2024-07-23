@@ -13,6 +13,8 @@ public class HouseChoice
     public int petNumberMod = 0;
     public float homeHardeningMod = 0;
     public CarSpeed carSpeedMod = CarSpeed.none;
+    [TextArea(5, 10)]
+    public string choiceDetail;
 
     public HouseChoice(string choiceName)
     {
