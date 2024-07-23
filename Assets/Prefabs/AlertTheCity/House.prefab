@@ -56,12 +56,7 @@ MonoBehaviour:
   menuSpawnPos: {fileID: 4159125047121432031}
   outline: {fileID: 2910911273183087437}
   isMainHouse: 0
-  info:
-    menuTitle: 
-    normalOptions: []
-    longerTitle: 
-    description: 
-    choices: []
+  houseInfo: {fileID: 0}
   houseType: 0
   sameTypeHouses: []
   houseModels:
@@ -74,9 +69,10 @@ MonoBehaviour:
   petNum: 0
   carNum: 1
   horseNum: 0
+  kidNum: 0
   carSpeed: 1
   spawnTime: 2
-  currentOption: ' Wait for Notice'
+  homeHardening: 0
   combustible: {fileID: 4333234518331709959}
   Apply: 0
 --- !u!65 &4729918362590646441
@@ -654,7 +650,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1816153396995603719, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

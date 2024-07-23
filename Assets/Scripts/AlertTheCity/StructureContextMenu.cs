@@ -87,7 +87,7 @@ public class StructureContextMenu : MonoBehaviour
             menu.icon.SetActive(true);
         }
         owner.StopSturctureClick();
-        changeResponseButton.onClick.RemoveAllListeners();
+        //changeResponseButton.onClick.RemoveAllListeners();
         //selectedBehavior = true;
 
     }
