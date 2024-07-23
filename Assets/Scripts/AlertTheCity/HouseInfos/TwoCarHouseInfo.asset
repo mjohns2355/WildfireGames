@@ -17,13 +17,14 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Take Both Cars
     carNumberMod: 0
-    carSpawnTimeMod: 0
+    carSpawnTimeMod: 2
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 1
+    carSpeedMod: 2
     choiceDetail: 
+    isLocked: 0
   - choiceName: Leave One Car
     carNumberMod: -1
     carSpawnTimeMod: 0
@@ -31,19 +32,21 @@ MonoBehaviour:
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 2
+    carSpeedMod: 1
     choiceDetail: 
+    isLocked: 0
   lockedChoices:
   - choiceName: Relocate 2nd Car
     carNumberMod: -1
-    carSpawnTimeMod: 0
+    carSpawnTimeMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 1
+    carSpeedMod: 2
     choiceDetail: You know too many cars on the road cause traffic congestion, so
       you relocate your second car on high risk days.
+    isLocked: 0
   longerTitle: Multi-Car Household
   description: 'Households with multiple cars face a dilemma during evacuations.
     Some wish to keep all their vehicles with them when they evacuate. It is very
@@ -54,7 +57,6 @@ MonoBehaviour:
     flag days to keep yourselves and your belongings safe.
 
 '
-  lockedOptionDetail: 
   carNumber: 2
   horseNumber: 0
   petNumber: 0

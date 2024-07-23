@@ -24,6 +24,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     choiceDetail: 
+    isLocked: 0
   lockedChoices:
   - choiceName: Evacuate Early
     carNumberMod: 0
@@ -35,6 +36,7 @@ MonoBehaviour:
     carSpeedMod: 1
     choiceDetail: Houses in the Wildland Urban Interface are at higher risk. Evacuating
       early, even when there isn't an evacuation order, is the safe choice.
+    isLocked: 1
   - choiceName: Home Hardening
     carNumberMod: 0
     carSpawnTimeMod: 0
@@ -44,6 +46,7 @@ MonoBehaviour:
     homeHardeningMod: 0.5
     carSpeedMod: 1
     choiceDetail: 
+    isLocked: 1
   longerTitle: WUI
   description: 'Living at the Wildland Urban Interface comes with risks and challenges.
     It is very important to take action early and to consider multiple scenarios
@@ -53,7 +56,6 @@ MonoBehaviour:
     yourself and reduce risk.
 
 '
-  lockedOptionDetail: 
   carNumber: 1
   horseNumber: 0
   petNumber: 0

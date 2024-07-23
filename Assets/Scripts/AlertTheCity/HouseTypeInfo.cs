@@ -32,5 +32,36 @@ public class HouseTypeInfo : ScriptableObject
         owner.carSpeed = carSpeed;
         owner.kidNum = kidNumber;
         owner.spawnTime = carSpawnTime;
+
+        foreach(var choice in lockedChoices)
+        {
+            choice.isLocked = true;
+        }
     }
+
+    public HouseChoice ReturnChoiceByName(string name, bool searchLockedChoices = false)
+    {
+        if(!searchLockedChoices) {
+
+            foreach (var choice in normalChoices)
+            {
+                if (choice.choiceName == name)
+                {
+                    return choice;
+                }
+            }
+        }
+
+
+        foreach(var choice in lockedChoices)
+        {
+            if(choice.choiceName == name)
+            {
+                return choice;
+            }
+        }
+
+        return null;
+    }
+
 }

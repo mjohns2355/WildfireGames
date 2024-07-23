@@ -15,7 +15,7 @@ public class HouseChoice
     public CarSpeed carSpeedMod = CarSpeed.none;
     [TextArea(5, 10)]
     public string choiceDetail;
-
+    public bool isLocked = false;   
     public HouseChoice(string choiceName)
     {
         this.choiceName = choiceName;
@@ -44,10 +44,15 @@ public class HouseChoice
         {
             owner.carSpeed = carSpeedMod;
         }
+
+
         owner.spawnTime += carSpawnTimeMod;
+        Mathf.Clamp(owner.spawnTime, 0, Mathf.Infinity);
         owner.carNum += carNumberMod;
+        Mathf.Clamp(owner.carNum, 0, 10);
         owner.kidNum += kidNumberMod;
         owner.horseNum += horseNumberMod;
+        //isLocked = false;
         //owner.
     }
 

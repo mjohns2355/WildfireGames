@@ -19,6 +19,7 @@ public class OptionButton : MonoBehaviour
     {
         button.interactable = !isLocked;
         optionText.gameObject.SetActive(!isLocked);
+        
 
     }
 
@@ -30,16 +31,12 @@ public class OptionButton : MonoBehaviour
     {
         this.owner = owner;
         optionText.text = buttonText;
-        
+        isGoodOption = IsGoodOption(buttonText);
         button.onClick.AddListener(() =>
         {
             owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
             owner.onOptionSelected.Invoke(this);
-            owner.OnClickGoodOptionButton(isGoodOption);
-            if (isGoodOption)
-            {
-                isGoodOption = false;
-            }
+            owner.OnClickGoodOptionButton(this);
         });
     }
     public void SetOptionButtonText(string text)
@@ -49,24 +46,17 @@ public class OptionButton : MonoBehaviour
 
     public string FindOptionExplaination(HouseStructure house)
     {
-        foreach (var choice in house.houseInfo.lockedChoices)
-        {
-            if (choice.choiceName == optionText.text)
-            {
-                Debug.Log("Selected " + choice.choiceName);
-                isGoodOption = true;
-                return choice.choiceDetail;
-            }
-        }
-        //if (house.info.lockedOptions.ContainsKey(optionText.text))
-        //{
-        //    isGoodOption = true;
-        //    return house.info.lockedOptions[optionText.text];
-        //}
+        var choice = house.houseInfo.ReturnChoiceByName(optionText.text);
 
-
-        return null;
+        return choice == null ? null : choice.choiceDetail;
     }
 
+    bool IsGoodOption(string optionName)
+    {
+        var house = (HouseStructure)(owner.owner);
+        var choice = house.houseInfo.ReturnChoiceByName(optionName, true);
+
+        return choice != null;
+    }
 
 }

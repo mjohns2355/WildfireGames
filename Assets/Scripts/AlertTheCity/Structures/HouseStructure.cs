@@ -25,13 +25,11 @@ public class HouseStructure : Structure
     public CarSpeed carSpeed = CarSpeed.medium;
     public float spawnTime = 0f;
     public float homeHardening = 0f;
+
     string lastOption = string.Empty;
     string currentOption = "Wait for Notice";
-    //public int petNum;
     ATC_PlacementManager placementManager;
-    [SerializeField]Combustible combustible;
-    [InspectorButton("ApplyChoice")]
-    public bool Apply;
+    Combustible combustible;
     private void Start()
     {
         placementManager = GameManager.Instance.structureManager.placementManager;

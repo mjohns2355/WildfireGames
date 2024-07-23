@@ -21,7 +21,7 @@ public class StructureContextMenu : MonoBehaviour
     public Button closeButton;
     public Button assignButton;
     public Structure owner;
-    public bool optionsAreLocked = true;
+    //bool optionsAreLocked = true;
     [SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
@@ -141,7 +141,8 @@ public class StructureContextMenu : MonoBehaviour
         }
         foreach(var choice in houseInfo.lockedChoices)
         {
-            SpawnOptionButtons(choice.choiceName,optionsAreLocked);
+            var isLocked = choice.isLocked;
+            SpawnOptionButtons(choice.choiceName,isLocked);
         }
     }
 
@@ -160,9 +161,10 @@ public class StructureContextMenu : MonoBehaviour
 
     }
 
-    public void OnClickGoodOptionButton(bool isGoodOption)
+    public void OnClickGoodOptionButton(OptionButton option)
     {
-        if (isGoodOption)
+        
+        if (option.isGoodOption)
         {
            ToggleChangeResponsePanel(true);
         }

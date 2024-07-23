@@ -95,9 +95,10 @@ public class LearnMorePanel : MonoBehaviour
         
         foreach(var choice in targetHouseInfo.lockedChoices)
         {
+            if (!choice.isLocked) continue;
             var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
             button.btnText.text = choice.choiceName;
-            Debug.Log(choice.choiceName);
+            //Debug.Log(choice.choiceName);
             button.button.onClick.AddListener(OnUnlockedButtonClicked);
         }
 
@@ -107,10 +108,16 @@ public class LearnMorePanel : MonoBehaviour
     {
         foreach (var menu in GameManager.Instance.uiController.contextMenus)
         {
-            if (((HouseStructure)menu.owner).houseType == houseType )
+            var house = (HouseStructure)menu.owner;
+            if (house.houseType == houseType )
             {
-                menu.optionsAreLocked = false;
+                var choiceName = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>().btnText.text;
+                //Debug.Log(choiceName);
+                //menu.optionsAreLocked = false;
+                var choice = house.houseInfo.ReturnChoiceByName(choiceName);
+                choice.isLocked = false;
                 menu.OnMenuEnable();
+                break;
             }
         }
         gameObject.SetActive(false);
