@@ -37,6 +37,10 @@ public class OptionButton : MonoBehaviour
             owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
             owner.onOptionSelected.Invoke(this);
             owner.OnClickGoodOptionButton(this);
+            if(isGoodOption){
+                isGoodOption = false;
+            }
+
         });
     }
     public void SetOptionButtonText(string text)

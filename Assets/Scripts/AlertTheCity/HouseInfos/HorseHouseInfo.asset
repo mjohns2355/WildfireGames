@@ -17,7 +17,7 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 4
+    carSpawnTimeMod: 3
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   - choiceName: Leave the Horse
     carNumberMod: 0
     carSpawnTimeMod: 0
-    horseNumberMod: -1
+    horseNumberMod: 3
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
@@ -39,11 +39,11 @@ MonoBehaviour:
   - choiceName: Relocate the Horse
     carNumberMod: 0
     carSpawnTimeMod: 0
-    horseNumberMod: -1
+    horseNumberMod: -2
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
-    carSpeedMod: 1
+    carSpeedMod: 2
     choiceDetail: Relocating the horses before an evacuation is ordered will help
       reduce congestion during the evacuation, and potentially save lives!
     isLocked: 1
@@ -62,4 +62,4 @@ MonoBehaviour:
   petNumber: 0
   kidNumber: 0
   carSpeed: 0
-  carSpawnTime: 1
+  carSpawnTime: 2

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CarSpeed { slow, medium, fast , none};
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {

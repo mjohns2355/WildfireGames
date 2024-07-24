@@ -21,26 +21,29 @@ public class HouseChoice
         this.choiceName = choiceName;
     }
 
-    //public void CheckChocieBehavior(string choiceName)
-    //{
-    //    switch (choiceName)
-    //    {
-    //        case " Wait for Notice ":
-    //            carSpawnTimeMod = 2;
-    //            break;
-    //        case " Leave One Car ":
-    //            carNumberMod = -1;
-    //            break;
-    //        case " Take Both Car ":
-    //            carNumberMod = 1;
-    //            break;
-    //    }
-    //}
+    void ApplySpecialEffect(HouseStructure owner)
+    {
+        switch (choiceName)
+        {
+            case "Relocate 2nd Car":
 
+                break;
+            case "Relocate Horses":
+                break ;
+            case "Home Hardening":
+
+                Debug.Log("Apply Home Hardening Effect");
+                var combustible = owner.gameObject.GetComponent<Combustible>();
+                combustible.fireChance = 1 - homeHardeningMod;
+                Debug.Log(combustible.fireChance);
+                break ;
+        }
+    }
     public void ApplyEffect(HouseStructure owner)
     {
+        ApplySpecialEffect(owner);
         //CheckChocieBehavior(owner.currentOption);
-        if(carSpeedMod != CarSpeed.none)
+        if (carSpeedMod != CarSpeed.none)
         {
             owner.carSpeed = carSpeedMod;
         }

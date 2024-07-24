@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //[ExecuteInEditMode]
 
 
-public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui }
+
 public class HouseStructure : Structure
 {
     public bool isMainHouse;
@@ -24,7 +24,6 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float spawnTime = 0f;
-    public float homeHardening = 0f;
 
     string lastOption = string.Empty;
     string currentOption = "Wait for Notice";
@@ -135,9 +134,19 @@ public class HouseStructure : Structure
         {
             if(choice.choiceName == currentOption)
             {
+                //Debug.Log("current option: " + currentOption);
                 if(lastOption == currentOption) return;
                 choice.ApplyEffect(this);
                 lastOption = currentOption;
+                break;
+            }
+            else
+            {
+                //if(isMainHouse)
+                //{
+                //    Debug.Log(houseType + ": Apply deafult option to unselected house type");
+                //}
+                spawnTime = 5;
             }
         }
         
@@ -147,7 +156,7 @@ public class HouseStructure : Structure
     {
         ApplyChoice();
         yield return new WaitForSeconds(spawnTime);
-        Debug.Log("Spawned " + carNum + " cars");
+        Debug.Log("After "+ spawnTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
         //destination shelter
         var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
         foreach (var house in sameTypeHouses)

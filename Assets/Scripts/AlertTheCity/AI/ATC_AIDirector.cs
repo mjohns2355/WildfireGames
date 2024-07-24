@@ -65,7 +65,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         {
             var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
             var endRoadPos = ((INeedingRoad)endStructure).RoadPosition;
-            Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
+            //Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
             var path = placementManager.GetPathBetween(startRoadPos, endRoadPos, true);
             path.Reverse();
 
