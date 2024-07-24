@@ -10,7 +10,11 @@ public class FYT_evac : MonoBehaviour
 
     private void OnMouseDown()
     {
-        evacButton.SetActive(true);
-        bagMenu.SetActive(true);
+        if (GameObject.FindGameObjectWithTag("BagPanel") == null)
+        {
+
+            evacButton.SetActive(true);
+            bagMenu.SetActive(true);
+        }
     }
 }

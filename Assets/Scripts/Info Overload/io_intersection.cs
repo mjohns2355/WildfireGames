@@ -33,7 +33,12 @@ public class io_intersection : MonoBehaviour
         {
             if (deadEnd)
             {
-                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>().crashScreen.SetActive(true);
+                //turn car around
+
+
+                car.GetComponent<io_carIcon>().Reverse();
+
+                // GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>().crashScreen.SetActive(true);
             } else if (shelter)
             {
                 GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>().winScreen.SetActive(true);

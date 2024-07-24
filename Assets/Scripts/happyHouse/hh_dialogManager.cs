@@ -49,9 +49,24 @@ public class hh_dialogManager : MonoBehaviour
             {
 
                 taskListBtn.SetActive(true);
-                if(house_level.currentPhase != hh_task.phase.evacuation)
+                if (house_level.currentPhase != hh_task.phase.evacuation)
                     doneBtn.SetActive(true);
                 house_level.HeaderAnim(phaseTrigger);
+            }
+            else
+            {
+                if (house_level.mood == "Happy")
+                {
+                    dialog.text = finalHappyDialog[0];
+                }
+                if (house_level.mood == "Worried")
+                {
+                    dialog.text = finalWorriedDialog[0];
+                }
+                if (house_level.mood == "Sad")
+                {
+                    dialog.text = finalSadDialog[0];
+                }
             }
             gameObject.SetActive(false);
         } else
@@ -92,12 +107,12 @@ public class hh_dialogManager : MonoBehaviour
             }
             else if (house_level.currentPhase == hh_task.phase.evacuation)
             {
-                dialog.text = phaseThreeDialog[counter];
+                dialog.text = phaseFourDialog[counter];
                 counter++;
-                if (counter >= phaseThreeDialog.Length)
+                if (counter >= phaseFourDialog.Length)
                 {
 
-                    phaseTrigger = "phase4";
+                    phaseTrigger = "phase3";
                     counter = -1;
                 }
             }
@@ -118,6 +133,7 @@ public class hh_dialogManager : MonoBehaviour
             }
             else if (house_level.mood == "Sad")
             {
+                Debug.Log(house_level.currentPhase);
                 sadFireFighter.SetActive(true);
                 dialog.text = finalSadDialog[counter];
                 counter++;

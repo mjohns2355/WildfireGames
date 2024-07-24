@@ -16,6 +16,7 @@ public class io_levelManager : MonoBehaviour
     public io_carIcon car;
 
     public bool playing = false;
+    private float stoppedTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +53,15 @@ public class io_levelManager : MonoBehaviour
                 if (brakeStartTimer <= 0)
                 {
                     safe = false;
+                    car.stoppedTime = 0;
                     foreach (GameObject b in brakes)
                     {
                         b.SetActive(true);
                         b.transform.parent.GetComponent<Animator>().speed = 0.3f;
                     }
                     brakeOnTimer = Random.Range(2, 3);
+
+                    stoppedTime = 0;
                 }
             }
             else
@@ -78,7 +82,8 @@ public class io_levelManager : MonoBehaviour
                     }
                     else
                     {
-                        crashScreen.SetActive(true);
+                        if(car.stoppedTime < 1)
+                            crashScreen.SetActive(true);
                     }
                 }
             }

@@ -10,11 +10,25 @@ public class FYT_door : MonoBehaviour
     public GameObject[] onButtons;
     private Animator transit;
 
+    public string TaggedObjs;
+    public string TaggedObjsOff;
+
 
     private void OnMouseDown()
     {
         if(GameObject.FindGameObjectWithTag("BagPanel") == null)
         {
+            GameObject[] collects = GameObject.FindGameObjectsWithTag(TaggedObjs);
+            GameObject[] collectsOff = GameObject.FindGameObjectsWithTag(TaggedObjsOff);
+
+            foreach (GameObject g in collects)
+            {
+                g.GetComponent<Outline>().enabled = true;
+            }
+            foreach (GameObject g in collectsOff)
+            {
+                g.GetComponent<Outline>().enabled = false;
+            }
 
             transit.SetTrigger("Transit");
             nextCam.SetActive(true);
@@ -34,6 +48,17 @@ public class FYT_door : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("BagPanel") == null)
         {
+            GameObject[] collects = GameObject.FindGameObjectsWithTag(TaggedObjs);
+            GameObject[] collectsOff = GameObject.FindGameObjectsWithTag(TaggedObjsOff);
+
+            foreach (GameObject g in collects)
+            {
+                g.GetComponent<Outline>().enabled = true;
+            }
+            foreach (GameObject g in collectsOff)
+            {
+                g.GetComponent<Outline>().enabled = false;
+            }
             transit.SetTrigger("Transit");
             nextCam.SetActive(true);
             currentCam.SetActive(false);

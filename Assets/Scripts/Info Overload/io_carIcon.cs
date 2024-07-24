@@ -30,11 +30,42 @@ public class io_carIcon : MonoBehaviour
     private string directionText;
     private string compassText;
 
+    public float stoppedTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         myRect = GetComponent<RectTransform>();
         pos = myRect.anchoredPosition;
+    }
+
+    public void Reverse()
+    {
+        Debug.Log("Dead End going " + currentDirection);
+        if (currentDirection == io_intersection.direction.north)
+        {
+            desiredDirection = io_intersection.direction.south;
+            currentDirection = io_intersection.direction.south;
+        }
+        else if (currentDirection == io_intersection.direction.south)
+        {
+            desiredDirection = io_intersection.direction.north;
+            currentDirection = io_intersection.direction.north;
+        }
+        else if (currentDirection == io_intersection.direction.east)
+        {
+
+            desiredDirection = io_intersection.direction.west;
+            currentDirection = io_intersection.direction.west;
+        }
+        else if (currentDirection == io_intersection.direction.west)
+        {
+            desiredDirection = io_intersection.direction.east;
+            currentDirection = io_intersection.direction.east;
+
+        }
+
+        Debug.Log("New direction " + currentDirection);
     }
 
     // Update is called once per frame
@@ -46,6 +77,8 @@ public class io_carIcon : MonoBehaviour
             if (brakes.isBraking)
             {
                 stopped = true;
+                stoppedTime += Time.deltaTime;
+                Debug.Log(stoppedTime);
             }
             else
             {

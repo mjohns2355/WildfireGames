@@ -44,6 +44,9 @@ public class hh_level_manager : MonoBehaviour
 
     public GameObject houseVFX;
 
+    public GameObject dialogPanel;
+    public hh_dialogManager dialog;
+
     private void Start()
     {
        for(int i = 0; i < taskItems.Length; i++)
@@ -141,6 +144,11 @@ public class hh_level_manager : MonoBehaviour
                     tasks[i].gameObject.SetActive(true);
             }
             ResetDebris();
+            GameObject[] roofs = GameObject.FindGameObjectsWithTag("Roof");
+            foreach(GameObject r in roofs)
+            {
+                r.GetComponent<Outline>().enabled = false;
+            }
         }
 
         //progress from Fire Season to Red Flag Day
@@ -181,11 +189,15 @@ public class hh_level_manager : MonoBehaviour
                 else
                     tasks[i].GetComponent<hh_task>().FailTask();
             }
-        } 
+        }
+
     }
 
     public void Evacuate()
     {
+        evacButton.SetActive(false);
+        dialogPanel.SetActive(true);
+        smoke.GetComponent<ParticleSystem>().Stop();
         completedTasks = 0;
         replayButton.SetActive(true);
         tasks[5].GetComponent<hh_task>().DoTask(); //do Evacuate task
@@ -198,7 +210,7 @@ public class hh_level_manager : MonoBehaviour
                 tasks[i].GetComponent<hh_task>().FailTask();
         }
         currentPhase = hh_task.phase.done;
-
+        Debug.Log(hh_task.phase.done);
         AllMoodOff();
         //if all tasks done, get happy result
         if (completedTasks == taskItems.Length)
@@ -233,6 +245,8 @@ public class hh_level_manager : MonoBehaviour
             ffSad.SetActive(true);
             ffWorried.SetActive(false);
         }
+
+        dialog.StepTextForward();
     }
 
     private void AllMoodOff()
