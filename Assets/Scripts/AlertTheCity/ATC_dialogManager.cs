@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ATC_dialogManager : MonoBehaviour
 {
     public string[] phaseOneDialog;
-    public string endDialog;
+    public string[] endDialog;
 
     public TextMeshProUGUI dialog;
 
@@ -29,9 +29,10 @@ public class ATC_dialogManager : MonoBehaviour
     public void EndDialog()
     {
         done = true;
+        counter = 0;
         acresDestroyed = houseDestroyed / 5 + 12;
-        endDialog = "The fire tore through our community. Thankfuly everyone survived, but " + houseDestroyed + " houses were destroyed and " + acresDestroyed + " acres were burned. ";
-        dialog.text = endDialog;
+        endDialog[0] = "The fire tore through our community. Thankfuly everyone survived, but " + houseDestroyed + " houses were destroyed and " + acresDestroyed + " acres were burned. ";
+        dialog.text = endDialog[0];
         GameObject[] fires = GameObject.FindGameObjectsWithTag("Fire");
         foreach(GameObject f in fires)
         {
@@ -50,34 +51,49 @@ public class ATC_dialogManager : MonoBehaviour
 
     public void StepTextForward()
     {
-        if(counter == -1)
+        if (done)
         {
-            gameObject.SetActive(false);
+            counter++;
+            if(counter < endDialog.Length)
+            {
+                dialog.text = endDialog[counter];
+            } else
+            {
+                gameObject.SetActive(false);
+            }
         }
         else
         {
-            if(images.Length >= counter+1)
+            if (counter == -1)
             {
-                if (counter >= 1)
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                if (images.Length >= counter + 1)
                 {
+                    if (counter >= 1)
+                    {
 
-                    images[counter - 1].SetActive(false);
+                        images[counter - 1].SetActive(false);
+                    }
+                    if (counter >= 0)
+                    {
+
+                        images[counter].SetActive(true);
+                    }
+
                 }
-                if(counter >= 0)
+                dialog.text = phaseOneDialog[counter];
+                counter++;
+                if (counter >= phaseOneDialog.Length)
                 {
-
-                    images[counter].SetActive(true);
+                    counter = -1;
                 }
 
             }
-            dialog.text = phaseOneDialog[counter];
-            counter++;
-            if (counter >= phaseOneDialog.Length)
-            {
-                counter = -1;
-            }
-
         }
+        
        
     }
 
