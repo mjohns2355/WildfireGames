@@ -1,3 +1,4 @@
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,23 @@ public class HouseStructure : Structure
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
     [SerializeField] List<HouseChoice> choices = new List<HouseChoice>();
+    [SerializeField] Material metalRoofMaterial;
     public int petNum = 0;
     public int carNum = 1;
     public int horseNum = 0;
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
-    public float spawnTime = 0f;
+    public float carSpawnWaitTime = 0f;
 
     string lastOption = string.Empty;
-    string currentOption = "Wait for Notice";
+    string currentOption = "Wait for Notice"; //default option
     ATC_PlacementManager placementManager;
     Combustible combustible;
+    MeshRenderer currentHouseModel;
+    ATC_StructureModel targetShelter;
     private void Start()
     {
+        combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         
         if (isMainHouse)
@@ -58,7 +63,8 @@ public class HouseStructure : Structure
                 }
             }
             menu.onOptionSelected += OnOptionButtonClicked;
-            GameManager.Instance.structureManager.allMainHouses.Add(this);
+            //GameManager.Instance.structureManager.allMainHouses.Add(this);
+            targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
         }
 
         //GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
@@ -67,11 +73,15 @@ public class HouseStructure : Structure
 
     private void OnEnable()
     {
-        if (mesh.childCount >= 1) return;
-        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh);
+        InitHouseModel();
     }
 
+    void InitHouseModel()
+    {
+        if (mesh.childCount >= 1) return;
+        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
+        currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
+    }
     public void RandomizeHouseType()
     {
         // 0 is None
@@ -142,11 +152,8 @@ public class HouseStructure : Structure
             }
             else
             {
-                //if(isMainHouse)
-                //{
-                //    Debug.Log(houseType + ": Apply deafult option to unselected house type");
-                //}
-                spawnTime = 5;
+                // default spawn time for house type doesn't have 'Wait for Notice' option
+                carSpawnWaitTime = 5;
             }
         }
         
@@ -155,23 +162,40 @@ public class HouseStructure : Structure
     public IEnumerator SpawnCarRoutine()
     {
         ApplyChoice();
-        yield return new WaitForSeconds(spawnTime);
-        Debug.Log("After "+ spawnTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
+        float[] waitTimeVarianceList = { -0.5f, 0.5f };
+        float waitTimeVariance = waitTimeVarianceList[Random.Range(0, waitTimeVarianceList.Length - 1)];
+        yield return new WaitForSeconds(carSpawnWaitTime + waitTimeVariance);
+        Debug.Log("After "+ carSpawnWaitTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
         //destination shelter
-        var shelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
+        
         foreach (var house in sameTypeHouses)
         {
-            ATC_AIDirector.Instance.SpawnACar(house.GetComponentInParent<ATC_StructureModel>(), shelter, carSpeed,carNum);
+            ATC_AIDirector.Instance.SpawnACar(house.GetComponentInParent<ATC_StructureModel>(), targetShelter, carSpeed,carNum);
             
         }
 
  
     }
 
-#if UNITY_EDITOR
+    public void RelocateSecondCar()
+    {
+        var shelter = targetShelter.gameObject.GetComponent<ShelterStructure>();
+        shelter.RelocateCarToShelter();
+    }
+    public void ApplyHomeHardening(float homeHardeningMod)
+    {
+        foreach(var house in sameTypeHouses)
+        {
+            house.HomeHardeningBehavior(homeHardeningMod);
+        }
+        
+    }
 
-
-#endif
-
-
+    void HomeHardeningBehavior(float homeHardeningMod)
+    {
+        if (currentHouseModel == null) { Debug.Log("No house Model"); return; }
+        currentHouseModel.material = metalRoofMaterial;
+        combustible.fireChance = 1 - homeHardeningMod;
+        Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
+    }
 }

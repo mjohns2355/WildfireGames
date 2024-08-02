@@ -6,10 +6,12 @@ using UnityEngine;
 public class ATC_CarSpawner : MonoBehaviour
 {
     public GameObject[] carPrefabs;
-
+    public GameObject horseTrailers;
     private void Start()
     {
-        Instantiate(ReturnACarPrefab(),transform);
+
+     Instantiate(ReturnACarPrefab(), transform);
+
     }
 
     private GameObject ReturnACarPrefab()

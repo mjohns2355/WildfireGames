@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [System.Serializable]
 public class HouseChoice
 {
@@ -15,6 +14,8 @@ public class HouseChoice
     public CarSpeed carSpeedMod = CarSpeed.none;
     [TextArea(5, 10)]
     public string choiceDetail;
+    [TextArea(5, 10)]
+    public string endGameFeedback;
     public bool isLocked = false;   
     public HouseChoice(string choiceName)
     {
@@ -26,16 +27,16 @@ public class HouseChoice
         switch (choiceName)
         {
             case "Relocate 2nd Car":
-
+                Debug.Log("Relocated 2nd Car to Shelter");
+                owner.RelocateSecondCar();
                 break;
             case "Relocate Horses":
+                Debug.Log("Relocated Horse to Stable");
                 break ;
             case "Home Hardening":
 
-                Debug.Log("Apply Home Hardening Effect");
-                var combustible = owner.gameObject.GetComponent<Combustible>();
-                combustible.fireChance = 1 - homeHardeningMod;
-                Debug.Log(combustible.fireChance);
+                Debug.Log("Applying Home Hardening Effect");
+                owner.ApplyHomeHardening(homeHardeningMod);
                 break ;
         }
     }
@@ -49,8 +50,8 @@ public class HouseChoice
         }
 
 
-        owner.spawnTime += carSpawnTimeMod;
-        Mathf.Clamp(owner.spawnTime, 0, Mathf.Infinity);
+        owner.carSpawnWaitTime += carSpawnTimeMod;
+        Mathf.Clamp(owner.carSpawnWaitTime, 0, Mathf.Infinity);
         owner.carNum += carNumberMod;
         Mathf.Clamp(owner.carNum, 0, 10);
         owner.kidNum += kidNumberMod;

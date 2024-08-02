@@ -37,12 +37,6 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         var structure = startStructure.GetComponentInChildren<HouseStructure>();
         if (structure != null && structure.CanSpawnCar())
         {
-            //for (int i = 0; i < carNum; i++)
-            //{
-
-            //    TrySpawnACar(startStructure, endStructure, carSpeed);
-            //    structure.AfterSpawnACar();
-            //}
             StartCoroutine(CarSpawn(carNum, startStructure, endStructure, carSpeed));
         }
     }
@@ -54,6 +48,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
             TrySpawnACar(startStructure, endStructure, carSpeed);
             //structure.AfterSpawnACar();
+            // wait for one sec to spawn a new car
             yield return new WaitForSeconds(1f);
         }
     }

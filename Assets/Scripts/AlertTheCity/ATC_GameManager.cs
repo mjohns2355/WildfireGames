@@ -124,7 +124,7 @@ public class GameManager : UnitySingleton<GameManager>
             menu.ApplyBehavior();
         }
         startSim = !startSim;
-        fireManager.StartFire();
+        StartCoroutine(fireManager.StartFireRoutine());
         WindZone.Instance.isStill = false;
     }
     public void ToggleAssignMode()

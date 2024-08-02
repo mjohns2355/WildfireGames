@@ -59,6 +59,7 @@ public class StructureContextMenu : MonoBehaviour
         icon.SetActive(false);
 
         HouseStructure house = (HouseStructure)owner;
+        house.OnStructureClick();
         if (house.isMainHouse)
         {
           

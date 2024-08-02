@@ -24,6 +24,9 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 0
     choiceDetail: 
+    endGameFeedback: Older residents were caught off guard this time and waited for
+      the evacuation notice before taking action. As a community, we need a better
+      plan in place.
     isLocked: 0
   lockedChoices:
   - choiceName: Help from Neighbor
@@ -36,6 +39,8 @@ MonoBehaviour:
     carSpeedMod: 1
     choiceDetail: Getting help from a neighbor will be a great option! This will
       make evacuating both safer as well as quicker.
+    endGameFeedback: Neighbors stepped in to help, offering rides to older residents
+      who may have had trouble otherwise.
     isLocked: 0
   - choiceName: Evacuate Early
     carNumberMod: 0
@@ -47,6 +52,9 @@ MonoBehaviour:
     carSpeedMod: 1
     choiceDetail: Evacuating early will allow for more time to get out safely. This
       is a good choice!
+    endGameFeedback: 'A community plan to notify older residents was successful:
+      those needing more time were able to evacuate early before the evacuation notice
+      went out.'
     isLocked: 0
   longerTitle: Elderly Resident
   description: Older residents may need additional time and support to evacuate safely.

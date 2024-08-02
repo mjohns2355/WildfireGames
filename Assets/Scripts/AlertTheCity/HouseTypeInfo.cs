@@ -31,7 +31,7 @@ public class HouseTypeInfo : ScriptableObject
         owner.petNum = petNumber;
         owner.carSpeed = carSpeed;
         owner.kidNum = kidNumber;
-        owner.spawnTime = carSpawnTime;
+        owner.carSpawnWaitTime = carSpawnTime;
 
         foreach(var choice in lockedChoices)
         {

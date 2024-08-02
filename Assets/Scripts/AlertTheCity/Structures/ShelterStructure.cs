@@ -9,9 +9,12 @@ public class ShelterStructure : Structure
     [field: SerializeField]
     public int availableSpace { get; private set; }
     public bool canHavePets;
+
+    [SerializeField] GameObject relocatedCars;
     public override void Awake()
     {
         base.Awake();
+        relocatedCars.SetActive(false);
         capacity = 20;
         availableSpace = capacity;
         //structureInfoDict.Add("Capacity", capacity);
@@ -58,5 +61,11 @@ public class ShelterStructure : Structure
             //peopleCount += house.pplNum;
         }
         return peopleCount <= availableSpace;
+    }
+
+    public void RelocateCarToShelter()
+    {
+        if(relocatedCars.activeSelf) return;
+        relocatedCars.SetActive(true);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireManager : MonoBehaviour
 {
     bool startFire = false;
+    [SerializeField] float fireWaitTimeBeforeStart = 3f;
     public Transform fireSpawnPoint;
     public GameObject firePrefab;
     //public List<FireMovementController> fireList;
@@ -23,7 +24,12 @@ public class FireManager : MonoBehaviour
         
     }
 
-    public void StartFire()
+    public IEnumerator StartFireRoutine()
+    {
+        yield return new WaitForSeconds(fireWaitTimeBeforeStart);
+        StartFire();
+    }
+    void StartFire()
     {
         if(startFire) return;
         startFire = true;
