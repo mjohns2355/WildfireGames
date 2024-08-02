@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
@@ -34,7 +35,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public void SpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         //Debug.Log(startStructure, endStructure);
-        var structure = startStructure.GetComponentInChildren<HouseStructure>();
+        var structure = startStructure.GetComponent<HouseStructure>();
         if (structure != null && structure.CanSpawnCar())
         {
             StartCoroutine(CarSpawn(carNum, startStructure, endStructure, carSpeed));
@@ -72,6 +73,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position);
             if (carPath.Count > 0)
             {
+                var house = startStructure.GetComponent<HouseStructure>();
+                var carSpawner = carPrefab.GetComponent<ATC_CarSpawner>();
+                carSpawner.hasHorseTrailer = house.hasHorseTrailer;
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
                 car.GetComponent<CarController>().carSpeed = carSpeed;
                 car.GetComponent<CarController>().start = startStructure;

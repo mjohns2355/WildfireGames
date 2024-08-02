@@ -30,14 +30,25 @@ public class HouseChoice
                 Debug.Log("Relocated 2nd Car to Shelter");
                 owner.RelocateSecondCar();
                 break;
+
             case "Relocate Horses":
                 Debug.Log("Relocated Horse to Stable");
+                owner.RelocateHorses();
                 break ;
+            
             case "Home Hardening":
 
-                Debug.Log("Applying Home Hardening Effect");
+                Debug.Log("Applied Home Hardening Effect");
                 owner.ApplyHomeHardening(homeHardeningMod);
                 break ;
+            case "Wait for Notice":
+                if(owner.houseType == HouseType.horse)
+                {
+                    Debug.Log("Horse trailers appear on horse house's car when they select take the horse");
+                    owner.hasHorseTrailer = true;
+                    
+                }
+                break;
         }
     }
     public void ApplyEffect(HouseStructure owner)

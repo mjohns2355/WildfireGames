@@ -48,6 +48,8 @@ public class StructureManager : MonoBehaviour
         foreach (var structure in allHouses)
         {
             var house = structure.GetComponent<HouseStructure>();
+            // skip specified house
+            if (house.houseType != HouseType.none) return;
             house.RandomizeHouseType();
         }
 

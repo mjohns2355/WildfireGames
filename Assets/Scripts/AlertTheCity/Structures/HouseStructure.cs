@@ -26,6 +26,7 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
+    public bool hasHorseTrailer = false;
 
     string lastOption = string.Empty;
     string currentOption = "Wait for Notice"; //default option
@@ -48,7 +49,7 @@ public class HouseStructure : Structure
             foreach (var house in houses)
             {
                 if(house == null) continue;
-                var houseStructure = house.GetComponentInChildren<HouseStructure>();
+                var houseStructure = house.GetComponent<HouseStructure>();
                 if (houseStructure == null) continue;
                 if (houseStructure.houseType == houseType)
                 {
@@ -67,8 +68,6 @@ public class HouseStructure : Structure
             targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
         }
 
-        //GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
-        //Instantiate(houseModel, transform.position, Quaternion.identity, transform);
     }
 
     private void OnEnable()
@@ -170,7 +169,8 @@ public class HouseStructure : Structure
         
         foreach (var house in sameTypeHouses)
         {
-            ATC_AIDirector.Instance.SpawnACar(house.GetComponentInParent<ATC_StructureModel>(), targetShelter, carSpeed,carNum);
+            house.hasHorseTrailer = hasHorseTrailer;
+            ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed,carNum);
             
         }
 
@@ -181,6 +181,11 @@ public class HouseStructure : Structure
     {
         var shelter = targetShelter.gameObject.GetComponent<ShelterStructure>();
         shelter.RelocateCarToShelter();
+    }
+
+    public void RelocateHorses()
+    {
+
     }
     public void ApplyHomeHardening(float homeHardeningMod)
     {
