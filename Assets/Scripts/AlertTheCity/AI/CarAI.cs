@@ -9,6 +9,8 @@ public class CarAI : MonoBehaviour
     [SerializeField]
     private List<Vector3> path = null;
     [SerializeField]
+    private List<Vector3> stops = null;
+    [SerializeField]
     private float arriveDistance = .3f, lastPointArriveDistance = .1f;
     [SerializeField]
     private float turningAngleOffset = 5;
@@ -28,9 +30,11 @@ public class CarAI : MonoBehaviour
     }
 
     private int index = 0;
+    private int stopIndex = 0;
 
     private bool stop;
     private bool collisionStop = false;
+    private bool noStops = false;
 
     public bool Stop
     {
@@ -72,9 +76,18 @@ public class CarAI : MonoBehaviour
         Stop = false;
     }
 
+    public void SetStops(List<Vector3> stops)
+    {
+        // remove the final destination from stops
+        for(int i = 0; i < stops.Count -1; i++)
+        {
+            this.stops.Add(stops[i]);
+        }
+    }
     private void Update()
     {
         CheckIfArrived();
+        CheckIfNearToStop();
         Drive();
         CheckForCollisions();
         if (collisionStop)
@@ -83,12 +96,23 @@ public class CarAI : MonoBehaviour
             if(jamTimer > 3)
             {
                 var car = GetComponent<CarController>();
-                ATC_AIDirector.Instance.RespawnACar(car.start, car.end, car.carSpeed);
+                ATC_AIDirector.Instance.RespawnACar(car.start, car.ends, car.carSpeed);
                 Destroy(gameObject);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TestRespawnCar();
+        }
     }
 
+    public void TestRespawnCar()
+    {
+        var car = GetComponent<CarController>();
+        ATC_AIDirector.Instance.RespawnACar(car.start, car.ends, car.carSpeed);
+        Destroy(gameObject);
+    }
     private void CheckForCollisions()
     {
         if(Physics.Raycast(raycastStartingPoint.transform.position, transform.forward,collisionRaycastLength, 1 << gameObject.layer))
@@ -140,6 +164,34 @@ public class CarAI : MonoBehaviour
         }
     }
 
+    private void CheckIfNearToStop()
+    {
+        if (stops.Count == 0 || noStops) return;
+        if (Stop == false)
+        {
+            var distanceToCheck = arriveDistance;
+
+            if (Vector3.Distance(stops[stopIndex], transform.position) < distanceToCheck)
+            {
+
+                StartCoroutine(CarReachStopRoutine());
+            }
+        }
+    }
+
+    IEnumerator CarReachStopRoutine()
+    {
+        Debug.Log("Close to stop");
+        Stop = true;
+        stopIndex++;
+
+        if(stopIndex >= stops.Count)
+        {
+            noStops = true;
+        }
+        yield return new WaitForSeconds(3f);
+        Stop = false;
+    }
     private void SetNextTargetIndex()
     {
         index++;

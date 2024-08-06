@@ -9,7 +9,7 @@ public class CarController : MonoBehaviour
     
     public CarSpeed carSpeed = CarSpeed.medium;
     public ATC_StructureModel start;
-    public ATC_StructureModel end;
+    public List<ATC_StructureModel> ends = new List<ATC_StructureModel>();
 
     [SerializeField]
     private float power = 5;

@@ -41,14 +41,14 @@ public class HouseChoice
                 Debug.Log("Applied Home Hardening Effect");
                 owner.ApplyHomeHardening(homeHardeningMod);
                 break ;
-            case "Wait for Notice":
-                if(owner.houseType == HouseType.horse)
-                {
-                    Debug.Log("Horse trailers appear on horse house's car when they select take the horse");
-                    owner.hasHorseTrailer = true;
+            //case "Wait for Notice":
+                //if(owner.houseType == HouseType.horse)
+                //{
+                //    Debug.Log("Horse trailers appear on horse house's car when they select take the horse");
+                //    owner.hasHorseTrailer = true;
                     
-                }
-                break;
+                //}
+                //break;
         }
     }
     public void ApplyEffect(HouseStructure owner)

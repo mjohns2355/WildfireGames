@@ -26,7 +26,18 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
-    public bool hasHorseTrailer = false;
+    //public bool hasHorseTrailer = false;
+    public bool hasHorseTrailer
+    {
+        get { return houseType == HouseType.horse && horseNum != 0; }
+        set { hasHorseTrailer = value; }
+    }
+
+    public bool hasKidsToPickup
+    {
+        get { return houseType == HouseType.kids && kidNum != 0; }
+        set { hasKidsToPickup = value; }
+    }
 
     string lastOption = string.Empty;
     string currentOption = "Wait for Notice"; //default option
@@ -145,7 +156,12 @@ public class HouseStructure : Structure
             {
                 //Debug.Log("current option: " + currentOption);
                 if(lastOption == currentOption) return;
-                choice.ApplyEffect(this);
+
+                foreach (var house in sameTypeHouses)
+                {
+                    choice.ApplyEffect(house);
+                }
+                //choice.ApplyEffect(this);
                 lastOption = currentOption;
                 break;
             }
@@ -161,22 +177,25 @@ public class HouseStructure : Structure
     public IEnumerator SpawnCarRoutine()
     {
         ApplyChoice();
-        float[] waitTimeVarianceList = { -0.5f, 0.5f };
-        float waitTimeVariance = waitTimeVarianceList[Random.Range(0, waitTimeVarianceList.Length - 1)];
-        carSpawnWaitTime = carSpawnWaitTime + waitTimeVariance;
         yield return new WaitForSeconds(carSpawnWaitTime);
         Debug.Log("After "+ carSpawnWaitTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
         //destination shelter
-        
+
         foreach (var house in sameTypeHouses)
         {
-            
-            house.hasHorseTrailer = hasHorseTrailer;
-            ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed,carNum);
+
+            if (hasKidsToPickup)
+            {
+                var school = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
+
+                ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { school, targetShelter }, carSpeed, carNum);
+            }
+            else
+            {
+                ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
+            }
+
         }
-
-        
-
 
     }
 

@@ -38,16 +38,30 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         var structure = startStructure.GetComponent<HouseStructure>();
         if (structure != null && structure.CanSpawnCar())
         {
-            StartCoroutine(CarSpawn(carNum, startStructure, endStructure, carSpeed));
+            StartCoroutine(CarSpawn(carNum, startStructure, new List<ATC_StructureModel> { endStructure }, carSpeed));
         }
     }
 
-    IEnumerator CarSpawn(int carNum, ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed)
+    public void SpawnCarWithMultipleStops(ATC_StructureModel startStructure, List<ATC_StructureModel> stops, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
+    {
+        var structure = startStructure.GetComponent<HouseStructure>();
+        if (structure != null && structure.CanSpawnCar())
+        {
+            StartCoroutine(CarSpawn(carNum, startStructure, stops, carSpeed, true));
+        }
+    }
+    IEnumerator CarSpawn(int carNum, ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed,bool hasMultipleStops = false)
     {
         for (int i = 0; i < carNum; i++)
         {
-
-            TrySpawnACar(startStructure, endStructure, carSpeed);
+            if (hasMultipleStops) {
+                TrySpawnCarWithMultipleStops(startStructure,endStructures,carSpeed);
+            }
+            else
+            {
+                TrySpawnACar(startStructure, endStructures[0], carSpeed);
+            }
+            
             //structure.AfterSpawnACar();
             // wait for one sec to spawn a new car
             yield return new WaitForSeconds(1f);
@@ -79,16 +93,70 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
                 car.GetComponent<CarController>().carSpeed = carSpeed;
                 car.GetComponent<CarController>().start = startStructure;
-                car.GetComponent<CarController>().end = endStructure;
+                car.GetComponent<CarController>().ends.Add(endStructure);
                 car.GetComponent<CarAI>().SetPath(carPath);
             }
         }
     }
 
-    public void RespawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
+    private void TrySpawnCarWithMultipleStops(ATC_StructureModel startStructure, List<ATC_StructureModel> stops, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
-        SpawnACar(startStructure, endStructure, carSpeed, carNum);
+        List<Vector3> carPath = new List<Vector3>(); 
+        var previousStop = startStructure;
+        Vector3 startPos = Vector3.zero;
+        List<Vector3> stopPos = new List<Vector3>();
+        if (startStructure != null && stops.Count!= 0)
+        {
+            
+            for (int i = 0; i < stops.Count; i++)
+            {
+                var stop = stops[i];
+                var startRoadPos = ((INeedingRoad)previousStop).RoadPosition;
+                var endRoadPos = ((INeedingRoad)stop).RoadPosition;
+                //Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
+                var path = placementManager.GetPathBetween(startRoadPos, endRoadPos, true);
+                path.Reverse();
+
+                if (path.Count == 0 && path.Count > 2) return;
+
+                var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
+                if(i == 0)
+                {
+                    startPos = startMarkerPosition.Position;
+                }
+                var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
+                stopPos.Add(endMarkerPosition.Position);
+                carPath.AddRange(GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position));
+                previousStop = stop;
+            }
+
+            if (carPath.Count > 0)
+            {
+                var house = startStructure.GetComponent<HouseStructure>();
+                var carSpawner = carPrefab.GetComponent<ATC_CarSpawner>();
+                carSpawner.hasHorseTrailer = house.hasHorseTrailer;
+                var car = Instantiate(carPrefab, startPos, Quaternion.identity);
+                car.GetComponent<CarController>().carSpeed = carSpeed;
+                car.GetComponent<CarController>().start = startStructure;
+                car.GetComponent<CarController>().ends = stops;
+                car.GetComponent<CarAI>().SetPath(carPath);
+                car.GetComponent<CarAI>().SetStops(stopPos);
+            }
+        }
     }
+    public void RespawnACar(ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
+    {
+        if(startStructure == null) return;
+        if(endStructures.Count == 1)
+        {
+            SpawnACar(startStructure, endStructures[0], carSpeed, carNum);
+        }
+        else
+        {
+            SpawnCarWithMultipleStops(startStructure, endStructures, carSpeed, carNum);
+        }
+    }
+
     private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
     {
         carGraph.ClearGraph();
@@ -149,7 +217,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             }
         }
 
-        for (int i = 1;i<carPath.Count;i++)
+        for (int i = 1; i < carPath.Count; i++)
         {
             Debug.DrawLine(carPath[i - 1] + Vector3.up * 2, carPath[i] + Vector3.up * 2, Color.magenta);
         }

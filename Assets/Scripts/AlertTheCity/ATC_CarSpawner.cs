@@ -10,6 +10,21 @@ public class ATC_CarSpawner : MonoBehaviour
     public bool hasHorseTrailer = false;
     private void Start()
     {
+        StartCoroutine(CarSpawnRoutine());
+    }
+
+    private GameObject ReturnACarPrefab()
+    {
+       var randomIndex = UnityEngine.Random.Range(0, carPrefabs.Length);
+        return carPrefabs[randomIndex];
+    }
+
+    IEnumerator CarSpawnRoutine()
+    {
+        float[] waitTimeVarianceList = { -0.5f, 0.5f };
+        float waitTimeVariance = waitTimeVarianceList[UnityEngine.Random.Range(0, waitTimeVarianceList.Length - 1)];
+        yield return new WaitForSeconds(waitTimeVariance);
+
         if (!hasHorseTrailer)
         {
             Instantiate(ReturnACarPrefab(), transform);
@@ -18,12 +33,5 @@ public class ATC_CarSpawner : MonoBehaviour
         {
             Instantiate(horseTrailers, transform);
         }
-
-    }
-
-    private GameObject ReturnACarPrefab()
-    {
-       var randomIndex = UnityEngine.Random.Range(0, carPrefabs.Length);
-        return carPrefabs[randomIndex];
     }
 }
