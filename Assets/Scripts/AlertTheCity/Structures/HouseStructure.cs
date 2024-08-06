@@ -86,6 +86,18 @@ public class HouseStructure : Structure
         InitHouseModel();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            TestSpawnCar();
+        }
+    }
+
+    void TestSpawnCar()
+    {
+        ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
+    }
     void InitHouseModel()
     {
         if (mesh.childCount >= 1) return;
