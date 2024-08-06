@@ -65,7 +65,7 @@ public class HouseStructure : Structure
             }
             menu.onOptionSelected += OnOptionButtonClicked;
             //GameManager.Instance.structureManager.allMainHouses.Add(this);
-            targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStrucutre();
+            targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
         }
 
     }
@@ -163,18 +163,21 @@ public class HouseStructure : Structure
         ApplyChoice();
         float[] waitTimeVarianceList = { -0.5f, 0.5f };
         float waitTimeVariance = waitTimeVarianceList[Random.Range(0, waitTimeVarianceList.Length - 1)];
-        yield return new WaitForSeconds(carSpawnWaitTime + waitTimeVariance);
+        carSpawnWaitTime = carSpawnWaitTime + waitTimeVariance;
+        yield return new WaitForSeconds(carSpawnWaitTime);
         Debug.Log("After "+ carSpawnWaitTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
         //destination shelter
         
         foreach (var house in sameTypeHouses)
         {
+            
             house.hasHorseTrailer = hasHorseTrailer;
             ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed,carNum);
-            
         }
 
- 
+        
+
+
     }
 
     public void RelocateSecondCar()
@@ -196,6 +199,7 @@ public class HouseStructure : Structure
         
     }
 
+    
     void HomeHardeningBehavior(float homeHardeningMod)
     {
         if (currentHouseModel == null) { Debug.Log("No house Model"); return; }

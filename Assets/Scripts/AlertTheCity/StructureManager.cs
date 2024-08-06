@@ -56,37 +56,45 @@ public class StructureManager : MonoBehaviour
     }
     public void PlacePreBuiltStructures()
     {
-        List<Vector3Int> prebuiltHousePos = new List<Vector3Int>();
-        List<Vector3Int> prebuiltSpecialPos = new List<Vector3Int>();
+        //List<Vector3Int> prebuiltHousePos = new List<Vector3Int>();
+        //List<Vector3Int> prebuiltSpecialPos = new List<Vector3Int>();
         for (int i = 0; i < structureTilemap.transform.childCount; i++)
         {
-            var structure = structureTilemap.transform.GetChild(i);
-            Vector3Int pos = Vector3Int.RoundToInt(structure.position);
-            if (structure.name == "House")
-            {
-                //prebuiltHousePos.Add(pos);
-                if (CheckPositionBeforePlacement(pos))
-                {
-                    structure.localPosition = Vector3.zero;
-                    placementManager.PlaceObjectOnTheMap(pos, structure.gameObject, CellType.Structure);
-                }
-            }
-            else if (structure.name == "Shelter")
-            {
-                prebuiltSpecialPos.Add(pos);
-            }
+            var structure = structureTilemap.transform.GetChild(i).GetComponent<Structure>();
+            Vector3Int pos = Vector3Int.RoundToInt(structure.transform.position);
+            PlacePreBuiltStructure(pos, structure);
+            //if (structure.structureType == StructureType.House)
+            //{
+            //    PlacePreBuiltStructure(pos, structure, CellType.Structure);
+            //    //if (CheckPositionBeforePlacement(pos))
+            //    //{
+            //    //    structure.transform.localPosition = Vector3.zero;
+            //    //                    //keep pre built house model
+            //    //    placementManager.PlaceObjectOnTheMap(pos, structure.gameObject, CellType.Structure);
+            //    //}
+            //}
+            //else if (structure.structureType == StructureType.Shelter)
+            //{
+            //    //prebuiltSpecialPos.Add(pos);
+            //    PlacePreBuiltStructure(pos,structure, CellType.SpecialStructure);
+
+            //}
+            //else
+            //{
+            //    Debug.Log(structure.structureType + " is built at " + structure.transform.position);
+            //}
             Destroy(structureTilemap.transform.GetChild(i).gameObject);
         }
 
-        foreach (var pos in prebuiltHousePos)
-        {
-            //PlaceHouse(pos);
-        }
+        //foreach (var pos in prebuiltHousePos)
+        //{
+        //    PlaceHouse(pos);
+        //}
 
-        foreach (var pos in prebuiltSpecialPos)
-        {
-            PlaceSpecial(pos);
-        }
+        //foreach (var pos in prebuiltSpecialPos)
+        //{
+        //    PlaceSpecial(pos);
+        //}
     }
     public void ClickStructre(Vector3Int position)
     {
@@ -96,6 +104,24 @@ public class StructureManager : MonoBehaviour
         if(structure == null) return;
         structure.OnStructureClick();
     }
+
+    public void PlacePreBuiltStructure(Vector3Int position, Structure structure)
+    {
+        structure.transform.localPosition = Vector3.zero;
+        if (structure.structureType == StructureType.School)
+        {
+            PlaceBigStructure(position, structure.gameObject, structure.width, structure.height);
+        }
+        else if (structure.structureType == StructureType.House)
+        {
+            PlaceHouse(position);
+        }
+        else
+        {
+            PlaceSpecial(position);
+        }
+    }
+
     public void PlaceHouse(Vector3Int position)
     {
         if (CheckPositionBeforePlacement(position))
@@ -112,27 +138,70 @@ public class StructureManager : MonoBehaviour
         }
     }
 
+    public void PlaceBigStructure(Vector3Int position,GameObject prefab,int width,int height)
+    {
+        if(CheckBigStructure(position,width, height))
+        {
+            placementManager.PlaceObjectOnTheMap(position, prefab, CellType.SpecialStructure,width,height);
+        }
+    }
+    private bool CheckBigStructure(Vector3Int position, int width, int height)
+    {
+        bool nearRoad = false;
+        for(int x = 0; x < width; x++)
+        {
+            for(int z = 0; z < height; z++)
+            {
+                var newPos = position + new Vector3Int(x, 0, z);
+                if (!nearRoad)
+                {
+                    nearRoad = RoadCheck(newPos);
+                }
+                if(DeafaultCheck(newPos))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return nearRoad;
+    }
     private bool CheckPositionBeforePlacement(Vector3Int position)
     {
-        if(placementManager.CheckIfPositionInBound(position) == false)
+        if(!DeafaultCheck(position)) return false;
+        if(!RoadCheck(position)) return false;
+        return true;
+    }
+
+    // check if the cell is on the map or empty
+    private bool DeafaultCheck(Vector3Int position)
+    {
+        if (!placementManager.CheckIfPositionInBound(position))
         {
             Debug.Log("Out of bound");
             return false;
         }
-        if (placementManager.CheckIfPositionIsFree(position) == false)
+        if (!placementManager.CheckIfPositionIsFree(position))
         {
             Debug.Log("Not Empty");
             return false;
         }
-        if (placementManager.GetNeighbourOfTypesFor(position,CellType.Road).Count <=0 )
+        return true;
+    }
+
+    // check if the cell is near the road
+    private bool RoadCheck(Vector3Int position)
+    {
+        if (placementManager.GetNeighbourOfTypesFor(position, CellType.Road).Count <= 0)
         {
             Debug.Log("Must be placed near a road");
             return false;
         }
         return true;
     }
-
-
     public HouseTypeInfo ReturnHouseInfoFor(HouseType type)
     {
         foreach(var info in houseInfos)

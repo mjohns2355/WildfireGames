@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Structure : MonoBehaviour
 {
-    public enum StructureType { House, Shelter}
+    
     public StructureType structureType;
     public StructureContextMenu menu;
     public Transform menuSpawnPos;
     public Outline outline;
+    public int height = 1;
+    public int width = 1;
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
     //[SerializeField]
@@ -16,7 +18,7 @@ public class Structure : MonoBehaviour
     virtual public void Awake()
     {
         //menu.closeButton.onClick.AddListener(StopSturctureClick);
-        menu.owner = this;
+        //menu.owner = this;
     }
 
     virtual public void OnStructureClick()

@@ -135,12 +135,13 @@ public class Grid
         return _houseStructure[UnityEngine.Random.Range(0, _houseStructure.Count)];
     }
 
+
     public List<Point> GetAllHouses()
     {
         return _houseStructure;
     }
 
-    internal List<Point> GetAllSpecialStructure()
+    public List<Point> GetAllSpecialStructure()
     {
         return _specialStructure;
     }

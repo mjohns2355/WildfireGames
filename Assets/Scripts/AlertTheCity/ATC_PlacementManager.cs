@@ -213,5 +213,21 @@ public class ATC_PlacementManager : MonoBehaviour
         return GetStructureAt(point);
     }
 
-    
+    public ATC_StructureModel GetRandomSpecialStructursOfType(StructureType structureType)
+    {
+        List<ATC_StructureModel> structureList = new List<ATC_StructureModel>();
+        foreach (var p in placementGrid.GetAllSpecialStructure())
+        {
+            var structureModel = GetStructureAt(p);
+            var s = structureModel.GetComponent<Structure>();
+            if (s.structureType == structureType)
+            {
+                structureList.Add(structureModel);
+            }
+        }
+
+        var structure = structureList[UnityEngine.Random.Range(0, structureList.Count)];
+        return structure;
+    }
+
 }

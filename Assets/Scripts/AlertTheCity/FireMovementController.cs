@@ -125,10 +125,10 @@ public class FireMovementController : MonoBehaviour
     IEnumerator OnDestroyFireRoutine()
     {
         yield return new WaitForSeconds(30f);
-        Debug.Log("Fire start to shrink");
+        //Debug.Log("Fire start to shrink");
         fireSize = minSize;
         yield return new WaitForSeconds(10f);
-        Debug.Log("Destroy Fire");
+        //Debug.Log("Destroy Fire");
         if(combustible != null && combustible.gameObject.layer != 7 && combustible.burned)
         {
 
