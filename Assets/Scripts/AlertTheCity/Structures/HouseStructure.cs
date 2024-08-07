@@ -26,7 +26,6 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
-    //public bool hasHorseTrailer = false;
     public bool hasHorseTrailer
     {
         get { return houseType == HouseType.horse && horseNum != 0; }
@@ -50,6 +49,7 @@ public class HouseStructure : Structure
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         
+
         if (isMainHouse)
         {
             // only main house has info
@@ -78,7 +78,7 @@ public class HouseStructure : Structure
             //GameManager.Instance.structureManager.allMainHouses.Add(this);
             targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
         }
-
+        
     }
 
     private void OnEnable()
@@ -213,13 +213,15 @@ public class HouseStructure : Structure
 
     public void RelocateSecondCar()
     {
-        var shelter = targetShelter.gameObject.GetComponent<ShelterStructure>();
+        var shelter = targetShelter.GetComponent<ShelterStructure>();
         shelter.RelocateCarToShelter();
     }
 
     public void RelocateHorses()
     {
-
+        var stable = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Stable).GetComponent<StableStructure>();
+        stable.RelocateHorse();
+        
     }
     public void ApplyHomeHardening(float homeHardeningMod)
     {

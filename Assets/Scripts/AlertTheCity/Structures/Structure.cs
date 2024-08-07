@@ -10,6 +10,7 @@ public class Structure : MonoBehaviour
     public Outline outline;
     public int height = 1;
     public int width = 1;
+    public bool isBigStructure { get {  return width> 1 ||  height> 1; } }
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
     //[SerializeField]
