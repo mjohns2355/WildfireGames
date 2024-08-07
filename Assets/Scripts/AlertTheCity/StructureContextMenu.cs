@@ -12,6 +12,7 @@ public class StructureContextMenu : MonoBehaviour
 {
     public Action<OptionButton> onOptionSelected;
     public Button changeResponseButton;
+    public Button selectButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
     public GameObject icon;//ui
@@ -25,8 +26,8 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
-    bool madeSelection = false;
     Camera cam;
+    OptionButton currentOption;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -49,7 +50,11 @@ public class StructureContextMenu : MonoBehaviour
             }
         }
 
- 
+        selectButton.onClick.AddListener(() =>
+        {
+            currentOption.OnClick();
+             OnMenuDisable();
+        });
     }
 
     public void OnMenuEnable()
@@ -63,8 +68,6 @@ public class StructureContextMenu : MonoBehaviour
         if (house.isMainHouse)
         {
           
-            //menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position /*+ new Vector3(0,20f,0)*/);
-            //changeResponseButton.InitOptionButton(this, "Change Response");
             UpdateMenuForHouse(house);
 
             foreach (var menu in GameManager.Instance.uiController.contextMenus)
@@ -164,7 +167,7 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnClickGoodOptionButton(OptionButton option)
     {
-        
+        currentOption = option;
         if (option.isGoodOption)
         {
            ToggleChangeResponsePanel(true);
@@ -185,8 +188,7 @@ public class StructureContextMenu : MonoBehaviour
 
     void ToggleChangeResponsePanel(bool state)
     {
-        changeResponseButton.gameObject.SetActive(state);
-        explaination.gameObject.SetActive(state);
+        explaination.transform.parent.gameObject.SetActive(state);
         options.gameObject.SetActive(!state);
     }
 }
