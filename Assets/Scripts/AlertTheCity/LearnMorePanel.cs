@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,8 +17,10 @@ public class LearnMorePanel : MonoBehaviour
     [SerializeField] Transform optionBtns;
     [SerializeField] Transform unlockedBtns;
     //HouseInfo selectedHouseInfo;
-    HouseTypeInfo targetHouseInfo;
+    [SerializeField]  HouseTypeInfo targetHouseInfo;
+    [SerializeField]  StructureContextMenu targetMenu;
     HouseType houseType;
+    HouseIcon currentSelectedIcon;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,24 +32,23 @@ public class LearnMorePanel : MonoBehaviour
     {
         for (int i = 1; i < range; i++)
         {
-            foreach (var icon in GameManager.Instance.uiController.iconList)
-            {
-                if (icon.name == ((HouseType)i).ToString())
-                {
-                    iconButtonPrefab.GetComponent<Image>().sprite = icon;
-                }
-            }
+            var houseType = (HouseType)i;
             var obj = Instantiate(iconButtonPrefab, optionBtns);
-            var button = obj.GetComponent<Button>();
-            button.onClick.AddListener(OnDetailedPageEnable);
-
+            var icon = obj.GetComponent<HouseIcon>();
+            icon.InitIcon(houseType);
+            icon.AddOnClickActions(OnDetailedPageEnable);
+            var iconIsLocked = GetHouseInfoFor(houseType).AllChoicesAreUnlocked();
+            icon.ToggleIconState(!iconIsLocked);
+            
         }
     }
 
     public void OnDetailedPageEnable()
     {
-        houseType = (HouseType)Enum.Parse(typeof(HouseType), EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name);
-        targetHouseInfo = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType);
+        currentSelectedIcon = EventSystem.current.currentSelectedGameObject.GetComponent<HouseIcon>();
+        houseType = currentSelectedIcon.iconHouseType;
+        //targetHouseInfo = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType);
+        targetHouseInfo = GetHouseInfoFor(houseType);
 
         //selectedHouseInfo = new HouseInfo(houseType);
         detailPage.SetActive(true);
@@ -58,6 +60,8 @@ public class LearnMorePanel : MonoBehaviour
         //detailPageDescription.text = selectedHouseInfo.description;
         detailPageDescription.text = targetHouseInfo.description;
         SpawnUnlockedButtons();
+
+        
     }
     // Update is called once per frame
     void Update()
@@ -77,6 +81,9 @@ public class LearnMorePanel : MonoBehaviour
         {
             Destroy(unlockedBtns.GetChild(i).gameObject);
         }
+
+        targetMenu = null;
+        targetHouseInfo = null;
     }
 
     private void OnEnable()
@@ -86,14 +93,8 @@ public class LearnMorePanel : MonoBehaviour
 
     void SpawnUnlockedButtons()
     {
-        //foreach(var pair in selectedHouseInfo.lockedOptions)
-        //{
-        //    var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
-        //    button.btnText.text = pair.Key;
-        //    button.button.onClick.AddListener(OnUnlockedButtonClicked);
-        //}        
-        
-        foreach(var choice in targetHouseInfo.lockedChoices)
+        //Debug.Log("Target House Info: " + targetHouseInfo.name);
+        foreach (var choice in targetHouseInfo.lockedChoices)
         {
             if (!choice.isLocked) continue;
             var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
@@ -102,25 +103,56 @@ public class LearnMorePanel : MonoBehaviour
             button.button.onClick.AddListener(OnUnlockedButtonClicked);
         }
 
+
+
     }
 
     void OnUnlockedButtonClicked()
     {
-        foreach (var menu in GameManager.Instance.uiController.contextMenus)
-        {
-            var house = (HouseStructure)menu.owner;
-            if (house.houseType == houseType )
-            {
-                var choiceName = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>().btnText.text;
-                //Debug.Log(choiceName);
-                //menu.optionsAreLocked = false;
-                var choice = house.houseInfo.ReturnChoiceByName(choiceName);
-                choice.isLocked = false;
-                menu.OnMenuEnable();
-                break;
-            }
-        }
+        if(targetMenu == null) return;
+        var choiceName = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>().btnText.text;
+        //Debug.Log(choiceName);
+        //menu.optionsAreLocked = false;
+        //var choice = house.houseInfo.ReturnChoiceByName(choiceName);
+        var choice = targetHouseInfo.ReturnChoiceByName(choiceName);
+        choice.isLocked = false;
+        targetMenu.OnMenuEnable();
+        var iconIsLocked = targetHouseInfo.AllChoicesAreUnlocked();
+        targetMenu.icon.ToggleIconState(!iconIsLocked);
+        //foreach (var menu in GameManager.Instance.uiController.contextMenus)
+        //{
+        //    var house = (HouseStructure)menu.owner;
+        //    if (house.houseType == houseType )
+        //    {
+                
+        //        break;
+        //    }
+        //}
         gameObject.SetActive(false);
         
     }
+
+    HouseTypeInfo GetHouseInfoFor(HouseType type)
+    {
+        foreach (var menu in GameManager.Instance.uiController.contextMenus)
+        {
+            var house = (HouseStructure)menu.owner;
+            if (house.houseType == type)
+            {
+                targetMenu = menu;
+                return house.houseInfo;
+            }
+        }
+
+        return null;
+    }
+
+    //bool CheckIfAllChoicesAreUnlocked(HouseType houseType)
+    //{
+    //    var houseInfo = GetHouseInfoFor(houseType);
+    //    if (houseInfo == null) return false;
+    //    var lockedChoicesCount = houseInfo.lockedChoices.Where(x => x.isLocked == true).Count();
+    //    //Debug.Log("Check " + houseType + " 's locked choices count "+  lockedChoicesCount);
+    //    return lockedChoicesCount == 0;
+    //}
 }

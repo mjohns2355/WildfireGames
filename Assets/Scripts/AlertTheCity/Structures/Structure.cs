@@ -20,6 +20,7 @@ public class Structure : MonoBehaviour
     {
         //menu.closeButton.onClick.AddListener(StopSturctureClick);
         //menu.owner = this;
+        
     }
 
     virtual public void OnStructureClick()

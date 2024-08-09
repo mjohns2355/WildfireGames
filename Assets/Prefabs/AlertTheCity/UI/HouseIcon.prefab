@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8405209280726803065}
   - component: {fileID: 553919520317005059}
   - component: {fileID: 1482891032112774445}
+  - component: {fileID: 2502503231415170579}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: HouseIcon
   m_TagString: typeIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +96,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -120,3 +121,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2502503231415170579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340199227421574572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419ab14d92ef20f48b5ba701cc524bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedSprites:
+  - {fileID: 21300000, guid: f20d6a01a6352f043b6cae5297a44fff, type: 3}
+  - {fileID: 21300000, guid: 81dccebca9698fc45a5a9bfb68b9259a, type: 3}
+  - {fileID: 21300000, guid: bbb540d0be82eca4c9bab6233d2a0234, type: 3}
+  - {fileID: 21300000, guid: 703d85d2bbcc8364bb9855147771dca6, type: 3}
+  - {fileID: 21300000, guid: a96e15d20dd7b354d8e6128fdbe1f22f, type: 3}
+  - {fileID: 21300000, guid: 907154ed718ae9546a885aa7ddbb124e, type: 3}
+  unlockedSprites:
+  - {fileID: 21300000, guid: 8459aad03e155fc4e915f3217308b725, type: 3}
+  - {fileID: 21300000, guid: d02cc074a2b96b4448cafac09a717a44, type: 3}
+  - {fileID: 21300000, guid: cb12551a4029b604ab17bb5ea4c37479, type: 3}
+  - {fileID: 21300000, guid: 0b8026d7a5e5ba949aba3c92e78afb75, type: 3}
+  - {fileID: 21300000, guid: fb5b0ea38449a1748ba965bb87613e18, type: 3}
+  - {fileID: 21300000, guid: 8da93753bbbce1d498108d3bdbdf76d6, type: 3}
+  button: {fileID: 1482891032112774445}
+  image: {fileID: 553919520317005059}

@@ -54,7 +54,8 @@ public class HouseStructure : Structure
         {
             // only main house has info
             //info = new HouseInfo(houseType,this);
-            menu.icon.SetActive(true);
+            menu.gameObject.SetActive(true);
+            menu.icon.gameObject.SetActive(true);
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
             GameManager.Instance.uiController.AddMenu(menu);
             foreach (var house in houses)

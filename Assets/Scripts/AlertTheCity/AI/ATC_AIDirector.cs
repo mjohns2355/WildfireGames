@@ -15,7 +15,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     List<Vector3> carPath = new List<Vector3>();
     ATC_StructureModel startStructure;
     ATC_StructureModel endStructure;
-    
+
+    int spawnedCarNum = 0;
+
     //random destination
     public void SpawnACar()
     {
@@ -95,6 +97,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 car.GetComponent<CarController>().start = startStructure;
                 car.GetComponent<CarController>().ends.Add(endStructure);
                 car.GetComponent<CarAI>().SetPath(carPath);
+
+                //debug
+                spawnedCarNum++;
             }
         }
     }
@@ -141,13 +146,18 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 car.GetComponent<CarController>().ends = stops;
                 car.GetComponent<CarAI>().SetPath(carPath);
                 car.GetComponent<CarAI>().SetStops(stopPos);
+
+                //debug
+                spawnedCarNum++;
             }
         }
     }
     public void RespawnACar(ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         if(startStructure == null) return;
-        if(endStructures.Count == 1)
+        //debug
+        spawnedCarNum--;
+        if (endStructures.Count == 1)
         {
             SpawnACar(startStructure, endStructures[0], carSpeed, carNum);
         }

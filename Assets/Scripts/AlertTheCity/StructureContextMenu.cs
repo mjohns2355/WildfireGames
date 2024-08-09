@@ -15,7 +15,7 @@ public class StructureContextMenu : MonoBehaviour
     public Button selectButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
-    public GameObject icon;//ui
+    public HouseIcon icon;//ui
     public TextMeshProUGUI title;
     [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
@@ -42,14 +42,14 @@ public class StructureContextMenu : MonoBehaviour
         {
             ToggleChangeResponsePanel(false);
         });
-        foreach (var iconSprite in GameManager.Instance.uiController.iconList)
-        {
-            if (iconSprite.name == house.houseType.ToString())
-            {
-                icon.GetComponent<Image>().sprite = iconSprite;
-            }
-        }
-
+        //foreach (var iconSprite in GameManager.Instance.uiController.iconList)
+        //{
+        //    if (iconSprite.name == house.houseType.ToString())
+        //    {
+        //        icon.GetComponent<Image>().sprite = iconSprite;
+        //    }
+        //}
+        icon.InitIcon(house.houseType);
         selectButton.onClick.AddListener(() =>
         {
             currentOption.OnClick();
@@ -61,7 +61,7 @@ public class StructureContextMenu : MonoBehaviour
     {
         if(owner == null) return;
         menu.SetActive(true);
-        icon.SetActive(false);
+        icon.gameObject.SetActive(false);
 
         HouseStructure house = (HouseStructure)owner;
         house.OnStructureClick();
@@ -75,7 +75,7 @@ public class StructureContextMenu : MonoBehaviour
                 if (menu == this) continue;
                 if (!menu.gameObject.activeSelf) continue;
                 menu.menu.SetActive(false);
-                menu.icon.SetActive(false);
+                menu.icon.gameObject.SetActive(false);
             }
         }
 
@@ -88,7 +88,7 @@ public class StructureContextMenu : MonoBehaviour
         foreach (var menu in GameManager.Instance.uiController.contextMenus)
         {
             menu.menu.SetActive(false);
-            menu.icon.SetActive(true);
+            menu.icon.gameObject.SetActive(true);
         }
         owner.StopSturctureClick();
         //changeResponseButton.onClick.RemoveAllListeners();

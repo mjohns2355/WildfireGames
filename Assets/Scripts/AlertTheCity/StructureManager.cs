@@ -40,6 +40,8 @@ public class StructureManager : MonoBehaviour
                 house.isMainHouse = true;
                 house.houseInfo = ReturnHouseInfoFor((HouseType)i);
                 house.houseInfo.InitHouseInfo(house);
+
+                //Debug.Log(house.houseInfo.GetInstanceID());
                 house.SetHouseType((HouseType)i);
 
                 allHouses.Remove(structure);
@@ -49,7 +51,10 @@ public class StructureManager : MonoBehaviour
         {
             var house = structure.GetComponent<HouseStructure>();
             // skip specified house
-            if (house.houseType != HouseType.none) return;
+            if (house.houseType != HouseType.none) {
+                Debug.Log("SKIP");
+                return;
+            }
             house.RandomizeHouseType();
         }
 
@@ -208,7 +213,9 @@ public class StructureManager : MonoBehaviour
         {
             if (info.houseType == type)
             {
-                return info;
+                //var result = info.Clone();
+                var result = Instantiate(info);
+                return result;
             }
         }
         return null;

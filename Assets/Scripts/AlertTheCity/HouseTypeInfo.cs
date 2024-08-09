@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 [CreateAssetMenu(fileName = "HouseTypeInfo", menuName = "HouseTypeInfo")]
 public class HouseTypeInfo : ScriptableObject
 {
@@ -64,4 +64,10 @@ public class HouseTypeInfo : ScriptableObject
         return null;
     }
 
+    public bool AllChoicesAreUnlocked()
+    {
+        var lockedChoicesCount = lockedChoices.Where(x => x.isLocked == true).Count();
+        //Debug.Log("Check " + houseType + " 's locked choices count "+  lockedChoicesCount);
+        return lockedChoicesCount == 0;
+    }
 }

@@ -19,7 +19,7 @@ public class ShelterStructure : Structure
         availableSpace = capacity;
         //structureInfoDict.Add("Capacity", capacity);
         //structureInfoDict.Add("Available Space", availableSpace);
-        menu.assignButton.onClick.AddListener(SetAsSelectedShelter);
+        //menu.assignButton.onClick.AddListener(SetAsSelectedShelter);
     }
 
     public override void OnStructureClick()

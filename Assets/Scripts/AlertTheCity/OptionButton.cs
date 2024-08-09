@@ -34,7 +34,7 @@ public class OptionButton : MonoBehaviour
         isGoodOption = IsGoodOption(buttonText);
         button.onClick.AddListener(() =>
         {
-            Debug.Log("Option: " + optionText + " is clicked");
+            //Debug.Log("Option: " + optionText.text + " is clicked");
             owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
             owner.onOptionSelected.Invoke(this);
             owner.OnClickGoodOptionButton(this);
