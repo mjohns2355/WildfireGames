@@ -1,3 +1,4 @@
+using cakeslice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_InputManager inputManager;
     public ACT_UIController uiController;
     public FireManager fireManager;
-    public bool startSim = false;
+    public bool canStartSim = false;
+    public bool hasChoseGoodOption = false;
     private bool constructionMode;
     private bool assignMode;
     private float timer = 0;
@@ -75,7 +77,7 @@ public class GameManager : UnitySingleton<GameManager>
         //cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
 
-        if(startSim)
+        if(canStartSim)
         {
             if(timer < 70)
             {
@@ -111,18 +113,34 @@ public class GameManager : UnitySingleton<GameManager>
         Debug.Log(constructionMode);
     }
 
-    public void ToggleSimStatus()
+    public void StartSimulation()
     {
+        canStartSim = hasChoseGoodOption;
+        if (!hasChoseGoodOption)
+        {
+            uiController.popUp.SetActive(true);
+        }
+
+        StartCoroutine(StartSimRoutine());
+    }
+
+    public void ToggleSimStatus(bool simStatus)
+    {
+        canStartSim = simStatus;
+    }
+    IEnumerator StartSimRoutine()
+    {
+        //Debug.Log("Start Coroutine");
+        yield return new WaitUntil(()=>canStartSim);
         GameObject[] icons = GameObject.FindGameObjectsWithTag("typeIcon");
-        foreach(GameObject g in icons)
+        foreach (GameObject g in icons)
         {
             g.SetActive(false);
         }
-        foreach(var menu in uiController.contextMenus)
+        foreach (var menu in uiController.contextMenus)
         {
             menu.ApplyBehavior();
         }
-        startSim = !startSim;
         StartCoroutine(fireManager.StartFireRoutine());
         WindZone.Instance.isStill = false;
     }

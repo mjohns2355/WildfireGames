@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class ACT_UIController : MonoBehaviour
 {
     public GameObject canvas;
-    public GameObject learnMorePanel;
+    public GameObject popUp;
+    //public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
@@ -15,7 +16,7 @@ public class ACT_UIController : MonoBehaviour
     List<Button> buttonList;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public ShelterStructure selectedShelter;
-    public List<Sprite> iconList;
+    //public List<Sprite> iconList;
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
     private void Start()
     {
