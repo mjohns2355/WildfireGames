@@ -18,7 +18,6 @@ public class ATC_PlacementManager : MonoBehaviour
     }
     private void Start()
     {
-       
     }
 
     internal bool CheckIfPositionInBound(Vector3Int pos)

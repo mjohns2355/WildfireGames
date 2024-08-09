@@ -42,14 +42,7 @@ public class StructureContextMenu : MonoBehaviour
         {
             ToggleChangeResponsePanel(false);
         });
-        //foreach (var iconSprite in GameManager.Instance.uiController.iconList)
-        //{
-        //    if (iconSprite.name == house.houseType.ToString())
-        //    {
-        //        icon.GetComponent<Image>().sprite = iconSprite;
-        //    }
-        //}
-        icon.InitIcon(house.houseType);
+        icon.InitIcon(house.HouseType);
         selectButton.onClick.AddListener(() =>
         {
             currentOption.OnClick();

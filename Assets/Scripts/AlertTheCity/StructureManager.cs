@@ -13,10 +13,18 @@ public class StructureManager : MonoBehaviour
     public List<HouseTypeInfo> houseInfos = new List<HouseTypeInfo>();
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
     public List<HouseStructure> allMainHouses = new List<HouseStructure>();
+
+    Dictionary<HouseType,int> houseDictionary = new Dictionary<HouseType,int>();
     private void Start()
     {
+        Debug.Log("Structure Manager Starts");
+        PlacePreBuiltStructures();
+        InitialMainHouses();
         
-        
+    }
+
+    private void OnEnable()
+    {
         
     }
     public void InitialMainHouses()
@@ -26,11 +34,12 @@ public class StructureManager : MonoBehaviour
             allHouses = placementManager.GetAllHouses();
         }
 
-        
+        //Debug.Log($"Houses on the maps: {allHouses.Count}");
+
         //make sure each type has at least one house in the group
         for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
         {
-            //Debug.Log(allHouses.Count);
+            var houseType = (HouseType)i;
             if (allHouses.Count == 0) return;
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
@@ -38,68 +47,33 @@ public class StructureManager : MonoBehaviour
             if (house && !house.isMainHouse)
             {
                 house.isMainHouse = true;
-                house.houseInfo = ReturnHouseInfoFor((HouseType)i);
+                house.houseInfo = ReturnHouseInfoFor(houseType);
                 house.houseInfo.InitHouseInfo(house);
 
-                //Debug.Log(house.houseInfo.GetInstanceID());
-                house.SetHouseType((HouseType)i);
-
+                house.SetHouseType(houseType);
                 allHouses.Remove(structure);
             }
         }
         foreach (var structure in allHouses)
         {
             var house = structure.GetComponent<HouseStructure>();
+            // Debug.Log($"Set up house type for non-main house: {house.houseType}");
             // skip specified house
-            if (house.houseType != HouseType.none) {
-                Debug.Log("SKIP");
-                return;
-            }
+            if (house.HouseType != HouseType.none) return;
             house.RandomizeHouseType();
         }
 
     }
     public void PlacePreBuiltStructures()
     {
-        //List<Vector3Int> prebuiltHousePos = new List<Vector3Int>();
-        //List<Vector3Int> prebuiltSpecialPos = new List<Vector3Int>();
         for (int i = 0; i < structureTilemap.transform.childCount; i++)
         {
             var structure = structureTilemap.transform.GetChild(i).GetComponent<Structure>();
             Vector3Int pos = Vector3Int.RoundToInt(structure.transform.position);
             PlacePreBuiltStructure(pos, structure);
-            //if (structure.structureType == StructureType.House)
-            //{
-            //    PlacePreBuiltStructure(pos, structure, CellType.Structure);
-            //    //if (CheckPositionBeforePlacement(pos))
-            //    //{
-            //    //    structure.transform.localPosition = Vector3.zero;
-            //    //                    //keep pre built house model
-            //    //    placementManager.PlaceObjectOnTheMap(pos, structure.gameObject, CellType.Structure);
-            //    //}
-            //}
-            //else if (structure.structureType == StructureType.Shelter)
-            //{
-            //    //prebuiltSpecialPos.Add(pos);
-            //    PlacePreBuiltStructure(pos,structure, CellType.SpecialStructure);
-
-            //}
-            //else
-            //{
-            //    Debug.Log(structure.structureType + " is built at " + structure.transform.position);
-            //}
             Destroy(structureTilemap.transform.GetChild(i).gameObject);
         }
 
-        //foreach (var pos in prebuiltHousePos)
-        //{
-        //    PlaceHouse(pos);
-        //}
-
-        //foreach (var pos in prebuiltSpecialPos)
-        //{
-        //    PlaceSpecial(pos);
-        //}
     }
     public void ClickStructre(Vector3Int position)
     {
@@ -119,26 +93,36 @@ public class StructureManager : MonoBehaviour
         }
         else if (structure.structureType == StructureType.House)
         {
-            PlaceHouse(position);
+            PlaceHouse(position, structure.gameObject);
         }
         else
         {
-            PlaceSpecial(position);
+            PlaceSpecial(position, structure.gameObject);
         }
     }
 
-    public void PlaceHouse(Vector3Int position)
+    public void PlaceHouse(Vector3Int position, GameObject obj = null)
     {
         if (CheckPositionBeforePlacement(position))
         {
+            if (obj != null)
+            {
+                placementManager.PlaceObjectOnTheMap(position, obj, CellType.Structure);
+                return;
+            }
             placementManager.PlaceObjectOnTheMap(position, housePrefab,CellType.Structure);
         }
     }
 
-    public void PlaceSpecial(Vector3Int position)
+    public void PlaceSpecial(Vector3Int position, GameObject obj = null)
     {
         if (CheckPositionBeforePlacement(position))
         {
+            if(obj != null)
+            {
+                placementManager.PlaceObjectOnTheMap(position, obj, CellType.SpecialStructure);
+                return;
+            }
             placementManager.PlaceObjectOnTheMap(position, specialPrefab, CellType.SpecialStructure);
         }
     }

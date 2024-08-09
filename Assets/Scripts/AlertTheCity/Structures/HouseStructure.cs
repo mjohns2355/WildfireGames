@@ -12,38 +12,50 @@ using UnityEngine.UI;
 public class HouseStructure : Structure
 {
     public bool isMainHouse;
-    //public HouseInfo info;
     public HouseTypeInfo houseInfo;
-    public HouseType houseType;
-    [SerializeField] List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
+
+    [SerializeField] HouseType houseType;
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
-    [SerializeField] List<HouseChoice> choices = new List<HouseChoice>();
     [SerializeField] Material metalRoofMaterial;
+
     public int petNum = 0;
     public int carNum = 1;
     public int horseNum = 0;
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
-    public bool hasHorseTrailer
+    public bool HasHorseTrailers
     {
         get { return houseType == HouseType.horse && horseNum != 0; }
-        set { hasHorseTrailer = value; }
+        set { HasHorseTrailers = value; }
     }
 
-    public bool hasKidsToPickup
+    public bool HasKidsToPickUp
     {
         get { return houseType == HouseType.kids && kidNum != 0; }
-        set { hasKidsToPickup = value; }
+        set { HasKidsToPickUp = value; }
+    }
+    public HouseType HouseType
+    {
+        get { return houseType; }
+        private set { houseType = value; }
     }
 
+    List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
+    List<HouseChoice> choices = new List<HouseChoice>();
     string lastOption = string.Empty;
     string currentOption = "Wait for Notice"; //default option
     ATC_PlacementManager placementManager;
     Combustible combustible;
     MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
+
+    private void Awake()
+    {
+
+    }
+
     private void Start()
     {
         combustible =  GetComponent<Combustible>();
@@ -53,7 +65,6 @@ public class HouseStructure : Structure
         if (isMainHouse)
         {
             // only main house has info
-            //info = new HouseInfo(houseType,this);
             menu.gameObject.SetActive(true);
             menu.icon.gameObject.SetActive(true);
             List<ATC_StructureModel> houses = placementManager.GetAllHouses();
@@ -68,15 +79,12 @@ public class HouseStructure : Structure
                     sameTypeHouses.Add(houseStructure);
                     foreach(var h in sameTypeHouses)
                     {
-                        //h.choices = info.choices;
-
                         h.houseInfo = houseInfo;
                         h.houseInfo.InitHouseInfo(h);
                     }
                 }
             }
             menu.onOptionSelected += OnOptionButtonClicked;
-            //GameManager.Instance.structureManager.allMainHouses.Add(this);
             targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
         }
         
@@ -84,7 +92,7 @@ public class HouseStructure : Structure
 
     private void OnEnable()
     {
-        InitHouseModel();
+        SpawnHouseModel();
     }
 
     private void Update()
@@ -99,7 +107,7 @@ public class HouseStructure : Structure
     {
         ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
     }
-    void InitHouseModel()
+    void SpawnHouseModel()
     {
         if (mesh.childCount >= 1) return;
         GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
@@ -197,7 +205,7 @@ public class HouseStructure : Structure
         foreach (var house in sameTypeHouses)
         {
 
-            if (hasKidsToPickup)
+            if (HasKidsToPickUp)
             {
                 var school = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
 

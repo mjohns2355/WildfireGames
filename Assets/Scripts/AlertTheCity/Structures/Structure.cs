@@ -16,13 +16,6 @@ public class Structure : MonoBehaviour
     //[SerializeField]
     //float menuOffset = 5f;
 
-    virtual public void Awake()
-    {
-        //menu.closeButton.onClick.AddListener(StopSturctureClick);
-        //menu.owner = this;
-        
-    }
-
     virtual public void OnStructureClick()
     {
         menu.gameObject.SetActive(true);

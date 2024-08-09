@@ -137,7 +137,7 @@ public class LearnMorePanel : MonoBehaviour
         foreach (var menu in GameManager.Instance.uiController.contextMenus)
         {
             var house = (HouseStructure)menu.owner;
-            if (house.houseType == type)
+            if (house.HouseType == type)
             {
                 targetMenu = menu;
                 return house.houseInfo;

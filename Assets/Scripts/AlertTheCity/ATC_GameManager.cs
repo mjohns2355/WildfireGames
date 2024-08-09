@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameManager : UnitySingleton<GameManager>
 {
     public CameraMovement cameraMovement;
+    public ATC_RoadManager roadManager;
     public StructureManager structureManager;
     public ATC_InputManager inputManager;
-    public ATC_RoadManager roadManager;
     public ACT_UIController uiController;
     public FireManager fireManager;
     public bool startSim = false;
@@ -38,7 +38,6 @@ public class GameManager : UnitySingleton<GameManager>
         uiController.OnRoadPlacement += RoadPlacementHandler;
         uiController.OnHousePlacement += HousePlacementHandler;
         uiController.OnSpecialPlacement += SpecialPlacementHandler;
-        structureManager.InitialMainHouses();
     }
 
     private void RoadPlacementHandler()
@@ -54,13 +53,13 @@ public class GameManager : UnitySingleton<GameManager>
     {
 
         ClearInputAction();
-        inputManager.OnMouseClick += structureManager.PlaceHouse;
+        //inputManager.OnMouseClick += structureManager.PlaceHouse;
     }
     private void SpecialPlacementHandler()
     {
 
         ClearInputAction();
-        inputManager.OnMouseClick += structureManager.PlaceSpecial;
+        //inputManager.OnMouseClick += structureManager.PlaceSpecial;
 
     }
     private void HandleMouseClick(Vector3Int position)

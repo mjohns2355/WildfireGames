@@ -6,7 +6,6 @@ using UnityEngine;
 public class ATC_RoadManager : MonoBehaviour
 {
     public ATC_PlacementManager placementManager;
-    public StructureManager structureManager;
     public GameObject tileMap;
     public List<Vector3Int> tempPlacementPos = new List<Vector3Int>();
     public List<Vector3Int> roadPositionsToRecheck = new List<Vector3Int>();
@@ -17,10 +16,11 @@ public class ATC_RoadManager : MonoBehaviour
  
     private void Start()
     {
+        Debug.Log("Road Manager Starts");
         roadFixer = GetComponent<RoadFixer>();
 
         PlacePreBuiltRoad();
-        structureManager.PlacePreBuiltStructures();
+       
     }
 
     void PlacePreBuiltRoad()

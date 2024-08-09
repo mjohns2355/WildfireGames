@@ -11,9 +11,8 @@ public class ShelterStructure : Structure
     public bool canHavePets;
 
     [SerializeField] GameObject relocatedCars;
-    public override void Awake()
+    void Awake()
     {
-        base.Awake();
         relocatedCars.SetActive(false);
         capacity = 20;
         availableSpace = capacity;
