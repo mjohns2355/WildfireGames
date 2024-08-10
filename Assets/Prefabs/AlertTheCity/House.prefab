@@ -60,14 +60,12 @@ MonoBehaviour:
   isMainHouse: 0
   houseInfo: {fileID: 0}
   houseType: 0
-  sameTypeHouses: []
   houseModels:
-  - {fileID: 4953472650106715381, guid: bd236563fd3fd4fc58b942aad5ee3f08, type: 3}
+  - {fileID: 4953472650106715381, guid: 52479a9561ad6bb4cbb995ed2424a467, type: 3}
   - {fileID: 3478441020381102937, guid: 8b16ad0431543481b832206f64966a64, type: 3}
   - {fileID: 3478441020381102937, guid: caa9aa5e0b88dda41a482bfec591d42d, type: 3}
   - {fileID: 3478441020381102937, guid: a403151ea397d28409379b8af213501b, type: 3}
   mesh: {fileID: 6976986010227459270}
-  choices: []
   metalRoofMaterial: {fileID: 2100000, guid: 44bc07804e369c24599e49eb3833e7f0, type: 2}
   petNum: 0
   carNum: 1
@@ -75,6 +73,7 @@ MonoBehaviour:
   kidNum: 0
   carSpeed: 1
   carSpawnWaitTime: 0
+  currentHouseModel: {fileID: 0}
 --- !u!65 &4729918362590646441
 BoxCollider:
   m_ObjectHideFlags: 0

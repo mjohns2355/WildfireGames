@@ -48,7 +48,7 @@ public class HouseStructure : Structure
     string currentOption = "Wait for Notice"; //default option
     ATC_PlacementManager placementManager;
     Combustible combustible;
-    MeshRenderer currentHouseModel;
+    [SerializeField] MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
 
     private void Awake()
