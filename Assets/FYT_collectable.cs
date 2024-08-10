@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FYT_collectable : MonoBehaviour
 {
+
+    public bool isKey = false;
+
     private void OnMouseUp()
     {
         if(GameObject.FindGameObjectWithTag("BagPanel") == null)

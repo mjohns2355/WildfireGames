@@ -15,6 +15,10 @@ public class FYT_Bag : MonoBehaviour
     private string list3;
     private int count = 0;
 
+    public bool hasCat = false;
+    public bool hasDocs = false;
+    public bool hasMask = false;
+
     public void OpenBag()
     {
         bagPanel.SetActive(true);
@@ -22,8 +26,28 @@ public class FYT_Bag : MonoBehaviour
 
     public void Evac()
     {
-        bagList.text = "";
-        bagList2.text = "Good Job!\nSummary (coming soon)";
+        bagList2.text = "";
+        bagList.text = "Good job evacuating quickly!";
+        if (hasCat)
+        {
+            bagList.text += "\nYour friend is relieved you got the cat out safely.";
+        }
+        else
+        {
+            bagList.text += "\nYour friend is distraught that you could not get to the cat, but upon returning to the house later they found the cat had survived.";
+        }
+        if (hasDocs)
+        {
+            bagList.text += "\nYour friend is grateful that important documents were retrieved.";
+        }
+        else
+        {
+            bagList.text += "\nSome important documents were lost to the fire.";
+        }
+        if (hasMask)
+        {
+            bagList.text += "\nIt was a good idea to take protective equipment for yourself, like the mask to protect from smoke.";
+        }
         bagList3.text = "";
     }
 
