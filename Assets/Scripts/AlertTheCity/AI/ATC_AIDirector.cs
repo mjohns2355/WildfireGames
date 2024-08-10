@@ -219,6 +219,11 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     private void Update()
     {
+        DrawCarPath();
+    }
+
+    void DrawCarPath()
+    {
         foreach (var vertex in carGraph.GetVertices())
         {
             foreach (var vertexNeighbour in carGraph.GetConnectedVerticesTo(vertex))
