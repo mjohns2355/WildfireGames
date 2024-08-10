@@ -7,14 +7,19 @@ public class FYT_evac : MonoBehaviour
 
     public GameObject evacButton;
     public GameObject bagMenu;
+    public bool hasKey = false;
+    public GameObject needKeyPopup;
 
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
-        if (GameObject.FindGameObjectWithTag("BagPanel") == null)
+        if (GameObject.FindGameObjectWithTag("BagPanel") == null && hasKey)
         {
 
             evacButton.SetActive(true);
             bagMenu.SetActive(true);
+        } else
+        {
+            needKeyPopup.SetActive(true);
         }
     }
 }
