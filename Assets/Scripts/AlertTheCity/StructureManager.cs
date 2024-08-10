@@ -59,7 +59,7 @@ public class StructureManager : MonoBehaviour
             var house = structure.GetComponent<HouseStructure>();
             // Debug.Log($"Set up house type for non-main house: {house.houseType}");
             // skip specified house
-            if (house.HouseType != HouseType.none) return;
+            if (house.HouseType != HouseType.none) continue;
             house.RandomizeHouseType();
         }
 
