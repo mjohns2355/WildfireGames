@@ -10,9 +10,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public ATC_PlacementManager placementManager;
 
     public GameObject carPrefab;
-    AdjacencyGraph carGraph = new AdjacencyGraph();
+    //AdjacencyGraph testcarGraph = new AdjacencyGraph();
 
-    List<Vector3> carPath = new List<Vector3>();
+    //List<Vector3> testcarPath = new List<Vector3>();
     ATC_StructureModel startStructure;
     ATC_StructureModel endStructure;
 
@@ -71,10 +71,12 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     }
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)
     {
+        List<Vector3> carPath = new List<Vector3>();
         this.startStructure = startStructure;
         this.endStructure = endStructure;
         if (startStructure != null && endStructure != null)
         {
+
             var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
             var endRoadPos = ((INeedingRoad)endStructure).RoadPosition;
             //Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
@@ -83,10 +85,16 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
             if (path.Count == 0 && path.Count > 2) return;
 
-
             var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
             var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
             carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position);
+
+            var Thouse = startStructure.GetComponent<HouseStructure>();
+            //if (Thouse.testHouse)
+            //{
+            //    CreateACarGraph(path, testcarGraph);
+
+            //}
             if (carPath.Count > 0)
             {
                 var house = startStructure.GetComponent<HouseStructure>();
@@ -169,13 +177,14 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
     {
-        carGraph.ClearGraph();
-        CreateACarGraph(path);
+        AdjacencyGraph carGraph = new AdjacencyGraph();
+        //carGraph.ClearGraph();
+        CreateACarGraph(path,carGraph);
         //Debug.Log(carGraph);
         return AdjacencyGraph.AStarSearch(carGraph, startPosition, endPosition);
     }
 
-    private void CreateACarGraph(List<Vector3Int> path)
+    private void CreateACarGraph(List<Vector3Int> path, AdjacencyGraph graph)
     {
         Dictionary<Marker, Vector3> tempDictionary = new Dictionary<Marker, Vector3>();
         for (int i = 0; i <path.Count; i++)
@@ -187,10 +196,12 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             tempDictionary.Clear();
             foreach (var marker in markersList) {
 
-                carGraph.AddVertex(marker.Position);
+                //carGraph.AddVertex(marker.Position);
+                graph.AddVertex(marker.Position);
                 foreach (var markerNeighbour in marker.adjacentMarkers)
                 {
-                    carGraph.AddEdge(marker.Position, markerNeighbour.Position);
+                    //carGraph.AddEdge(marker.Position, markerNeighbour.Position);
+                    graph.AddEdge(marker.Position, markerNeighbour.Position);
                 }
 
                 if(marker.OpenForconnections && i+ 1  < path.Count)
@@ -202,7 +213,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                     }
                     else
                     {
-                        carGraph.AddEdge(marker.Position, nextRoadPosition.GetNearestCarMarkerTo(marker.Position));
+                        //carGraph.AddEdge(marker.Position, nextRoadPosition.GetNearestCarMarkerTo(marker.Position));
+                        graph.AddEdge(marker.Position, nextRoadPosition.GetNearestCarMarkerTo(marker.Position));
                     }
                 }
             }
@@ -211,7 +223,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value)).ToList();
                 for (int j = 0; j < 2; j++)
                 {
-                    carGraph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value);
+                    //carGraph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value);
+                    graph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value);
                 }
             }
         }
@@ -219,23 +232,27 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     private void Update()
     {
-        DrawCarPath();
+        //DrawCarGraph(testcarGraph);
     }
 
-    void DrawCarPath()
+    void DrawCarPath(List<Vector3> path)
     {
-        foreach (var vertex in carGraph.GetVertices())
+
+        for (int i = 1; i < path.Count; i++)
         {
-            foreach (var vertexNeighbour in carGraph.GetConnectedVerticesTo(vertex))
+            Debug.DrawLine(path[i - 1] + Vector3.up * 2, path[i] + Vector3.up * 2, Color.magenta);
+        }
+
+    }
+
+    void DrawCarGraph(AdjacencyGraph graph)
+    {
+        foreach (var vertex in graph.GetVertices())
+        {
+            foreach (var vertexNeighbour in graph.GetConnectedVerticesTo(vertex))
             {
                 Debug.DrawLine(vertex.Position + Vector3.up, vertexNeighbour.Position + Vector3.up, Color.red);
             }
         }
-
-        for (int i = 1; i < carPath.Count; i++)
-        {
-            Debug.DrawLine(carPath[i - 1] + Vector3.up * 2, carPath[i] + Vector3.up * 2, Color.magenta);
-        }
-
     }
 }

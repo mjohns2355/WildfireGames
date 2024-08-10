@@ -13,7 +13,7 @@ public class HouseStructure : Structure
 {
     public bool isMainHouse;
     public HouseTypeInfo houseInfo;
-
+    //public bool testHouse;
     [SerializeField] HouseType houseType;
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
