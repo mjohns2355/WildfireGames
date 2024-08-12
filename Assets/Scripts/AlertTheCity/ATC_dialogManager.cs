@@ -20,6 +20,8 @@ public class ATC_dialogManager : MonoBehaviour
 
     public GameObject[] images;
 
+    public GameObject localNews;
+
 
     private void Start()
     {
@@ -60,6 +62,7 @@ public class ATC_dialogManager : MonoBehaviour
                 dialog.text = endDialog[counter];
             } else
             {
+                localNews.SetActive(true);
                 gameObject.SetActive(false);
             }
         }
