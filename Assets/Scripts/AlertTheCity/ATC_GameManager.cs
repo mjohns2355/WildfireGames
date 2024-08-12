@@ -145,11 +145,11 @@ public class GameManager : UnitySingleton<GameManager>
         }
         StartCoroutine(fireManager.StartFireRoutine());
         WindZone.Instance.isStill = false;
-
+        // update choice text
         StringBuilder sb = new StringBuilder();
         foreach(var pair in structureManager.GetPlayerChoicesDict())
         {
-            sb.AppendLine(pair.Key + ": " + pair.Value.choiceName /*+ "\n"*/);
+            sb.AppendLine(pair.Key + ": " + pair.Value.choiceName);
         }
         UpdateDebugText(sb.ToString());
 

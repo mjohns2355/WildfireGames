@@ -17,24 +17,24 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Take Both Cars
     carNumberMod: 0
-    carSpawnTimeMod: 1
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 2
+    carLeaveTime: 2
     choiceDetail: 
     endGameFeedback: Some of the traffic congestion was caused by houses taking two
       cars. Maybe we can find a better way next time.
     isLocked: 0
   - choiceName: Leave One Car
     carNumberMod: -1
-    carSpawnTimeMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    carLeaveTime: 1
     choiceDetail: 
     endGameFeedback: "It\u2019s a good thing no one took two cars on the road, but
       residents are frustrated their cars were burned in their driveways."
@@ -42,12 +42,12 @@ MonoBehaviour:
   lockedChoices:
   - choiceName: Relocate 2nd Car
     carNumberMod: -1
-    carSpawnTimeMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 2
+    carLeaveTime: 0
     choiceDetail: You know too many cars on the road cause traffic congestion, so
       you relocate your second car on high risk days.
     endGameFeedback: "\u201CAn amazing community effort took place to reduce traffic

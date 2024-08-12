@@ -20,7 +20,7 @@ public class HouseTypeInfo : ScriptableObject
     public int petNumber = 0;
     public int kidNumber = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
-    public float carSpawnTime = 1f;
+    //public float carSpawnTime = 1f;
     HouseStructure owner;
 
     public void InitHouseInfo(HouseStructure house)
@@ -31,7 +31,7 @@ public class HouseTypeInfo : ScriptableObject
         owner.petNum = petNumber;
         owner.carSpeed = carSpeed;
         owner.kidNum = kidNumber;
-        owner.carSpawnWaitTime = carSpawnTime;
+        //owner.carSpawnWaitTime = carSpawnTime;
 
         foreach(var choice in lockedChoices)
         {

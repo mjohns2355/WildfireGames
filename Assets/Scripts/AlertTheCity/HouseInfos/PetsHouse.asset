@@ -17,12 +17,12 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 4
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 0
+    carLeaveTime: 2
     choiceDetail: 
     endGameFeedback: "Families with pets took a long time to get out because no one
       was prepared. Next time we need to help them get out quicker, for everyone\u2019s
@@ -31,12 +31,12 @@ MonoBehaviour:
   lockedChoices:
   - choiceName: Plan Ahead
     carNumberMod: 0
-    carSpawnTimeMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    carLeaveTime: 1
     choiceDetail: 'Having pets might make the evacuation stressful, so it is important
       to plan ahead and make sure the pets are in a room where they can be easily
       found for the evacuation. '
@@ -46,12 +46,12 @@ MonoBehaviour:
     isLocked: 0
   - choiceName: Evacuate Early
     carNumberMod: 0
-    carSpawnTimeMod: -2
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 2
+    carLeaveTime: 0
     choiceDetail: Having several pets might make the evacuation particularly stressful,
       so evacuating early can help reduce that stress and make sure all of the pets
       are safe!
