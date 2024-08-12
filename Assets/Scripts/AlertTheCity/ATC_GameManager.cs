@@ -171,9 +171,45 @@ public class GameManager : UnitySingleton<GameManager>
 
     void UpdateDebugText (string text)
     {
-        uiController.debugPanel.SetActive(true);
-        uiController.debugResultText.text = text;
-        
+        //uiController.debugPanel.SetActive(true);
+        //uiController.debugResultText.text = text;
+        var dict = structureManager.GetPlayerChoicesDict();
+
+        string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
+        string wuiRes = dict[HouseType.wui].endGameFeedback;
+        string horseRes = dict[HouseType.horse].endGameFeedback;
+        string kidsRes = dict[HouseType.kids].endGameFeedback;
+        string petRes = dict[HouseType.pet].endGameFeedback;
+        string elderRes = dict[HouseType.elderly].endGameFeedback;
+
+        uiController.debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
+
+        uiController.debugResultText.text += twoCarRes;
+
+        uiController.debugResultText.text += "\n\nWildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
+
+
+        uiController.debugResultText.text += petRes + "\n\n";
+        uiController.debugResultText.text += horseRes;
+
+
+        uiController.debugResultText.text += "\n\nWe know some residents need more time and help getting out during an evacuation.\n\n";
+
+
+        uiController.debugResultText.text += elderRes + "\n\n";
+        uiController.debugResultText.text += kidsRes;
+
+
+        uiController.debugResultText.text += "\n\nHouses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
+
+
+        uiController.debugResultText.text += wuiRes;
+
+
+        uiController.debugResultText.text += "\n\nOur community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
+
+        //uiController.debugPanel.SetActive(true);
+
     }
     public string[] ParseString( string str, char[] delimiterChars)
     {

@@ -30,6 +30,15 @@ public class mapUpdate : MonoBehaviour
             //update timer
             timer += Time.deltaTime;
             timerText.text = "Timer: " + (int)timer;
+            
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            carIcon.GetComponent<io_carIcon>().SetNextTurn(0);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            carIcon.GetComponent<io_carIcon>().SetNextTurn(1);
         }
     }
 

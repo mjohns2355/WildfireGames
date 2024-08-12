@@ -42,6 +42,14 @@ public class io_brakes : MonoBehaviour
             }
             spedometer.text = ((int)speed).ToString() + " MPH";
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartBrake();
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            EndBrake();
+        }
     }
     public void StartBrake()
     {
