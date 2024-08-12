@@ -16,7 +16,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     ATC_StructureModel startStructure;
     ATC_StructureModel endStructure;
 
-    int spawnedCarNum = 0;
+    public int spawnedCarNum = 0;
 
     //random destination
     public void SpawnACar()

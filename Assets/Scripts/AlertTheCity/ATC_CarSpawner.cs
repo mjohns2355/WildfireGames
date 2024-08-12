@@ -21,8 +21,9 @@ public class ATC_CarSpawner : MonoBehaviour
 
     IEnumerator CarSpawnRoutine()
     {
-        float[] waitTimeVarianceList = { -0.5f, 0.5f };
-        float waitTimeVariance = waitTimeVarianceList[UnityEngine.Random.Range(0, waitTimeVarianceList.Length - 1)];
+        //float[] waitTimeVarianceList = { -0.5f, 0.5f };
+        //float waitTimeVariance = waitTimeVarianceList[UnityEngine.Random.Range(0, waitTimeVarianceList.Length - 1)];
+        float waitTimeVariance = UnityEngine.Random.Range(-0.5f, 0.5f);
         yield return new WaitForSeconds(waitTimeVariance);
 
         if (!hasHorseTrailer)

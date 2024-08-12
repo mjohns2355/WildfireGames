@@ -152,6 +152,9 @@ public class GameManager : UnitySingleton<GameManager>
             sb.AppendLine(pair.Key + ": " + pair.Value.choiceName /*+ "\n"*/);
         }
         UpdateDebugText(sb.ToString());
+
+        yield return new WaitForSeconds(10f);
+        Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
     }
     public void ToggleAssignMode()
     {
@@ -178,4 +181,5 @@ public class GameManager : UnitySingleton<GameManager>
 
         return words;
     }
+
 }
