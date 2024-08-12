@@ -47,6 +47,8 @@ public class hh_level_manager : MonoBehaviour
     public GameObject dialogPanel;
     public hh_dialogManager dialog;
 
+    public TextMeshProUGUI areYouSure;
+
     private void Start()
     {
        for(int i = 0; i < taskItems.Length; i++)
