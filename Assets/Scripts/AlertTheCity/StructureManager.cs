@@ -14,10 +14,10 @@ public class StructureManager : MonoBehaviour
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
     public List<HouseStructure> allMainHouses = new List<HouseStructure>();
 
-    Dictionary<HouseType,int> houseDictionary = new Dictionary<HouseType,int>();
+    Dictionary<HouseType, HouseChoice> playerChoices = new Dictionary<HouseType, HouseChoice>();
     private void Start()
     {
-        Debug.Log("Structure Manager Starts");
+        //Debug.Log("Structure Manager Starts");
         PlacePreBuiltStructures();
         InitialMainHouses();
         
@@ -27,6 +27,8 @@ public class StructureManager : MonoBehaviour
     {
         
     }
+
+    
     public void InitialMainHouses()
     {
         if(allHouses.Count == 0)
@@ -49,7 +51,7 @@ public class StructureManager : MonoBehaviour
                 house.isMainHouse = true;
                 house.houseInfo = ReturnHouseInfoFor(houseType);
                 house.houseInfo.InitHouseInfo(house);
-
+                //playerChoices.Add(houseType, "Wait for Notice");
                 house.SetHouseType(houseType);
                 allHouses.Remove(structure);
             }
@@ -205,4 +207,18 @@ public class StructureManager : MonoBehaviour
         return null;
     }
 
+    public void UpdatePlayerChoicesDict(HouseType type, HouseChoice choice)
+    {
+        if(playerChoices.ContainsKey(type))
+        {
+            playerChoices[type] = choice;
+            return;
+        }
+        playerChoices.Add(type, choice);
+    }
+
+    public Dictionary<HouseType, HouseChoice> GetPlayerChoicesDict()
+    {
+        return playerChoices;
+    }
 }

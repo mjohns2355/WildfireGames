@@ -10,7 +10,8 @@ using UnityEngine.UI;
 
 public class StructureContextMenu : MonoBehaviour
 {
-    public Action<OptionButton> onOptionSelected;
+    //public Action<OptionButton> onOptionSelected;
+    public Action onOptionSelected;
     public Button changeResponseButton;
     public Button selectButton;
     public TextMeshProUGUI explaination;
@@ -23,11 +24,11 @@ public class StructureContextMenu : MonoBehaviour
     public Button assignButton;
     public Structure owner;
     //bool optionsAreLocked = true;
-    [SerializeField] RectTransform canvasTransform;
+    //[SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
     Camera cam;
-    OptionButton currentOption;
+    public OptionButton CurrentOption { get; private set; }
     // Start is called before the first frame update
     private void Awake()
     {
@@ -43,11 +44,7 @@ public class StructureContextMenu : MonoBehaviour
             ToggleChangeResponsePanel(false);
         });
         icon.InitIcon(house.HouseType);
-        selectButton.onClick.AddListener(() =>
-        {
-            currentOption.OnClick();
-             OnMenuDisable();
-        });
+
     }
 
     public void OnMenuEnable()
@@ -160,28 +157,58 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnClickGoodOptionButton(OptionButton option)
     {
-        currentOption = option;
+        CurrentOption = option;
         if (option.isGoodOption)
         {
-           ToggleChangeResponsePanel(true);
+           ToggleChangeResponsePanel(true, option);
         }
         else
         {
+            
             OnMenuDisable();
         }
 
 
     }
+    public void OnOptionButtonClicked(OptionButton option)
+    {
+        if (option.isGoodOption)
+        {
+            ToggleChangeResponsePanel(true,option);
+        }
+        else
+        {
+            CurrentOption = option;
+            OnMenuDisable();
+        }
 
+        if (CurrentOption == null) return;
+        onOptionSelected.Invoke();
+       
+    }
     public void ApplyBehavior()
     {
         HouseStructure house = (HouseStructure)owner;
         StartCoroutine(house.SpawnCarRoutine());
     }
 
-    void ToggleChangeResponsePanel(bool state)
+    void ToggleChangeResponsePanel(bool state, OptionButton currentOption = null)
     {
         explaination.transform.parent.gameObject.SetActive(state);
         options.gameObject.SetActive(!state);
+
+        if(state == true)
+        {
+            selectButton.onClick.AddListener(() =>
+            {
+                currentOption.isGoodOption = false;
+                OnOptionButtonClicked(currentOption);
+            });
+        }
+        else
+        {
+            selectButton.onClick.RemoveAllListeners();
+        }
+
     }
 }

@@ -19,8 +19,6 @@ public class OptionButton : MonoBehaviour
     {
         button.interactable = !isLocked;
         optionText.gameObject.SetActive(!isLocked);
-        
-
     }
 
     public string GetOptionContent()
@@ -36,8 +34,9 @@ public class OptionButton : MonoBehaviour
         {
             //Debug.Log("Option: " + optionText.text + " is clicked");
             owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
-            owner.onOptionSelected.Invoke(this);
-            owner.OnClickGoodOptionButton(this);
+            owner.OnOptionButtonClicked(this);
+            //owner.onOptionSelected.Invoke(this);
+            //owner.OnClickGoodOptionButton(this);
 
         });
     }

@@ -33,6 +33,7 @@ public class ATC_dialogManager : MonoBehaviour
         acresDestroyed = houseDestroyed / 5 + 12;
         endDialog[0] = "The fire tore through our community. Thankfuly everyone survived, but " + houseDestroyed + " houses were destroyed and " + acresDestroyed + " acres were burned. ";
         dialog.text = endDialog[0];
+
         GameObject[] fires = GameObject.FindGameObjectsWithTag("Fire");
         foreach(GameObject f in fires)
         {

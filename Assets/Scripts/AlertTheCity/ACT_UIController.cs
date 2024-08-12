@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +8,13 @@ public class ACT_UIController : MonoBehaviour
 {
     public GameObject canvas;
     public GameObject popUp;
+    public TextMeshProUGUI debugResultText;
+    public GameObject debugPanel;
     //public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
-    public GameObject buildingMenu;
+    //public GameObject buildingMenu;
     List<Button> buttonList;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public ShelterStructure selectedShelter;
@@ -20,7 +22,7 @@ public class ACT_UIController : MonoBehaviour
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
     private void Start()
     {
-        buildingMenu.SetActive(false);
+        //buildingMenu.SetActive(false);
         buttonList = new List<Button> { placeRoadButton, placeHouseButton, placeSpecialButton };
         placeRoadButton.onClick.AddListener(() =>
         {
@@ -47,7 +49,7 @@ public class ACT_UIController : MonoBehaviour
         {
             text.text = "Construction OFF";
         }
-        buildingMenu.SetActive(state);
+        //buildingMenu.SetActive(state);
     }
 
     public void AddSelectedHouse(HouseStructure house)

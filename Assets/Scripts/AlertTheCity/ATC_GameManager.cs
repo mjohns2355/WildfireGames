@@ -2,6 +2,7 @@ using cakeslice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class GameManager : UnitySingleton<GameManager>
@@ -128,6 +129,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         canStartSim = simStatus;
     }
+
     IEnumerator StartSimRoutine()
     {
         //Debug.Log("Start Coroutine");
@@ -143,6 +145,13 @@ public class GameManager : UnitySingleton<GameManager>
         }
         StartCoroutine(fireManager.StartFireRoutine());
         WindZone.Instance.isStill = false;
+
+        StringBuilder sb = new StringBuilder();
+        foreach(var pair in structureManager.GetPlayerChoicesDict())
+        {
+            sb.AppendLine(pair.Key + ": " + pair.Value.choiceName /*+ "\n"*/);
+        }
+        UpdateDebugText(sb.ToString());
     }
     public void ToggleAssignMode()
     {
@@ -157,6 +166,12 @@ public class GameManager : UnitySingleton<GameManager>
         Debug.Log(assignMode);
     }
 
+    void UpdateDebugText (string text)
+    {
+        uiController.debugPanel.SetActive(true);
+        uiController.debugResultText.text = text;
+        
+    }
     public string[] ParseString( string str, char[] delimiterChars)
     {
         string[] words = str.Split(delimiterChars);

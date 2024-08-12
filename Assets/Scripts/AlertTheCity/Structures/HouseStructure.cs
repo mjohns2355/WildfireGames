@@ -158,42 +158,77 @@ public class HouseStructure : Structure
 
 
 
-    void OnOptionButtonClicked(OptionButton button)
+    void OnOptionButtonClicked()
     {
-        var option = button.GetOptionContent();
-        if (option == null) return;
-        currentOption = option;
-
+        currentOption = menu.CurrentOption.GetOptionContent();
+        Debug.Log($"Player selected {currentOption}");
         
     }
 
     void ApplyChoice()
     {
-        choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
-
-        foreach(var choice in choices)
-        {
-            if(choice.choiceName == currentOption)
-            {
-                //Debug.Log("current option: " + currentOption);
-                if(lastOption == currentOption) return;
-
-                foreach (var house in sameTypeHouses)
-                {
-                    choice.ApplyEffect(house);
-                }
-                //choice.ApplyEffect(this);
-                lastOption = currentOption;
-                break;
-            }
-            else
-            {
-                // default spawn time for house type doesn't have 'Wait for Notice' option
-                carSpawnWaitTime = 5;
-            }
-        }
         
 
+        var currentChoice = GetCurrentChoice(currentOption);
+
+        if(currentChoice != null)
+        {
+            // avoid applying the same choices multiple times
+            if (lastOption == currentOption) return;
+            foreach (var house in sameTypeHouses)
+            {
+                currentChoice.ApplyEffect(house);
+            }
+            //choice.ApplyEffect(this);
+            lastOption = currentOption;
+
+            GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+        }
+        else
+        {
+            carSpawnWaitTime = 5;
+        }
+
+        
+        //choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
+
+        //foreach(var choice in choices)
+        //{
+        //    if(choice.choiceName == currentOption)
+        //    {
+        //        //Debug.Log("current option: " + currentOption);
+        //        if(lastOption == currentOption) return;
+
+        //        foreach (var house in sameTypeHouses)
+        //        {
+        //            choice.ApplyEffect(house);
+        //        }
+        //        //choice.ApplyEffect(this);
+        //        lastOption = currentOption;
+        //        break;
+        //    }
+        //    else
+        //    {
+        //        // default spawn time for house type doesn't have 'Wait for Notice' option
+        //        carSpawnWaitTime = 5;
+        //    }
+        //}
+
+
+    }
+
+    HouseChoice GetCurrentChoice(string name)
+    {
+        choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
+        foreach (var choice in choices)
+        {
+            if (choice.choiceName == name)
+            {
+                return choice;
+            }
+        }
+
+        return null;
     }
     public IEnumerator SpawnCarRoutine()
     {
