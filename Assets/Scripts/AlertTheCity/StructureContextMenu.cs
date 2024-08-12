@@ -81,6 +81,7 @@ public class StructureContextMenu : MonoBehaviour
             menu.icon.gameObject.SetActive(true);
         }
         owner.StopSturctureClick();
+        ToggleChangeResponsePanel(false );
         //changeResponseButton.onClick.RemoveAllListeners();
         //selectedBehavior = true;
 
@@ -154,25 +155,9 @@ public class StructureContextMenu : MonoBehaviour
 
 
     }
-
-    public void OnClickGoodOptionButton(OptionButton option)
-    {
-        CurrentOption = option;
-        if (option.isGoodOption)
-        {
-           ToggleChangeResponsePanel(true, option);
-        }
-        else
-        {
-            
-            OnMenuDisable();
-        }
-
-
-    }
     public void OnOptionButtonClicked(OptionButton option)
     {
-        if (option.isGoodOption)
+        if (option.needConfirmation)
         {
             ToggleChangeResponsePanel(true,option);
         }
@@ -201,13 +186,18 @@ public class StructureContextMenu : MonoBehaviour
         {
             selectButton.onClick.AddListener(() =>
             {
-                currentOption.isGoodOption = false;
+                currentOption.needConfirmation = false;
                 OnOptionButtonClicked(currentOption);
             });
         }
         else
         {
-            selectButton.onClick.RemoveAllListeners();
+            if(currentOption != null)
+            {
+                currentOption.needConfirmation = true;
+                selectButton.onClick.RemoveAllListeners();
+            }
+
         }
 
     }

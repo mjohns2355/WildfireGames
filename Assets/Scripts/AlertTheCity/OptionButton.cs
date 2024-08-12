@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
 {
     public bool isLocked = false;
-    public bool isGoodOption = false;
+    //public bool isGoodOption {  get; private set; }
+    public bool needConfirmation;
     public StructureContextMenu owner;
     [SerializeField] Button button;
     [SerializeField]TextMeshProUGUI optionText;
@@ -29,7 +30,7 @@ public class OptionButton : MonoBehaviour
     {
         this.owner = owner;
         optionText.text = buttonText;
-        isGoodOption = IsGoodOption(buttonText);
+        needConfirmation = IsGoodOption(buttonText);
         button.onClick.AddListener(() =>
         {
             //Debug.Log("Option: " + optionText.text + " is clicked");

@@ -45,7 +45,7 @@ public class HouseStructure : Structure
     List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
     List<HouseChoice> choices = new List<HouseChoice>();
     string lastOption = string.Empty;
-    string currentOption = "Wait for Notice"; //default option
+    string currentOption;
     ATC_PlacementManager placementManager;
     Combustible combustible;
     [SerializeField] MeshRenderer currentHouseModel;
@@ -84,6 +84,9 @@ public class HouseStructure : Structure
                     }
                 }
             }
+
+            // defaults to first option if player doesn't select
+            currentOption = houseInfo.normalChoices[0].choiceName;
             menu.onOptionSelected += OnOptionButtonClicked;
             targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
         }
@@ -167,8 +170,6 @@ public class HouseStructure : Structure
 
     void ApplyChoice()
     {
-        
-
         var currentChoice = GetCurrentChoice(currentOption);
 
         if(currentChoice != null)
