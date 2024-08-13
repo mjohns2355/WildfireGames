@@ -52,6 +52,23 @@ public class LearnMorePanel : MonoBehaviour
         
     }
 
+    public void OnDetailedPageDisabled()
+    {
+        detailPage.SetActive(false);
+        homePage.SetActive(true);
+    }
+
+    public void OnClickClose()
+    {
+        if (homePage.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            OnDetailedPageDisabled();
+        }
+    }
     private void OnDisable()
     {
         homePage.SetActive(true);

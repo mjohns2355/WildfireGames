@@ -70,6 +70,7 @@ public class ACT_UIController : MonoBehaviour
         }
     }
 
+
     public void ClampToWindow( RectTransform panelRectTransform, float offset)
     {
         Vector3[] corners = new Vector3[4];
