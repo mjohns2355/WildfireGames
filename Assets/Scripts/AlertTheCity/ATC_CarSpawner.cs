@@ -23,7 +23,7 @@ public class ATC_CarSpawner : MonoBehaviour
     {
         //float[] waitTimeVarianceList = { -0.5f, 0.5f };
         //float waitTimeVariance = waitTimeVarianceList[UnityEngine.Random.Range(0, waitTimeVarianceList.Length - 1)];
-        float waitTimeVariance = UnityEngine.Random.Range(-0.5f, 0.5f);
+        float waitTimeVariance = UnityEngine.Random.Range(-1f, 2f);
         yield return new WaitForSeconds(waitTimeVariance);
 
         if (!hasHorseTrailer)
