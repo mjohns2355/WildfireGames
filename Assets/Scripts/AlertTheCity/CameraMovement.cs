@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -15,17 +16,21 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float defaultFOV;
 
     float FOV;
+    Vector3 camPos;
     private void Start()
     {
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
+        camPos = gameCamera.transform.position;
     }
     public void MoveCamera(Vector3 inputVector)
     {
+
         //var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
         //gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
-        gameCamera.transform.position += inputVector * Time.deltaTime * cameraMovementSpeed;
+        camPos += inputVector * Time.deltaTime * cameraMovementSpeed;
+        gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, camPos, Time.deltaTime * lerpSpeed);
     }
 
     public void ZoomCamera(float mouseAxis)
