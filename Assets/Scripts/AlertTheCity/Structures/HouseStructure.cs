@@ -60,7 +60,7 @@ public class HouseStructure : Structure
     {
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
-        
+        carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
 
         if (isMainHouse)
         {
@@ -185,10 +185,7 @@ public class HouseStructure : Structure
 
             GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
         }
-        else
-        {
-            carSpawnWaitTime = 5;
-        }
+
 
         
         //choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();

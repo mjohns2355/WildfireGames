@@ -17,12 +17,12 @@ MonoBehaviour:
   normalChoices:
   - choiceName: Wait for Notice
     carNumberMod: 0
-    carSpawnTimeMod: 3
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 0
+    carLeaveTime: 2
     choiceDetail: 
     endGameFeedback: Older residents were caught off guard this time and waited for
       the evacuation notice before taking action. As a community, we need a better
@@ -31,12 +31,12 @@ MonoBehaviour:
   lockedChoices:
   - choiceName: Help from Neighbor
     carNumberMod: -1
-    carSpawnTimeMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    carLeaveTime: 1
     choiceDetail: Getting help from a neighbor will be a great option! This will
       make evacuating both safer as well as quicker.
     endGameFeedback: Neighbors stepped in to help, offering rides to older residents
@@ -44,12 +44,12 @@ MonoBehaviour:
     isLocked: 1
   - choiceName: Evacuate Early
     carNumberMod: 0
-    carSpawnTimeMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0
     carSpeedMod: 1
+    carLeaveTime: 0
     choiceDetail: Evacuating early will allow for more time to get out safely. This
       is a good choice!
     endGameFeedback: 'A community plan to notify older residents was successful:

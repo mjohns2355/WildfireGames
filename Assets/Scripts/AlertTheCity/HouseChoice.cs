@@ -6,12 +6,12 @@ public class HouseChoice
 {
     public string choiceName;
     public int carNumberMod = 0;
-    public float carSpawnTimeMod = 0;
     public int horseNumberMod = 0;
     public int kidNumberMod = 0;
     public int petNumberMod = 0;
     public float homeHardeningMod = 0;
     public CarSpeed carSpeedMod = CarSpeed.none;
+    public CarLeaveTime carLeaveTime = CarLeaveTime.normal;
     [TextArea(5, 10)]
     public string choiceDetail;
     [TextArea(5, 10)]
@@ -21,6 +21,8 @@ public class HouseChoice
     {
         this.choiceName = choiceName;
     }
+
+    float carSpawnTimeMod = 0;
 
     void ApplySpecialEffect(HouseStructure owner)
     {
@@ -54,8 +56,8 @@ public class HouseChoice
         {
             owner.carSpeed = carSpeedMod;
         }
-
-
+        GetSpawnTimeMod();
+        Debug.Log(carSpawnTimeMod);
         owner.carSpawnWaitTime += carSpawnTimeMod;
         Mathf.Clamp(owner.carSpawnWaitTime, 0, Mathf.Infinity);
         owner.carNum += carNumberMod;
@@ -66,4 +68,20 @@ public class HouseChoice
         //owner.
     }
 
+    void GetSpawnTimeMod()
+    {
+        switch(carLeaveTime)
+        {
+            case CarLeaveTime.early:
+                carSpawnTimeMod = -3f;
+                break;
+            case CarLeaveTime.normal:
+                carSpawnTimeMod = 0f;
+                break;
+            case CarLeaveTime.delayed:
+                carSpawnTimeMod = 3f;
+                break;
+        }
+
+    }
 }
