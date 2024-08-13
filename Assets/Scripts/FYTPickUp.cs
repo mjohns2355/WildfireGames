@@ -38,6 +38,10 @@ public class FYTPickUp : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>().hasMask = true;
         }
+        else if (selected.GetComponent<FYT_collectable>().isKey)
+        {
+            car.hasKey = true;
+        }
         Destroy(selected);
     }
 }

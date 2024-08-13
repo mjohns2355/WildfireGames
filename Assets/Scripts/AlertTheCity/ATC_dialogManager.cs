@@ -21,6 +21,7 @@ public class ATC_dialogManager : MonoBehaviour
     public GameObject[] images;
 
     public GameObject localNews;
+    public GameObject timer;
 
 
     private void Start()
@@ -70,6 +71,10 @@ public class ATC_dialogManager : MonoBehaviour
         {
             if (counter == -1)
             {
+                if(timer != null)
+                {
+                    timer.SetActive(true);
+                }
                 gameObject.SetActive(false);
             }
             else
