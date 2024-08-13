@@ -228,6 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeResponseButton: {fileID: 0}
+  selectButton: {fileID: 0}
+  explaination: {fileID: 0}
   menu: {fileID: 0}
   icon: {fileID: 8118901942926996824}
   title: {fileID: 2025680293657290508}
@@ -236,7 +239,8 @@ MonoBehaviour:
   closeButton: {fileID: 3918068542463587542}
   assignButton: {fileID: 6347744861406221313}
   owner: {fileID: 0}
-  cam: {fileID: 0}
+  menuTransform: {fileID: 0}
+  menuOffset: 120
 --- !u!1 &269378063692902000
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeResponseButton: {fileID: 0}
+  selectButton: {fileID: 0}
+  explaination: {fileID: 0}
   menu: {fileID: 224291285963446763}
   icon: {fileID: 8118901942926996824}
   title: {fileID: 2025680293657290508}
@@ -667,7 +674,8 @@ MonoBehaviour:
   closeButton: {fileID: 3918068542463587542}
   assignButton: {fileID: 6347744861406221313}
   owner: {fileID: 0}
-  cam: {fileID: 0}
+  menuTransform: {fileID: 0}
+  menuOffset: 120
 --- !u!222 &6338785874676893043
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -730,7 +738,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 3
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
