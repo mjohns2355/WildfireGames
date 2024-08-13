@@ -48,8 +48,9 @@ public class HouseStructure : Structure
     string currentOption;
     ATC_PlacementManager placementManager;
     Combustible combustible;
-    [SerializeField] MeshRenderer currentHouseModel;
+    MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
+    float spawnCarChance = 0.9f;
 
     private void Awake()
     {
@@ -232,24 +233,29 @@ public class HouseStructure : Structure
     {
         ApplyChoice();
         yield return new WaitForSeconds(carSpawnWaitTime);
-        Debug.Log("After "+ carSpawnWaitTime + "sec(s), "+ houseType + " Spawned " + carNum +" " + carSpeed + " speed car(s)");
+
+
+
+        Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
         //destination shelter
 
         foreach (var house in sameTypeHouses)
         {
-
-            if (HasKidsToPickUp)
+            if (Random.Range(0f, 1f) < spawnCarChance)
             {
-                var school = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
+                if (HasKidsToPickUp)
+                {
+                    var school = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
 
-                ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { school, targetShelter }, carSpeed, carNum);
+                    ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { school, targetShelter }, carSpeed, carNum);
+                }
+                else
+                {
+                    ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
+                }
             }
-            else
-            {
-                ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
-            }
-
         }
+        
 
     }
 
