@@ -7,14 +7,19 @@ public class CameraMovement : MonoBehaviour
 {
     public Camera gameCamera;
     public float cameraMovementSpeed = 5;
-    public float cameraZoomSpeed = 5;
+    [Range(0f, 1f)]
+    [SerializeField] float cameraZoomSpeed;
+    [SerializeField] float lerpSpeed;
     [SerializeField] private float maxFOV;
     [SerializeField] private float minFOV;
     [SerializeField] private float defaultFOV;
+
+    float FOV;
     private void Start()
     {
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
+        FOV = gameCamera.fieldOfView;
     }
     public void MoveCamera(Vector3 inputVector)
     {
@@ -25,11 +30,8 @@ public class CameraMovement : MonoBehaviour
 
     public void ZoomCamera(float mouseAxis)
     {
-        
-        float FOV = gameCamera.fieldOfView;
-        //FOV += mouseAxis * -1 * cameraMovementSpeed;
-        FOV += mouseAxis * -1 * 0.5f;
+        FOV += mouseAxis * -1 * cameraZoomSpeed;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-        gameCamera.fieldOfView =FOV;
+        gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
     }
 }
