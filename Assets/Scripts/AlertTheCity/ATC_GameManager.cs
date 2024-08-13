@@ -134,15 +134,17 @@ public class GameManager : UnitySingleton<GameManager>
     {
         //Debug.Log("Start Coroutine");
         yield return new WaitUntil(()=>canStartSim);
-        GameObject[] icons = GameObject.FindGameObjectsWithTag("typeIcon");
-        foreach (GameObject g in icons)
-        {
-            g.SetActive(false);
-        }
         foreach (var menu in uiController.contextMenus)
         {
+            menu.icon.gameObject.SetActive(false);
             menu.ApplyBehavior();
+            if (!menu.gameObject.activeSelf) continue;
+            menu.menu.SetActive(false);
+            //if (!menu.gameObject.activeSelf) continue;
+            //menu.gameObject.SetActive(false);
+
         }
+        uiController.learnMorePanel.SetActive(false);
         StartCoroutine(fireManager.StartFireRoutine());
         WindZone.Instance.isStill = false;
         // update choice text
@@ -153,8 +155,10 @@ public class GameManager : UnitySingleton<GameManager>
         }
         UpdateDebugText(sb.ToString());
 
-        yield return new WaitForSeconds(10f);
-        Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
+        // close all the menus and panels
+        //uiController.OnSimulationStarted();
+        //yield return new WaitForSeconds(10f);
+        //Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
     }
     public void ToggleAssignMode()
     {

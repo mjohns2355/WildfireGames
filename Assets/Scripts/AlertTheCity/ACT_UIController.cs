@@ -11,7 +11,7 @@ public class ACT_UIController : MonoBehaviour
     public TextMeshProUGUI debugResultText;
     public TextMeshProUGUI debugResultText2;
     public GameObject debugPanel;
-    //public GameObject learnMorePanel;
+    public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button placeRoadButton, placeHouseButton, placeSpecialButton, constructionButton;
@@ -71,7 +71,15 @@ public class ACT_UIController : MonoBehaviour
         }
     }
 
-
+    //public void OnSimulationStarted()
+    //{
+    //    learnMorePanel.gameObject.SetActive(false);
+    //    foreach(var menu in contextMenus)
+    //    {
+    //        menu.gameObject.SetActive(false );
+    //        menu.icon.gameObject.SetActive(false);
+    //    }
+    //}
     public void ClampToWindow( RectTransform panelRectTransform, float offset)
     {
         Vector3[] corners = new Vector3[4];
