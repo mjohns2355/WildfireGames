@@ -193,20 +193,20 @@ public class GameManager : UnitySingleton<GameManager>
         uiController.debugResultText.text += horseRes;
 
 
-        uiController.debugResultText.text += "\n\nWe know some residents need more time and help getting out during an evacuation.\n\n";
+        uiController.debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
 
 
-        uiController.debugResultText.text += elderRes + "\n\n";
-        uiController.debugResultText.text += kidsRes;
+        uiController.debugResultText2.text += elderRes + "\n\n";
+        uiController.debugResultText2.text += kidsRes;
 
 
-        uiController.debugResultText.text += "\n\nHouses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
+        uiController.debugResultText2.text += "\n\nHouses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
 
 
-        uiController.debugResultText.text += wuiRes;
+        uiController.debugResultText2.text += wuiRes;
 
 
-        uiController.debugResultText.text += "\n\nOur community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
+        uiController.debugResultText2.text += "\n\nOur community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
 
         //uiController.debugPanel.SetActive(true);
 

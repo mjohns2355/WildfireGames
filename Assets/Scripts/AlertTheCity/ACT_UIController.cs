@@ -9,6 +9,7 @@ public class ACT_UIController : MonoBehaviour
     public GameObject canvas;
     public GameObject popUp;
     public TextMeshProUGUI debugResultText;
+    public TextMeshProUGUI debugResultText2;
     public GameObject debugPanel;
     //public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;

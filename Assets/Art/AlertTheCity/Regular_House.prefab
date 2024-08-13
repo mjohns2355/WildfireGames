@@ -1,5 +1,111 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7240635252210777764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6765078689224890879}
+  - component: {fileID: 3398842043296793355}
+  - component: {fileID: 5794725698809918657}
+  - component: {fileID: 4025670120779306574}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6765078689224890879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240635252210777764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7070758, y: -0.0066322326, z: -0.0066322335, w: 0.70707566}
+  m_LocalPosition: {x: -0.000283, y: 0.000134, z: -0.000013}
+  m_LocalScale: {x: 0.0002568786, y: 0.00025687861, z: 0.00025687861}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5761675735014663759}
+  m_LocalEulerAnglesHint: {x: 88.926, y: -90.001, z: -90.001}
+--- !u!33 &3398842043296793355
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240635252210777764}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5794725698809918657
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240635252210777764}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: c51aef7589dd1a44b8b0bda203e8811d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4025670120779306574
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240635252210777764}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &331370011522541088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0a7aa9ec3593043c1a937223b3f59b55, type: 2}
     - target: {fileID: 919132149155446097, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
       propertyPath: m_Name
-      value: Regular_House1 1
+      value: Regular_House
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7511558181221131132, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
@@ -150,6 +256,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 221795926920511947}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6765078689224890879}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d5c7c01c34bbb439eee9f1732beef6, type: 3}
 --- !u!4 &5761675735014663759 stripped
