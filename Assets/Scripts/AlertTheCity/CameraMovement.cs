@@ -8,11 +8,13 @@ public class CameraMovement : MonoBehaviour
     public Camera gameCamera;
     public float cameraMovementSpeed = 5;
     public float cameraZoomSpeed = 5;
-    [SerializeField] private float maxFOV = 40;
-    [SerializeField] private float minFOV = 10;
+    [SerializeField] private float maxFOV;
+    [SerializeField] private float minFOV;
+    [SerializeField] private float defaultFOV;
     private void Start()
     {
         gameCamera = GetComponent<Camera>();
+        gameCamera.fieldOfView = defaultFOV;
     }
     public void MoveCamera(Vector3 inputVector)
     {
