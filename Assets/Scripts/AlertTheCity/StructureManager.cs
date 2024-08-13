@@ -46,7 +46,7 @@ public class StructureManager : MonoBehaviour
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
             var house = structure.GetComponent<HouseStructure>();
-            if (house && !house.isMainHouse)
+            if (house && !house.isMainHouse && CheckNeighbourMainHouse(structure.RoadPosition))
             {
                 house.isMainHouse = true;
                 house.houseInfo = ReturnHouseInfoFor(houseType);
@@ -220,5 +220,16 @@ public class StructureManager : MonoBehaviour
     public Dictionary<HouseType, HouseChoice> GetPlayerChoicesDict()
     {
         return playerChoices;
+    }
+
+    bool CheckNeighbourMainHouse(Vector3Int position)
+    {
+        foreach(var pos in placementManager.GetNeighbourOfTypesFor(position, CellType.Structure))
+        {
+            var house = placementManager.GetStructureAt(pos).GetComponent<HouseStructure>();
+            if (house.isMainHouse) return false;
+        }
+
+        return true;
     }
 }

@@ -234,8 +234,6 @@ public class HouseStructure : Structure
         ApplyChoice();
         yield return new WaitForSeconds(carSpawnWaitTime);
 
-
-
         Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
         //destination shelter
 
@@ -255,8 +253,6 @@ public class HouseStructure : Structure
                 }
             }
         }
-        
-
     }
 
     public void RelocateSecondCar()
