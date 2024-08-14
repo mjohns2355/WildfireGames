@@ -6,7 +6,7 @@ using UnityEngine;
 public class RoadHelperStraight : RoadHelper
 {
     [SerializeField]
-    private Marker leftLaneMarker90, rightLaneMarker90;
+    private Marker innerLeftLaneMarker90, innerRightLaneMarker90, outerLeftLaneMarker90, outerRightLaneMarker90;
 
     public override Marker GetPositioForCarToSpawn(Vector3 nextPathPosition)
     {
@@ -31,44 +31,44 @@ public class RoadHelperStraight : RoadHelper
         {
             if (direction == Directon.left)
             {
-                return rightLaneMarker90;
+                return useInner ? innerRightLaneMarker90 : outerRightLaneMarker90;
             }
             else
             {
-                return leftLaneMarker90;
+                return useInner ? innerLeftLaneMarker90: outerLeftLaneMarker90;
             }
         }
         else if (angle == 90)
         {
             if (direction == Directon.up)
             {
-                return rightLaneMarker90;
+                return useInner ? innerRightLaneMarker90 : outerRightLaneMarker90;
             }
             else
             {
-                return leftLaneMarker90;
+                return useInner ? innerLeftLaneMarker90 : outerLeftLaneMarker90;
             }
         }
         else if (angle == 270)
         {
             if (direction == Directon.left)
             {
-                return leftLaneMarker90;
+                return useInner ? innerLeftLaneMarker90 : outerLeftLaneMarker90;
             }
             else
             {
-                return rightLaneMarker90;
+                return useInner ? innerRightLaneMarker90 : outerRightLaneMarker90;
             }
         }
         else
         {
             if (direction == Directon.up)
             {
-                return leftLaneMarker90;
+                return useInner ? innerLeftLaneMarker90 : outerLeftLaneMarker90;
             }
             else
             {
-                return rightLaneMarker90;
+                return useInner ? innerRightLaneMarker90 : outerRightLaneMarker90;
             }
         }
     }

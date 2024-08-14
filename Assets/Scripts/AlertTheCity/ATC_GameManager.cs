@@ -157,8 +157,8 @@ public class GameManager : UnitySingleton<GameManager>
 
         // close all the menus and panels
         //uiController.OnSimulationStarted();
-        //yield return new WaitForSeconds(10f);
-        //Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
+        yield return new WaitForSeconds(10f);
+        Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
     }
     public void ToggleAssignMode()
     {

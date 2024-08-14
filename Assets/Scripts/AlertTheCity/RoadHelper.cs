@@ -5,33 +5,38 @@ using UnityEngine;
 public class RoadHelper : MonoBehaviour
 {
     [SerializeField]
-    protected List<Marker> carMarkers;
+    protected List<Marker> InnerCarMarkers;
+    [SerializeField]
+    protected List<Marker> OuterCarMarkers;
     [SerializeField]
     protected bool isCorner;
     [SerializeField]
     protected bool hasCrosswalks;
 
+    public bool useInner;
+    
     float approximateThresholdCorner = 0.3f;
 
     [SerializeField]
-    private Marker incomming, outgoing;
+    private Marker innerIncoming, innerOutgoing, outerIncoming, outerOutgoing;
 
-    public virtual Marker GetpositioForCarToSpwan(Vector3 nextPathPosition)
-    {
-        return outgoing;
-    }
-    public virtual Marker GetpositioForCarToEnd(Vector3 previousPathPosition)
-    {
-        return incomming;
-    }
+    //public virtual Marker GetpositioForCarToSpwan(Vector3 nextPathPosition)
+    //{
+    //    return innerOutgoing;
+    //}
+    //public virtual Marker GetpositioForCarToEnd(Vector3 previousPathPosition)
+    //{
+    //    return innerIncoming;
+    //}
+
     public virtual Marker GetPositioForCarToSpawn(Vector3 nextPathPosition)
     {
-        return outgoing;
+        return useInner ? innerOutgoing : outerOutgoing;
     }
 
     public virtual Marker GetPositioForCarToEnd(Vector3 previousPathPosition)
     {
-        return incomming;
+        return useInner ? innerIncoming : outerIncoming;
     }
 
     protected Marker GetClosestMarkeTo(Vector3 structurePosition, List<Marker> pedestrianMarkers, bool isCorner = false)
@@ -69,12 +74,13 @@ public class RoadHelper : MonoBehaviour
 
     public Vector3 GetClosestCarMarkerPosition(Vector3 currentPosition)
     {
+        var carMarkers = useInner? InnerCarMarkers : OuterCarMarkers;
         return GetClosestMarkeTo(currentPosition, carMarkers, false).Position;
     }
 
 
     public List<Marker> GetAllCarMarkers()
     {
-        return carMarkers;
+        return useInner ? InnerCarMarkers : OuterCarMarkers;
     }
 }

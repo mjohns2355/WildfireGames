@@ -86,20 +86,27 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             path.Reverse();
 
             if (path.Count == 0 && path.Count > 2) return;
-            if (Thouse.testHouse)
-            {
-                testcarPath = path;
-            }
-            var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
-            var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
-            carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position);
+            //if (Thouse.testHouse)
+            //{
+            //    testcarPath = path;
+            //}
+            bool useInner = ShouldTakeInnerCarMarkers();
 
-           
-            if (Thouse.testHouse)
-            {
-                CreateACarGraph(path, testcarGraph);
+            var start = placementManager.GetStructureAt(startRoadPos);
+            start.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
+            var end = placementManager.GetStructureAt(endRoadPos);
+            end.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
 
-            }
+            var startMarkerPosition = start.GetCarSpawnMarker(path[1]);
+            var endMarkerPosition = end.GetCarEndMarker(path[path.Count - 2]);
+            carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position, useInner);
+
+
+            //if (Thouse.testHouse)
+            //{
+            //    CreateACarGraph(path, testcarGraph,useInner);
+
+            //}
             if (carPath.Count > 0)
             {
                 var house = startStructure.GetComponent<HouseStructure>();
@@ -114,9 +121,17 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 //debug
                 spawnedCarNum++;
             }
+            else
+            {
+                Debug.Log("NoPath");
+            }
         }
     }
 
+    bool ShouldTakeInnerCarMarkers()
+    {
+        return UnityEngine.Random.Range(0f, 1f) < 0.5f? true : false;
+    }
     private void TrySpawnCarWithMultipleStops(ATC_StructureModel startStructure, List<ATC_StructureModel> stops, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         List<Vector3> carPath = new List<Vector3>(); 
@@ -125,7 +140,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         List<Vector3> stopPos = new List<Vector3>();
         if (startStructure != null && stops.Count!= 0)
         {
-            
+            bool useInner = ShouldTakeInnerCarMarkers();
+            //Debug.Log($"Multi: IsUseInner: {useInner}");
             for (int i = 0; i < stops.Count; i++)
             {
                 var stop = stops[i];
@@ -137,14 +153,21 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
                 if (path.Count == 0 && path.Count > 2) return;
 
-                var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
-                if(i == 0)
+
+                var start = placementManager.GetStructureAt(startRoadPos);
+                start.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
+                var end = placementManager.GetStructureAt(endRoadPos);
+                end.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
+                var startMarkerPosition = start.GetCarSpawnMarker(path[1]);
+                //var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
+                if (i == 0)
                 {
                     startPos = startMarkerPosition.Position;
                 }
-                var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
+                var endMarkerPosition = end.GetCarEndMarker(path[path.Count - 2]);
+               // var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
                 stopPos.Add(endMarkerPosition.Position);
-                carPath.AddRange(GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position));
+                carPath.AddRange(GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position, useInner));
                 previousStop = stop;
             }
 
@@ -163,6 +186,10 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 //debug
                 spawnedCarNum++;
             }
+            else
+            {
+                Debug.Log("Multi Stops: No path");
+            }
         }
     }
     public void RespawnACar(ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
@@ -180,19 +207,26 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         }
     }
 
-    private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
+    private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition, bool useInner = true)
     {
         AdjacencyGraph carGraph = new AdjacencyGraph();
         //carGraph.ClearGraph();
-        CreateACarGraph(path,carGraph);
+        CreateACarGraph(path,carGraph,useInner);
         //Debug.Log(carGraph);
         return AdjacencyGraph.AStarSearch(carGraph, startPosition, endPosition);
     }
 
-    private void CreateACarGraph(List<Vector3Int> path, AdjacencyGraph graph)
+    private void CreateACarGraph(List<Vector3Int> path, AdjacencyGraph graph, bool useInner)
     {
         Dictionary<Marker, Vector3> tempDictionary = new Dictionary<Marker, Vector3>();
-        for (int i = 0; i <path.Count; i++)
+        for (int i = 0; i < path.Count; i++)
+        {
+            var currentPoistion = path[i];
+            var roadStructure = placementManager.GetStructureAt(currentPoistion);
+            var roadHelper = roadStructure.transform.GetChild(0).GetComponent<RoadHelper>();
+            roadHelper.useInner = useInner;
+        }
+            for (int i = 0; i <path.Count; i++)
         {
             var currentPoistion  = path[i];
             var roadStructure = placementManager.GetStructureAt(currentPoistion);
@@ -237,8 +271,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     private void Update()
     {
-        DrawCarGraph(testcarGraph);
-        DrawCarPath(testcarPath);
+        //DrawCarGraph(testcarGraph);
+        //DrawCarPath(testcarPath);
     }
 
     void DrawCarPath(List<Vector3Int> path)

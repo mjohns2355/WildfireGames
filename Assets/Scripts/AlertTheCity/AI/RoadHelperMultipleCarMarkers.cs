@@ -6,15 +6,16 @@ using UnityEngine;
 public class RoadHelperMultipleCarMarkers : RoadHelper
 {
     [SerializeField]
-    protected List<Marker> incommingMarkers, outgoingMarkers;
+    protected List<Marker> innerIncommingMarkers, innerOutgoingMarkers, outerIncomingMarkers,  outerOutgoingMarkers;
 
     public override Marker GetPositioForCarToSpawn(Vector3 nextPathPosition)
     {
-        return GetClosestMarkeTo(nextPathPosition, outgoingMarkers);
+        return useInner ? GetClosestMarkeTo(nextPathPosition, innerOutgoingMarkers) : GetClosestMarkeTo(nextPathPosition, outerOutgoingMarkers);
+        // GetClosestMarkeTo(nextPathPosition, outgoingMarkers);
     }
 
     public override Marker GetPositioForCarToEnd(Vector3 previousPathPosition)
     {
-        return GetClosestMarkeTo(previousPathPosition, incommingMarkers);
+        return useInner ? GetClosestMarkeTo(previousPathPosition, innerIncommingMarkers) : GetClosestMarkeTo(previousPathPosition, outerIncomingMarkers);
     }
 }

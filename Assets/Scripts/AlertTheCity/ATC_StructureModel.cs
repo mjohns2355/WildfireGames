@@ -8,7 +8,7 @@ public class ATC_StructureModel : MonoBehaviour, INeedingRoad
     float yHeight = 0;
 
     public Vector3Int RoadPosition { get ;set; }
-
+    public RoadHelper roadHelper;
     public void CreateModel(GameObject model)
     {
         //var structure = Instantiate(model,transform);

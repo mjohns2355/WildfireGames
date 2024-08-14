@@ -126,7 +126,7 @@ public class AdjacencyGraph
 
         Vertex start = graph.GetVertexAt(startPosition);
         Vertex end = graph.GetVertexAt(endPosition);
-
+        //Debug.Log($"start: {start}, end: {end}");
         List<Vertex> positionsTocheck = new List<Vertex>();
         Dictionary<Vertex, float> costDictionary = new Dictionary<Vertex, float>();
         Dictionary<Vertex, float> priorityDictionary = new Dictionary<Vertex, float>();
