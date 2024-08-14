@@ -56,6 +56,10 @@ public class LearnMorePanel : MonoBehaviour
     {
         detailPage.SetActive(false);
         homePage.SetActive(true);
+        for (int i = 0; i < unlockedBtns.childCount; i++)
+        {
+            Destroy(unlockedBtns.GetChild(i).gameObject);
+        }
     }
 
     public void OnClickClose()
@@ -71,17 +75,14 @@ public class LearnMorePanel : MonoBehaviour
     }
     private void OnDisable()
     {
-        homePage.SetActive(true);
-        detailPage.SetActive(false);
+        //homePage.SetActive(true);
+        //detailPage.SetActive(false);
         for(int i = 0; i < optionBtns.childCount; i++)
         {
             Destroy(optionBtns.GetChild(i).gameObject);
         }
-        for(int i = 0;i < unlockedBtns.childCount; i++)
-        {
-            Destroy(unlockedBtns.GetChild(i).gameObject);
-        }
 
+        OnDetailedPageDisabled();
         targetMenu = null;
         targetHouseInfo = null;
     }
