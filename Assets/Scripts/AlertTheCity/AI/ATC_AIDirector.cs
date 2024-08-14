@@ -10,9 +10,9 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public ATC_PlacementManager placementManager;
 
     public GameObject carPrefab;
-    //AdjacencyGraph testcarGraph = new AdjacencyGraph();
+    AdjacencyGraph testcarGraph = new AdjacencyGraph();
 
-    //List<Vector3> testcarPath = new List<Vector3>();
+    List<Vector3Int> testcarPath = new List<Vector3Int>();
     ATC_StructureModel startStructure;
     ATC_StructureModel endStructure;
 
@@ -71,6 +71,8 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     }
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)
     {
+        var Thouse = startStructure.GetComponent<HouseStructure>();
+
         List<Vector3> carPath = new List<Vector3>();
         this.startStructure = startStructure;
         this.endStructure = endStructure;
@@ -84,17 +86,20 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             path.Reverse();
 
             if (path.Count == 0 && path.Count > 2) return;
-
+            if (Thouse.testHouse)
+            {
+                testcarPath = path;
+            }
             var startMarkerPosition = placementManager.GetStructureAt(startRoadPos).GetCarSpawnMarker(path[1]);
             var endMarkerPosition = placementManager.GetStructureAt(endRoadPos).GetCarEndMarker(path[path.Count - 2]);
             carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position);
 
-            var Thouse = startStructure.GetComponent<HouseStructure>();
-            //if (Thouse.testHouse)
-            //{
-            //    CreateACarGraph(path, testcarGraph);
+           
+            if (Thouse.testHouse)
+            {
+                CreateACarGraph(path, testcarGraph);
 
-            //}
+            }
             if (carPath.Count > 0)
             {
                 var house = startStructure.GetComponent<HouseStructure>();
@@ -232,10 +237,11 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     private void Update()
     {
-        //DrawCarGraph(testcarGraph);
+        DrawCarGraph(testcarGraph);
+        DrawCarPath(testcarPath);
     }
 
-    void DrawCarPath(List<Vector3> path)
+    void DrawCarPath(List<Vector3Int> path)
     {
 
         for (int i = 1; i < path.Count; i++)

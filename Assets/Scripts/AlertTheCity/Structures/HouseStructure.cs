@@ -13,7 +13,7 @@ public class HouseStructure : Structure
 {
     public bool isMainHouse;
     public HouseTypeInfo houseInfo;
-    //public bool testHouse;
+    public bool testHouse;
     [SerializeField] HouseType houseType;
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh;
@@ -101,7 +101,7 @@ public class HouseStructure : Structure
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S) && testHouse)
         {
             TestSpawnCar();
         }
@@ -109,7 +109,8 @@ public class HouseStructure : Structure
 
     void TestSpawnCar()
     {
-        ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
+        var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
+        ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
     }
     void SpawnHouseModel()
     {
