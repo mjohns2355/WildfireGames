@@ -48,7 +48,7 @@ public class HouseStructure : Structure
     string currentOption;
     ATC_PlacementManager placementManager;
     Combustible combustible;
-    MeshRenderer currentHouseModel;
+    [SerializeField] MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
     float spawnCarChance = 0.9f;
 

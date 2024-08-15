@@ -21,6 +21,7 @@ public class GameManager : UnitySingleton<GameManager>
     private bool end = false;
 
     public ATC_dialogManager dialog;
+    public GameObject evacNotice;
 
 
     public bool InAssignMode
@@ -154,6 +155,8 @@ public class GameManager : UnitySingleton<GameManager>
             sb.AppendLine(pair.Key + ": " + pair.Value.choiceName);
         }
         UpdateDebugText(sb.ToString());
+
+        evacNotice.SetActive(true);
 
         // close all the menus and panels
         //uiController.OnSimulationStarted();
