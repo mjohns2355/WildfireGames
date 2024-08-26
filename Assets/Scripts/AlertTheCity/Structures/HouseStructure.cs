@@ -169,8 +169,7 @@ public class HouseStructure : Structure
     {
         currentOption = menu.CurrentOption.GetOptionContent();
         Debug.Log($"Player selected {currentOption}");
-        if (currentOption == "Home Hardening") ;
-        ApplyChoice();
+        
     }
 
     void ApplyChoice()

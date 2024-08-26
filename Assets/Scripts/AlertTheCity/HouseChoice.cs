@@ -58,7 +58,7 @@ public class HouseChoice
             owner.carSpeed = carSpeedMod;
         }
         GetSpawnTimeMod();
-        Debug.Log(carSpawnTimeMod);
+        //Debug.Log(carSpawnTimeMod);
         owner.carSpawnWaitTime += carSpawnTimeMod;
         Mathf.Clamp(owner.carSpawnWaitTime, 0, Mathf.Infinity);
         owner.carNum += carNumberMod;

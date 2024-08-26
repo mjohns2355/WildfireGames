@@ -12,8 +12,8 @@ public class StructureContextMenu : MonoBehaviour
 {
     //public Action<OptionButton> onOptionSelected;
     public Action onOptionSelected;
-    public Button changeResponseButton;
-    public Button selectButton;
+    public OptionButton changeResponseButton;
+    public OptionButton selectButton;
     public TextMeshProUGUI explaination;
     public GameObject menu;//ui
     public HouseIcon icon;//ui
@@ -32,14 +32,14 @@ public class StructureContextMenu : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        assignButton.gameObject.SetActive(false);
+        //assignButton.gameObject.SetActive(false);
         
     }
     private void Start()
     {
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
-        changeResponseButton.onClick.AddListener(() =>
+        changeResponseButton.button.onClick.AddListener(() =>
         {
             ToggleChangeResponsePanel(false);
         });
@@ -184,7 +184,7 @@ public class StructureContextMenu : MonoBehaviour
 
         if(state == true)
         {
-            selectButton.onClick.AddListener(() =>
+            selectButton.button.onClick.AddListener(() =>
             {
                 currentOption.needConfirmation = false;
                 OnOptionButtonClicked(currentOption);
@@ -195,7 +195,7 @@ public class StructureContextMenu : MonoBehaviour
             if(currentOption != null)
             {
                 currentOption.needConfirmation = true;
-                selectButton.onClick.RemoveAllListeners();
+                selectButton.button.onClick.RemoveAllListeners();
             }
 
         }

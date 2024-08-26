@@ -9,7 +9,8 @@ public class OptionButton : MonoBehaviour
     //public bool isGoodOption {  get; private set; }
     public bool needConfirmation;
     public StructureContextMenu owner;
-    [SerializeField] Button button;
+    public Button button;
+    [SerializeField] GameObject learnMoreButton;
     [SerializeField]TextMeshProUGUI optionText;
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class OptionButton : MonoBehaviour
     {
         button.interactable = !isLocked;
         optionText.gameObject.SetActive(!isLocked);
+        learnMoreButton.SetActive(isLocked);
     }
 
     public string GetOptionContent()
