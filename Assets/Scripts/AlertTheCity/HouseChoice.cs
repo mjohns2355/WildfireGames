@@ -42,6 +42,7 @@ public class HouseChoice
 
                 Debug.Log("Applied Home Hardening Effect");
                 owner.ApplyHomeHardening(homeHardeningMod);
+                
                 break ;
         }
     }
