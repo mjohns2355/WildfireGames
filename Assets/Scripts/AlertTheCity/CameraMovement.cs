@@ -30,6 +30,12 @@ public class CameraMovement : MonoBehaviour
         //var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
         //gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
         camPos += inputVector * Time.deltaTime * cameraMovementSpeed;
+
+        float clampedX = Mathf.Clamp(camPos.x, 40f, 60f);
+        float clampedZ = Mathf.Clamp(camPos.z, -35f, 5f);
+
+        camPos = new Vector3(clampedX, camPos.y, clampedZ);
+
         gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, camPos, Time.deltaTime * lerpSpeed);
     }
 

@@ -12,6 +12,7 @@ public class ATC_InputManager : MonoBehaviour
     public Action<int> OnMouseScroll;
     public float cameraZoomAxis;
     public Vector2 cameraMovementVector;
+    public bool checkKeyboard;
 	[SerializeField]
 	Camera mainCamera;
 
@@ -32,6 +33,7 @@ public class ATC_InputManager : MonoBehaviour
     private void Start()
     {
         targetLayer = structureMask;
+        checkKeyboard = true;
     }
 
     private void Update()
@@ -40,6 +42,8 @@ public class ATC_InputManager : MonoBehaviour
         CheckClickHoldEvent();
         CheckClickUpEvent();
         CheckArrowInput();
+        
+
     }
 
     private Vector3Int? RaycastGround()
@@ -56,7 +60,17 @@ public class ATC_InputManager : MonoBehaviour
     }
     private void CheckArrowInput()
     {
-       // cameraMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (!checkKeyboard) return;
+        cameraMovementVector = Vector2.zero;
+        cameraZoomAxis = Input.GetAxis("Mouse ScrollWheel") * 10f;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+        {
+            Vector3 localMoveDirection = Camera.main.transform.TransformDirection(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+            cameraMovementVector = new Vector2(localMoveDirection.x, localMoveDirection.z);
+            checkKeyboard = true;
+        }
+
     }
 
 

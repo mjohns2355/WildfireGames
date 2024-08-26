@@ -1,4 +1,5 @@
 //using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,6 @@ public class HouseStructure : Structure
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
-
         if (isMainHouse)
         {
             // only main house has info
@@ -117,13 +117,13 @@ public class HouseStructure : Structure
     void SpawnHouseModel()
     {
         if (mesh.childCount >= 1) return;
-        GameObject houseModel = houseModels[Random.Range(0, houseModels.Length)];
+        GameObject houseModel = houseModels[UnityEngine.Random.Range(0, houseModels.Length)];
         currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
     }
     public void RandomizeHouseType()
     {
         // 0 is None
-        houseType = (HouseType)Random.Range(1, System.Enum.GetValues(typeof(HouseType)).Length);
+        houseType = (HouseType)UnityEngine.Random.Range(1, System.Enum.GetValues(typeof(HouseType)).Length);
     }
 
     public void SetHouseType(HouseType type)
@@ -169,7 +169,8 @@ public class HouseStructure : Structure
     {
         currentOption = menu.CurrentOption.GetOptionContent();
         Debug.Log($"Player selected {currentOption}");
-        
+        if (currentOption == "Home Hardening") ;
+        ApplyChoice();
     }
 
     void ApplyChoice()
@@ -234,7 +235,10 @@ public class HouseStructure : Structure
     }
     public IEnumerator SpawnCarRoutine()
     {
-        ApplyChoice();
+        if(currentOption != "HomeHardening")
+        {
+            ApplyChoice();
+        }
         yield return new WaitForSeconds(carSpawnWaitTime);
 
         Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
@@ -242,7 +246,7 @@ public class HouseStructure : Structure
 
         foreach (var house in sameTypeHouses)
         {
-            if (Random.Range(0f, 1f) < spawnCarChance)
+            if (UnityEngine.Random.Range(0f, 1f) < spawnCarChance)
             {
                 if (HasKidsToPickUp)
                 {
