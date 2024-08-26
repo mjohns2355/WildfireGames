@@ -28,7 +28,8 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
     Camera cam;
-    public OptionButton CurrentOption { get; private set; }
+    public string CurrentOption { get; private set; }
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -105,24 +106,7 @@ public class StructureContextMenu : MonoBehaviour
         GameManager.Instance.uiController.ClampToWindow(menuTransform, menuOffset);
     }
 
-    //public void ZoomMenuUI()
-    //{
-    //    float zoomSpeed = 2f;
-    //    float scaler = 1;
-    //    float axis = Input.GetAxis("Mouse ScrollWheel");
-    //    scaler -= axis * zoomSpeed;
-    //    Mathf.Clamp(scaler, 1f, 1.5f);
-    //    menuUI.GetComponent<RectTransform>().localScale *= scaler;
-    //}
-    //public void UpdateText(Dictionary<string,int> structureInfo)
-    //{
-    //    StringBuilder builder = new StringBuilder();
-    //    foreach (var item in structureInfo)
-    //    {
-    //        builder.AppendLine(item.Key + ":" + item.Value + "\n");
-    //    }
-    //    title.text = builder.ToString();
-    //}
+
 
     public void UpdateMenuForHouse(HouseStructure house)
     {
@@ -145,13 +129,22 @@ public class StructureContextMenu : MonoBehaviour
     {
         GameObject button = Instantiate(optionButtonPrefab,options);
         var optionButton = button.GetComponent<OptionButton>();
+
         optionButton.InitOptionButton(this, text);
         if (isLocked)
         {
             //Debug.Log("Locked Option: " + text);
             optionButton.isLocked = true;
-            
+
         }
+        //if (owner)
+        //{
+        //    Debug.Log(text + ": " + CurrentOption.GetOptionContent());
+            optionButton.ToggleOptionSelectState(text == CurrentOption);
+        //}
+        
+        
+ 
 
 
     }
@@ -163,7 +156,7 @@ public class StructureContextMenu : MonoBehaviour
         }
         else
         {
-            CurrentOption = option;
+            CurrentOption = option.GetOptionContent();
             OnMenuDisable();
         }
 

@@ -10,9 +10,9 @@ public class OptionButton : MonoBehaviour
     public bool needConfirmation;
     public StructureContextMenu owner;
     public Button button;
-    [SerializeField] GameObject learnMoreButton;
-    [SerializeField]TextMeshProUGUI optionText;
-
+    [SerializeField] Button learnMoreButton;
+    [SerializeField] TextMeshProUGUI optionText;
+    [SerializeField] GameObject checkMark;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -21,9 +21,14 @@ public class OptionButton : MonoBehaviour
     {
         button.interactable = !isLocked;
         optionText.gameObject.SetActive(!isLocked);
-        learnMoreButton.SetActive(isLocked);
+        learnMoreButton.gameObject.SetActive(isLocked);
+        
     }
 
+    public void ToggleOptionSelectState(bool state)
+    {
+        checkMark.SetActive(state);
+    }
     public string GetOptionContent()
     {
         return optionText.text;
@@ -33,14 +38,23 @@ public class OptionButton : MonoBehaviour
         this.owner = owner;
         optionText.text = buttonText;
         needConfirmation = IsGoodOption(buttonText);
+        var house = (HouseStructure)(owner.owner);
         button.onClick.AddListener(() =>
         {
             //Debug.Log("Option: " + optionText.text + " is clicked");
-            owner.explaination.text = FindOptionExplaination((HouseStructure)(owner.owner));
+            owner.explaination.text = FindOptionExplaination(house);
             owner.OnOptionButtonClicked(this);
             //owner.onOptionSelected.Invoke(this);
             //owner.OnClickGoodOptionButton(this);
 
+        });
+        learnMoreButton.onClick.AddListener(() =>
+        {
+
+            Debug.Log("Open Learn More Panel");
+            LearnMorePanel learnMorePanel = GameManager.Instance.uiController.learnMorePanel.GetComponent<LearnMorePanel>();
+            learnMorePanel.gameObject.SetActive(true);
+            learnMorePanel.OnDetailedPageEnable(house.HouseType);
         });
     }
     public void SetOptionButtonText(string text)

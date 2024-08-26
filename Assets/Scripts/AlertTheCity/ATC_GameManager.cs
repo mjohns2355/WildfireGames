@@ -14,7 +14,7 @@ public class GameManager : UnitySingleton<GameManager>
     public ACT_UIController uiController;
     public FireManager fireManager;
     public bool canStartSim = false;
-    public bool hasChoseGoodOption = false;
+    public bool choseGoodOption = false;
     private bool constructionMode;
     private bool assignMode;
     private float timer = 0;
@@ -117,8 +117,8 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-        canStartSim = hasChoseGoodOption;
-        if (!hasChoseGoodOption)
+        canStartSim = choseGoodOption;
+        if (!choseGoodOption)
         {
             uiController.popUp.SetActive(true);
         }

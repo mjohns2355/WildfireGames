@@ -29,19 +29,17 @@ public class LearnMorePanel : MonoBehaviour
             var obj = Instantiate(iconButtonPrefab, optionBtns);
             var icon = obj.GetComponent<HouseIcon>();
             icon.InitIcon(houseType);
-            icon.AddOnClickActions(OnDetailedPageEnable);
+            icon.AddOnClickActions(OnIconClicked);
             var iconIsLocked = GetHouseInfoFor(houseType).AllChoicesAreUnlocked();
             icon.ToggleIconState(!iconIsLocked);
             
         }
     }
 
-    public void OnDetailedPageEnable()
+ 
+    public void OnDetailedPageEnable(HouseType type)
     {
-        currentSelectedIcon = EventSystem.current.currentSelectedGameObject.GetComponent<HouseIcon>();
-        houseType = currentSelectedIcon.iconHouseType;;
-        targetHouseInfo = GetHouseInfoFor(houseType);
-
+        targetHouseInfo = GetHouseInfoFor(type);
         detailPage.SetActive(true);
         homePage.SetActive(false);
 
@@ -117,8 +115,8 @@ public class LearnMorePanel : MonoBehaviour
         var iconIsLocked = targetHouseInfo.AllChoicesAreUnlocked();
         targetMenu.icon.ToggleIconState(!iconIsLocked);
         gameObject.SetActive(false);
-        if (GameManager.Instance.hasChoseGoodOption) return;
-        GameManager.Instance.hasChoseGoodOption = true;
+        if (GameManager.Instance.choseGoodOption) return;
+        GameManager.Instance.choseGoodOption = true;
     }
 
     HouseTypeInfo GetHouseInfoFor(HouseType type)
@@ -136,5 +134,11 @@ public class LearnMorePanel : MonoBehaviour
         return null;
     }
 
+    void OnIconClicked()
+    {
+        currentSelectedIcon = EventSystem.current.currentSelectedGameObject.GetComponent<HouseIcon>();
+        houseType = currentSelectedIcon.iconHouseType;
 
+        OnDetailedPageEnable(houseType);
+    }
 }
