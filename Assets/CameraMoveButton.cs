@@ -48,6 +48,7 @@ public class CameraMoveButton : MonoBehaviour,IPointerDownHandler,IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         Vector3 localMoveDirection = Camera.main.transform.TransformDirection(moveDirection);
+        GameManager.Instance.inputManager.checkKeyboard = false;
         GameManager.Instance.inputManager.cameraMovementVector = new Vector2(localMoveDirection.x, localMoveDirection.z);
         if(isZooming)
         {
@@ -57,8 +58,9 @@ public class CameraMoveButton : MonoBehaviour,IPointerDownHandler,IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        GameManager.Instance.inputManager.checkKeyboard = true;
         GameManager.Instance.inputManager.cameraMovementVector = Vector2.zero;
-        if(isZooming)
+        if (isZooming)
         {
             GameManager.Instance.inputManager.cameraZoomAxis = 0f;
         }
