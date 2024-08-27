@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Linq;
 public class Combustible : MonoBehaviour
 {
     public Transform fireSpawnPos;
@@ -21,7 +21,9 @@ public class Combustible : MonoBehaviour
     void Start()
     {
         waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
-        meshes = GetComponentsInChildren<MeshRenderer>();
+        meshes = GetComponentsInChildren<MeshRenderer>()
+            .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
+            .ToArray();
         dialog = GameObject.FindGameObjectWithTag("Dialog").GetComponent<ATC_dialogManager>();
     }
 
@@ -44,10 +46,6 @@ public class Combustible : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
     public virtual void CatchOnFire()
     {
         if (isOnfire) return;
@@ -76,10 +74,6 @@ public class Combustible : MonoBehaviour
         
     }
 
-    public virtual void OnDestroy()
-    {
-        
-    }
 
 
 
