@@ -51,7 +51,7 @@ public class OptionButton : MonoBehaviour
         learnMoreButton.onClick.AddListener(() =>
         {
 
-            Debug.Log("Open Learn More Panel");
+            //Debug.Log("Open Learn More Panel");
             LearnMorePanel learnMorePanel = GameManager.Instance.uiController.learnMorePanel.GetComponent<LearnMorePanel>();
             learnMorePanel.gameObject.SetActive(true);
             learnMorePanel.OnDetailedPageEnable(house.HouseType);

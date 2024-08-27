@@ -169,7 +169,10 @@ public class HouseStructure : Structure
     {
         currentOption = menu.CurrentOption;
         Debug.Log($"Player selected {currentOption}");
-        
+        if(currentOption == "Home Hardening")
+        {
+            ApplyChoice();
+        }
     }
 
     void ApplyChoice()
@@ -189,34 +192,6 @@ public class HouseStructure : Structure
 
             GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
         }
-
-
-        
-        //choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
-
-        //foreach(var choice in choices)
-        //{
-        //    if(choice.choiceName == currentOption)
-        //    {
-        //        //Debug.Log("current option: " + currentOption);
-        //        if(lastOption == currentOption) return;
-
-        //        foreach (var house in sameTypeHouses)
-        //        {
-        //            choice.ApplyEffect(house);
-        //        }
-        //        //choice.ApplyEffect(this);
-        //        lastOption = currentOption;
-        //        break;
-        //    }
-        //    else
-        //    {
-        //        // default spawn time for house type doesn't have 'Wait for Notice' option
-        //        carSpawnWaitTime = 5;
-        //    }
-        //}
-
-
     }
 
     HouseChoice GetCurrentChoice(string name)
@@ -234,8 +209,10 @@ public class HouseStructure : Structure
     }
     public IEnumerator SpawnCarRoutine()
     {
-
-        ApplyChoice();
+        if(currentOption != "Home Hardening")
+        {
+            ApplyChoice();
+        }
         
         yield return new WaitForSeconds(carSpawnWaitTime);
 

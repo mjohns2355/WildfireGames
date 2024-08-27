@@ -137,15 +137,8 @@ public class StructureContextMenu : MonoBehaviour
             optionButton.isLocked = true;
 
         }
-        //if (owner)
-        //{
-        //    Debug.Log(text + ": " + CurrentOption.GetOptionContent());
-            optionButton.ToggleOptionSelectState(text == CurrentOption);
-        //}
-        
-        
- 
 
+        optionButton.ToggleOptionSelectState(text == CurrentOption);
 
     }
     public void OnOptionButtonClicked(OptionButton option)
