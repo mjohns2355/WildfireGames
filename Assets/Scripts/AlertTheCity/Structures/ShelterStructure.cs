@@ -25,37 +25,37 @@ public class ShelterStructure : Structure
     {
         base.OnStructureClick(); 
         
-        if (GameManager.Instance.uiController.selectedHouses.Count > 0)
+        if (ATC_UIController.Instance.selectedHouses.Count > 0)
         {
             menu.assignButton.gameObject.SetActive(true);
         }
     }
 
-    void SetAsSelectedShelter()
-    {
-        //check condition
-        if (availableSpace == 0) return;
-        if(!CheckIfShelterHasEnoughSpace()) return;
-        HideUI();
-        GameManager.Instance.uiController.selectedShelter = this;
-        ATC_StructureModel end = GetComponentInParent<ATC_StructureModel>();
-        foreach (var house in GameManager.Instance.uiController.selectedHouses)
-        {
-            house.HideUI();
-            //availableSpace -= house.pplNum;
-            //structureInfoDict["Available Space"] = availableSpace;
-            //menu.UpdateText(structureInfoDict);
-            ATC_StructureModel start = house.GetComponentInParent<ATC_StructureModel>();
-            ATC_AIDirector.Instance.SpawnACar(start, end);
+    //void SetAsSelectedShelter()
+    //{
+    //    //check condition
+    //    if (availableSpace == 0) return;
+    //    if(!CheckIfShelterHasEnoughSpace()) return;
+    //    HideUI();
+    //    //ATC_UIController.Instance.selectedShelter = this;
+    //    ATC_StructureModel end = GetComponentInParent<ATC_StructureModel>();
+    //    foreach (var house in ATC_UIController.Instance.selectedHouses)
+    //    {
+    //        house.HideUI();
+    //        //availableSpace -= house.pplNum;
+    //        //structureInfoDict["Available Space"] = availableSpace;
+    //        //menu.UpdateText(structureInfoDict);
+    //        ATC_StructureModel start = house.GetComponentInParent<ATC_StructureModel>();
+    //        ATC_AIDirector.Instance.SpawnACar(start, end);
 
-        }
-        GameManager.Instance.uiController.selectedHouses.Clear();
-    }
+    //    }
+    //    ATC_UIController.Instance.selectedHouses.Clear();
+    //}
 
     bool CheckIfShelterHasEnoughSpace()
     {
         int peopleCount = 0;
-        foreach (var house in GameManager.Instance.uiController.selectedHouses)
+        foreach (var house in ATC_UIController.Instance.selectedHouses)
         {
             //peopleCount += house.pplNum;
         }

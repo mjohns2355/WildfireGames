@@ -121,7 +121,7 @@ public class LearnMorePanel : MonoBehaviour
 
     HouseTypeInfo GetHouseInfoFor(HouseType type)
     {
-        foreach (var menu in GameManager.Instance.uiController.contextMenus)
+        foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             var house = (HouseStructure)menu.owner;
             if (house.HouseType == type)

@@ -61,7 +61,7 @@ public class StructureContextMenu : MonoBehaviour
           
             UpdateMenuForHouse(house);
 
-            foreach (var menu in GameManager.Instance.uiController.contextMenus)
+            foreach (var menu in ATC_UIController.Instance.contextMenus)
             {
                 if (menu == this) continue;
                 if (!menu.gameObject.activeSelf) continue;
@@ -76,7 +76,7 @@ public class StructureContextMenu : MonoBehaviour
     {
         ClearOptionButtons();
         //StartCoroutine(house.SpawnCarRoutine());
-        foreach (var menu in GameManager.Instance.uiController.contextMenus)
+        foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             menu.menu.SetActive(false);
             menu.icon.gameObject.SetActive(true);
@@ -103,7 +103,7 @@ public class StructureContextMenu : MonoBehaviour
         icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
         menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
 
-        GameManager.Instance.uiController.ClampToWindow(menuTransform, menuOffset);
+        ATC_UIController.Instance.ClampToWindow(menuTransform, menuOffset);
     }
 
 
