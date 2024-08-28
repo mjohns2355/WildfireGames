@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindZone : UnitySingleton<WindZone>
+public class ATC_WindZone : MonoBehaviour
 {
     [Range(0f, 10f)]
     [SerializeField] float windForce = 0f;
@@ -75,4 +75,6 @@ public class WindZone : UnitySingleton<WindZone>
     {
         transform.localScale = new Vector3(range, 8,  range);
     }
+
+
 }

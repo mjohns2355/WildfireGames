@@ -8,6 +8,7 @@ public class FireManager : MonoBehaviour
     public float fireWaitTimeBeforeStart = 3f;
     public Transform fireSpawnPoint;
     public GameObject firePrefab;
+    public ATC_WindZone wind;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
     public bool done = false;

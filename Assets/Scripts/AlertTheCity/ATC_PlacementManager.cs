@@ -224,7 +224,6 @@ public class ATC_PlacementManager : MonoBehaviour
                 structureList.Add(structureModel);
             }
         }
-
         var structure = structureList[UnityEngine.Random.Range(0, structureList.Count)];
         return structure;
     }

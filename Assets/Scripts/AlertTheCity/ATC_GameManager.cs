@@ -1,52 +1,34 @@
 using cakeslice;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : UnitySingleton<GameManager>
 {
     public CameraMovement cameraMovement;
     public ATC_RoadManager roadManager;
     public StructureManager structureManager;
     public ATC_InputManager inputManager;
-    public ACT_UIController uiController;
     public FireManager fireManager;
+    public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
-    private bool constructionMode;
-    private bool assignMode;
     private float timer = 0;
     private bool end = false;
 
-    public ATC_dialogManager dialog;
-    public GameObject evacNotice;
-
-
-    public bool InAssignMode
-    {
-        get { return assignMode; }
-    }
-
-
-    public bool ConstructionMode
-    {
-        get { return constructionMode; }
-    }
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
-        uiController.OnRoadPlacement += RoadPlacementHandler;
-        uiController.OnHousePlacement += HousePlacementHandler;
-        uiController.OnSpecialPlacement += SpecialPlacementHandler;
+        //uiController.OnRoadPlacement += RoadPlacementHandler;
+        //uiController.OnHousePlacement += HousePlacementHandler;
+        //uiController.OnSpecialPlacement += SpecialPlacementHandler;
     }
 
     private void RoadPlacementHandler()
     {
-
         ClearInputAction();
         inputManager.OnMouseClick += roadManager.PlaceRoad;
         inputManager.OnMouseHold += roadManager.PlaceRoad;
@@ -74,14 +56,14 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Update()
     {
-        //Debug.Log(inputManager.cameraMovementVector);
+        if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
-        //cameraMovement.ZoomCamera(Input.GetAxis("Mouse ScrollWheel"));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
 
         if(canStartSim)
         {
-            if(timer < 70)
+            // don't forget to set it back to 70
+            if(timer < 20)
             {
                 timer += Time.deltaTime;
             }
@@ -89,11 +71,13 @@ public class GameManager : UnitySingleton<GameManager>
             {
                 end = true;
                 fireManager.done = true;
-                dialog.gameObject.SetActive(true);
-                dialog.EndDialog();
+                //ToggleGamePause(true);
+                dialogManager.gameObject.SetActive(true);
+                dialogManager.EndDialog();
             }
         }
     }
+
 
     private void ClearInputAction()
     {
@@ -102,25 +86,25 @@ public class GameManager : UnitySingleton<GameManager>
         inputManager.OnMouseUp = null;
     }
 
-    public void ToggleConstructionMode()
-    {
-        constructionMode = !constructionMode;
-        if (constructionMode == false)
-        {
-            ClearInputAction();
-            inputManager.OnMouseClick += structureManager.ClickStructre;
-        }
-        uiController.UpdateConstructionMode(constructionMode);
-        inputManager.OnConstructionMode(constructionMode);
-        Debug.Log(constructionMode);
-    }
+    //public void ToggleConstructionMode()
+    //{
+    //    constructionMode = !constructionMode;
+    //    if (constructionMode == false)
+    //    {
+    //        ClearInputAction();
+    //        inputManager.OnMouseClick += structureManager.ClickStructre;
+    //    }
+    //    //uiController.UpdateConstructionMode(constructionMode);
+    //    inputManager.OnConstructionMode(constructionMode);
+    //    Debug.Log(constructionMode);
+    //}
 
     public void StartSimulation()
     {
         canStartSim = choseGoodOption;
         if (!choseGoodOption)
         {
-            uiController.popUp.SetActive(true);
+            ATC_UIController.Instance.popUp.SetActive(true);
         }
 
         StartCoroutine(StartSimRoutine());
@@ -133,96 +117,71 @@ public class GameManager : UnitySingleton<GameManager>
 
     IEnumerator StartSimRoutine()
     {
-        //Debug.Log("Start Coroutine");
         yield return new WaitUntil(()=>canStartSim);
-        foreach (var menu in uiController.contextMenus)
-        {
-            menu.icon.gameObject.SetActive(false);
-            menu.ApplyBehavior();
-            if (!menu.gameObject.activeSelf) continue;
-            menu.menu.SetActive(false);
-            //if (!menu.gameObject.activeSelf) continue;
-            //menu.gameObject.SetActive(false);
-
-        }
-        uiController.learnMorePanel.SetActive(false);
-        StartCoroutine(fireManager.StartFireRoutine());
-        WindZone.Instance.isStill = false;
-        // update choice text
-        StringBuilder sb = new StringBuilder();
-        foreach(var pair in structureManager.GetPlayerChoicesDict())
-        {
-            sb.AppendLine(pair.Key + ": " + pair.Value.choiceName);
-        }
-        UpdateDebugText(sb.ToString());
-
-        evacNotice.SetActive(true);
-
         // close all the menus and panels
-        //uiController.OnSimulationStarted();
+        ATC_UIController.Instance.CloseAllUI();
+        foreach(var menu in ATC_UIController.Instance.contextMenus)
+        {
+            menu.ApplyBehavior();
+        }
+        StartCoroutine(fireManager.StartFireRoutine());
+        fireManager.wind.isStill = false;
+
+        // update choice text
+        ATC_UIController.Instance.GenerateGameEndSummary(structureManager.GetPlayerChoicesDict());
+        ATC_UIController.Instance.evacNotice.SetActive(true) ;
+
+        //debug
         yield return new WaitForSeconds(10f);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
     }
-    public void ToggleAssignMode()
+
+    public void ToggleGamePause(bool state)
     {
-        assignMode = !assignMode;
-        if (assignMode == false)
-        {
-            ClearInputAction();
-            inputManager.OnMouseClick += structureManager.ClickStructre;
-        }
-        uiController.UpdateConstructionMode(constructionMode);
-        inputManager.OnConstructionMode(constructionMode);
-        Debug.Log(assignMode);
+        Time.timeScale = state ? 0 : 1;
+    }
+    //public void ToggleAssignMode()
+    //{
+    //    assignMode = !assignMode;
+    //    if (assignMode == false)
+    //    {
+    //        ClearInputAction();
+    //        inputManager.OnMouseClick += structureManager.ClickStructre;
+    //    }
+    //    uiController.UpdateConstructionMode(constructionMode);
+    //    inputManager.OnConstructionMode(constructionMode);
+    //    Debug.Log(assignMode);
+    //}
+
+
+    //public string[] ParseString( string str, char[] delimiterChars)
+    //{
+    //    string[] words = str.Split(delimiterChars);
+
+    //    return words;
+    //}
+
+    public void ResetGame()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
-    void UpdateDebugText (string text)
+    public void NextLevel()
     {
-        //uiController.debugPanel.SetActive(true);
-        //uiController.debugResultText.text = text;
-        var dict = structureManager.GetPlayerChoicesDict();
-
-        string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
-        string wuiRes = dict[HouseType.wui].endGameFeedback;
-        string horseRes = dict[HouseType.horse].endGameFeedback;
-        string kidsRes = dict[HouseType.kids].endGameFeedback;
-        string petRes = dict[HouseType.pet].endGameFeedback;
-        string elderRes = dict[HouseType.elderly].endGameFeedback;
-
-        uiController.debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
-
-        uiController.debugResultText.text += twoCarRes;
-
-        uiController.debugResultText.text += "\n\nWildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
-
-
-        uiController.debugResultText.text += petRes + "\n\n";
-        uiController.debugResultText.text += horseRes;
-
-
-        uiController.debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
-
-
-        uiController.debugResultText2.text += elderRes + "\n\n";
-        uiController.debugResultText2.text += kidsRes;
-
-
-        uiController.debugResultText2.text += "\n\nHouses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
-
-
-        uiController.debugResultText2.text += wuiRes;
-
-
-        uiController.debugResultText2.text += "\n\nOur community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
-
-        //uiController.debugPanel.SetActive(true);
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public string[] ParseString( string str, char[] delimiterChars)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        string[] words = str.Split(delimiterChars);
-
-        return words;
+        timer = 0;
+        ATC_UIController.Instance.ResetUI();
+        structureManager = FindObjectOfType<StructureManager>();
+        roadManager = FindObjectOfType<ATC_RoadManager>();
+        inputManager = FindObjectOfType<ATC_InputManager>();
+        fireManager = FindObjectOfType<FireManager>();
+        cameraMovement = FindObjectOfType<CameraMovement>();
+        //dialogManager = FindObjectOfType<ATC_dialogManager>();
+        //uiController = FindObjectOfType<ATC_UIController>();
     }
-
 }

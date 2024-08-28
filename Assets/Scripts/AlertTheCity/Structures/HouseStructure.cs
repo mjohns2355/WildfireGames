@@ -51,8 +51,10 @@ public class HouseStructure : Structure
     Combustible combustible;
     [SerializeField] MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
+    List<ATC_StructureModel> destinations;
     float spawnCarChance = 0.9f;
-
+    Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
+    Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
     private void Awake()
     {
 
@@ -63,35 +65,19 @@ public class HouseStructure : Structure
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
-        if (isMainHouse)
-        {
-            // only main house has info
-            menu.gameObject.SetActive(true);
-            menu.icon.gameObject.SetActive(true);
-            List<ATC_StructureModel> houses = placementManager.GetAllHouses();
-            GameManager.Instance.uiController.AddMenu(menu);
-            foreach (var house in houses)
-            {
-                if(house == null) continue;
-                var houseStructure = house.GetComponent<HouseStructure>();
-                if (houseStructure == null) continue;
-                if (houseStructure.houseType == houseType)
-                {
-                    sameTypeHouses.Add(houseStructure);
-                    foreach(var h in sameTypeHouses)
-                    {
-                        h.houseInfo = houseInfo;
-                        h.houseInfo.InitHouseInfo(h);
-                    }
-                }
-            }
 
-            // defaults to first option if player doesn't select
-            currentOption = houseInfo.normalChoices[0].choiceName;
-            menu.onOptionSelected += OnOptionButtonClicked;
-            targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
-        }
-        
+        if (!isMainHouse) return;
+        InitMainHouse();
+
+        // defaults to first option if player doesn't select
+        currentOption = houseInfo.normalChoices.FirstOrDefault()?.choiceName;
+        menu.onOptionSelected += OnOptionButtonClicked;
+
+        InitDestinations();
+        //default destination
+        var shelter =specialStructureDict[StructureType.Shelter];
+        SetDestination(new List<ATC_StructureModel> { shelter});
+        targetShelter = shelter;
     }
 
     private void OnEnable()
@@ -120,10 +106,63 @@ public class HouseStructure : Structure
         GameObject houseModel = houseModels[UnityEngine.Random.Range(0, houseModels.Length)];
         currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
     }
+
+    void InitMainHouse()
+    {
+       
+
+        // only main house has info
+        menu.gameObject.SetActive(true);
+        menu.icon.gameObject.SetActive(true);
+        ATC_UIController.Instance.AddMenu(menu);
+
+        if (houseTypeDict == null)
+        {
+            houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
+
+            foreach (var house in placementManager.GetAllHouses())
+            {
+                if (house == null) continue;
+
+                var houseStructure = house.GetComponent<HouseStructure>();
+                if (houseStructure == null) continue;
+
+                if (!houseTypeDict.ContainsKey(houseStructure.houseType))
+                {
+                    houseTypeDict[houseStructure.houseType] = new List<HouseStructure>();
+                }
+
+                houseTypeDict[houseStructure.houseType].Add(houseStructure);
+            }
+        }
+
+        if (houseTypeDict.TryGetValue(houseType, out sameTypeHouses))
+        {
+            foreach (var house in sameTypeHouses)
+            {
+                house.houseInfo = houseInfo;
+                house.houseInfo.InitHouseInfo(house);
+            }
+        }
+    }
+    void InitDestinations()
+    {
+        if (specialStructureDict == null)
+        {
+            specialStructureDict = new Dictionary<StructureType, ATC_StructureModel>();
+            StructureType[] values = (StructureType[])Enum.GetValues(typeof(StructureType));
+            foreach ( var type in values)
+            {
+                // house is not a special structure
+                if (type == StructureType.House) continue;
+                specialStructureDict[type] = placementManager.GetRandomSpecialStructursOfType(type);
+            }
+        }
+    }
     public void RandomizeHouseType()
     {
         // 0 is None
-        houseType = (HouseType)UnityEngine.Random.Range(1, System.Enum.GetValues(typeof(HouseType)).Length);
+        houseType = (HouseType)UnityEngine.Random.Range(1, Enum.GetValues(typeof(HouseType)).Length);
     }
 
     public void SetHouseType(HouseType type)
@@ -137,7 +176,7 @@ public class HouseStructure : Structure
         foreach (var house in sameTypeHouses)
         {
             house.outline.enabled = true;
-            GameManager.Instance.uiController.AddSelectedHouse(house);
+            ATC_UIController.Instance.AddSelectedHouse(house);
         }
     }
 
@@ -169,6 +208,7 @@ public class HouseStructure : Structure
     {
         currentOption = menu.CurrentOption;
         Debug.Log($"Player selected {currentOption}");
+        // apply home hardening immediately
         if(currentOption == "Home Hardening")
         {
             ApplyChoice();
@@ -225,13 +265,14 @@ public class HouseStructure : Structure
             {
                 if (HasKidsToPickUp)
                 {
-                    var school = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
-
-                    ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { school, targetShelter }, carSpeed, carNum);
+                    var school = specialStructureDict[StructureType.School];
+                    var shelter = specialStructureDict[StructureType.Shelter];
+                    SetDestination(new List<ATC_StructureModel> { school, shelter });
+                    ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(),destinations, carSpeed, carNum);
                 }
                 else
                 {
-                    ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), targetShelter, carSpeed, carNum);
+                    ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), destinations.Last(), carSpeed, carNum);
                 }
             }
         }
@@ -245,8 +286,8 @@ public class HouseStructure : Structure
 
     public void RelocateHorses()
     {
-        var stable = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Stable).GetComponent<StableStructure>();
-        stable.RelocateHorse();
+        var stable = specialStructureDict[StructureType.Stable];
+        stable.GetComponent<StableStructure>().RelocateHorse();
         
     }
     public void ApplyHomeHardening(float homeHardeningMod)
@@ -265,5 +306,10 @@ public class HouseStructure : Structure
         currentHouseModel.material = metalRoofMaterial;
         combustible.fireChance = 1 - homeHardeningMod;
         Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
+    }
+
+    void SetDestination(List<ATC_StructureModel> destinations)
+    {
+        this.destinations = destinations;
     }
 }

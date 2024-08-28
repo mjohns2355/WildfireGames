@@ -23,26 +23,26 @@ public class Marker : MonoBehaviour
         return new List<Vector3>(adjacentMarkers.Select(x => x.Position).ToList());
     }
 
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        if (Selection.activeObject == gameObject)
-        {
-            Gizmos.color = Color.red;
+//#if UNITY_EDITOR
+//    private void OnDrawGizmos()
+//    {
+//        if (Selection.activeObject == gameObject)
+//        {
+//            Gizmos.color = Color.red;
 
-            if (adjacentMarkers.Count > 0)
-            {
-                foreach (var marker in adjacentMarkers)
-                {
+//            if (adjacentMarkers.Count > 0)
+//            {
+//                foreach (var marker in adjacentMarkers)
+//                {
 
-                    Gizmos.DrawLine(transform.position, marker.Position);
+//                    Gizmos.DrawLine(transform.position, marker.Position);
 
-                }
-            }
-            Gizmos.color = Color.white;
-        }
-    }
+//                }
+//            }
+//            Gizmos.color = Color.white;
+//        }
+//    }
 
-#endif
+//#endif
 }
 

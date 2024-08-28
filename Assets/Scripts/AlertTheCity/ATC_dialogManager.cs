@@ -50,7 +50,7 @@ public class ATC_dialogManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Level1");
+        
     }
 
     public void StepTextForward()

@@ -3,24 +3,24 @@ using UnityEngine;
 public abstract class UnitySingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static T Instance;
-    public static bool shouldNotDestroyOnLoad;
+    public static bool shouldNotDestroyOnLoad = true;
 
     public virtual void Awake()
     {
         if (Instance == null)
         {
-            Instance = GetComponent<T>();
+            Instance = this as T;
             if (shouldNotDestroyOnLoad)
             {
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(gameObject);
             }
             
         }
         else
         {
-            if(Instance != GetComponent<T>())
+            if(Instance != this)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
