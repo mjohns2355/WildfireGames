@@ -48,10 +48,6 @@ public class ATC_dialogManager : MonoBehaviour
         }
     }
 
-    public void RestartGame()
-    {
-        
-    }
 
     public void StepTextForward()
     {
@@ -76,6 +72,11 @@ public class ATC_dialogManager : MonoBehaviour
                     timer.SetActive(true);
                 }
                 gameObject.SetActive(false);
+
+                if (GameManager.Instance.FirstTimeLoading)
+                {
+                    GameManager.Instance.StartSimulation();
+                }
             }
             else
             {
@@ -97,6 +98,7 @@ public class ATC_dialogManager : MonoBehaviour
                 counter++;
                 if (counter >= phaseOneDialog.Length)
                 {
+
                     counter = -1;
                 }
 

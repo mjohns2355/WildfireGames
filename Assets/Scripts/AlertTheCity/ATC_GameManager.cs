@@ -15,11 +15,12 @@ public class GameManager : UnitySingleton<GameManager>
     public bool choseGoodOption = false;
     private float timer = 0;
     private bool end = false;
-
+    public bool FirstTimeLoading { get; private set; }
 
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        FirstTimeLoading = true;
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -27,32 +28,32 @@ public class GameManager : UnitySingleton<GameManager>
         //uiController.OnSpecialPlacement += SpecialPlacementHandler;
     }
 
-    private void RoadPlacementHandler()
-    {
-        ClearInputAction();
-        inputManager.OnMouseClick += roadManager.PlaceRoad;
-        inputManager.OnMouseHold += roadManager.PlaceRoad;
-        inputManager.OnMouseUp += roadManager.FinishPlacingRoad;
-    }
+    //private void RoadPlacementHandler()
+    //{
+    //    ClearInputAction();
+    //    inputManager.OnMouseClick += roadManager.PlaceRoad;
+    //    inputManager.OnMouseHold += roadManager.PlaceRoad;
+    //    inputManager.OnMouseUp += roadManager.FinishPlacingRoad;
+    //}
 
-    private void HousePlacementHandler()
-    {
+    //private void HousePlacementHandler()
+    //{
 
-        ClearInputAction();
-        //inputManager.OnMouseClick += structureManager.PlaceHouse;
-    }
-    private void SpecialPlacementHandler()
-    {
+    //    ClearInputAction();
+    //    //inputManager.OnMouseClick += structureManager.PlaceHouse;
+    //}
+    //private void SpecialPlacementHandler()
+    //{
 
-        ClearInputAction();
-        //inputManager.OnMouseClick += structureManager.PlaceSpecial;
+    //    ClearInputAction();
+    //    //inputManager.OnMouseClick += structureManager.PlaceSpecial;
 
-    }
-    private void HandleMouseClick(Vector3Int position)
-    {
-        Debug.Log(position);
-       // roadManager.PlaceRoad(position);
-    }
+    //}
+    //private void HandleMouseClick(Vector3Int position)
+    //{
+    //    Debug.Log(position);
+    //   // roadManager.PlaceRoad(position);
+    //}
 
     private void Update()
     {
@@ -79,12 +80,12 @@ public class GameManager : UnitySingleton<GameManager>
     }
 
 
-    private void ClearInputAction()
-    {
-        inputManager.OnMouseClick = null;
-        inputManager.OnMouseHold = null;
-        inputManager.OnMouseUp = null;
-    }
+    //private void ClearInputAction()
+    //{
+    //    inputManager.OnMouseClick = null;
+    //    inputManager.OnMouseHold = null;
+    //    inputManager.OnMouseUp = null;
+    //}
 
     //public void ToggleConstructionMode()
     //{
@@ -101,12 +102,18 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-        canStartSim = choseGoodOption;
-        if (!choseGoodOption)
+        if(!FirstTimeLoading)
         {
-            ATC_UIController.Instance.popUp.SetActive(true);
+            canStartSim = choseGoodOption;
+            if (!choseGoodOption)
+            {
+                ATC_UIController.Instance.popUp.SetActive(true);
+            }
         }
-
+        else
+        {
+            canStartSim = true;
+        }
         StartCoroutine(StartSimRoutine());
     }
 
@@ -118,6 +125,7 @@ public class GameManager : UnitySingleton<GameManager>
     IEnumerator StartSimRoutine()
     {
         yield return new WaitUntil(()=>canStartSim);
+        FirstTimeLoading = false;
         // close all the menus and panels
         ATC_UIController.Instance.CloseAllUI();
         foreach(var menu in ATC_UIController.Instance.contextMenus)
@@ -171,6 +179,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void NextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FirstTimeLoading = true;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
