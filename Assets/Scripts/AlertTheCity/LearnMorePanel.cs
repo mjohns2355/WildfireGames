@@ -36,10 +36,11 @@ public class LearnMorePanel : MonoBehaviour
         }
     }
 
- 
+
     public void OnDetailedPageEnable(HouseType type)
     {
         targetHouseInfo = GetHouseInfoFor(type);
+        targetMenu = ATC_UIController.Instance.FindMenu(type);
         detailPage.SetActive(true);
         homePage.SetActive(false);
 
@@ -64,7 +65,7 @@ public class LearnMorePanel : MonoBehaviour
     {
         if (homePage.activeSelf)
         {
-            gameObject.SetActive(false);
+            ATC_UIController.Instance.PopPanel();
         }
         else
         {
@@ -111,27 +112,20 @@ public class LearnMorePanel : MonoBehaviour
         var choiceName = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>().btnText.text;
         var choice = targetHouseInfo.ReturnChoiceByName(choiceName);
         choice.isLocked = false;
-        targetMenu.OnMenuEnable();
+        var choseGoodOption = GameManager.Instance.choseGoodOption;
+        if(!choseGoodOption)
+        {
+            GameManager.Instance.choseGoodOption = true;
+        }
         var iconIsLocked = targetHouseInfo.AllChoicesAreUnlocked();
         targetMenu.icon.ToggleIconState(!iconIsLocked);
-        gameObject.SetActive(false);
-        if (GameManager.Instance.choseGoodOption) return;
-        GameManager.Instance.choseGoodOption = true;
+        targetMenu.OnMenuEnable();
+        //gameObject.SetActive(false);
     }
 
     HouseTypeInfo GetHouseInfoFor(HouseType type)
     {
-        foreach (var menu in ATC_UIController.Instance.contextMenus)
-        {
-            var house = (HouseStructure)menu.owner;
-            if (house.HouseType == type)
-            {
-                targetMenu = menu;
-                return house.houseInfo;
-            }
-        }
-
-        return null;
+       return GameManager.Instance.structureManager.ReturnHouseInfoFor(type);
     }
 
     void OnIconClicked()

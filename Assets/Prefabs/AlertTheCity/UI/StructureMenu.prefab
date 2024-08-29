@@ -117,15 +117,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeResponseButton: {fileID: 7755886096967020236}
-  selectButton: {fileID: 5270479229504264647}
+  confirmButton: {fileID: 5270479229504264647}
   explaination: {fileID: 5816303189262301288}
-  menu: {fileID: 6095752828999564654}
+  menuUI: {fileID: 6095752828999564654}
   icon: {fileID: 8673931658094498880}
   title: {fileID: 7592141092548686792}
   options: {fileID: 3980592266290294632}
   optionButtonPrefab: {fileID: 8510916420729711054, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
   closeButton: {fileID: 1740119273450896189}
-  assignButton: {fileID: 0}
   owner: {fileID: 0}
   menuTransform: {fileID: 1745317932652779068}
   menuOffset: 200
@@ -1125,7 +1124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8510916420729711054, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
       propertyPath: m_Name
-      value: Select
+      value: Confirm
       objectReference: {fileID: 0}
     - target: {fileID: 8510916420729711054, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
       propertyPath: m_IsActive

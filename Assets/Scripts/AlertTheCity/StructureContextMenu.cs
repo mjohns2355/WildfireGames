@@ -13,15 +13,15 @@ public class StructureContextMenu : MonoBehaviour
     //public Action<OptionButton> onOptionSelected;
     public Action onOptionSelected;
     public OptionButton changeResponseButton;
-    public OptionButton selectButton;
+    public OptionButton confirmButton;
     public TextMeshProUGUI explaination;
-    public GameObject menu;//ui
+    public GameObject menuUI;//ui
     public HouseIcon icon;//ui
     public TextMeshProUGUI title;
     [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
     public Button closeButton;
-    public Button assignButton;
+    //public Button assignButton;
     public Structure owner;
     //bool optionsAreLocked = true;
     //[SerializeField] RectTransform canvasTransform;
@@ -45,44 +45,45 @@ public class StructureContextMenu : MonoBehaviour
             ToggleChangeResponsePanel(false);
         });
         icon.InitIcon(house.HouseType);
-
+        
     }
 
     public void OnMenuEnable()
     {
         if(owner == null) return;
-        menu.SetActive(true);
-        icon.gameObject.SetActive(false);
-
+        //menuUI.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
-        house.OnStructureClick();
-        if (house.isMainHouse)
-        {
-          
-            UpdateMenuForHouse(house);
 
-            foreach (var menu in ATC_UIController.Instance.contextMenus)
-            {
-                if (menu == this) continue;
-                if (!menu.gameObject.activeSelf) continue;
-                menu.menu.SetActive(false);
-                menu.icon.gameObject.SetActive(false);
-            }
+        if (!house.isMainHouse) return;
+        house.OnStructureClick();
+        ATC_UIController.Instance.PushPanel(menuUI);
+        icon.gameObject.SetActive(false);
+        UpdateMenuForHouse(house);
+        foreach (var menu in ATC_UIController.Instance.contextMenus)
+        {
+            if (menu == this) continue;
+            if (!menu.gameObject.activeSelf) continue;
+            //menu.menu.SetActive(false);
+            menu.icon.gameObject.SetActive(false);
         }
+
 
     }
 
     public void OnMenuDisable()
     {
-        ClearOptionButtons();
-        //StartCoroutine(house.SpawnCarRoutine());
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
-            menu.menu.SetActive(false);
+            //menu.menuUI.SetActive(false);
             menu.icon.gameObject.SetActive(true);
         }
         owner.StopSturctureClick();
-        ToggleChangeResponsePanel(false );
+        ToggleChangeResponsePanel(false);
+
+        ClearOptionButtons();
+        ATC_UIController.Instance.ClearAllPanels();
+        //StartCoroutine(house.SpawnCarRoutine());
+
         //changeResponseButton.onClick.RemoveAllListeners();
         //selectedBehavior = true;
 
@@ -101,7 +102,7 @@ public class StructureContextMenu : MonoBehaviour
     void FixedUpdate()
     {
         icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
-        menu.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
+        menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
 
         ATC_UIController.Instance.ClampToWindow(menuTransform, menuOffset);
     }
@@ -170,7 +171,7 @@ public class StructureContextMenu : MonoBehaviour
 
         if(state == true)
         {
-            selectButton.button.onClick.AddListener(() =>
+            confirmButton.button.onClick.AddListener(() =>
             {
                 currentOption.needConfirmation = false;
                 OnOptionButtonClicked(currentOption);
@@ -181,7 +182,7 @@ public class StructureContextMenu : MonoBehaviour
             if(currentOption != null)
             {
                 currentOption.needConfirmation = true;
-                selectButton.button.onClick.RemoveAllListeners();
+                confirmButton.button.onClick.RemoveAllListeners();
             }
 
         }

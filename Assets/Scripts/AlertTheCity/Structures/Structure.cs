@@ -5,7 +5,7 @@ public class Structure : MonoBehaviour
 {
     
     public StructureType structureType;
-    public StructureContextMenu menu;
+    public StructureContextMenu contextMenu;
     public Transform menuSpawnPos;
     public Outline outline;
     public int height = 1;
@@ -18,7 +18,7 @@ public class Structure : MonoBehaviour
 
     virtual public void OnStructureClick()
     {
-        menu.gameObject.SetActive(true);
+        contextMenu.gameObject.SetActive(true);
         //menu.UpdateText(structureInfoDict);
         outline.enabled = true;
     }
@@ -31,7 +31,7 @@ public class Structure : MonoBehaviour
 
     public void HideUI()
     {
-        menu.gameObject.SetActive(false);
+        contextMenu.gameObject.SetActive(false);
         outline.enabled = false;
     }
 

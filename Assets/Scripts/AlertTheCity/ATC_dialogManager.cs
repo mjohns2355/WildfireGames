@@ -27,6 +27,7 @@ public class ATC_dialogManager : MonoBehaviour
     private void Start()
     {
         StepTextForward();
+
     }
 
     public void EndDialog()
@@ -59,8 +60,10 @@ public class ATC_dialogManager : MonoBehaviour
                 dialog.text = endDialog[counter];
             } else
             {
-                localNews.SetActive(true);
-                gameObject.SetActive(false);
+                //localNews.SetActive(true);
+                ATC_UIController.Instance.PopPanel();
+                //gameObject.SetActive(false);
+                ATC_UIController.Instance.PushPanel(localNews);
             }
         }
         else
@@ -71,8 +74,9 @@ public class ATC_dialogManager : MonoBehaviour
                 {
                     timer.SetActive(true);
                 }
-                gameObject.SetActive(false);
-
+                //gameObject.SetActive(false);
+                ATC_UIController.Instance.PopPanel();
+                // start auto simulation
                 if (GameManager.Instance.FirstTimeLoading)
                 {
                     GameManager.Instance.StartSimulation();

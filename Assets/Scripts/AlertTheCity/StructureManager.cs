@@ -10,18 +10,29 @@ public class StructureManager : MonoBehaviour
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
     public GameObject structureTilemap;
-    public List<HouseTypeInfo> houseInfos = new List<HouseTypeInfo>();
+    [SerializeField] List<HouseTypeInfo> houseInfos = new List<HouseTypeInfo>();
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
     public List<HouseStructure> allMainHouses = new List<HouseStructure>();
 
     Dictionary<HouseType, HouseChoice> playerChoices = new Dictionary<HouseType, HouseChoice>();
+    Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
     private void Start()
     {
-        //Debug.Log("Structure Manager Starts");
         PlacePreBuiltStructures();
+        InitialHouseInfoDict();
         InitialMainHouses();
-        
     }
+
+    private void InitialHouseInfoDict()
+    {
+        houseInfoDict.Clear();
+
+        foreach (var info in houseInfos)
+        {
+            houseInfoDict[info.houseType] = Instantiate(info);
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -36,8 +47,6 @@ public class StructureManager : MonoBehaviour
             allHouses = placementManager.GetAllHouses();
         }
 
-        //Debug.Log($"Houses on the maps: {allHouses.Count}");
-
         //make sure each type has at least one house in the group
         for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
         {
@@ -46,7 +55,7 @@ public class StructureManager : MonoBehaviour
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
             var house = structure.GetComponent<HouseStructure>();
-            if (house && !house.isMainHouse && CheckNeighbourMainHouse(structure.RoadPosition))
+            if (house && !house.isMainHouse && !CloseToMainHouse(structure.RoadPosition))
             {
                 house.isMainHouse = true;
                 house.houseInfo = ReturnHouseInfoFor(houseType);
@@ -59,7 +68,6 @@ public class StructureManager : MonoBehaviour
         foreach (var structure in allHouses)
         {
             var house = structure.GetComponent<HouseStructure>();
-            // Debug.Log($"Set up house type for non-main house: {house.houseType}");
             // skip specified house
             if (house.HouseType != HouseType.none) continue;
             house.RandomizeHouseType();
@@ -195,16 +203,9 @@ public class StructureManager : MonoBehaviour
     }
     public HouseTypeInfo ReturnHouseInfoFor(HouseType type)
     {
-        foreach(var info in houseInfos)
-        {
-            if (info.houseType == type)
-            {
-                //var result = info.Clone();
-                var result = Instantiate(info);
-                return result;
-            }
-        }
-        return null;
+        HouseTypeInfo result;
+        houseInfoDict.TryGetValue(type, out result);
+        return result;
     }
 
     public void UpdatePlayerChoicesDict(HouseType type, HouseChoice choice)
@@ -222,14 +223,14 @@ public class StructureManager : MonoBehaviour
         return playerChoices;
     }
 
-    bool CheckNeighbourMainHouse(Vector3Int position)
+    bool CloseToMainHouse(Vector3Int position)
     {
         foreach(var pos in placementManager.GetNeighbourOfTypesFor(position, CellType.Structure))
         {
             var house = placementManager.GetStructureAt(pos).GetComponent<HouseStructure>();
-            if (house.isMainHouse) return false;
+            if (house.isMainHouse) return true;
         }
 
-        return true;
+        return false;
     }
 }

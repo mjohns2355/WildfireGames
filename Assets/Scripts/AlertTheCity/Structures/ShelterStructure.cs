@@ -25,10 +25,10 @@ public class ShelterStructure : Structure
     {
         base.OnStructureClick(); 
         
-        if (ATC_UIController.Instance.selectedHouses.Count > 0)
-        {
-            menu.assignButton.gameObject.SetActive(true);
-        }
+        //if (ATC_UIController.Instance.selectedHouses.Count > 0)
+        //{
+        //    contextMenu.assignButton.gameObject.SetActive(true);
+        //}
     }
 
     //void SetAsSelectedShelter()

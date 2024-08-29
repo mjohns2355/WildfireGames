@@ -25,7 +25,7 @@ public class Combustible : MonoBehaviour
             .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
             .ToArray();
         //dialog = GameObject.FindGameObjectWithTag("Dialog").GetComponent<ATC_dialogManager>();
-        dialog = GameManager.Instance.dialogManager;
+        dialog = ATC_UIController.Instance.dialogManager;
     }
 
     // Update is called once per frame

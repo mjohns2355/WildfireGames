@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 2981233289850990275}
   - component: {fileID: 2839414067058916170}
   - component: {fileID: 574699873097993591}
-  - component: {fileID: 5046953216073765845}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -216,31 +215,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5046953216073765845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224291285963446763}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changeResponseButton: {fileID: 0}
-  selectButton: {fileID: 0}
-  explaination: {fileID: 0}
-  menu: {fileID: 0}
-  icon: {fileID: 8118901942926996824}
-  title: {fileID: 2025680293657290508}
-  options: {fileID: 1384076597601514744}
-  optionButtonPrefab: {fileID: 8510916420729711054, guid: 984e4991ca799ee4b9e0b00c0b4c01f5, type: 3}
-  closeButton: {fileID: 3918068542463587542}
-  assignButton: {fileID: 6347744861406221313}
-  owner: {fileID: 0}
-  menuTransform: {fileID: 0}
-  menuOffset: 120
 --- !u!1 &269378063692902000
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,7 +640,7 @@ MonoBehaviour:
   changeResponseButton: {fileID: 0}
   selectButton: {fileID: 0}
   explaination: {fileID: 0}
-  menu: {fileID: 224291285963446763}
+  menuUI: {fileID: 0}
   icon: {fileID: 8118901942926996824}
   title: {fileID: 2025680293657290508}
   options: {fileID: 1384076597601514744}

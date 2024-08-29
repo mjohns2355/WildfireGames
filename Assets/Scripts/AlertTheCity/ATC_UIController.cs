@@ -9,9 +9,10 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject canvas;
     public GameObject popUp;
     public GameObject evacNotice;
+    public ATC_dialogManager dialogManager;
     public TextMeshProUGUI debugResultText;
     public TextMeshProUGUI debugResultText2;
-    public GameObject debugPanel;
+    //public GameObject debugPanel;
     public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
@@ -21,6 +22,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     //public ShelterStructure selectedShelter;
     //public List<Sprite> iconList;
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
+
+    Stack<GameObject> panelStack = new Stack<GameObject> ();
     private void Start()
     {
         //buildingMenu.SetActive(false);
@@ -39,13 +42,15 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         learnMore.onClick.AddListener(() =>
         {
-            learnMorePanel.SetActive(true);
+            //learnMorePanel.SetActive(true);
+           PushPanel(learnMorePanel);
         });
 
         startAnyway.onClick.AddListener(() =>
         {
             GameManager.Instance.ToggleSimStatus(true);
             popUp.SetActive(false);
+            //PushPanel(popUp);
             start.interactable = false;
             learnMore.interactable= false;
 
@@ -56,23 +61,70 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             GameManager.Instance.ToggleSimStatus(false);
             GameManager.Instance.StopCoroutine("StartSimRoutine");
             popUp.SetActive(false);
+            //PopPanel();
             start.interactable = true;
             learnMore.interactable = true;
         });
     }
 
+    void PrintStack()
+    {
+        Debug.Log("---- START ----");
+        foreach(GameObject go in panelStack)
+        {
+            Debug.Log(go.name);
+        }
+        Debug.Log("---- END ----");
+    }
+    public void PushPanel(GameObject panel)
+    {
+        if(panelStack.Count > 0)
+        {
+            panelStack.Peek().SetActive(false);
+        }
+
+        panel.SetActive(true);
+        panelStack.Push(panel);
+        PrintStack();
+    }
+
+    public void PopPanel()
+    {
+        GameObject topPanel = panelStack.Pop();
+        topPanel.SetActive(false);
+
+        if(panelStack.Count > 0)
+        {
+            panelStack.Peek().SetActive(true);
+        }
+        PrintStack();
+    }
+
+    public void ClearAllPanels()
+    {
+        while(panelStack.Count > 0)
+        {
+            GameObject panel = panelStack.Pop();
+            panel.SetActive(false);
+        }
+    }
+
+    public GameObject GetCurrentPanel()
+    {
+        return panelStack.Count > 0 ? panelStack.Peek() : null;
+    }
     public void CloseAllUI()
     {
         foreach (var menu in contextMenus)
         {
             menu.icon.gameObject.SetActive(false);
             if (!menu.gameObject.activeSelf) continue;
-            menu.menu.SetActive(false);
+            menu.menuUI.SetActive(false);
             //if (!menu.gameObject.activeSelf) continue;
             //menu.gameObject.SetActive(false);
 
         }
-        learnMorePanel.SetActive(false);
+        ClearAllPanels();
     }
     //public void UpdateConstructionMode(bool state)
     //{
@@ -106,13 +158,20 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         }
     }
 
+    public StructureContextMenu FindMenu(HouseType type)
+    {
+        foreach(var menu in contextMenus)
+        {
+            var house = (HouseStructure)menu.owner;
+            if (house.HouseType == type)
+            {
+                return menu;
+            }
+        }
+        return null;
+    }
     public void GenerateGameEndSummary(Dictionary<HouseType,HouseChoice> playerChoicesDict)
     {
-        //StringBuilder sb = new StringBuilder();
-        //foreach (var pair in playerChoicesDict)
-        //{
-        //    sb.AppendLine(pair.Key + ": " + pair.Value.choiceName);
-        //}
         var dict = playerChoicesDict;
 
         string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
@@ -187,5 +246,15 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         CloseAllUI();
+    }
+
+    public void ShowStartScreen()
+    {
+        PushPanel(dialogManager.gameObject);
+    }
+    public void ShowEndDialog()
+    {
+        PushPanel(dialogManager.gameObject);
+        dialogManager.EndDialog();
     }
 }

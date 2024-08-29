@@ -10,7 +10,7 @@ public class GameManager : UnitySingleton<GameManager>
     public StructureManager structureManager;
     public ATC_InputManager inputManager;
     public FireManager fireManager;
-    public ATC_dialogManager dialogManager;
+    //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
     private float timer = 0;
@@ -20,7 +20,8 @@ public class GameManager : UnitySingleton<GameManager>
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        FirstTimeLoading = true;
+        FirstTimeLoading = false;
+        ATC_UIController.Instance.ShowStartScreen();
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -64,7 +65,7 @@ public class GameManager : UnitySingleton<GameManager>
         if(canStartSim)
         {
             // don't forget to set it back to 70
-            if(timer < 20)
+            if(timer < 5)
             {
                 timer += Time.deltaTime;
             }
@@ -72,9 +73,11 @@ public class GameManager : UnitySingleton<GameManager>
             {
                 end = true;
                 fireManager.done = true;
+                ATC_UIController.Instance.ShowEndDialog();
                 //ToggleGamePause(true);
-                dialogManager.gameObject.SetActive(true);
-                dialogManager.EndDialog();
+                //dialogManager.gameObject.SetActive(true);
+
+                //dialogManager.EndDialog();
             }
         }
     }

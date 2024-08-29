@@ -53,6 +53,7 @@ public class HouseStructure : Structure
     ATC_StructureModel targetShelter;
     List<ATC_StructureModel> destinations;
     float spawnCarChance = 0.9f;
+
     Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
     Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
     private void Awake()
@@ -71,9 +72,9 @@ public class HouseStructure : Structure
 
         // defaults to first option if player doesn't select
         currentOption = houseInfo.normalChoices.FirstOrDefault()?.choiceName;
-        menu.onOptionSelected += OnOptionButtonClicked;
+        contextMenu.onOptionSelected += OnOptionButtonClicked;
 
-        InitDestinations();
+        InitSpecialStructDict();
         //default destination
         var shelter =specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter});
@@ -109,12 +110,10 @@ public class HouseStructure : Structure
 
     void InitMainHouse()
     {
-       
-
         // only main house has info
-        menu.gameObject.SetActive(true);
-        menu.icon.gameObject.SetActive(true);
-        ATC_UIController.Instance.AddMenu(menu);
+        contextMenu.gameObject.SetActive(true);
+        contextMenu.icon.gameObject.SetActive(true);
+        ATC_UIController.Instance.AddMenu(contextMenu);
 
         if (houseTypeDict == null)
         {
@@ -145,7 +144,7 @@ public class HouseStructure : Structure
             }
         }
     }
-    void InitDestinations()
+    void InitSpecialStructDict()
     {
         if (specialStructureDict == null)
         {
@@ -206,7 +205,7 @@ public class HouseStructure : Structure
 
     void OnOptionButtonClicked()
     {
-        currentOption = menu.CurrentOption;
+        currentOption = contextMenu.CurrentOption;
         Debug.Log($"Player selected {currentOption}");
         // apply home hardening immediately
         if(currentOption == "Home Hardening")
