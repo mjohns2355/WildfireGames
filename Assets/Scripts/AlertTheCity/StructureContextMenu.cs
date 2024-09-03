@@ -29,7 +29,7 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] float menuOffset = 120f;
     Camera cam;
     public string CurrentOption { get; private set; }
-    
+    string previousOption = null;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -138,9 +138,13 @@ public class StructureContextMenu : MonoBehaviour
             optionButton.isLocked = true;
 
         }
-
-        optionButton.ToggleOptionSelectState(text == CurrentOption);
-
+        if (previousOption == "Home Hardening" && text == "Home Hardening")
+        {
+            optionButton.ToggleOptionSelectState(true);
+        }
+        else { 
+            optionButton.ToggleOptionSelectState(text == CurrentOption);
+        }
     }
     public void OnOptionButtonClicked(OptionButton option)
     {
@@ -150,6 +154,10 @@ public class StructureContextMenu : MonoBehaviour
         }
         else
         {
+            if(CurrentOption != null)
+            {
+                previousOption = CurrentOption;
+            }
             CurrentOption = option.GetOptionContent();
             OnMenuDisable();
         }

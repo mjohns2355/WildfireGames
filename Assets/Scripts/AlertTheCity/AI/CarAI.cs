@@ -181,7 +181,7 @@ public class CarAI : MonoBehaviour
 
     IEnumerator CarReachStopRoutine()
     {
-        Debug.Log("Close to stop");
+        //Debug.Log("Close to stop");
         Stop = true;
         stopIndex++;
 
@@ -194,10 +194,23 @@ public class CarAI : MonoBehaviour
     }
     private void SetNextTargetIndex()
     {
+        var carsEvacuated = GameManager.Instance.carEvaucated;
+        var carsSpawned = ATC_AIDirector.Instance.spawnedCarNum;
         index++;
         if(index >= path.Count)
         {
             Stop = true;
+            if(carsEvacuated  == 0)
+            {
+                GameManager.Instance.firstEvacCarTimeStamp = GameManager.Instance.SimTimer;
+            }
+
+            GameManager.Instance.carEvaucated++;
+            ATC_AIDirector.Instance.spawnedCarNum--;
+            if(carsSpawned == 0)
+            {
+                GameManager.Instance.lastEvacCarTimeStamp = GameManager.Instance.SimTimer;
+            }
             Destroy(gameObject);
         }
         else

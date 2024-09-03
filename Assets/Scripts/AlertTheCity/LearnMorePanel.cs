@@ -21,18 +21,16 @@ public class LearnMorePanel : MonoBehaviour
     [SerializeField]  StructureContextMenu targetMenu;
     HouseType houseType;
     HouseIcon currentSelectedIcon;
-    private void SpawnIconButtons(int range)
+    private void SpawnIconButtons()
     {
-        for (int i = 1; i < range; i++)
+        foreach (var houseType in GameManager.Instance.availableHouseTypes)
         {
-            var houseType = (HouseType)i;
             var obj = Instantiate(iconButtonPrefab, optionBtns);
             var icon = obj.GetComponent<HouseIcon>();
             icon.InitIcon(houseType);
             icon.AddOnClickActions(OnIconClicked);
             var iconIsLocked = GetHouseInfoFor(houseType).AllChoicesAreUnlocked();
             icon.ToggleIconState(!iconIsLocked);
-            
         }
     }
 
@@ -88,7 +86,7 @@ public class LearnMorePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        SpawnIconButtons(Enum.GetValues(typeof(HouseType)).Length);
+        SpawnIconButtons();
     }
 
     void SpawnUnlockedButtons()

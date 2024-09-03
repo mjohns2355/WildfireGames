@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ATC_PauseMenu : MonoBehaviour
+{
+    [SerializeField] GameObject buttonParent;
+    [SerializeField] Button restart, clear, instructions, resume;
+    [SerializeField] GameObject note;
+    // Start is called before the first frame update
+    void Start()
+    {
+        restart.onClick.AddListener(RestartLevel);
+        clear.onClick.AddListener(ClearAllChoices);
+        instructions.onClick.AddListener(OpenInstructions);
+    }
+
+    private void OnEnable()
+    {
+        Time.timeScale = 0f;
+        if (GameManager.Instance.CurrentLevel != 0)
+        {
+            buttonParent.SetActive(true);
+        }
+        else
+        {
+            note.SetActive(true);
+        }
+    }
+    private void OnDisable()
+    {
+        Time.timeScale = 1f;
+        buttonParent.SetActive(false);
+        note.SetActive(false);
+    }
+    void RestartLevel()
+    {
+        GameManager.Instance.ResetGame();
+        ATC_UIController.Instance.PopPanel();
+    }
+    void ClearAllChoices()
+    {
+
+    }
+    void OpenInstructions()
+    {
+        //ATC_UIController.Instance.ShowStartScreen();
+    }
+
+}

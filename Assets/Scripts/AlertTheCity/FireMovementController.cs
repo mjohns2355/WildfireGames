@@ -22,7 +22,6 @@ public class FireMovementController : MonoBehaviour
     //ParticleSystem.VelocityOverLifetimeModule fireVelocity;
     //ParticleSystem.VelocityOverLifetimeModule mediumFlameVelocity;
     [SerializeField]Rigidbody rb;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,14 +37,12 @@ public class FireMovementController : MonoBehaviour
         //    fireSize = 1;
         //}
 
-        
-
     }
     private void Update()
     {
         if (!onCombustible)
         {
-            rb.velocity = windDirection * speed;
+            rb.velocity = windDirection * speed ;
         }
 
 

@@ -15,8 +15,16 @@ public class FireManager : MonoBehaviour
 
     void Start()
     {
-        
-        
+        GameManager.Instance.SimStartsEvent.AddListener(() => 
+        {
+            StartCoroutine(StartFireRoutine());
+            wind.isStill= false;
+        });
+
+        GameManager.Instance.SimEndsEvent.AddListener(() =>
+        {
+            done = true;
+        });
     }
 
     // Update is called once per frame

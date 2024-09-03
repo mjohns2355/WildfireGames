@@ -20,17 +20,12 @@ public class CarController : MonoBehaviour
 
     [SerializeField]
     private Vector2 movementVector;
-    //[SerializeField]
-    //float currentVelocity;
-    //float waitTime = 3f;
-    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
     private void Start()
     {
-        //StartCoroutine(CheckIfCarIsMoving());
         switch (carSpeed)
         {
             case CarSpeed.slow:
@@ -55,20 +50,4 @@ public class CarController : MonoBehaviour
         rb.AddTorque(movementVector.x * Vector3.up * torque * movementVector.y);
     }
 
-    //IEnumerator CheckIfCarIsMoving()
-    //{
-    //    bool state = true;
-    //    while (state)
-    //    {
-    //        yield return new WaitForSeconds(waitTime);
-    //        if (rb.velocity.magnitude == 0)
-    //        {
-    //            Debug.Log("Car stopped");
-    //            ATC_AIDirector.Instance.RespawnACar(start,end,carSpeed);
-    //            state = false;
-    //            Destroy(gameObject);
-    //            break;
-    //        }
-    //    }
-    //}
 }

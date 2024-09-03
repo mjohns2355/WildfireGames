@@ -12,11 +12,13 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public ATC_dialogManager dialogManager;
     public TextMeshProUGUI debugResultText;
     public TextMeshProUGUI debugResultText2;
+    public ATC_StatsPanel statsPanel;
+    public ATC_PauseMenu pauseMenu;
     //public GameObject debugPanel;
     public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
-    public Button start, reset, learnMore, startAnyway, goBack;
+    public Button start, pause, learnMore, startAnyway, goBack;
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     //public ShelterStructure selectedShelter;
@@ -28,9 +30,9 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         //buildingMenu.SetActive(false);
        
-        reset.onClick.AddListener(() =>
+        pause.onClick.AddListener(() =>
         {
-            GameManager.Instance.ResetGame();
+            PushPanel(pauseMenu.gameObject);
             
         });
         start.onClick.AddListener(() =>
@@ -61,9 +63,22 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             GameManager.Instance.ToggleSimStatus(false);
             GameManager.Instance.StopCoroutine("StartSimRoutine");
             popUp.SetActive(false);
-            //PopPanel();
             start.interactable = true;
             learnMore.interactable = true;
+        });
+
+        GameManager.Instance.SimStartsEvent.AddListener(() =>
+        {
+            CloseAllUI();
+            evacNotice.SetActive(true);
+            statsPanel.gameObject.SetActive(true);
+
+        });
+
+        GameManager.Instance.SimEndsEvent.AddListener(() =>
+        {
+            statsPanel.ShowResultText();
+            ShowEndDialog();
         });
     }
 
@@ -172,40 +187,46 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     }
     public void GenerateGameEndSummary(Dictionary<HouseType,HouseChoice> playerChoicesDict)
     {
+        var currentLevel = GameManager.Instance.CurrentLevel;
         var dict = playerChoicesDict;
 
         string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
         string wuiRes = dict[HouseType.wui].endGameFeedback;
-        string horseRes = dict[HouseType.horse].endGameFeedback;
-        string kidsRes = dict[HouseType.kids].endGameFeedback;
-        string petRes = dict[HouseType.pet].endGameFeedback;
-        string elderRes = dict[HouseType.elderly].endGameFeedback;
 
         debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
 
-        debugResultText.text += twoCarRes;
+        debugResultText.text += twoCarRes + "\n\n";
 
-        debugResultText.text += "\n\nWildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
+        if(currentLevel != 0)
+        {
+            debugResultText.text += "Wildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
 
-
-        debugResultText.text += petRes + "\n\n";
-        debugResultText.text += horseRes;
-
-
-        debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
-
-
-        debugResultText2.text += elderRes + "\n\n";
-        debugResultText2.text += kidsRes;
+            string petRes = dict[HouseType.pet].endGameFeedback;
+            string horseRes = dict[HouseType.horse].endGameFeedback;
+            debugResultText.text += petRes + "\n\n";
+            debugResultText.text += horseRes + "\n\n";
+        }
 
 
-        debugResultText2.text += "\n\nHouses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
+        if (currentLevel != 0)
+        {
+            debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
+
+            string kidsRes = dict[HouseType.kids].endGameFeedback;
+            string elderRes = dict[HouseType.elderly].endGameFeedback;
+            debugResultText2.text += elderRes + "\n\n";
+            debugResultText2.text += kidsRes + "\n\n";
+        }
+ 
 
 
-        debugResultText2.text += wuiRes;
+        debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
 
 
-        debugResultText2.text += "\n\nOur community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
+        debugResultText2.text += wuiRes + "\n\n";
+
+
+        debugResultText2.text += "Our community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
 
         //uiController.debugPanel.SetActive(true);
 

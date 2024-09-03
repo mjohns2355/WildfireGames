@@ -48,9 +48,8 @@ public class StructureManager : MonoBehaviour
         }
 
         //make sure each type has at least one house in the group
-        for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
+        foreach(var houseType in GameManager.Instance.availableHouseTypes)
         {
-            var houseType = (HouseType)i;
             if (allHouses.Count == 0) return;
             var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
             
@@ -60,6 +59,7 @@ public class StructureManager : MonoBehaviour
                 house.isMainHouse = true;
                 house.houseInfo = ReturnHouseInfoFor(houseType);
                 house.houseInfo.InitHouseInfo(house);
+                allMainHouses.Add(house);
                 //playerChoices.Add(houseType, "Wait for Notice");
                 house.SetHouseType(houseType);
                 allHouses.Remove(structure);

@@ -43,7 +43,7 @@ public class ATC_WindZone : MonoBehaviour
             RandomizeWindDirection();
             windTimer = 0f;
         }
-        rb.velocity = windSpeed * windDirection;
+        rb.velocity = windSpeed * windDirection ;
     }
 
     private void FixedUpdate()

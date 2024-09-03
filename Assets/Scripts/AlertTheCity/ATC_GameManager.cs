@@ -1,7 +1,9 @@
 using cakeslice;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class GameManager : UnitySingleton<GameManager>
 {
@@ -13,14 +15,23 @@ public class GameManager : UnitySingleton<GameManager>
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
-    private float timer = 0;
-    private bool end = false;
     public bool FirstTimeLoading { get; private set; }
-
+    public List<HouseType> availableHouseTypes;
+    public UnityEvent SimStartsEvent;
+    public UnityEvent SimEndsEvent;
+    public int CurrentLevel { get; private set; }
+    public int carEvaucated, houseDestroyed = 0;
+    public float firstEvacCarTimeStamp, lastEvacCarTimeStamp = 0f;
+    public float SimTimer { get; private set; }
+    private  bool simIsEnd = false;
     private void Start()
     {
+        InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
         FirstTimeLoading = false;
+        SimTimer = 0f;
+        Time.timeScale = 2f;
+        CurrentLevel = 0;
         ATC_UIController.Instance.ShowStartScreen();
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
@@ -65,23 +76,23 @@ public class GameManager : UnitySingleton<GameManager>
         if(canStartSim)
         {
             // don't forget to set it back to 70
-            if(timer < 5)
+            if(SimTimer < 70)
             {
-                timer += Time.deltaTime;
+                SimTimer += Time.deltaTime;
             }
-            else if(!end)
+            else if(!simIsEnd)
             {
-                end = true;
-                fireManager.done = true;
-                ATC_UIController.Instance.ShowEndDialog();
-                //ToggleGamePause(true);
+                SimEndsEvent.Invoke();
+                simIsEnd = true;
+                //fireManager.done = true;
+                //ATC_UIController.Instance.ShowEndDialog();
+                
                 //dialogManager.gameObject.SetActive(true);
 
                 //dialogManager.EndDialog();
             }
         }
     }
-
 
     //private void ClearInputAction()
     //{
@@ -107,6 +118,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         if(!FirstTimeLoading)
         {
+            Time.timeScale = 1f;
             canStartSim = choseGoodOption;
             if (!choseGoodOption)
             {
@@ -128,19 +140,16 @@ public class GameManager : UnitySingleton<GameManager>
     IEnumerator StartSimRoutine()
     {
         yield return new WaitUntil(()=>canStartSim);
+        SimStartsEvent.Invoke();
         FirstTimeLoading = false;
-        // close all the menus and panels
-        ATC_UIController.Instance.CloseAllUI();
+
         foreach(var menu in ATC_UIController.Instance.contextMenus)
         {
             menu.ApplyBehavior();
         }
-        StartCoroutine(fireManager.StartFireRoutine());
-        fireManager.wind.isStill = false;
 
         // update choice text
         ATC_UIController.Instance.GenerateGameEndSummary(structureManager.GetPlayerChoicesDict());
-        ATC_UIController.Instance.evacNotice.SetActive(true) ;
 
         //debug
         yield return new WaitForSeconds(10f);
@@ -175,18 +184,22 @@ public class GameManager : UnitySingleton<GameManager>
     public void ResetGame()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(CurrentLevel);
 
     }
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        CurrentLevel++; 
+        SceneManager.LoadScene(CurrentLevel);
         FirstTimeLoading = true;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        timer = 0;
+        SimTimer = 0;
+        InitiAvailableHouseType();
+        SimStartsEvent.RemoveAllListeners();
+        SimEndsEvent.RemoveAllListeners();
         ATC_UIController.Instance.ResetUI();
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
@@ -195,5 +208,27 @@ public class GameManager : UnitySingleton<GameManager>
         cameraMovement = FindObjectOfType<CameraMovement>();
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
+    }
+
+    void InitiAvailableHouseType()
+    {
+        if(availableHouseTypes.Count > 0)
+        {
+            availableHouseTypes.Clear();
+        }
+        
+        if (CurrentLevel == 0)
+        {
+            availableHouseTypes.Add(HouseType.twoCar);
+            availableHouseTypes.Add(HouseType.wui);
+        }
+        else
+        {
+            for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
+            {
+                var houseType = (HouseType)i;
+                availableHouseTypes.Add(houseType);
+            }
+        }
     }
 }

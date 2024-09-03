@@ -161,7 +161,8 @@ public class HouseStructure : Structure
     public void RandomizeHouseType()
     {
         // 0 is None
-        houseType = (HouseType)UnityEngine.Random.Range(1, Enum.GetValues(typeof(HouseType)).Length);
+        var types = GameManager.Instance.availableHouseTypes;
+        houseType = types[UnityEngine.Random.Range(0,types.Count-1)];
     }
 
     public void SetHouseType(HouseType type)
@@ -304,7 +305,7 @@ public class HouseStructure : Structure
         if (currentHouseModel == null) { Debug.Log("No house Model"); return; }
         currentHouseModel.material = metalRoofMaterial;
         combustible.fireChance = 1 - homeHardeningMod;
-        Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
+        //Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
     }
 
     void SetDestination(List<ATC_StructureModel> destinations)
