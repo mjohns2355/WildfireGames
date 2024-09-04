@@ -107,7 +107,11 @@ public class StructureContextMenu : MonoBehaviour
         ATC_UIController.Instance.ClampToWindow(menuTransform, menuOffset);
     }
 
-
+    public void ClearChoice()
+    {
+        previousOption = null;
+        CurrentOption = null;
+    }
 
     public void UpdateMenuForHouse(HouseStructure house)
     {

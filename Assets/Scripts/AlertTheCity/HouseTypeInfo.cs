@@ -20,6 +20,7 @@ public class HouseTypeInfo : ScriptableObject
     public int petNumber = 0;
     public int kidNumber = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
+    public HouseChoice defaultChoice;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 
@@ -37,6 +38,7 @@ public class HouseTypeInfo : ScriptableObject
         {
             choice.isLocked = true;
         }
+        defaultChoice = normalChoices[0];
     }
 
     public HouseChoice ReturnChoiceByName(string name, bool searchLockedChoices = false)

@@ -71,7 +71,7 @@ public class HouseStructure : Structure
         InitMainHouse();
 
         // defaults to first option if player doesn't select
-        currentOption = houseInfo.normalChoices.FirstOrDefault()?.choiceName;
+        currentOption = houseInfo.defaultChoice.choiceName;
         contextMenu.onOptionSelected += OnOptionButtonClicked;
 
         InitSpecialStructDict();
@@ -208,11 +208,19 @@ public class HouseStructure : Structure
     {
         currentOption = contextMenu.CurrentOption;
         Debug.Log($"Player selected {currentOption}");
+       
         // apply home hardening immediately
-        if(currentOption == "Home Hardening")
+        if (currentOption == "Home Hardening")
         {
             ApplyChoice();
         }
+        var currentChoice = GetCurrentChoice(currentOption);
+        if(currentChoice != null)
+        {
+            GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+        }
+
+        Debug.Log(GameManager.Instance.structureManager.GetPlayerChoicesDict().Count);
     }
 
     void ApplyChoice()
@@ -229,9 +237,8 @@ public class HouseStructure : Structure
             }
             //choice.ApplyEffect(this);
             lastOption = currentOption;
-
-            GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
         }
+        //GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
     }
 
     HouseChoice GetCurrentChoice(string name)

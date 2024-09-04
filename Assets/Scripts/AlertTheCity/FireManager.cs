@@ -24,6 +24,8 @@ public class FireManager : MonoBehaviour
         GameManager.Instance.SimEndsEvent.AddListener(() =>
         {
             done = true;
+            wind.isStill= true;
+            StopFireEffect();
         });
     }
 
@@ -53,6 +55,19 @@ public class FireManager : MonoBehaviour
             fire.transform.localScale *= scaleMultiplier;
 
             fire.GetComponent<FireMovementController>().onCombustible = onCombustible;
+        }
+    }
+
+    void StopFireEffect()
+    {
+        GameObject[] fires = GameObject.FindGameObjectsWithTag("Fire");
+        foreach (GameObject f in fires)
+        {
+            ParticleSystem[] ps = f.GetComponentsInChildren<ParticleSystem>();
+            foreach (ParticleSystem p in ps)
+            {
+                p.Stop();
+            }
         }
     }
 }

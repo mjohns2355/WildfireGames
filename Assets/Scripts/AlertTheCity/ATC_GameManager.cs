@@ -15,24 +15,26 @@ public class GameManager : UnitySingleton<GameManager>
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
-    public bool FirstTimeLoading { get; private set; }
+    public bool IsFirstSim { get { return currentStage == LevelStage.BeforeFirstSim; }}
     public List<HouseType> availableHouseTypes;
     public UnityEvent SimStartsEvent;
     public UnityEvent SimEndsEvent;
     public int CurrentLevel { get; private set; }
     public int carEvaucated, houseDestroyed = 0;
     public float firstEvacCarTimeStamp, lastEvacCarTimeStamp = 0f;
+
+    public LevelStage currentStage;
     public float SimTimer { get; private set; }
     private  bool simIsEnd = false;
     private void Start()
     {
         InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        FirstTimeLoading = false;
+        currentStage = LevelStage.BeforeFirstSim;
         SimTimer = 0f;
         Time.timeScale = 2f;
         CurrentLevel = 0;
-        ATC_UIController.Instance.ShowStartScreen();
+        //ATC_UIController.Instance.ShowDialog();
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -69,28 +71,39 @@ public class GameManager : UnitySingleton<GameManager>
 
     private void Update()
     {
+        //debug
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
+
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
 
-        if(canStartSim)
+        if (!canStartSim) return;
+        // don't forget to set it back to 70
+        if (SimTimer < 70)
         {
-            // don't forget to set it back to 70
-            if(SimTimer < 70)
+            SimTimer += Time.deltaTime;
+        }
+        else if (!simIsEnd)
+        {
+ 
+            if (!IsFirstSim)
             {
-                SimTimer += Time.deltaTime;
+                //check win/lose
             }
-            else if(!simIsEnd)
+            else
             {
-                SimEndsEvent.Invoke();
-                simIsEnd = true;
-                //fireManager.done = true;
-                //ATC_UIController.Instance.ShowEndDialog();
-                
-                //dialogManager.gameObject.SetActive(true);
+                Debug.Log("Change Stage");
+                currentStage = LevelStage.AfterFirstSim;
 
-                //dialogManager.EndDialog();
             }
+            simIsEnd = true;
+            SimEndsEvent.Invoke();
+            //fireManager.done = true;
+            //ATC_UIController.Instance.ShowEndDialog();
+
+            //dialogManager.gameObject.SetActive(true);
+
+            //dialogManager.EndDialog();
         }
     }
 
@@ -116,7 +129,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-        if(!FirstTimeLoading)
+        if(!IsFirstSim)
         {
             Time.timeScale = 1f;
             canStartSim = choseGoodOption;
@@ -141,8 +154,6 @@ public class GameManager : UnitySingleton<GameManager>
     {
         yield return new WaitUntil(()=>canStartSim);
         SimStartsEvent.Invoke();
-        FirstTimeLoading = false;
-
         foreach(var menu in ATC_UIController.Instance.contextMenus)
         {
             menu.ApplyBehavior();
@@ -192,11 +203,17 @@ public class GameManager : UnitySingleton<GameManager>
     {
         CurrentLevel++; 
         SceneManager.LoadScene(CurrentLevel);
-        FirstTimeLoading = true;
+        currentStage = LevelStage.BeforeFirstSim;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        firstEvacCarTimeStamp = 0f;
+        lastEvacCarTimeStamp = 0f;
+        carEvaucated = 0;
+        houseDestroyed = 0;
+        currentStage = LevelStage.PhaseOne;
         SimTimer = 0;
+        canStartSim = false;
         InitiAvailableHouseType();
         SimStartsEvent.RemoveAllListeners();
         SimEndsEvent.RemoveAllListeners();

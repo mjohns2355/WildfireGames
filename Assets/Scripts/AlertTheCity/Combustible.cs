@@ -40,8 +40,8 @@ public class Combustible : MonoBehaviour
             }
             if(burnTime > 30 && !burned && !dialog.done)
             {
-
-                dialog.houseDestroyed++;
+                GameManager.Instance.houseDestroyed++;
+                //dialog.houseDestroyed++;
                 burned = true;
             }
         }

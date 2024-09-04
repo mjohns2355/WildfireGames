@@ -7,3 +7,5 @@ public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui };
 public enum CarSpeed { slow, medium, fast, none };
 
 public enum CarLeaveTime { early, normal, delayed};
+
+public enum LevelStage { BeforeFirstSim, AfterFirstSim, PhaseOne, Win, Lose, End };

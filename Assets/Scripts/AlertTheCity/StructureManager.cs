@@ -60,7 +60,7 @@ public class StructureManager : MonoBehaviour
                 house.houseInfo = ReturnHouseInfoFor(houseType);
                 house.houseInfo.InitHouseInfo(house);
                 allMainHouses.Add(house);
-                //playerChoices.Add(houseType, "Wait for Notice");
+                playerChoices[houseType] = house.houseInfo.defaultChoice;
                 house.SetHouseType(houseType);
                 allHouses.Remove(structure);
             }

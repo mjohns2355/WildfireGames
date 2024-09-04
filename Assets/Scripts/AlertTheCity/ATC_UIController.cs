@@ -29,7 +29,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     private void Start()
     {
         //buildingMenu.SetActive(false);
-       
+        ShowDialog();
         pause.onClick.AddListener(() =>
         {
             PushPanel(pauseMenu.gameObject);
@@ -40,7 +40,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             GameManager.Instance.StartSimulation();
             learnMore.interactable = false;
             start.interactable = false;
-            
         });
         learnMore.onClick.AddListener(() =>
         {
@@ -67,21 +66,23 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             learnMore.interactable = true;
         });
 
-        GameManager.Instance.SimStartsEvent.AddListener(() =>
-        {
-            CloseAllUI();
-            evacNotice.SetActive(true);
-            statsPanel.gameObject.SetActive(true);
+        GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
-        });
-
-        GameManager.Instance.SimEndsEvent.AddListener(() =>
-        {
-            statsPanel.ShowResultText();
-            ShowEndDialog();
-        });
+        GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
     }
 
+
+    void OnSimStart()
+    {
+        CloseAllUI();
+        evacNotice.SetActive(true);
+        statsPanel.gameObject.SetActive(true);
+    }
+    void OnSimEnd()
+    {
+        statsPanel.ShowResultText();
+        ShowDialog();
+    }
     void PrintStack()
     {
         Debug.Log("---- START ----");
@@ -100,7 +101,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
         panel.SetActive(true);
         panelStack.Push(panel);
-        PrintStack();
+        //PrintStack();
     }
 
     public void PopPanel()
@@ -112,7 +113,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             panelStack.Peek().SetActive(true);
         }
-        PrintStack();
+        //PrintStack();
     }
 
     public void ClearAllPanels()
@@ -139,6 +140,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             //menu.gameObject.SetActive(false);
 
         }
+        evacNotice.SetActive(false);
+        statsPanel.gameObject.SetActive(false);
         ClearAllPanels();
     }
     //public void UpdateConstructionMode(bool state)
@@ -267,9 +270,13 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         CloseAllUI();
+        ShowDialog();
+        GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
+
+        GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
     }
 
-    public void ShowStartScreen()
+    public void ShowDialog()
     {
         PushPanel(dialogManager.gameObject);
     }

@@ -19,7 +19,7 @@ public class ATC_PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         Time.timeScale = 0f;
-        if (GameManager.Instance.CurrentLevel != 0)
+        if (!GameManager.Instance.IsFirstSim)
         {
             buttonParent.SetActive(true);
         }
@@ -41,7 +41,11 @@ public class ATC_PauseMenu : MonoBehaviour
     }
     void ClearAllChoices()
     {
-
+        GameManager.Instance.structureManager.GetPlayerChoicesDict().Clear();
+        foreach (var menu in ATC_UIController.Instance.contextMenus)
+        {
+            menu.ClearChoice();
+        }
     }
     void OpenInstructions()
     {
