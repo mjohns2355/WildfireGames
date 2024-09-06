@@ -14,11 +14,13 @@ public class io_brakes : MonoBehaviour
     public TextMeshProUGUI spedometer;
 
     public io_treeSpawner[] spawners;
+    private io_levelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
     {
         myImage = GetComponent<Image>();
+        levelManager =  GameObject.FindGameObjectWithTag("LevelManager").GetComponent<io_levelManager>();
     }
 
     // Update is called once per frame
@@ -64,6 +66,11 @@ public class io_brakes : MonoBehaviour
         }
         isBraking = true;
         myImage.color = brakeColor;
+        if (!levelManager.brakes[0].activeInHierarchy)
+        {
+            GetComponent<AudioSource>().pitch = Random.Range(1, 1.25f);
+            GetComponent<AudioSource>().Play();
+        }
     }
     public void EndBrake()
     {

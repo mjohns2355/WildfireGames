@@ -21,7 +21,7 @@ public class io_levelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        brakeStartTimer = Random.Range(4, 8);
+        brakeStartTimer = Random.Range(10, 14);
     }
 
     public void StartPlaying()
@@ -32,7 +32,7 @@ public class io_levelManager : MonoBehaviour
     public void ResetBrakes()
     {
         brakeOnTimer = -1;
-        brakeStartTimer = Random.Range(4, 8);
+        brakeStartTimer = Random.Range(6, 10);
 
         foreach (GameObject b in brakes)
         {
@@ -82,7 +82,7 @@ public class io_levelManager : MonoBehaviour
                     }
                     else
                     {
-                        if(car.stoppedTime < 1)
+                        if(car.stoppedTime < 0.6f)
                             crashScreen.SetActive(true);
                     }
                 }
