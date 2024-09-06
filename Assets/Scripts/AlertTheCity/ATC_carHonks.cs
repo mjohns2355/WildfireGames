@@ -12,18 +12,18 @@ public class ATC_carHonks : MonoBehaviour
     {
         GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.25f);
         GetComponent<AudioSource>().volume = Random.Range(0.6f, 1);
-       // car = GetComponentInParent<CarAI>();
+        car = GetComponentInParent<CarAI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (car.collisionStop && !GetComponent<AudioSource>().isPlaying)
+        
+        if (car != null && car.collisionStop && !GetComponent<AudioSource>().isPlaying)
         {
             GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.25f);
             GetComponent<AudioSource>().volume = Random.Range(0.6f, 1);
             GetComponent<AudioSource>().Play();
-        }*/
+        }
     }
 }
