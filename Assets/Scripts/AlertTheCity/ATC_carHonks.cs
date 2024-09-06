@@ -6,6 +6,7 @@ public class ATC_carHonks : MonoBehaviour
 {
 
     private CarAI car;
+    private float cooldown = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -18,12 +19,17 @@ public class ATC_carHonks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        cooldown -= Time.deltaTime;
+
         if (car != null && car.collisionStop && !GetComponent<AudioSource>().isPlaying)
         {
-            GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.25f);
-            GetComponent<AudioSource>().volume = Random.Range(0.6f, 1);
-            GetComponent<AudioSource>().Play();
+            if(cooldown < 0)
+            {
+                cooldown = 2;
+                GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.25f);
+                GetComponent<AudioSource>().volume = Random.Range(0.6f, 1);
+                GetComponent<AudioSource>().Play();
+            }
         }
     }
 }
