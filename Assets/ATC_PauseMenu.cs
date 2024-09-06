@@ -35,7 +35,7 @@ public class ATC_PauseMenu : MonoBehaviour
     }
     private void OnDisable()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = GameManager.Instance.GameSpeed;
         buttonParent.SetActive(false);
         note.SetActive(false);
         
