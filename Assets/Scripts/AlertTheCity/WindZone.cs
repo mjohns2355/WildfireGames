@@ -39,7 +39,7 @@ public class ATC_WindZone : MonoBehaviour
         windTimer += Time.deltaTime;
         if (windTimer>= windDirChangeInterval)
         {
-            Debug.Log("Change Wind Direction");
+            //Debug.Log("Change Wind Direction");
             RandomizeWindDirection();
             windTimer = 0f;
         }

@@ -194,8 +194,7 @@ public class CarAI : MonoBehaviour
     }
     private void SetNextTargetIndex()
     {
-        var carsEvacuated = GameManager.Instance.carEvaucated;
-        var carsSpawned = ATC_AIDirector.Instance.spawnedCarNum;
+        var carsEvacuated = GameManager.Instance.carsEvacuated;
         index++;
         if(index >= path.Count)
         {
@@ -205,9 +204,9 @@ public class CarAI : MonoBehaviour
                 GameManager.Instance.firstEvacCarTimeStamp = GameManager.Instance.SimTimer;
             }
 
-            GameManager.Instance.carEvaucated++;
+            GameManager.Instance.carsEvacuated++;
             ATC_AIDirector.Instance.spawnedCarNum--;
-            if(carsSpawned == 0)
+            if(ATC_AIDirector.Instance.spawnedCarNum == 0)
             {
                 GameManager.Instance.lastEvacCarTimeStamp = GameManager.Instance.SimTimer;
             }

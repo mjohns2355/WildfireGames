@@ -219,8 +219,6 @@ public class HouseStructure : Structure
         {
             GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
         }
-
-        Debug.Log(GameManager.Instance.structureManager.GetPlayerChoicesDict().Count);
     }
 
     void ApplyChoice()

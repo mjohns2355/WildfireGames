@@ -10,26 +10,23 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
-    public TextMeshProUGUI debugResultText;
-    public TextMeshProUGUI debugResultText2;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
+    public GameObject endScreen;
     //public GameObject debugPanel;
     public GameObject learnMorePanel;
     //public HouseInfo currentHouseInfo;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
-    public Button start, pause, learnMore, startAnyway, goBack;
+    public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
-    //public ShelterStructure selectedShelter;
-    //public List<Sprite> iconList;
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
 
     Stack<GameObject> panelStack = new Stack<GameObject> ();
     private void Start()
     {
         //buildingMenu.SetActive(false);
-        ShowDialog();
+
         pause.onClick.AddListener(() =>
         {
             PushPanel(pauseMenu.gameObject);
@@ -66,9 +63,19 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             learnMore.interactable = true;
         });
 
+        //restartGame.onClick.AddListener(() =>
+        //{
+        //    GameManager.Instance.ResetGame(0);
+        //});
+
+        //restartLevel.onClick.AddListener(() =>
+        //{
+        //    GameManager.Instance.ResetGame();
+        //});
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
+        ShowDialog();
     }
 
 
@@ -77,10 +84,13 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         CloseAllUI();
         evacNotice.SetActive(true);
         statsPanel.gameObject.SetActive(true);
+        start.interactable = false;
+        learnMore.interactable = false;
     }
     void OnSimEnd()
     {
         statsPanel.ShowResultText();
+        dialogManager.GenerateResult();
         ShowDialog();
     }
     void PrintStack()
@@ -101,7 +111,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
         panel.SetActive(true);
         panelStack.Push(panel);
-        //PrintStack();
+        PrintStack();
     }
 
     public void PopPanel()
@@ -113,7 +123,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             panelStack.Peek().SetActive(true);
         }
-        //PrintStack();
+        PrintStack();
     }
 
     public void ClearAllPanels()
@@ -188,53 +198,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         }
         return null;
     }
-    public void GenerateGameEndSummary(Dictionary<HouseType,HouseChoice> playerChoicesDict)
-    {
-        var currentLevel = GameManager.Instance.CurrentLevel;
-        var dict = playerChoicesDict;
-
-        string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
-        string wuiRes = dict[HouseType.wui].endGameFeedback;
-
-        debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
-
-        debugResultText.text += twoCarRes + "\n\n";
-
-        if(currentLevel != 0)
-        {
-            debugResultText.text += "Wildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
-
-            string petRes = dict[HouseType.pet].endGameFeedback;
-            string horseRes = dict[HouseType.horse].endGameFeedback;
-            debugResultText.text += petRes + "\n\n";
-            debugResultText.text += horseRes + "\n\n";
-        }
-
-
-        if (currentLevel != 0)
-        {
-            debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
-
-            string kidsRes = dict[HouseType.kids].endGameFeedback;
-            string elderRes = dict[HouseType.elderly].endGameFeedback;
-            debugResultText2.text += elderRes + "\n\n";
-            debugResultText2.text += kidsRes + "\n\n";
-        }
- 
-
-
-        debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
-
-
-        debugResultText2.text += wuiRes + "\n\n";
-
-
-        debugResultText2.text += "Our community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
-
-        //uiController.debugPanel.SetActive(true);
-
-
-    }
+    
     public void ClampToWindow( RectTransform panelRectTransform, float offset)
     {
         Vector3[] corners = new Vector3[4];
@@ -269,8 +233,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         selectedHouses.Clear();
         contextMenus.Clear();
+        start.interactable = true;
+        learnMore.interactable = true;
         CloseAllUI();
-        ShowDialog();
+        if (!dialogManager.isInstructionShown)
+        {
+            ShowDialog();
+        }
+
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
@@ -280,9 +250,15 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         PushPanel(dialogManager.gameObject);
     }
-    public void ShowEndDialog()
+
+
+    public void ShowEndScreen()
     {
-        PushPanel(dialogManager.gameObject);
-        dialogManager.EndDialog();
+        PushPanel(endScreen);
     }
+    //public void ShowEndDialog()
+    //{
+    //    PushPanel(dialogManager.gameObject);
+    //    //dialogManager.EndDialog();
+    //}
 }

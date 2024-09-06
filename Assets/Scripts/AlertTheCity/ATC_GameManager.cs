@@ -16,25 +16,35 @@ public class GameManager : UnitySingleton<GameManager>
     public bool canStartSim = false;
     public bool choseGoodOption = false;
     public bool IsFirstSim { get { return currentStage == LevelStage.BeforeFirstSim; }}
+    public float GameSpeed { get; private set; }
     public List<HouseType> availableHouseTypes;
     public UnityEvent SimStartsEvent;
     public UnityEvent SimEndsEvent;
     public int CurrentLevel { get; private set; }
-    public int carEvaucated, houseDestroyed = 0;
+    public int carsEvacuated, housesDestroyed, carsNotEvacuated = 0;
     public float firstEvacCarTimeStamp, lastEvacCarTimeStamp = 0f;
 
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
-    private  bool simIsEnd = false;
+    public bool SimIsEnd { get; private set; }
+
+    public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
+    //private int previousCarsEvacuated, previousHousesDestroyed = 0; 
+    [SerializeField]private float previousFirstEvacTime, previousLastEvacTime = 0f;
+
+    public override void Awake()
+    {
+        base.Awake();
+        currentStage = LevelStage.BeforeFirstSim;
+    }
     private void Start()
     {
+        SimIsEnd = false;
         InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
-        currentStage = LevelStage.BeforeFirstSim;
         SimTimer = 0f;
-        Time.timeScale = 2f;
+        Time.timeScale = GameSpeed = 2f;
         CurrentLevel = 0;
-        //ATC_UIController.Instance.ShowDialog();
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -72,7 +82,8 @@ public class GameManager : UnitySingleton<GameManager>
     private void Update()
     {
         //debug
-        if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
+        //if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
+        //if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
 
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
@@ -83,20 +94,20 @@ public class GameManager : UnitySingleton<GameManager>
         {
             SimTimer += Time.deltaTime;
         }
-        else if (!simIsEnd)
+        else if (!SimIsEnd)
         {
  
             if (!IsFirstSim)
             {
                 //check win/lose
+                currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
             }
             else
             {
-                Debug.Log("Change Stage");
                 currentStage = LevelStage.AfterFirstSim;
-
             }
-            simIsEnd = true;
+            SimIsEnd = true;
+            OnSimEnd();
             SimEndsEvent.Invoke();
             //fireManager.done = true;
             //ATC_UIController.Instance.ShowEndDialog();
@@ -107,6 +118,41 @@ public class GameManager : UnitySingleton<GameManager>
         }
     }
 
+    void OnSimEnd()
+    {
+        var remainingCars = GameObject.FindGameObjectsWithTag("Car");
+        foreach (var car in remainingCars)
+        {
+            Destroy(car);
+        }
+        if(lastEvacCarTimeStamp == 0)
+        {
+            lastEvacCarTimeStamp = SimTimer;
+        }
+        carsNotEvacuated = ATC_AIDirector.Instance.spawnedCarNum;
+        SaveResults();
+    }
+
+    void SaveResults()
+    {
+        //previousCarsEvacuated = carsEvacuated;
+        //previousHousesDestroyed = housesDestroyed;
+        previousFirstEvacTime = firstEvacCarTimeStamp;
+        previousLastEvacTime = lastEvacCarTimeStamp;
+    }
+
+    bool IsGameWon()
+    {
+        bool won = false;
+        int first = Mathf.RoundToInt(firstEvacCarTimeStamp);
+        int final = Mathf.RoundToInt(lastEvacCarTimeStamp);
+        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime)
+        {
+            won = true;
+        }
+        Debug.Log("Game win? " + won);
+        return won;
+    }
     //private void ClearInputAction()
     //{
     //    inputManager.OnMouseClick = null;
@@ -131,7 +177,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         if(!IsFirstSim)
         {
-            Time.timeScale = 1f;
+            Time.timeScale = GameSpeed = 1f ;
             canStartSim = choseGoodOption;
             if (!choseGoodOption)
             {
@@ -159,8 +205,7 @@ public class GameManager : UnitySingleton<GameManager>
             menu.ApplyBehavior();
         }
 
-        // update choice text
-        ATC_UIController.Instance.GenerateGameEndSummary(structureManager.GetPlayerChoicesDict());
+        
 
         //debug
         yield return new WaitForSeconds(10f);
@@ -192,32 +237,42 @@ public class GameManager : UnitySingleton<GameManager>
     //    return words;
     //}
 
-    public void ResetGame()
+    public void ResetGame(int level = 1)
     {
-
-        SceneManager.LoadScene(CurrentLevel);
-
-    }
-
-    public void NextLevel()
-    {
-        CurrentLevel++; 
-        SceneManager.LoadScene(CurrentLevel);
-        currentStage = LevelStage.BeforeFirstSim;
-    }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
+        if(!IsFirstSim) {
+            currentStage = LevelStage.PhaseOne;
+        }
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
-        carEvaucated = 0;
-        houseDestroyed = 0;
-        currentStage = LevelStage.PhaseOne;
+        carsEvacuated = 0;
+        housesDestroyed = 0;
         SimTimer = 0;
+        SimIsEnd = false;
         canStartSim = false;
         InitiAvailableHouseType();
         SimStartsEvent.RemoveAllListeners();
         SimEndsEvent.RemoveAllListeners();
+        StopAllCoroutines();
         ATC_UIController.Instance.ResetUI();
+        //if(level == 0)
+        //{
+        //    CurrentLevel = level;   
+        //}
+        SceneManager.LoadScene(CurrentLevel);
+    }
+
+    public void NextLevel()
+    {
+        CurrentLevel++;
+        previousLastEvacTime = previousFirstEvacTime = 0f;
+        currentStage = LevelStage.BeforeFirstSim;
+        ResetGame();
+
+        //previousHousesDestroyed = previousCarsEvacuated = 0;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();

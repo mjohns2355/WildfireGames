@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,10 @@ public class ATC_PauseMenu : MonoBehaviour
         restart.onClick.AddListener(RestartLevel);
         clear.onClick.AddListener(ClearAllChoices);
         instructions.onClick.AddListener(OpenInstructions);
+        resume.onClick.AddListener(ResumeGame);
     }
+
+
 
     private void OnEnable()
     {
@@ -27,12 +31,14 @@ public class ATC_PauseMenu : MonoBehaviour
         {
             note.SetActive(true);
         }
+        clear.interactable = !GameManager.Instance.SimIsEnd;
     }
     private void OnDisable()
     {
         Time.timeScale = 1f;
         buttonParent.SetActive(false);
         note.SetActive(false);
+        
     }
     void RestartLevel()
     {
@@ -49,7 +55,12 @@ public class ATC_PauseMenu : MonoBehaviour
     }
     void OpenInstructions()
     {
-        //ATC_UIController.Instance.ShowStartScreen();
+
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = GameManager.Instance.GameSpeed;
     }
 
 }

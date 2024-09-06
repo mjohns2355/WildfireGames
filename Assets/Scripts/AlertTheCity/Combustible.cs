@@ -15,7 +15,7 @@ public class Combustible : MonoBehaviour
     public bool burned = false;
     private float burnTime = 0;
 
-    private ATC_dialogManager dialog;
+    //private ATC_dialogManager dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class Combustible : MonoBehaviour
             .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
             .ToArray();
         //dialog = GameObject.FindGameObjectWithTag("Dialog").GetComponent<ATC_dialogManager>();
-        dialog = ATC_UIController.Instance.dialogManager;
+       
     }
 
     // Update is called once per frame
@@ -38,9 +38,9 @@ public class Combustible : MonoBehaviour
             {
                 m.material.color = Color.Lerp(m.material.color, burntColor, Time.deltaTime);
             }
-            if(burnTime > 30 && !burned && !dialog.done)
+            if(burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
             {
-                GameManager.Instance.houseDestroyed++;
+                GameManager.Instance.housesDestroyed++;
                 //dialog.houseDestroyed++;
                 burned = true;
             }
@@ -55,7 +55,7 @@ public class Combustible : MonoBehaviour
             fireChance += Time.deltaTime;
             return;
         }
-        if (dialog.done) return;
+        if (GameManager.Instance.SimIsEnd) return;
         StartCoroutine(CatchOnFireRoutine());
         
     }
@@ -63,13 +63,17 @@ public class Combustible : MonoBehaviour
     public virtual IEnumerator CatchOnFireRoutine()
     {
         yield return new WaitForSeconds(waitTimeBeforeCatchOnFire);
-        if (!dialog.done)
+        if (!GameManager.Instance.SimIsEnd)
         {
 
             GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
             isOnfire = true;
             fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
-            fire.combustible = this;
+            if(fire != null)
+            {
+                fire.combustible = this;
+            }
+
         }
 
         

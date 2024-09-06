@@ -14,11 +14,9 @@ public struct Dialog
 }
 public class ATC_dialogManager : MonoBehaviour
 {
-    //public string[] phaseOneDialog;
-    //public string[] endDialog;
-
     public TextMeshProUGUI dialogText;
-
+    public TextMeshProUGUI debugResultText;
+    public TextMeshProUGUI debugResultText2;
     public Dialog beforefirstSimDialog;
     public Dialog afterfirstSimDialog;
     public Dialog phaseOneDialog;
@@ -26,22 +24,14 @@ public class ATC_dialogManager : MonoBehaviour
     public Dialog loseDialog;
     [SerializeField] Button dialogButton;
     [SerializeField] Button nextButton;
-    //private int counter = 0;
-    private Dictionary<LevelStage, Dialog> dialogData;
-    private int dialogIndex;
-    //public int houseDestroyed;
-    //public int acresDestroyed;
-    private bool isLocalNewsShown = false;
-    private LevelStage currentStage;
-
-    public bool done;
-
-    public GameObject[] images;
-
+    [SerializeField] Button localNewsCloseButton;
     public GameObject localNews;
-    public GameObject timer;
 
-
+    private Dictionary<LevelStage, Dialog> dialogData;
+    private int dialogIndex = 0;
+    private bool isLocalNewsShown = false;
+    private Dialog currentDialog;
+    public bool isInstructionShown = false;
     private void Awake()
     {
         //StepTextForward();
@@ -54,33 +44,58 @@ public class ATC_dialogManager : MonoBehaviour
             { LevelStage.Lose, loseDialog }
         };
     }
-    private void OnEnable()
+    private void Start()
     {
-        currentStage = GameManager.Instance.currentStage;
-        Debug.Log(currentStage);
-        dialogIndex = 0;
-        DisplayNextMessage();
+        localNewsCloseButton.onClick.AddListener(HideLocalNews);
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
+        dialogIndex = isLocalNewsShown ? 2 : 0;
+;        //Debug.Log("Dialog Index: " + dialogIndex);
+        DisplayNextMessage();
         
     }
-    public void SetStage(LevelStage stage)
+
+    public void GenerateResult()
     {
-        GameManager.Instance.currentStage = stage;
-        currentStage = stage;
-        dialogIndex = 0;
-        DisplayNextMessage();
+
+        var first = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
+        var last = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
+        var result = $"The first car reach the shelter after {first} seconds and the final car reached the shelter after {last} seconds.";
+        var stage = GameManager.Instance.currentStage;
+        switch (stage)
+        {
+            case LevelStage.AfterFirstSim:
+                dialogData[stage].messages[0] = result + "Can you do better?"; 
+                break;
+            case LevelStage.Win:
+                dialogData[stage].messages[0] = result;
+                break;
+            case LevelStage.Lose:
+                dialogData[stage].messages[0] = result;
+                break;
+        }
     }
+
 
     public void DisplayNextMessage()
     {
-        Dialog currentDialog = dialogData[currentStage];
+        var stage = GameManager.Instance.currentStage;
+        currentDialog = dialogData[stage];
         if (dialogIndex < currentDialog.messages.Length)
         {
+
+            if (stage == LevelStage.Win || stage == LevelStage.Lose)
+            {
+                if (dialogIndex == 2 && !isLocalNewsShown)
+                {
+                    ShowLocalNews();
+                }
+            }
+
             dialogText.text = currentDialog.messages[dialogIndex];
-            Debug.Log(dialogText.text);
+            //Debug.Log(dialogText.text);
             if (currentDialog.images != null && dialogIndex < currentDialog.images.Length)
             {
                 foreach (var img in currentDialog.images)
@@ -90,6 +105,8 @@ public class ATC_dialogManager : MonoBehaviour
             }
 
             dialogIndex++;
+
+
         }
         else
         {
@@ -97,26 +114,82 @@ public class ATC_dialogManager : MonoBehaviour
         }
     }
 
+    private void GenerateLocalNews()
+    {
+        Debug.Log("Generate Local News");
+        var currentLevel = GameManager.Instance.CurrentLevel;
+        var dict = GameManager.Instance.structureManager.GetPlayerChoicesDict();
+
+        string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
+        string wuiRes = dict[HouseType.wui].endGameFeedback;
+        debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
+
+        debugResultText.text += twoCarRes + "\n\n";
+
+        if (currentLevel != 0)
+        {
+            debugResultText.text += "Wildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
+
+            string petRes = dict[HouseType.pet].endGameFeedback;
+            string horseRes = dict[HouseType.horse].endGameFeedback;
+            debugResultText.text += petRes + "\n\n";
+            debugResultText.text += horseRes + "\n\n";
+        }
+
+
+        if (currentLevel != 0)
+        {
+            debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
+
+            string kidsRes = dict[HouseType.kids].endGameFeedback;
+            string elderRes = dict[HouseType.elderly].endGameFeedback;
+            debugResultText2.text += elderRes + "\n\n";
+            debugResultText2.text += kidsRes + "\n\n";
+        }
+
+
+
+        debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
+
+
+        debugResultText2.text += wuiRes + "\n\n";
+
+
+        debugResultText2.text += "Our community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
+
+        //uiController.debugPanel.SetActive(true);
+
+
+    }
+    public void SetStage(LevelStage stage)
+    {
+        GameManager.Instance.currentStage = stage;
+
+        dialogIndex = 0;
+        DisplayNextMessage();
+    }
+
     private void OnDialogComplete()
     {
         Debug.Log("Dialog Complete");
-        switch (currentStage)
+        switch (GameManager.Instance.currentStage)
         {
             case LevelStage.BeforeFirstSim:
                 StartWorstSim();
                 break;
             case LevelStage.AfterFirstSim:
-                GameManager.Instance.ResetGame();
+                ResetLevel();
+                isInstructionShown = true;
                 break;
             case LevelStage.PhaseOne:
                 ATC_UIController.Instance.PopPanel();
                 break;
             case LevelStage.Win:
-                ShowEndScene();  
+                LoadNewLevel();
                 break;
 
             case LevelStage.Lose:
-                ShowEndScene();  
+                ResetLevel();
                 break;
             case LevelStage.End:
                 break;
@@ -126,90 +199,40 @@ public class ATC_dialogManager : MonoBehaviour
     private void StartWorstSim()
     {
         GameManager.Instance.StartSimulation();
-
     }
  
-    private void ShowEndScene()
+    private void LoadNewLevel()
     {
-        SetStage(LevelStage.End);
+        isInstructionShown = false;
+        GameManager.Instance.NextLevel();
+
+    }
+    private void ResetLevel()
+    {
+        GameManager.Instance.ResetGame();
+
+        
     }
 
     private void ShowLocalNews()
     {
-        ATC_UIController.Instance.PopPanel();
+        GenerateLocalNews();
         ATC_UIController.Instance.PushPanel(localNews);
+        isLocalNewsShown = true;
     }
-    public void EndDialog()
+
+    private void HideLocalNews()
     {
-        done = true;
-        //counter = 0;
-        //acresDestroyed = houseDestroyed / 5 + 12;
-        //endDialog[0] = "The fire tore through our community. Thankfuly everyone survived, but " + houseDestroyed + " houses were destroyed and " + acresDestroyed + " acres were burned. ";
-        //dialogText.text = endDialog[0];
+        ATC_UIController.Instance.PopPanel();
+        debugResultText.text = string.Empty;
+        debugResultText2.text  = string.Empty;
+        isLocalNewsShown = false;
 
+        if(GameManager.Instance.IsLastLevel && GameManager.Instance.currentStage == LevelStage.Win)
+        {
+            ATC_UIController.Instance.ShowEndScreen();
+        }
     }
 
-
-    public void StepTextForward()
-    {
-        //if (done)
-        //{
-        //    counter++;
-        //    if(counter < endDialog.Length)
-        //    {
-        //        dialogText.text = endDialog[counter];
-        //    } else
-        //    {
-        //        //localNews.SetActive(true);
-        //        ATC_UIController.Instance.PopPanel();
-        //        //gameObject.SetActive(false);
-        //        ATC_UIController.Instance.PushPanel(localNews);
-        //    }
-        //}
-        //else
-        //{
-        //    if (counter == -1)
-        //    {
-        //        if(timer != null)
-        //        {
-        //            timer.SetActive(true);
-        //        }
-        //        //gameObject.SetActive(false);
-        //        ATC_UIController.Instance.PopPanel();
-        //        // start auto simulation
-        //        if (GameManager.Instance.FirstTimeLoading)
-        //        {
-        //            GameManager.Instance.StartSimulation();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (images.Length >= counter + 1)
-        //        {
-        //            if (counter >= 1)
-        //            {
-
-        //                images[counter - 1].SetActive(false);
-        //            }
-        //            if (counter >= 0)
-        //            {
-
-        //                images[counter].SetActive(true);
-        //            }
-
-        //        }
-        //        dialogText.text = phaseOneDialog[counter];
-        //        counter++;
-        //        if (counter >= phaseOneDialog.Length)
-        //        {
-
-        //            counter = -1;
-        //        }
-
-        //    }
-        //}
-        
-       
-    }
 
 }

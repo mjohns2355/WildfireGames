@@ -7,11 +7,12 @@ using UnityEngine;
 public class ATC_StatsPanel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI statsText;
-    bool simEnds  = false;
+
+    RectTransform rect;
     // Start is called before the first frame update
     void Start()
     {
-
+        rect = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -22,32 +23,32 @@ public class ATC_StatsPanel : MonoBehaviour
 
     void UpdateStatsText()
     {
-        if(simEnds) return;
+        if(GameManager.Instance.SimIsEnd) return;
+        //rect.transform.localPosition
         float timer = GameManager.Instance.SimTimer;
         if (GameManager.Instance.CurrentLevel == 0)
         {
-            statsText.text = "Real-time Stats"+ "\n" 
-                + "Timer:" + ConvertTimeToClockFormat(timer) + "\n" 
-                +"Cars Evacuated: " + GameManager.Instance.carEvaucated;
+            statsText.text = "Real-time Stats" + "\n"
+                + "Timer:" + ConvertTimeToClockFormat(timer) + "\n"
+                + "Cars Evacuated: " + GameManager.Instance.carsEvacuated + "\n";
         }
         else
         {
             statsText.text = "Real-time Stats" + "\n" 
                 + "Timer: " + ConvertTimeToClockFormat(timer) + "\n" 
-                +"Cars Evacuated: " + GameManager.Instance.carEvaucated + "\n" 
-                +"Houses Destroyed: " + GameManager.Instance.houseDestroyed;
+                +"Cars Evacuated: " + GameManager.Instance.carsEvacuated + "\n"
+                + "Houses Destroyed: " + GameManager.Instance.housesDestroyed;
         }
 
     }
 
     public void ShowResultText()
     {
-        simEnds = true;
-        var rect = GetComponent<RectTransform>();
+        
         ATC_UIController.Instance.ClampToWindow(rect, 100);
         var firstCar = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
         var lastCar = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
-        statsText.text = $"Time of first car evacuated: {firstCar} seconds\r\nTime of final car evacuated:{lastCar}";
+        statsText.text = $"Time of first car evacuated: {firstCar} seconds \r\nTime of final car evacuated:{lastCar} seconds \r\nCars Not Evacuated:{GameManager.Instance.carsNotEvacuated}";
     }
     string ConvertTimeToClockFormat(float timeInSeconds)
     {
@@ -60,7 +61,7 @@ public class ATC_StatsPanel : MonoBehaviour
 
     private void OnDisable()
     {
-        simEnds  = false;
+       
     }
 
 }
