@@ -26,7 +26,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     private void Start()
     {
         //buildingMenu.SetActive(false);
-        levelText.text = $"Level {GameManager.Instance.CurrentLevel}";
+        levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
             PushPanel(pauseMenu.gameObject);
