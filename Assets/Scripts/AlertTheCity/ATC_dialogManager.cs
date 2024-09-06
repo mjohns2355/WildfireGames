@@ -116,13 +116,13 @@ public class ATC_dialogManager : MonoBehaviour
 
     private void GenerateLocalNews()
     {
-        Debug.Log("Generate Local News");
+        //Debug.Log("Generate Local News");
         var currentLevel = GameManager.Instance.CurrentLevel;
         var dict = GameManager.Instance.structureManager.GetPlayerChoicesDict();
 
         string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
         string wuiRes = dict[HouseType.wui].endGameFeedback;
-        debugResultText.text = "The fire’s cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
+        debugResultText.text = "The fire's cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
 
         debugResultText.text += twoCarRes + "\n\n";
 
@@ -175,7 +175,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (GameManager.Instance.currentStage)
         {
             case LevelStage.BeforeFirstSim:
-                StartWorstSim();
+                ATC_UIController.Instance.PopPanel();
                 break;
             case LevelStage.AfterFirstSim:
                 ResetLevel();
@@ -196,10 +196,7 @@ public class ATC_dialogManager : MonoBehaviour
         }
     }
 
-    private void StartWorstSim()
-    {
-        GameManager.Instance.StartSimulation();
-    }
+ 
  
     private void LoadNewLevel()
     {
@@ -218,6 +215,7 @@ public class ATC_dialogManager : MonoBehaviour
     {
         GenerateLocalNews();
         ATC_UIController.Instance.PushPanel(localNews);
+        ATC_UIController.Instance.statsPanel.gameObject.SetActive(false);
         isLocalNewsShown = true;
     }
 
@@ -227,8 +225,8 @@ public class ATC_dialogManager : MonoBehaviour
         debugResultText.text = string.Empty;
         debugResultText2.text  = string.Empty;
         isLocalNewsShown = false;
-
-        if(GameManager.Instance.IsLastLevel && GameManager.Instance.currentStage == LevelStage.Win)
+        ATC_UIController.Instance.statsPanel.gameObject.SetActive(true);
+        if (GameManager.Instance.IsLastLevel && GameManager.Instance.currentStage == LevelStage.Win)
         {
             ATC_UIController.Instance.ShowEndScreen();
         }
