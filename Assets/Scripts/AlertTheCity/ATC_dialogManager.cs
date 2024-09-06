@@ -32,6 +32,7 @@ public class ATC_dialogManager : MonoBehaviour
     private int dialogIndex = 0;
     private bool isLocalNewsShown = false;
     private Dialog currentDialog;
+    private bool isToolBarBroughtToFront = false;
     public bool isInstructionShown = false;
     public GameObject arrow;
     public GameObject arrow2;
@@ -56,8 +57,14 @@ public class ATC_dialogManager : MonoBehaviour
     {
         dialogIndex = isLocalNewsShown ? 2 : 0;
         DisplayNextMessage();
-        ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
         arrow.SetActive(true);
+        if (isToolBarBroughtToFront)
+        {
+            ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
+            isToolBarBroughtToFront=false;
+        }
+        
+
 
     }
 
@@ -102,6 +109,7 @@ public class ATC_dialogManager : MonoBehaviour
                 if (dialogIndex == 1)
                 {
                     ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
+                    isToolBarBroughtToFront = true;
                     arrow.SetActive(false);
                     arrow2.SetActive(true);
                 }

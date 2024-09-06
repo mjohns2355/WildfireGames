@@ -169,6 +169,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
+
         if(!IsFirstSim)
         {
             Time.timeScale = GameSpeed = 1f ;
@@ -180,8 +181,10 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else
         {
+            Time.timeScale = GameSpeed = 2f;
             canStartSim = true;
         }
+        Debug.Log("Game Speed: " + GameSpeed);
         StartCoroutine(StartSimRoutine());
     }
 
