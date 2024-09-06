@@ -82,8 +82,8 @@ public class GameManager : UnitySingleton<GameManager>
     private void Update()
     {
         //debug
-        //if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
-        //if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
+        if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
+        if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
 
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
@@ -194,6 +194,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         yield return new WaitUntil(()=>canStartSim);
         SimStartsEvent.Invoke();
+        SimIsEnd = false;
         foreach(var menu in ATC_UIController.Instance.contextMenus)
         {
             menu.ApplyBehavior();
@@ -241,7 +242,7 @@ public class GameManager : UnitySingleton<GameManager>
         carsEvacuated = 0;
         housesDestroyed = 0;
         SimTimer = 0;
-        SimIsEnd = false;
+        SimIsEnd = true;
         canStartSim = false;
         InitiAvailableHouseType();
         SimStartsEvent.RemoveAllListeners();

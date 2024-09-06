@@ -14,18 +14,19 @@ public struct Dialog
 }
 public class ATC_dialogManager : MonoBehaviour
 {
-    public TextMeshProUGUI dialogText;
-    public TextMeshProUGUI debugResultText;
-    public TextMeshProUGUI debugResultText2;
-    public Dialog beforefirstSimDialog;
-    public Dialog afterfirstSimDialog;
-    public Dialog phaseOneDialog;
-    public Dialog winDialog;
-    public Dialog loseDialog;
+    [SerializeField] TextMeshProUGUI dialogText;
+    [SerializeField] TextMeshProUGUI debugResultText;
+    [SerializeField] TextMeshProUGUI debugResultText2;
+    [SerializeField] GameObject localNewsPanel1, localNewsPanel2;
+    [SerializeField] Dialog beforefirstSimDialog;
+    [SerializeField] Dialog afterfirstSimDialog;
+    [SerializeField] Dialog phaseOneDialog;
+    [SerializeField] Dialog winDialog;
+    [SerializeField] Dialog loseDialog;
     [SerializeField] Button dialogButton;
     [SerializeField] Button nextButton;
     [SerializeField] Button localNewsCloseButton;
-    public GameObject localNews;
+    [SerializeField] GameObject localNews;
 
     private Dictionary<LevelStage, Dialog> dialogData;
     private int dialogIndex = 0;
@@ -51,9 +52,8 @@ public class ATC_dialogManager : MonoBehaviour
     private void OnEnable()
     {
         dialogIndex = isLocalNewsShown ? 2 : 0;
-;        //Debug.Log("Dialog Index: " + dialogIndex);
         DisplayNextMessage();
-        
+        ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
     }
 
     public void GenerateResult()
@@ -173,7 +173,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (GameManager.Instance.currentStage)
         {
             case LevelStage.BeforeFirstSim:
-                ATC_UIController.Instance.PopPanel();
+                ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
                 break;
             case LevelStage.AfterFirstSim:
                 ResetLevel();
@@ -222,6 +222,8 @@ public class ATC_dialogManager : MonoBehaviour
         ATC_UIController.Instance.PopPanel();
         debugResultText.text = string.Empty;
         debugResultText2.text  = string.Empty;
+        localNewsPanel1.SetActive(true);
+        localNewsPanel2.SetActive(false) ;
         isLocalNewsShown = false;
         ATC_UIController.Instance.statsPanel.gameObject.SetActive(true);
         if (GameManager.Instance.IsLastLevel && GameManager.Instance.currentStage == LevelStage.Win)

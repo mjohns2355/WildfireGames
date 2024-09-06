@@ -10,12 +10,12 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
+    public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
     public GameObject endScreen;
-    //public GameObject debugPanel;
     public GameObject learnMorePanel;
-    //public HouseInfo currentHouseInfo;
+    public TextMeshProUGUI levelText;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
     //public GameObject buildingMenu;
@@ -26,7 +26,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     private void Start()
     {
         //buildingMenu.SetActive(false);
-
+        levelText.text = $"Level {GameManager.Instance.CurrentLevel}";
         pause.onClick.AddListener(() =>
         {
             PushPanel(pauseMenu.gameObject);
@@ -86,6 +86,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         statsPanel.gameObject.SetActive(true);
         start.interactable = false;
         learnMore.interactable = false;
+        pause.interactable = true;
     }
     void OnSimEnd()
     {
@@ -111,7 +112,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
         panel.SetActive(true);
         panelStack.Push(panel);
-        PrintStack();
+        //PrintStack();
     }
 
     public void PopPanel()
@@ -123,7 +124,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             panelStack.Peek().SetActive(true);
         }
-        PrintStack();
+        //PrintStack();
     }
 
     public void ClearAllPanels()
@@ -233,9 +234,12 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         selectedHouses.Clear();
         contextMenus.Clear();
+        var isFirstSim = GameManager.Instance.IsFirstSim;
         start.interactable = true;
-        learnMore.interactable = true;
+        learnMore.interactable = !isFirstSim;
+        pause.interactable = !isFirstSim;
         CloseAllUI();
+        levelText.text = $"Level {GameManager.Instance.CurrentLevel}";
         if (!dialogManager.isInstructionShown)
         {
             ShowDialog();
