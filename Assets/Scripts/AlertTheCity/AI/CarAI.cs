@@ -33,7 +33,7 @@ public class CarAI : MonoBehaviour
     private int stopIndex = 0;
 
     private bool stop;
-    private bool collisionStop = false;
+    public bool collisionStop = false;
     private bool noStops = false;
 
     public bool Stop

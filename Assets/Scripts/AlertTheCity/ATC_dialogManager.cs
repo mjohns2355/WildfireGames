@@ -33,6 +33,9 @@ public class ATC_dialogManager : MonoBehaviour
     private bool isLocalNewsShown = false;
     private Dialog currentDialog;
     public bool isInstructionShown = false;
+    public GameObject arrow;
+    public GameObject arrow2;
+
     private void Awake()
     {
         dialogData = new Dictionary<LevelStage, Dialog>
@@ -54,6 +57,8 @@ public class ATC_dialogManager : MonoBehaviour
         dialogIndex = isLocalNewsShown ? 2 : 0;
         DisplayNextMessage();
         ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
+        arrow.SetActive(true);
+
     }
 
     public void GenerateResult()
@@ -97,6 +102,8 @@ public class ATC_dialogManager : MonoBehaviour
                 if (dialogIndex == 1)
                 {
                     ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
+                    arrow.SetActive(false);
+                    arrow2.SetActive(true);
                 }
             }
 

@@ -19,6 +19,8 @@ public class ATC_WindZone : MonoBehaviour
     float windTimer = 0f;
     Rigidbody rb;
     BoxCollider collider;
+    public GameObject fireSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,13 @@ public class ATC_WindZone : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             return;
+        }
+        else
+        {
+            if (!fireSFX.activeInHierarchy)
+            {
+                fireSFX.SetActive(true);
+            }
         }
         windTimer += Time.deltaTime;
         if (windTimer>= windDirChangeInterval)
