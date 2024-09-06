@@ -92,6 +92,13 @@ public class ATC_dialogManager : MonoBehaviour
                     ShowLocalNews();
                 }
             }
+            if(stage == LevelStage.BeforeFirstSim)
+            {
+                if (dialogIndex == 1)
+                {
+                    ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
+                }
+            }
 
             dialogText.text = currentDialog.messages[dialogIndex];
             //Debug.Log(dialogText.text);
@@ -173,7 +180,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (GameManager.Instance.currentStage)
         {
             case LevelStage.BeforeFirstSim:
-                ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
+
                 break;
             case LevelStage.AfterFirstSim:
                 ResetLevel();
