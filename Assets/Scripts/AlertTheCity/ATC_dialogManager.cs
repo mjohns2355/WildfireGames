@@ -34,7 +34,6 @@ public class ATC_dialogManager : MonoBehaviour
     public bool isInstructionShown = false;
     private void Awake()
     {
-        //StepTextForward();
         dialogData = new Dictionary<LevelStage, Dialog>
         {
             { LevelStage.BeforeFirstSim, beforefirstSimDialog },
@@ -157,7 +156,6 @@ public class ATC_dialogManager : MonoBehaviour
 
         debugResultText2.text += "Our community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
 
-        //uiController.debugPanel.SetActive(true);
 
 
     }
@@ -171,7 +169,7 @@ public class ATC_dialogManager : MonoBehaviour
 
     private void OnDialogComplete()
     {
-        Debug.Log("Dialog Complete");
+        //Debug.Log("Dialog Complete");
         switch (GameManager.Instance.currentStage)
         {
             case LevelStage.BeforeFirstSim:

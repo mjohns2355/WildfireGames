@@ -109,12 +109,6 @@ public class GameManager : UnitySingleton<GameManager>
             SimIsEnd = true;
             OnSimEnd();
             SimEndsEvent.Invoke();
-            //fireManager.done = true;
-            //ATC_UIController.Instance.ShowEndDialog();
-
-            //dialogManager.gameObject.SetActive(true);
-
-            //dialogManager.EndDialog();
         }
     }
 

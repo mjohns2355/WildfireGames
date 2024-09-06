@@ -112,7 +112,8 @@ public class HouseStructure : Structure
     {
         // only main house has info
         contextMenu.gameObject.SetActive(true);
-        contextMenu.icon.gameObject.SetActive(true);
+        var isFirstSim = GameManager.Instance.IsFirstSim;
+        contextMenu.icon.gameObject.SetActive(!isFirstSim);
         ATC_UIController.Instance.AddMenu(contextMenu);
 
         if (houseTypeDict == null)
