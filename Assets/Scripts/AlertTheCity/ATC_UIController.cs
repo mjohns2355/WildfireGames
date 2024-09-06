@@ -239,7 +239,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
         CloseAllUI();
-        levelText.text = $"Level {GameManager.Instance.CurrentLevel}";
+        levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         if (!dialogManager.isInstructionShown)
         {
             ShowDialog();
