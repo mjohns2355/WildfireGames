@@ -23,10 +23,14 @@ public class CameraMovement : MonoBehaviour
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
         camPos = gameCamera.transform.position;
+        //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
+        //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
+
+
     public void MoveCamera(Vector3 inputVector)
     {
-
+        Debug.Log("Input Vector: " + inputVector);
         //var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
         //gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
         camPos += inputVector * Time.deltaTime * cameraMovementSpeed;
@@ -41,7 +45,26 @@ public class CameraMovement : MonoBehaviour
 
     public void ZoomCamera(float mouseAxis)
     {
+
         FOV += mouseAxis * -1 * cameraZoomSpeed;
+        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+        gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
+    }
+
+    public void ZoomCamera()
+    {
+        Touch touch1 = Input.GetTouch(0);
+        Touch touch2 = Input.GetTouch(1);
+
+        Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
+        Vector2 touch2PrevPos = touch2.position - touch2.deltaPosition;
+
+        float prevTouchDeltaMag = (touch1PrevPos - touch2PrevPos).magnitude;
+        float touchDeltaMag = (touch1.position - touch2.position).magnitude;
+
+        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+        FOV -= deltaMagnitudeDiff * 0.1f;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
         gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
     }

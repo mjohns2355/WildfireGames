@@ -19,14 +19,16 @@ public class ATC_InputManager : MonoBehaviour
 	public LayerMask groundMask;
     public LayerMask structureMask;
     public LayerMask uiMask;
-    [SerializeField]
+    [SerializeField] private LayerMask targetLayer;
 
-    private LayerMask targetLayer;
+    Vector3 lastMousePosition;
+    private Vector3 lastTouchPosition;
+    private bool isDragging;
 
- //   public Vector2 CameraMovementVector
- //   {
-	//	get { return cameraMovementVector; }
-	//}
+    //   public Vector2 CameraMovementVector
+    //   {
+    //	get { return cameraMovementVector; }
+    //}
 
 
 
@@ -42,7 +44,12 @@ public class ATC_InputManager : MonoBehaviour
         CheckClickHoldEvent();
         CheckClickUpEvent();
         CheckArrowInput();
-        
+#if UNITY_EDITOR
+        SimulateTouchWithMouse();  // In the editor, simulate touch input with the mouse
+#else
+        CheckDragInput();  // On mobile devices, use real touch input
+#endif
+
 
     }
 
@@ -73,6 +80,49 @@ public class ATC_InputManager : MonoBehaviour
 
     }
 
+    private void SimulateTouchWithMouse()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastTouchPosition = Input.mousePosition;
+            isDragging = true;
+        }
+        else if (Input.GetMouseButton(0) && isDragging)
+        {
+            Vector3 touchDelta = Input.mousePosition - lastTouchPosition;
+            cameraMovementVector = new Vector3(-touchDelta.x , -touchDelta.y, 0);
+            lastTouchPosition = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+        }
+    }
+    private void CheckDragInput()
+    {
+        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject(0))
+        {
+            checkKeyboard = false;
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                lastTouchPosition = touch.position;
+                isDragging = true;
+            }
+            else if (touch.phase == TouchPhase.Moved && isDragging)
+            {
+                Vector3 touchDelta = (Vector3)touch.position - lastTouchPosition;
+                cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0);
+                lastTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                isDragging = false;
+                checkKeyboard = true;
+            }
+        }
+    }
 
     private void CheckClickHoldEvent()
     {
@@ -84,6 +134,7 @@ public class ATC_InputManager : MonoBehaviour
                 OnMouseHold?.Invoke(position.Value);
             }
         }
+
     }
 
     private void CheckClickUpEvent()

@@ -84,9 +84,16 @@ public class GameManager : UnitySingleton<GameManager>
         //debug
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
-
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
-        cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
+        if(Input.touchCount == 2)
+        {
+            cameraMovement.ZoomCamera();
+        }
+        else
+        {
+            cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
+        }
+
 
         if (!canStartSim) return;
         // don't forget to set it back to 70
