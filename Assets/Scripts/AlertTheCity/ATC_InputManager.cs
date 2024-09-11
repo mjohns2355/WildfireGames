@@ -39,7 +39,6 @@ public class ATC_InputManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(checkKeyboard);
         CheckClickDownEvent();
         CheckClickHoldEvent();
         CheckClickUpEvent();
