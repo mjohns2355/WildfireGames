@@ -21,7 +21,6 @@ public class ATC_InputManager : MonoBehaviour
     public LayerMask uiMask;
     [SerializeField] private LayerMask targetLayer;
 
-    Vector3 lastMousePosition;
     private Vector3 lastTouchPosition;
     private bool isDragging;
 
@@ -40,6 +39,7 @@ public class ATC_InputManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(checkKeyboard);
         CheckClickDownEvent();
         CheckClickHoldEvent();
         CheckClickUpEvent();
@@ -82,10 +82,12 @@ public class ATC_InputManager : MonoBehaviour
 
     private void SimulateTouchWithMouse()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(!checkKeyboard) return;
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             lastTouchPosition = Input.mousePosition;
             isDragging = true;
+            checkKeyboard = true;
         }
         else if (Input.GetMouseButton(0) && isDragging)
         {
@@ -93,22 +95,22 @@ public class ATC_InputManager : MonoBehaviour
             cameraMovementVector = new Vector3(-touchDelta.x , -touchDelta.y, 0);
             lastTouchPosition = Input.mousePosition;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             isDragging = false;
         }
     }
     private void CheckDragInput()
     {
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject(0))
+        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
         {
-            checkKeyboard = false;
             Touch touch = Input.GetTouch(0);
 
             if (touch.phase == TouchPhase.Began)
             {
                 lastTouchPosition = touch.position;
                 isDragging = true;
+                checkKeyboard = true;
             }
             else if (touch.phase == TouchPhase.Moved && isDragging)
             {
@@ -119,7 +121,6 @@ public class ATC_InputManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
                 isDragging = false;
-                checkKeyboard = true;
             }
         }
     }

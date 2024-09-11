@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveCamera(Vector3 inputVector)
     {
-        Debug.Log("Input Vector: " + inputVector);
+        //Debug.Log("Input Vector: " + inputVector);
         //var movementVector = Quaternion.Euler(0, 30, 0) * inputVector;
         //gameCamera.transform.position += movementVector * Time.deltaTime * cameraMovementSpeed;
         camPos += inputVector * Time.deltaTime * cameraMovementSpeed;
