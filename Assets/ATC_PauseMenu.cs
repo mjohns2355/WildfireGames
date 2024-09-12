@@ -32,7 +32,7 @@ public class ATC_PauseMenu : MonoBehaviour
             note.SetActive(true);
         }
         clear.interactable = GameManager.Instance.SimIsEnd;
-        Debug.Log("Sim is End: " + GameManager.Instance.SimIsEnd);
+        //Debug.Log("Sim is End: " + GameManager.Instance.SimIsEnd);
     }
     private void OnDisable()
     {
@@ -43,8 +43,8 @@ public class ATC_PauseMenu : MonoBehaviour
     }
     void RestartLevel()
     {
-        GameManager.Instance.ResetGame();
-
+        GameManager.Instance.RestartGame();
+        ATC_UIController.Instance.ShowDialog();
     }
     void ClearAllChoices()
     {

@@ -35,8 +35,8 @@ public class GameManager : UnitySingleton<GameManager>
     public override void Awake()
     {
         base.Awake();
-        //currentStage = LevelStage.BeforeFirstSim;
-        currentStage = LevelStage.PhaseOne;
+        currentStage = LevelStage.BeforeFirstSim;
+        //currentStage = LevelStage.PhaseOne;
     }
     private void Start()
     {
@@ -192,7 +192,7 @@ public class GameManager : UnitySingleton<GameManager>
             Time.timeScale = GameSpeed = 2f;
             canStartSim = true;
         }
-        Debug.Log("Game Speed: " + GameSpeed);
+        //Debug.Log("Game Speed: " + GameSpeed);
         StartCoroutine(StartSimRoutine());
     }
 
@@ -243,7 +243,7 @@ public class GameManager : UnitySingleton<GameManager>
     //    return words;
     //}
 
-    public void ResetGame(int level = 1)
+    public void ResetGame()
     {
         if(!IsFirstSim) {
             currentStage = LevelStage.PhaseOne;
@@ -260,11 +260,16 @@ public class GameManager : UnitySingleton<GameManager>
         SimEndsEvent.RemoveAllListeners();
         StopAllCoroutines();
         ATC_UIController.Instance.ResetUI();
-        //if(level == 0)
-        //{
-        //    CurrentLevel = level;   
-        //}
+
         SceneManager.LoadScene(CurrentLevel);
+    }
+
+    public void RestartGame()
+    {
+        CurrentLevel = 0;
+        currentStage = LevelStage.BeforeFirstSim;
+        Time.timeScale = GameSpeed = 2f;
+        ResetGame();
     }
 
     public void NextLevel()
