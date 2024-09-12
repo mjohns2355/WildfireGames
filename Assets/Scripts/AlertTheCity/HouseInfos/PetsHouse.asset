@@ -59,17 +59,29 @@ MonoBehaviour:
       got out of the path of the fire before an evacuation notice came!
     isLocked: 0
   longerTitle: Pets
-  description: 'Having pets can increase the time needed to evacuate safely. It is
-    very important to make plans in advance and consider multiple scenarios and consequences
-    of choices. Be sure you have a carrier or leash readily available and that the
-    pets are in an easily accessible space on red flag days (ie. keep them inside
-    and in a room where you can find/catch them easily). It may be a good idea to
-    evacuate early and have a plan to stay in a pet-friendly shelter or with friends.
-
-'
+  description: 
+  descriptions:
+  - Having pets can increase the time needed to evacuate safely. It is very important
+    to make plans in advance and consider multiple scenarios and consequences of
+    choices.
+  - ' Be sure you have a carrier or leash readily available and that the pets are
+    in an easily accessible space on red flag days (ie. keep them inside and in a
+    room where you can find/catch them easily). It may be a good idea to evacuate
+    early and have a plan to stay in a pet-friendly shelter or with friends. '
   carNumber: 1
   horseNumber: 0
   petNumber: 1
   kidNumber: 0
   carSpeed: 1
-  carSpawnTime: 2
+  defaultChoice:
+    choiceName: 
+    carNumberMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 0
+    carLeaveTime: 0
+    choiceDetail: 
+    endGameFeedback: 
+    isLocked: 0

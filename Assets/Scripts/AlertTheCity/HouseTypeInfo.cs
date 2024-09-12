@@ -11,7 +11,8 @@ public class HouseTypeInfo : ScriptableObject
     public List<HouseChoice> lockedChoices = new List<HouseChoice>();
     public string longerTitle;
     [TextArea(15, 20)]
-    public string description;
+    //public string description;
+    public string[] descriptions;
     //[TextArea(5, 10)]
     //public string lockedOptionDetail;
     // house related properties

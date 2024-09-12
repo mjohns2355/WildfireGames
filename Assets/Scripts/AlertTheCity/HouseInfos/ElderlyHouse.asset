@@ -57,16 +57,29 @@ MonoBehaviour:
       went out.'
     isLocked: 1
   longerTitle: Elderly Resident
-  description: Older residents may need additional time and support to evacuate safely.
-    It is very important to make plans in advance and consider multiple scenarios
-    and consequences of choices. Some adult children and grand children choose to
-    drive a great distance to pick up their elderly relative, but this can cause
-    delays and additional congestion. Consider making a plan with a neighbor who
-    can help them evacuate, or arranging to evacuate them early before there is an
-    evacuation notice.
+  description: 
+  descriptions:
+  - 'Older residents may need additional time and support to evacuate safely. It
+    is very important to make plans in advance and consider multiple scenarios and
+    consequences of choices. '
+  - Some adult children and grand children choose to drive a great distance to pick
+    up their elderly relative, but this can cause delays and additional congestion.
+    Consider making a plan with a neighbor who can help them evacuate, or arranging
+    to evacuate them early before there is an evacuation notice.
   carNumber: 1
   horseNumber: 0
   petNumber: 0
   kidNumber: 0
   carSpeed: 0
-  carSpawnTime: 1
+  defaultChoice:
+    choiceName: 
+    carNumberMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 0
+    carLeaveTime: 0
+    choiceDetail: 
+    endGameFeedback: 
+    isLocked: 0

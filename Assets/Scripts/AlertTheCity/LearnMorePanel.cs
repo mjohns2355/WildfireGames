@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.ComponentModel.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,11 +16,18 @@ public class LearnMorePanel : MonoBehaviour
     public TextMeshProUGUI detailPageDescription;
     [SerializeField] Transform optionBtns;
     [SerializeField] Transform unlockedBtns;
+    [SerializeField] Button nextButton;
     //HouseInfo selectedHouseInfo;
     [SerializeField]  HouseTypeInfo targetHouseInfo;
     [SerializeField]  StructureContextMenu targetMenu;
     HouseType houseType;
     HouseIcon currentSelectedIcon;
+    int currentDescriptionIndex = 0;
+
+    private void Start()
+    {
+        nextButton.onClick.AddListener(OnNextButtonClick);
+    }
     private void SpawnIconButtons()
     {
         foreach (var houseType in GameManager.Instance.availableHouseTypes)
@@ -41,9 +48,11 @@ public class LearnMorePanel : MonoBehaviour
         targetMenu = ATC_UIController.Instance.FindMenu(type);
         detailPage.SetActive(true);
         homePage.SetActive(false);
-
         title.text = "Learn More: " + targetHouseInfo.longerTitle;
-        detailPageDescription.text = targetHouseInfo.description;
+        //detailPageDescription.text = targetHouseInfo.description;
+        bool isAllUnlocked = targetHouseInfo.AllChoicesAreUnlocked();
+        DisplayCurrentDescription(isAllUnlocked);
+        if (isAllUnlocked) return;
         SpawnUnlockedButtons();
 
         
@@ -57,6 +66,9 @@ public class LearnMorePanel : MonoBehaviour
         {
             Destroy(unlockedBtns.GetChild(i).gameObject);
         }
+        currentDescriptionIndex = 0;
+        unlockedBtns.gameObject.SetActive(false);
+        nextButton.gameObject.SetActive(true);
     }
 
     public void OnClickClose()
@@ -99,8 +111,6 @@ public class LearnMorePanel : MonoBehaviour
             button.button.onClick.AddListener(OnUnlockedButtonClicked);
         }
 
-
-
     }
 
     void OnUnlockedButtonClicked()
@@ -132,5 +142,39 @@ public class LearnMorePanel : MonoBehaviour
         houseType = currentSelectedIcon.iconHouseType;
 
         OnDetailedPageEnable(houseType);
+    }
+
+    void DisplayCurrentDescription(bool shouldMergeText)
+    {
+        var descriptions = targetHouseInfo.descriptions;
+        if(shouldMergeText)
+        {
+            string descritption = string.Empty;
+            foreach( var desc in descriptions )
+            {
+                descritption += desc;
+            }
+
+            detailPageDescription.text = descritption;
+            nextButton.gameObject.SetActive(false);
+            unlockedBtns.gameObject.SetActive(false);
+            return;
+        }
+
+        detailPageDescription.text = descriptions[currentDescriptionIndex];
+        if(currentDescriptionIndex >= descriptions.Length - 1 )
+        {
+            nextButton.gameObject.SetActive(false);
+            unlockedBtns.gameObject.SetActive(true);
+        }
+
+
+
+    }
+
+    void OnNextButtonClick()
+    {
+        currentDescriptionIndex++;
+        DisplayCurrentDescription(false);
     }
 }

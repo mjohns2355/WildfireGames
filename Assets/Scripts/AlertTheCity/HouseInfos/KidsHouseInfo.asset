@@ -56,16 +56,29 @@ MonoBehaviour:
       to pick up the kids.
     isLocked: 1
   longerTitle: School-Age Children
-  description: "Families with children have additional responsibilities to juggle
-    during an evacuation. It is very important to make plans in advance and consider
-    multiple scenarios and consequences of choices. Some parents choose to pick up
-    their children from school when the evacuation notice goes out. However, this
-    causes additional congestion around the school. Schools tend to be extremely
-    safe places to shelter during an emergency. Parents should consider leaving the
-    children at the school and waiting until it is safe to pick them up.\r"
+  description: "\r"
+  descriptions:
+  - Families with children have additional responsibilities to juggle during an evacuation.
+    It is very important to make plans in advance and consider multiple scenarios
+    and consequences of choices. Some parents choose to pick up their children from
+    school when the evacuation notice goes out. However, this causes additional congestion
+    around the school. Schools tend to be extremely safe places to shelter during
+    an emergency. Parents should consider leaving the children at the school and
+    waiting until it is safe to pick them up.
   carNumber: 1
   horseNumber: 0
   petNumber: 0
   kidNumber: 0
   carSpeed: 1
-  carSpawnTime: 1
+  defaultChoice:
+    choiceName: 
+    carNumberMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 0
+    carLeaveTime: 0
+    choiceDetail: 
+    endGameFeedback: 
+    isLocked: 0

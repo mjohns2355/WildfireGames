@@ -56,18 +56,30 @@ MonoBehaviour:
       zone.
     isLocked: 1
   longerTitle: Large Animals
-  description: 'Dealing with large animals, such as horses, during an evacuation
-    can be difficult. It is very important to make plans in advance and consider
-    multiple\r\nscenarios and consequences of choices. Choosing to take the animals
-    during the evacuation notice causes additional congestion on the roads, but for
-    many people leaving their animals behind is not an option. Consider relocating
-    the animals to a defensible location during risky conditions to increase their
-    safety as well as the safety of everyone else who\r\nneeds to evacuate.
-
-'
+  description: 
+  descriptions:
+  - 'Dealing with large animals, such as horses, during an evacuation can be difficult.
+    It is very important to make plans in advance and consider multiple\r\nscenarios
+    and consequences of choices. '
+  - 'Choosing to take the animals during the evacuation notice causes additional
+    congestion on the roads, but for many people leaving their animals behind is
+    not an option. Consider relocating the animals to a defensible location during
+    risky conditions to increase their safety as well as the safety of everyone else
+    who\r\nneeds to evacuate. '
   carNumber: 1
   horseNumber: 1
   petNumber: 0
   kidNumber: 0
   carSpeed: 0
-  carSpawnTime: 2
+  defaultChoice:
+    choiceName: 
+    carNumberMod: 0
+    horseNumberMod: 0
+    kidNumberMod: 0
+    petNumberMod: 0
+    homeHardeningMod: 0
+    carSpeedMod: 0
+    carLeaveTime: 0
+    choiceDetail: 
+    endGameFeedback: 
+    isLocked: 0
