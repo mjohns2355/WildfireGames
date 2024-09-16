@@ -16,22 +16,19 @@ public class GridSearch {
 
     public static List<Point> AStarSearch(Grid grid, Point startPosition, Point endPosition, bool isAgent = false)
     {
-        List<Point> path = new List<Point>();
+        var priorityQueue = new SimplePriorityQueue<Point>();
 
-        List<Point> positionsTocheck = new List<Point>();
+        List<Point> path = new List<Point>();
         Dictionary<Point, float> costDictionary = new Dictionary<Point, float>();
-        Dictionary<Point, float> priorityDictionary = new Dictionary<Point, float>();
         Dictionary<Point, Point> parentsDictionary = new Dictionary<Point, Point>();
 
-        positionsTocheck.Add(startPosition);
-        priorityDictionary.Add(startPosition, 0);
+        priorityQueue.Enqueue(startPosition, 0);
         costDictionary.Add(startPosition, 0);
         parentsDictionary.Add(startPosition, null);
 
-        while (positionsTocheck.Count > 0)
+        while (/*positionsTocheck.Count > 0*/priorityQueue.Count > 0)
         {
-            Point current = GetClosestVertex(positionsTocheck, priorityDictionary);
-            positionsTocheck.Remove(current);
+            Point current = priorityQueue.Dequeue();
             if (current.Equals(endPosition))
             {
                 path = GeneratePath(parentsDictionary, current);
@@ -46,10 +43,16 @@ public class GridSearch {
                     costDictionary[neighbour] = newCost;
 
                     float randomFactor = UnityEngine.Random.Range(0f, 0.5f); // Slight randomization
-                    float priority = newCost + ManhattanDiscance(endPosition, neighbour) * (1.0f + randomFactor);
-                    positionsTocheck.Add(neighbour);
-                    priorityDictionary[neighbour] = priority;
-
+                    float heuristic = ManhattanDistance(neighbour, endPosition);
+                    float priority = newCost + heuristic * (1.0f + randomFactor);
+                    if (priorityQueue.Contains(neighbour))
+                    {
+                        priorityQueue.UpdatePriority(neighbour, priority);
+                    }
+                    else
+                    {
+                        priorityQueue.Enqueue(neighbour, priority);
+                    }
                     parentsDictionary[neighbour] = current;
                 }
             }
@@ -57,20 +60,20 @@ public class GridSearch {
         return path;
     }
 
-    private static Point GetClosestVertex(List<Point> list, Dictionary<Point, float> distanceMap)
-    {
-        Point candidate = list[0];
-        foreach (Point vertex in list)
-        {
-            if (distanceMap[vertex] < distanceMap[candidate])
-            {
-                candidate = vertex;
-            }
-        }
-        return candidate;
-    }
+    //private static Point GetClosestVertex(List<Point> list, Dictionary<Point, float> distanceMap)
+    //{
+    //    Point candidate = list[0];
+    //    foreach (Point vertex in list)
+    //    {
+    //        if (distanceMap[vertex] < distanceMap[candidate])
+    //        {
+    //            candidate = vertex;
+    //        }
+    //    }
+    //    return candidate;
+    //}
 
-    private static float ManhattanDiscance(Point endPos, Point point)
+    private static float ManhattanDistance(Point endPos, Point point)
     {
         return Math.Abs(endPos.X - point.X) + Math.Abs(endPos.Y - point.Y);
     }
@@ -85,5 +88,43 @@ public class GridSearch {
             parent = parentMap[parent];
         }
         return path;
+    }
+
+    public class SimplePriorityQueue<T>
+    {
+        private List<KeyValuePair<T, float>> elements = new List<KeyValuePair<T, float>>();
+
+        public int Count => elements.Count;
+
+        public void Enqueue(T item, float priority)
+        {
+            elements.Add(new KeyValuePair<T, float>(item, priority));
+            elements.Sort((a, b) => a.Value.CompareTo(b.Value));
+        }
+
+        public T Dequeue()
+        {
+            var bestItem = elements[0];
+            elements.RemoveAt(0);
+            return bestItem.Key;
+        }
+
+        public bool Contains(T item)
+        {
+            return elements.Exists(x => x.Key.Equals(item));
+        }
+
+        public void UpdatePriority(T item, float newPriority)
+        {
+            for (int i = 0; i < elements.Count; i++)
+            {
+                if (elements[i].Key.Equals(item))
+                {
+                    elements[i] = new KeyValuePair<T, float>(item, newPriority);
+                    elements.Sort((a, b) => a.Value.CompareTo(b.Value));
+                    break;
+                }
+            }
+        }
     }
 }

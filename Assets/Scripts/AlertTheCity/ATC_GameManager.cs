@@ -148,7 +148,7 @@ public class GameManager : UnitySingleton<GameManager>
         bool won = false;
         int first = Mathf.RoundToInt(firstEvacCarTimeStamp);
         int final = Mathf.RoundToInt(lastEvacCarTimeStamp);
-        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime && housesDestroyed < previousHousesDestroyed)
+        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime /*&& housesDestroyed < previousHousesDestroyed*/)
         {
             won = true;
         }

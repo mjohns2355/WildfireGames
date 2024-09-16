@@ -63,11 +63,19 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             {
                 TrySpawnACar(startStructure, endStructures[0], carSpeed);
             }
-            
+
             //structure.AfterSpawnACar();
             // wait for one sec to spawn a new car
-            yield return new WaitForSeconds(1f);
+            yield return WaitForNextCar();
         }
+    }
+
+    private WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
+
+    private IEnumerator WaitForNextCar()
+    {
+        // Centralized wait logic to optimize memory and avoid multiple WaitForSeconds instantiations
+        yield return waitOneSecond;
     }
     private void TrySpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium)
     {
