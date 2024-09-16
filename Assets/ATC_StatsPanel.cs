@@ -24,7 +24,6 @@ public class ATC_StatsPanel : MonoBehaviour
     void UpdateStatsText()
     {
         if(GameManager.Instance.SimIsEnd) return;
-        //rect.transform.localPosition
         float timer = GameManager.Instance.SimTimer;
         statsText.text = "Real-time Stats" + "\n"
             + "Timer:" + ConvertTimeToClockFormat(timer) + "\n"
@@ -38,20 +37,14 @@ public class ATC_StatsPanel : MonoBehaviour
         ATC_UIController.Instance.ClampToWindow(rect, 100);
         var firstCar = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
         var lastCar = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
-        statsText.text = $"Time of first car evacuated: {firstCar} seconds \r\nTime of final car evacuated:{lastCar} seconds \r\nCars Not Evacuated:{GameManager.Instance.carsNotEvacuated}";
+        statsText.text = $"Time of first car evacuated: {firstCar} seconds \r\nTime of final car evacuated:{lastCar} seconds \r\nCars Not Evacuated:{GameManager.Instance.carsNotEvacuated}\r\nHouses Destroyed:{GameManager.Instance.housesDestroyed}";
     }
     string ConvertTimeToClockFormat(float timeInSeconds)
     {
         int minutes = Mathf.FloorToInt((timeInSeconds % 3600) / 60);  
         int seconds = Mathf.FloorToInt(timeInSeconds % 60);
 
-        
         return string.Format("{0:00}:{1:00}",minutes, seconds);
-    }
-
-    private void OnDisable()
-    {
-       
     }
 
 }

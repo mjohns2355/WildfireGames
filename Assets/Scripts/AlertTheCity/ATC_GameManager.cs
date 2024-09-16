@@ -29,8 +29,8 @@ public class GameManager : UnitySingleton<GameManager>
     public bool SimIsEnd { get; private set; }
 
     public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
-    //private int previousCarsEvacuated, previousHousesDestroyed = 0; 
-    [SerializeField]private float previousFirstEvacTime, previousLastEvacTime = 0f;
+    [SerializeField] private int previousHousesDestroyed = 0; 
+    [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
 
     public override void Awake()
     {
@@ -138,7 +138,7 @@ public class GameManager : UnitySingleton<GameManager>
     void SaveResults()
     {
         //previousCarsEvacuated = carsEvacuated;
-        //previousHousesDestroyed = housesDestroyed;
+        previousHousesDestroyed = housesDestroyed;
         previousFirstEvacTime = firstEvacCarTimeStamp;
         previousLastEvacTime = lastEvacCarTimeStamp;
     }
@@ -148,7 +148,7 @@ public class GameManager : UnitySingleton<GameManager>
         bool won = false;
         int first = Mathf.RoundToInt(firstEvacCarTimeStamp);
         int final = Mathf.RoundToInt(lastEvacCarTimeStamp);
-        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime)
+        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime && housesDestroyed < previousHousesDestroyed)
         {
             won = true;
         }
@@ -218,10 +218,7 @@ public class GameManager : UnitySingleton<GameManager>
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
     }
 
-    public void ToggleGamePause(bool state)
-    {
-        Time.timeScale = state ? 0 : 1;
-    }
+
     //public void ToggleAssignMode()
     //{
     //    assignMode = !assignMode;
@@ -276,6 +273,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         CurrentLevel++;
         previousLastEvacTime = previousFirstEvacTime = 0f;
+        previousHousesDestroyed = 0;
         currentStage = LevelStage.BeforeFirstSim;
         ResetGame();
 

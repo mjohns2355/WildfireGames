@@ -45,7 +45,8 @@ public class GridSearch {
                 {
                     costDictionary[neighbour] = newCost;
 
-                    float priority = newCost + ManhattanDiscance(endPosition, neighbour);
+                    float randomFactor = UnityEngine.Random.Range(0f, 0.5f); // Slight randomization
+                    float priority = newCost + ManhattanDiscance(endPosition, neighbour) * (1.0f + randomFactor);
                     positionsTocheck.Add(neighbour);
                     priorityDictionary[neighbour] = priority;
 
