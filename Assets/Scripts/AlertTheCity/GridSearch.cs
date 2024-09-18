@@ -9,11 +9,54 @@ using UnityEngine;
 /// </summary>
 public class GridSearch {
 
-    public struct SearchResult
+    public class Path
     {
-        public List<Point> Path { get; set; }
+        public List<Point> Points { get; set; } = new List<Point>();
+        public float Cost { get; set; }
     }
 
+    public static List<Path> KShortestPaths(Grid grid, Point startPosition, Point endPosition, int K, bool isAgent = false)
+    {
+        List<Path> paths = new List<Path>();
+
+        var priorityQueue = new SimplePriorityQueue<Path>();
+        var visited = new HashSet<Point>();
+
+        Path startPath = new Path { Points = new List<Point> { startPosition }, Cost = 0 };
+        priorityQueue.Enqueue(startPath, 0);
+        while (priorityQueue.Count > 0 && paths.Count < K)
+        {
+            Path currentPath = priorityQueue.Dequeue();
+            Point lastPoint = currentPath.Points[currentPath.Points.Count - 1];
+            if (lastPoint.Equals(endPosition))
+            {
+                paths.Add(currentPath);
+                visited.Add(endPosition);
+                continue;
+            }
+            
+            foreach (Point neighbour in grid.GetAdjacentCells(lastPoint, isAgent))
+            {
+                if (currentPath.Points.Contains(neighbour)) continue;
+                float additionalCost = grid.GetCostOfEnteringCell(neighbour);
+                float newCost = currentPath.Cost + additionalCost;
+                List<Point> newPathPoints = new List<Point>(currentPath.Points) { neighbour };
+
+                Path newPath = new Path
+                {
+                    Points = newPathPoints,
+                    Cost = newCost
+                };
+
+                float heuristic = ManhattanDistance(neighbour, endPosition);
+                priorityQueue.Enqueue(newPath, newCost + heuristic);
+            }
+        }
+
+        Debug.Log("Available Paths: " + paths.Count);
+        return paths;
+
+    }
     public static List<Point> AStarSearch(Grid grid, Point startPosition, Point endPosition, bool isAgent = false)
     {
         var priorityQueue = new SimplePriorityQueue<Point>();
@@ -42,9 +85,9 @@ public class GridSearch {
                 {
                     costDictionary[neighbour] = newCost;
 
-                    float randomFactor = UnityEngine.Random.Range(0f, 0.5f); // Slight randomization
+                    //float randomFactor = UnityEngine.Random.Range(0f, 0.5f); // Slight randomization
                     float heuristic = ManhattanDistance(neighbour, endPosition);
-                    float priority = newCost + heuristic * (1.0f + randomFactor);
+                    float priority = newCost + heuristic /** (1.0f + randomFactor)*/;
                     if (priorityQueue.Contains(neighbour))
                     {
                         priorityQueue.UpdatePriority(neighbour, priority);
@@ -60,6 +103,8 @@ public class GridSearch {
         return path;
     }
 
+
+
     //private static Point GetClosestVertex(List<Point> list, Dictionary<Point, float> distanceMap)
     //{
     //    Point candidate = list[0];
@@ -73,6 +118,15 @@ public class GridSearch {
     //    return candidate;
     //}
 
+    public static float CalculatePathCost(Grid grid, List<Point> path)
+    {
+        float totalCost = 0f;
+        for (int i = 1; i < path.Count; i++)
+        {
+            totalCost += grid.GetCostOfEnteringCell(path[i]);
+        }
+        return totalCost;
+    }
     private static float ManhattanDistance(Point endPos, Point point)
     {
         return Math.Abs(endPos.X - point.X) + Math.Abs(endPos.Y - point.Y);

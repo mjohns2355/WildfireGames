@@ -35,8 +35,8 @@ public class GameManager : UnitySingleton<GameManager>
     public override void Awake()
     {
         base.Awake();
-        currentStage = LevelStage.BeforeFirstSim;
-        //currentStage = LevelStage.PhaseOne;
+        //currentStage = LevelStage.BeforeFirstSim;
+        currentStage = LevelStage.PhaseOne;
     }
     private void Start()
     {

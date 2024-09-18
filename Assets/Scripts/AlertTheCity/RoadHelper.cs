@@ -39,11 +39,11 @@ public class RoadHelper : MonoBehaviour
         return useInner ? innerIncoming : outerIncoming;
     }
 
-    protected Marker GetClosestMarkeTo(Vector3 structurePosition, List<Marker> pedestrianMarkers, bool isCorner = false)
+    protected Marker GetClosestMarkeTo(Vector3 structurePosition, List<Marker> carMarkers, bool isCorner = false)
     {
         if (isCorner)
         {
-            foreach (var marker in pedestrianMarkers)
+            foreach (var marker in carMarkers)
             {
                 var direction = marker.Position - structurePosition;
                 direction.Normalize();
@@ -58,7 +58,7 @@ public class RoadHelper : MonoBehaviour
         {
             Marker closestMarker = null;
             float distance = float.MaxValue;
-            foreach (var marker in pedestrianMarkers)
+            foreach (var marker in carMarkers)
             {
                 var markerDistance = Vector3.Distance(structurePosition, marker.Position);
                 if (distance > markerDistance)

@@ -96,6 +96,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             if (path.Count == 0 && path.Count > 2) return;
             //if (Thouse.testHouse)
             //{
+                
             //    testcarPath = path;
             //}
             bool useInner = ShouldTakeInnerCarMarkers();
@@ -112,7 +113,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
             //if (Thouse.testHouse)
             //{
-            //    CreateACarGraph(path, testcarGraph,useInner);
+            //    CreateACarGraph(path, testcarGraph, useInner);
 
             //}
             if (carPath.Count > 0)

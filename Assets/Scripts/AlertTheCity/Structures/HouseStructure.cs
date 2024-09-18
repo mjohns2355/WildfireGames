@@ -88,7 +88,7 @@ public class HouseStructure : Structure
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S) && testHouse)
+        if(Input.GetKeyDown(KeyCode.F) && testHouse)
         {
             TestSpawnCar();
         }
@@ -98,8 +98,8 @@ public class HouseStructure : Structure
     {
         var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
         var targetSchool= GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
-        ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
-        //ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
+        //ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
+        ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
     }
     void SpawnHouseModel()
     {
@@ -262,7 +262,7 @@ public class HouseStructure : Structure
         
         yield return new WaitForSeconds(carSpawnWaitTime);
 
-        Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
+        //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
         //destination shelter
 
         foreach (var house in sameTypeHouses)

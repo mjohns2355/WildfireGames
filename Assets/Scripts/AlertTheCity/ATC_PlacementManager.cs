@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ATC_PlacementManager : MonoBehaviour
@@ -101,16 +102,39 @@ public class ATC_PlacementManager : MonoBehaviour
         tempRoadObjects.Clear();
     }
 
-    internal List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition, bool isAgent = false)
+    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition, bool isAgent = false)
     {
-        var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z), isAgent);
-        List<Vector3Int> path = new List<Vector3Int>();
-        foreach (Point point in resultPath)
+        //var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z), isAgent);
+        //List<Vector3Int> path = new List<Vector3Int>();
+        //foreach (Point point in resultPath)
+        //{
+        //    path.Add(new Vector3Int(point.X, 0, point.Y));
+        //    //Debug.Log(point);
+        //}
+        //return path;
+        System.Random random = new System.Random();
+        var paths = GridSearch.KShortestPaths(placementGrid,
+                                      new Point(startPosition.x, startPosition.z),
+                                      new Point(endPosition.x, endPosition.z),
+                                      2, isAgent);
+
+
+        if (paths.Count == 0)
         {
-            path.Add(new Vector3Int(point.X, 0, point.Y));
-            //Debug.Log(point);
+            return new List<Vector3Int>(); // Return an empty list if no paths are found
         }
-        return path;
+
+        int index = 0;
+        if (random.NextDouble() < 0.2)
+        {
+            index = 1;
+        }
+
+        var selectedPath = paths[index];
+        Debug.Log("Selected Path Index: " + index + ", path count: " + selectedPath.Points.Count);
+        // Convert the selected path from List<Point> to List<Vector3Int>
+        List<Vector3Int> convertedPath = selectedPath.Points.Select(p => new Vector3Int(p.X, 0, p.Y)).ToList();
+        return convertedPath;
     }
 
     internal void AddTempStructureToStructureDict()
