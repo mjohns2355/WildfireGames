@@ -54,7 +54,7 @@ public class OptionButton : MonoBehaviour
             //Debug.Log("Open Learn More Panel");
             LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
             ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
-            learnMorePanel.OnDetailedPageEnable(house.HouseType);
+            learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
         });
     }
     public void SetOptionButtonText(string text)

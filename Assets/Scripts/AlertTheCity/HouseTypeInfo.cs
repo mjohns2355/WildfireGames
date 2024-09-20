@@ -73,4 +73,5 @@ public class HouseTypeInfo : ScriptableObject
         //Debug.Log("Check " + houseType + " 's locked choices count "+  lockedChoicesCount);
         return lockedChoicesCount == 0;
     }
+
 }
