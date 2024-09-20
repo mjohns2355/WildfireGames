@@ -19,10 +19,24 @@ public class ATC_FireSafeZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var combustible = other.gameObject.GetComponent<Combustible>();
+        var fire = other.gameObject.GetComponent<FireMovementController>();
         if (combustible != null)
         {
-            Debug.Log($"Fire Safe Zone {other.gameObject.name} is no longer combustible. ");
+            //Debug.Log($"Fire Safe Zone {other.gameObject.name} is no longer combustible. ");
             combustible.enabled = false;
+        }
+        if(fire != null)
+        {
+            fire.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var fire = other.gameObject.GetComponent<FireMovementController>();
+        if (fire != null)
+        {
+            fire.gameObject.SetActive(true);
         }
     }
 }

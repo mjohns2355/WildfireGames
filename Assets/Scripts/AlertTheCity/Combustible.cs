@@ -49,7 +49,8 @@ public class Combustible : MonoBehaviour
 
     public virtual void CatchOnFire()
     {
-        if (isOnfire) return;
+        if (isOnfire || burned) return;
+        //if (fire != null && fire.isInFireSafeZone) return;
         if (Random.Range(0.4f,1) > fireChance)
         {
             fireChance += Time.deltaTime;
@@ -79,7 +80,17 @@ public class Combustible : MonoBehaviour
         
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        var hit = other.gameObject;
+        if (hit == null) return;
+        // Check for fire-safe zone first
+        if (hit.layer == LayerMask.NameToLayer("FireSafe"))
+        {
+            this.enabled = false;
+            return;
+        }
+    }
 
 
 }

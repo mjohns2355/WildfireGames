@@ -17,14 +17,17 @@ public class FireMovementController : MonoBehaviour
     public Vector3 windDirection;
     [SerializeField] float maxSize;
     [SerializeField] float minSize;
+    [SerializeField] GameObject particleParent;
     float fireSize = 0;
     //ParticleSystem.VelocityOverLifetimeModule emberVelocity;
     //ParticleSystem.VelocityOverLifetimeModule fireVelocity;
     //ParticleSystem.VelocityOverLifetimeModule mediumFlameVelocity;
     [SerializeField]Rigidbody rb;
+    [SerializeField] BoxCollider collider;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
         scaler = transform.localScale;
         waitTime = Random.Range(3f, 5f);
         if(onCombustible)
@@ -64,15 +67,22 @@ public class FireMovementController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var hit = other.gameObject;
-        if (hit!=null && hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
+        if (hit == null) return;
+        // Check for fire-safe zone first
+        if (hit.layer == LayerMask.NameToLayer("FireSafe"))
         {
 
-            //Debug.Log("Fire collides with: " + other.name);
-            //gameObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+            particleParent.SetActive(false);
+
+            return; 
+        }
+
+        if (hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
+        {
             Combustible obj;
-            hit.TryGetComponent(out obj);
-            if (obj != null)
+            if (hit.TryGetComponent(out obj) && obj != null)
             {
+                Debug.Log($"Fire: {gameObject.GetInstanceID()} on combustible spread fire to another combustible");
                 obj.CatchOnFire();
             }
         }
@@ -80,9 +90,16 @@ public class FireMovementController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Wind"))
+        var hit = other.gameObject;
+        if (hit != null && hit.layer == LayerMask.NameToLayer("FireSafe"))
         {
-            //Debug.Log("Fire left: " + other.name);
+            //isInFireSafeZone = false;
+            Debug.Log(gameObject.GetInstanceID() + " Left fire safe zone");
+            particleParent.SetActive(true);
+            //GraduallyChangeFireSize(maxSize, 10f);
+        }
+        if (hit != null && hit.layer == LayerMask.NameToLayer("Wind") /*&& !isInFireSafeZone*/)
+        {
             speed = 1;
             ImpactFire(1);
         }
@@ -90,6 +107,7 @@ public class FireMovementController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
     }
 
     public void ImpactFire(float multiplier)
@@ -105,18 +123,18 @@ public class FireMovementController : MonoBehaviour
         emberSize.sizeMultiplier = multiplier;
     }
 
-    public void GraduallyChangeFireSize(float maxSize)
+    public void GraduallyChangeFireSize(float maxSize, float t)
     {
         transform.localScale = scaler;
-        scaler.x = Mathf.Lerp(scaler.x, maxSize, fireGrowthSpeed * Time.deltaTime);
-        scaler.y = Mathf.Lerp(scaler.y, maxSize, fireGrowthSpeed * Time.deltaTime);
-        scaler.z = Mathf.Lerp(scaler.z, maxSize, fireGrowthSpeed * Time.deltaTime);
+        scaler.x = Mathf.Lerp(scaler.x, maxSize, t * Time.deltaTime);
+        scaler.y = Mathf.Lerp(scaler.y, maxSize, t * Time.deltaTime);
+        scaler.z = Mathf.Lerp(scaler.z, maxSize, t * Time.deltaTime);
     }
 
     IEnumerator ChangeFireSizeRoutine(float maxSize)
     {
         yield return new WaitForSeconds(waitTime);
-        GraduallyChangeFireSize(maxSize);
+        GraduallyChangeFireSize(maxSize, fireGrowthSpeed);
     }
 
     IEnumerator OnDestroyFireRoutine()

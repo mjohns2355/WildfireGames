@@ -131,7 +131,7 @@ public class ATC_PlacementManager : MonoBehaviour
         }
 
         var selectedPath = paths[index];
-        Debug.Log("Selected Path Index: " + index + ", path count: " + selectedPath.Points.Count);
+        //Debug.Log("Selected Path Index: " + index + ", path count: " + selectedPath.Points.Count);
         // Convert the selected path from List<Point> to List<Vector3Int>
         List<Vector3Int> convertedPath = selectedPath.Points.Select(p => new Vector3Int(p.X, 0, p.Y)).ToList();
         return convertedPath;
