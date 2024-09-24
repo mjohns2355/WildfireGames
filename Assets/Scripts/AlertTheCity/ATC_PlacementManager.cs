@@ -106,10 +106,11 @@ public class ATC_PlacementManager : MonoBehaviour
     {
         //var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z), isAgent);
         //List<Vector3Int> path = new List<Vector3Int>();
+        //Debug.Log("Astar: ");
         //foreach (Point point in resultPath)
         //{
         //    path.Add(new Vector3Int(point.X, 0, point.Y));
-        //    //Debug.Log(point);
+        //    Debug.Log(new Vector3Int(point.X, 0, point.Y));
         //}
         //return path;
         System.Random random = new System.Random();
@@ -131,8 +132,8 @@ public class ATC_PlacementManager : MonoBehaviour
         }
 
         var selectedPath = paths[index];
-        //Debug.Log("Selected Path Index: " + index + ", path count: " + selectedPath.Points.Count);
-        // Convert the selected path from List<Point> to List<Vector3Int>
+        //Debug.Log("Kshortest: ");
+        selectedPath.Points.Reverse();
         List<Vector3Int> convertedPath = selectedPath.Points.Select(p => new Vector3Int(p.X, 0, p.Y)).ToList();
         return convertedPath;
     }
@@ -141,6 +142,7 @@ public class ATC_PlacementManager : MonoBehaviour
     {
         foreach (var structure in tempRoadObjects)
         {
+            //Debug.Log($"Added {structure.Key} to structure dict");
             structureDict.Add(structure.Key, structure.Value);
         }
         tempRoadObjects.Clear();

@@ -82,7 +82,7 @@ public class FireMovementController : MonoBehaviour
             Combustible obj;
             if (hit.TryGetComponent(out obj) && obj != null)
             {
-                Debug.Log($"Fire: {gameObject.GetInstanceID()} on combustible spread fire to another combustible");
+                //Debug.Log($"Fire: {gameObject.GetInstanceID()} on combustible spread fire to another combustible");
                 obj.CatchOnFire();
             }
         }
@@ -94,7 +94,7 @@ public class FireMovementController : MonoBehaviour
         if (hit != null && hit.layer == LayerMask.NameToLayer("FireSafe"))
         {
             //isInFireSafeZone = false;
-            Debug.Log(gameObject.GetInstanceID() + " Left fire safe zone");
+            //Debug.Log(gameObject.GetInstanceID() + " Left fire safe zone");
             particleParent.SetActive(true);
             //GraduallyChangeFireSize(maxSize, 10f);
         }

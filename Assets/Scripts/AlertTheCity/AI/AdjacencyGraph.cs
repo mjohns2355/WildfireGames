@@ -24,10 +24,8 @@ public class AdjacencyGraph
 
     private void AddVertex(Vertex v)
     {
-        
         if (adjacencyDictionary.ContainsKey(v))
             return;
-
         adjacencyDictionary.Add(v, new List<Vertex>());
     }
 
@@ -43,8 +41,12 @@ public class AdjacencyGraph
 
     public void AddEdge(Vector3 startPosition, Vector3 endPosition)
     {
-        Vertex v1 = GetVertexAt(startPosition);
-        Vertex v2 = GetVertexAt(endPosition);
+        if (CompareVertices(startPosition, endPosition))
+        {
+            return;
+        }
+        var v1 = GetVertexAt(startPosition);
+        var v2 = GetVertexAt(endPosition);
         if (v1 == null)
         {
             v1 = new Vertex(startPosition);
@@ -55,15 +57,9 @@ public class AdjacencyGraph
             v2 = new Vertex(endPosition);
             AddVertex(v2);
         }
+        AddEdgeBetween(v1, v2);
+        //AddEdgeBetween(v2, v1);
 
-        if (!adjacencyDictionary[v1].Contains(v2))
-        {
-            adjacencyDictionary[v1].Add(v2);
-        }
-        if (!adjacencyDictionary[v2].Contains(v1))
-        {
-            adjacencyDictionary[v2].Add(v1);
-        }
     }
 
     private void AddEdgeBetween(Vertex v1, Vertex v2)
@@ -87,13 +83,13 @@ public class AdjacencyGraph
 
     }
 
-    public List<Vertex> GetConnectedVerticesTo(Vertex v)
+    public List<Vertex> GetConnectedVerticesTo(Vertex v1)
     {
-        if (adjacencyDictionary.TryGetValue(v, out var neighbors))
+        if (adjacencyDictionary.ContainsKey(v1))
         {
-            return neighbors;
+            return adjacencyDictionary[v1];
         }
-        return new List<Vertex>(); 
+        return null;
     }
 
     public List<Vertex> GetConnectedVerticesTo(Vector3 position)
@@ -200,5 +196,6 @@ public class AdjacencyGraph
         return path;
     }
 }
+
 
 
