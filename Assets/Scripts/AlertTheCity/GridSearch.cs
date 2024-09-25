@@ -24,29 +24,36 @@ public class GridSearch
     {
         List<Path> paths = new List<Path>();
 
-        List<Path> openPaths = new List<Path>();
-        var visited = new HashSet<Point>();
+        PriorityQueue<Path> openPaths = new PriorityQueue<Path>();
+        var visited = new Dictionary<Point, int>();
 
         Path startPath = new Path { Points = new List<Point> { startPosition }, Cost = 0 };
-        openPaths.Add(startPath);
+        openPaths.Enqueue(startPath, 0);
 
         while (openPaths.Count > 0 && paths.Count < K)
         {
-            // Sort the list based on path cost and heuristic
-            openPaths.Sort((a, b) => (a.Cost).CompareTo(b.Cost));
 
             // Get the current path with the lowest cost
-            Path currentPath = openPaths[0];
-            openPaths.RemoveAt(0);
-
+            Path currentPath = openPaths.Dequeue();
             Point lastPoint = currentPath.Points[currentPath.Points.Count - 1];
+
+            // If we've reached the target, add this path to the results
             if (lastPoint.Equals(endPosition))
             {
                 paths.Add(currentPath);
-                visited.Add(endPosition);
                 continue;
             }
 
+            // Track how many times we have visited this point
+            if (!visited.ContainsKey(lastPoint))
+            {
+                visited[lastPoint] = 0;
+            }
+            visited[lastPoint]++;
+
+            // Limit how many times we visit a point (to avoid infinite loops)
+            if (visited[lastPoint] > K * 2) continue; // Allow some flexibility but prevent excessive visits
+            
             // Explore adjacent cells
             foreach (Point neighbour in grid.GetAdjacentCells(lastPoint, isAgent))
             {
@@ -56,24 +63,20 @@ public class GridSearch
                 // Calculate the new cost for this neighbour
                 float additionalCost = grid.GetCostOfEnteringCell(neighbour);
                 float newCost = currentPath.Cost + additionalCost;
+                float totalCost = newCost + ManhattanDistance(neighbour, endPosition);
 
-                // Create a new path that includes this neighbour
-                List<Point> newPathPoints = new List<Point>(currentPath.Points) { neighbour };
 
                 Path newPath = new Path
                 {
-                    Points = newPathPoints,
+                    Points = new List<Point>(currentPath.Points) { neighbour },
                     Cost = newCost
                 };
 
-                // Add the new path to the open paths list with the heuristic cost
-                float heuristic = ManhattanDistance(neighbour, endPosition);
-                newPath.Cost += heuristic;
-                openPaths.Add(newPath);
+                openPaths.Enqueue(newPath, totalCost);
             }
         }
 
-        //Debug.Log("Available Paths: " + paths.Count);
+        Debug.Log("Available Paths: " + paths.Count);
         return paths;
 
     }
