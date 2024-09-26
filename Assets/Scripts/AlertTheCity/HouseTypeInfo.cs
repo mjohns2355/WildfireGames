@@ -7,8 +7,9 @@ public class HouseTypeInfo : ScriptableObject
 {
     public HouseType houseType;
     public string menuTitle;
-    public List<HouseChoice> normalChoices = new List<HouseChoice>();
-    public List<HouseChoice> lockedChoices = new List<HouseChoice>();
+    [SerializeField] List<HouseChoice> choices = new List<HouseChoice>();
+    //public List<HouseChoice> lockedChoices = new List<HouseChoice>();
+    public Dictionary<string, (HouseChoice choice, int index)> houseChoicesDict;
     public string longerTitle;
     [TextArea(15, 20)]
     //public string description;
@@ -35,41 +36,30 @@ public class HouseTypeInfo : ScriptableObject
         owner.kidNum = kidNumber;
         //owner.carSpawnWaitTime = carSpawnTime;
 
-        foreach(var choice in lockedChoices)
-        {
-            choice.isLocked = true;
-        }
-        defaultChoice = normalChoices[0];
+        //foreach(var choice in lockedChoices)
+        //{
+        //    choice.isLocked = true;
+        //}
+        int currentIndex = 0;
+        houseChoicesDict = choices
+                                .Select(choice => new
+                                {
+                                    choice,
+                                    index = choice.isNormal ? -1 : currentIndex++ // Skip normal choices (set index to -1) and increment for non-normal
+                                })
+                        .ToDictionary(x => x.choice.choiceName, x => (x.choice, x.index));
+        defaultChoice = choices[0];
     }
 
-    public HouseChoice ReturnChoiceByName(string name, bool searchLockedChoices = false)
+    public (HouseChoice choice, int index) ReturnChoiceByName(string name, bool searchLockedChoices = false)
     {
-        if(!searchLockedChoices) {
-
-            foreach (var choice in normalChoices)
-            {
-                if (choice.choiceName == name)
-                {
-                    return choice;
-                }
-            }
-        }
-
-
-        foreach(var choice in lockedChoices)
-        {
-            if(choice.choiceName == name)
-            {
-                return choice;
-            }
-        }
-
-        return null;
+        houseChoicesDict.TryGetValue(name, out var choice);
+        return choice;
     }
 
     public bool AllChoicesAreUnlocked()
     {
-        var lockedChoicesCount = lockedChoices.Where(x => x.isLocked == true).Count();
+        var lockedChoicesCount = houseChoicesDict.Where(x => x.Value.choice.isLocked == true).Count();
         //Debug.Log("Check " + houseType + " 's locked choices count "+  lockedChoicesCount);
         return lockedChoicesCount == 0;
     }

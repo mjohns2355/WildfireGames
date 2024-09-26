@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseType: 6
   menuTitle: Near Wildland
-  normalChoices:
+  choices:
   - choiceName: Wait for Notice
     carNumberMod: 0
     horseNumberMod: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     endGameFeedback: A number of households along the Wildland Urban Interface were
       not ready and managed to evacuate only just in time.
     isLocked: 0
-  lockedChoices:
+    isNormal: 1
   - choiceName: Evacuate Early
     carNumberMod: 0
     horseNumberMod: 0
@@ -41,6 +41,7 @@ MonoBehaviour:
     endGameFeedback: Houses along the Wildland Urban Interface were ready and knew
       to evacuate without waiting for a notice.
     isLocked: 1
+    isNormal: 0
   - choiceName: Home Hardening
     carNumberMod: 0
     horseNumberMod: 0
@@ -49,14 +50,14 @@ MonoBehaviour:
     homeHardeningMod: 0.8
     carSpeedMod: 2
     carLeaveTime: 1
-    choiceDetail: 'Home hardening can help prevent a house from catching fire. This
-      includes things like replacing the roof with nonflamable materials and clearing
-      vegetation. '
+    choiceDetail: Home hardening can help prevent a  house from   catchingg   fire.
+      This includes things  like replcaing the roof with nonflamable materials and
+      clearing vegetations.
     endGameFeedback: Households in the Wildland Urban Interface benefited from home
       hardening awareness, and many of those houses were unburned.
     isLocked: 1
+    isNormal: 0
   longerTitle: Near Wildland
-  description: 
   descriptions:
   - 'Living at the Wildland Urban Interface comes with risks and challenges. It is
     very important to take action early and to consider multiple scenarios and consequences
@@ -81,3 +82,4 @@ MonoBehaviour:
     choiceDetail: 
     endGameFeedback: 
     isLocked: 0
+    isNormal: 0

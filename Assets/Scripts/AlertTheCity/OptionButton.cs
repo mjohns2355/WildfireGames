@@ -69,7 +69,7 @@ public class OptionButton : MonoBehaviour
     }
     public string FindOptionExplaination(HouseStructure house)
     {
-        var choice = house.houseInfo.ReturnChoiceByName(optionText.text);
+        var choice = house.houseInfo.ReturnChoiceByName(optionText.text).choice;
 
         return choice == null ? null : choice.choiceDetail;
     }
@@ -77,9 +77,9 @@ public class OptionButton : MonoBehaviour
     bool IsGoodOption(string optionName)
     {
         var house = (HouseStructure)(owner.owner);
-        var choice = house.houseInfo.ReturnChoiceByName(optionName, true);
+        var choice = house.houseInfo.ReturnChoiceByName(optionName, true).choice;
 
-        return choice != null;
+        return choice != null && !choice.isNormal;
     }
 
 }

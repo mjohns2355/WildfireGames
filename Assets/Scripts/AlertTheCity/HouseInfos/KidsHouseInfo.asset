@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseType: 3
   menuTitle: School-Age Children
-  normalChoices:
+  choices:
   - choiceName: Wait for Notice
     carNumberMod: 0
     horseNumberMod: 0
@@ -25,9 +25,10 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 
     endGameFeedback: Families with children were unprepared for an evening evacuation,
-      and there was a lot of confusion.
+      and there was a lot of confusion
     isLocked: 0
-  - choiceName: Pick up Children
+    isNormal: 1
+  - choiceName: Pick up children
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 2
@@ -40,8 +41,8 @@ MonoBehaviour:
       congestion in that area. Families are reminded that the school is one of the
       safest places in our community.
     isLocked: 0
-  lockedChoices:
-  - choiceName: Safer at School
+    isNormal: 1
+  - choiceName: Safer at school
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -49,14 +50,14 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 1
-    choiceDetail: 'You know the children are safer at school and have a plan that
-      they know: they will stay at school until it is safe to pick them up.'
+    choiceDetail: 'You know the children are safter at school  and have a plan that
+      they know: they will stay  at school untill it is safe to pick them up.'
     endGameFeedback: Children sheltered at the school and were safe there. Thankfully
       families knew to evacuate first and wait until it was safe to go to the school
       to pick up the kids.
     isLocked: 1
+    isNormal: 0
   longerTitle: School-Age Children
-  description: "\r"
   descriptions:
   - Families with children have additional responsibilities to juggle during an evacuation.
     It is very important to make plans in advance and consider multiple scenarios
@@ -82,3 +83,4 @@ MonoBehaviour:
     choiceDetail: 
     endGameFeedback: 
     isLocked: 0
+    isNormal: 0

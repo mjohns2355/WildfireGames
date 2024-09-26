@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseType: 1
   menuTitle: Older Resident
-  normalChoices:
+  choices:
   - choiceName: Wait for Notice
     carNumberMod: 0
     horseNumberMod: 0
@@ -28,8 +28,8 @@ MonoBehaviour:
       the evacuation notice before taking action. As a community, we need a better
       plan in place.
     isLocked: 0
-  lockedChoices:
-  - choiceName: Help from Neighbor
+    isNormal: 1
+  - choiceName: Help From Neighbor
     carNumberMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
@@ -37,11 +37,12 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 1
-    choiceDetail: Getting help from a neighbor will be a great option! This will
+    choiceDetail: Getting help fromo a aneighbor will be a great option! This will
       make evacuating both safer as well as quicker.
     endGameFeedback: Neighbors stepped in to help, offering rides to older residents
       who may have had trouble otherwise.
     isLocked: 1
+    isNormal: 0
   - choiceName: Evacuate Early
     carNumberMod: 0
     horseNumberMod: 0
@@ -50,14 +51,14 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 0
-    choiceDetail: Evacuating early will allow for more time to get out safely. This
+    choiceDetail: Evacuate early will allow for more time to get out safely. This
       is a good choice!
     endGameFeedback: 'A community plan to notify older residents was successful:
       those needing more time were able to evacuate early before the evacuation notice
       went out.'
     isLocked: 1
+    isNormal: 0
   longerTitle: Elderly Resident
-  description: 
   descriptions:
   - 'Older residents may need additional time and support to evacuate safely. It
     is very important to make plans in advance and consider multiple scenarios and
@@ -83,3 +84,4 @@ MonoBehaviour:
     choiceDetail: 
     endGameFeedback: 
     isLocked: 0
+    isNormal: 0

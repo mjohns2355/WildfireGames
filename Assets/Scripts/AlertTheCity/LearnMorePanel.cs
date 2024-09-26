@@ -64,14 +64,16 @@ public class LearnMorePanel : MonoBehaviour
 
     int GetDescriptionIndex(string choiceName)
     {
-        for (int i = 0; i < targetHouseInfo.lockedChoices.Count; i++){
-            var choice = targetHouseInfo.lockedChoices[i];
-            if (choiceName == choice.choiceName)
-            {
-                return i;
-            }
-        }
-        return -1;
+        var choiceEntry = targetHouseInfo.ReturnChoiceByName(choiceName);
+        return choiceEntry.index;
+        //for (int i = 0; i < targetHouseInfo.lockedChoices.Count; i++){
+        //    var choice = targetHouseInfo.lockedChoices[i];
+        //    if (choiceName == choice.choiceName)
+        //    {
+        //        return i;
+        //    }
+        //}
+        
     }
     public void OnDetailedPageDisabled()
     {
@@ -123,11 +125,12 @@ public class LearnMorePanel : MonoBehaviour
             Destroy(unlockedBtns.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i< targetHouseInfo.lockedChoices.Count; i++)
+        foreach (var entry in targetHouseInfo.houseChoicesDict)
         {
-            var choice = targetHouseInfo.lockedChoices[i];
+            var choice = entry.Value.choice;
+            var i = entry.Value.index;
             if (!choice.isLocked) continue;
-            if (index == i)
+            if(index == i)
             {
                 var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
                 button.btnText.text = choice.choiceName;
@@ -135,6 +138,18 @@ public class LearnMorePanel : MonoBehaviour
                 break;
             }
         }
+        //for (int i = 0; i< targetHouseInfo.lockedChoices.Count; i++)
+        //{
+        //    var choice = targetHouseInfo.lockedChoices[i];
+        //    if (!choice.isLocked) continue;
+        //    if (index == i)
+        //    {
+        //        var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
+        //        button.btnText.text = choice.choiceName;
+        //        button.button.onClick.AddListener(OnUnlockedButtonClicked);
+        //        break;
+        //    }
+        //}
 
     }
 
@@ -143,7 +158,7 @@ public class LearnMorePanel : MonoBehaviour
         if(targetMenu == null) return;
         var unlockButton = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>();
         var choiceName = unlockButton.btnText.text;
-        var choice = targetHouseInfo.ReturnChoiceByName(choiceName);
+        var choice = targetHouseInfo.ReturnChoiceByName(choiceName).choice;
         choice.isLocked = false;
         var choseGoodOption = GameManager.Instance.choseGoodOption;
         if(!choseGoodOption)

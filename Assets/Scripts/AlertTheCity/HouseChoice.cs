@@ -16,7 +16,8 @@ public class HouseChoice
     public string choiceDetail;
     [TextArea(5, 10)]
     public string endGameFeedback;
-    public bool isLocked = false;   
+    public bool isLocked = false;
+    public bool isNormal;
     public HouseChoice(string choiceName)
     {
         this.choiceName = choiceName;

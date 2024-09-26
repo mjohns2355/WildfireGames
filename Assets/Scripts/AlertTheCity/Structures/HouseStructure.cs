@@ -56,11 +56,6 @@ public class HouseStructure : Structure
 
     Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
     Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
-    private void Awake()
-    {
-
-    }
-
     private void Start()
     {
         combustible =  GetComponent<Combustible>();
@@ -242,16 +237,17 @@ public class HouseStructure : Structure
 
     HouseChoice GetCurrentChoice(string name)
     {
-        choices = houseInfo.normalChoices.Union(houseInfo.lockedChoices).ToList();
-        foreach (var choice in choices)
-        {
-            if (choice.choiceName == name)
-            {
-                return choice;
-            }
-        }
+        return houseInfo.ReturnChoiceByName(name).choice;
+        //choices = houseInfo.choices.Union(houseInfo.lockedChoices).ToList();
+        //foreach (var choice in choices)
+        //{
+        //    if (choice.choiceName == name)
+        //    {
+        //        return choice;
+        //    }
+        //}
 
-        return null;
+        //return null;
     }
     public IEnumerator SpawnCarRoutine()
     {

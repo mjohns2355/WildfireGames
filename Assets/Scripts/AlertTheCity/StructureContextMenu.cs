@@ -119,15 +119,16 @@ public class StructureContextMenu : MonoBehaviour
         //var houseInfo = house.info;
         var houseInfo = house.houseInfo;
         title.text = houseInfo.menuTitle;
-        foreach (var choice in houseInfo.normalChoices)
+        foreach (var entry in houseInfo.houseChoicesDict)
         {
-            SpawnOptionButtons(choice.choiceName);
+            var choice = entry.Value.choice;
+            SpawnOptionButtons(choice.choiceName,choice.isLocked);
         }
-        foreach(var choice in houseInfo.lockedChoices)
-        {
-            var isLocked = choice.isLocked;
-            SpawnOptionButtons(choice.choiceName,isLocked);
-        }
+        //foreach(var choice in houseInfo.lockedChoices)
+        //{
+        //    var isLocked = choice.isLocked;
+        //    SpawnOptionButtons(choice.choiceName,isLocked);
+        //}
     }
 
     private void SpawnOptionButtons(string text, bool isLocked = false)

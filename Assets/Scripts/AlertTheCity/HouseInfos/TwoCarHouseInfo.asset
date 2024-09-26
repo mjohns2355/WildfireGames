@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houseType: 2
   menuTitle: Two-Car House
-  normalChoices:
-  - choiceName: Take Both Cars
+  choices:
+  - choiceName: Take both Cars
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -27,7 +27,8 @@ MonoBehaviour:
     endGameFeedback: Some of the traffic congestion was caused by houses taking two
       cars. Maybe we can find a better way next time.
     isLocked: 0
-  - choiceName: Leave One Car
+    isNormal: 1
+  - choiceName: Leave one Car
     carNumberMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
@@ -39,7 +40,7 @@ MonoBehaviour:
     endGameFeedback: "It\u2019s a good thing no one took two cars on the road, but
       residents are frustrated their cars were burned in their driveways."
     isLocked: 0
-  lockedChoices:
+    isNormal: 1
   - choiceName: Relocate 2nd Car
     carNumberMod: -1
     horseNumberMod: 0
@@ -49,13 +50,13 @@ MonoBehaviour:
     carSpeedMod: 2
     carLeaveTime: 0
     choiceDetail: You know too many cars on the road cause traffic congestion, so
-      you relocate your second car on high risk days.
+      you relocate your second car  on high risk days.
     endGameFeedback: 'An amazing community effort took place to reduce traffic congestion:
       people relocated their second cars before an evacuation notice! No doubt this
       act saved many lives.'
     isLocked: 1
+    isNormal: 0
   longerTitle: Multi-Car Household
-  description: 
   descriptions:
   - 'Households with multiple cars face a dilemma during evacuations. Some wish to
     keep all their vehicles with them when they evacuate. It is very important to
@@ -81,3 +82,4 @@ MonoBehaviour:
     choiceDetail: 
     endGameFeedback: 
     isLocked: 0
+    isNormal: 0
