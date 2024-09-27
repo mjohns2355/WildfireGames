@@ -39,6 +39,9 @@ public class OptionButton : MonoBehaviour
         optionText.text = buttonText;
         needConfirmation = IsGoodOption(buttonText);
         var house = (HouseStructure)(owner.owner);
+
+        button.onClick.RemoveAllListeners();
+
         button.onClick.AddListener(() =>
         {
             //Debug.Log("Option: " + optionText.text + " is clicked");
@@ -48,6 +51,9 @@ public class OptionButton : MonoBehaviour
             //owner.OnClickGoodOptionButton(this);
 
         });
+
+        learnMoreButton.onClick.RemoveAllListeners();
+
         learnMoreButton.onClick.AddListener(() =>
         {
 

@@ -97,7 +97,7 @@ public class StructureManager : MonoBehaviour
     public void PlacePreBuiltStructure(Vector3Int position, Structure structure)
     {
         structure.transform.localPosition = Vector3.zero;
-        if (structure.isBigStructure)
+        if (structure.IsBigStructure)
         {
             PlaceBigStructure(position, structure.gameObject, structure.width, structure.height);
         }
