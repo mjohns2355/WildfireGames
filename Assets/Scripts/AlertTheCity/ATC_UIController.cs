@@ -41,6 +41,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.onClick.AddListener(() =>
         {
             //learnMorePanel.SetActive(true);
+            if(learnMorePanel.activeInHierarchy)   return;
            PushPanel(learnMorePanel);
         });
 

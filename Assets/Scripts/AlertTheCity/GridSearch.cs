@@ -76,7 +76,7 @@ public class GridSearch
             }
         }
 
-        Debug.Log("Available Paths: " + paths.Count);
+        //Debug.Log("Available Paths: " + paths.Count);
         return paths;
 
     }
