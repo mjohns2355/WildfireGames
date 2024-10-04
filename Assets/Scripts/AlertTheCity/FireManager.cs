@@ -9,6 +9,7 @@ public class FireManager : MonoBehaviour
     public Transform fireSpawnPoint;
     public GameObject firePrefab;
     public ATC_WindZone wind;
+    public GameObject fireSafeZone;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
     public bool done = false;
@@ -27,6 +28,9 @@ public class FireManager : MonoBehaviour
             wind.isStill= true;
             StopFireEffect();
         });
+
+        fireSafeZone.GetComponent<MeshRenderer>().enabled = false;
+
     }
 
     // Update is called once per frame

@@ -73,7 +73,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         var first = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
         var last = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
-        var result = $"The first car reach the shelter after {first} seconds and the final car reached the shelter after {last} seconds.";
+        var result = $"The first car reached the shelter after {first} seconds and the final car reached the shelter after {last} seconds.";
         var stage = GameManager.Instance.currentStage;
         switch (stage)
         {

@@ -16,7 +16,7 @@ public class LearnMorePanel : MonoBehaviour
     public TextMeshProUGUI detailPageDescription;
     [SerializeField] Transform optionBtns;
     [SerializeField] Transform unlockedBtns;
-    [SerializeField] Button nextButton;
+    [SerializeField] Button nextButton, backButton;
     //HouseInfo selectedHouseInfo;
     [SerializeField]  HouseTypeInfo targetHouseInfo;
     [SerializeField]  StructureContextMenu targetMenu;
@@ -27,6 +27,7 @@ public class LearnMorePanel : MonoBehaviour
     private void Start()
     {
         nextButton.onClick.AddListener(OnNextButtonClick);
+        backButton.onClick.AddListener(OnBackButtonClick);
     }
     private void SpawnIconButtons()
     {
@@ -66,13 +67,6 @@ public class LearnMorePanel : MonoBehaviour
     {
         var choiceEntry = targetHouseInfo.ReturnChoiceByName(choiceName);
         return choiceEntry.index;
-        //for (int i = 0; i < targetHouseInfo.lockedChoices.Count; i++){
-        //    var choice = targetHouseInfo.lockedChoices[i];
-        //    if (choiceName == choice.choiceName)
-        //    {
-        //        return i;
-        //    }
-        //}
         
     }
     public void OnDetailedPageDisabled()
@@ -186,6 +180,7 @@ public class LearnMorePanel : MonoBehaviour
 
     void DisplayCurrentDescription(bool shouldMergeText)
     {
+        Debug.Log("Current Description Index: " + currentDescriptionIndex);
         var descriptions = targetHouseInfo.descriptions;
         if(shouldMergeText)
         {
@@ -196,6 +191,7 @@ public class LearnMorePanel : MonoBehaviour
             }
 
             detailPageDescription.text = descritption;
+            backButton.gameObject.SetActive(false);
             nextButton.gameObject.SetActive(false);
             unlockedBtns.gameObject.SetActive(false);
             return;
@@ -207,6 +203,19 @@ public class LearnMorePanel : MonoBehaviour
             nextButton.gameObject.SetActive(false);
             unlockedBtns.gameObject.SetActive(true);
         }
+        else
+        {
+            nextButton.gameObject.SetActive(true);
+        }
+        if (currentDescriptionIndex > 0)
+        {
+            backButton.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            backButton.gameObject.SetActive(false);
+        }
         SpawnUnlockedButtons(currentDescriptionIndex);
 
 
@@ -216,5 +225,16 @@ public class LearnMorePanel : MonoBehaviour
     {
         currentDescriptionIndex++;
         DisplayCurrentDescription(false);
+    }
+
+    void OnBackButtonClick()
+    {
+        if(currentDescriptionIndex >  0)
+        {
+            currentDescriptionIndex--;
+            DisplayCurrentDescription(false);
+        }
+
+
     }
 }
