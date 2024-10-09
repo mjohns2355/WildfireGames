@@ -8,8 +8,12 @@ public class HouseBlueprint : ScriptableObject
     [System.Serializable]
     public class HousePartConnection
     {
-        public HousePart part;
-        public List<HousePart> connectedParts;
+        public string partID;
+        public GameObject partPrefab;
+        public Vector3 localPosition;
+        public Vector3 localRotation;
+        public Vector3 localScale;
+        public List<string> connectedPartsId;
     }
 
     public List<HousePartConnection> partConnections;
