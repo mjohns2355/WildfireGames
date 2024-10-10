@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class HouseGraph : MonoBehaviour
+using HappyHouse.HouseSystem;
+public class HouseGraph
 {
     public List<HouseNode> nodes = new List<HouseNode>();
     
