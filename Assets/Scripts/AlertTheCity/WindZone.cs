@@ -64,6 +64,7 @@ public class ATC_WindZone : MonoBehaviour
         var hit = other.gameObject;
         if (hit != null && hit.layer == LayerMask.NameToLayer("Fire"))
         {
+            
             var fire = hit.GetComponent<FireMovementController>();
             fire.windDirection = windDirection;
             fire.speed = windSpeed;

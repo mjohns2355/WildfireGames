@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7019162837553320220}
   - component: {fileID: 4552472141093242867}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rooftop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   housePart: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
   meshRenderer: {fileID: 2923141062330562889}
+  houseManager: {fileID: 0}
+  durability: 0
+  flammability: 0
+  isOnFire: 0
+  burnDuration: 5
+  isOnCursor: 0
 --- !u!1001 &8205366934694466577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,6 +64,18 @@ PrefabInstance:
     - target: {fileID: 845943865191742214, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
       propertyPath: m_Name
       value: Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 845943865191742214, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5055332081755297113, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786560883611510465, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5887654141722947087, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
       propertyPath: m_LocalPosition.x
@@ -99,7 +117,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1270768458682846664, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
+    - {fileID: 4375369697606070545, guid: 2e38ce5d618cbf544ba48bca5df67743, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

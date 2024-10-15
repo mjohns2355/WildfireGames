@@ -8,6 +8,7 @@ namespace HappyHouse.HouseSystem
     {
         public HouseBlueprint houseBlueprint;
         public HouseGraph houseGraph;
+        
         private void Start()
         {
             houseGraph = new HouseGraph();
@@ -26,8 +27,9 @@ namespace HappyHouse.HouseSystem
 
                 var houseObj = obj.GetComponent<BaseHousePartObject>();
                 houseObj.houseManager = this;
-                var housePart = houseObj.housePart;
-                var node = houseGraph.AddHousePart(housePart);
+                //var housePart = houseObj.housePart;
+                var node = houseGraph.AddHousePart(houseObj);
+                houseObj.houseNode = node;
                 nodeDictionary[part.partID] = node;
             }
 

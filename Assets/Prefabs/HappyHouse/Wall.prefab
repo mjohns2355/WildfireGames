@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3028044059325143923}
   - component: {fileID: 7336992873536102242}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   housePart: {fileID: 11400000, guid: 813c520e2b47e484da33a99b172a8bd6, type: 2}
   meshRenderer: {fileID: 2378449958636839517}
+  houseManager: {fileID: 0}
+  durability: 0
+  flammability: 0
+  isOnFire: 0
+  burnDuration: 5
+  isOnCursor: 0
 --- !u!1001 &7220266521507702070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,9 +101,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5216914238380917669, guid: 8895fbfca17731b408ff7f3b948498ac, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6535666339831736155, guid: 8895fbfca17731b408ff7f3b948498ac, type: 3}
       propertyPath: m_Name
       value: Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535666339831736155, guid: 8895fbfca17731b408ff7f3b948498ac, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

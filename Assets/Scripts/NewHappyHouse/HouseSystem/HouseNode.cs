@@ -6,10 +6,10 @@ namespace HappyHouse.HouseSystem
 {
     public class HouseNode
     {
-        public HousePart housePart;
+        public BaseHousePartObject housePart;
         public List<HouseNode> neighbourNodes;
 
-        public HouseNode(HousePart part)
+        public HouseNode(BaseHousePartObject part)
         {
             housePart = part;
             neighbourNodes = new List<HouseNode>();

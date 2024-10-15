@@ -5,8 +5,13 @@ using HappyHouse.HouseSystem;
 public class HouseGraph
 {
     public List<HouseNode> nodes = new List<HouseNode>();
-    
-    public HouseNode AddHousePart(HousePart newPart)
+
+    public List<HouseNode> GetNeighbors(HouseNode node)
+    {
+        return nodes.Contains(node) ? node.neighbourNodes : null;
+    }
+
+    public HouseNode AddHousePart(BaseHousePartObject newPart)
     {
         HouseNode newNode = new HouseNode(newPart);
         nodes.Add(newNode);
