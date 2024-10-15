@@ -5,6 +5,8 @@ using HappyHouse.HouseSystem;
 using HappyHouse.FireSystem;
 using UnityEngine.EventSystems;
 using System;
+
+
 public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
 {
     public HousePart housePart;
@@ -16,9 +18,9 @@ public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
     public float durability;
     public float flammability;
     public bool isOnFire = false;
-    public float burnDuration = 5f;
+    public float burnDuration = 100f;
     private float burnTimer = 0f;
-
+    public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
     public bool isOnCursor = false;
     private void Start()
@@ -79,18 +81,33 @@ public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
         Debug.Log($"{gameObject.name} is on click.");
     }
 
-
-    public void Ignite()
+    private IEnumerator IgniteWithDelay()
     {
-        Debug.Log($"{gameObject.name} is ignited");
-        
-        if(!isOnFire && flammability > 0)
+        // Calculate delay based on flammability (inverse relationship)
+        float ignitionDelay = Mathf.Clamp(5f / flammability, 0.5f, 5f);
+        yield return new WaitForSeconds(ignitionDelay);
+
+        if (!isOnFire)
         {
             isOnFire = true;
-            burnTimer = burnDuration;
+            burnTimer = burnDuration / flammability; // Higher flammability = shorter burn duration
             HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true);
             StartCoroutine(Burn());
         }
+    }
+
+    public void Ignite()
+    {
+        //Debug.Log($"{gameObject.name} is ignited");
+        
+        //if(!isOnFire && flammability > 0)
+        //{
+        //    isOnFire = true;
+        //    burnTimer = burnDuration;
+        //    HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true);
+        //    StartCoroutine(Burn());
+        //}
+        StartCoroutine(IgniteWithDelay());
     }
 
     IEnumerator Burn()
@@ -100,7 +117,7 @@ public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
             burnTimer -= Time.deltaTime;
             durability -= flammability * Time.deltaTime;
 
-            if( durability < 0 )
+            if( durability <= 0 )
             {
                 SpreadFireToNeighbour();
                 DestroyHousePart();
