@@ -21,10 +21,9 @@ public class BaseHousePartObject : MonoBehaviour
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
     public bool isOnCursor = false;
-
+    public HousePart PartInfo { get; private set; }
     private float burnTimer = 0f;
     private Rigidbody rb;
-    private HousePart partInfo;
     private void Start()
     {
         //InitHousePartObject();
@@ -49,7 +48,7 @@ public class BaseHousePartObject : MonoBehaviour
         //gameObject.layer = LayerMask.NameToLayer("Structure");
         durability = housePart.durability;
         flammability = housePart.flammability;
-        partInfo = housePart;
+        PartInfo = housePart;
         ReplaceMeshMaterial(housePart.material);
     }
 

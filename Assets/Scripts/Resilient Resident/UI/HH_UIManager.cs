@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HH_UIManager : MonoBehaviour
 {
-    public GameObject storePanel;
+    public StorePanel storePanel;
     public GameObject bubbleIcon;
    
     // Start is called before the first frame update
@@ -20,13 +20,14 @@ public class HH_UIManager : MonoBehaviour
         
     }
 
-    public void ShowStoreScreen()
+    public void ShowStoreScreen(BaseHousePartObject TargetObj)
     {
-        storePanel.SetActive(true);
+        storePanel.gameObject.SetActive(true);
+        storePanel.ShowStorePanel(TargetObj);
     }
 
     public void HideStoreScreen()
     {
-        storePanel.SetActive(false);
+        //storePanel.SetActive(false);
     }
 }

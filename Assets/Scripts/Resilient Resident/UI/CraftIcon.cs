@@ -15,8 +15,15 @@ public class CraftIcon : MonoBehaviour
     {
         mainCamera = Camera.main;
         button = GetComponent<Button>();
-        button.onClick.AddListener(HH_GameManager.Instance.UIManager.ShowStoreScreen);
-        
+        button.onClick.AddListener(
+
+            () =>
+            {
+                HH_GameManager.Instance.UIManager.ShowStoreScreen(owner);
+            }
+
+        );
+
     }
 
     void Update()

@@ -9,6 +9,8 @@ namespace HappyHouse.HouseSystem
         public HouseBlueprint houseBlueprint;
         public HouseGraph houseGraph;
         public Dictionary<HousePartType, List<HousePart>> ownedParts = new Dictionary<HousePartType, List<HousePart>>();
+        public float budegt;
+        public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
         public GameObject craftIcon;

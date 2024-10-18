@@ -1,3 +1,4 @@
+using HappyHouse.HouseSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,16 +6,13 @@ using UnityEngine;
 
 public class PartButton : MonoBehaviour
 {
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI priceText;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void InitPartUI(HousePart partInfo)
     {
-        
+        nameText.text = partInfo.name;
+        priceText.text = partInfo.price.ToString();
     }
 }
