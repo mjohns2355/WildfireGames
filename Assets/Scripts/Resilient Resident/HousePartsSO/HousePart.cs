@@ -14,6 +14,7 @@ namespace HappyHouse.HouseSystem
         public MaterialType materialType;
         public Material material;
         public GameObject mesh;
+        public float price;
     }
 }
 

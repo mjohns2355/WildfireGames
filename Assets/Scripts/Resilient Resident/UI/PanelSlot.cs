@@ -46,7 +46,7 @@ public class PanelSlot : MonoBehaviour, IPointerClickHandler
             {
                 if (housePartObj.HousePartType == HousePartType.Roof)
                 {
-                    Debug.Log(housePartObj.housePart.materialType + " " + housePartObj.housePart.housePartType);
+                    //Debug.Log(housePartObj.housePart.materialType + " " + housePartObj.housePart.housePartType);
                 }
             }
 
@@ -67,7 +67,7 @@ public class PanelSlot : MonoBehaviour, IPointerClickHandler
         var obj = new GameObject(part.name);
         var houseObj = obj.AddComponent<BaseHousePartObject>();
         houseObj.isOnCursor = true;
-        houseObj.housePart = part;
+        //houseObj.housePart = part;
         houseObj.meshRenderer = Instantiate(part.mesh,houseObj.transform).GetComponent<MeshRenderer>();
         return houseObj;    
     }

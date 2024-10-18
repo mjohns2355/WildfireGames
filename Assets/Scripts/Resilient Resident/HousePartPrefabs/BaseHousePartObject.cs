@@ -7,27 +7,31 @@ using UnityEngine.EventSystems;
 using System;
 
 
-public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
+public class BaseHousePartObject : MonoBehaviour
 {
-    public HousePart housePart;
+    //public HousePart housePart;
     public MeshRenderer meshRenderer;
     public HouseNode houseNode;
     public HouseManager houseManager;
     public HousePartType HousePartType { get; private set; }
-
     public float durability;
     public float flammability;
     public bool isOnFire = false;
     public float burnDuration = 100f;
-    private float burnTimer = 0f;
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
     public bool isOnCursor = false;
+
+    private float burnTimer = 0f;
+    private Rigidbody rb;
+    private HousePart partInfo;
     private void Start()
     {
-        InitHousePartObject();
-
+        //InitHousePartObject();
+        rb = GetComponent<Rigidbody>();
     }
+
+
 
     private void Update()
     {
@@ -35,14 +39,17 @@ public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
         
 
     }
-    void InitHousePartObject()
+    public void InitHousePartObject(HousePart housePart)
     {
         //houseNode = new HouseNode(housePart);
         //houseNode = new HouseNode(this);
+        var mesh = Instantiate(housePart.mesh, transform);
+        meshRenderer = mesh.GetComponent<MeshRenderer>();
         HousePartType = housePart.housePartType;
         //gameObject.layer = LayerMask.NameToLayer("Structure");
         durability = housePart.durability;
         flammability = housePart.flammability;
+        partInfo = housePart;
         ReplaceMeshMaterial(housePart.material);
     }
 
@@ -76,10 +83,6 @@ public class BaseHousePartObject : MonoBehaviour, IPointerClickHandler
         Destroy(gameObject);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log($"{gameObject.name} is on click.");
-    }
 
     private IEnumerator IgniteWithDelay()
     {

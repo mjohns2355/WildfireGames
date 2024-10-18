@@ -1,3 +1,4 @@
+using HappyHouse.HouseSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class HouseBlueprint : ScriptableObject
     {
         public string partID;
         public GameObject partPrefab;
+        public HousePart partInfo;
         public Vector3 localPosition;
         public Vector3 localRotation;
         public Vector3 localScale;
