@@ -7,14 +7,14 @@ namespace HappyHouse.FireSystem
 {
     public class FireManager : MonoBehaviour
     {
-        bool startFire = false;
-        public float fireWaitTimeBeforeStart = 3f;
+        [InspectorButton("StartFireTesting")]
+        public bool startFire = false;
         public Transform fireSpawnPoint;
         public GameObject firePrefab;
 
         private void Start()
         {
-            StartFire();
+           
         }
         void StartFire()
         {
@@ -29,6 +29,12 @@ namespace HappyHouse.FireSystem
             fire.transform.localScale *= scaleMultiplier;
             fire.GetComponent<FireController>().onCombustible = onCombustible;
 
+        }
+
+        // test only function
+        void StartFireTesting()
+        {
+            StartFire();
         }
     }
 }

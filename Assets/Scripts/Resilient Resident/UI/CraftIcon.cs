@@ -20,6 +20,7 @@ public class CraftIcon : MonoBehaviour
             () =>
             {
                 HH_GameManager.Instance.UIManager.ShowStoreScreen(owner);
+                button.interactable = false;
             }
 
         );

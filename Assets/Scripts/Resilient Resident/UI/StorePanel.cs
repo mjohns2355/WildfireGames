@@ -9,6 +9,7 @@ public class StorePanel : MonoBehaviour
     public TextMeshProUGUI playerInfoText;
     public GameObject available;
     public GameObject shopPartIcon;
+    
 
     public void ShowStorePanel(BaseHousePartObject targetHouseObj)
     {
