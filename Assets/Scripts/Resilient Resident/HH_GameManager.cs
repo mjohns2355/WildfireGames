@@ -6,4 +6,5 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
     public HH_UIManager UIManager;
+    public HouseManager currentPlayer;
 }

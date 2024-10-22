@@ -12,7 +12,7 @@ public class BaseHousePartObject : MonoBehaviour
     //public HousePart housePart;
     public MeshRenderer meshRenderer;
     public HouseNode houseNode;
-    public HouseManager houseManager;
+   /* public*/ HouseManager owner;
     public HousePartType HousePartType { get; private set; }
     public float durability;
     public float flammability;
@@ -38,7 +38,7 @@ public class BaseHousePartObject : MonoBehaviour
         
 
     }
-    public void InitHousePartObject(HousePart housePart)
+    public void InitHousePartObject(HousePart housePart, HouseManager owner)
     {
         //houseNode = new HouseNode(housePart);
         //houseNode = new HouseNode(this);
@@ -49,6 +49,7 @@ public class BaseHousePartObject : MonoBehaviour
         durability = housePart.durability;
         flammability = housePart.flammability;
         PartInfo = housePart;
+        this.owner = owner;
         ReplaceMeshMaterial(housePart.material);
     }
 
@@ -61,22 +62,22 @@ public class BaseHousePartObject : MonoBehaviour
     {
         List<HouseNode> neighbors = new List<HouseNode>(houseNode.neighbourNodes);
 
-        houseManager.houseGraph.RemoveHousePart(houseNode);
+        owner.houseGraph.RemoveHousePart(houseNode);
 
         newPart.gameObject.transform.position = transform.position;
         newPart.gameObject.transform.rotation = transform.rotation;
         newPart.gameObject.transform.localScale = transform.localScale;
 
-        newPart.houseManager = houseManager;    
+        newPart.owner = owner;    
         // Initialize the new part's HouseNode and add it to the HouseGraph
         HouseNode newNode = new HouseNode(newPart);
         newPart.houseNode = newNode;
-        houseManager.houseGraph.AddHousePart(newPart);
+        owner.houseGraph.AddHousePart(newPart);
 
         // Reconnect the new node to the neighbors of the old node
         foreach (var neighbor in neighbors)
         {
-            houseManager.houseGraph.ConnectParts(newNode, neighbor);
+            owner.houseGraph.ConnectParts(newNode, neighbor);
         }
 
         Destroy(gameObject);
@@ -135,14 +136,14 @@ public class BaseHousePartObject : MonoBehaviour
 
     private void SpreadFireToNeighbour()
     {
-        if(houseManager == null || houseNode == null)
+        if(owner == null || houseNode == null)
         {
             Debug.Log("No valid house node");
             return;
         }
 
         Debug.Log("Spread to neighbour");
-        var houseGraph = houseManager.houseGraph;
+        var houseGraph = owner.houseGraph;
         var neighbours = houseGraph.GetNeighbors(houseNode);
 
         foreach ( var neighbor in neighbours)

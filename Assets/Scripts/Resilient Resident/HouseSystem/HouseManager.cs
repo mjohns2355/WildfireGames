@@ -26,6 +26,7 @@ namespace HappyHouse.HouseSystem
         {
             HH_InputManager.Instance.canClickHouse = false;
             if (manager != this) return;
+            HH_GameManager.Instance.currentPlayer = this;
             UpdateHouseUI();
         }
 
@@ -57,8 +58,8 @@ namespace HappyHouse.HouseSystem
                 //var houseObj = obj.GetComponent<BaseHousePartObject>();
                 var houseObj = obj.AddComponent<BaseHousePartObject>();
                 
-                houseObj.InitHousePartObject(partInfo);
-                houseObj.houseManager = this;
+                houseObj.InitHousePartObject(partInfo,this);
+                //houseObj.owner = this;
                 //var housePart = houseObj.housePart;
                 var node = houseGraph.AddHousePart(houseObj);
                 houseObj.houseNode = node;

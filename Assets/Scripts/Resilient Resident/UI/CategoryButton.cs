@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CategoryButton : MonoBehaviour
 {
     public TextMeshProUGUI categoryText;
+    public HousePartType category;
     Button button;
     // Start is called before the first frame update
     void Start()
