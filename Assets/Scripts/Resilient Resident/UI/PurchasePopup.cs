@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using HappyHouse.HouseSystem;
+using UnityEngine.UI;
+using System;
+public class PurchasePopup : MonoBehaviour
+{
+    public TextMeshProUGUI priceText;
+    public TextMeshProUGUI gradeText;
+    public TextMeshProUGUI descriptionText;
+    public Image icon;
+    public Button cancel, purchase;
+
+    private HousePartInfo partInfo;
+
+    private void Start()
+    {
+        cancel.onClick.AddListener(OnCancelClicked);
+        purchase.onClick.AddListener(OnPurchaseClicked);
+    }
+
+    private void OnPurchaseClicked()
+    {
+        HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo);
+        HH_GameManager.Instance.UIManager.HidePurchasePopup();
+    }
+
+    private void OnCancelClicked()
+    {
+        HH_GameManager.Instance.UIManager.HidePurchasePopup();
+        
+    }
+
+    public void InitPurchasePopup(HousePartInfo partInfo)
+    {
+        this.partInfo = partInfo;
+        priceText.text = $"$ {partInfo.price}";
+        gradeText.text = $"Grade: {partInfo.grade}";
+        descriptionText.text = partInfo.description;
+        icon.sprite = partInfo.icon;
+    }
+
+
+}

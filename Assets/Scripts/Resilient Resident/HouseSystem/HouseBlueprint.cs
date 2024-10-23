@@ -11,7 +11,7 @@ public class HouseBlueprint : ScriptableObject
     {
         public string partID;
         public GameObject partPrefab;
-        public HousePart partInfo;
+        public HousePartInfo partInfo;
         public Vector3 localPosition;
         public Vector3 localRotation;
         public Vector3 localScale;

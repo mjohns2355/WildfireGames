@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class CraftIcon : MonoBehaviour
+public class PurchaseFloatingButton : MonoBehaviour
 {
     public BaseHousePartObject owner; 
     public Image iconImage; 
@@ -11,6 +12,8 @@ public class CraftIcon : MonoBehaviour
 
     private Camera mainCamera;
     private Button button;
+    [SerializeField]private bool isSelected = false;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -19,8 +22,18 @@ public class CraftIcon : MonoBehaviour
 
             () =>
             {
-                HH_GameManager.Instance.UIManager.ShowStoreScreen(owner);
-                button.interactable = false;
+                
+                if (isSelected)
+                {
+                    HH_GameManager.Instance.UIManager.HideStoreScreen();
+                    ResetButton();
+                }
+                else
+                {
+                    HH_GameManager.Instance.UIManager.ShowStoreScreen(owner, this);
+                    SelectButton();
+                }
+
             }
 
         );
@@ -44,5 +57,17 @@ public class CraftIcon : MonoBehaviour
                 iconImage.enabled = false;
             }
         }
+    }
+
+    public void ResetButton()
+    {
+        isSelected = false;
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void SelectButton()
+    {
+        isSelected = true;
+        button.Select();
     }
 }

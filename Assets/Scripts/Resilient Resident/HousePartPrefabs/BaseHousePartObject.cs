@@ -21,7 +21,7 @@ public class BaseHousePartObject : MonoBehaviour
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
     public bool isOnCursor = false;
-    public HousePart PartInfo { get; private set; }
+    public HousePartInfo PartInfo { get; private set; }
     private float burnTimer = 0f;
     private Rigidbody rb;
     private void Start()
@@ -38,7 +38,7 @@ public class BaseHousePartObject : MonoBehaviour
         
 
     }
-    public void InitHousePartObject(HousePart housePart, HouseManager owner)
+    public void InitHousePartObject(HousePartInfo housePart, HouseManager owner)
     {
         //houseNode = new HouseNode(housePart);
         //houseNode = new HouseNode(this);

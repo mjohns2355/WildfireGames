@@ -13,16 +13,9 @@ public class HH_CameraController : MonoBehaviour
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
     private bool isZooming = false;
-    void OnEnable()
+    private void Start()
     {
-        HH_InputManager.Instance.OnHouseSelected += MoveToHouse;
-    }
-
-
-
-    void OnDisable()
-    {
-        
+        HH_GameManager.Instance.inputManager.OnHouseSelected += MoveToHouse;
     }
     // Update is called once per frame
     void Update()
@@ -39,7 +32,7 @@ public class HH_CameraController : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 isZooming = false;
-                HH_InputManager.Instance.OnHouseSelected -= MoveToHouse;
+                //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
             }
         }
     }
@@ -47,6 +40,7 @@ public class HH_CameraController : MonoBehaviour
 
     private void MoveToHouse(HouseManager targetHouse)
     {
+        Debug.Log($"Move to house {targetHouse.playerTag}");
         targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * zoomDistance;
         isZooming = true;
     }

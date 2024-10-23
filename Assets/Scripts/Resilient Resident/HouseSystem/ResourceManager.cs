@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ResourceManager : UnitySingleton<ResourceManager>
 {
-    public Dictionary<HousePartType, List<HousePart>> allAvailableParts;
+    public Dictionary<HousePartType, List<HousePartInfo>> allAvailableParts;
     // Start is called before the first frame update
     public override void Awake()
     {
@@ -16,8 +16,8 @@ public class ResourceManager : UnitySingleton<ResourceManager>
 
     private void InitPartsDictionary()
     {
-        allAvailableParts = new Dictionary<HousePartType, List<HousePart>> ();
-        var allParts = Resources.LoadAll<HousePart>("ResillientResident/HousePartsSO");
+        allAvailableParts = new Dictionary<HousePartType, List<HousePartInfo>> ();
+        var allParts = Resources.LoadAll<HousePartInfo>("ResillientResident/HousePartsSO");
         Debug.Log(allParts.Length);
         foreach (var part in allParts)
         {
@@ -32,7 +32,7 @@ public class ResourceManager : UnitySingleton<ResourceManager>
             }
             else
             {
-                allAvailableParts.Add(part.housePartType, new List<HousePart> { part }); // Add new key-value pair
+                allAvailableParts.Add(part.housePartType, new List<HousePartInfo> { part }); // Add new key-value pair
             }
         }
     }

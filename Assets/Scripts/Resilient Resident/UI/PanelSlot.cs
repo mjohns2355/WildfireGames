@@ -12,7 +12,7 @@ public class PanelSlot : MonoBehaviour, IPointerClickHandler
     public Image icon;
     public TextMeshProUGUI partName;
 
-    public HousePart partInfo;
+    public HousePartInfo partInfo;
     public float distanceFromCamera = 10f;
 
     GameObject houseObj;
@@ -62,7 +62,7 @@ public class PanelSlot : MonoBehaviour, IPointerClickHandler
         houseObj = CreateHouseObject(partInfo).gameObject;
     }
 
-    BaseHousePartObject CreateHouseObject(HousePart part)
+    BaseHousePartObject CreateHouseObject(HousePartInfo part)
     {
         var obj = new GameObject(part.name);
         var houseObj = obj.AddComponent<BaseHousePartObject>();

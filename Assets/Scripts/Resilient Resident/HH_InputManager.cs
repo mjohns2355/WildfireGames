@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HappyHouse.HouseSystem;
-public class HH_InputManager : UnitySingleton<HH_InputManager>
+public class HH_InputManager : MonoBehaviour
 {
     public Action OnHousePartSelected;
     public Action<HouseManager> OnHouseSelected;
