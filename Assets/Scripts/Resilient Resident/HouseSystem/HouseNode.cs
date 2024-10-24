@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace HappyHouse.HouseSystem
 {
+    [System.Serializable]
     public class HouseNode
     {
         public BaseHousePartObject housePart;

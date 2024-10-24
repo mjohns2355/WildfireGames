@@ -30,7 +30,7 @@ public class PurchaseFloatingButton : MonoBehaviour
                 }
                 else
                 {
-                    HH_GameManager.Instance.UIManager.ShowStoreScreen(owner, this);
+                    HH_GameManager.Instance.UIManager.ShowStoreScreen(owner.PartInfo, this);
                     SelectButton();
                 }
 
@@ -45,17 +45,18 @@ public class PurchaseFloatingButton : MonoBehaviour
         if (owner != null && iconImage != null)
         {
             
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.transform.position + offset);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.transform.position);
 
             if (screenPos.z > 0)
             {
                 iconImage.transform.position = screenPos;
-                iconImage.enabled = true; 
+                iconImage.enabled = true;
             }
             else
             {
                 iconImage.enabled = false;
             }
+
         }
     }
 

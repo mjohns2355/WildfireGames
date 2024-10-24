@@ -8,6 +8,7 @@ namespace HappyHouse.HouseSystem
     [CreateAssetMenu(fileName = "New House Part Info", menuName = "House System/House Part Info")]
     public class HousePartInfo : ScriptableObject
     {
+        public string partID;
         public HousePartType housePartType;
         public Sprite icon;
         public float durability;

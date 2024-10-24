@@ -9,7 +9,7 @@ namespace HappyHouse.HouseSystem
     {
         public HouseBlueprint houseBlueprint;
         public HouseGraph houseGraph;
-        public Dictionary<HousePartType, List<HousePartInfo>> inventory = new Dictionary<HousePartType, List<HousePartInfo>>();
+        public RR_Inventory inventory;
         public float budegt;
         public string playerTag;
         public Vector3 positionOffset;
@@ -50,24 +50,16 @@ namespace HappyHouse.HouseSystem
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
             foreach (var part in houseBlueprint.partConnections)
             {
-                //var obj = Instantiate(part.partPrefab, transform);
                 var newPartInfo = part.partInfo;
-                var obj = new GameObject(newPartInfo.name); 
-                obj.transform.parent = transform;
-                obj.transform.localPosition = part.localPosition + positionOffset;
-                obj.transform.localRotation = Quaternion.Euler(part.localRotation);
-                obj.transform.localScale = part.localScale;
-
-                //var houseObj = obj.GetComponent<BaseHousePartObject>();
-                var houseObj = obj.AddComponent<BaseHousePartObject>();
-                
-                houseObj.InitHousePartObject(newPartInfo,this);
-                //houseObj.owner = this;
-                //var housePart = houseObj.housePart;
+                var houseObj = HH_GameManager.Instance.CreateHousePartObject(newPartInfo,this);
+                houseObj.transform.parent = transform;
+                houseObj.transform.localPosition = part.localPosition + positionOffset;
+                houseObj.transform.localRotation = Quaternion.Euler(part.localRotation);
+                houseObj.transform.localScale = part.localScale * scaleMultiplier;
                 var node = houseGraph.AddHousePart(houseObj);
                 houseObj.houseNode = node;
                 nodeDictionary[part.partID] = node;
-                AddNewPartToInventory(newPartInfo);
+                inventory.AddNewPartToInventory(newPartInfo);
             }
 
             foreach (var part in houseBlueprint.partConnections)
@@ -93,26 +85,44 @@ namespace HappyHouse.HouseSystem
                 return false;
             }
             budegt -= partInfo.price;
-            // update price text ui
             // add to inventory
-            AddNewPartToInventory(partInfo);
+            Debug.Log($"Player {playerTag}: ");
+            inventory.AddNewPartToInventory(partInfo);
+            //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(partInfo.housePartType);
             return true;
         }
 
-        bool AddNewPartToInventory(HousePartInfo newPartInfo)
+        public void ToggleAllPurchaseIcons(bool state)
         {
-            if (inventory.ContainsKey(newPartInfo.housePartType))
+            foreach (var icon in purchaseFloatingButtons)
             {
-                var value = inventory[newPartInfo.housePartType];
+                icon.gameObject.SetActive(state);
+            }
+        }
 
-                if (value.Exists(part => part.name == newPartInfo.name)) return false;
-                value.Add(Instantiate(newPartInfo));
-            }
-            else
+        public bool PartIsInUse(HousePartInfo partInfo)
+        {
+            foreach (var node in houseGraph.nodes)
             {
-                inventory.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo }); // Add new key-value pair
+                if(node.housePart.PartInfo.partID == partInfo.partID)
+                {
+                    Debug.Log($"{partInfo.partID} is in use by {playerTag}");
+                    return true;
+                }
             }
-            return true;
+            return false;
+        }
+
+        public BaseHousePartObject GetCurrentInUseHousePartObject (HousePartType type)
+        {
+            foreach(var node in houseGraph.nodes)
+            {
+                if(node.housePart.HousePartType == type)
+                {
+                    return node.housePart;
+                }
+            }
+            return null;
         }
         void UpdateHouseUI()
         {

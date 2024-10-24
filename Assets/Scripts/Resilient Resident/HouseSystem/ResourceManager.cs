@@ -37,9 +37,5 @@ public class ResourceManager : UnitySingleton<ResourceManager>
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

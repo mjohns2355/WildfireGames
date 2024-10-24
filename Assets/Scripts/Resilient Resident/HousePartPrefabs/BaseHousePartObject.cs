@@ -28,6 +28,7 @@ public class BaseHousePartObject : MonoBehaviour
     {
         //InitHousePartObject();
         rb = GetComponent<Rigidbody>();
+        HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
     }
 
 
@@ -60,10 +61,16 @@ public class BaseHousePartObject : MonoBehaviour
 
     public void ReplaceHousePartObject(BaseHousePartObject newPart)
     {
+        // TO DO: Improve this later
+        // Only current player and selected house part should invoke this function
+        if(newPart.PartInfo.housePartType != HousePartType) return;
+        if (HH_GameManager.Instance.currentPlayer != owner) return;
+        
+
         List<HouseNode> neighbors = new List<HouseNode>(houseNode.neighbourNodes);
 
         owner.houseGraph.RemoveHousePart(houseNode);
-
+        newPart.transform.parent = transform.parent;
         newPart.gameObject.transform.position = transform.position;
         newPart.gameObject.transform.rotation = transform.rotation;
         newPart.gameObject.transform.localScale = transform.localScale;
@@ -79,7 +86,8 @@ public class BaseHousePartObject : MonoBehaviour
         {
             owner.houseGraph.ConnectParts(newNode, neighbor);
         }
-
+        Debug.Log($"Replace {gameObject.name} with {newPart.name}");
+        HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(HousePartType);
         Destroy(gameObject);
     }
 

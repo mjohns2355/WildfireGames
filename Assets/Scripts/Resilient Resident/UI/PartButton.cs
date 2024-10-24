@@ -23,7 +23,7 @@ public class PartButton : MonoBehaviour
     public void InitPartIconButton(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
-        nameText.text = partInfo.name;
+        nameText.text = partInfo.partID;
         priceText.text = $"$ {partInfo.price}" ;
     }
 

@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
-    public GameObject bubbleIcon;
+    public PurchasePopup purchasePopup;
     public Button leftArrow, rightArrow;
+    public InventoryUI inventoryUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +31,11 @@ public class HH_UIManager : MonoBehaviour
         
     }
 
-    public void ShowStoreScreen(BaseHousePartObject TargetObj, PurchaseFloatingButton clickedButton)
+    public void ShowStoreScreen(HousePartInfo partInfo, PurchaseFloatingButton clickedButton)
     {
         storePanel.gameObject.SetActive(true);
         storePanel.SetCurrentPurchaseFloatingButton(clickedButton);
-        storePanel.ShowStorePanel(TargetObj);
+        storePanel.ShowStorePanel(partInfo);
     }
 
     public void HideStoreScreen()
@@ -44,11 +45,17 @@ public class HH_UIManager : MonoBehaviour
 
     public void ShowPurchasePopup(HousePartInfo partInfo)
     {
-        storePanel.ShowPurchasePopup(partInfo);
+        purchasePopup.gameObject.SetActive(true);
+        purchasePopup.InitPurchasePopup(partInfo);
+        HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(false);
+        storePanel.gameObject.SetActive(false);
     }
 
-    public void HidePurchasePopup()
+    public void HidePurchasePopup(HousePartInfo partInfo)
     {
-        storePanel.HidePurchasePopup();
+        purchasePopup.gameObject.SetActive(false);
+        HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
+        storePanel.gameObject.SetActive(true);
+        storePanel.ShowStorePanel(partInfo);
     }
 }

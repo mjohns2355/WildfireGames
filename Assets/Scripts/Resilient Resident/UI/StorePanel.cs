@@ -9,10 +9,11 @@ public class StorePanel : MonoBehaviour
     public TextMeshProUGUI playerInfoText;
     public Transform available;
     public GameObject shopPartIcon;
-    public PurchasePopup purchasePopup;
+
     private HousePartType targetCategory;
     private PurchaseFloatingButton currentButton;
     private List<PartButton> allShopPartIcons;
+    private HouseManager player;
     public void SetCurrentPurchaseFloatingButton(PurchaseFloatingButton button)
     {
         if (currentButton != null && currentButton != button)
@@ -24,21 +25,11 @@ public class StorePanel : MonoBehaviour
 
     }
 
-    public void ShowPurchasePopup(HousePartInfo partInfo)
-    {
-        purchasePopup.gameObject.SetActive(true);
-        purchasePopup.InitPurchasePopup(partInfo);
-    }
-    public void HidePurchasePopup()
-    {
-        purchasePopup.gameObject.SetActive(false);
-    }
-    public void ShowStorePanel(BaseHousePartObject targetHouseObj)
+    public void ShowStorePanel(HousePartInfo partInfo)
     {
         ClearIconsInStores();
 
-        var partInfo = targetHouseObj.PartInfo;
-        var player = HH_GameManager.Instance.currentPlayer;
+        player = HH_GameManager.Instance.currentPlayer;
         targetCategory = partInfo.housePartType;
         typeCategoryText.text = "Store: " + partInfo.housePartType.ToString().ToUpper();
         playerInfoText.text = $"{player.playerTag}: ${player.budegt.ToString()}";
@@ -59,6 +50,11 @@ public class StorePanel : MonoBehaviour
     {
         foreach( var p in ResourceManager.Instance.allAvailableParts[targetCategory])
         {
+            if (player.inventory.PlayerOwnsPart(p))
+            {
+                Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
+                continue;
+            }
             var icon = Instantiate(shopPartIcon,available.transform).GetComponent<PartButton>();
             icon.InitPartIconButton(p);
         }

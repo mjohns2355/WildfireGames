@@ -15,6 +15,7 @@ public class HouseGraph
     {
         HouseNode newNode = new HouseNode(newPart);
         nodes.Add(newNode);
+        Debug.Log("Added new node: " + newNode.housePart.name);
         return newNode;
     }
 
@@ -22,14 +23,21 @@ public class HouseGraph
     {
         if (!nodes.Contains(node))
         {
-            Debug.LogError("Remove Failed: Node is not existed");
+            Debug.LogError($"Remove Failed: Node {node.housePart.name} is not existed");
         }
         nodes.Remove(node);
+        Debug.Log($"Removed node {node.housePart.name}");
         // Remove connections to the node being removed
-        foreach (var neighbour in node.neighbourNodes)
+
+        for (int i = node.neighbourNodes.Count - 1; i >= 0; i--)
         {
-            neighbour.RemoveConnection(node);
+            var neighbour = node.neighbourNodes[i];
+            neighbour.RemoveConnection(node); // Modify the collection safely
         }
+        //foreach (var neighbour in node.neighbourNodes)
+        //{
+        //    neighbour.RemoveConnection(node);
+        //}
     }
 
     public void ConnectParts(HouseNode part1, HouseNode part2)

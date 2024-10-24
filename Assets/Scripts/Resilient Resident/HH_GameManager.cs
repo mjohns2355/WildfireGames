@@ -8,7 +8,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HH_UIManager UIManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
-
+    
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
 
@@ -36,5 +36,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         Debug.Log($"Current Player is {currentPlayer.playerTag}");
         inputManager.OnHouseSelected.Invoke(currentPlayer);
         currentPlayer.OnHouseSelected(currentPlayer);
+    }
+
+    public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
+    {
+        var obj = new GameObject(partInfo.partID);
+        var houseObj = obj.AddComponent<BaseHousePartObject>();
+        houseObj.InitHousePartObject(partInfo, owner);
+        return houseObj;
     }
 }

@@ -24,12 +24,12 @@ public class PurchasePopup : MonoBehaviour
     private void OnPurchaseClicked()
     {
         HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo);
-        HH_GameManager.Instance.UIManager.HidePurchasePopup();
+        HH_GameManager.Instance.UIManager.HidePurchasePopup(partInfo);
     }
 
     private void OnCancelClicked()
     {
-        HH_GameManager.Instance.UIManager.HidePurchasePopup();
+        HH_GameManager.Instance.UIManager.HidePurchasePopup(partInfo);
         
     }
 
