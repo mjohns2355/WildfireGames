@@ -28,7 +28,7 @@ public class BaseHousePartObject : MonoBehaviour
     {
         //InitHousePartObject();
         rb = GetComponent<Rigidbody>();
-        HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
+        //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
     }
 
 
@@ -51,7 +51,9 @@ public class BaseHousePartObject : MonoBehaviour
         flammability = housePart.flammability;
         PartInfo = housePart;
         this.owner = owner;
+        //houseNode = new HouseNode(this);
         ReplaceMeshMaterial(housePart.material);
+        //Debug.Log($"Part: {houseNode.housePart.name}");
     }
 
     void ReplaceMeshMaterial(Material material)
@@ -59,37 +61,37 @@ public class BaseHousePartObject : MonoBehaviour
         meshRenderer.material = material;
     }
 
-    public void ReplaceHousePartObject(BaseHousePartObject newPart)
-    {
-        // TO DO: Improve this later
-        // Only current player and selected house part should invoke this function
-        if(newPart.PartInfo.housePartType != HousePartType) return;
-        if (HH_GameManager.Instance.currentPlayer != owner) return;
+    //public void ReplaceHousePartObject(BaseHousePartObject newPart)
+    //{
+    //    // TO DO: Improve this later
+    //    // Only current player and selected house part should invoke this function
+    //    if(newPart.PartInfo.housePartType != HousePartType) return;
+    //    if (HH_GameManager.Instance.currentPlayer != owner) return;
         
 
-        List<HouseNode> neighbors = new List<HouseNode>(houseNode.neighbourNodes);
+    //    List<HouseNode> neighbors = new List<HouseNode>(houseNode.neighbourNodes);
 
-        owner.houseGraph.RemoveHousePart(houseNode);
-        newPart.transform.parent = transform.parent;
-        newPart.gameObject.transform.position = transform.position;
-        newPart.gameObject.transform.rotation = transform.rotation;
-        newPart.gameObject.transform.localScale = transform.localScale;
+    //    owner.houseGraph.RemoveHousePart(houseNode);
+    //    newPart.transform.parent = transform.parent;
+    //    newPart.gameObject.transform.position = transform.position;
+    //    newPart.gameObject.transform.rotation = transform.rotation;
+    //    newPart.gameObject.transform.localScale = transform.localScale;
 
-        newPart.owner = owner;    
-        // Initialize the new part's HouseNode and add it to the HouseGraph
-        HouseNode newNode = new HouseNode(newPart);
-        newPart.houseNode = newNode;
-        owner.houseGraph.AddHousePart(newPart);
+    //    newPart.owner = owner;    
+    //    // Initialize the new part's HouseNode and add it to the HouseGraph
+    //    HouseNode newNode = new HouseNode(newPart);
+    //    newPart.houseNode = newNode;
+    //    owner.houseGraph.AddHousePart(newPart);
 
-        // Reconnect the new node to the neighbors of the old node
-        foreach (var neighbor in neighbors)
-        {
-            owner.houseGraph.ConnectParts(newNode, neighbor);
-        }
-        Debug.Log($"Replace {gameObject.name} with {newPart.name}");
-        HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(HousePartType);
-        Destroy(gameObject);
-    }
+    //    // Reconnect the new node to the neighbors of the old node
+    //    foreach (var neighbor in neighbors)
+    //    {
+    //        owner.houseGraph.ConnectParts(newNode, neighbor);
+    //    }
+    //    Debug.Log($"Replace {gameObject.name} with {newPart.name}");
+    //    HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(HousePartType);
+    //    Destroy(gameObject);
+    //}
 
 
     private IEnumerator IgniteWithDelay()

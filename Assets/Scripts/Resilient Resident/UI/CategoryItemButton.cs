@@ -29,8 +29,9 @@ public class CategoryItem : MonoBehaviour, IPointerClickHandler
         }
         var player = HH_GameManager.Instance.currentPlayer;
         var newHouseObject = HH_GameManager.Instance.CreateHousePartObject(partInfo, player);
-        Debug.Log($"new part object {newHouseObject.name}");
-        HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked.Invoke(newHouseObject);
+        player.ReplaceHousePartObject(newHouseObject);
+        //Debug.Log($"new part object {newHouseObject.houseNode.housePart}");
+        //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked.Invoke(newHouseObject);
     }
 
     public void SetIsInUse(bool isInUse)

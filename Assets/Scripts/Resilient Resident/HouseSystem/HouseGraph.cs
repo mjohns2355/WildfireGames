@@ -13,7 +13,16 @@ public class HouseGraph
 
     public HouseNode AddHousePart(BaseHousePartObject newPart)
     {
-        HouseNode newNode = new HouseNode(newPart);
+        HouseNode newNode;
+        //HouseNode newNode = new HouseNode(newPart);
+        if (newPart.houseNode == null)
+        {
+            newNode = new HouseNode(newPart);
+        }
+        else
+        {
+            newNode = newPart.houseNode;
+        }
         nodes.Add(newNode);
         Debug.Log("Added new node: " + newNode.housePart.name);
         return newNode;
@@ -23,7 +32,14 @@ public class HouseGraph
     {
         if (!nodes.Contains(node))
         {
-            Debug.LogError($"Remove Failed: Node {node.housePart.name} is not existed");
+            //Debug.Log($"Try removing node: {node.housePart.name}");
+            //Debug.Log("All neighbours: ");
+            //foreach (HouseNode neighbour in nodes)
+            //{
+            //    Debug.Log($"Neighbour: {neighbour.housePart.name}");
+            //}
+           Debug.LogError("Remove Failed: Node is not existed");
+            return;
         }
         nodes.Remove(node);
         Debug.Log($"Removed node {node.housePart.name}");

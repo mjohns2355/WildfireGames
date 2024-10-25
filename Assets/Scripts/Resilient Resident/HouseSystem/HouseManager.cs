@@ -113,6 +113,33 @@ namespace HappyHouse.HouseSystem
             return false;
         }
 
+        public void ReplaceHousePartObject (BaseHousePartObject newPart)
+        {  
+            var oldPart = GetCurrentInUseHousePartObject(newPart.HousePartType);
+            List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
+
+            houseGraph.RemoveHousePart(oldPart.houseNode);
+            newPart.transform.parent = oldPart.transform.parent;
+            newPart.gameObject.transform.position = oldPart.transform.position;
+            newPart.gameObject.transform.rotation = oldPart.transform.rotation;
+            newPart.gameObject.transform.localScale = oldPart.transform.localScale;
+
+            
+            // Initialize the new part's HouseNode and add it to the HouseGraph
+            HouseNode newNode = new HouseNode(newPart);
+            newPart.houseNode = newNode;
+            houseGraph.AddHousePart(newPart);
+
+            // Reconnect the new node to the neighbors of the old node
+            foreach (var neighbor in neighbors)
+            {
+                houseGraph.ConnectParts(newNode, neighbor);
+            }
+            Debug.Log($"Replace {oldPart.name} with {newPart.name}");
+            HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
+            Destroy(oldPart.gameObject);
+        }
+
         public BaseHousePartObject GetCurrentInUseHousePartObject (HousePartType type)
         {
             foreach(var node in houseGraph.nodes)
