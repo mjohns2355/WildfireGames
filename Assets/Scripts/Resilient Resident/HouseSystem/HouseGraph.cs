@@ -24,7 +24,7 @@ public class HouseGraph
             newNode = newPart.houseNode;
         }
         nodes.Add(newNode);
-        Debug.Log("Added new node: " + newNode.housePart.name);
+        //Debug.Log("Added new node: " + newNode.housePart.name);
         return newNode;
     }
 

@@ -10,6 +10,7 @@ public class HH_UIManager : MonoBehaviour
     public PurchasePopup purchasePopup;
     public Button leftArrow, rightArrow;
     public InventoryUI inventoryUI;
+    public Button inventoryButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,12 @@ public class HH_UIManager : MonoBehaviour
         rightArrow.onClick.AddListener(() =>
         {
             HH_GameManager.Instance.SwitchPlayer("p2");
+        });
+
+        inventoryButton.onClick.AddListener(() =>
+        {
+            var state = inventoryUI.gameObject.activeInHierarchy;
+            inventoryUI.gameObject.SetActive(!state);
         });
     }
 

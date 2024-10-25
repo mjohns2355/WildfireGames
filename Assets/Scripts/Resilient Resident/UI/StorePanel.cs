@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using HappyHouse.HouseSystem;
+using UnityEngine.UI;
 public class StorePanel : MonoBehaviour
 {
     public TextMeshProUGUI typeCategoryText;
@@ -14,6 +15,11 @@ public class StorePanel : MonoBehaviour
     private PurchaseFloatingButton currentButton;
     private List<PartButton> allShopPartIcons;
     private HouseManager player;
+
+    private void Start()
+    {
+
+    }
     public void SetCurrentPurchaseFloatingButton(PurchaseFloatingButton button)
     {
         if (currentButton != null && currentButton != button)
@@ -32,7 +38,7 @@ public class StorePanel : MonoBehaviour
         player = HH_GameManager.Instance.currentPlayer;
         targetCategory = partInfo.housePartType;
         typeCategoryText.text = "Store: " + partInfo.housePartType.ToString().ToUpper();
-        playerInfoText.text = $"{player.playerTag}: ${player.budegt.ToString()}";
+        playerInfoText.text = $"{player.playerTag}: ${player.budget.ToString()}";
 
         PopulateIconsInStore();
     }
