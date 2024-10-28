@@ -24,7 +24,7 @@ public class PartButton : MonoBehaviour
     {
         this.partInfo = partInfo;
         nameText.text = partInfo.partID;
-        priceText.text = $"$ {partInfo.price}" ;
+        priceText.text = $"$ {partInfo.price.ToString("N0")}";
     }
 
     void OnShopPartIconClicked()

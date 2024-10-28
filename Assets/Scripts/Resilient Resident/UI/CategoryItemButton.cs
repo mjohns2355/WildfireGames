@@ -8,29 +8,24 @@ using UnityEngine.UI;
 
 public class CategoryItem : MonoBehaviour, IPointerClickHandler
 {
-    public TextMeshProUGUI gradeText, inUseText;
     public Image icon;
+    public UnityEngine.UI.Outline outline;
 
     bool isInUse;
     HousePartInfo partInfo;
     public void InitCategoryItem(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
-        gradeText.text = $"Grade {partInfo.grade}";
+        //gradeText.text = $"Grade {partInfo.grade}";
         icon.sprite = partInfo.icon;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isInUse)
-        {
-            Debug.Log("It is already in use");
-            return;
-        }
-        var player = HH_GameManager.Instance.currentPlayer;
+        OnButtonClick();
         //var newHouseObject = HH_GameManager.Instance.CreateHousePartObject(partInfo, player);
         //player.ReplaceHousePartObject(newHouseObject);
-        player.ReplaceHousePartObject(partInfo);
+        
         //Debug.Log($"new part object {newHouseObject.houseNode.housePart}");
         //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked.Invoke(newHouseObject);
     }
@@ -38,6 +33,24 @@ public class CategoryItem : MonoBehaviour, IPointerClickHandler
     public void SetIsInUse(bool isInUse)
     {
         this.isInUse = isInUse;
-        inUseText.gameObject.SetActive(isInUse);
+        outline.enabled = isInUse;
+        HH_GameManager.Instance.UIManager.inventoryUI.UpdateItemDetails(partInfo.partClass, partInfo.partID);
+        //inUseText.gameObject.SetActive(isInUse);
+    }
+
+    public void OnButtonClick()
+    {
+        if (isInUse)
+        {
+            Debug.Log("Item is already in use");
+            return;
+        }
+        if(partInfo == null)
+        {
+            Debug.Log("Item is not initialized");
+            return ;
+        }
+        var player = HH_GameManager.Instance.currentPlayer;
+        player.ReplaceHousePartObject(partInfo);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class StorePanel : MonoBehaviour
 {
     public TextMeshProUGUI typeCategoryText;
-    public TextMeshProUGUI playerInfoText;
+    public TextMeshProUGUI budgetText;
     public Transform available;
     public GameObject shopPartIcon;
 
@@ -37,8 +37,8 @@ public class StorePanel : MonoBehaviour
 
         player = HH_GameManager.Instance.currentPlayer;
         targetCategory = partInfo.housePartType;
-        typeCategoryText.text = "Store: " + partInfo.housePartType.ToString().ToUpper();
-        playerInfoText.text = $"{player.playerTag}: ${player.budget.ToString()}";
+        typeCategoryText.text = partInfo.housePartType.ToString();
+        budgetText.text = $"$ {player.budget.ToString("N0")}";
 
         PopulateIconsInStore();
     }
