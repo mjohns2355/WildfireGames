@@ -20,6 +20,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void SwitchPlayer (string playerTag)
     {
         currentPlayer.OnHouseDeselected();
+        uiManager.HideStoreScreen();
         if (playerTag == "p1")
         {
             currentPlayer = p1;

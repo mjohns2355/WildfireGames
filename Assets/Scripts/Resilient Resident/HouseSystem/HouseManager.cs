@@ -41,6 +41,7 @@ namespace HappyHouse.HouseSystem
             {
                 Destroy(icon.gameObject);
             }
+            
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
         }

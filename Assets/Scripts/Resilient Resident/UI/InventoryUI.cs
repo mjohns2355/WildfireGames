@@ -19,6 +19,7 @@ public class InventoryUI : MonoBehaviour
     public GameObject inventoryUI;
     public List<CategoryButton> categories = new List<CategoryButton>();
     List<InventoryItem> items = new List<InventoryItem>();
+    CategoryButton defaultCategory;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,7 @@ public class InventoryUI : MonoBehaviour
         inventoryButton.onClick.AddListener(() =>
         {
             var state = inventoryUI.activeInHierarchy;
-            inventoryUI.SetActive(!state);
+            ToggleInventory(!state);
         });
 
         // Spawn Inventory Items (max 4)
@@ -45,9 +46,7 @@ public class InventoryUI : MonoBehaviour
             categories.Add(categoryButton);
         }
 
-        var defaultMaterial = categories[0];
-        defaultMaterial.bg.enabled = true;
-        UpdateInventoryUI(defaultMaterial.category);
+        defaultCategory = categories[0];
     }
 
     // Update is called once per frame
@@ -58,6 +57,12 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateInventoryUI(HousePartType partType)
     {
+        // Hide icons
+        foreach (var item in items)
+        {
+            item.icon.sprite = null;
+            item.SetIsInUse(false);
+        }
         var player = HH_GameManager.Instance.currentPlayer;
 
         var partDict = player.inventory.ownedParts[partType];
@@ -81,11 +86,19 @@ public class InventoryUI : MonoBehaviour
         
     }
 
-    public void UpdateItemDetails(string itemClass , string itemName)
+    public void UpdateItemDetails(MaterialClass itemClass , string itemName)
     {
-        classText.text = $"Class {itemClass}";
+        classText.text = itemClass == MaterialClass.Unrated ? $"{itemClass}" : $"Class {itemClass}";
         itemNameText.text = itemName;
     }
     
-
+    public void ToggleInventory(bool state)
+    {
+        if(state == true)
+        {
+            defaultCategory.bg.enabled = true;
+            UpdateInventoryUI(defaultCategory.category);
+        }
+        inventoryUI.SetActive(state);
+    }
 }

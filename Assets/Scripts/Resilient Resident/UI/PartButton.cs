@@ -8,6 +8,8 @@ public class PartButton : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
+
+    [SerializeField]private Image icon;
     private UnityEngine.UI.Outline outline;
     private HousePartInfo partInfo;
     private Button button;
@@ -23,7 +25,8 @@ public class PartButton : MonoBehaviour
     public void InitPartIconButton(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
-        nameText.text = partInfo.partID;
+        //nameText.text = partInfo.partID;
+        icon.sprite = partInfo.icon;
         priceText.text = $"$ {partInfo.price.ToString("N0")}";
     }
 
