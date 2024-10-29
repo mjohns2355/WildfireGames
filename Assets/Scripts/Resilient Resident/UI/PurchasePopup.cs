@@ -8,7 +8,8 @@ using System;
 public class PurchasePopup : MonoBehaviour
 {
     public TextMeshProUGUI priceText;
-    public TextMeshProUGUI gradeText;
+    public TextMeshProUGUI classText;
+    public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI descriptionText;
     public Image icon;
     public Button cancel, purchase;
@@ -24,22 +25,23 @@ public class PurchasePopup : MonoBehaviour
     private void OnPurchaseClicked()
     {
         HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo);
-        HH_GameManager.Instance.UIManager.HidePurchasePopup(partInfo);
+        HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
     }
 
     private void OnCancelClicked()
     {
-        HH_GameManager.Instance.UIManager.HidePurchasePopup(partInfo);
+        HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
         
     }
 
     public void InitPurchasePopup(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
-        priceText.text = $"$ {partInfo.price}";
-        gradeText.text = $"Grade: {partInfo.partClass}";
+        priceText.text = $"Cost: ${partInfo.price}";
+        classText.text = $"Class {partInfo.partClass}";
         descriptionText.text = partInfo.description;
         icon.sprite = partInfo.icon;
+        itemNameText.text = partInfo.partID;
     }
 
 

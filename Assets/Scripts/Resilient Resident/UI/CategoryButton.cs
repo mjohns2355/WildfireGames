@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CategoryButton : MonoBehaviour
@@ -9,16 +10,17 @@ public class CategoryButton : MonoBehaviour
     public InventoryUI owner;
     public TextMeshProUGUI categoryText;
     public HousePartType category;
-    Button button;
+    [SerializeField]Button button;
+    public Image bg;
+
+    private CategoryButton selectedCategoryButton = null;
     // Start is called before the first frame update
-    private void Awake()
-    {
-       
-    }
+
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => { owner.UpdateOwnedParts(category); });
+        bg = GetComponent<Image>();
+        
     }
 
     public void InitCategoryButton(InventoryUI owner, HousePartType type)
@@ -26,5 +28,24 @@ public class CategoryButton : MonoBehaviour
         this.owner = owner;
         category = type;
         categoryText.text = type.ToString();
+        button.onClick.AddListener(() => { 
+            
+            OnButtonSeleccted();
+        });
     }
+
+    void OnButtonSeleccted()
+    {
+        owner.UpdateInventoryUI(category);
+
+        foreach (var btn in owner.categories)
+        {
+            if(btn != this)
+            {
+                btn.bg.enabled = false;
+            }
+        }
+        bg.enabled = true;
+    }
+
 }

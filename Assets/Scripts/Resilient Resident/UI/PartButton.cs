@@ -29,6 +29,6 @@ public class PartButton : MonoBehaviour
 
     void OnShopPartIconClicked()
     {
-        HH_GameManager.Instance.UIManager.ShowPurchasePopup(partInfo);
+        HH_GameManager.Instance.uiManager.ShowPurchasePopup(partInfo);
     }
 }

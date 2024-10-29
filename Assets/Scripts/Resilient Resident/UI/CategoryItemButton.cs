@@ -1,12 +1,9 @@
 using HappyHouse.HouseSystem;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CategoryItem : MonoBehaviour, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
     public Image icon;
     public UnityEngine.UI.Outline outline;
@@ -34,7 +31,7 @@ public class CategoryItem : MonoBehaviour, IPointerClickHandler
     {
         this.isInUse = isInUse;
         outline.enabled = isInUse;
-        HH_GameManager.Instance.UIManager.inventoryUI.UpdateItemDetails(partInfo.partClass, partInfo.partID);
+        HH_GameManager.Instance.uiManager.inventoryPanel.UpdateItemDetails(partInfo.partClass, partInfo.partID);
         //inUseText.gameObject.SetActive(isInUse);
     }
 

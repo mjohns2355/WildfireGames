@@ -15,28 +15,39 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI classText;
     public TextMeshProUGUI itemNameText;
     public Action<BaseHousePartObject> onCategoryItemButtonClicked;
-    List<CategoryButton> categories = new List<CategoryButton>();
-    [SerializeField]List<CategoryItem> items = new List<CategoryItem>();
+    public Button inventoryButton;
+    public GameObject inventoryUI;
+    public List<CategoryButton> categories = new List<CategoryButton>();
+    List<InventoryItem> items = new List<InventoryItem>();
     // Start is called before the first frame update
     void Start()
     {
         var resourceManager = ResourceManager.Instance;
+
+        inventoryButton.onClick.AddListener(() =>
+        {
+            var state = inventoryUI.activeInHierarchy;
+            inventoryUI.SetActive(!state);
+        });
+
+        // Spawn Inventory Items (max 4)
         for (int i = 0; i < categoryItemButtons.childCount; i++)
         {
-            var item = categoryItemButtons.GetChild(i).GetComponent<CategoryItem>();
+            var item = categoryItemButtons.GetChild(i).GetComponent<InventoryItem>();
             items.Add(item);
         }
+
+        // Spawn Category Buttons (roof,wall,etc)
         foreach (var type in resourceManager.allAvailableParts.Keys)
         {
-            var categoryButton = Instantiate(categoryButtonPrefab,categoryButtons).GetComponent<CategoryButton>();
-            categoryButton.InitCategoryButton(this,type);
+            var categoryButton = Instantiate(categoryButtonPrefab, categoryButtons).GetComponent<CategoryButton>();
+            categoryButton.InitCategoryButton(this, type);
             categories.Add(categoryButton);
         }
 
         var defaultMaterial = categories[0];
-        UpdateOwnedParts(defaultMaterial.category);
-
-
+        defaultMaterial.bg.enabled = true;
+        UpdateInventoryUI(defaultMaterial.category);
     }
 
     // Update is called once per frame
@@ -45,7 +56,7 @@ public class InventoryUI : MonoBehaviour
         
     }
 
-    public void UpdateOwnedParts(HousePartType partType)
+    public void UpdateInventoryUI(HousePartType partType)
     {
         var player = HH_GameManager.Instance.currentPlayer;
 
@@ -76,4 +87,5 @@ public class InventoryUI : MonoBehaviour
         itemNameText.text = itemName;
     }
     
+
 }

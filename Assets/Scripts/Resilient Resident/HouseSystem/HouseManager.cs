@@ -28,9 +28,8 @@ namespace HappyHouse.HouseSystem
 
         public void OnHouseSelected(HouseManager manager)
         {
-            HH_GameManager.Instance.inputManager.canClickHouse = false;
             if (manager != this) return;
-            HH_GameManager.Instance.currentPlayer = this;
+            HH_GameManager.Instance.StartGame(manager);
             arrowUI.SetActive(true);
             UpdateHouseUI();
         }
@@ -144,7 +143,7 @@ namespace HappyHouse.HouseSystem
                 Destroy(oldPart.gameObject);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
-            HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(housePartInfo.housePartType);
+            HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
 
         public BaseHousePartObject GetCurrentInUseHousePartObject (HousePartType type)
@@ -173,11 +172,13 @@ namespace HappyHouse.HouseSystem
 
             return res;
         }
+
+        
         void UpdateHouseUI()
         {
             foreach(var node in houseGraph.nodes)
             {
-                var icon = Instantiate(craftIcon, HH_GameManager.Instance.UIManager.transform).GetComponent<PurchaseFloatingButton>();
+                var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
                 purchaseFloatingButtons.Add(icon);
                 icon.owner = node.housePart;
             }

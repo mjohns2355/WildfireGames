@@ -5,10 +5,11 @@ using UnityEngine;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
-    public HH_UIManager UIManager;
+    public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
-    
+
+    public bool IsGameStarted {  get; private set; }
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
 
@@ -38,6 +39,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         currentPlayer.OnHouseSelected(currentPlayer);
     }
 
+    public void StartGame(HouseManager currentPlayer)
+    {
+        IsGameStarted = true;
+        inputManager.canClickHouse = false;
+        this.currentPlayer = currentPlayer;
+        uiManager.ToggleInventory(true);
+
+    }
     public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     {
         var obj = new GameObject(partInfo.partID);

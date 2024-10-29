@@ -25,12 +25,13 @@ public class PurchaseFloatingButton : MonoBehaviour
                 
                 if (isSelected)
                 {
-                    HH_GameManager.Instance.UIManager.HideStoreScreen();
+                    HH_GameManager.Instance.uiManager.HideStoreScreen();
                     ResetButton();
                 }
                 else
                 {
-                    HH_GameManager.Instance.UIManager.ShowStoreScreen(owner.PartInfo, this);
+                    HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.PartInfo, this);
+                    
                     SelectButton();
                 }
 

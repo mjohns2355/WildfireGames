@@ -1,4 +1,5 @@
 using HappyHouse.HouseSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,8 @@ public class HH_UIManager : MonoBehaviour
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
     public Button leftArrow, rightArrow;
-    public InventoryUI inventoryUI;
-    public Button inventoryButton;
+    public InventoryUI inventoryPanel;
+    public Transform floatingIcons;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +26,7 @@ public class HH_UIManager : MonoBehaviour
             HH_GameManager.Instance.SwitchPlayer("p2");
         });
 
-        inventoryButton.onClick.AddListener(() =>
-        {
-            var state = inventoryUI.gameObject.activeInHierarchy;
-            inventoryUI.gameObject.SetActive(!state);
-        });
+
     }
 
     // Update is called once per frame
@@ -54,8 +51,6 @@ public class HH_UIManager : MonoBehaviour
     {
         purchasePopup.gameObject.SetActive(true);
         purchasePopup.InitPurchasePopup(partInfo);
-        HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(false);
-        storePanel.gameObject.SetActive(false);
     }
 
     public void HidePurchasePopup(HousePartInfo partInfo)
@@ -64,5 +59,14 @@ public class HH_UIManager : MonoBehaviour
         HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
         storePanel.gameObject.SetActive(true);
         storePanel.ShowStorePanel(partInfo);
+    }
+
+    public void ToggleInventory(bool state)
+    {
+        inventoryPanel.gameObject.SetActive(state);
+       
+        if (!inventoryPanel.inventoryUI.activeInHierarchy) return;
+        // make sure the inventory grid is disabled when switching player
+        inventoryPanel.inventoryUI.SetActive(false);
     }
 }
