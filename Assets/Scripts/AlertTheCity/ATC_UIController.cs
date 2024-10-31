@@ -10,6 +10,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
+    public ATC_HouseDialogManager houseDialogManager;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;

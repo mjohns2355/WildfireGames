@@ -20,33 +20,37 @@ public class CameraMovement : MonoBehaviour
     private bool isFocusing = false;
     float FOV;
     Vector3 camPos;
+    public Transform camStartPos;
     private void Start()
     {
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
         camPos = gameCamera.transform.position;
+
         //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
         //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
 
     private void Update()
     {
-        //if (isFocusing)
-        //{
+        if (isFocusing)
+        {
 
-        //    transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMovementSpeed * Time.deltaTime);
-
-
-        //    gameCamera.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, cameraZoomSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMovementSpeed * Time.deltaTime);
 
 
-        //    if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-        //    {
-        //        isFocusing = false;
-        //        //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
-        //    }
-        //}
+            gameCamera.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 30, cameraZoomSpeed * Time.deltaTime);
+
+
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                isFocusing = false;
+
+                //Debug.Log("Stop focusing");
+                //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
+            }
+        }
     }
     public void MoveCamera(Vector3 inputVector)
     {
@@ -89,10 +93,16 @@ public class CameraMovement : MonoBehaviour
         gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
     }
 
-    public void MoveToHouse(GameObject targetHouse)
+    public void MoveToHouse(Transform targetHouse)
     {
-        //Debug.Log($"Move to house {targetHouse.playerTag}");
-        targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * focusDistance;
+        //Debug.Log($"Move to house {targetHouse.transform.position}");
+        GameManager.Instance.canControlCam = false;
+        targetPosition = targetHouse.position + camPosOffset - targetHouse.forward * focusDistance;
         isFocusing = true;
+    }
+
+    public void ResetCam()
+    {
+        gameCamera.transform.position = camStartPos.position;
     }
 }

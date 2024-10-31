@@ -27,16 +27,17 @@ public class GameManager : UnitySingleton<GameManager>
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
     public bool SimIsEnd { get; private set; }
-
+    public bool canControlCam = true;
     public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
+    public ATC_DialogTree[] houseDialogs;
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
 
     public override void Awake()
     {
         base.Awake();
-        currentStage = LevelStage.BeforeFirstSim;
-        //currentStage = LevelStage.PhaseOne;
+        //currentStage = LevelStage.BeforeFirstSim;
+        currentStage = LevelStage.PhaseOne;
     }
     private void Start()
     {
@@ -46,6 +47,7 @@ public class GameManager : UnitySingleton<GameManager>
         SimTimer = 0f;
         Time.timeScale = GameSpeed = 2f;
         CurrentLevel = 0;
+        houseDialogs = Resources.LoadAll<ATC_DialogTree>("AlertTheCity/HouseDialogs");
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -85,6 +87,7 @@ public class GameManager : UnitySingleton<GameManager>
         //debug
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
+        if (!canControlCam) return;
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         if(Input.touchCount == 2)
         {

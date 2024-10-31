@@ -20,7 +20,7 @@ namespace HappyHouse.FireSystem
         {
             if (startFire) return;
             startFire = true;
-            SpawnFire(fireSpawnPoint, 1);
+            SpawnFire(fireSpawnPoint, 2);
         }
 
         public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false)

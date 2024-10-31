@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public struct Dialog
 {
     public string[] messages;
@@ -27,6 +27,7 @@ public class ATC_dialogManager : MonoBehaviour
     [SerializeField] Button nextButton;
     [SerializeField] Button localNewsCloseButton;
     [SerializeField] GameObject localNews;
+    [SerializeField] Button dialogBoxButton;
 
     private Dictionary<LevelStage, Dialog> dialogData;
     private int dialogIndex = 0;
@@ -63,9 +64,11 @@ public class ATC_dialogManager : MonoBehaviour
             ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
             isToolBarBroughtToFront=false;
         }
-        
+    }
 
-
+    private void OnDisable()
+    {
+        dialogBoxButton.onClick.RemoveListener(DisplayNextMessage);
     }
 
     public void GenerateResult()
@@ -93,6 +96,10 @@ public class ATC_dialogManager : MonoBehaviour
     public void DisplayNextMessage()
     {
         var stage = GameManager.Instance.currentStage;
+
+        if (stage == LevelStage.HouseDialog) return;
+
+        dialogBoxButton.onClick.AddListener(DisplayNextMessage);
         currentDialog = dialogData[stage];
         if (dialogIndex < currentDialog.messages.Length)
         {

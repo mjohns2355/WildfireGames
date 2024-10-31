@@ -12,22 +12,30 @@ public class OptionButton : MonoBehaviour
     public Button button;
     [SerializeField] Button learnMoreButton;
     [SerializeField] TextMeshProUGUI optionText;
-    [SerializeField] GameObject checkMark;
+    [SerializeField] Image checkMark;
+    [SerializeField] Sprite check, blank;
     // Start is called before the first frame update
     private void Awake()
     {
     }
     void Start()
     {
-        button.interactable = !isLocked;
-        optionText.gameObject.SetActive(!isLocked);
-        learnMoreButton.gameObject.SetActive(isLocked);
+        //button.interactable = !isLocked;
+        //optionText.gameObject.SetActive(!isLocked);
+        //learnMoreButton.gameObject.SetActive(isLocked);
         
     }
 
     public void ToggleOptionSelectState(bool state)
     {
-        checkMark.SetActive(state);
+        if(state == true)
+        {
+            checkMark.sprite = check;
+        }
+        else
+        {
+            checkMark.sprite = blank;
+        }
     }
     public string GetOptionContent()
     {
@@ -58,9 +66,9 @@ public class OptionButton : MonoBehaviour
         {
 
             //Debug.Log("Open Learn More Panel");
-            LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
-            ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
-            learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
+            //LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
+            //ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
+            //learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
         });
     }
     public void SetOptionButtonText(string text)

@@ -1,5 +1,6 @@
 //using System;
 using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -202,16 +203,29 @@ public class HouseStructure : Structure
 
     void OnOptionButtonClicked()
     {
-        currentOption = contextMenu.CurrentOption;
-        Debug.Log($"Player selected {currentOption}");
-       
+        string currentOption = string.Empty;
+        if (!contextMenu.allowMultipleChoices)
+        {
+            currentOption = contextMenu.CurrentOption.GetOptionContent();
+            Debug.Log($"Player selected {currentOption}");
+
+
+        }
+        else
+        {
+            foreach(var option in contextMenu.selectedOptions)
+            {
+                currentOption = option.GetOptionContent();
+                Debug.Log($"Player selected {currentOption}");
+            }
+        }
         // apply home hardening immediately
         if (currentOption == "Home Hardening")
         {
             ApplyChoice();
         }
         var currentChoice = GetCurrentChoice(currentOption);
-        if(currentChoice != null)
+        if (currentChoice != null)
         {
             GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
         }

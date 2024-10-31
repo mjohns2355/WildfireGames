@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class HouseIcon : MonoBehaviour
 {
     public HouseType iconHouseType;
+    public ATC_DialogTree houseDialog;
     [SerializeField] List<Sprite> lockedSprites;
     [SerializeField] List<Sprite> unlockedSprites;
     [SerializeField] Button button;
@@ -37,6 +39,7 @@ public class HouseIcon : MonoBehaviour
             }
         }
 
+        houseDialog = GameManager.Instance.houseDialogs[0];
         ToggleIconState(true);
     }
 
