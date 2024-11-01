@@ -28,7 +28,7 @@ namespace HappyHouse.FireSystem
             var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
             fire.transform.localScale *= scaleMultiplier;
             fire.GetComponent<FireController>().onCombustible = onCombustible;
-
+            fire.GetComponent<FireController>().speed = 2;
         }
 
         // test only function

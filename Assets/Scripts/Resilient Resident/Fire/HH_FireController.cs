@@ -69,7 +69,7 @@ namespace HappyHouse.FireSystem
                 // collider is on mesh, need to be replaced later
                 if (hit.transform.parent.TryGetComponent(out BaseHousePartObject obj) && obj != null)
                 {
-                    Debug.Log($"{obj.name} is on fire");
+                   
                     obj.Ignite();
                 }
             }

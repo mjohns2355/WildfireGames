@@ -101,9 +101,11 @@ public class BaseHousePartObject : MonoBehaviour
         {
             yield break; // Does not catch fire
         }
+
+        Debug.Log($"{PartInfo.partID} is on fire");
         // Calculate delay based on flammability (inverse relationship)
-        //float ignitionDelay = Mathf.Clamp(5f / flammability, 0.5f, 5f);
-        yield return new WaitForSeconds(0);
+        float ignitionDelay = Mathf.Clamp(5f / flammability, 0.5f, 5f);
+        yield return new WaitForSeconds(ignitionDelay);
 
         if (!isOnFire)
         {
@@ -120,20 +122,16 @@ public class BaseHousePartObject : MonoBehaviour
     }
 
     IEnumerator Burn()
-    {
-        float destructionThreshold = Mathf.Clamp01(1 - (durability / 100f)); // Higher destruction chance as durability lowers
-        Debug.Log($"Destruction Rate: {destructionThreshold}");
-        var rng = UnityEngine.Random.value;
-
+    {     
         while (burnTimer > 0)
         {
             burnTimer -= Time.deltaTime;
-            //durability -= flammability * Time.deltaTime;
-             
-            if ( /*durability <= 0 ||*/ rng < destructionThreshold)
+            durability -= flammability * Time.deltaTime;
+            float destructionThreshold = Mathf.Clamp01(1 - (durability / 100f)); // Higher destruction chance as durability lowers
+            Debug.Log($"Destruction Rate: {destructionThreshold}");
+            if (durability <= 0 || UnityEngine.Random.value < destructionThreshold)
             {
-                Debug.Log($"RNG: {rng}");
-                SpreadFireToNeighbour();
+                //SpreadFireToNeighbour();
                 DestroyHousePart();
                 yield break;
             }
