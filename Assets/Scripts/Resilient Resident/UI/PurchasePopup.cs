@@ -38,7 +38,7 @@ public class PurchasePopup : MonoBehaviour
     {
         this.partInfo = partInfo;
         priceText.text = $"Cost: ${partInfo.price}";
-        classText.text = partInfo.partClass == MaterialClass.Unrated ? $"{partInfo.partClass}" : $"Class {partInfo.partClass}";
+        classText.text = $"Class {partInfo.partClass}";
         descriptionText.text = partInfo.description;
         icon.sprite = partInfo.icon;
         itemNameText.text = partInfo.partID;

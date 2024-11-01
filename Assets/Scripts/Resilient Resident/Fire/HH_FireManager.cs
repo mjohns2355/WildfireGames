@@ -32,7 +32,7 @@ namespace HappyHouse.FireSystem
         }
 
         // test only function
-        void StartFireTesting()
+        public void StartFireTesting()
         {
             StartFire();
         }

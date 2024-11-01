@@ -7,7 +7,7 @@ namespace HappyHouse.FireSystem
     public class FireController : MonoBehaviour
     {
         public bool onCombustible = false;
-        public Combustible combustible;
+        //public Combustible combustible;
         public float waitTime = 1f;
         public Vector3 scaler;
         public ParticleSystem fire;

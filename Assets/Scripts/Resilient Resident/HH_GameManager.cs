@@ -2,6 +2,7 @@ using HappyHouse.HouseSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
@@ -16,6 +17,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     private void Start()
     {
         
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.R))
+        {
+            SceneManager.LoadScene("HappyHouseScene");
+        }
     }
     public void SwitchPlayer (string playerTag)
     {

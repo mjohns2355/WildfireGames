@@ -88,7 +88,7 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateItemDetails(MaterialClass itemClass , string itemName)
     {
-        classText.text = itemClass == MaterialClass.Unrated ? $"{itemClass}" : $"Class {itemClass}";
+        classText.text = $"Class {itemClass}";
         itemNameText.text = itemName;
     }
     

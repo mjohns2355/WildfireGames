@@ -11,6 +11,7 @@ public class StorePanel : MonoBehaviour
     public Transform available;
     public GameObject shopPartIcon;
 
+    [SerializeField]private Button closeButton;
     private HousePartType targetCategory;
     private PurchaseFloatingButton currentButton;
     private List<PartButton> allShopPartIcons;
@@ -18,7 +19,7 @@ public class StorePanel : MonoBehaviour
 
     private void Start()
     {
-
+        closeButton.onClick.AddListener(HideStorePanel);
     }
     public void SetCurrentPurchaseFloatingButton(PurchaseFloatingButton button)
     {
@@ -46,6 +47,11 @@ public class StorePanel : MonoBehaviour
     public void HideStorePanel()
     {
         ClearIconsInStores();
+        if (currentButton != null)
+        {
+
+            currentButton.ResetButton();
+        }
         currentButton = null;
         gameObject.SetActive(false);
 
