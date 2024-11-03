@@ -9,6 +9,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
+    public HH_CameraController cameraController;
 
     public bool IsGameStarted {  get; private set; }
     [SerializeField] HouseManager p1;
@@ -63,5 +64,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var houseObj = obj.AddComponent<BaseHousePartObject>();
         houseObj.InitHousePartObject(partInfo, owner);
         return houseObj;
+    }
+
+    public void StartFire()
+    {
+        cameraController.ResetCamera();
+        fireManager.StartFireSimulation();
+        currentPlayer.ToggleAllPurchaseIcons(false);
+        uiManager.ToggleInventory(false);
+        uiManager.HideStoreScreen();
     }
 }

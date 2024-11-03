@@ -56,7 +56,7 @@ public class HH_UIManager : MonoBehaviour
     public void HidePurchasePopup(HousePartInfo partInfo)
     {
         purchasePopup.gameObject.SetActive(false);
-        HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
+        //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
         storePanel.gameObject.SetActive(true);
         storePanel.ShowStorePanel(partInfo);
     }

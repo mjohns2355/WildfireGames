@@ -23,6 +23,7 @@ namespace HappyHouse.FireSystem
         float fireSize = 0;
         [SerializeField] Rigidbody rb;
         [SerializeField] BoxCollider collider;
+        float fireLife;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -32,7 +33,7 @@ namespace HappyHouse.FireSystem
             if (onCombustible)
             {
                 fireSize = maxSize;
-                StartCoroutine(OnDestroyFireRoutine());
+                //StartCoroutine(OnDestroyFireRoutine());
             }
 
         }
@@ -41,17 +42,26 @@ namespace HappyHouse.FireSystem
             if (!onCombustible)
             {
                 rb.velocity = Vector3.left * speed;
+                ImpactFire(10);
             }
 
 
         }
 
+        public void InitFire(bool isOnCombustible, float speed, float life)
+        {
+            onCombustible = isOnCombustible;
+            this.speed = speed;
+            fireLife = life;
+
+           
+        }
         private void FixedUpdate()
         {
 
             if (onCombustible)
             {
-                StartCoroutine(ChangeFireSizeRoutine(fireSize));
+                //StartCoroutine(ChangeFireSizeRoutine(fireSize));
             }
             else
             {
@@ -70,7 +80,7 @@ namespace HappyHouse.FireSystem
                 if (hit.transform.parent.TryGetComponent(out BaseHousePartObject obj) && obj != null)
                 {
                    
-                    obj.Ignite();
+                    obj.TryIgnite();
                 }
             }
         }
@@ -102,17 +112,17 @@ namespace HappyHouse.FireSystem
             GraduallyChangeFireSize(maxSize, fireGrowthSpeed);
         }
 
-        IEnumerator OnDestroyFireRoutine()
-        {
-            yield return new WaitForSeconds(30f);
-            //Debug.Log("Fire start to shrink");
-            fireSize = minSize;
-            yield return new WaitForSeconds(10f);
-            //Debug.Log("Destroy Fire");
+        //IEnumerator OnDestroyFireRoutine()
+        //{
+        //    yield return new WaitForSeconds(fireLife);
+        //    //Debug.Log("Fire start to shrink");
+        //    fireSize = minSize;
+        //    yield return new WaitForSeconds(10f);
+        //    //Debug.Log("Destroy Fire");
 
-            // Burned Logic Here
-            Destroy(gameObject);
-        }
+        //    // Burned Logic Here
+        //    Destroy(gameObject);
+        //}
     }
 }
 

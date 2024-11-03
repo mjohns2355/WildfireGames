@@ -11,28 +11,47 @@ namespace HappyHouse.FireSystem
         public bool startFire = false;
         public Transform fireSpawnPoint;
         public GameObject firePrefab;
-
+        public float fireTimer = 100f;
+        public List<FireController> spawnedFires = new List<FireController>();
+        public float defaultFireLife = 10f;
         private void Start()
         {
            
+        }
+
+        private void Update()
+        {
+            //while (startFire)
+            //{
+            //    if(fireTimer > 0)
+            //    {
+            //        fireTimer -= Time.deltaTime;
+            //    }
+            //    else
+            //    {
+            //        startFire = false;
+            //    }
+            //}
         }
         void StartFire()
         {
             if (startFire) return;
             startFire = true;
-            SpawnFire(fireSpawnPoint, 2);
+            SpawnFire(fireSpawnPoint, 5);
+
         }
 
-        public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false)
+
+        public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)
         {
             var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
             fire.transform.localScale *= scaleMultiplier;
-            fire.GetComponent<FireController>().onCombustible = onCombustible;
-            fire.GetComponent<FireController>().speed = 2;
+            var fireLife =  life == 0? defaultFireLife : life;
+            fire.GetComponent<FireController>().InitFire(onCombustible, 2, fireLife);
         }
 
         // test only function
-        public void StartFireTesting()
+        public void StartFireSimulation()
         {
             StartFire();
         }
