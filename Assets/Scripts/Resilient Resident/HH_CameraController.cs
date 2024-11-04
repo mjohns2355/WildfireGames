@@ -13,10 +13,10 @@ public class HH_CameraController : MonoBehaviour
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
     private bool isZooming = false;
-    private Vector3 originalPosition;
+    [SerializeField] private Transform originalPosition;
     private void Start()
     {
-        originalPosition = transform.position;
+        
         HH_GameManager.Instance.inputManager.OnHouseSelected += MoveToHouse;
     }
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class HH_CameraController : MonoBehaviour
     public void ResetCamera()
     {
         Debug.Log("Reset Camera");
-        transform.position = originalPosition;
+        transform.position = originalPosition.position;
         
     }
 }

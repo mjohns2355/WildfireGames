@@ -78,8 +78,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
-        uiManager.ToggleInventory(false);
-        uiManager.HideStoreScreen();
+        uiManager.OnRoundEnd();
         startFireBtn.gameObject.SetActive(true);
         endRoundBtn.gameObject.SetActive(false);
     }

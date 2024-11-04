@@ -22,7 +22,7 @@ public class BaseHousePartObject : MonoBehaviour
     //[SerializeField] Material material;
     public bool isOnCursor = false;
     public HousePartInfo PartInfo { get; private set; }
-    public float baseBurnMultiplier = 10f;
+    public float baseBurnTime = 10f;
     private float burnTimer;
     private Rigidbody rb;
     private void Start()
@@ -121,7 +121,7 @@ public class BaseHousePartObject : MonoBehaviour
 
 
         isOnFire = true;
-        burnTimer = durability * baseBurnMultiplier / flammability;
+        burnTimer = durability/ flammability + baseBurnTime;
         HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true,burnTimer);
         StartCoroutine(SpreadFireToNeighbour());
         StartCoroutine(Burn());

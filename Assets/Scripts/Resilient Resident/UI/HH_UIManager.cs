@@ -2,6 +2,7 @@ using HappyHouse.HouseSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,5 +69,13 @@ public class HH_UIManager : MonoBehaviour
         if (!inventoryPanel.inventoryUI.activeInHierarchy) return;
         // make sure the inventory grid is disabled when switching player
         inventoryPanel.inventoryUI.SetActive(false);
+    }
+
+    public void OnRoundEnd()
+    {
+        ToggleInventory(false);
+        HideStoreScreen();
+        leftArrow.gameObject.SetActive(false);
+        rightArrow.gameObject.SetActive(false);
     }
 }
