@@ -18,7 +18,6 @@ public class ResourceManager : UnitySingleton<ResourceManager>
     {
         allAvailableParts = new Dictionary<HousePartType, List<HousePartInfo>> ();
         var allParts = Resources.LoadAll<HousePartInfo>("ResillientResident/HousePartsSO");
-        Debug.Log(allParts.Length);
         foreach (var part in allParts)
         {
            

@@ -37,7 +37,7 @@ namespace HappyHouse.FireSystem
         {
             if (startFire) return;
             startFire = true;
-            SpawnFire(fireSpawnPoint, 5);
+            SpawnFire(fireSpawnPoint, 3);
 
         }
 
@@ -47,7 +47,7 @@ namespace HappyHouse.FireSystem
             var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
             fire.transform.localScale *= scaleMultiplier;
             var fireLife =  life == 0? defaultFireLife : life;
-            fire.GetComponent<FireController>().InitFire(onCombustible, 2, fireLife);
+            fire.GetComponent<FireController>().InitFire(onCombustible, 5, fireLife);
         }
 
         // test only function

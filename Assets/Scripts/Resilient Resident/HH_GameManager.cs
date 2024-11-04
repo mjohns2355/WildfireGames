@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
@@ -10,7 +11,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
     public HH_CameraController cameraController;
-
+    [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
@@ -50,13 +51,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         currentPlayer.OnHouseSelected(currentPlayer);
     }
 
-    public void StartGame(HouseManager currentPlayer)
+    public void StartRound(HouseManager currentPlayer)
     {
         IsGameStarted = true;
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
         uiManager.ToggleInventory(true);
-
+        endRoundBtn.gameObject.SetActive(true);
+        startFireBtn.gameObject.SetActive(false);
     }
     public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     {
@@ -68,10 +70,17 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
-        cameraController.ResetCamera();
         fireManager.StartFireSimulation();
+        
+    }
+
+    public void EndRound()
+    {
+        cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         uiManager.ToggleInventory(false);
         uiManager.HideStoreScreen();
+        startFireBtn.gameObject.SetActive(true);
+        endRoundBtn.gameObject.SetActive(false);
     }
 }

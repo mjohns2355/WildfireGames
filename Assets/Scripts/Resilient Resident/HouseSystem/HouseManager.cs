@@ -29,7 +29,7 @@ namespace HappyHouse.HouseSystem
         public void OnHouseSelected(HouseManager manager)
         {
             if (manager != this) return;
-            HH_GameManager.Instance.StartGame(manager);
+            HH_GameManager.Instance.StartRound(manager);
             arrowUI.SetActive(true);
             UpdateHouseUI();
         }

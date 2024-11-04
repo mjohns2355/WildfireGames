@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6910319777960943733}
   - component: {fileID: 4172989824407673634}
   - component: {fileID: 4904496476558619398}
+  - component: {fileID: 3903995253854551371}
   m_Layer: 3
   m_Name: FirePrefab
   m_TagString: Untagged
@@ -105,10 +106,31 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 4.59, y: 4.31, z: 5.41}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &3903995253854551371
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5357095610458636279}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.19
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &5499142250224102360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5007,7 +5029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4288416149911810, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4288416149911810, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: m_LocalRotation.w

@@ -32,7 +32,7 @@ namespace HappyHouse.FireSystem
            
             if (onCombustible)
             {
-                fireSize = maxSize;
+                transform.localScale = new Vector3(0.3f,0.3f,0.3f);
                 //StartCoroutine(OnDestroyFireRoutine());
             }
 
@@ -45,6 +45,12 @@ namespace HappyHouse.FireSystem
                 ImpactFire(10);
             }
 
+            while (fireLife > 0 && onCombustible)
+            {
+                fireLife -= Time.deltaTime;
+                GraduallyChangeFireSize(0.01f, fireGrowthSpeed);
+            }
+            
 
         }
 
@@ -56,18 +62,7 @@ namespace HappyHouse.FireSystem
 
            
         }
-        private void FixedUpdate()
-        {
 
-            if (onCombustible)
-            {
-                //StartCoroutine(ChangeFireSizeRoutine(fireSize));
-            }
-            else
-            {
-                StartCoroutine(ChangeFireSizeRoutine(1f));
-            }
-        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -98,12 +93,12 @@ namespace HappyHouse.FireSystem
             emberSize.sizeMultiplier = multiplier;
         }
 
-        public void GraduallyChangeFireSize(float maxSize, float t)
+        public void GraduallyChangeFireSize(float targetSize, float t)
         {
             transform.localScale = scaler;
-            scaler.x = Mathf.Lerp(scaler.x, maxSize, t * Time.deltaTime);
-            scaler.y = Mathf.Lerp(scaler.y, maxSize, t * Time.deltaTime);
-            scaler.z = Mathf.Lerp(scaler.z, maxSize, t * Time.deltaTime);
+            scaler.x = Mathf.Lerp(scaler.x, targetSize, t * Time.deltaTime);
+            scaler.y = Mathf.Lerp(scaler.y, targetSize, t * Time.deltaTime);
+            scaler.z = Mathf.Lerp(scaler.z, targetSize, t * Time.deltaTime);
         }
 
         IEnumerator ChangeFireSizeRoutine(float maxSize)
@@ -114,9 +109,10 @@ namespace HappyHouse.FireSystem
 
         //IEnumerator OnDestroyFireRoutine()
         //{
+        //    Debug.Log($"Fire life: {fireLife}");
         //    yield return new WaitForSeconds(fireLife);
         //    //Debug.Log("Fire start to shrink");
-        //    fireSize = minSize;
+           
         //    yield return new WaitForSeconds(10f);
         //    //Debug.Log("Destroy Fire");
 

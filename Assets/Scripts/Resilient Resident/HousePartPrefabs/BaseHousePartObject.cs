@@ -122,7 +122,7 @@ public class BaseHousePartObject : MonoBehaviour
 
         isOnFire = true;
         burnTimer = durability * baseBurnMultiplier / flammability;
-        HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true);
+        HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true,burnTimer);
         StartCoroutine(SpreadFireToNeighbour());
         StartCoroutine(Burn());
     }
@@ -228,6 +228,7 @@ public class BaseHousePartObject : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} is destroyed");
         isOnFire = false;
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 }
