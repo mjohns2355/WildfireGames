@@ -13,7 +13,11 @@ public class HH_CameraController : MonoBehaviour
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
     private bool isZooming = false;
-    [SerializeField] private Transform originalPosition;
+    private Vector3 originalPosition;
+    private void Awake()
+    {
+        originalPosition = transform.position;
+    }
     private void Start()
     {
         
@@ -50,7 +54,7 @@ public class HH_CameraController : MonoBehaviour
     public void ResetCamera()
     {
         Debug.Log("Reset Camera");
-        transform.position = originalPosition.position;
+        transform.position = originalPosition;
         
     }
 }
