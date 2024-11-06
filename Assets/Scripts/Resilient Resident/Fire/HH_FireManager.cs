@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-
+using UnityEngine.Events;
 namespace HappyHouse.FireSystem
 {
     public class FireManager : MonoBehaviour
@@ -14,6 +15,8 @@ namespace HappyHouse.FireSystem
         public float fireTimer = 100f;
         public List<FireController> spawnedFires = new List<FireController>();
         public float defaultFireLife = 10f;
+        public UnityEvent fireEndEvent;
+        FireController mainFire;
         private void Start()
         {
            
@@ -21,33 +24,35 @@ namespace HappyHouse.FireSystem
 
         private void Update()
         {
-            //while (startFire)
-            //{
-            //    if(fireTimer > 0)
-            //    {
-            //        fireTimer -= Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        startFire = false;
-            //    }
-            //}
+
+            if(!startFire) return;
+            if (fireTimer > 0)
+            {
+                fireTimer -= Time.deltaTime;
+            }
+            else
+            {
+                startFire = false;
+                Destroy(mainFire.gameObject);
+                fireEndEvent.Invoke();
+            }
         }
         void StartFire()
         {
             if (startFire) return;
             startFire = true;
-            SpawnFire(fireSpawnPoint, 3);
+            mainFire = SpawnFire(fireSpawnPoint, 3);
 
         }
 
 
-        public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)
+        public FireController SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)
         {
             var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
             fire.transform.localScale *= scaleMultiplier;
             var fireLife =  life == 0? defaultFireLife : life;
             fire.GetComponent<FireController>().InitFire(onCombustible, 5, fireLife);
+            return fire.GetComponent<FireController>();
         }
 
         // test only function

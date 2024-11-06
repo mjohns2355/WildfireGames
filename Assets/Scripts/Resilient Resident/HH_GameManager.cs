@@ -16,18 +16,24 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
 
+    public override void Awake()
+    {
+        shouldNotDestroyOnLoad = false;
+        base.Awake();
+    }
     private void Start()
     {
-        
+        fireManager.fireEndEvent.AddListener(() =>
+        {
+            ToggleHousesClickBox(true);
+        });
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManager.LoadScene("HappyHouseScene");
-        }
+
     }
+
     public void SwitchPlayer (string playerTag)
     {
         currentPlayer.OnHouseDeselected();
@@ -78,8 +84,20 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
+        ToggleHousesClickBox(false);
         uiManager.OnRoundEnd();
         startFireBtn.gameObject.SetActive(true);
         endRoundBtn.gameObject.SetActive(false);
+    }
+
+    public void ToggleHousesClickBox(bool toggle)
+    {
+        p1.ToggleClickBox(toggle);
+        p2.ToggleClickBox(toggle);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("HappyHouseScene");
     }
 }

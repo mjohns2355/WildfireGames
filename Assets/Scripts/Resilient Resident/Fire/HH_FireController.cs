@@ -22,17 +22,17 @@ namespace HappyHouse.FireSystem
         [SerializeField] GameObject particleParent;
         float fireSize = 0;
         [SerializeField] Rigidbody rb;
-        [SerializeField] BoxCollider collider;
+        [SerializeField] SphereCollider collider;
         float fireLife;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
-            collider = GetComponent<BoxCollider>();
+            collider = GetComponent<SphereCollider>();
             scaler = transform.localScale;
            
             if (onCombustible)
             {
-                transform.localScale = new Vector3(0.3f,0.3f,0.3f);
+                transform.localScale = new Vector3(0.5f,0.5f,0.5f);
                 //StartCoroutine(OnDestroyFireRoutine());
             }
 

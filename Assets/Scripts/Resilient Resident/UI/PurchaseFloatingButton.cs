@@ -11,18 +11,16 @@ public class PurchaseFloatingButton : MonoBehaviour
     public Vector3 offset; 
 
     private Camera mainCamera;
-    private Button button;
+    [SerializeField]private Button button;
     [SerializeField]private bool isSelected = false;
 
     void Start()
     {
         mainCamera = Camera.main;
-        button = GetComponent<Button>();
         button.onClick.AddListener(
 
             () =>
             {
-                
                 if (isSelected)
                 {
                     HH_GameManager.Instance.uiManager.HideStoreScreen();

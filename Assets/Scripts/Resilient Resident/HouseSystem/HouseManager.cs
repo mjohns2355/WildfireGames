@@ -16,20 +16,26 @@ namespace HappyHouse.HouseSystem
         public float scaleMultiplier;
         public GameObject craftIcon;
         public GameObject arrowUI;
-
-        private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();   
+        private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
+        [SerializeField] BoxCollider clickBox;
+      
         private void Start()
         {
             houseGraph = new HouseGraph();
             InitializeDefaultHouseLayout();
-
+            
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 
+        public void ToggleClickBox(bool toggle)
+        {
+            clickBox.enabled = toggle;
+        }
         public void OnHouseSelected(HouseManager manager)
         {
             if (manager != this) return;
             HH_GameManager.Instance.StartRound(manager);
+            ToggleClickBox(false);
             arrowUI.SetActive(true);
             UpdateHouseUI();
         }
@@ -41,7 +47,7 @@ namespace HappyHouse.HouseSystem
             {
                 Destroy(icon.gameObject);
             }
-            
+            ToggleClickBox(true);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
         }
