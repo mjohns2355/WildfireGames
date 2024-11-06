@@ -5,6 +5,7 @@ using HappyHouse.HouseSystem;
 using HappyHouse.FireSystem;
 using UnityEngine.EventSystems;
 using System;
+using Unity.Mathematics;
 
 
 public class BaseHousePartObject : MonoBehaviour
@@ -25,10 +26,12 @@ public class BaseHousePartObject : MonoBehaviour
     public float baseBurnTime = 10f;
     private float burnTimer;
     private Rigidbody rb;
+    [SerializeField]private MeshCollider meshCollider;
     private void Start()
     {
         //InitHousePartObject();
         rb = GetComponent<Rigidbody>();
+        CheckNeighbours();
         //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
     }
 
@@ -46,6 +49,7 @@ public class BaseHousePartObject : MonoBehaviour
         //houseNode = new HouseNode(this);
         var mesh = Instantiate(housePart.mesh, transform);
         meshRenderer = mesh.GetComponent<MeshRenderer>();
+        meshCollider = mesh.GetComponent<MeshCollider>();
         HousePartType = housePart.housePartType;
         //gameObject.layer = LayerMask.NameToLayer("Structure");
         durability = housePart.durability;
@@ -54,6 +58,7 @@ public class BaseHousePartObject : MonoBehaviour
         this.owner = owner;
         //houseNode = new HouseNode(this);
         ReplaceMeshMaterial(housePart.material);
+        CheckNeighbours();
         //Debug.Log($"Part: {houseNode.housePart.name}");
     }
 
@@ -62,6 +67,38 @@ public class BaseHousePartObject : MonoBehaviour
         meshRenderer.material = material;
     }
 
+    void CheckNeighbours()
+    {
+        Vector3 center = meshCollider.bounds.center;
+        Vector3 halfExtents = meshCollider.bounds.extents;
+        LayerMask layerMask = LayerMask.GetMask("Structure");
+        if(halfExtents.magnitude < 2)
+        {
+            halfExtents = new Vector3(2, 2, 2);
+        }
+        Debug.Log($"{gameObject.name}'s extent size: {halfExtents.magnitude}");
+        Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
+        Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
+
+        foreach (Collider c in colliders)
+        {
+            if (c != meshCollider)
+            {
+                Debug.Log($"Overlapping object: {c.gameObject.name}");
+            }
+                
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (meshCollider != null)
+        {
+            Gizmos.color = Color.cyan;
+            //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
+            Gizmos.DrawWireCube(meshCollider.bounds.center, meshCollider.bounds.size);
+        }
+    }
     //public void ReplaceHousePartObject(BaseHousePartObject newPart)
     //{
     //    // TO DO: Improve this later
