@@ -28,7 +28,7 @@ namespace HappyHouse.HouseSystem
 
         public bool PlayerOwnsPart(HousePartInfo part)
         {
-            Debug.Log($"Check {part.partID}");
+            //Debug.Log($"Check {part.partID}");
             if (ownedParts.ContainsKey(part.housePartType))
             {
                 var value = ownedParts[part.housePartType];

@@ -6,6 +6,7 @@ using HappyHouse.FireSystem;
 using UnityEngine.EventSystems;
 using System;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 
 
 public class BaseHousePartObject : MonoBehaviour
@@ -19,6 +20,7 @@ public class BaseHousePartObject : MonoBehaviour
     public float durability;
     public float flammability;
     public bool isOnFire = false;
+    public PurchaseFloatingButton bubble;
     //public float burnDuration = 100f;
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;

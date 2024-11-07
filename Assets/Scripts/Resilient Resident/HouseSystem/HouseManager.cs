@@ -219,16 +219,31 @@ namespace HappyHouse.HouseSystem
             return res;
         }
 
-        
+
         void UpdateHouseUI()
         {
-            foreach(var node in houseGraph.nodes)
+            // Use a HashSet to track unique part types that already have a bubble
+            HashSet<HousePartType> displayedPartTypes = new HashSet<HousePartType>();
+
+            foreach (var node in houseGraph.nodes)
             {
+                HousePartType partType = node.housePart.HousePartType;
+
+
+                if (displayedPartTypes.Contains(partType))
+                {
+
+                    continue;
+                }
+
+                displayedPartTypes.Add(partType);
+
                 var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
                 purchaseFloatingButtons.Add(icon);
-                icon.owner = node.housePart;
+                //icon.owner = node.housePart; 
+                icon.InitBubble(node.housePart);
+                node.housePart.bubble = icon;
             }
-
         }
     }
 }

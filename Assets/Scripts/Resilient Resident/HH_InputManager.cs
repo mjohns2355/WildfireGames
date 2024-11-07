@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HappyHouse.HouseSystem;
+using UnityEngine.Events;
 public class HH_InputManager : MonoBehaviour
 {
-    public Action OnHousePartSelected;
+    public UnityEvent <BaseHousePartObject> OnHousePartSelected;
     public Action<HouseManager> OnHouseSelected;
     public bool canClickHouse = true;
     // Start is called before the first frame update
@@ -37,9 +38,13 @@ public class HH_InputManager : MonoBehaviour
 
                 if(hit.collider.gameObject.layer == 10)
                 {
-                   
-                    OnHousePartSelected?.Invoke();
+                    PurchaseFloatingButton bubble = hit.collider.GetComponentInParent<BaseHousePartObject>().bubble;
+                    if (bubble != null)
+                    {
+                        bubble.OnBubbleClicked();
+                    }
                 }
+
             }
         }
 
