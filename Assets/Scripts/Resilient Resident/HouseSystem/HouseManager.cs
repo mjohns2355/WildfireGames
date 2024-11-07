@@ -9,7 +9,8 @@ namespace HappyHouse.HouseSystem
     public class HouseManager : MonoBehaviour
     {
         public bool isTestHouse;
-        public HouseBlueprint houseBlueprint;
+        //public HouseBlueprint houseBlueprint;
+        public Vector3 camPos;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
         public float budget;
@@ -54,10 +55,10 @@ namespace HappyHouse.HouseSystem
                     }
                 }
             }
-            else
-            {
-                InitializeDefaultHouseLayout();
-            }
+            //else
+            //{
+            //    InitializeDefaultHouseLayout();
+            //}
             
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
@@ -85,38 +86,39 @@ namespace HappyHouse.HouseSystem
             ToggleClickBox(true);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
+            
         }
-        void InitializeDefaultHouseLayout()
-        {
-            Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
-            foreach (var part in houseBlueprint.partConnections)
-            {
-                var newPartInfo = part.partInfo;
-                var houseObj = HH_GameManager.Instance.CreateHousePartObject(newPartInfo,this);
-                houseObj.transform.parent = transform;
-                houseObj.transform.localPosition = part.localPosition + positionOffset;
-                houseObj.transform.localRotation = Quaternion.Euler(part.localRotation);
-                houseObj.transform.localScale = part.localScale * scaleMultiplier;
-                var node = houseGraph.AddHousePart(houseObj);
-                houseObj.houseNode = node;
-                nodeDictionary[part.partID] = node;
-                inventory.AddNewPartToInventory(newPartInfo);
-            }
+        //void InitializeDefaultHouseLayout()
+        //{
+        //    Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
+        //    foreach (var part in houseBlueprint.partConnections)
+        //    {
+        //        var newPartInfo = part.partInfo;
+        //        var houseObj = HH_GameManager.Instance.CreateHousePartObject(newPartInfo,this);
+        //        houseObj.transform.parent = transform;
+        //        houseObj.transform.localPosition = part.localPosition + positionOffset;
+        //        houseObj.transform.localRotation = Quaternion.Euler(part.localRotation);
+        //        houseObj.transform.localScale = part.localScale * scaleMultiplier;
+        //        var node = houseGraph.AddHousePart(houseObj);
+        //        houseObj.houseNode = node;
+        //        nodeDictionary[part.partID] = node;
+        //        inventory.AddNewPartToInventory(newPartInfo);
+        //    }
 
-            foreach (var part in houseBlueprint.partConnections)
-            {
-                if (nodeDictionary.TryGetValue(part.partID, out HouseNode currentNode))
-                {
-                    foreach (var connectedPartId in part.connectedPartsId)
-                    {
-                        if (nodeDictionary.TryGetValue(connectedPartId, out HouseNode connectedNode))
-                        {
-                            houseGraph.ConnectParts(currentNode, connectedNode);
-                        }
-                    }
-                }
-            }
-        }
+        //    foreach (var part in houseBlueprint.partConnections)
+        //    {
+        //        if (nodeDictionary.TryGetValue(part.partID, out HouseNode currentNode))
+        //        {
+        //            foreach (var connectedPartId in part.connectedPartsId)
+        //            {
+        //                if (nodeDictionary.TryGetValue(connectedPartId, out HouseNode connectedNode))
+        //                {
+        //                    houseGraph.ConnectParts(currentNode, connectedNode);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {

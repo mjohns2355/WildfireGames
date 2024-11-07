@@ -32,7 +32,6 @@ namespace HappyHouse.FireSystem
            
             if (onCombustible)
             {
-                transform.localScale = new Vector3(0.5f,0.5f,0.5f);
                 //StartCoroutine(OnDestroyFireRoutine());
             }
 
@@ -71,7 +70,7 @@ namespace HappyHouse.FireSystem
             
             if (hit.layer == LayerMask.NameToLayer("Structure"))
             {
-                // collider is on mesh, need to be replaced later
+               // collider is on mesh
                 if (hit.transform.parent.TryGetComponent(out BaseHousePartObject obj) && obj != null)
                 {
                    

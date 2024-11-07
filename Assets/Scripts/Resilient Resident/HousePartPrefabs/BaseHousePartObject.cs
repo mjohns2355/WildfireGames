@@ -51,7 +51,7 @@ public class BaseHousePartObject : MonoBehaviour
         //var mesh = Instantiate(part.mesh, transform);
         //meshRenderer = mesh.GetComponent<MeshRenderer>();
         //collider = mesh.GetComponent<Collider>();
-        gameObject.layer = LayerMask.NameToLayer("Structure");
+        //gameObject.layer = LayerMask.NameToLayer("Structure");
         var part = housePart == null? partInfo : housePart;
         HousePartType = part.housePartType;
         durability = part.durability;
@@ -86,16 +86,16 @@ public class BaseHousePartObject : MonoBehaviour
         Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
         //Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
 
-        //Debug.Log($"Check {gameObject.name}'s neigbours.");
+        Debug.Log($"Check {gameObject.name}'s neigbours.");
         List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
         foreach (Collider c in colliders)
         {
             if (c != collider)
             {
-                var part = c.gameObject.GetComponent<BaseHousePartObject>();
+                var part = c.GetComponentInParent<BaseHousePartObject>();
                 if (part != null)
                 {
-                    //Debug.Log($"Added Neighbour {part.name}");
+                    Debug.Log($"Added Neighbour {part.name}");
                     neighbours.Add(part);
                 }
                     
@@ -172,10 +172,9 @@ public class BaseHousePartObject : MonoBehaviour
         //    yield break; // Does not catch fire
         //}
 
-
         isOnFire = true;
         burnTimer = durability/ flammability + baseBurnTime;
-        HH_GameManager.Instance.fireManager.SpawnFire(transform, 1, true,burnTimer);
+        HH_GameManager.Instance.fireManager.SpawnFire(transform, 3, true,burnTimer);
         StartCoroutine(SpreadFireToNeighbour());
         StartCoroutine(Burn());
     }

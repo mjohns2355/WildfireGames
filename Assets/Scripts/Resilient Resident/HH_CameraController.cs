@@ -47,7 +47,8 @@ public class HH_CameraController : MonoBehaviour
     private void MoveToHouse(HouseManager targetHouse)
     {
         Debug.Log($"Move to house {targetHouse.playerTag}");
-        targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * zoomDistance;
+        //targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * zoomDistance;
+        targetPosition = targetHouse.camPos;
         isZooming = true;
     }
 
