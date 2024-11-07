@@ -10,7 +10,7 @@ namespace HappyHouse.HouseSystem
     {
         public bool isTestHouse;
         //public HouseBlueprint houseBlueprint;
-        public Vector3 camPos;
+        public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
         public float budget;
@@ -73,7 +73,8 @@ namespace HappyHouse.HouseSystem
             HH_GameManager.Instance.StartRound(manager);
             ToggleClickBox(false);
             arrowUI.SetActive(true);
-            UpdateHouseUI();
+            //UpdateHouseUI();
+            StartCoroutine(UpdateHouseUI());
         }
 
         public void OnHouseDeselected()
@@ -220,31 +221,31 @@ namespace HappyHouse.HouseSystem
         }
 
 
-        void UpdateHouseUI()
+        IEnumerator UpdateHouseUI()
         {
-            // Use a HashSet to track unique part types that already have a bubble
-            HashSet<HousePartType> displayedPartTypes = new HashSet<HousePartType>();
+            yield return new WaitForSeconds(1f);
+            //HashSet<HousePartType> displayedPartTypes = new HashSet<HousePartType>();
 
             foreach (var node in houseGraph.nodes)
             {
-                HousePartType partType = node.housePart.HousePartType;
+                if(!node.housePart.shouldDisplayBubble) continue;
+                //HousePartType partType = node.housePart.HousePartType;
 
+                //if (displayedPartTypes.Contains(partType))
+                //{
+                //    continue;
+                //}
 
-                if (displayedPartTypes.Contains(partType))
-                {
-
-                    continue;
-                }
-
-                displayedPartTypes.Add(partType);
-
+                //displayedPartTypes.Add(partType);
                 var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
                 purchaseFloatingButtons.Add(icon);
-                //icon.owner = node.housePart; 
+
                 icon.InitBubble(node.housePart);
-                node.housePart.bubble = icon;
+                node.housePart.bubble = icon;;
+
             }
         }
+
     }
 }
 

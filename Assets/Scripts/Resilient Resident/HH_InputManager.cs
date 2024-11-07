@@ -36,14 +36,14 @@ public class HH_InputManager : MonoBehaviour
                     OnHouseSelected?.Invoke(house); 
                 }
 
-                if(hit.collider.gameObject.layer == 10)
-                {
-                    PurchaseFloatingButton bubble = hit.collider.GetComponentInParent<BaseHousePartObject>().bubble;
-                    if (bubble != null)
-                    {
-                        bubble.OnBubbleClicked();
-                    }
-                }
+                //if(hit.collider.gameObject.layer == 10)
+                //{
+                //    PurchaseFloatingButton bubble = hit.collider.GetComponentInParent<BaseHousePartObject>().bubble;
+                //    if (bubble != null)
+                //    {
+                //        bubble.OnBubbleClicked();
+                //    }
+                //}
 
             }
         }

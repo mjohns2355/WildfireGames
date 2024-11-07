@@ -21,6 +21,7 @@ public class BaseHousePartObject : MonoBehaviour
     public float flammability;
     public bool isOnFire = false;
     public PurchaseFloatingButton bubble;
+    public bool shouldDisplayBubble = false;
     //public float burnDuration = 100f;
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
