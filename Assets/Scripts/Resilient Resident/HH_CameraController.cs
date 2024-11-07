@@ -14,9 +14,11 @@ public class HH_CameraController : MonoBehaviour
     private Vector3 targetPosition;
     private bool isZooming = false;
     private Vector3 originalPosition;
+    private Quaternion originalRotation;
     private void Awake()
     {
         originalPosition = transform.position;
+        originalRotation = transform.rotation;
     }
     private void Start()
     {
@@ -56,7 +58,7 @@ public class HH_CameraController : MonoBehaviour
     public void ResetCamera()
     {
         Debug.Log("Reset Camera");
-        transform.position = originalPosition;
         
+        transform.SetPositionAndRotation(originalPosition, originalRotation);
     }
 }
