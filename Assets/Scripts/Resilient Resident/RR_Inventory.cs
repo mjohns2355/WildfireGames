@@ -10,6 +10,7 @@ namespace HappyHouse.HouseSystem
 
         public bool AddNewPartToInventory(HousePartInfo newPartInfo)
         {
+            if(newPartInfo == null) return false;
             if (ownedParts.ContainsKey(newPartInfo.housePartType))
             {
                 var value = ownedParts[newPartInfo.housePartType];

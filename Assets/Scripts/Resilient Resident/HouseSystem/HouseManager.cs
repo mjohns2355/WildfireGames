@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
     {
+        public bool isTestHouse;
         public HouseBlueprint houseBlueprint;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
@@ -22,7 +24,40 @@ namespace HappyHouse.HouseSystem
         private void Start()
         {
             houseGraph = new HouseGraph();
-            InitializeDefaultHouseLayout();
+            if (isTestHouse)
+            {
+                Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                    if(part.notInteractable) continue;
+                    part.InitHousePartObject(this);
+                    var node = houseGraph.AddHousePart(part);
+                    part.houseNode = node;
+                    nodeDictionary[part.name] = node;
+                    inventory.AddNewPartToInventory(part.partInfo);
+                }
+
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                    if (part.notInteractable) continue;
+                    if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
+                    {
+                        foreach (var neighbour in part.CheckNeighbours())
+                        {
+                            if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
+                            {
+                                houseGraph.ConnectParts(currentNode, connectedNode);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                InitializeDefaultHouseLayout();
+            }
             
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
@@ -110,7 +145,7 @@ namespace HappyHouse.HouseSystem
         {
             foreach (var node in houseGraph.nodes)
             {
-                if(node.housePart.PartInfo.partID == partInfo.partID)
+                if(node.housePart.partInfo.partID == partInfo.partID)
                 {
                     //Debug.Log($"{partInfo.partID} is in use by {playerTag}");
                     return true;
@@ -126,28 +161,30 @@ namespace HappyHouse.HouseSystem
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
             foreach (var oldPart in oldParts)
             {
-                List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
-                var newPart = HH_GameManager.Instance.CreateHousePartObject(housePartInfo, this);
-                houseGraph.RemoveHousePart(oldPart.houseNode);
-                // swap object position
-                newPart.transform.parent = oldPart.transform.parent;
-                newPart.gameObject.transform.position = oldPart.transform.position;
-                newPart.gameObject.transform.rotation = oldPart.transform.rotation;
-                newPart.gameObject.transform.localScale = oldPart.transform.localScale;
+                //List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
+                //var newPart = HH_GameManager.Instance.CreateHousePartObject(housePartInfo, this);
+                //houseGraph.RemoveHousePart(oldPart.houseNode);
+                //// swap object position
+                //newPart.transform.parent = oldPart.transform.parent;
+                //newPart.gameObject.transform.position = oldPart.transform.position;
+                //newPart.gameObject.transform.rotation = oldPart.transform.rotation;
+                //newPart.gameObject.transform.localScale = oldPart.transform.localScale;
 
 
-                // Initialize the new part's HouseNode and add it to the HouseGraph
-                HouseNode newNode = new HouseNode(newPart);
-                newPart.houseNode = newNode;
-                houseGraph.AddHousePart(newPart);
+                //// Initialize the new part's HouseNode and add it to the HouseGraph
+                //HouseNode newNode = new HouseNode(newPart);
+                //newPart.houseNode = newNode;
+                //houseGraph.AddHousePart(newPart);
 
-                // Reconnect the new node to the neighbors of the old node
-                foreach (var neighbor in neighbors)
-                {
-                    houseGraph.ConnectParts(newNode, neighbor);
-                }
-                //Debug.Log($"Replace {oldPart.name} with {newPart.name}");
-                Destroy(oldPart.gameObject);
+                //// Reconnect the new node to the neighbors of the old node
+                //foreach (var neighbor in neighbors)
+                //{
+                //    houseGraph.ConnectParts(newNode, neighbor);
+                //}
+                ////Debug.Log($"Replace {oldPart.name} with {newPart.name}");
+                //Destroy(oldPart.gameObject);
+                oldPart.partInfo = housePartInfo;
+                oldPart.InitHousePartObject(this);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);

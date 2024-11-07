@@ -12,6 +12,7 @@ public class BaseHousePartObject : MonoBehaviour
 {
     //public HousePart housePart;
     public MeshRenderer meshRenderer;
+    public MeshRenderer[] meshes;
     public HouseNode houseNode;
    /* public*/ HouseManager owner;
     public HousePartType HousePartType { get; private set; }
@@ -22,16 +23,16 @@ public class BaseHousePartObject : MonoBehaviour
     public BurnStage burnStage = BurnStage.Igniting;
     //[SerializeField] Material material;
     public bool isOnCursor = false;
-    public HousePartInfo PartInfo { get; private set; }
+    public HousePartInfo partInfo;
     public float baseBurnTime = 10f;
     private float burnTimer;
     private Rigidbody rb;
-    [SerializeField]private MeshCollider meshCollider;
+    [SerializeField]private Collider collider;
+    public bool notInteractable;
     private void Start()
     {
         //InitHousePartObject();
         rb = GetComponent<Rigidbody>();
-        CheckNeighbours();
         //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
     }
 
@@ -43,60 +44,75 @@ public class BaseHousePartObject : MonoBehaviour
         
 
     }
-    public void InitHousePartObject(HousePartInfo housePart, HouseManager owner)
+    public void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null )
     {
         //houseNode = new HouseNode(housePart);
         //houseNode = new HouseNode(this);
-        var mesh = Instantiate(housePart.mesh, transform);
-        meshRenderer = mesh.GetComponent<MeshRenderer>();
-        meshCollider = mesh.GetComponent<MeshCollider>();
-        HousePartType = housePart.housePartType;
-        //gameObject.layer = LayerMask.NameToLayer("Structure");
-        durability = housePart.durability;
-        flammability = housePart.flammability;
-        PartInfo = housePart;
+        //var mesh = Instantiate(part.mesh, transform);
+        //meshRenderer = mesh.GetComponent<MeshRenderer>();
+        //collider = mesh.GetComponent<Collider>();
+        gameObject.layer = LayerMask.NameToLayer("Structure");
+        var part = housePart == null? partInfo : housePart;
+        HousePartType = part.housePartType;
+        durability = part.durability;
+        flammability = part.flammability;
+        partInfo = part;
         this.owner = owner;
         //houseNode = new HouseNode(this);
-        ReplaceMeshMaterial(housePart.material);
-        CheckNeighbours();
+        ReplaceMeshMaterial(part.material);
+        //CheckNeighbours();
         //Debug.Log($"Part: {houseNode.housePart.name}");
     }
 
     void ReplaceMeshMaterial(Material material)
     {
-        meshRenderer.material = material;
+        foreach(var mesh in meshes)
+        {
+            mesh.material = material;
+        }
+        //meshRenderer.material = material;
     }
 
-    void CheckNeighbours()
+    public List<BaseHousePartObject> CheckNeighbours()
     {
-        Vector3 center = meshCollider.bounds.center;
-        Vector3 halfExtents = meshCollider.bounds.extents;
+        Vector3 center = collider.bounds.center;
+        Vector3 halfExtents = collider.bounds.extents;
         LayerMask layerMask = LayerMask.GetMask("Structure");
         if(halfExtents.magnitude < 2)
         {
             halfExtents = new Vector3(2, 2, 2);
         }
-        Debug.Log($"{gameObject.name}'s extent size: {halfExtents.magnitude}");
+        //Debug.Log($"{gameObject.name}'s extent size: {halfExtents.magnitude}");
         Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
-        Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
+        //Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
 
+        //Debug.Log($"Check {gameObject.name}'s neigbours.");
+        List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
         foreach (Collider c in colliders)
         {
-            if (c != meshCollider)
+            if (c != collider)
             {
-                Debug.Log($"Overlapping object: {c.gameObject.name}");
+                var part = c.gameObject.GetComponent<BaseHousePartObject>();
+                if (part != null)
+                {
+                    //Debug.Log($"Added Neighbour {part.name}");
+                    neighbours.Add(part);
+                }
+                    
             }
                 
         }
+
+        return neighbours;
     }
 
     void OnDrawGizmos()
     {
-        if (meshCollider != null)
+        if (collider != null)
         {
             Gizmos.color = Color.cyan;
             //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
-            Gizmos.DrawWireCube(meshCollider.bounds.center, meshCollider.bounds.size);
+            Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
         }
     }
     //public void ReplaceHousePartObject(BaseHousePartObject newPart)

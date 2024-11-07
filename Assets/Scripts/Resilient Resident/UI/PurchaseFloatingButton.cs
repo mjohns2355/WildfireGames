@@ -28,7 +28,7 @@ public class PurchaseFloatingButton : MonoBehaviour
                 }
                 else
                 {
-                    HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.PartInfo, this);
+                    HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.partInfo, this);
                     
                     SelectButton();
                 }
