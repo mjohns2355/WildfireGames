@@ -52,9 +52,12 @@ public class StructureContextMenu : MonoBehaviour
         //});
         confirm.onClick.AddListener(() =>
         {
-            onOptionSelected.Invoke();
+            if(CurrentOption != null)
+            {
+                onOptionSelected.Invoke();    
+                isSelected = true;
+            }
             GameManager.Instance.cameraMovement.ResetCam();
-            isSelected = true;
             OnMenuDisable();
         });
 

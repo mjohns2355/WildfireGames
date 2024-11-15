@@ -75,25 +75,35 @@ public class ATC_dialogManager : MonoBehaviour
     }
     private void LoadQuotes(string filePath)
     {
-
-        string json = File.ReadAllText(filePath);
-        if (json != null)
+        TextAsset jsonFile = Resources.Load<TextAsset>("AlertTheCity/EndQuotes");
+        //string json = File.ReadAllText(filePath);
+        if (jsonFile == null)
         {
-            endQuoteData = JsonUtility.FromJson<QuoteData>(json);
-            //PrintEndQuoteData();
-            if (endQuoteData == null || endQuoteData.quotes.Count == 0)
-            {
-                Debug.LogError("End quote data is empty or not loaded properly.");
-            }
-            else
-            {
-                Debug.Log("End quotes loaded successfully.");
-            }
+            Debug.LogError("JSON file not found in Resources!");
         }
         else
         {
-            Debug.LogError("EndQuotes.json file not found in Resources folder.");
+            string json = jsonFile.text;
+            Debug.Log($"Loaded JSON: {json}");
+            if (json != null)
+            {
+                endQuoteData = JsonUtility.FromJson<QuoteData>(json);
+                //PrintEndQuoteData();
+                if (endQuoteData == null || endQuoteData.quotes.Count == 0)
+                {
+                    Debug.LogError("End quote data is empty or not loaded properly.");
+                }
+                else
+                {
+                    Debug.Log("End quotes loaded successfully.");
+                }
+            }
+            else
+            {
+                Debug.LogError("EndQuotes.json file not found in Resources folder.");
+            }
         }
+        
     }
     
     public string GetEndQuote(string houseType, string choice, string response)
@@ -141,7 +151,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (stage)
         {
             case LevelStage.AfterFirstSim:
-                dialogData[stage].messages[0] = result + " Can you do better?";
+                dialogData[stage].messages[0] = result + " Can you do better?[Click to Proceed]";
                 break;
             //case LevelStage.Win:
             //    dialogData[stage].messages[0] = result;
@@ -182,7 +192,7 @@ public class ATC_dialogManager : MonoBehaviour
             //}
 
             dialogText.text = currentDialog.messages[dialogIndex];
-            Debug.Log($"Current Message: {currentDialog.messages[dialogIndex]}");
+            //Debug.Log($"Current Message: {currentDialog.messages[dialogIndex]}");
             //Debug.Log(dialogText.text);
             //if (currentDialog.images != null && dialogIndex < currentDialog.images.Length)
             //{
@@ -234,7 +244,7 @@ public class ATC_dialogManager : MonoBehaviour
             var type = availableHouseTypes[i];
             var choice = dict[type].choiceName;
             var response = GameManager.Instance.houseResponses[type.ToString()];
-            quote += $"\"{GetEndQuote(type.ToString(), choice, response)}\"– WUI citizen\n ";
+            quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
             if (dict[type].isNormal) continue;
             validCount++;
             // Add and before the last choice

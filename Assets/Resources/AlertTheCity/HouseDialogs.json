@@ -8,7 +8,7 @@
           "id": "1",
           "characterName": "Owner of 2 Cars",
           "dialogText": "Hi there! I heard you're asking folks about wildfire safety. We've been thinking about it a lot lately, especially since we've got two cars and both of us have work commitments. It's hard to know the best plan.",
-          "portraitPath": "AlertTheCity/Portraits/man 1.png",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
               "optionText": "It sounds like having two cars could give you more options. How do you plan to use them if a fire comes close?",
@@ -24,7 +24,7 @@
           "id": "2",
           "characterName": "Owner of 2 Cars",
           "dialogText": "That's what we were thinking too. With two cars, we could leave separately if needed, or fit more stuff in each one. But we worry about traffic—if we both drive out, what if one of us gets stuck?",
-          "portraitPath": "AlertTheCity/Portraits/man 1.png",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
               "option": "Take both Cars",
@@ -42,7 +42,7 @@
           "id": "3",
           "characterName": "Owner of 2 Cars",
           "dialogText": "Hmm, yeah, we've been going back and forth on that. One car could simplify things, but what if we need the second car for flexibility? Plus, we'd hate to leave one behind—it's a big part of our daily routine.",
-          "portraitPath": "AlertTheCity/Portraits/man 1.png",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
               "option": "Leave one Car",
@@ -60,7 +60,7 @@
           "id": "4",
           "characterName": "Owner of 2 Cars",
           "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my family.[Click to Proceed]",
-          "portraitPath": "AlertTheCity/Portraits/man 1.png",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "isEndNode": "true"
         }
       ]
@@ -73,7 +73,7 @@
           "id": "10",
           "characterName": "Worried Parents",
           "dialogText": "Hey! Thanks for coming by. We've got two young kids, and wildfire season's been worrying us. Their school is nearby, and we're wondering what to do if a fire comes while they're at school.",
-          "portraitPath": "AlertTheCity/Portraits",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "options": [
             {
               "optionText": "Have you spoken to the school about their wildfire evacuation plans?",
@@ -89,7 +89,7 @@
           "id": "11",
           "characterName": "Worried Parents",
           "dialogText": "Yeah, they do have a plan, but I still feel uneasy. I mean, I'd feel better if we were all together. The thought of being apart from them during an evacuation is terrifying.",
-          "portraitPath": "AlertTheCity/Portraits",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "options": [
             {
               "option": "Safer at school",
@@ -107,7 +107,7 @@
           "id": "12",
           "characterName": "Worried Parents",
           "dialogText": "That's what I've heard too, but as a parent, it's tough to just leave them there. I want to get them as soon as possible, but I know the roads could be jammed.",
-          "portraitPath": "AlertTheCity/Portraits",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "options": [
             {
               "option": "Wait for notice",
@@ -125,7 +125,7 @@
           "id": "13",
           "characterName": "Worried Parents",
           "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my family.[Click to Proceed]",
-          "portraitPath": "AlertTheCity/Portraits",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "isEndNode": "true"
         }
       ]
@@ -136,9 +136,9 @@
       "nodes": [
         {
           "id": "20",
-          "characterName": "Resident",
+          "characterName": "WUI Resident",
           "dialogText": "Hi, thanks for stopping by. Living here in the wildland-urban interface keeps me on edge, especially during fire season. We're doing what we can, but it's hard to know what will actually help. Should we focus more on hardening the house, or is early evacuation really the safest bet?",
-          "portraitPath": "Portraits/WUIResident",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
               "optionText": "Home-hardening is important, especially in high-risk areas like this. Have you taken any steps already?",
@@ -152,9 +152,9 @@
         },
         {
           "id": "21",
-          "characterName": "Resident",
+          "characterName": "WUI Resident",
           "dialogText": "Yes, we've tried to make some improvements—clearing brush, adding fire-resistant vents. But I worry it's not enough. There's so much ground to cover here, and it's costly.",
-          "portraitPath": "Portraits/WUIResident",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
               "option": "Home Hardening",
@@ -170,9 +170,9 @@
         },
         {
           "id": "22",
-          "characterName": "Resident",
+          "characterName": "WUI Resident",
           "dialogText": "Leaving early does seem safer. But it's tricky—I want to protect our home, and it's hard to just leave. We've put so much into this place, and it's hard to think about leaving it all behind.",
-          "portraitPath": "Portraits/WUIResident",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
               "option": "Evacuate Early",
@@ -188,9 +188,9 @@
         },
         {
           "id": "23",
-          "characterName": "Resident",
+          "characterName": "WUI Resident",
           "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my family.[Click to Proceed]",
-          "portraitPath": "Portraits/WUIResident",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "isEndNode": "true"
         }
       ]

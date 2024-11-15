@@ -282,6 +282,7 @@ public class GameManager : UnitySingleton<GameManager>
         CurrentLevel = 0;
         currentStage = LevelStage.BeforeFirstSim;
         Time.timeScale = GameSpeed = 2f;
+        ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
     }
 

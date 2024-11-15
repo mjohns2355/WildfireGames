@@ -97,20 +97,18 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         statsPanel.ShowResultText();
         dialogManager.GenerateResult();
-        dialogManager.ShowLocalNews();
+        
         if (GameManager.Instance.currentStage == LevelStage.AfterFirstSim)
         {
-            StartCoroutine(ShowDialogWithDelay(20f));
+            ShowDialog();
         }
-        
+        else
+        {
+            dialogManager.ShowLocalNews();
+        }
         //ShowDialog();
     }
 
-    IEnumerator ShowDialogWithDelay (float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        ShowDialog();
-    }
     void PrintStack()
     {
         Debug.Log("---- START ----");

@@ -27,21 +27,26 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     public void LoadDialogTrees(string jsonFilePath)
     {
-        if (!File.Exists(jsonFilePath))
+        TextAsset jsonFile = Resources.Load<TextAsset>("AlertTheCity/HouseDialogs");
+        if (jsonFile == null)
         {
-            Debug.LogError($"JSON file not found at path: {jsonFilePath}");
-            return;
+            Debug.LogError("JSON file not found in Resources!");
         }
-        string json = File.ReadAllText(jsonFilePath);
-        DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
+        else
+        {
+            string json = jsonFile.text;
+            Debug.Log($"Loaded JSON: {json}");
+            DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
 
-        dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
-        foreach(var dialogTree in collection.dialogTrees)
-        {
-            dialogTreeMap[dialogTree.houseType] = dialogTree;
-            Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
+            dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
+            foreach (var dialogTree in collection.dialogTrees)
+            {
+                dialogTreeMap[dialogTree.houseType] = dialogTree;
+                Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
+            }
+            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
-        Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+
     }
     public void StartDialog(string key)
     {
@@ -62,10 +67,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         characterNameText.text = currentNode.characterName;
         dialogText.text = currentNode.dialogText;
-        if(!string.IsNullOrEmpty(currentNode.protraitPath))
+        if(!string.IsNullOrEmpty(currentNode.portraitPath))
         {
-            Sprite portrait = Resources.Load<Sprite>(currentNode.protraitPath);
+            //Debug.Log($"Portrait Path: {currentNode.portraitPath}");
+            Sprite portrait = Resources.Load<Sprite>(currentNode.portraitPath);
+            characterPortrait.gameObject.SetActive(true);
             characterPortrait.sprite = portrait;
+            
         }
 
         // Click to end dialog
@@ -131,6 +139,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         Debug.Log("House dialog completed");
         //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
+        characterPortrait.gameObject.SetActive(false);
         if (Enum.TryParse(key, out HouseType houseType))
         {
             ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();

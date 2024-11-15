@@ -20,7 +20,7 @@ public class DialogNode
     public string id;
     public string dialogText;
     public string characterName;
-    public string protraitPath;
+    public string portraitPath;
     //public string[] messages;
     public DialogOption[] options;
     public bool isEndNode;
