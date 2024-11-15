@@ -65,6 +65,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         uiManager.ToggleInventory(true);
         endRoundBtn.gameObject.SetActive(true);
         startFireBtn.gameObject.SetActive(false);
+        uiManager.startText.SetActive(false) ;
     }
     public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     {

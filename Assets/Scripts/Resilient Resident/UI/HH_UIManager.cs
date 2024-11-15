@@ -13,6 +13,7 @@ public class HH_UIManager : MonoBehaviour
     public Button leftArrow, rightArrow;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
+    public GameObject startText;
     // Start is called before the first frame update
     void Start()
     {
