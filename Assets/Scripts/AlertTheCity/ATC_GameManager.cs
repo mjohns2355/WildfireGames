@@ -32,12 +32,11 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_DialogTree[] houseDialogs;
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
-
+    public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
     public override void Awake()
     {
         base.Awake();
-        //currentStage = LevelStage.BeforeFirstSim;
-        currentStage = LevelStage.PhaseOne;
+        currentStage = LevelStage.BeforeFirstSim;
     }
     private void Start()
     {
@@ -47,7 +46,6 @@ public class GameManager : UnitySingleton<GameManager>
         SimTimer = 0f;
         Time.timeScale = GameSpeed = 2f;
         CurrentLevel = 0;
-        houseDialogs = Resources.LoadAll<ATC_DialogTree>("AlertTheCity/HouseDialogs");
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -82,6 +80,11 @@ public class GameManager : UnitySingleton<GameManager>
     //   // roadManager.PlaceRoad(position);
     //}
 
+    public void SkipSimulationRec()
+    {
+        currentStage = LevelStage.PhaseOne;
+        ResetGame();
+    }
     private void Update()
     {
         //debug
@@ -107,22 +110,35 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else if (!SimIsEnd)
         {
- 
-            if (!IsFirstSim)
-            {
-                //check win/lose
-                currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
-            }
-            else
+
+            //if (!IsFirstSim)
+            //{
+            //    //check win/lose
+            //    currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
+            //}
+            //else
+            //{
+            if (IsFirstSim)
             {
                 currentStage = LevelStage.AfterFirstSim;
             }
+                
+            //}
             SimIsEnd = true;
             OnSimEnd();
             SimEndsEvent.Invoke();
         }
     }
 
+    public void UpdateHouseResponse(string houseType, string response)
+    {
+        if (houseResponses.ContainsKey(houseType))
+        {
+            houseResponses[houseType] = response;
+            return;
+        }
+        houseResponses.Add(houseType, response);
+    }
     void OnSimEnd()
     {
         var remainingCars = GameObject.FindGameObjectsWithTag("Car");
@@ -213,9 +229,6 @@ public class GameManager : UnitySingleton<GameManager>
         {
             menu.ApplyBehavior();
         }
-
-        
-
         //debug
         yield return new WaitForSeconds(10f);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
@@ -305,6 +318,8 @@ public class GameManager : UnitySingleton<GameManager>
         {
             availableHouseTypes.Add(HouseType.twoCar);
             availableHouseTypes.Add(HouseType.wui);
+            // test version
+            availableHouseTypes.Add(HouseType.kids);
         }
         else
         {
@@ -314,5 +329,20 @@ public class GameManager : UnitySingleton<GameManager>
                 availableHouseTypes.Add(houseType);
             }
         }
+    }
+
+    public int CountFollowedInstructions()
+    {
+        int count = 0;
+       
+        foreach (var response in houseResponses.Values)
+        {
+            if (response == "Followed")
+            {
+                count++;
+            }
+        }
+        Debug.Log($"Response Dict Count: {houseResponses.Values.Count} and Followed Count: {count}");
+        return count;
     }
 }

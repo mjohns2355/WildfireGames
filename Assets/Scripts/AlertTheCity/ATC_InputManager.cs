@@ -91,7 +91,7 @@ public class ATC_InputManager : MonoBehaviour
         else if (Input.GetMouseButton(0) && isDragging)
         {
             Vector3 touchDelta = Input.mousePosition - lastTouchPosition;
-            cameraMovementVector = new Vector3(-touchDelta.x , -touchDelta.y, 0);
+            cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.deltaTime * 5f;
             lastTouchPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -114,7 +114,7 @@ public class ATC_InputManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Moved && isDragging)
             {
                 Vector3 touchDelta = (Vector3)touch.position - lastTouchPosition;
-                cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0);
+                cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.deltaTime *5f;
                 lastTouchPosition = touch.position;
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)

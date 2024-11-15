@@ -33,6 +33,7 @@ public class StructureContextMenu : MonoBehaviour
     OptionButton previousOption = null;
     public bool allowMultipleChoices;
     public List<OptionButton> selectedOptions = new List<OptionButton>();
+    public bool isSelected = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -43,6 +44,8 @@ public class StructureContextMenu : MonoBehaviour
     {
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
+
+        
         //changeResponseButton.button.onClick.AddListener(() =>
         //{
         //    ToggleChangeResponsePanel(false);
@@ -50,12 +53,15 @@ public class StructureContextMenu : MonoBehaviour
         confirm.onClick.AddListener(() =>
         {
             onOptionSelected.Invoke();
+            GameManager.Instance.cameraMovement.ResetCam();
+            isSelected = true;
             OnMenuDisable();
         });
 
         cancel.onClick.AddListener(() =>
         {
             ClearChoice();
+            GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
 
         });
@@ -63,8 +69,15 @@ public class StructureContextMenu : MonoBehaviour
         icon.AddOnClickActions(() =>
         {
             GameManager.Instance.cameraMovement.MoveToHouse(owner.camFocusPos);
+            if (isSelected)
+            {
+                OnMenuEnable();
+                return;
+            }
             ATC_UIController.Instance.ShowDialog();
-            ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
+            //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
+            GameManager.Instance.currentStage = LevelStage.HouseDialog;
+            ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
         });
     }
 
@@ -75,6 +88,7 @@ public class StructureContextMenu : MonoBehaviour
         HouseStructure house = (HouseStructure)owner;
 
         if (!house.isMainHouse) return;
+        allowMultipleChoices = house.houseInfo.allowMultipleChoices;
         house.OnStructureClick();
         ATC_UIController.Instance.PushPanel(menuUI);
         icon.gameObject.SetActive(false);
@@ -92,6 +106,7 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnMenuDisable()
     {
+        
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             //menu.menuUI.SetActive(false);
@@ -155,6 +170,7 @@ public class StructureContextMenu : MonoBehaviour
             var choice = entry.Value.choice;
             SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
         }
+        
         //foreach(var choice in houseInfo.lockedChoices)
         //{
         //    var isLocked = choice.isLocked;
@@ -174,15 +190,22 @@ public class StructureContextMenu : MonoBehaviour
         //    optionButton.isLocked = true;
 
         //}
-
-        if (!allowMultipleChoices && CurrentOption != null && text == CurrentOption.GetOptionContent())
+        if(!isSelected) return;
+        HouseStructure house = (HouseStructure)owner;
+        var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.HouseType];
+        if(selectedChoice.choiceName == text)
         {
             optionButton.ToggleOptionSelectState(true);
         }
-        else if (allowMultipleChoices && selectedOptions.Contains(optionButton))
-        {
-            optionButton.ToggleOptionSelectState(true);
-        }
+        //if (!allowMultipleChoices && CurrentOption != null && text == CurrentOption.GetOptionContent())
+        //{
+        //    Debug.Log($"Selected Option: {CurrentOption.GetOptionContent()}");
+        //    optionButton.ToggleOptionSelectState(true);
+        //}
+        //else if (allowMultipleChoices && selectedOptions.Contains(optionButton))
+        //{
+        //    optionButton.ToggleOptionSelectState(true);
+        //}
         //if (CurrentOption == null) return;
         //if (previousOption.GetOptionContent() == "Home Hardening" && text == "Home Hardening")
         //{

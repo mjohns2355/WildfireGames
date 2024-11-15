@@ -39,7 +39,7 @@ public class HouseIcon : MonoBehaviour
             }
         }
 
-        houseDialog = GameManager.Instance.houseDialogs[0];
+        //houseDialog = GameManager.Instance.houseDialogs[0];
         ToggleIconState(true);
     }
 

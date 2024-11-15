@@ -2,55 +2,118 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 using TMPro;
+using System;
 public class ATC_HouseDialogManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI dialogText;
+    [SerializeField] private TextMeshProUGUI characterNameText;
+    [SerializeField] private Image characterPortrait;
     [SerializeField] private Button[] optionButtons; // Buttons for responses
-    [SerializeField] private Button nextButton;
+    private Dictionary<string, ATC_DialogTree> dialogTreeMap;
     [SerializeField] private ATC_DialogTree currentDialogTree;
     [SerializeField] private DialogNode currentNode;
     [SerializeField] private int paragraphIndex;
-    [SerializeField] private HouseType houseType;
+    [SerializeField] private string key;
+    [SerializeField] private Button nextButton;
+    [SerializeField] GameObject nameTag;
+    private bool isWaitingForPlayer = true;
 
-    public void StartHouseDialog(HouseType type, ATC_DialogTree dialogTree)
+    private void Start()
     {
-        GameManager.Instance.currentStage = LevelStage.HouseDialog;
-        currentDialogTree = dialogTree;
-        currentNode = currentDialogTree.rootNode;
-        paragraphIndex = 0;
-        houseType = type;
-        DisplayCurrentParagraph();
+        LoadDialogTrees("Assets/Resources/AlertTheCity/HouseDialogs.json");
+        
     }
-
-    private void DisplayCurrentParagraph()
+    public void LoadDialogTrees(string jsonFilePath)
     {
-        if (paragraphIndex < currentNode.messages.Length)
+        if (!File.Exists(jsonFilePath))
         {
-            dialogText.text = currentNode.messages[paragraphIndex];
-            paragraphIndex++;
-            //nextButton.gameObject.SetActive(paragraphIndex < currentNode.messages.Length);
-            nextButton.onClick.AddListener(DisplayCurrentParagraph); // Assign the next action
+            Debug.LogError($"JSON file not found at path: {jsonFilePath}");
+            return;
+        }
+        string json = File.ReadAllText(jsonFilePath);
+        DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
+
+        dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
+        foreach(var dialogTree in collection.dialogTrees)
+        {
+            dialogTreeMap[dialogTree.houseType] = dialogTree;
+            Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
+        }
+        Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+    }
+    public void StartDialog(string key)
+    {
+        this.key = key;
+        //nextButton.onClick.RemoveAllListeners();
+        if (dialogTreeMap.TryGetValue(key, out currentDialogTree))
+        {
+            currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
+            DisplayCurrentNode();
         }
         else
         {
-            //nextButton.gameObject.SetActive(false);
-            SetupOptions(currentNode.options);
+            Debug.LogError($"Dialog tree for '{key}' not found.");
         }
     }
 
-    private void SetupOptions(DialogOption[] options)
+    private void DisplayCurrentNode()
     {
-        Debug.Log("Show Options");
+        characterNameText.text = currentNode.characterName;
+        dialogText.text = currentNode.dialogText;
+        if(!string.IsNullOrEmpty(currentNode.protraitPath))
+        {
+            Sprite portrait = Resources.Load<Sprite>(currentNode.protraitPath);
+            characterPortrait.sprite = portrait;
+        }
+
+        // Click to end dialog
+        if (currentNode.isEndNode)
+        {
+            nextButton.onClick.AddListener(() =>
+            {
+                isWaitingForPlayer = false;
+            });
+            StartCoroutine(EndDialogWithDelay());
+            return;
+        }
+        ShowOptions();
+    }
+    private void OnOptionSelected(int optionIndex)
+    {
+        string nextNodeId = currentNode.options[optionIndex].nextNodeId;
+        // Find the next node
+        currentNode = currentDialogTree.GetNodeById(nextNodeId);
+        DisplayCurrentNode();
+        HideOptions();
+    }
+
+    private void ShowOptions()
+    {    
+        StartCoroutine(ShowOptionsWithDelay(3.0f)); 
+    }
+    private void HideOptions()
+    {
+        foreach (var button in optionButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+    }
+    private IEnumerator ShowOptionsWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            if (i < options.Length)
+            if (i < currentNode.options.Length)
             {
                 optionButtons[i].gameObject.SetActive(true);
-                optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = options[i].optionText;
+                optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentNode.options[i].optionText;
+
                 int optionIndex = i;
                 optionButtons[i].onClick.RemoveAllListeners();
-                optionButtons[i].onClick.AddListener(() => OnOptionSelected(options[optionIndex]));
+                optionButtons[i].onClick.AddListener(() => OnOptionSelected(optionIndex));
             }
             else
             {
@@ -58,33 +121,20 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
         }
     }
-
-    private void OnOptionSelected(DialogOption selectedOption)
+    IEnumerator EndDialogWithDelay()
     {
-        foreach (var button in optionButtons)
-        {
-            button.onClick.RemoveAllListeners();
-            button.gameObject.SetActive(false);
-        }
-        nextButton.onClick.RemoveAllListeners();
-
-        if (selectedOption.isEndNode)
-        {
-            EndDialog();
-        }
-        else
-        {
-            currentNode = selectedOption.nextNode;
-            paragraphIndex = 0; // Reset for the next node
-            DisplayCurrentParagraph();
-        }
+        yield return new WaitUntil(() => !isWaitingForPlayer);
+        EndDialog();
     }
-
     private void EndDialog()
     {
         Debug.Log("House dialog completed");
-        ATC_UIController.Instance.PopPanel();
-        ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
-        // Optionally signal to ATC_dialogManager that the house dialog is complete
+        //ATC_UIController.Instance.PopPanel();
+        ATC_UIController.Instance.HideDialog();
+        if (Enum.TryParse(key, out HouseType houseType))
+        {
+            ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
+        }
+        nextButton.onClick.RemoveAllListeners();
     }
 }

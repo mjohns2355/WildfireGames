@@ -20,9 +20,12 @@ public class CameraMovement : MonoBehaviour
     private bool isFocusing = false;
     float FOV;
     Vector3 camPos;
-    public Transform camStartPos;
+    private Vector3 camStartPos;
+    private Quaternion camStartRotation;
     private void Start()
     {
+        camStartPos = transform.position;
+        camStartRotation = transform.rotation;
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
@@ -88,7 +91,7 @@ public class CameraMovement : MonoBehaviour
 
         float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-        FOV -= deltaMagnitudeDiff * 0.1f;
+        FOV -= deltaMagnitudeDiff * Time.deltaTime;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
         gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
     }
@@ -103,6 +106,7 @@ public class CameraMovement : MonoBehaviour
 
     public void ResetCam()
     {
-        gameCamera.transform.position = camStartPos.position;
+        transform.SetPositionAndRotation(camStartPos, camStartRotation);
+        GameManager.Instance.canControlCam = true;
     }
 }
