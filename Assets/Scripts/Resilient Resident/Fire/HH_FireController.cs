@@ -17,6 +17,7 @@ namespace HappyHouse.FireSystem
         public float fireGrowthSpeed = 0.2f;
         public float speed;
         public Vector3 windDirection;
+        [SerializeField] GameObject fireSFX;
         [SerializeField] float maxSize;
         [SerializeField] float minSize;
         [SerializeField] GameObject particleParent;
@@ -24,6 +25,7 @@ namespace HappyHouse.FireSystem
         [SerializeField] Rigidbody rb;
         [SerializeField] SphereCollider collider;
         float fireLife;
+        GameObject SFX;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -58,7 +60,10 @@ namespace HappyHouse.FireSystem
             onCombustible = isOnCombustible;
             this.speed = speed;
             fireLife = life;
-
+            if (!onCombustible)
+            {
+                SFX = Instantiate(fireSFX, transform);
+            }
            
         }
 
