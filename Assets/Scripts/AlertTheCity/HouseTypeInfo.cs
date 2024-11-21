@@ -23,6 +23,7 @@ public class HouseTypeInfo : ScriptableObject
     public int kidNumber = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public HouseChoice defaultChoice;
+    public bool allowMultipleChoices;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 

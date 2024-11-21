@@ -29,8 +29,12 @@ public class FireManager : MonoBehaviour
             StopFireEffect();
         });
 
-        fireSafeZone.GetComponent<MeshRenderer>().enabled = false;
-
+        //fireSafeZone.GetComponent<MeshRenderer>().enabled = false;
+        var fireSafeZones = GameObject.FindGameObjectsWithTag("FireSafeZone");
+        foreach(var zone in fireSafeZones)
+        {
+            zone.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     // Update is called once per frame

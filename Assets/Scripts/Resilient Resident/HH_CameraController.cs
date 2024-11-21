@@ -1,0 +1,64 @@
+using HappyHouse.HouseSystem;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HH_CameraController : MonoBehaviour
+{
+    public float zoomSpeed = 5f;
+    public float moveSpeed = 5f; 
+    public float zoomDistance = 5f;
+    public float maxFOV = 50;
+    public Vector3 camPosOffset = Vector3.zero;
+    private Vector3 targetPosition;
+    private bool isZooming = false;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+    private void Awake()
+    {
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+    }
+    private void Start()
+    {
+        
+        HH_GameManager.Instance.inputManager.OnHouseSelected += MoveToHouse;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (isZooming)
+        {
+            
+            transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+            
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, maxFOV, zoomSpeed * Time.deltaTime);
+
+            
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                isZooming = false;
+                //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
+            }
+        }
+    }
+
+
+    private void MoveToHouse(HouseManager targetHouse)
+    {
+        Debug.Log($"Move to house {targetHouse.playerTag}");
+        //targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * zoomDistance;
+        targetPosition = targetHouse.camTransform.position;
+        Camera.main.transform.rotation = targetHouse.camTransform.rotation;
+        isZooming = true;
+    }
+
+    public void ResetCamera()
+    {
+        Debug.Log("Reset Camera");
+        
+        transform.SetPositionAndRotation(originalPosition, originalRotation);
+    }
+}

@@ -27,16 +27,16 @@ public class GameManager : UnitySingleton<GameManager>
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
     public bool SimIsEnd { get; private set; }
-
+    public bool canControlCam = true;
     public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
+    public ATC_DialogTree[] houseDialogs;
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
-
+    public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
     public override void Awake()
     {
         base.Awake();
         currentStage = LevelStage.BeforeFirstSim;
-        //currentStage = LevelStage.PhaseOne;
     }
     private void Start()
     {
@@ -80,11 +80,17 @@ public class GameManager : UnitySingleton<GameManager>
     //   // roadManager.PlaceRoad(position);
     //}
 
+    public void SkipSimulationRec()
+    {
+        currentStage = LevelStage.PhaseOne;
+        ResetGame();
+    }
     private void Update()
     {
         //debug
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
+        if (!canControlCam) return;
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         if(Input.touchCount == 2)
         {
@@ -104,22 +110,35 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else if (!SimIsEnd)
         {
- 
-            if (!IsFirstSim)
-            {
-                //check win/lose
-                currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
-            }
-            else
+
+            //if (!IsFirstSim)
+            //{
+            //    //check win/lose
+            //    currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
+            //}
+            //else
+            //{
+            if (IsFirstSim)
             {
                 currentStage = LevelStage.AfterFirstSim;
             }
+                
+            //}
             SimIsEnd = true;
             OnSimEnd();
             SimEndsEvent.Invoke();
         }
     }
 
+    public void UpdateHouseResponse(string houseType, string response)
+    {
+        if (houseResponses.ContainsKey(houseType))
+        {
+            houseResponses[houseType] = response;
+            return;
+        }
+        houseResponses.Add(houseType, response);
+    }
     void OnSimEnd()
     {
         var remainingCars = GameObject.FindGameObjectsWithTag("Car");
@@ -210,9 +229,6 @@ public class GameManager : UnitySingleton<GameManager>
         {
             menu.ApplyBehavior();
         }
-
-        
-
         //debug
         yield return new WaitForSeconds(10f);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
@@ -266,6 +282,7 @@ public class GameManager : UnitySingleton<GameManager>
         CurrentLevel = 0;
         currentStage = LevelStage.BeforeFirstSim;
         Time.timeScale = GameSpeed = 2f;
+        ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
     }
 
@@ -302,6 +319,8 @@ public class GameManager : UnitySingleton<GameManager>
         {
             availableHouseTypes.Add(HouseType.twoCar);
             availableHouseTypes.Add(HouseType.wui);
+            // test version
+            availableHouseTypes.Add(HouseType.kids);
         }
         else
         {
@@ -311,5 +330,20 @@ public class GameManager : UnitySingleton<GameManager>
                 availableHouseTypes.Add(houseType);
             }
         }
+    }
+
+    public int CountFollowedInstructions()
+    {
+        int count = 0;
+       
+        foreach (var response in houseResponses.Values)
+        {
+            if (response == "Followed")
+            {
+                count++;
+            }
+        }
+        Debug.Log($"Response Dict Count: {houseResponses.Values.Count} and Followed Count: {count}");
+        return count;
     }
 }

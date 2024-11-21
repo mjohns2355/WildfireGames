@@ -9,10 +9,12 @@ public class hh_collectable : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameObject.FindGameObjectWithTag("Dialog") == null)
-        {
-            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Clear(debris);
-        } 
+        Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
+        //if (GameObject.FindGameObjectWithTag("Dialog") == null)
+        //{
+        //    GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Clear(debris);
+        //} 
+        Destroy(gameObject);
     }
 
 }

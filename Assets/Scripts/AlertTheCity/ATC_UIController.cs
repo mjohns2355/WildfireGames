@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ATC_UIController : UnitySingleton<ATC_UIController>
 {
@@ -10,12 +11,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
+    public ATC_HouseDialogManager houseDialogManager;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
     public GameObject endScreen;
     public GameObject learnMorePanel;
     public TextMeshProUGUI levelText;
+    public GameObject startPrompt;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
     //public GameObject buildingMenu;
@@ -76,7 +79,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
-        ShowDialog();
+        //ShowDialog();
+        //startPrompt.SetActive(true);
     }
 
 
@@ -93,8 +97,18 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         statsPanel.ShowResultText();
         dialogManager.GenerateResult();
-        ShowDialog();
+        
+        if (GameManager.Instance.currentStage == LevelStage.AfterFirstSim)
+        {
+            ShowDialog();
+        }
+        else
+        {
+            dialogManager.ShowLocalNews();
+        }
+        //ShowDialog();
     }
+
     void PrintStack()
     {
         Debug.Log("---- START ----");
@@ -231,6 +245,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         panelRectTransform.position = adjustedPosition;
     }
 
+
     public void ResetUI()
     {
         selectedHouses.Clear();
@@ -240,12 +255,20 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
         CloseAllUI();
-        levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
-        if (!dialogManager.isInstructionShown)
+        if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
         {
-            ShowDialog();
+            levelText.text = "Instruction";
         }
-
+        else
+        {
+            levelText.text = $"Level 1";
+        }
+        //levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
+        //if (!dialogManager.isInstructionShown)
+        //{
+        //    ShowDialog();
+        //}
+        HideDialog();
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
@@ -253,9 +276,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void ShowDialog()
     {
-        PushPanel(dialogManager.gameObject);
+        //PushPanel(dialogManager.gameObject);
+        dialogManager.ShowDialogBox();
     }
 
+    public void HideDialog()
+    {
+        dialogManager.HideDialogBox();
+    }
 
     public void ShowEndScreen()
     {

@@ -120,7 +120,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             {
                 var house = startStructure.GetComponent<HouseStructure>();
                 var carSpawner = carPrefab.GetComponent<ATC_CarSpawner>();
-                carSpawner.hasHorseTrailer = house.HasHorseTrailers;
+                //carSpawner.hasHorseTrailer = house.HasHorseTrailers;
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
                 car.GetComponent<CarController>().carSpeed = carSpeed;
                 car.GetComponent<CarController>().start = startStructure;
@@ -184,7 +184,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             {
                 var house = startStructure.GetComponent<HouseStructure>();
                 var carSpawner = carPrefab.GetComponent<ATC_CarSpawner>();
-                carSpawner.hasHorseTrailer = house.HasHorseTrailers;
+                //carSpawner.hasHorseTrailer = house.HasHorseTrailers;
                 var car = Instantiate(carPrefab, startPos, Quaternion.identity);
                 car.GetComponent<CarController>().carSpeed = carSpeed;
                 car.GetComponent<CarController>().start = startStructure;

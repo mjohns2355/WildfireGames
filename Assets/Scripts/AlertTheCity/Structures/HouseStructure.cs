@@ -1,5 +1,6 @@
 //using System;
 using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,11 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
-    public bool HasHorseTrailers
-    {
-        get { return houseType == HouseType.horse && horseNum != 0; }
-        set { HasHorseTrailers = value; }
-    }
+    //public bool HasHorseTrailers
+    //{
+    //    get { return houseType == HouseType.horse && horseNum != 0; }
+    //    set { HasHorseTrailers = value; }
+    //}
 
     public bool HasKidsToPickUp
     {
@@ -202,18 +203,36 @@ public class HouseStructure : Structure
 
     void OnOptionButtonClicked()
     {
-        currentOption = contextMenu.CurrentOption;
-        Debug.Log($"Player selected {currentOption}");
-       
-        // apply home hardening immediately
-        if (currentOption == "Home Hardening")
+        
+        if (!contextMenu.allowMultipleChoices)
         {
-            ApplyChoice();
+            currentOption = contextMenu.CurrentOption.GetOptionContent();
+            Debug.Log($"Player selected {currentOption}");
+
+
+        }
+        else
+        {
+            foreach(var option in contextMenu.selectedOptions)
+            {
+                currentOption = option.GetOptionContent();
+                Debug.Log($"Player selected {currentOption}");
+            }
         }
         var currentChoice = GetCurrentChoice(currentOption);
-        if(currentChoice != null)
+
+ 
+        
+        // apply home hardening immediately
+        //if (currentOption == "Home Hardening")
+        //{
+        //    ApplyChoice();
+        //}
+        
+        if (currentChoice != null)
         {
             GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+            Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
         }
     }
 
@@ -221,6 +240,27 @@ public class HouseStructure : Structure
     {
         var currentChoice = GetCurrentChoice(currentOption);
 
+        // 50% resident don't follow the instruction
+        if (!currentChoice.isNormal)
+        {
+            var rng = UnityEngine.Random.Range(0, 1f);
+            Debug.Log($"rng: {rng}");
+            if (rng > 0.5)
+            {
+                currentChoice = houseInfo.defaultChoice;
+                GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
+            }
+            else
+            {
+                GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+            }
+        }
+        else
+        {
+            GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+        }
+
+        Debug.Log($"{houseInfo.houseType} decides to {currentChoice.choiceName}");
         if(currentChoice != null)
         {
             // avoid applying the same choices multiple times
@@ -251,11 +291,7 @@ public class HouseStructure : Structure
     }
     public IEnumerator SpawnCarRoutine()
     {
-        if(currentOption != "Home Hardening")
-        {
-            ApplyChoice();
-        }
-        
+        ApplyChoice();
         yield return new WaitForSeconds(carSpawnWaitTime);
 
         //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");

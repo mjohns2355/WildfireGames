@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum StructureType { House, Shelter, School, Stable };
-public enum HouseType { none, elderly, twoCar, kids, horse, pet, wui };
+public enum HouseType { none, elderly, twoCar, kids,/* horse,*/ pet, wui };
 public enum CarSpeed { slow, medium, fast, none };
 
 public enum CarLeaveTime { early, normal, delayed};
 
-public enum LevelStage { BeforeFirstSim, AfterFirstSim, PhaseOne, Win, Lose, End };
+public enum LevelStage { BeforeFirstSim, AfterFirstSim, PhaseOne, Win, Lose, End , HouseDialog };

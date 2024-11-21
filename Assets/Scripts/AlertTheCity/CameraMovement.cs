@@ -14,20 +14,47 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float maxFOV;
     [SerializeField] private float minFOV;
     [SerializeField] private float defaultFOV;
-
+    public float focusDistance = 5f;
+    public Vector3 camPosOffset = Vector3.zero;
+    private Vector3 targetPosition;
+    private bool isFocusing = false;
     float FOV;
     Vector3 camPos;
+    private Vector3 camStartPos;
+    private Quaternion camStartRotation;
     private void Start()
     {
+        camStartPos = transform.position;
+        camStartRotation = transform.rotation;
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
         camPos = gameCamera.transform.position;
+
         //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
         //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
 
+    private void Update()
+    {
+        if (isFocusing)
+        {
 
+            transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMovementSpeed * Time.deltaTime);
+
+
+            gameCamera.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 30, cameraZoomSpeed * Time.deltaTime);
+
+
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                isFocusing = false;
+
+                //Debug.Log("Stop focusing");
+                //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
+            }
+        }
+    }
     public void MoveCamera(Vector3 inputVector)
     {
         //Debug.Log("Input Vector: " + inputVector);
@@ -64,8 +91,22 @@ public class CameraMovement : MonoBehaviour
 
         float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-        FOV -= deltaMagnitudeDiff * 0.1f;
+        FOV -= deltaMagnitudeDiff * Time.deltaTime;
         FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
         gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
+    }
+
+    public void MoveToHouse(Transform targetHouse)
+    {
+        //Debug.Log($"Move to house {targetHouse.transform.position}");
+        GameManager.Instance.canControlCam = false;
+        targetPosition = targetHouse.position + camPosOffset - targetHouse.forward * focusDistance;
+        isFocusing = true;
+    }
+
+    public void ResetCam()
+    {
+        transform.SetPositionAndRotation(camStartPos, camStartRotation);
+        GameManager.Instance.canControlCam = true;
     }
 }

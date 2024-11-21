@@ -6,6 +6,7 @@ public class Structure : MonoBehaviour
     
     public StructureType structureType;
     public StructureContextMenu contextMenu;
+    public Transform camFocusPos;
     public Transform menuSpawnPos;
     public Outline outline;
     public int height = 1;

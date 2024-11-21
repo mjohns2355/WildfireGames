@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfab68028e7e713408862f7cb1442b4e, type: 3}
+  m_Name: HouseBlueprint
+  m_EditorClassIdentifier: 
+  partConnections:
+  - partID: frontWall
+    partPrefab: {fileID: 7010870221588358126, guid: da180c32a96507e49b6b86a4d5ee387e, type: 3}
+    partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0}
+    localScale: {x: 1.1, y: 1, z: 1}
+    connectedPartsId:
+    - leftWall
+    - rightWall
+    - gable
+    - door
+  - partID: leftWall
+    partPrefab: {fileID: 7010870221588358126, guid: da180c32a96507e49b6b86a4d5ee387e, type: 3}
+    partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+    localPosition: {x: -1.3, y: 0, z: 1}
+    localRotation: {x: 0, y: 90, z: 0}
+    localScale: {x: 1, y: 1, z: 1}
+    connectedPartsId:
+    - backWall
+    - frontWall
+    - gable
+  - partID: rightWall
+    partPrefab: {fileID: 7010870221588358126, guid: da180c32a96507e49b6b86a4d5ee387e, type: 3}
+    partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+    localPosition: {x: 1.3, y: 0, z: 1}
+    localRotation: {x: 0, y: 90, z: 0}
+    localScale: {x: 1, y: 1, z: 1}
+    connectedPartsId:
+    - frontWall
+    - backWall
+    - gable
+  - partID: backWall
+    partPrefab: {fileID: 7010870221588358126, guid: da180c32a96507e49b6b86a4d5ee387e, type: 3}
+    partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+    localPosition: {x: 0, y: 0, z: 2}
+    localRotation: {x: 0, y: 0, z: 0}
+    localScale: {x: 1.1, y: 1, z: 1}
+    connectedPartsId:
+    - leftWall
+    - rightWall
+    - gable
+  - partID: rooftop
+    partPrefab: {fileID: 6633912179998613909, guid: f1f1090e20ccdce4a87ba083afe219b0, type: 3}
+    partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
+    localPosition: {x: -0.8, y: 1.3, z: 0}
+    localRotation: {x: 0, y: 0, z: 0}
+    localScale: {x: 1, y: 1, z: 1}
+    connectedPartsId:
+    - gable
+  - partID: gable
+    partPrefab: {fileID: 5516126543414774655, guid: edcbc90c1fd7ec74aab2224ea01dc198, type: 3}
+    partInfo: {fileID: 11400000, guid: 64547173f7d65f74db61b1496527c16d, type: 2}
+    localPosition: {x: 0, y: 1.4, z: 1}
+    localRotation: {x: 0, y: 0, z: 0}
+    localScale: {x: 1, y: 1, z: 1}
+    connectedPartsId:
+    - rooftop
+    - leftWall
+    - rightWall
+    - frontWall
+    - backWall
+  - partID: frontDoor
+    partPrefab: {fileID: 4338950596535473088, guid: ec7ea756138492941a56fa44d15e8f3b, type: 3}
+    partInfo: {fileID: 11400000, guid: ae35f69f465dbc3409b03901e374f778, type: 2}
+    localPosition: {x: 0.64, y: 1.5, z: -0.32}
+    localRotation: {x: 0, y: 0, z: 0}
+    localScale: {x: 1, y: 1, z: 1}
+    connectedPartsId:
+    - frontWall
