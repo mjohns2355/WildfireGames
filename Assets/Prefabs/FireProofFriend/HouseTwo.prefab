@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5442003053141714149}
   - component: {fileID: 592929472685493895}
+  - component: {fileID: 8412596419136109750}
   m_Layer: 10
   m_Name: H2_Roof_B
   m_TagString: Untagged
@@ -45,20 +46,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4158365427044930618}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
+  collider: {fileID: 5911803662154693019}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &8412596419136109750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41978853414350026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 5911803662154693019}
-  notInteractable: 0
 --- !u!1 &148145933540459752
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9175770678662090641}
   - component: {fileID: 923317519431589401}
+  - component: {fileID: 2031221921980412867}
   m_Layer: 10
   m_Name: H2_Drain_01
   m_TagString: Untagged
@@ -217,19 +231,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes: []
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
+  collider: {fileID: 4439264204045189747}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &2031221921980412867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379837639759382249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 4439264204045189747}
-  notInteractable: 0
 --- !u!1 &591913653677853000
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,20 +301,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 5915124645119498173}
-  durability: 0
-  flammability: 0
-  isOnFire: 0
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
-  burnStage: 0
   isOnCursor: 0
   partInfo: {fileID: 0}
-  baseBurnTime: 10
   collider: {fileID: 0}
   notInteractable: 1
+  combustible: {fileID: 0}
 --- !u!1 &947644015004278421
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2808123620522424283}
   - component: {fileID: 5772644209336617441}
+  - component: {fileID: 8447334312642858733}
   m_Layer: 10
   m_Name: H2_Wall_C
   m_TagString: Untagged
@@ -966,20 +988,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4387485727593672766}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 185590961480277607}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &8447334312642858733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517098178888940307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 185590961480277607}
-  notInteractable: 0
 --- !u!1 &2527212773976404540
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +1024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5221243669469513531}
   - component: {fileID: 930856862055703121}
+  - component: {fileID: 9105521313761448232}
   m_Layer: 10
   m_Name: H2_Wall_D
   m_TagString: Untagged
@@ -1025,20 +1060,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 8765198148193072891}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 4570199331973640722}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &9105521313761448232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527212773976404540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 4570199331973640722}
-  notInteractable: 0
 --- !u!1 &2594686370923361462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 101276928078278851}
   - component: {fileID: 8022934204242621438}
+  - component: {fileID: 7551999434874260614}
   m_Layer: 10
   m_Name: H2_Window_00
   m_TagString: Untagged
@@ -1084,20 +1132,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 599839821641351359}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
+  collider: {fileID: 1905392169150956935}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &7551999434874260614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594686370923361462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1905392169150956935}
-  notInteractable: 0
 --- !u!1 &3245218154612335489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,6 +1273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3791171611169007193}
   - component: {fileID: 6127796228352105308}
+  - component: {fileID: 8663998662727891510}
   m_Layer: 10
   m_Name: H2_Wall_F
   m_TagString: Untagged
@@ -1248,20 +1309,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 6725409233416359473}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 7748192009906632229}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &8663998662727891510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3324407181544088040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 7748192009906632229}
-  notInteractable: 0
 --- !u!1 &3715376452281372542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550190807488833237}
   - component: {fileID: 3488675709031924638}
+  - component: {fileID: 1429465720335425496}
   m_Layer: 10
   m_Name: H2_Window_02
   m_TagString: Untagged
@@ -1307,20 +1381,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 131641303569317645}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
+  collider: {fileID: 1123412813491504759}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &1429465720335425496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715376452281372542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1123412813491504759}
-  notInteractable: 0
 --- !u!1 &3722862681681891251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7136254272939676008}
   - component: {fileID: 2464438877396346657}
+  - component: {fileID: 1749109621275349671}
   m_Layer: 10
   m_Name: H2_Window_01
   m_TagString: Untagged
@@ -1471,20 +1558,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 6505808045729582699}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
+  collider: {fileID: 350034704889089130}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &1749109621275349671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4050985332725257971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 350034704889089130}
-  notInteractable: 0
 --- !u!1 &4230156154485045982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,20 +1913,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 8236785899680004198}
-  durability: 0
-  flammability: 0
-  isOnFire: 0
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
-  burnStage: 0
   isOnCursor: 0
   partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
-  baseBurnTime: 10
   collider: {fileID: 5498466162278093586}
   notInteractable: 0
+  combustible: {fileID: 0}
 --- !u!1 &4397979910133799608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,6 +2037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6400821892313994866}
   - component: {fileID: 8063685729622105524}
+  - component: {fileID: 510189348370692437}
   m_Layer: 10
   m_Name: H2_Roof_A
   m_TagString: Untagged
@@ -1978,20 +2073,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 1471218029813850219}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
+  collider: {fileID: 8383827494212798476}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &510189348370692437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4429695290273618656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 03473484f89bfd144b77671a4d5e9775, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 8383827494212798476}
-  notInteractable: 0
 --- !u!1 &4785328799931272643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,6 +2109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1208705613251790203}
   - component: {fileID: 7976136970522743248}
+  - component: {fileID: 4423462678404228145}
   m_Layer: 10
   m_Name: H2_Wall_A
   m_TagString: Untagged
@@ -2037,20 +2145,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 5581065500565507819}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 1114173279136951743}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &4423462678404228145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785328799931272643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1114173279136951743}
-  notInteractable: 0
 --- !u!1 &4946358884500351863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5829943372833295576}
   - component: {fileID: 1576576864652646294}
+  - component: {fileID: 6679809774110989451}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -2096,21 +2217,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4561084762425699826}
   - {fileID: 4254163539169521162}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: ae35f69f465dbc3409b03901e374f778, type: 2}
+  collider: {fileID: 6183419237423639190}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &6679809774110989451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4946358884500351863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: ae35f69f465dbc3409b03901e374f778, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 6183419237423639190}
-  notInteractable: 0
 --- !u!1 &4949194114080990478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,6 +2254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4357416216807275349}
   - component: {fileID: 5859005704941218199}
+  - component: {fileID: 6391836411785971797}
   m_Layer: 10
   m_Name: H2_AirVent_00
   m_TagString: Untagged
@@ -2156,20 +2290,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 3617712783468264735}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 7b978a2220b2e4c4788998e0e01a4804, type: 2}
+  collider: {fileID: 8362945300352020309}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &6391836411785971797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949194114080990478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 7b978a2220b2e4c4788998e0e01a4804, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 8362945300352020309}
-  notInteractable: 0
 --- !u!1 &5474166553590291194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,6 +2431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8212843864036453382}
   - component: {fileID: 8523308471666326399}
+  - component: {fileID: 4034390403487139910}
   m_Layer: 10
   m_Name: H2_Chimney_00
   m_TagString: Untagged
@@ -2320,20 +2467,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 8236785899680004198}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 5498466162278093586}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &4034390403487139910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5572531552232705852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 5498466162278093586}
-  notInteractable: 0
 --- !u!1 &5733772518211536606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,6 +2503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2428260065846811436}
   - component: {fileID: 5423299101829628364}
+  - component: {fileID: 6662347311676622084}
   m_Layer: 10
   m_Name: H2_Wall_E
   m_TagString: Untagged
@@ -2379,20 +2539,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 2975972037945469744}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 1499419167522513638}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &6662347311676622084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733772518211536606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1499419167522513638}
-  notInteractable: 0
 --- !u!1 &5739092717953740747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7218805782932583536}
   - component: {fileID: 4550917515914669255}
+  - component: {fileID: 6921610862472988864}
   m_Layer: 10
   m_Name: H2_GarageDoor_00
   m_TagString: Untagged
@@ -2438,20 +2611,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4146567536467946845}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: ae35f69f465dbc3409b03901e374f778, type: 2}
+  collider: {fileID: 1772937052298109324}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &6921610862472988864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739092717953740747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: ae35f69f465dbc3409b03901e374f778, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1772937052298109324}
-  notInteractable: 0
 --- !u!1 &5879134967132654354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,6 +2857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4811601882589508689}
   - component: {fileID: 1747446552877325666}
+  - component: {fileID: 5041950416015989370}
   m_Layer: 10
   m_Name: H2_Wall_G
   m_TagString: Untagged
@@ -2707,20 +2893,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 1698283720511868721}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 3132450412434828222}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &5041950416015989370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422888424088969267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 3132450412434828222}
-  notInteractable: 0
 --- !u!1 &6463280498189972135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3214,6 +3412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7661356122340295941}
   - component: {fileID: 1483570841849184796}
+  - component: {fileID: 5660703215613588770}
   m_Layer: 10
   m_Name: H2_Gutter_01
   m_TagString: Untagged
@@ -3249,20 +3448,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 8947159432446655654}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 72111bb533b54d4459d0b7c795058220, type: 2}
+  collider: {fileID: 8603583856683692699}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &5660703215613588770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217362813880958514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 72111bb533b54d4459d0b7c795058220, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 8603583856683692699}
-  notInteractable: 0
 --- !u!1 &7225526032556575144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3378,6 +3589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 767521432856792240}
   - component: {fileID: 3072605452436377202}
+  - component: {fileID: 1548859875117737863}
   m_Layer: 10
   m_Name: H2_Window_03
   m_TagString: Untagged
@@ -3413,20 +3625,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 7720700153613247363}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
+  collider: {fileID: 1387992869525860816}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &1548859875117737863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565771157058036237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2664b1c434321974aa9a6909a7e48f2c, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1387992869525860816}
-  notInteractable: 0
 --- !u!1 &7571787283933403255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3437,6 +3661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3666743871974747240}
   - component: {fileID: 1844282710894411326}
+  - component: {fileID: 4300583929542629252}
   m_Layer: 10
   m_Name: H2_Wall_H
   m_TagString: Untagged
@@ -3472,20 +3697,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4231944009698293347}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 4509432892841987819}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &4300583929542629252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7571787283933403255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 4509432892841987819}
-  notInteractable: 0
 --- !u!1 &7745427147065528614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3496,6 +3733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4286314796738741020}
   - component: {fileID: 443272386502720288}
+  - component: {fileID: 1599627001283396914}
   m_Layer: 10
   m_Name: H2_Wall_B
   m_TagString: Untagged
@@ -3531,20 +3769,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 3042205882572666907}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
+  collider: {fileID: 7623988285761456475}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &1599627001283396914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745427147065528614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 37c8d46b9ac79824e8d892664525580a, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 7623988285761456475}
-  notInteractable: 0
 --- !u!1 &7979344870513653549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,6 +3805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7961286601525129401}
   - component: {fileID: 3662560952406686447}
+  - component: {fileID: 1491930638356328134}
   m_Layer: 10
   m_Name: H2_Gutter_00
   m_TagString: Untagged
@@ -3590,20 +3841,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 4434314336878828176}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 1
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
+  collider: {fileID: 1387441487600982090}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &1491930638356328134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979344870513653549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 1
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 1387441487600982090}
-  notInteractable: 0
 --- !u!1 &8308296971820108333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,6 +3877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7543321484693397389}
   - component: {fileID: 751564789825429683}
+  - component: {fileID: 8462154554473654164}
   m_Layer: 10
   m_Name: H2_Drain_00
   m_TagString: Untagged
@@ -3649,20 +3913,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes:
   - {fileID: 7625800453566706281}
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOnCursor: 0
+  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
+  collider: {fileID: 732505078062276634}
+  notInteractable: 0
+  combustible: {fileID: 0}
+--- !u!114 &8462154554473654164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308296971820108333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   durability: 0
   flammability: 0
   isOnFire: 0
-  bubble: {fileID: 0}
-  shouldDisplayBubble: 0
   burnStage: 0
-  isOnCursor: 0
-  partInfo: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
   baseBurnTime: 10
-  collider: {fileID: 732505078062276634}
-  notInteractable: 0
 --- !u!1 &8630715384101453075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,19 +4335,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
   meshes: []
-  durability: 0
-  flammability: 0
-  isOnFire: 0
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
-  burnStage: 0
   isOnCursor: 0
   partInfo: {fileID: 0}
-  baseBurnTime: 10
   collider: {fileID: 0}
   notInteractable: 1
+  combustible: {fileID: 0}
 --- !u!4 &7609598314525169672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cdf73fbb7dcf1c844a208ee31bf31377, type: 3}

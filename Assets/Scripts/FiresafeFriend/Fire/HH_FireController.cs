@@ -76,9 +76,19 @@ namespace HappyHouse.FireSystem
             if (hit.layer == LayerMask.NameToLayer("Structure"))
             {
                // collider is on mesh
-                if (hit.transform.parent.TryGetComponent(out BaseHousePartObject obj) && obj != null)
+                if (hit.transform.parent.TryGetComponent(out FF_Combustible obj) && obj != null)
                 {
                    
+                    obj.TryIgnite();
+                }
+            }
+
+            if (hit.layer == LayerMask.NameToLayer("Nature"))
+            {
+                // collider is on mesh
+                if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
+                {
+
                     obj.TryIgnite();
                 }
             }
