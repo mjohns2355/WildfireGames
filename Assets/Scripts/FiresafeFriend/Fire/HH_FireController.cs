@@ -10,9 +10,9 @@ namespace HappyHouse.FireSystem
         //public Combustible combustible;
         public float waitTime = 1f;
         public Vector3 scaler;
-        public ParticleSystem fire;
+        public GameObject flame;
         public ParticleSystem embers;
-        public ParticleSystem mediumFlame;
+        //public ParticleSystem mediumFlame;
         [Range(0f, 1f)]
         public float fireGrowthSpeed = 0.2f;
         public float speed;
@@ -34,6 +34,7 @@ namespace HappyHouse.FireSystem
            
             if (onCombustible)
             {
+                flame.SetActive(true);
                 //StartCoroutine(OnDestroyFireRoutine());
             }
 
@@ -99,12 +100,13 @@ namespace HappyHouse.FireSystem
         public void ImpactFire(float multiplier)
         {
             var emberVelocity = embers.velocityOverLifetime;
-            var fireVelocity = fire.velocityOverLifetime;
-            var mediumFlameVelocity = mediumFlame.velocityOverLifetime;
+            //var fireVelocity = fire.velocityOverLifetime;
+            //var mediumFlameVelocity = mediumFlame.velocityOverLifetime;
             emberVelocity.xMultiplier = windDirection.x * multiplier;
             emberVelocity.zMultiplier = windDirection.z * multiplier;
             var emberSize = embers.sizeOverLifetime;
-            emberSize.sizeMultiplier = multiplier;
+            //emberSize.sizeMultiplier = multiplier;
+           
         }
 
         public void GraduallyChangeFireSize(float targetSize, float t)
