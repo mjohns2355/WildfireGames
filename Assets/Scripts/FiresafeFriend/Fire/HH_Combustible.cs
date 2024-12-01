@@ -12,12 +12,19 @@ public class FF_Combustible : MonoBehaviour
     public float flammability;
     public bool isOnFire = false;
     public BurnStage burnStage = BurnStage.Igniting;
-    public float baseBurnTime = 10f;
+    private float baseBurnTime;
     private float burnTimer;
 
     public Action OnIgnite;
     public Action OnBurnedOut;
-
+    public float heat = 0;
+    private float heatThreshold;
+    private bool isOverHeated = false;
+    private void Start()
+    {
+        heatThreshold = durability == 0 ? 50f : durability;
+        baseBurnTime = heatThreshold;
+    }
     private float CalculateFireCatchChance(float flammability)
     {
         float baseCatchChance = Mathf.Clamp01(flammability / 100f);
@@ -45,6 +52,18 @@ public class FF_Combustible : MonoBehaviour
         }
     }
 
+    public void AddHeat(float amount)
+    {
+        
+        if (heat > heatThreshold && !isOverHeated)
+        {
+            TryIgnite();
+            isOverHeated = true;
+            return;
+        }
+        //Debug.Log("Add heat");
+        heat += amount;
+    }
     private IEnumerator IgniteWithDelay()
     {
         if (isOnFire) yield break;
@@ -56,7 +75,7 @@ public class FF_Combustible : MonoBehaviour
 
         isOnFire = true;
         burnTimer = durability / flammability + baseBurnTime;
-        HH_GameManager.Instance.fireManager.SpawnFire(transform, 3, true, burnTimer);
+        HH_GameManager.Instance.fireManager.SpawnFire(transform, 1f, true, burnTimer);
         OnIgnite?.Invoke();
         StartCoroutine(Burn());
     }
@@ -106,6 +125,7 @@ public class FF_Combustible : MonoBehaviour
             yield return null;
         }
     }
+
 }
 
 

@@ -93,7 +93,7 @@ public class BaseHousePartObject : MonoBehaviour
         Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
         //Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
 
-        Debug.Log($"Check {gameObject.name}'s neigbours.");
+        //Debug.Log($"Check {gameObject.name}'s neigbours.");
         List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
         foreach (Collider c in colliders)
         {
@@ -102,7 +102,7 @@ public class BaseHousePartObject : MonoBehaviour
                 var part = c.GetComponentInParent<BaseHousePartObject>();
                 if (part != null)
                 {
-                    Debug.Log($"Added Neighbour {part.name}");
+                    //Debug.Log($"Added Neighbour {part.name}");
                     neighbours.Add(part);
                 }
 
@@ -113,15 +113,15 @@ public class BaseHousePartObject : MonoBehaviour
         return neighbours;
     }
 
-    void OnDrawGizmos()
-    {
-        if (collider != null)
-        {
-            Gizmos.color = Color.cyan;
-            //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
-            Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
-        }
-    }
+    //void OnDrawGizmos()
+    //{
+    //    if (collider != null)
+    //    {
+    //        Gizmos.color = Color.cyan;
+    //        //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
+    //        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
+    //    }
+    //}
     //public void ReplaceHousePartObject(BaseHousePartObject newPart)
     //{
     //    // TO DO: Improve this later
@@ -255,22 +255,23 @@ public class BaseHousePartObject : MonoBehaviour
             yield break;
         }
 
-        Debug.Log("Spread to neighbour");
+        
         while (combustible.isOnFire)
         {
             var houseGraph = owner.houseGraph;
             var neighbours = houseGraph.GetNeighbors(houseNode);
-
+            //Debug.Log("Spread to neighbour");
             foreach (var neighbor in neighbours)
             {
                 var housePartObj = neighbor.housePart;
-
+                
                 if (housePartObj != null && !housePartObj.combustible.isOnFire)
                 {
+                    
                     // Calculate the delay based on distance
                     float distance = Vector3.Distance(transform.position, housePartObj.transform.position);
-                    float spreadDelay = Mathf.Clamp(distance * 0.5f, 1f, 5f); // Adjust the factor and min/max as needed
-
+                    float spreadDelay = Mathf.Clamp(distance * 0.5f, 1f, 5f);
+                    
                     // Wait for the calculated spread delay before attempting to ignite
                     yield return new WaitForSeconds(spreadDelay);
 
@@ -279,7 +280,7 @@ public class BaseHousePartObject : MonoBehaviour
             }
 
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

@@ -14,7 +14,7 @@ namespace HappyHouse.FireSystem
         public ParticleSystem embers;
         //public ParticleSystem mediumFlame;
         [Range(0f, 1f)]
-        public float fireGrowthSpeed = 0.2f;
+        //public float fireGrowthSpeed = 0.2f;
         public float speed;
         public Vector3 windDirection;
         [SerializeField] GameObject fireSFX;
@@ -23,18 +23,21 @@ namespace HappyHouse.FireSystem
         [SerializeField] GameObject particleParent;
         float fireSize = 0;
         [SerializeField] Rigidbody rb;
-        [SerializeField] SphereCollider collider;
+        //[SerializeField] SphereCollider collider;
         float fireLife;
         GameObject SFX;
+        public LayerMask combustibleLayer;
+        [SerializeField]float totalHeat = 100f;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
-            collider = GetComponent<SphereCollider>();
+            //collider = GetComponent<SphereCollider>();
             scaler = transform.localScale;
            
             if (onCombustible)
             {
                 flame.SetActive(true);
+                
                 //StartCoroutine(OnDestroyFireRoutine());
             }
 
@@ -43,19 +46,23 @@ namespace HappyHouse.FireSystem
         {
             if (!onCombustible)
             {
-                rb.velocity = Vector3.left * speed;
+
+                rb.velocity = -1f * speed * Vector3.forward;
                 ImpactFire(10);
             }
 
             while (fireLife > 0 && onCombustible)
             {
                 fireLife -= Time.deltaTime;
-                GraduallyChangeFireSize(0.01f, fireGrowthSpeed);
+                //GraduallyChangeFireSize(1f, 0.02f);
             }
             
 
         }
 
+ 
+
+   
         public void InitFire(bool isOnCombustible, float speed, float life)
         {
             onCombustible = isOnCombustible;
@@ -71,16 +78,50 @@ namespace HappyHouse.FireSystem
 
         private void OnTriggerEnter(Collider other)
         {
+            //if (!onCombustible) return;
+            //var hit = other.gameObject;
+            //if (hit == null) return;
+            //if (gameObject.transform.parent.gameObject.layer == LayerMask.NameToLayer("Nature"))
+            //{
+            //    onVegetation = true;
+            //}
+            ////only use collision for burned vegetation spreading fire to house part
+            //if (hit.layer == LayerMask.NameToLayer("Structure") && onVegetation)
+            //{
+
+            //    // collider is on mesh
+            //    if (hit.transform.parent.TryGetComponent(out FF_Combustible obj) && obj != null)
+            //    {
+            //        Debug.Log($"Vegetation Spread Fire to {obj.name}");
+            //        obj.TryIgnite();
+            //    }
+            //}
+
+            //if (hit.layer == LayerMask.NameToLayer("Nature"))
+            //{
+            //    // collider is on mesh
+            //    if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
+            //    {
+
+            //        obj.TryIgnite();
+            //    }
+            //}
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (onCombustible || totalHeat <= 0) return;
+           
             var hit = other.gameObject;
             if (hit == null) return;
             
             if (hit.layer == LayerMask.NameToLayer("Structure"))
             {
-               // collider is on mesh
+                // collider is on mesh
                 if (hit.transform.parent.TryGetComponent(out FF_Combustible obj) && obj != null)
                 {
                    
-                    obj.TryIgnite();
+                    obj.AddHeat(0.1f);
                 }
             }
 
@@ -89,13 +130,12 @@ namespace HappyHouse.FireSystem
                 // collider is on mesh
                 if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
                 {
-
-                    obj.TryIgnite();
+                  
+                   
+                    obj.AddHeat(0.1f);
                 }
             }
         }
-
-
 
         public void ImpactFire(float multiplier)
         {
@@ -120,7 +160,7 @@ namespace HappyHouse.FireSystem
         IEnumerator ChangeFireSizeRoutine(float maxSize)
         {
             yield return new WaitForSeconds(waitTime);
-            GraduallyChangeFireSize(maxSize, fireGrowthSpeed);
+            GraduallyChangeFireSize(maxSize, 0.02f);
         }
 
         //IEnumerator OnDestroyFireRoutine()
