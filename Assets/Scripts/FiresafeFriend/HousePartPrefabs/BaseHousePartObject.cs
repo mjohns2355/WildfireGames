@@ -50,7 +50,7 @@ public class BaseHousePartObject : MonoBehaviour
     private void OnHousePartSelected(GameObject obj)
     {
         //TryGetComponent(out BaseHousePartObject part);
-        if(gameObject.name == obj.name)
+        if(gameObject.name == obj.name && !notInteractable)
         {
             
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo, bubble);

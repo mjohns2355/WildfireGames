@@ -13,7 +13,8 @@ namespace HappyHouse.HouseSystem
         public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
-        public float budget;
+        // player budget
+        public FF_BudgetManager budgetManager;
         public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
@@ -25,6 +26,7 @@ namespace HappyHouse.HouseSystem
         private void Start()
         {
             houseGraph = new HouseGraph();
+            budgetManager = new FF_BudgetManager();
             if (isTestHouse)
             {
                 Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
@@ -123,12 +125,7 @@ namespace HappyHouse.HouseSystem
 
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
-            if(budget - partInfo.price < 0)
-            {
-                Debug.Log("Not enough budget");
-                return false;
-            }
-            budget -= partInfo.price;
+            if (!budgetManager.SpendBudget(partInfo.price)) { return false; }
             // add to inventory
             Debug.Log($"Player {playerTag}: ");
             inventory.AddNewPartToInventory(partInfo);

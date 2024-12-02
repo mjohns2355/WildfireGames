@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HappyHouse.HouseSystem;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 public class HH_InputManager : MonoBehaviour
 {
     public UnityEvent <BaseHousePartObject> OnHousePartSelected;
@@ -27,11 +28,16 @@ public class HH_InputManager : MonoBehaviour
         // Handle mouse click for PC
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                //Debug.Log("Pointer is over a UI element. Raycast blocked.");
+                return;
+            }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                
+
                 if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
                     if (canClickHouse)
@@ -41,6 +47,7 @@ public class HH_InputManager : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log($"Clicked {hit.collider.gameObject.name}");
                         OnObjectSelected?.Invoke(hit.collider.gameObject);
                     }
                 }
@@ -63,16 +70,35 @@ public class HH_InputManager : MonoBehaviour
 
         // Handle touch input for mobile
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
+        {            
+            // Check if the touch is over a UI element
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                //Debug.Log("Touch is over a UI element. Raycast blocked.");
+                return;
+            }
             Vector3 touchPosition = Input.GetTouch(0).position;
             Ray ray = Camera.main.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("House"))
+                if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    var house = hit.collider.transform.GetComponent<HouseManager>();
-                    OnHouseSelected?.Invoke(house);
+                    if (canClickHouse)
+                    {
+                        var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
+                        OnHouseSelected?.Invoke(house);
+                    }
+                    else
+                    {
+                        Debug.Log($"Clicked {hit.collider.gameObject.name}");
+                        OnObjectSelected?.Invoke(hit.collider.gameObject);
+                    }
+                }
+
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature"))
+                {
+                    OnObjectSelected?.Invoke(hit.collider.gameObject);
                 }
             }
         }

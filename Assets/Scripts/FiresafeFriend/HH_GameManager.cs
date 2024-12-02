@@ -11,6 +11,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
     public HH_CameraController cameraController;
+    public QuizManager quizManager;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
     [SerializeField] HouseManager p1;
@@ -31,7 +32,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void Update()
     {
-
+        
     }
 
     public void SwitchPlayer (string playerTag)
