@@ -23,7 +23,7 @@ public class FF_Combustible : MonoBehaviour
     private void Start()
     {
         heatThreshold = durability == 0 ? 50f : durability;
-        baseBurnTime = heatThreshold;
+        baseBurnTime = 10f;
     }
     private float CalculateFireCatchChance(float flammability)
     {
@@ -72,10 +72,17 @@ public class FF_Combustible : MonoBehaviour
         //{
         //    yield break; // Does not catch fire
         //}
-
+        yield return new WaitForSeconds(10f);
         isOnFire = true;
         burnTimer = durability / flammability + baseBurnTime;
-        HH_GameManager.Instance.fireManager.SpawnFire(transform, 1f, true, burnTimer);
+        if (gameObject.layer == LayerMask.NameToLayer("Nature"))
+        {
+            HH_GameManager.Instance.fireManager.SpawnFire(transform, 1f, true, burnTimer, 3f);
+        }
+        else
+        {
+            HH_GameManager.Instance.fireManager.SpawnFire(transform, 0.01f, true, burnTimer);
+        }
         OnIgnite?.Invoke();
         StartCoroutine(Burn());
     }
@@ -113,13 +120,9 @@ public class FF_Combustible : MonoBehaviour
                 else
                 {
                     // Reset burn timer if part survives
-                    //burnTimer = durability * baseBurnMultiplier / flammability;
                     isOnFire = false;
                     yield break;
                 }
-                
-                
-
             }
 
             yield return null;

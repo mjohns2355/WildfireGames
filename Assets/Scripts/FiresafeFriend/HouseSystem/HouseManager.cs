@@ -71,7 +71,7 @@ namespace HappyHouse.HouseSystem
         {
             if (manager != this) return;
             HH_GameManager.Instance.StartRound(manager);
-            ToggleClickBox(false);
+            //ToggleClickBox(false);
             arrowUI.SetActive(true);
             //UpdateHouseUI();
             StartCoroutine(UpdateHouseUI());
@@ -84,7 +84,7 @@ namespace HappyHouse.HouseSystem
             {
                 Destroy(icon.gameObject);
             }
-            ToggleClickBox(true);
+            //ToggleClickBox(true);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
             

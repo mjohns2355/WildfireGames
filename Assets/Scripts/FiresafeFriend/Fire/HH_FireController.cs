@@ -19,12 +19,12 @@ namespace HappyHouse.FireSystem
         public Vector3 windDirection;
         [SerializeField] GameObject fireSFX;
         [SerializeField] float maxSize;
-        [SerializeField] float minSize;
-        [SerializeField] GameObject particleParent;
-        float fireSize = 0;
+        //[SerializeField] float minSize;
+        //[SerializeField] GameObject particleParent;
+        //float fireSize = 0;
         [SerializeField] Rigidbody rb;
         //[SerializeField] SphereCollider collider;
-        float fireLife;
+        [SerializeField] float fireLife;
         GameObject SFX;
         public LayerMask combustibleLayer;
         [SerializeField]float totalHeat = 100f;
@@ -34,12 +34,6 @@ namespace HappyHouse.FireSystem
             //collider = GetComponent<SphereCollider>();
             scaler = transform.localScale;
            
-            if (onCombustible)
-            {
-                flame.SetActive(true);
-                
-                //StartCoroutine(OnDestroyFireRoutine());
-            }
 
         }
         private void Update()
@@ -54,7 +48,7 @@ namespace HappyHouse.FireSystem
             while (fireLife > 0 && onCombustible)
             {
                 fireLife -= Time.deltaTime;
-                //GraduallyChangeFireSize(1f, 0.02f);
+                GraduallyChangeFireSize(maxSize, 0.05f);
             }
             
 
@@ -63,11 +57,12 @@ namespace HappyHouse.FireSystem
  
 
    
-        public void InitFire(bool isOnCombustible, float speed, float life)
+        public void InitFire(bool isOnCombustible, float speed, float life, float maxSize)
         {
             onCombustible = isOnCombustible;
             this.speed = speed;
             fireLife = life;
+            this.maxSize = maxSize;
             if (!onCombustible)
             {
                 SFX = Instantiate(fireSFX, transform);
@@ -127,11 +122,9 @@ namespace HappyHouse.FireSystem
 
             if (hit.layer == LayerMask.NameToLayer("Nature"))
             {
-                // collider is on mesh
                 if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
                 {
-                  
-                   
+
                     obj.AddHeat(0.1f);
                 }
             }

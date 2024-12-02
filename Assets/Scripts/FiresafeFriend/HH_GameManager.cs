@@ -93,8 +93,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void ToggleHousesClickBox(bool toggle)
     {
-        p1.ToggleClickBox(toggle);
-        p2.ToggleClickBox(toggle);
+        //p1.ToggleClickBox(toggle);
+        //p2.ToggleClickBox(toggle);
     }
 
     public void RestartGame()

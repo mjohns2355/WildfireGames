@@ -8,6 +8,7 @@ public class HH_InputManager : MonoBehaviour
 {
     public UnityEvent <BaseHousePartObject> OnHousePartSelected;
     public Action<HouseManager> OnHouseSelected;
+    public Action<GameObject> OnObjectSelected;
     public bool canClickHouse = true;
     // Start is called before the first frame update
     void Start()
@@ -30,12 +31,24 @@ public class HH_InputManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("House") && canClickHouse)
+                
+                if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    var house = hit.collider.transform.GetComponent<HouseManager>();
-                    OnHouseSelected?.Invoke(house); 
+                    if (canClickHouse)
+                    {
+                        var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
+                        OnHouseSelected?.Invoke(house);
+                    }
+                    else
+                    {
+                        OnObjectSelected?.Invoke(hit.collider.gameObject);
+                    }
                 }
 
+                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature"))
+                {
+                    OnObjectSelected?.Invoke(hit.collider.gameObject);
+                }
                 //if(hit.collider.gameObject.layer == 10)
                 //{
                 //    PurchaseFloatingButton bubble = hit.collider.GetComponentInParent<BaseHousePartObject>().bubble;

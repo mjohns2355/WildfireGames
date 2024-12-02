@@ -2,6 +2,7 @@ using cakeslice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,7 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
     public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
+
     public override void Awake()
     {
         base.Awake();
@@ -304,6 +306,7 @@ public class GameManager : UnitySingleton<GameManager>
         inputManager = FindObjectOfType<ATC_InputManager>();
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
+
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

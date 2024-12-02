@@ -9,6 +9,7 @@ public class FF_Plants : MonoBehaviour
     public bool blocker = false;
     FF_Combustible combustible;
     [SerializeField]Collider collider;
+    
     private void Start()
     {
         collider = GetComponent<Collider>();
@@ -16,6 +17,17 @@ public class FF_Plants : MonoBehaviour
         {
             combustible.OnIgnite += HandleIgnite;
         }
+        HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
+    }
+
+    private void OnPlantSelected(GameObject obj)
+    {
+        if(obj == gameObject)
+        {
+            //Debug.Log($"Clicked {gameObject.name}");
+            StartCoroutine(PlantClickedRoutine());
+        }
+       
     }
 
     private void HandleIgnite()
@@ -42,23 +54,32 @@ public class FF_Plants : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    IEnumerator PlantClickedRoutine()
     {
-        Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
-        //if (GameObject.FindGameObjectWithTag("Dialog") == null)
-        //{
-        //    GameObject.FindGameObjectWithTag("LevelManager").GetComponent<hh_level_manager>().Clear(debris);
-        //} 
+        gameObject.SetActive(false);
+        var vfx = Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
+        yield return new WaitForSeconds(1f);
+        Destroy(vfx);
         Destroy(gameObject);
+
     }
 
-    void OnDrawGizmos()
+    void OnMouseDown()
     {
-        if (collider != null)
-        {
-            Gizmos.color = Color.cyan;
-            //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
-            Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
-        }
+        //Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation,transform);
+
+        //Destroy(gameObject);
     }
+
+
+    
+    //void OnDrawGizmos()
+    //{
+    //    if (collider != null)
+    //    {
+    //        Gizmos.color = Color.cyan;
+    //        //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
+    //        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
+    //    }
+    //}
 }

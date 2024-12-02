@@ -44,9 +44,19 @@ public class BaseHousePartObject : MonoBehaviour
             combustible.OnBurnedOut += HandleBurnedOut;
         }
         //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
+        HH_GameManager.Instance.inputManager.OnObjectSelected += OnHousePartSelected;
     }
 
-
+    private void OnHousePartSelected(GameObject obj)
+    {
+        //TryGetComponent(out BaseHousePartObject part);
+        if(gameObject.name == obj.name)
+        {
+            
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo, bubble);
+        }
+        
+    }
 
     private void Update()
     {

@@ -13,18 +13,17 @@ public class ATC_WindZone : MonoBehaviour
     [InspectorButton("ChangeWindRange")]
     public bool Change;
     public bool isStill = true;
-    [SerializeField] Vector3 windDirection;
+    public Vector3 WindDirection {  get; private set; }
 
-    float windDirChangeInterval = 20f;
+    float windDirChangeInterval = 10f;
     float windTimer = 0f;
     Rigidbody rb;
     BoxCollider collider;
     public GameObject fireSFX;
-
     // Start is called before the first frame update
     void Start()
     {
-        windDirection = transform.right;
+        WindDirection = transform.right;
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<BoxCollider>();
         transform.localScale = new Vector3(range, 8, range);
@@ -52,13 +51,10 @@ public class ATC_WindZone : MonoBehaviour
             RandomizeWindDirection();
             windTimer = 0f;
         }
-        rb.velocity = windSpeed * windDirection ;
-    }
+        rb.velocity = windSpeed * WindDirection ;
+    
+}
 
-    private void FixedUpdate()
-    {
-        
-    }
     private void OnTriggerStay(Collider other)
     {
         var hit = other.gameObject;
@@ -66,18 +62,33 @@ public class ATC_WindZone : MonoBehaviour
         {
             
             var fire = hit.GetComponent<FireMovementController>();
-            fire.windDirection = windDirection;
+            fire.windDirection = WindDirection;
             fire.speed = windSpeed;
             fire.ImpactFire(windForce);
         }
     }
-
+    public void SetWindDirection(Vector3 direction)
+    {
+        WindDirection = direction;
+    }
     void RandomizeWindDirection() {
-        float randomX = Random.Range(-1f, 1f);
-        float randomZ = Random.Range(-1f, 1f);
+        float maxAngleChange = 30f;
+        float randomAngle = Random.Range(-maxAngleChange, maxAngleChange);
 
-        Vector3 randomDirection = new Vector3(randomX, 0, randomZ);
-        windDirection = randomDirection;
+        // Change direction
+        Quaternion rotation = Quaternion.Euler(0, randomAngle, 0);
+        Vector3 newDirection = rotation * WindDirection;
+
+        WindDirection = newDirection.normalized;
+
+        //windSpeed = Random.Range(3f, 10f);
+
+        Debug.Log($"Wind direction: {WindDirection}, Wind speed: {windSpeed}");
+        //float randomX = Random.Range(-1f, 1f);
+        //float randomZ = Random.Range(-1f, 1f);
+
+        //Vector3 randomDirection = new Vector3(randomX, 0, randomZ);
+        //WindDirection = randomDirection;
         //transform.rotation = Random.Range
     }
 
