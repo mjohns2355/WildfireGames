@@ -14,15 +14,15 @@ public class FF_Combustible : MonoBehaviour
     public BurnStage burnStage = BurnStage.Igniting;
     private float baseBurnTime;
     private float burnTimer;
-
+    public bool mustDestroy = false;
     public Action OnIgnite;
     public Action OnBurnedOut;
     public float heat = 0;
-    private float heatThreshold;
+    [SerializeField]private float heatThreshold = 100f;
     private bool isOverHeated = false;
     private void Start()
     {
-        heatThreshold = durability == 0 ? 50f : durability;
+        //heatThreshold = 100f;
         baseBurnTime = 10f;
     }
     private float CalculateFireCatchChance(float flammability)
@@ -67,13 +67,14 @@ public class FF_Combustible : MonoBehaviour
     private IEnumerator IgniteWithDelay()
     {
         if (isOnFire) yield break;
+        isOnFire = true;
         //float fireCatchChance = CalculateFireCatchChance(flammability);
         //if (UnityEngine.Random.value > fireCatchChance)
         //{
         //    yield break; // Does not catch fire
         //}
-        yield return new WaitForSeconds(10f);
-        isOnFire = true;
+        yield return new WaitForSeconds(durability/10 + baseBurnTime );
+        
         burnTimer = durability / flammability + baseBurnTime;
         if (gameObject.layer == LayerMask.NameToLayer("Nature"))
         {
@@ -110,7 +111,7 @@ public class FF_Combustible : MonoBehaviour
             {
                 float destructionChance = CalculateDestructionChance(durability, burnTimer);
 
-                if (UnityEngine.Random.value < destructionChance)
+                if (UnityEngine.Random.value < destructionChance || mustDestroy)
                 {
                     isOnFire = false;
                     StopAllCoroutines();

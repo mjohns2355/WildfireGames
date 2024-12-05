@@ -52,18 +52,15 @@ MonoBehaviour:
   scaler: {x: 0, y: 0, z: 0}
   flame: {fileID: 0}
   embers: {fileID: 5784130591633353441}
-  fireGrowthSpeed: 0.2
-  speed: 1
+  speed: 0.5
   windDirection: {x: 0, y: 0, z: 0}
   fireSFX: {fileID: 1488205532193718950, guid: 0de1eb8a42d0e9f4182791dfdea11c4f, type: 3}
   maxSize: 0.4
-  minSize: 0.1
-  particleParent: {fileID: 0}
   rb: {fileID: 3284600309640684669}
+  fireLife: 0
   combustibleLayer:
     serializedVersion: 2
     m_Bits: 8192
-  totalHeat: 1000
 --- !u!54 &3284600309640684669
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -110,8 +107,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.49, y: 2.11, z: 1.0634217}
-  m_Center: {x: 0, y: 0, z: -1.6860666}
+  m_Size: {x: 2.49, y: 2.11, z: 1.1336085}
+  m_Center: {x: 0, y: 0, z: -1.6509733}
 --- !u!1001 &2464678708291330417
 PrefabInstance:
   m_ObjectHideFlags: 0

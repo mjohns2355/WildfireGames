@@ -53,18 +53,15 @@ MonoBehaviour:
   scaler: {x: 0, y: 0, z: 0}
   flame: {fileID: 4240998556699564207}
   embers: {fileID: 4062912147982725923}
-  fireGrowthSpeed: 0.2
   speed: 1
   windDirection: {x: 0, y: 0, z: 0}
   fireSFX: {fileID: 1488205532193718950, guid: 0de1eb8a42d0e9f4182791dfdea11c4f, type: 3}
   maxSize: 0.4
-  minSize: 0.1
-  particleParent: {fileID: 0}
   rb: {fileID: 4172989824407673634}
+  fireLife: 0
   combustibleLayer:
     serializedVersion: 2
     m_Bits: 0
-  totalHeat: 1000
 --- !u!54 &4172989824407673634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5019,7 +5016,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8246390099465128848, guid: c38428b7711d1574c942e6ff9d79b634, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 100
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246390099465128848, guid: c38428b7711d1574c942e6ff9d79b634, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

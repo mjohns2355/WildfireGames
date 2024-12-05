@@ -13,7 +13,7 @@ namespace HappyHouse.FireSystem
         public GameObject flame;
         public ParticleSystem embers;
         //public ParticleSystem mediumFlame;
-        [Range(0f, 1f)]
+        [Range(0f, 10f)]
         //public float fireGrowthSpeed = 0.2f;
         public float speed;
         public Vector3 windDirection;
@@ -27,7 +27,7 @@ namespace HappyHouse.FireSystem
         [SerializeField] float fireLife;
         GameObject SFX;
         public LayerMask combustibleLayer;
-        [SerializeField]float totalHeat = 100f;
+        //[SerializeField]float totalHeat = 100f;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -45,12 +45,15 @@ namespace HappyHouse.FireSystem
                 ImpactFire(10);
             }
 
-            while (fireLife > 0 && onCombustible)
+            if(fireLife > 0 && onCombustible)
             {
                 fireLife -= Time.deltaTime;
-                GraduallyChangeFireSize(maxSize, 0.05f);
+                GraduallyChangeFireSize(maxSize, 0.1f);
             }
-            
+            if (fireLife < 0)
+            {
+                Destroy(gameObject);
+            }
 
         }
 
@@ -105,7 +108,7 @@ namespace HappyHouse.FireSystem
 
         private void OnTriggerStay(Collider other)
         {
-            if (onCombustible || totalHeat <= 0) return;
+            if (onCombustible/* || totalHeat <= 0*/) return;
            
             var hit = other.gameObject;
             if (hit == null) return;

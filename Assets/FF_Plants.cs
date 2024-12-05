@@ -42,11 +42,20 @@ public class FF_Plants : MonoBehaviour
         {
             if (c != collider)
             {
-                var part = c.GetComponentInParent<FF_Combustible>();
-                if (part != null)
+                FF_Combustible combustible;
+                if(c.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    //Debug.Log($"{gameObject.name} is trying to ignite {part.gameObject.name}");
-                    part.TryIgnite();
+                    combustible = c.GetComponentInParent<FF_Combustible>();
+                }
+                else
+                {
+                    combustible = c.GetComponent<FF_Combustible>();
+                }
+  
+                if (combustible != null)
+                {
+                    Debug.Log($"{gameObject.name} is trying to ignite {combustible.gameObject.name}");
+                    combustible.TryIgnite();
                 }
 
             }

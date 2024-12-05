@@ -32,7 +32,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Time.timeScale = 5.0f;
+        }
     }
 
     public void SwitchPlayer (string playerTag)

@@ -284,8 +284,11 @@ public class BaseHousePartObject : MonoBehaviour
                     
                     // Wait for the calculated spread delay before attempting to ignite
                     yield return new WaitForSeconds(spreadDelay);
-
-                    housePartObj.combustible.TryIgnite();
+                    if(housePartObj != null)
+                    {
+                        housePartObj.combustible.TryIgnite();
+                    }
+                   
                 }
             }
 
