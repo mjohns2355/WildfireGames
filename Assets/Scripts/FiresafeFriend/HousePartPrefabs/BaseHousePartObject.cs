@@ -11,25 +11,14 @@ using Unity.VisualScripting;
 
 public class BaseHousePartObject : MonoBehaviour
 {
-    //public HousePart housePart;
-    //public MeshRenderer meshRenderer;
     public MeshRenderer[] meshes;
     public HouseNode houseNode;
-    /* public*/
     HouseManager owner;
     public HousePartType HousePartType { get; private set; }
-    //public float durability;
-    //public float flammability;
-    //public bool isOnFire = false;
     public PurchaseFloatingButton bubble;
     public bool shouldDisplayBubble = false;
-    //public float burnDuration = 100f;
-    //public BurnStage burnStage = BurnStage.Igniting;
-    //[SerializeField] Material material;
     public bool isOnCursor = false;
     public HousePartInfo partInfo;
-    //public float baseBurnTime = 10f;
-    //private float burnTimer;
     private Rigidbody rb;
     [SerializeField] private Collider collider;
     public bool notInteractable;

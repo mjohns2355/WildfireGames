@@ -26,7 +26,10 @@ namespace HappyHouse.FireSystem
         //[SerializeField] SphereCollider collider;
         [SerializeField] float fireLife;
         GameObject SFX;
+        public bool canLerp = false;
         public LayerMask combustibleLayer;
+        public Vector3 startPos;
+        public Vector3 endPos;
         //[SerializeField]float totalHeat = 100f;
         private void Start()
         {
@@ -54,12 +57,17 @@ namespace HappyHouse.FireSystem
             {
                 Destroy(gameObject);
             }
-
+            if(!canLerp) return;
+            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * 1);
         }
 
- 
 
-   
+        void LerpFireMovement(float t, Vector3 startPos, Vector3 endPos)
+        {
+            //Debug.Log("lerping");
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+        }
+
         public void InitFire(bool isOnCombustible, float speed, float life, float maxSize)
         {
             onCombustible = isOnCombustible;
