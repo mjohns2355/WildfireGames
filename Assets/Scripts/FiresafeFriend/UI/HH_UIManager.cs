@@ -2,6 +2,7 @@ using HappyHouse.HouseSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class HH_UIManager : MonoBehaviour
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
     public GameObject startText;
+    public FF_QuizPopupUI quizPopup;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,11 @@ public class HH_UIManager : MonoBehaviour
         
     }
 
+    public void ShowQuizPopup()
+    {
+        quizPopup.gameObject.SetActive(true);
+        quizPopup.InitQuizPopup();
+    }
     public void ShowStoreScreen(HousePartInfo partInfo, PurchaseFloatingButton clickedButton)
     {
         storePanel.gameObject.SetActive(true);

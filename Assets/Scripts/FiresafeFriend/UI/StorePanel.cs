@@ -39,7 +39,7 @@ public class StorePanel : MonoBehaviour
         player = HH_GameManager.Instance.currentPlayer;
         targetCategory = partInfo.housePartType;
         typeCategoryText.text = partInfo.housePartType.ToString();
-        budgetText.text = $"$ {player.budget.ToString("N0")}";
+        UpdateBudgetText(player.budgetManager.currentBudget);
 
         PopulateIconsInStore();
     }
@@ -64,7 +64,7 @@ public class StorePanel : MonoBehaviour
         {
             if (player.inventory.PlayerOwnsPart(p))
             {
-                Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
+                //Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
                 continue;
             }
             var icon = Instantiate(shopPartIcon,available.transform).GetComponent<PartButton>();
@@ -78,6 +78,11 @@ public class StorePanel : MonoBehaviour
         {
             Destroy(available.GetChild(i).gameObject);
         }
+    }
+
+    public void UpdateBudgetText(float amount)
+    {
+        budgetText.text = $"$ {amount:N0}";
     }
 
     

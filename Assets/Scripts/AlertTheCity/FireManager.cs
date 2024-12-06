@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FireManager : MonoBehaviour
 {
     bool startFire = false;
     public float fireWaitTimeBeforeStart = 3f;
-    public Transform fireSpawnPoint;
+    //public Transform fireSpawnPoint;
     public GameObject firePrefab;
     public ATC_WindZone wind;
     public GameObject fireSafeZone;
+    public Transform townCenter;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
     public bool done = false;
-
+    public Transform fireStartPoints;
+    private List<Transform> fireStartPositions = new List<Transform>();
     void Start()
     {
         GameManager.Instance.SimStartsEvent.AddListener(() => 
@@ -35,6 +38,11 @@ public class FireManager : MonoBehaviour
         {
             zone.GetComponent<MeshRenderer>().enabled = false;
         }
+
+        for (int i = 0; i < fireStartPoints.childCount; i++)
+        {
+            fireStartPositions.Add(fireStartPoints.GetChild(i));
+        }
     }
 
     // Update is called once per frame
@@ -52,6 +60,11 @@ public class FireManager : MonoBehaviour
     {
         if(startFire) return;
         startFire = true;
+        var fireSpawnPoint = fireStartPositions.OrderBy(x => Random.value).First();
+        wind.transform.position = fireSpawnPoint.position;
+        var windDirection = (townCenter.position - fireSpawnPoint.position).normalized;
+        //Debug.Log(windDirection);
+        wind.SetWindDirection(windDirection);
         SpawnFire(fireSpawnPoint, 1);
     }
     public void SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false)

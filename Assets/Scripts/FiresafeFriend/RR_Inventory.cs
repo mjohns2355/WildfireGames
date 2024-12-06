@@ -22,7 +22,7 @@ namespace HappyHouse.HouseSystem
             {
                 ownedParts.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo });
             }
-            Debug.Log($"Added {newPartInfo.partID} to inventory");
+            //Debug.Log($"Added {newPartInfo.partID} to inventory");
             return true;
         }
 
