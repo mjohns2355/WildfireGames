@@ -14,13 +14,15 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public QuizManager quizManager;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
+    public GameObject[] fences;
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
-
+    
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
         base.Awake();
+        fences = GameObject.FindGameObjectsWithTag("Fence");
     }
     private void Start()
     {
@@ -28,6 +30,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             ToggleHousesClickBox(true);
         });
+        
     }
 
     private void Update()

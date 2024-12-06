@@ -13,6 +13,7 @@ namespace HappyHouse.FireSystem
         public Transform fireSpawnPoint;
         public GameObject firePrefab;
         public GameObject mainEmbersPrefab;
+        public GameObject backgroundFire;
         public float fireTimer = 100f;
         public List<FireController> spawnedFires = new List<FireController>();
         public float defaultFireLife = 10f;
@@ -36,6 +37,7 @@ namespace HappyHouse.FireSystem
             {
                 startFire = false;
                 Destroy(mainFire.gameObject);
+                backgroundFire.SetActive(false);
                 fireEndEvent.Invoke();
             }
         }
@@ -44,7 +46,7 @@ namespace HappyHouse.FireSystem
             if (startFire) return;
             startFire = true;
             mainFire = SpawnEmbers(fireSpawnPoint, 50);
-
+            backgroundFire.SetActive(true);
         }
 
         public FireController SpawnEmbers(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)

@@ -8,7 +8,6 @@ namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
     {
-        public bool isTestHouse;
         //public HouseBlueprint houseBlueprint;
         public Transform camTransform;
         public HouseGraph houseGraph;
@@ -21,53 +20,63 @@ namespace HappyHouse.HouseSystem
         public GameObject craftIcon;
         public GameObject arrowUI;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
-        [SerializeField] BoxCollider clickBox;
+        //[SerializeField] BoxCollider clickBox;
       
         private void Start()
         {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager();
-            if (isTestHouse)
-            {
-                Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                    if(part.notInteractable) continue;
-                    part.InitHousePartObject(this);
-                    var node = houseGraph.AddHousePart(part);
-                    part.houseNode = node;
-                    nodeDictionary[part.name] = node;
-                    inventory.AddNewPartToInventory(part.partInfo);
-                }
 
-                for (int i = 0; i < transform.childCount; i++)
+            var fences = HH_GameManager.Instance.fences;
+            Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                if (part.notInteractable) continue;
+                InitHouseNode(nodeDictionary, part);
+            }
+
+            foreach(var f in fences)
+            {
+                InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
+            }
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                if (part.notInteractable) continue;
+                if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
                 {
-                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                    if (part.notInteractable) continue;
-                    if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
+                    foreach (var neighbour in part.CheckNeighbours())
                     {
-                        foreach (var neighbour in part.CheckNeighbours())
+                        if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
                         {
-                            if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
-                            {
-                                houseGraph.ConnectParts(currentNode, connectedNode);
-                            }
+                            houseGraph.ConnectParts(currentNode, connectedNode);
                         }
                     }
                 }
             }
+
             //else
             //{
             //    InitializeDefaultHouseLayout();
             //}
-            
+
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
+        }
+
+        private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
+        {
+            part.InitHousePartObject(this);
+            var node = houseGraph.AddHousePart(part);
+            part.houseNode = node;
+            nodeDictionary[part.name] = node;
+            inventory.AddNewPartToInventory(part.partInfo);
         }
 
         public void ToggleClickBox(bool toggle)
         {
-            clickBox.enabled = toggle;
+            //clickBox.enabled = toggle;
         }
         public void OnHouseSelected(HouseManager manager)
         {
