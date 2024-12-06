@@ -71,7 +71,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &148145933540459752
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +88,7 @@ GameObject:
   - component: {fileID: 6685819413586205085}
   m_Layer: 0
   m_Name: HouseTwo
-  m_TagString: House
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,16 +144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28893625f22741749bb98efd9325c248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTestHouse: 1
   camTransform: {fileID: 0}
   inventory: {fileID: 2783544366055045561}
-  budget: 10000
+  budgetManager:
+    initBudget: 0
+    currentBudget: 0
+    spentBudget: 0
   playerTag: P2
   positionOffset: {x: 0, y: 0, z: 0}
   scaleMultiplier: 0
   craftIcon: {fileID: 101270976333883414, guid: a0453dc297967bb46bf76f487cc92acf, type: 3}
   arrowUI: {fileID: 0}
-  clickBox: {fileID: 6685819413586205085}
 --- !u!114 &2783544366055045561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +259,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &591913653677853000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1019,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &2527212773976404540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1093,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &2594686370923361462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,7 +1167,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &3245218154612335489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1346,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &3715376452281372542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,7 +1420,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &3722862681681891251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,7 +1599,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &4230156154485045982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,7 +2116,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &4785328799931272643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,7 +2190,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &4946358884500351863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2244,7 +2265,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &4949194114080990478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,7 +2339,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &5474166553590291194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,7 +2518,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &5733772518211536606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,7 +2592,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &5739092717953740747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2666,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &5879134967132654354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,7 +2950,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &6463280498189972135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,7 +3507,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &7225526032556575144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,7 +3686,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &7571787283933403255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,7 +3760,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &7745427147065528614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3834,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &7979344870513653549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3867,7 +3908,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &8308296971820108333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3939,7 +3982,9 @@ MonoBehaviour:
   flammability: 0
   isOnFire: 0
   burnStage: 0
+  mustDestroy: 0
   heat: 0
+  heatThreshold: 100
 --- !u!1 &8630715384101453075
 GameObject:
   m_ObjectHideFlags: 0

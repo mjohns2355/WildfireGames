@@ -40,8 +40,9 @@ public class HH_InputManager : MonoBehaviour
 
                 if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    if (canClickHouse)
+                    if (canClickHouse )
                     {
+                        if (hit.collider.transform.parent.CompareTag("Fence")) return;
                         var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
                         OnHouseSelected?.Invoke(house);
                     }
@@ -86,6 +87,7 @@ public class HH_InputManager : MonoBehaviour
                 {
                     if (canClickHouse)
                     {
+                        if (hit.collider.transform.parent.CompareTag("Fence")) return;
                         var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
                         OnHouseSelected?.Invoke(house);
                     }

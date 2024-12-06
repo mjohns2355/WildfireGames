@@ -17,7 +17,7 @@ public class ResourceManager : UnitySingleton<ResourceManager>
     private void InitPartsDictionary()
     {
         allAvailableParts = new Dictionary<HousePartType, List<HousePartInfo>> ();
-        var allParts = Resources.LoadAll<HousePartInfo>("ResillientResident/HousePartsSO");
+        var allParts = Resources.LoadAll<HousePartInfo>("FiresafeFriend/HousePartsSO");
         foreach (var part in allParts)
         {
            
