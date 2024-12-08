@@ -18,12 +18,17 @@ public class FF_Combustible : MonoBehaviour
     public Action OnIgnite;
     public Action OnBurnedOut;
     public float heat = 0;
-    [SerializeField]private float heatThreshold = 100f;
+    [SerializeField] private float heatThreshold = 100f;
     private bool isOverHeated = false;
     private void Start()
     {
         //heatThreshold = 100f;
         baseBurnTime = 10f;
+    }
+
+    private void Update()
+    {
+        
     }
     private float CalculateFireCatchChance(float flammability)
     {
@@ -54,7 +59,7 @@ public class FF_Combustible : MonoBehaviour
 
     public void AddHeat(float amount)
     {
-        
+
         if (heat > heatThreshold && !isOverHeated)
         {
             TryIgnite();
@@ -73,16 +78,27 @@ public class FF_Combustible : MonoBehaviour
         //{
         //    yield break; // Does not catch fire
         //}
-        yield return new WaitForSeconds(durability/10 + baseBurnTime );
-        
+        yield return new WaitForSeconds(durability / 10 + baseBurnTime);
+
         burnTimer = durability / flammability + baseBurnTime;
         if (gameObject.layer == LayerMask.NameToLayer("Nature"))
         {
-            HH_GameManager.Instance.fireManager.SpawnFire(transform, 1f, true, burnTimer, 3f);
+            HH_GameManager.Instance.fireManager.SpawnFire(transform.position,transform, 1f, true, burnTimer, 3f);
         }
         else
         {
-            HH_GameManager.Instance.fireManager.SpawnFire(transform, 0.01f, true, burnTimer);
+            var collider = gameObject.GetComponentInChildren<Collider>();
+            var top = collider.bounds.max;
+            var bottom = collider.bounds.min;
+            var center = collider.bounds.center;
+            var pos = new Vector3(center.x, bottom.y,center.z);
+            var end = new Vector3(center.x,top.y, center.z);
+            var fire = HH_GameManager.Instance.fireManager.SpawnFire(pos,transform, 0.01f, true, burnTimer);
+            fire.canLerp = true;
+            fire.startPos = pos;
+            fire.endPos = end;
+
+            Debug.Log($"Start Pos: {pos}, End Pos: {end}");
         }
         OnIgnite?.Invoke();
         StartCoroutine(Burn());
@@ -129,6 +145,8 @@ public class FF_Combustible : MonoBehaviour
             yield return null;
         }
     }
+
+
 
 }
 

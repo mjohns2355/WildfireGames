@@ -57,9 +57,9 @@ namespace HappyHouse.FireSystem
             fire.GetComponent<FireController>().InitFire(onCombustible, 2, fireLife,10f);
             return fire.GetComponent<FireController>();
         }
-        public FireController SpawnFire(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f, float maxSize = 1f)
+        public FireController SpawnFire(Vector3 spawnPos, Transform spawnParent, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f, float maxSize = 1f)
         {
-            var fire = Instantiate(firePrefab, spawnPos.position, Quaternion.identity, spawnPos);
+            var fire = Instantiate(firePrefab, spawnPos, Quaternion.identity/*, spawnParent*/);
             fire.transform.localScale *= scaleMultiplier;
             
             var fireLife =  life == 0? defaultFireLife : life;
