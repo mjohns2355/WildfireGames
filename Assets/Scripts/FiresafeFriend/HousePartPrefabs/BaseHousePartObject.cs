@@ -58,18 +58,20 @@ public class BaseHousePartObject : FF_BaseCombustible
         
     }
 
-    public void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
+    public virtual void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         
 
         var part = housePart == null ? partInfo : housePart;
         //Debug.Log($"Initialize {gameObject.name}");
         HousePartType = part.housePartType;
+        durability = part.durability;
+        flammability = part.flammability;
+        //}
         //if (combustible != null)
         //{
-        //    combustible.durability = part.durability;
-        //    combustible.flammability = part.flammability;
-        //}
+        //    combustible.
+        //    combustible.
         partInfo = part;
         this.owner = owner;
         //houseNode = new HouseNode(this);
@@ -89,7 +91,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         
     }
 
-    public List<BaseHousePartObject> CheckNeighbours(string layerName)
+    public virtual List<BaseHousePartObject> CheckNeighbours(string layerName)
     {
         //Debug.Log($"Checking {gameObject.name}'s neighbours");
         Vector3 center = collider.bounds.center;
