@@ -53,8 +53,9 @@ public class HH_InputManager : MonoBehaviour
                     }
                 }
 
-                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature"))
+                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
                 {
+                    Debug.Log($"Hit {hit.collider.gameObject}");
                     OnObjectSelected?.Invoke(hit.collider.gameObject);
                 }
                 //if(hit.collider.gameObject.layer == 10)

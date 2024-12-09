@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4993883630374725664
+--- !u!1 &4730972424979486724
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2844191288809545797}
-  - component: {fileID: 7533177041801614027}
-  m_Layer: 0
-  m_Name: BaseCombustible
+  - component: {fileID: 6102447822431049168}
+  - component: {fileID: 3799452349642317958}
+  m_Layer: 10
+  m_Name: BaseHousePartPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2844191288809545797
+--- !u!4 &6102447822431049168
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993883630374725664}
+  m_GameObject: {fileID: 4730972424979486724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,22 +32,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7533177041801614027
+--- !u!114 &3799452349642317958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993883630374725664}
+  m_GameObject: {fileID: 4730972424979486724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durability: 0
-  flammability: 0
+  combustibleInfo: {fileID: 0}
   isOnFire: 0
   burnStage: 0
-  mustDestroy: 0
   heat: 0
   heatThreshold: 100
+  mustDestroy: 0
+  notInteractable: 0
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOverHeated: 0
+  durability: 0
+  flammability: 0
+  baseBurnTime: 0
+  burnTimer: 0
+  collider: {fileID: 0}
+  meshes: []
+  isOnCursor: 0
+  partInfo: {fileID: 0}

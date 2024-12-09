@@ -47,7 +47,8 @@ namespace HappyHouse.HouseSystem
                 if (part.notInteractable) continue;
                 if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
                 {
-                    foreach (var neighbour in part.CheckNeighbours())
+                    
+                    foreach (var neighbour in part.CheckNeighbours("Structure"))
                     {
                         if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
                         {
@@ -61,12 +62,12 @@ namespace HappyHouse.HouseSystem
             //{
             //    InitializeDefaultHouseLayout();
             //}
-
+            //houseGraph.PrintGraph();
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
-        {
+        {        
             part.InitHousePartObject(this);
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
@@ -165,9 +166,10 @@ namespace HappyHouse.HouseSystem
 
         public void ReplaceHousePartObject (/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
         {
-            var oldParts = GetAllHousePartObjects(housePartInfo.housePartType);
+            var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
+            
             foreach (var oldPart in oldParts)
             {
                 //List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
@@ -199,7 +201,7 @@ namespace HappyHouse.HouseSystem
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
 
-        public BaseHousePartObject GetCurrentInUseHousePartObject (HousePartType type)
+        public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
         {
             foreach(var node in houseGraph.nodes)
             {
@@ -211,10 +213,10 @@ namespace HappyHouse.HouseSystem
             return null;
         }
 
-        public List<BaseHousePartObject> GetAllHousePartObjects (HousePartType type)
+        public List<BaseHousePartObject> GetAllHousePartObjectsOf (HousePartType type)
         {
             var res = new List<BaseHousePartObject>();
-
+            Debug.Log($"Replace {type}");
             foreach(var node in houseGraph.nodes)
             {
                 if (node.housePart.HousePartType == type)

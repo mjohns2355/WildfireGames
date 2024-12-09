@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7748439894743785826}
   - component: {fileID: 3320321570220145234}
-  - component: {fileID: 122197827581027107}
+  - component: {fileID: 1972630335219135164}
   m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
@@ -146,21 +146,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7145408450671462351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6897e775e2383cc4a9fff8f203104740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshes:
-  - {fileID: 2799209878385966954}
+  combustibleInfo: {fileID: 11400000, guid: ede9d08099f7cff48b10ce32adbf5a85, type: 2}
+  isOnFire: 0
+  burnStage: 0
+  heat: 0
+  heatThreshold: 100
+  mustDestroy: 0
+  notInteractable: 0
   bubble: {fileID: 0}
   shouldDisplayBubble: 1
+  isOverHeated: 0
+  durability: 0
+  flammability: 0
+  baseBurnTime: 0
+  burnTimer: 0
+  collider: {fileID: 2015014348887551638}
+  meshes:
+  - {fileID: 2799209878385966954}
   isOnCursor: 0
   partInfo: {fileID: 11400000, guid: 4452bd8bba7b80d44a62aa743edfb513, type: 2}
-  collider: {fileID: 2015014348887551638}
-  notInteractable: 0
-  combustible: {fileID: 0}
---- !u!114 &122197827581027107
+  neighbours: []
+--- !u!114 &1972630335219135164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,13 +180,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7145408450671462351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c56a8d7a1a3bf746858e2b9d02d0bba, type: 3}
+  m_Script: {fileID: 11500000, guid: b8c9337b5b81a4341bf4f7a8cbf2e0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durability: 0
-  flammability: 0
+  combustibleInfo: {fileID: 11400000, guid: ede9d08099f7cff48b10ce32adbf5a85, type: 2}
   isOnFire: 0
   burnStage: 0
-  mustDestroy: 0
   heat: 0
   heatThreshold: 100
+  mustDestroy: 0
+  notInteractable: 0
+  bubble: {fileID: 0}
+  shouldDisplayBubble: 0
+  isOverHeated: 0
+  durability: 0
+  flammability: 0
+  baseBurnTime: 0
+  burnTimer: 0
+  collider: {fileID: 0}
+  meshes: []
+  isOnCursor: 0
+  partInfo: {fileID: 0}
+  neighbours: []

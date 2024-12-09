@@ -26,7 +26,7 @@ namespace HappyHouse.FireSystem
         //[SerializeField] SphereCollider collider;
         [SerializeField] float fireLife;
         GameObject SFX;
-        public bool canLerp = false;
+        public bool canMove = false;
         public LayerMask combustibleLayer;
         public Vector3 startPos;
         public Vector3 endPos;
@@ -57,8 +57,8 @@ namespace HappyHouse.FireSystem
             {
                 Destroy(gameObject);
             }
-            if(!canLerp) return;
-            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * 1);
+            if(!canMove) return;
+            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);
         }
 
 
@@ -121,24 +121,24 @@ namespace HappyHouse.FireSystem
             var hit = other.gameObject;
             if (hit == null) return;
             
-            if (hit.layer == LayerMask.NameToLayer("Structure"))
-            {
+            //if (hit.layer == LayerMask.NameToLayer("Structure") || hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Combustible"))
+            //{
                 // collider is on mesh
-                if (hit.transform.parent.TryGetComponent(out FF_Combustible obj) && obj != null)
+                if (hit.transform.parent.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
                 {
                    
                     obj.AddHeat(0.1f);
                 }
-            }
+            //}
 
-            if (hit.layer == LayerMask.NameToLayer("Nature"))
-            {
-                if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
-                {
+            //if (hit.layer == LayerMask.NameToLayer("Nature"))
+            //{
+            //    if (hit.transform.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
+            //    {
 
-                    obj.AddHeat(0.1f);
-                }
-            }
+            //        obj.AddHeat(0.1f);
+            //    }
+            //}
         }
 
         public void ImpactFire(float multiplier)
