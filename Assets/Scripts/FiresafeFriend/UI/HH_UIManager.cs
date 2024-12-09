@@ -11,7 +11,7 @@ public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
-    public Button leftArrow, rightArrow;
+    public Button leftArrow, rightArrow,earnMoreMoney;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
     public GameObject startText;

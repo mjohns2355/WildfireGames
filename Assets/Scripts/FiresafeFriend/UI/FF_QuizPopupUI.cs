@@ -60,10 +60,13 @@ public class FF_QuizPopupUI : MonoBehaviour
         OnOptionButtonClicked(button);
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
+        //hide earn more button
+        HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
+
         for(int i = 0; i < buttonsParent.childCount; i++)
         {
             Destroy(buttonsParent.GetChild(i).gameObject);

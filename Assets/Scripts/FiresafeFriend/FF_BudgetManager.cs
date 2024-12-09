@@ -59,7 +59,8 @@ public class FF_BudgetManager
             if(spendingPrecentage >= budgetThresholds[i] && !triggeredThresholds[i])
             {
                 triggeredThresholds[i] = true;
-                HH_GameManager.Instance.uiManager.ShowQuizPopup();
+                //HH_GameManager.Instance.uiManager.ShowQuizPopup();
+                HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
                 Debug.Log($"You’ve spent {budgetThresholds[i]}% of your money!");
             }
         }
