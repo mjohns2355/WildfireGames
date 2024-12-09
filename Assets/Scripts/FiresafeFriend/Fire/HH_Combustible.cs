@@ -20,7 +20,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
 
     public Action OnIgnite;
     public Action OnBurnedOut;
-
+    
     [SerializeField] protected bool isOverHeated = false;
     [SerializeField] protected float durability;
     [SerializeField] protected float flammability;
@@ -39,6 +39,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         durability = combustibleInfo.durability;
         //Debug.Log(combustibleInfo.durability);
         flammability = combustibleInfo.flammability;
+        HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
     }
 
     protected virtual float CalculateFireCatchChance(float flammability)
@@ -95,6 +96,12 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     {
         flammability *= 1- precentage;
     }
+
+    protected virtual void OnCombustibleClicked(GameObject obj)
+    {
+
+    }
+
     //protected virtual IEnumerator IgniteWithDelay()
     //{
     //    if (isOnFire) yield break;
@@ -172,11 +179,16 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void BurnOut()
     {
         isOnFire = false;
-        StopAllCoroutines();
+       
         OnBurnedOut?.Invoke();
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        HH_GameManager.Instance.inputManager.OnObjectSelected -= OnCombustibleClicked;
+    }
 }
 
 

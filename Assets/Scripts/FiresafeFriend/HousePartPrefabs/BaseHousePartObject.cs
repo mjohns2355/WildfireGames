@@ -13,6 +13,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 {
     public MeshRenderer[] meshes;
     public HouseNode houseNode;
+    public Transform bubblePos;
     HouseManager owner;
     public HousePartType HousePartType { get; private set; }
 
@@ -44,26 +45,23 @@ public class BaseHousePartObject : FF_BaseCombustible
         //    combustible.OnBurnedOut += HandleBurnedOut;
         //}
         //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
-        HH_GameManager.Instance.inputManager.OnObjectSelected += OnHousePartSelected;
+        //HH_GameManager.Instance.inputManager.OnObjectSelected += OnHousePartSelected;
     }
 
-    private void OnHousePartSelected(GameObject obj)
+
+    protected override void OnCombustibleClicked(GameObject obj)
     {
-        //TryGetComponent(out BaseHousePartObject part);
-        if(obj.transform.parent == transform && !notInteractable)
+        if (obj.transform.parent == transform && !notInteractable)
         {
-            
+
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo, bubble);
         }
-        
     }
 
     public virtual void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
-        
-
         var part = housePart == null ? partInfo : housePart;
-        //Debug.Log($"Initialize {gameObject.name}");
+        
         HousePartType = part.housePartType;
         durability = part.durability;
         flammability = part.flammability;
@@ -73,6 +71,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         //    combustible.
         //    combustible.
         partInfo = part;
+        combustibleInfo = partInfo;
         this.owner = owner;
         //houseNode = new HouseNode(this);
         ReplaceMeshMaterial(part.material);
@@ -85,7 +84,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         //Debug.Log($"Replace material with {material.name}");
         foreach (var mesh in meshes)
         {
-            Debug.Log(mesh.name);
             mesh.material = material;
         }
         
@@ -201,4 +199,5 @@ public class BaseHousePartObject : FF_BaseCombustible
         fire.startPos = pos;
         fire.endPos = end;
     }
+
 }

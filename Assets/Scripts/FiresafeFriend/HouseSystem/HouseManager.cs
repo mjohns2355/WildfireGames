@@ -58,7 +58,7 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //else
+            //elses
             //{
             //    InitializeDefaultHouseLayout();
             //}
@@ -172,30 +172,8 @@ namespace HappyHouse.HouseSystem
             
             foreach (var oldPart in oldParts)
             {
-                //List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
-                //var newPart = HH_GameManager.Instance.CreateHousePartObject(housePartInfo, this);
-                //houseGraph.RemoveHousePart(oldPart.houseNode);
-                //// swap object position
-                //newPart.transform.parent = oldPart.transform.parent;
-                //newPart.gameObject.transform.position = oldPart.transform.position;
-                //newPart.gameObject.transform.rotation = oldPart.transform.rotation;
-                //newPart.gameObject.transform.localScale = oldPart.transform.localScale;
-
-
-                //// Initialize the new part's HouseNode and add it to the HouseGraph
-                //HouseNode newNode = new HouseNode(newPart);
-                //newPart.houseNode = newNode;
-                //houseGraph.AddHousePart(newPart);
-
-                //// Reconnect the new node to the neighbors of the old node
-                //foreach (var neighbor in neighbors)
-                //{
-                //    houseGraph.ConnectParts(newNode, neighbor);
-                //}
-                ////Debug.Log($"Replace {oldPart.name} with {newPart.name}");
-                //Destroy(oldPart.gameObject);
-                oldPart.partInfo = housePartInfo;
-                oldPart.InitHousePartObject(this);
+                //oldPart.partInfo = housePartInfo;
+                oldPart.InitHousePartObject(this,housePartInfo);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);

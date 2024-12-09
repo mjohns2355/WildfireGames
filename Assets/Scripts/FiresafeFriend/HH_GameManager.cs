@@ -74,13 +74,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
     }
-    public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
-    {
-        var obj = new GameObject(partInfo.partID);
-        var houseObj = obj.AddComponent<BaseHousePartObject>();
-        houseObj.InitHousePartObject(owner,partInfo );
-        return houseObj;
-    }
+    //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
+    //{
+    //    var obj = new GameObject(partInfo.partID);
+    //    var houseObj = obj.AddComponent<BaseHousePartObject>();
+    //    houseObj.InitHousePartObject(owner,partInfo );
+    //    return houseObj;
+    //}
 
     public void StartFire()
     {

@@ -13,19 +13,18 @@ public class FF_Plants : FF_BaseCombustible
         base.Start();
         OnIgnite += HandleIgnite;
         
-        HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
+        //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 
-    private void OnPlantSelected(GameObject obj)
+
+    protected override void OnCombustibleClicked(GameObject obj)
     {
-        if(obj.transform.parent == transform)
+        if (obj.transform.parent == transform)
         {
             //Debug.Log($"Clicked {gameObject.name}");
             StartCoroutine(PlantClickedRoutine());
         }
-       
     }
-
     private void HandleIgnite()
     {
         HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform,1f, 0.5f, true, burnTimer, 1.5f);
@@ -51,7 +50,7 @@ public class FF_Plants : FF_BaseCombustible
   
                 if (combustible != null)
                 {
-                    Debug.Log($"{gameObject.name} is trying to ignite {combustible.gameObject.name}");
+                    //Debug.Log($"{gameObject.name} is trying to ignite {combustible.gameObject.name}");
                     combustible.TryIgnite();
                 }
 
@@ -62,7 +61,7 @@ public class FF_Plants : FF_BaseCombustible
 
     IEnumerator PlantClickedRoutine()
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         var vfx = Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
         yield return new WaitForSeconds(1f);
         Destroy(vfx);
@@ -70,22 +69,5 @@ public class FF_Plants : FF_BaseCombustible
 
     }
 
-    void OnMouseDown()
-    {
-        //Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation,transform);
-
-        //Destroy(gameObject);
-    }
-
-
     
-    //void OnDrawGizmos()
-    //{
-    //    if (collider != null)
-    //    {
-    //        Gizmos.color = Color.cyan;
-    //        //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
-    //        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
-    //    }
-    //}
 }

@@ -11,10 +11,10 @@ public class FF_Props : FF_BaseCombustible
         base.Start();
         OnIgnite += HandleIgnite;
 
-        HH_GameManager.Instance.inputManager.OnObjectSelected += OnPropSelected;
+        //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPropSelected;
     }
 
-    private void OnPropSelected(GameObject obj)
+    protected override void OnCombustibleClicked(GameObject obj)
     {
         if (obj.transform.parent == transform)
         {
@@ -22,14 +22,13 @@ public class FF_Props : FF_BaseCombustible
             StartCoroutine(PropClickedRoutine());
         }
     }
-
     private void HandleIgnite()
     {
         HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform, 1f, 0.5f, true, burnTimer, 1.5f);
     }
     IEnumerator PropClickedRoutine()
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         
         yield return new WaitForSeconds(1f);
 
