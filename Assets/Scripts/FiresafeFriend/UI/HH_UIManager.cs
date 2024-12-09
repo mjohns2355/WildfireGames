@@ -16,6 +16,7 @@ public class HH_UIManager : MonoBehaviour
     public Transform floatingIcons;
     public GameObject startText;
     public FF_QuizPopupUI quizPopup;
+    public WarningPopupPanel warningPopup;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,10 @@ public class HH_UIManager : MonoBehaviour
     {
         
     }
-
+    public void ShowWarningPopup()
+    {
+        warningPopup.gameObject.SetActive(true);
+    }
     public void ShowQuizPopup()
     {
         quizPopup.gameObject.SetActive(true);
