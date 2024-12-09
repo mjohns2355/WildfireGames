@@ -21,12 +21,12 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     public Action OnIgnite;
     public Action OnBurnedOut;
     
-    [SerializeField] protected bool isOverHeated = false;
-    [SerializeField] protected float durability;
-    [SerializeField] protected float flammability;
-    [SerializeField] protected float baseBurnTime;
-    [SerializeField] protected float burnTimer;
-    [SerializeField] protected Collider collider;
+    protected bool isOverHeated = false;
+    protected float durability;
+    protected float flammability;
+    [SerializeField] protected float baseBurnTime = 10f;
+    protected float burnTimer;
+    protected Collider collider;
     protected virtual void Awake()
     {
         if (notInteractable) return;
@@ -35,7 +35,6 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void Start()
     {
         if (notInteractable) return;
-        baseBurnTime = 10f;
         durability = combustibleInfo.durability;
         //Debug.Log(combustibleInfo.durability);
         flammability = combustibleInfo.flammability;
