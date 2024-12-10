@@ -49,7 +49,7 @@ public class PurchaseFloatingButton : MonoBehaviour
     {
         if (owner != null && iconImage != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.transform.position + offset);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.bubblePos.position + offset);
             iconImage.transform.position = screenPos;
             iconImage.enabled = screenPos.z > 0;
         }

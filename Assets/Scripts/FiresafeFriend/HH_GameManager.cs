@@ -14,13 +14,15 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public QuizManager quizManager;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
+    public GameObject[] fences;
     [SerializeField] HouseManager p1;
     [SerializeField] HouseManager p2;
-
+    
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
         base.Awake();
+        fences = GameObject.FindGameObjectsWithTag("Fence");
     }
     private void Start()
     {
@@ -28,6 +30,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             ToggleHousesClickBox(true);
         });
+        
     }
 
     private void Update()
@@ -71,13 +74,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
     }
-    public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
-    {
-        var obj = new GameObject(partInfo.partID);
-        var houseObj = obj.AddComponent<BaseHousePartObject>();
-        houseObj.InitHousePartObject(owner,partInfo );
-        return houseObj;
-    }
+    //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
+    //{
+    //    var obj = new GameObject(partInfo.partID);
+    //    var houseObj = obj.AddComponent<BaseHousePartObject>();
+    //    houseObj.InitHousePartObject(owner,partInfo );
+    //    return houseObj;
+    //}
 
     public void StartFire()
     {

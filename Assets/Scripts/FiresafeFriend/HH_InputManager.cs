@@ -40,8 +40,9 @@ public class HH_InputManager : MonoBehaviour
 
                 if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    if (canClickHouse)
+                    if (canClickHouse )
                     {
+                        if (hit.collider.transform.parent.CompareTag("Fence")) return;
                         var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
                         OnHouseSelected?.Invoke(house);
                     }
@@ -52,8 +53,9 @@ public class HH_InputManager : MonoBehaviour
                     }
                 }
 
-                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature"))
+                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
                 {
+                    Debug.Log($"Hit {hit.collider.gameObject}");
                     OnObjectSelected?.Invoke(hit.collider.gameObject);
                 }
                 //if(hit.collider.gameObject.layer == 10)
@@ -86,6 +88,7 @@ public class HH_InputManager : MonoBehaviour
                 {
                     if (canClickHouse)
                     {
+                        if (hit.collider.transform.parent.CompareTag("Fence")) return;
                         var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
                         OnHouseSelected?.Invoke(house);
                     }

@@ -76,4 +76,33 @@ public class HouseGraph
 
         part1.RemoveConnection(part2);
     }
+
+    public void PrintGraph()
+    {
+        if (nodes.Count == 0)
+        {
+            Debug.Log("The graph is empty.");
+            return;
+        }
+
+        foreach (var node in nodes)
+        {
+            string nodeInfo = $"{node.housePart.name} (Node)";
+            if (node.neighbourNodes.Count > 0)
+            {
+                nodeInfo += " -> Neighbors: ";
+                foreach (var neighbor in node.neighbourNodes)
+                {
+                    nodeInfo += $"{neighbor.housePart.name} (type:{neighbor.housePart.HousePartType} ), ";
+                }
+                nodeInfo = nodeInfo.TrimEnd(',', ' '); // Remove trailing comma
+            }
+            else
+            {
+                nodeInfo += " has no neighbors.";
+            }
+
+            Debug.Log(nodeInfo);
+        }
+    }
 }

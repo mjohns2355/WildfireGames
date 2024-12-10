@@ -9,80 +9,72 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 
 
-public class BaseHousePartObject : MonoBehaviour
+public class BaseHousePartObject : FF_BaseCombustible
 {
-    //public HousePart housePart;
-    //public MeshRenderer meshRenderer;
     public MeshRenderer[] meshes;
     public HouseNode houseNode;
-    /* public*/
+    public Transform bubblePos;
+    public GameObject VFX;
+    public Transform vfxPos;
     HouseManager owner;
     public HousePartType HousePartType { get; private set; }
-    //public float durability;
-    //public float flammability;
-    //public bool isOnFire = false;
-    public PurchaseFloatingButton bubble;
-    public bool shouldDisplayBubble = false;
-    //public float burnDuration = 100f;
-    //public BurnStage burnStage = BurnStage.Igniting;
-    //[SerializeField] Material material;
+
     public bool isOnCursor = false;
     public HousePartInfo partInfo;
-    //public float baseBurnTime = 10f;
-    //private float burnTimer;
-    private Rigidbody rb;
-    [SerializeField] private Collider collider;
-    public bool notInteractable;
-    public FF_Combustible combustible;
-    private void Start()
+
+    public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
+    protected override void Awake()
     {
-        //InitHousePartObject();
-        rb = GetComponent<Rigidbody>();
-        if(TryGetComponent(out combustible))
+        base.Awake();
+        if (notInteractable) return;
+        meshes = GetComponentsInChildren<MeshRenderer>();
+        if (combustibleInfo != null)
         {
-            combustible.OnIgnite += HandleIgnite;
-            combustible.OnBurnedOut += HandleBurnedOut;
+            partInfo = (HousePartInfo)combustibleInfo;
         }
-        //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
-        HH_GameManager.Instance.inputManager.OnObjectSelected += OnHousePartSelected;
+    }
+    protected override void Start()
+    {
+        base.Start();
+        OnIgnite += HandleIgnite;
+        OnBurnedOut += HandleBurnedOut;
+
     }
 
-    private void OnHousePartSelected(GameObject obj)
+
+    protected override void OnCombustibleClicked(GameObject obj)
     {
-        //TryGetComponent(out BaseHousePartObject part);
-        if(gameObject.name == obj.name && !notInteractable)
+        if (obj.transform.parent == transform && !notInteractable)
         {
-            
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo, bubble);
         }
-        
     }
 
-    private void Update()
-    {
-        if (!isOnCursor) return;
-
-
-    }
-    public void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
+    public virtual void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         var part = housePart == null ? partInfo : housePart;
+        
         HousePartType = part.housePartType;
-        if (combustible != null)
-        {
-            combustible.durability = part.durability;
-            combustible.flammability = part.flammability;
-        }
+        durability = part.durability;
+        flammability = part.flammability;
         partInfo = part;
+        combustibleInfo = partInfo;
         this.owner = owner;
-        //houseNode = new HouseNode(this);
         ReplaceMeshMaterial(part.material);
-        //CheckNeighbours();
-        //Debug.Log($"Part: {houseNode.housePart.name}");
+        switch (HousePartType)
+        {
+            case HousePartType.Wall:
+                VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
+                break;
+            case HousePartType.Window:
+                VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
+                break;
+        }
     }
 
     void ReplaceMeshMaterial(Material material)
     {
+        //Debug.Log($"Replace material with {material.name}");
         foreach (var mesh in meshes)
         {
             mesh.material = material;
@@ -90,168 +82,37 @@ public class BaseHousePartObject : MonoBehaviour
         
     }
 
-    public List<BaseHousePartObject> CheckNeighbours()
+    public virtual List<BaseHousePartObject> CheckNeighbours(string layerName)
     {
+        //Debug.Log($"Checking {gameObject.name}'s neighbours");
         Vector3 center = collider.bounds.center;
         Vector3 halfExtents = collider.bounds.extents;
-        LayerMask layerMask = LayerMask.GetMask("Structure");
+        LayerMask layerMask = LayerMask.GetMask(layerName);
         if (halfExtents.magnitude < 2)
         {
             halfExtents = new Vector3(2, 2, 2);
         }
-        //Debug.Log($"{gameObject.name}'s extent size: {halfExtents.magnitude}");
         Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
         //Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
-
-        //Debug.Log($"Check {gameObject.name}'s neigbours.");
         List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
         foreach (Collider c in colliders)
         {
             if (c != collider)
             {
                 var part = c.GetComponentInParent<BaseHousePartObject>();
-                if (part != null)
+                if (part != null && !part.notInteractable)
                 {
-                    //Debug.Log($"Added Neighbour {part.name}");
                     neighbours.Add(part);
                 }
 
             }
 
         }
-
+        this.neighbours = neighbours;
         return neighbours;
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    if (collider != null)
-    //    {
-    //        Gizmos.color = Color.cyan;
-    //        //Gizmos.matrix = Matrix4x4.TRS(meshCollider.bounds.center, transform.rotation, Vector3.one);
-    //        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
-    //    }
-    //}
-    //public void ReplaceHousePartObject(BaseHousePartObject newPart)
-    //{
-    //    // TO DO: Improve this later
-    //    // Only current player and selected house part should invoke this function
-    //    if(newPart.PartInfo.housePartType != HousePartType) return;
-    //    if (HH_GameManager.Instance.currentPlayer != owner) return;
-
-
-    //    List<HouseNode> neighbors = new List<HouseNode>(houseNode.neighbourNodes);
-
-    //    owner.houseGraph.RemoveHousePart(houseNode);
-    //    newPart.transform.parent = transform.parent;
-    //    newPart.gameObject.transform.position = transform.position;
-    //    newPart.gameObject.transform.rotation = transform.rotation;
-    //    newPart.gameObject.transform.localScale = transform.localScale;
-
-    //    newPart.owner = owner;    
-    //    // Initialize the new part's HouseNode and add it to the HouseGraph
-    //    HouseNode newNode = new HouseNode(newPart);
-    //    newPart.houseNode = newNode;
-    //    owner.houseGraph.AddHousePart(newPart);
-
-    //    // Reconnect the new node to the neighbors of the old node
-    //    foreach (var neighbor in neighbors)
-    //    {
-    //        owner.houseGraph.ConnectParts(newNode, neighbor);
-    //    }
-    //    Debug.Log($"Replace {gameObject.name} with {newPart.name}");
-    //    HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(HousePartType);
-    //    Destroy(gameObject);
-    //}
-
-    //private float CalculateFireCatchChance(float flammability)
-    //{
-    //    float baseCatchChance = Mathf.Clamp01(flammability / 100f);
-
-    //    return baseCatchChance;
-    //}
-
-    //private float CalculateDestructionChance(float durability, float burnTime)
-    //{
-
-    //    float baseDestroyChance = 1 - Mathf.Clamp01(durability / 100f);
-
-    //    //float burnTimeFactor = Mathf.Clamp01(burnTime / (durability * 2)); // Adjust multiplier as needed
-
-    //    return Mathf.Clamp01(baseDestroyChance /*+ burnTimeFactor*/);
-    //}
-    //private IEnumerator IgniteWithDelay()
-    //{
-    //    if (isOnFire) yield break;
-    //    //float fireCatchChance = CalculateFireCatchChance(flammability);
-    //    //if (UnityEngine.Random.value > fireCatchChance)
-    //    //{
-    //    //    yield break; // Does not catch fire
-    //    //}
-
-    //    isOnFire = true;
-    //    burnTimer = durability / flammability + baseBurnTime;
-    //    HH_GameManager.Instance.fireManager.SpawnFire(transform, 3, true, burnTimer);
-    //    StartCoroutine(SpreadFireToNeighbour());
-    //    StartCoroutine(Burn());
-    //}
-
-    //public void TryIgnite()
-    //{
-    //    if (isOnFire) return;
-
-    //    float fireCatchChance = CalculateFireCatchChance(flammability);
-
-    //    if (UnityEngine.Random.value < fireCatchChance)
-    //    {
-    //        StartCoroutine(IgniteWithDelay());
-    //    }
-    //}
-
-    //IEnumerator Burn()
-    //{
-    //    burnStage = BurnStage.Igniting;
-    //    UpdateMaterial(burnStage);
-    //    while (isOnFire)
-    //    {
-    //        if (burnTimer > 0)
-    //        {
-    //            burnTimer -= Time.deltaTime;
-
-    //            // Progress burn stages dynamically
-    //            if (burnTimer <= durability * 0.75f && burnStage == BurnStage.Igniting)
-    //            {
-    //                burnStage = BurnStage.Burning;
-    //                UpdateMaterial(BurnStage.Burning);
-    //            }
-    //            else if (burnTimer <= durability * 0.25f && burnStage == BurnStage.Burning)
-    //            {
-    //                burnStage = BurnStage.BurnedOut;
-    //                UpdateMaterial(BurnStage.BurnedOut);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            // Calculate destruction chance dynamically
-    //            float destructionChance = CalculateDestructionChance(durability, burnTimer);
-
-    //            if (UnityEngine.Random.value < destructionChance)
-    //            {
-    //                DestroyHousePart();
-    //            }
-    //            else
-    //            {
-    //                // Reset burn timer if part survives
-    //                //burnTimer = durability * baseBurnMultiplier / flammability;
-    //                isOnFire = false;
-    //                yield break;
-    //            }
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
-
+   
     private void UpdateMaterial(BurnStage burnStage)
     {
         //throw new NotImplementedException();
@@ -266,7 +127,7 @@ public class BaseHousePartObject : MonoBehaviour
         }
 
         
-        while (combustible.isOnFire)
+        while (isOnFire)
         {
             var houseGraph = owner.houseGraph;
             var neighbours = houseGraph.GetNeighbors(houseNode);
@@ -275,7 +136,7 @@ public class BaseHousePartObject : MonoBehaviour
             {
                 var housePartObj = neighbor.housePart;
                 
-                if (housePartObj != null && !housePartObj.combustible.isOnFire)
+                if (housePartObj != null && !housePartObj.isOnFire)
                 {
                     
                     // Calculate the delay based on distance
@@ -286,7 +147,7 @@ public class BaseHousePartObject : MonoBehaviour
                     yield return new WaitForSeconds(spreadDelay);
                     if(housePartObj != null)
                     {
-                        housePartObj.combustible.TryIgnite();
+                        housePartObj.TryIgnite();
                     }
                    
                 }
@@ -297,22 +158,52 @@ public class BaseHousePartObject : MonoBehaviour
         }
     }
 
-    //private void DestroyHousePart()
-    //{
-    //    //Debug.Log($"{gameObject.name} is destroyed");
-    //    isOnFire = false;
-    //    StopAllCoroutines();
-    //    Destroy(gameObject);
-    //}
 
     private void HandleIgnite()
     {
+        SpawnFire();
         StartCoroutine(SpreadFireToNeighbour());
-        UpdateMaterial(combustible.burnStage);
+        UpdateMaterial(burnStage);
     }
 
     private void HandleBurnedOut()
     {
-
+        if(VFX != null)
+        {
+            StartCoroutine(DestroyRoutine());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
+    IEnumerator DestroyRoutine()
+    {
+        var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
+        yield return new WaitForSeconds(1f);
+        foreach (var m in meshes)
+        {
+            m.gameObject.SetActive(false);
+        }
+        
+        yield return new WaitForSeconds(1f);
+
+        Destroy(vfx);
+        Destroy(gameObject);
+    }
+    private void SpawnFire()
+    {
+        //Debug.Log($"Burn Timer: {burnTimer}");
+        var top = collider.bounds.max;
+        var bottom = collider.bounds.min;
+        var center = collider.bounds.center;
+        var pos = new Vector3(center.x, bottom.y, center.z);
+        var end = new Vector3(center.x, top.y, center.z);
+        var fire = HH_GameManager.Instance.fireManager.SpawnFire(pos, transform,2f, 0.1f, true, burnTimer);
+        fire.canMove = true;
+        fire.startPos = pos;
+        fire.endPos = end;
+    }
+
 }

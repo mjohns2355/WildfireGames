@@ -6,32 +6,48 @@ using System.Linq;
 using UnityEngine;
 
 
-public class FF_Combustible : MonoBehaviour
+public abstract class FF_BaseCombustible : MonoBehaviour
 {
-    public float durability;
-    public float flammability;
+    public BaseCombustibleInfo combustibleInfo;
     public bool isOnFire = false;
     public BurnStage burnStage = BurnStage.Igniting;
-    private float baseBurnTime;
-    private float burnTimer;
+    public float heat = 0;
+    [SerializeField] protected float heatThreshold = 100f;
     public bool mustDestroy = false;
+    public bool notInteractable;
+    public PurchaseFloatingButton bubble;
+    public bool shouldDisplayBubble = false;
+
     public Action OnIgnite;
     public Action OnBurnedOut;
-    public float heat = 0;
-    [SerializeField]private float heatThreshold = 100f;
-    private bool isOverHeated = false;
-    private void Start()
+    
+    protected bool isOverHeated = false;
+    protected float durability;
+    protected float flammability;
+    [SerializeField] protected float baseBurnTime = 10f;
+    protected float burnTimer;
+    protected Collider collider;
+    protected virtual void Awake()
     {
-        //heatThreshold = 100f;
-        baseBurnTime = 10f;
+        if (notInteractable) return;
+        collider = GetComponentInChildren<Collider>();
     }
-    private float CalculateFireCatchChance(float flammability)
+    protected virtual void Start()
+    {
+        if (notInteractable) return;
+        durability = combustibleInfo.durability;
+        //Debug.Log(combustibleInfo.durability);
+        flammability = combustibleInfo.flammability;
+        HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
+    }
+
+    protected virtual float CalculateFireCatchChance(float flammability)
     {
         float baseCatchChance = Mathf.Clamp01(flammability / 100f);
 
         return baseCatchChance;
     }
-    private float CalculateDestructionChance(float durability, float burnTime)
+    protected virtual float CalculateDestructionChance(float durability, float burnTime)
     {
 
         float baseDestroyChance = 1 - Mathf.Clamp01(durability / 100f);
@@ -40,7 +56,7 @@ public class FF_Combustible : MonoBehaviour
 
         return Mathf.Clamp01(baseDestroyChance /*+ burnTimeFactor*/);
     }
-    public void TryIgnite()
+    public virtual void TryIgnite()
     {
         if (isOnFire) return;
 
@@ -52,9 +68,9 @@ public class FF_Combustible : MonoBehaviour
         }
     }
 
-    public void AddHeat(float amount)
+    public virtual void AddHeat(float amount)
     {
-        
+
         if (heat > heatThreshold && !isOverHeated)
         {
             TryIgnite();
@@ -64,32 +80,27 @@ public class FF_Combustible : MonoBehaviour
         //Debug.Log("Add heat");
         heat += amount;
     }
-    private IEnumerator IgniteWithDelay()
+
+    protected virtual IEnumerator IgniteWithDelay()
     {
         if (isOnFire) yield break;
         isOnFire = true;
-        //float fireCatchChance = CalculateFireCatchChance(flammability);
-        //if (UnityEngine.Random.value > fireCatchChance)
-        //{
-        //    yield break; // Does not catch fire
-        //}
-        yield return new WaitForSeconds(durability/10 + baseBurnTime );
-        
+        yield return new WaitForSeconds(durability / 10 + baseBurnTime);
         burnTimer = durability / flammability + baseBurnTime;
-        if (gameObject.layer == LayerMask.NameToLayer("Nature"))
-        {
-            HH_GameManager.Instance.fireManager.SpawnFire(transform, 1f, true, burnTimer, 3f);
-        }
-        else
-        {
-            HH_GameManager.Instance.fireManager.SpawnFire(transform, 0.01f, true, burnTimer);
-        }
         OnIgnite?.Invoke();
         StartCoroutine(Burn());
     }
 
+    public virtual void DecreaseFlammabilty(float precentage)
+    {
+        flammability *= 1- precentage;
+    }
 
-    private IEnumerator Burn()
+    protected virtual void OnCombustibleClicked(GameObject obj)
+    {
+
+    }
+    protected virtual IEnumerator Burn()
     {
         burnStage = BurnStage.Igniting;
         while (isOnFire)
@@ -113,10 +124,7 @@ public class FF_Combustible : MonoBehaviour
 
                 if (UnityEngine.Random.value < destructionChance || mustDestroy)
                 {
-                    isOnFire = false;
-                    StopAllCoroutines();
-                    OnBurnedOut?.Invoke();
-                    Destroy(gameObject);
+                    BurnOut();
                 }
                 else
                 {
@@ -128,8 +136,20 @@ public class FF_Combustible : MonoBehaviour
 
             yield return null;
         }
+
+    }
+    protected virtual void BurnOut()
+    {
+        isOnFire = false;
+        OnBurnedOut?.Invoke();
     }
 
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        HH_GameManager.Instance.inputManager.OnObjectSelected -= OnCombustibleClicked;
+    }
 }
 
 

@@ -8,7 +8,6 @@ namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
     {
-        public bool isTestHouse;
         //public HouseBlueprint houseBlueprint;
         public Transform camTransform;
         public HouseGraph houseGraph;
@@ -21,53 +20,64 @@ namespace HappyHouse.HouseSystem
         public GameObject craftIcon;
         public GameObject arrowUI;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
-        [SerializeField] BoxCollider clickBox;
+        //[SerializeField] BoxCollider clickBox;
       
         private void Start()
         {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager();
-            if (isTestHouse)
-            {
-                Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                    if(part.notInteractable) continue;
-                    part.InitHousePartObject(this);
-                    var node = houseGraph.AddHousePart(part);
-                    part.houseNode = node;
-                    nodeDictionary[part.name] = node;
-                    inventory.AddNewPartToInventory(part.partInfo);
-                }
 
-                for (int i = 0; i < transform.childCount; i++)
+            var fences = HH_GameManager.Instance.fences;
+            Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                if (part.notInteractable) continue;
+                InitHouseNode(nodeDictionary, part);
+            }
+
+            foreach(var f in fences)
+            {
+                InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
+            }
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
+                if (part.notInteractable) continue;
+                if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
                 {
-                    var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                    if (part.notInteractable) continue;
-                    if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
+                    
+                    foreach (var neighbour in part.CheckNeighbours("Structure"))
                     {
-                        foreach (var neighbour in part.CheckNeighbours())
+                        if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
                         {
-                            if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
-                            {
-                                houseGraph.ConnectParts(currentNode, connectedNode);
-                            }
+                            houseGraph.ConnectParts(currentNode, connectedNode);
                         }
                     }
                 }
             }
-            //else
+
+            //elses
             //{
             //    InitializeDefaultHouseLayout();
             //}
-            
+            //houseGraph.PrintGraph();
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
+        }
+
+        private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
+        {        
+            part.InitHousePartObject(this);
+            var node = houseGraph.AddHousePart(part);
+            part.houseNode = node;
+            nodeDictionary[part.name] = node;
+            inventory.AddNewPartToInventory(part.partInfo);
         }
 
         public void ToggleClickBox(bool toggle)
         {
-            clickBox.enabled = toggle;
+            //clickBox.enabled = toggle;
         }
         public void OnHouseSelected(HouseManager manager)
         {
@@ -156,41 +166,26 @@ namespace HappyHouse.HouseSystem
 
         public void ReplaceHousePartObject (/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
         {
-            var oldParts = GetAllHousePartObjects(housePartInfo.housePartType);
+            bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == inventory.ownedParts[housePartInfo.housePartType].Count;
+           
+            var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
+            
             foreach (var oldPart in oldParts)
             {
-                //List<HouseNode> neighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
-                //var newPart = HH_GameManager.Instance.CreateHousePartObject(housePartInfo, this);
-                //houseGraph.RemoveHousePart(oldPart.houseNode);
-                //// swap object position
-                //newPart.transform.parent = oldPart.transform.parent;
-                //newPart.gameObject.transform.position = oldPart.transform.position;
-                //newPart.gameObject.transform.rotation = oldPart.transform.rotation;
-                //newPart.gameObject.transform.localScale = oldPart.transform.localScale;
-
-
-                //// Initialize the new part's HouseNode and add it to the HouseGraph
-                //HouseNode newNode = new HouseNode(newPart);
-                //newPart.houseNode = newNode;
-                //houseGraph.AddHousePart(newPart);
-
-                //// Reconnect the new node to the neighbors of the old node
-                //foreach (var neighbor in neighbors)
-                //{
-                //    houseGraph.ConnectParts(newNode, neighbor);
-                //}
-                ////Debug.Log($"Replace {oldPart.name} with {newPart.name}");
-                //Destroy(oldPart.gameObject);
-                oldPart.partInfo = housePartInfo;
-                oldPart.InitHousePartObject(this);
+                if (oldPart.shouldDisplayBubble)
+                {
+                    oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+                }
+                //oldPart.partInfo = housePartInfo;
+                oldPart.InitHousePartObject(this,housePartInfo);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
 
-        public BaseHousePartObject GetCurrentInUseHousePartObject (HousePartType type)
+        public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
         {
             foreach(var node in houseGraph.nodes)
             {
@@ -202,10 +197,10 @@ namespace HappyHouse.HouseSystem
             return null;
         }
 
-        public List<BaseHousePartObject> GetAllHousePartObjects (HousePartType type)
+        public List<BaseHousePartObject> GetAllHousePartObjectsOf (HousePartType type)
         {
             var res = new List<BaseHousePartObject>();
-
+            Debug.Log($"Replace {type}");
             foreach(var node in houseGraph.nodes)
             {
                 if (node.housePart.HousePartType == type)

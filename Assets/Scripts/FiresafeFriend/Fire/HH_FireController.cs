@@ -24,23 +24,25 @@ namespace HappyHouse.FireSystem
         //float fireSize = 0;
         [SerializeField] Rigidbody rb;
         //[SerializeField] SphereCollider collider;
-        [SerializeField] float fireLife;
+        public float fireLife = 10f;
         GameObject SFX;
+        public bool canMove = false;
         public LayerMask combustibleLayer;
+        public Vector3 startPos;
+        public Vector3 endPos;
         //[SerializeField]float totalHeat = 100f;
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
             //collider = GetComponent<SphereCollider>();
             scaler = transform.localScale;
-           
+
 
         }
         private void Update()
         {
             if (!onCombustible)
             {
-
                 rb.velocity = -1f * speed * Vector3.forward;
                 ImpactFire(10);
             }
@@ -53,24 +55,25 @@ namespace HappyHouse.FireSystem
             if (fireLife < 0)
             {
                 Destroy(gameObject);
+               
             }
-
+            if(!canMove) return;
+            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);
         }
 
- 
 
-   
-        public void InitFire(bool isOnCombustible, float speed, float life, float maxSize)
+
+        public void InitFire(bool isOnCombustible, float life, float maxSize)
         {
             onCombustible = isOnCombustible;
-            this.speed = speed;
-            fireLife = life;
+            //this.speed = speed;
+            fireLife = life == 0? fireLife : life;
             this.maxSize = maxSize;
+
             if (!onCombustible)
             {
                 SFX = Instantiate(fireSFX, transform);
             }
-           
         }
 
 
@@ -113,24 +116,24 @@ namespace HappyHouse.FireSystem
             var hit = other.gameObject;
             if (hit == null) return;
             
-            if (hit.layer == LayerMask.NameToLayer("Structure"))
-            {
+            //if (hit.layer == LayerMask.NameToLayer("Structure") || hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Combustible"))
+            //{
                 // collider is on mesh
-                if (hit.transform.parent.TryGetComponent(out FF_Combustible obj) && obj != null)
+                if (hit.transform.parent.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
                 {
                    
-                    obj.AddHeat(0.1f);
+                    obj.AddHeat(0.5f);
                 }
-            }
+            //}
 
-            if (hit.layer == LayerMask.NameToLayer("Nature"))
-            {
-                if (hit.transform.TryGetComponent(out FF_Combustible obj) && obj != null)
-                {
+            //if (hit.layer == LayerMask.NameToLayer("Nature"))
+            //{
+            //    if (hit.transform.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
+            //    {
 
-                    obj.AddHeat(0.1f);
-                }
-            }
+            //        obj.AddHeat(0.1f);
+            //    }
+            //}
         }
 
         public void ImpactFire(float multiplier)

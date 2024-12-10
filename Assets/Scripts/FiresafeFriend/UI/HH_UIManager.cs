@@ -11,11 +11,12 @@ public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
-    public Button leftArrow, rightArrow;
+    public Button leftArrow, rightArrow,earnMoreMoney;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
     public GameObject startText;
     public FF_QuizPopupUI quizPopup;
+    public WarningPopupPanel warningPopup;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,10 @@ public class HH_UIManager : MonoBehaviour
     {
         
     }
-
+    public void ShowWarningPopup()
+    {
+        warningPopup.gameObject.SetActive(true);
+    }
     public void ShowQuizPopup()
     {
         quizPopup.gameObject.SetActive(true);
@@ -68,6 +72,7 @@ public class HH_UIManager : MonoBehaviour
         //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
         storePanel.gameObject.SetActive(true);
         storePanel.ShowStorePanel(partInfo);
+
     }
 
     public void ToggleInventory(bool state)

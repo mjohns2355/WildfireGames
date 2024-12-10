@@ -7,17 +7,19 @@ using UnityEngine;
 public class ResourceManager : UnitySingleton<ResourceManager>
 {
     public Dictionary<HousePartType, List<HousePartInfo>> allAvailableParts;
+    public Dictionary<HousePartType, GameObject> VFXs;
     // Start is called before the first frame update
     public override void Awake()
     {
         base.Awake();
         InitPartsDictionary();
+        LoadVFXs();
     }
 
     private void InitPartsDictionary()
     {
         allAvailableParts = new Dictionary<HousePartType, List<HousePartInfo>> ();
-        var allParts = Resources.LoadAll<HousePartInfo>("ResillientResident/HousePartsSO");
+        var allParts = Resources.LoadAll<HousePartInfo>("FiresafeFriend/HousePartsSO");
         foreach (var part in allParts)
         {
            
@@ -36,5 +38,32 @@ public class ResourceManager : UnitySingleton<ResourceManager>
         }
     }
 
+    private void LoadVFXs()
+    {
+        VFXs = new Dictionary<HousePartType, GameObject> ();
+
+        var allVFXs = Resources.LoadAll<GameObject>("FiresafeFriend/DestroyEffects");
+        foreach(var vfx in allVFXs)
+        {
+            HousePartType type;
+            if(Enum.TryParse(vfx.name, out type))
+            {
+                Debug.Log(type.ToString());
+                if (VFXs.ContainsKey(type))
+                {
+                    VFXs[type] = vfx;
+                }
+                else
+                {
+                    VFXs.Add(type, vfx);
+                }
+            }
+            else
+            {
+                Debug.Log("Parse Enum Failed");
+            }
+        }
+
+    }
 
 }

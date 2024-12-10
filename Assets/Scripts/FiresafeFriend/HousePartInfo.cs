@@ -6,20 +6,20 @@ using UnityEngine;
 namespace HappyHouse.HouseSystem
 {
     [CreateAssetMenu(fileName = "New House Part Info", menuName = "House System/House Part Info")]
-    public class HousePartInfo : ScriptableObject
+    public class HousePartInfo : BaseCombustibleInfo
     {
-        public string partID;
+        //public string partID;
         public HousePartType housePartType;
         public Sprite icon;
-        public float durability;
-        public float flammability;
-        public MaterialType materialType;
+        //public float durability;
+        //public float flammability;
+        //public MaterialType materialType;
         public Material material;
-        public GameObject mesh;
+        //public GameObject mesh;
         public float price;
         public MaterialClass partClass;
-        [TextArea]
-        public string description;
+        //[TextArea]
+        //public string description;
     }
 }
 
