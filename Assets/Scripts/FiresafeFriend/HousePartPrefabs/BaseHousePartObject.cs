@@ -189,6 +189,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void SpawnFire()
     {
+        Debug.Log($"Burn Timer: {burnTimer}");
         var top = collider.bounds.max;
         var bottom = collider.bounds.min;
         var center = collider.bounds.center;

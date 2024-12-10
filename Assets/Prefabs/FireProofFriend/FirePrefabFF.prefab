@@ -56,12 +56,15 @@ MonoBehaviour:
   speed: 1
   windDirection: {x: 0, y: 0, z: 0}
   fireSFX: {fileID: 1488205532193718950, guid: 0de1eb8a42d0e9f4182791dfdea11c4f, type: 3}
-  maxSize: 0.4
+  maxSize: 1
   rb: {fileID: 4172989824407673634}
-  fireLife: 0
+  fireLife: 50
+  canMove: 0
   combustibleLayer:
     serializedVersion: 2
     m_Bits: 0
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
 --- !u!54 &4172989824407673634
 Rigidbody:
   m_ObjectHideFlags: 0

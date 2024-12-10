@@ -33,7 +33,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
-            PushPanel(pauseMenu.gameObject);
+            GameManager.Instance.TogglePause();
             
         });
         start.onClick.AddListener(() =>
@@ -103,6 +103,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         start.interactable = false;
         learnMore.interactable = false;
         pause.interactable = true;
+        windDirectionIndicator.gameObject.SetActive(true);
     }
     void OnSimEnd()
     {
@@ -117,6 +118,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             dialogManager.ShowLocalNews();
         }
+        windDirectionIndicator.gameObject.SetActive(false);
         //ShowDialog();
     }
 
@@ -152,6 +154,19 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         }
         //PrintStack();
     }
+
+    public void TogglePauseMenu(bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            PushPanel(pauseMenu.gameObject);
+        }
+        else
+        {
+            PopPanel();
+        }
+    }
+
 
     public void ClearAllPanels()
     {

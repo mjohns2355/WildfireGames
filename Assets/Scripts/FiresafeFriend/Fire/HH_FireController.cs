@@ -24,7 +24,7 @@ namespace HappyHouse.FireSystem
         //float fireSize = 0;
         [SerializeField] Rigidbody rb;
         //[SerializeField] SphereCollider collider;
-        [SerializeField] float fireLife;
+        public float fireLife = 10f;
         GameObject SFX;
         public bool canMove = false;
         public LayerMask combustibleLayer;
@@ -36,14 +36,13 @@ namespace HappyHouse.FireSystem
             rb = GetComponent<Rigidbody>();
             //collider = GetComponent<SphereCollider>();
             scaler = transform.localScale;
-           
+
 
         }
         private void Update()
         {
             if (!onCombustible)
             {
-
                 rb.velocity = -1f * speed * Vector3.forward;
                 ImpactFire(10);
             }
@@ -62,23 +61,18 @@ namespace HappyHouse.FireSystem
         }
 
 
-        void LerpFireMovement(float t, Vector3 startPos, Vector3 endPos)
-        {
-            //Debug.Log("lerping");
-            transform.position = Vector3.Lerp(startPos, endPos, t);
-        }
 
-        public void InitFire(bool isOnCombustible, float speed, float life, float maxSize)
+        public void InitFire(bool isOnCombustible, float life, float maxSize)
         {
             onCombustible = isOnCombustible;
-            this.speed = speed;
-            fireLife = life;
+            //this.speed = speed;
+            fireLife = life == 0? fireLife : life;
             this.maxSize = maxSize;
+
             if (!onCombustible)
             {
                 SFX = Instantiate(fireSFX, transform);
             }
-           
         }
 
 
@@ -127,7 +121,7 @@ namespace HappyHouse.FireSystem
                 if (hit.transform.parent.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
                 {
                    
-                    obj.AddHeat(0.1f);
+                    obj.AddHeat(0.5f);
                 }
             //}
 

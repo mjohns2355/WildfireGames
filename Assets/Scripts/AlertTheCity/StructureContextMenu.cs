@@ -34,6 +34,7 @@ public class StructureContextMenu : MonoBehaviour
     public bool allowMultipleChoices;
     public List<OptionButton> selectedOptions = new List<OptionButton>();
     public bool isSelected = false;
+    public ATC_LearnMorePopup learnMorePopup;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -183,6 +184,7 @@ public class StructureContextMenu : MonoBehaviour
 
     private void SpawnOptionButtons(string text/*, bool isLocked = false*/)
     {
+        
         GameObject button = Instantiate(optionButtonPrefab,options);
         var optionButton = button.GetComponent<OptionButton>();
 
@@ -226,6 +228,7 @@ public class StructureContextMenu : MonoBehaviour
         //}
         //else
         //{
+        confirm.interactable = true;
         if (!allowMultipleChoices)
         {
             if (CurrentOption != null)
@@ -242,7 +245,7 @@ public class StructureContextMenu : MonoBehaviour
             if (CurrentOption == null) return;
             //onOptionSelected.Invoke();
         }
-        else // Handle multiple choices
+        else 
         {
             // Toggle selection
             if (selectedOptions.Contains(option))
