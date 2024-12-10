@@ -72,6 +72,7 @@ public class HH_UIManager : MonoBehaviour
         //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
         storePanel.gameObject.SetActive(true);
         storePanel.ShowStorePanel(partInfo);
+
     }
 
     public void ToggleInventory(bool state)

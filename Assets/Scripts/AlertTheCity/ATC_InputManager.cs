@@ -70,7 +70,8 @@ public class ATC_InputManager : MonoBehaviour
         if (!checkKeyboard) return;
         cameraMovementVector = Vector2.zero;
         cameraZoomAxis = Input.GetAxis("Mouse ScrollWheel") * 10f;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W)
+            || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             Vector3 localMoveDirection = Camera.main.transform.TransformDirection(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
             cameraMovementVector = new Vector2(localMoveDirection.x, localMoveDirection.z);

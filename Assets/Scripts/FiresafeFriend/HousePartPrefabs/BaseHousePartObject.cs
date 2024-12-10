@@ -21,7 +21,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HousePartInfo partInfo;
 
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
-    //public FF_BaseCombustible combustible;
     protected override void Awake()
     {
         base.Awake();
@@ -34,18 +33,9 @@ public class BaseHousePartObject : FF_BaseCombustible
     }
     protected override void Start()
     {
-        //InitHousePartObject();
         base.Start();
-
         OnIgnite += HandleIgnite;
         OnBurnedOut += HandleBurnedOut;
-        //if(TryGetComponent(out combustible))
-        //{
-        //    combustible.OnIgnite += HandleIgnite;
-        //    combustible.OnBurnedOut += HandleBurnedOut;
-        //}
-        //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked += ReplaceHousePartObject;
-        //HH_GameManager.Instance.inputManager.OnObjectSelected += OnHousePartSelected;
     }
 
 
@@ -53,7 +43,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         if (obj.transform.parent == transform && !notInteractable)
         {
-
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo, bubble);
         }
     }
@@ -65,18 +54,10 @@ public class BaseHousePartObject : FF_BaseCombustible
         HousePartType = part.housePartType;
         durability = part.durability;
         flammability = part.flammability;
-        //}
-        //if (combustible != null)
-        //{
-        //    combustible.
-        //    combustible.
         partInfo = part;
         combustibleInfo = partInfo;
         this.owner = owner;
-        //houseNode = new HouseNode(this);
         ReplaceMeshMaterial(part.material);
-        //CheckNeighbours();
-        //Debug.Log($"Part: {houseNode.housePart.name}");
     }
 
     void ReplaceMeshMaterial(Material material)
@@ -99,7 +80,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             halfExtents = new Vector3(2, 2, 2);
         }
-        //Debug.Log($"{gameObject.name}'s extent size: {halfExtents.magnitude}");
         Collider[] colliders = Physics.OverlapBox(center, halfExtents, Quaternion.identity, layerMask);
         //Debug.Log($"Found {colliders.Length} colliders overlapping with the bounds of {gameObject.name}.");
         List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
@@ -110,7 +90,6 @@ public class BaseHousePartObject : FF_BaseCombustible
                 var part = c.GetComponentInParent<BaseHousePartObject>();
                 if (part != null && !part.notInteractable)
                 {
-                    //Debug.Log($"Added Neighbour {part.name}");
                     neighbours.Add(part);
                 }
 
@@ -167,13 +146,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         }
     }
 
-    //private void DestroyHousePart()
-    //{
-    //    //Debug.Log($"{gameObject.name} is destroyed");
-    //    isOnFire = false;
-    //    StopAllCoroutines();
-    //    Destroy(gameObject);
-    //}
 
     private void HandleIgnite()
     {
@@ -189,7 +161,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void SpawnFire()
     {
-        Debug.Log($"Burn Timer: {burnTimer}");
+        //Debug.Log($"Burn Timer: {burnTimer}");
         var top = collider.bounds.max;
         var bottom = collider.bounds.min;
         var center = collider.bounds.center;

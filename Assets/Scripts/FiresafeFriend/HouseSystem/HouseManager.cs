@@ -166,12 +166,18 @@ namespace HappyHouse.HouseSystem
 
         public void ReplaceHousePartObject (/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
         {
+            bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == inventory.ownedParts[housePartInfo.housePartType].Count;
+           
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
             
             foreach (var oldPart in oldParts)
             {
+                if (oldPart.shouldDisplayBubble)
+                {
+                    oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+                }
                 //oldPart.partInfo = housePartInfo;
                 oldPart.InitHousePartObject(this,housePartInfo);
             }
