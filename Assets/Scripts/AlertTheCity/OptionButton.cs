@@ -10,6 +10,7 @@ public class OptionButton : MonoBehaviour
     public bool needConfirmation;
     public StructureContextMenu owner;
     public Button button;
+
     [SerializeField] Button learnMoreButton;
     [SerializeField] TextMeshProUGUI optionText;
     [SerializeField] Image checkMark;
@@ -65,10 +66,12 @@ public class OptionButton : MonoBehaviour
         learnMoreButton.onClick.AddListener(() =>
         {
 
-            Debug.Log("Open Learn More Panel");
-            LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
-            ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
-            learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
+            //Debug.Log("Open Learn More Panel");
+            owner.learnMorePopup.gameObject.SetActive(true);
+            owner.learnMorePopup.ShowLearnMorePopup(house.houseInfo, buttonText);
+            //LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
+            //ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
+            //learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
         });
     }
     public void SetOptionButtonText(string text)

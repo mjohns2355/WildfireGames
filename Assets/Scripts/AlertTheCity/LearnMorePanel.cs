@@ -50,7 +50,7 @@ public class LearnMorePanel : MonoBehaviour
 
         detailPage.SetActive(true);
         homePage.SetActive(false); 
-        unlockedBtns.gameObject.SetActive(true);
+        //unlockedBtns.gameObject.SetActive(true);
         title.text = "Learn More: " + targetHouseInfo.longerTitle;
 
         //detailPageDescription.text = targetHouseInfo.description;
@@ -73,25 +73,27 @@ public class LearnMorePanel : MonoBehaviour
     {
         detailPage.SetActive(false);
         homePage.SetActive(true);
-        for (int i = 0; i < unlockedBtns.childCount; i++)
-        {
-            Destroy(unlockedBtns.GetChild(i).gameObject);
-        }
+        //for (int i = 0; i < unlockedBtns.childCount; i++)
+        //{
+        //    Destroy(unlockedBtns.GetChild(i).gameObject);
+        //}
         currentDescriptionIndex = 0;
-        unlockedBtns.gameObject.SetActive(false);
+        //unlockedBtns.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(true);
     }
 
     public void OnClickClose()
     {
-        if (homePage.activeSelf)
-        {
-            ATC_UIController.Instance.PopPanel();
-        }
-        else
-        {
-            OnDetailedPageDisabled();
-        }
+        OnDetailedPageDisabled();
+        ATC_UIController.Instance.PopPanel();
+        //if (homePage.activeSelf)
+        //{
+        //    ATC_UIController.Instance.PopPanel();
+        //}
+        //else
+        //{
+        //    OnDetailedPageDisabled();
+        //}
     }
     private void OnDisable()
     {
@@ -114,24 +116,24 @@ public class LearnMorePanel : MonoBehaviour
 
     void SpawnUnlockedButtons(int index)
     {
-        for (int i = 0; i < unlockedBtns.childCount; i++)
-        {
-            Destroy(unlockedBtns.GetChild(i).gameObject);
-        }
+        //for (int i = 0; i < unlockedBtns.childCount; i++)
+        //{
+        //    Destroy(unlockedBtns.GetChild(i).gameObject);
+        //}
 
-        foreach (var entry in targetHouseInfo.houseChoicesDict)
-        {
-            var choice = entry.Value.choice;
-            var i = entry.Value.index;
-            if (!choice.isLocked) continue;
-            if(index == i)
-            {
-                var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
-                button.btnText.text = choice.choiceName;
-                button.button.onClick.AddListener(OnUnlockedButtonClicked);
-                break;
-            }
-        }
+        //foreach (var entry in targetHouseInfo.houseChoicesDict)
+        //{
+        //    var choice = entry.Value.choice;
+        //    var i = entry.Value.index;
+        //    if (!choice.isLocked) continue;
+        //    if(index == i)
+        //    {
+        //        var button = Instantiate(unlockedButtonPrefab, unlockedBtns).GetComponent<UnlockedButton>();
+        //        button.btnText.text = choice.choiceName;
+        //        button.button.onClick.AddListener(OnUnlockedButtonClicked);
+        //        break;
+        //    }
+        //}
         //for (int i = 0; i< targetHouseInfo.lockedChoices.Count; i++)
         //{
         //    var choice = targetHouseInfo.lockedChoices[i];

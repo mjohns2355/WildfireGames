@@ -24,6 +24,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
+    public RectTransform windDirectionIndicator;
 
     Stack<GameObject> panelStack = new Stack<GameObject> ();
     private void Start()
@@ -32,7 +33,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
-            PushPanel(pauseMenu.gameObject);
+            GameManager.Instance.TogglePause();
             
         });
         start.onClick.AddListener(() =>
@@ -83,7 +84,17 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         //startPrompt.SetActive(true);
     }
 
+    private void Update()
+    {
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+        var windDirection = GameManager.Instance.fireManager.wind.WindDirection;
+        float angle = Vector3.SignedAngle(cameraForward, windDirection, Vector3.up);
 
+        var targetRotation = Quaternion.Euler(0, 0, -angle);
+        windDirectionIndicator.rotation = Quaternion.Lerp(windDirectionIndicator.rotation, targetRotation, Time.deltaTime * 5f);
+    }
     void OnSimStart()
     {
         CloseAllUI();
@@ -92,6 +103,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         start.interactable = false;
         learnMore.interactable = false;
         pause.interactable = true;
+        windDirectionIndicator.gameObject.SetActive(true);
     }
     void OnSimEnd()
     {
@@ -106,6 +118,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             dialogManager.ShowLocalNews();
         }
+        windDirectionIndicator.gameObject.SetActive(false);
         //ShowDialog();
     }
 
@@ -141,6 +154,19 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         }
         //PrintStack();
     }
+
+    public void TogglePauseMenu(bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            PushPanel(pauseMenu.gameObject);
+        }
+        else
+        {
+            PopPanel();
+        }
+    }
+
 
     public void ClearAllPanels()
     {

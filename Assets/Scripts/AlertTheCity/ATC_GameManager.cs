@@ -2,6 +2,7 @@ using cakeslice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ public class GameManager : UnitySingleton<GameManager>
     public StructureManager structureManager;
     public ATC_InputManager inputManager;
     public FireManager fireManager;
+    public AudioSource fireSFX;
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
@@ -33,6 +35,7 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
     public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
+    private bool isPaused = false;
     public override void Awake()
     {
         base.Awake();
@@ -80,6 +83,32 @@ public class GameManager : UnitySingleton<GameManager>
     //   // roadManager.PlaceRoad(position);
     //}
 
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        Debug.Log($"Game is Paused: {isPaused}");
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            fireSFX.Pause();
+           ATC_UIController.Instance.TogglePauseMenu(true);
+        }
+        else
+        {
+            Time.timeScale = GameSpeed;
+            fireSFX.Play();
+            ATC_UIController.Instance.TogglePauseMenu(false);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false ;
+        Debug.Log($"Game is Paused: {isPaused}");
+        Time.timeScale = GameSpeed;
+        fireSFX.Play();
+        ATC_UIController.Instance.TogglePauseMenu(false);
+    }
     public void SkipSimulationRec()
     {
         currentStage = LevelStage.PhaseOne;
@@ -151,6 +180,7 @@ public class GameManager : UnitySingleton<GameManager>
             lastEvacCarTimeStamp = SimTimer;
         }
         carsNotEvacuated = ATC_AIDirector.Instance.spawnedCarNum;
+
         SaveResults();
     }
 
@@ -304,6 +334,7 @@ public class GameManager : UnitySingleton<GameManager>
         inputManager = FindObjectOfType<ATC_InputManager>();
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
+
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

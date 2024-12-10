@@ -22,7 +22,7 @@ public class ATC_PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        Time.timeScale = 0f;
+        
         if (!GameManager.Instance.IsFirstSim)
         {
             buttonParent.SetActive(true);
@@ -34,13 +34,13 @@ public class ATC_PauseMenu : MonoBehaviour
         clear.interactable = GameManager.Instance.SimIsEnd;
         //Debug.Log("Sim is End: " + GameManager.Instance.SimIsEnd);
     }
-    private void OnDisable()
-    {
-        Time.timeScale = GameManager.Instance.GameSpeed;
-        buttonParent.SetActive(false);
-        note.SetActive(false);
+    //private void OnDisable()
+    //{
+    //    Time.timeScale = GameManager.Instance.GameSpeed;
+    //    buttonParent.SetActive(false);
+    //    note.SetActive(false);
         
-    }
+    //}
     void RestartLevel()
     {
         GameManager.Instance.RestartGame();
@@ -61,7 +61,11 @@ public class ATC_PauseMenu : MonoBehaviour
 
     void ResumeGame()
     {
-        Time.timeScale = GameManager.Instance.GameSpeed;
+        Debug.Log("Resume Game");
+        buttonParent.SetActive(false);
+        note.SetActive(false);
+        GameManager.Instance.ResumeGame();
+
     }
 
 }
