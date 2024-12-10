@@ -10,10 +10,13 @@ public class FF_Props : FF_BaseCombustible
     {
         base.Start();
         OnIgnite += HandleIgnite;
-
+        OnBurnedOut += HandleBurnedOut;
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPropSelected;
     }
-
+    private void HandleBurnedOut()
+    {
+        Destroy(gameObject);
+    }
     protected override void OnCombustibleClicked(GameObject obj)
     {
         if (obj.transform.parent == transform)

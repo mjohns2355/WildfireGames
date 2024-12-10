@@ -100,43 +100,6 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     {
 
     }
-
-    //protected virtual IEnumerator IgniteWithDelay()
-    //{
-    //    if (isOnFire) yield break;
-    //    isOnFire = true;
-    //    //float fireCatchChance = CalculateFireCatchChance(flammability);
-    //    //if (UnityEngine.Random.value > fireCatchChance)
-    //    //{
-    //    //    yield break; // Does not catch fire
-    //    //}
-    //    yield return new WaitForSeconds(durability / 10 + baseBurnTime);
-
-    //    burnTimer = durability / flammability + baseBurnTime;
-    //    if (gameObject.layer == LayerMask.NameToLayer("Nature"))
-    //    {
-    //        HH_GameManager.Instance.fireManager.SpawnFire(transform.position,transform, 1f, true, burnTimer, 3f);
-    //    }
-    //    else
-    //    {
-    //        var collider = gameObject.GetComponentInChildren<Collider>();
-    //        var top = collider.bounds.max;
-    //        var bottom = collider.bounds.min;
-    //        var center = collider.bounds.center;
-    //        var pos = new Vector3(center.x, bottom.y,center.z);
-    //        var end = new Vector3(center.x,top.y, center.z);
-    //        var fire = HH_GameManager.Instance.fireManager.SpawnFire(pos,transform, 0.01f, true, burnTimer);
-    //        fire.canLerp = true;
-    //        fire.startPos = pos;
-    //        fire.endPos = end;
-
-    //        //Debug.Log($"Start Pos: {pos}, End Pos: {end}");
-    //    }
-    //    OnIgnite?.Invoke();
-    //    StartCoroutine(Burn());
-    //}
-
-
     protected virtual IEnumerator Burn()
     {
         burnStage = BurnStage.Igniting;
@@ -178,10 +141,9 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void BurnOut()
     {
         isOnFire = false;
-       
         OnBurnedOut?.Invoke();
-        Destroy(gameObject);
     }
+
 
     private void OnDestroy()
     {

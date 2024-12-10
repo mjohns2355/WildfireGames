@@ -14,6 +14,8 @@ public class BaseHousePartObject : FF_BaseCombustible
     public MeshRenderer[] meshes;
     public HouseNode houseNode;
     public Transform bubblePos;
+    public GameObject VFX;
+    public Transform vfxPos;
     HouseManager owner;
     public HousePartType HousePartType { get; private set; }
 
@@ -36,6 +38,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         base.Start();
         OnIgnite += HandleIgnite;
         OnBurnedOut += HandleBurnedOut;
+
     }
 
 
@@ -58,6 +61,15 @@ public class BaseHousePartObject : FF_BaseCombustible
         combustibleInfo = partInfo;
         this.owner = owner;
         ReplaceMeshMaterial(part.material);
+        switch (HousePartType)
+        {
+            case HousePartType.Wall:
+                VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
+                break;
+            case HousePartType.Window:
+                VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
+                break;
+        }
     }
 
     void ReplaceMeshMaterial(Material material)
@@ -156,9 +168,30 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurnedOut()
     {
-
+        if(VFX != null)
+        {
+            StartCoroutine(DestroyRoutine());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    IEnumerator DestroyRoutine()
+    {
+        var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
+        yield return new WaitForSeconds(1f);
+        foreach (var m in meshes)
+        {
+            m.gameObject.SetActive(false);
+        }
+        
+        yield return new WaitForSeconds(1f);
+
+        Destroy(vfx);
+        Destroy(gameObject);
+    }
     private void SpawnFire()
     {
         //Debug.Log($"Burn Timer: {burnTimer}");

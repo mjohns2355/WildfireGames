@@ -12,10 +12,14 @@ public class FF_Plants : FF_BaseCombustible
     {
         base.Start();
         OnIgnite += HandleIgnite;
-        
+        OnBurnedOut += HandleBurnedOut;
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 
+    private void HandleBurnedOut()
+    {
+        Destroy(gameObject);
+    }
 
     protected override void OnCombustibleClicked(GameObject obj)
     {

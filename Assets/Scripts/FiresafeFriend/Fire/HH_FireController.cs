@@ -55,6 +55,7 @@ namespace HappyHouse.FireSystem
             if (fireLife < 0)
             {
                 Destroy(gameObject);
+               
             }
             if(!canMove) return;
             transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);
