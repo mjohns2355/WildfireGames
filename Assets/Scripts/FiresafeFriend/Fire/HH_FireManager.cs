@@ -45,7 +45,7 @@ namespace HappyHouse.FireSystem
         {
             if (startFire) return;
             startFire = true;
-            mainFire = SpawnEmbers(fireSpawnPoint, 50);
+            mainFire = SpawnEmbers(fireSpawnPoint, 1);
             backgroundFire.SetActive(true);
         }
 
