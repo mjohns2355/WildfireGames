@@ -48,11 +48,11 @@ public class HH_UIManager : MonoBehaviour
         quizPopup.gameObject.SetActive(true);
         quizPopup.InitQuizPopup();
     }
-    public void ShowStoreScreen(HousePartInfo partInfo, PurchaseFloatingButton clickedButton)
+    public void ShowStoreScreen(HousePartType houseType, PurchaseFloatingButton clickedButton = null)
     {
         storePanel.gameObject.SetActive(true);
         storePanel.SetCurrentPurchaseFloatingButton(clickedButton);
-        storePanel.ShowStorePanel(partInfo);
+        storePanel.ShowStorePanel(houseType);
     }
 
     public void HideStoreScreen()
@@ -71,7 +71,7 @@ public class HH_UIManager : MonoBehaviour
         purchasePopup.gameObject.SetActive(false);
         //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
         storePanel.gameObject.SetActive(true);
-        storePanel.ShowStorePanel(partInfo);
+        storePanel.ShowStorePanel(partInfo.housePartType);
 
     }
 
