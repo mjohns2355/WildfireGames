@@ -57,6 +57,7 @@ public class InventoryItem : MonoBehaviour
             //HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
             return ;
         }
+        
         var player = HH_GameManager.Instance.currentPlayer;
         player.ReplaceHousePartObject(partInfo);
     }

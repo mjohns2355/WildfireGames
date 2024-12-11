@@ -79,6 +79,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         // Click to end dialog
         if (currentNode.isEndNode)
         {
+            nextButton.gameObject.SetActive(true);
             nextButton.onClick.AddListener(() =>
             {
                 isWaitingForPlayer = false;
@@ -145,5 +146,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
             ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
         }
         nextButton.onClick.RemoveAllListeners();
+        nextButton.gameObject.SetActive(false);
     }
 }
