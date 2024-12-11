@@ -41,7 +41,7 @@ public class PurchaseFloatingButton : MonoBehaviour
             // Select this button and open the store panel
             currentSelectedButton = this;
             SelectButton();
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.partInfo, this);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.partInfo.housePartType, this);
         }
     }
 

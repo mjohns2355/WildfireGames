@@ -7,17 +7,22 @@ public class InventoryItem : MonoBehaviour
 {
     public Image icon;
     [SerializeField] UnityEngine.UI.Outline outline;
-
+    public HousePartType housePartType;
     bool isInUse;
     HousePartInfo partInfo;
     [SerializeField] Button button;
 
+    private void Start()
+    {
+        button.onClick.AddListener(OnButtonClick);
+    }
     public void InitCategoryItem(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
         //gradeText.text = $"Grade {partInfo.grade}";
         icon.sprite = partInfo.icon;
-        button.onClick.AddListener(OnButtonClick);
+        icon.gameObject.SetActive(true);
+        
     }
 
     //public void OnPointerClick(PointerEventData eventData)
@@ -48,7 +53,8 @@ public class InventoryItem : MonoBehaviour
         }
         if(partInfo == null)
         {
-            Debug.Log($"Item {partInfo.partID} is not initialized");
+            //Debug.Log($"Item {partInfo.partID} is not initialized");
+            //HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
             return ;
         }
         var player = HH_GameManager.Instance.currentPlayer;

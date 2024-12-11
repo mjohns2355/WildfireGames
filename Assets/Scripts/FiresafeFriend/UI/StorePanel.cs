@@ -32,13 +32,13 @@ public class StorePanel : MonoBehaviour
 
     }
 
-    public void ShowStorePanel(HousePartInfo partInfo)
+    public void ShowStorePanel(HousePartType type)
     {
         ClearIconsInStores();
 
         player = HH_GameManager.Instance.currentPlayer;
-        targetCategory = partInfo.housePartType;
-        typeCategoryText.text = partInfo.housePartType.ToString();
+        targetCategory = type;
+        typeCategoryText.text = type.ToString();
         UpdateBudgetText(player.budgetManager.currentBudget);
 
         PopulateIconsInStore();

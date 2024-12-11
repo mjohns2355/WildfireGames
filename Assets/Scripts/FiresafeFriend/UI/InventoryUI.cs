@@ -61,7 +61,9 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             item.icon.sprite = null;
+            item.icon.gameObject.SetActive(false);
             item.SetIsInUse(false);
+            item.housePartType = partType;
         }
         var player = HH_GameManager.Instance.currentPlayer;
 
