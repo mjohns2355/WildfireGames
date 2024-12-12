@@ -304,6 +304,7 @@ public class GameManager : UnitySingleton<GameManager>
         SimEndsEvent.RemoveAllListeners();
         StopAllCoroutines();
         ATC_UIController.Instance.ResetUI();
+        fireSFX.Stop();
 
         SceneManager.LoadScene(CurrentLevel);
     }
