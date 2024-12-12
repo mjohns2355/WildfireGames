@@ -48,6 +48,7 @@ public class HH_InputManager : MonoBehaviour
                     }
                     else
                     {
+                        if(!HH_GameManager.Instance.IsGameStarted) return;
                         Debug.Log($"Clicked {hit.collider.gameObject.name}");
                         OnObjectSelected?.Invoke(hit.collider.gameObject);
                     }

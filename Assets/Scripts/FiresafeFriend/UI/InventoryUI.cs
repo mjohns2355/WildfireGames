@@ -64,6 +64,7 @@ public class InventoryUI : MonoBehaviour
             item.icon.gameObject.SetActive(false);
             item.SetIsInUse(false);
             item.housePartType = partType;
+            item.partInfo = null;
         }
         var player = HH_GameManager.Instance.currentPlayer;
 
