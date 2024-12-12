@@ -24,7 +24,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnPurchaseClicked()
     {
-        HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo);
+        if (!HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo)) return;
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
         var player = HH_GameManager.Instance.currentPlayer;
         player.ReplaceHousePartObject(partInfo);
