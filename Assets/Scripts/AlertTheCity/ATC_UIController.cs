@@ -12,6 +12,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
     public ATC_HouseDialogManager houseDialogManager;
+    //public GameObject toolsBar;
+    public GameObject replayOverlay;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
@@ -45,7 +47,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.onClick.AddListener(() =>
         {
             //learnMorePanel.SetActive(true);
-            if(learnMorePanel.activeInHierarchy)   return;
+           if(learnMorePanel.activeInHierarchy)   return;
+           
            PushPanel(learnMorePanel);
         });
 
@@ -104,6 +107,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = false;
         pause.interactable = true;
         windDirectionIndicator.gameObject.SetActive(true);
+        toolsBar.SetActive(false);
     }
     void OnSimEnd()
     {
@@ -119,6 +123,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             dialogManager.ShowLocalNews();
         }
         windDirectionIndicator.gameObject.SetActive(false);
+        toolsBar.SetActive(true);
         //ShowDialog();
     }
 
@@ -280,6 +285,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         start.interactable = true;
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
+        replayOverlay.SetActive(false);
         CloseAllUI();
         if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
         {

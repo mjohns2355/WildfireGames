@@ -129,7 +129,7 @@ public class ATC_dialogManager : MonoBehaviour
         //arrow.SetActive(true);
         if (isToolBarBroughtToFront)
         {
-            ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
+            //ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
             isToolBarBroughtToFront = false;
         }
     }

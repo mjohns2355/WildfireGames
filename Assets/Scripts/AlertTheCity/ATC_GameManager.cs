@@ -240,6 +240,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             Time.timeScale = GameSpeed = 2f;
             canStartSim = true;
+            ATC_UIController.Instance.replayOverlay.SetActive(true);
         }
         //Debug.Log("Game Speed: " + GameSpeed);
         StartCoroutine(StartSimRoutine());
