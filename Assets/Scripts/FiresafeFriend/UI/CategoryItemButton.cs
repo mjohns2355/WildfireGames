@@ -9,7 +9,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] UnityEngine.UI.Outline outline;
     public HousePartType housePartType;
     bool isInUse;
-    HousePartInfo partInfo;
+    public HousePartInfo partInfo;
     [SerializeField] Button button;
 
     private void Start()
@@ -54,7 +54,7 @@ public class InventoryItem : MonoBehaviour
         if(partInfo == null)
         {
             //Debug.Log($"Item {partInfo.partID} is not initialized");
-            //HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
             return ;
         }
         
