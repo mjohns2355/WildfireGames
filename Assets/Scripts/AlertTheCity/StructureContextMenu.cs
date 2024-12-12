@@ -73,6 +73,7 @@ public class StructureContextMenu : MonoBehaviour
         icon.AddOnClickActions(() =>
         {
             GameManager.Instance.cameraMovement.MoveToHouse(owner.camFocusPos);
+            ATC_UIController.Instance.toolsBar.SetActive(false);
             if (isSelected)
             {
                 OnMenuEnable();
@@ -110,7 +111,7 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnMenuDisable()
     {
-        
+        ATC_UIController.Instance.toolsBar.SetActive(true);
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             //menu.menuUI.SetActive(false);

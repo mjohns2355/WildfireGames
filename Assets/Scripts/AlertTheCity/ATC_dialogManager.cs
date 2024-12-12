@@ -151,7 +151,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (stage)
         {
             case LevelStage.AfterFirstSim:
-                dialogData[stage].messages[0] = result + " Can you do better?[Click to Proceed]";
+                dialogData[stage].messages[0] = result + " Can you do better? [Click to Proceed]";
                 break;
             //case LevelStage.Win:
             //    dialogData[stage].messages[0] = result;

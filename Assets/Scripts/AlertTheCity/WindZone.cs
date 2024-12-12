@@ -37,13 +37,13 @@ public class ATC_WindZone : MonoBehaviour
             rb.velocity = Vector3.zero;
             return;
         }
-        else
-        {
-            if (!fireSFX.activeInHierarchy)
-            {
-                fireSFX.SetActive(true);
-            }
-        }
+        //else
+        //{
+        //    if (!fireSFX.activeInHierarchy)
+        //    {
+        //        fireSFX.SetActive(true);
+        //    }
+        //}
         windTimer += Time.deltaTime;
         if (windTimer>= windDirChangeInterval)
         {
