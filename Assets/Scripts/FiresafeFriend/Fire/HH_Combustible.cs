@@ -24,7 +24,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected bool isOverHeated = false;
     protected float durability;
     protected float flammability;
-    [SerializeField] protected float baseBurnTime = 10f;
+    public float baseBurnTime = 10f;
     protected float burnTimer;
     protected Collider collider;
     protected virtual void Awake()

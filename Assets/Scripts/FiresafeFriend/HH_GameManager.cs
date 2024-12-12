@@ -66,7 +66,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-        IsGameStarted = true;
+
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
         uiManager.ToggleInventory(true);
@@ -84,15 +84,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
+        
         fireManager.StartFireSimulation();
         
     }
 
     public void EndRound()
     {
+        IsGameStarted = false;
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
-        ToggleHousesClickBox(false);
         uiManager.OnRoundEnd();
         startFireBtn.gameObject.SetActive(true);
         endRoundBtn.gameObject.SetActive(false);
@@ -108,4 +109,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         SceneManager.LoadScene("HappyHouseScene");
     }
+
+    
 }
