@@ -44,7 +44,7 @@ public class ATC_PauseMenu : MonoBehaviour
     void RestartLevel()
     {
         GameManager.Instance.RestartGame();
-        ATC_UIController.Instance.ShowDialog();
+        //ATC_UIController.Instance.ShowDialog();
     }
     void ClearAllChoices()
     {

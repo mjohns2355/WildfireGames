@@ -145,7 +145,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         var first = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
         var last = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
-        var result = $"The first car reached the shelter after {first} seconds and the final car reached the shelter after {last} seconds.";
+        var result = $"The first car reached the shelter after {first} minutes and the final car reached the shelter after {last} minutes.";
         this.result.text = result;
         var stage = GameManager.Instance.currentStage;
         switch (stage)
@@ -162,7 +162,15 @@ public class ATC_dialogManager : MonoBehaviour
         }
     }
 
+    string ConvertSecsToMins(float seconds)
+    {
+        Debug.Log(seconds);
+        var mins = seconds / 60f;
+        //var remainingSecs = seconds % 60;
 
+        //string timeFormatted = $"{mins:D2}:{remainingSecs:D2}";
+        return mins.ToString();
+    }
     public void DisplayNextMessage()
     {
         var stage = GameManager.Instance.currentStage;

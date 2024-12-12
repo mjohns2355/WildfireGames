@@ -119,7 +119,7 @@ public class StructureContextMenu : MonoBehaviour
         }
         owner.StopSturctureClick();
         //ToggleChangeResponsePanel(false);
-
+        confirm.interactable = false;
         ClearOptionButtons();
         ATC_UIController.Instance.ClearAllPanels();
 
