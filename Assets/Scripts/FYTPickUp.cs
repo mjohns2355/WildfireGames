@@ -11,6 +11,22 @@ public class FYTPickUp : MonoBehaviour
     public FYT_evac car;
     public AudioSource goodSFX;
     public GameObject RadioBtn;
+    private bool closePopup = false;
+    private float timer = 0.12f;
+
+    private void Update()
+    {
+        if (closePopup)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                popup.SetActive(false);
+                timer = 0.12f;
+                closePopup = false;
+            }
+        }
+    }
 
     public void OpenPopup(GameObject g)
     {
@@ -52,5 +68,12 @@ public class FYTPickUp : MonoBehaviour
             RadioBtn.SetActive(true);
         }
         Destroy(selected);
+        closePopup = true;
+    }
+
+    public void LeaveItem()
+    {
+
+        closePopup = true;
     }
 }
