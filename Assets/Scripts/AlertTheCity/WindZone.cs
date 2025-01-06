@@ -83,7 +83,7 @@ public class ATC_WindZone : MonoBehaviour
 
         //windSpeed = Random.Range(3f, 10f);
 
-        Debug.Log($"Wind direction: {WindDirection}, Wind speed: {windSpeed}");
+        //Debug.Log($"Wind direction: {WindDirection}, Wind speed: {windSpeed}");
         //float randomX = Random.Range(-1f, 1f);
         //float randomZ = Random.Range(-1f, 1f);
 
