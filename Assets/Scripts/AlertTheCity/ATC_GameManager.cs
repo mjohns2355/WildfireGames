@@ -174,6 +174,7 @@ public class GameManager : UnitySingleton<GameManager>
         foreach (var car in remainingCars)
         {
             Destroy(car);
+            fireSFX.Pause();
         }
         if(lastEvacCarTimeStamp == 0)
         {

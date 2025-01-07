@@ -84,11 +84,12 @@ public class FireManager : MonoBehaviour
         GameObject[] fires = GameObject.FindGameObjectsWithTag("Fire");
         foreach (GameObject f in fires)
         {
-            ParticleSystem[] ps = f.GetComponentsInChildren<ParticleSystem>();
-            foreach (ParticleSystem p in ps)
-            {
-                p.Stop();
-            }
+            Destroy(f);
+            //ParticleSystem[] ps = f.GetComponentsInChildren<ParticleSystem>();
+            //foreach (ParticleSystem p in ps)
+            //{
+            //    p.Stop();
+            //}
         }
     }
 }

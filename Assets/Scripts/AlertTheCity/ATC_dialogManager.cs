@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
 
 
 [System.Serializable]
@@ -54,8 +55,9 @@ public class ATC_dialogManager : MonoBehaviour
     private Dialog currentDialog;
     private bool isToolBarBroughtToFront = false;
     public bool isInstructionShown = false;
-    public GameObject arrow;
-    public GameObject arrow2;
+    public int endQuotesNum;
+    //public GameObject arrow;
+    //public GameObject arrow2;
 
     private void Awake()
     {
@@ -162,15 +164,6 @@ public class ATC_dialogManager : MonoBehaviour
         }
     }
 
-    string ConvertSecsToMins(float seconds)
-    {
-        Debug.Log(seconds);
-        var mins = seconds / 60f;
-        //var remainingSecs = seconds % 60;
-
-        //string timeFormatted = $"{mins:D2}:{remainingSecs:D2}";
-        return mins.ToString();
-    }
     public void DisplayNextMessage()
     {
         var stage = GameManager.Instance.currentStage;
@@ -223,13 +216,14 @@ public class ATC_dialogManager : MonoBehaviour
     private void GenerateLocalNews()
     {
         Debug.Log("Generate Local News");
+        List<string> allQuotes = new List<string>();
         //var currentLevel = GameManager.Instance.CurrentLevel;
         var availableHouseTypes = GameManager.Instance.availableHouseTypes;
         var validCount = 0; 
         var totalValidCount = 0;
         var res = "";
         var dict = GameManager.Instance.structureManager.GetPlayerChoicesDict();
-        var quote = "";
+        //var quote = "";
         bool followedOrders = GameManager.Instance.CountFollowedInstructions() >= 2;
         foreach (var type in availableHouseTypes)
         {
@@ -259,7 +253,8 @@ public class ATC_dialogManager : MonoBehaviour
                 //var choice = dict[type].choiceName;
                 var choice = c.choiceName;
                 var response = GameManager.Instance.houseResponses[type.ToString()];
-                quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+                //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+                allQuotes.Add(GetEndQuote(type.ToString(), choice, response));
                 //if (dict[type].isNormal) continue;
                 if (c.isNormal) continue;
                 validCount++;
@@ -284,6 +279,11 @@ public class ATC_dialogManager : MonoBehaviour
         {
             firstHalf.text = res;
         }
+
+        var rng = new System.Random();
+        List<string> randomQuotes = allQuotes.OrderBy(x => rng.Next()).Take(2).ToList();
+
+        var quote = string.Join("\n\n", randomQuotes);
         endQuote.text = quote;
 
         //string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
