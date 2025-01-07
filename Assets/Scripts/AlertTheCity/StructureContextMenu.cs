@@ -43,10 +43,10 @@ public class StructureContextMenu : MonoBehaviour
     }
     private void Start()
     {
+        
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
 
-        
         //changeResponseButton.button.onClick.AddListener(() =>
         //{
         //    ToggleChangeResponsePanel(false);
@@ -55,9 +55,10 @@ public class StructureContextMenu : MonoBehaviour
         {
             if(CurrentOption != null)
             {
-                onOptionSelected.Invoke();    
-                isSelected = true;
+
             }
+            onOptionSelected.Invoke();
+            isSelected = true;
             GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
         });
@@ -91,7 +92,12 @@ public class StructureContextMenu : MonoBehaviour
         if(owner == null) return;
         //menuUI.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
-
+        Debug.Log($"{house.HouseType} is selected: {isSelected}");
+        if (CurrentOption != null)
+        {
+            Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
+        }
+        confirm.interactable = isSelected;
         if (!house.isMainHouse) return;
         allowMultipleChoices = house.houseInfo.allowMultipleChoices;
         house.OnStructureClick();
@@ -119,7 +125,7 @@ public class StructureContextMenu : MonoBehaviour
         }
         owner.StopSturctureClick();
         //ToggleChangeResponsePanel(false);
-        confirm.interactable = false;
+        //confirm.interactable = false;
         ClearOptionButtons();
         ATC_UIController.Instance.ClearAllPanels();
 
@@ -199,10 +205,26 @@ public class StructureContextMenu : MonoBehaviour
         if(!isSelected) return;
         HouseStructure house = (HouseStructure)owner;
         var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.HouseType];
-        if(selectedChoice.choiceName == text)
+
+        foreach(var c in selectedChoice)
         {
-            optionButton.ToggleOptionSelectState(true);
+            if (c.choiceName == text)
+            {
+                optionButton.ToggleOptionSelectState(true);
+                if (allowMultipleChoices)
+                {
+                    selectedOptions.Add(optionButton);
+                }
+                else
+                {
+                    CurrentOption = optionButton;
+                }
+            }
         }
+        //if(selectedChoice.choiceName == text)
+        //{
+        //    optionButton.ToggleOptionSelectState(true);
+        //}
         //if (!allowMultipleChoices && CurrentOption != null && text == CurrentOption.GetOptionContent())
         //{
         //    Debug.Log($"Selected Option: {CurrentOption.GetOptionContent()}");
@@ -234,7 +256,6 @@ public class StructureContextMenu : MonoBehaviour
         {
             if (CurrentOption != null)
             {
-
                 previousOption = CurrentOption;
                 previousOption.ToggleOptionSelectState(false);
             }

@@ -17,7 +17,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     [SerializeField] private int paragraphIndex;
     [SerializeField] private string key;
     [SerializeField] private Button nextButton;
-    [SerializeField] GameObject nameTag;
+    //[SerializeField] GameObject nameTag;
     private bool isWaitingForPlayer = true;
 
     private void Start()
@@ -140,6 +140,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         Debug.Log("House dialog completed");
         //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
+        isWaitingForPlayer = true;
         characterPortrait.gameObject.SetActive(false);
         if (Enum.TryParse(key, out HouseType houseType))
         {

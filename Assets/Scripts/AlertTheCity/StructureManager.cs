@@ -14,12 +14,13 @@ public class StructureManager : MonoBehaviour
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
     public List<HouseStructure> allMainHouses = new List<HouseStructure>();
 
-    Dictionary<HouseType, HouseChoice> playerChoices = new Dictionary<HouseType, HouseChoice>();
+    Dictionary<HouseType, List<HouseChoice>> playerChoices = new Dictionary<HouseType, List<HouseChoice>>();
     Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
     private void Start()
     {
         PlacePreBuiltStructures();
         InitialHouseInfoDict();
+        InitiPlayerChoiceDict();
         InitialMainHouses();
     }
 
@@ -33,6 +34,13 @@ public class StructureManager : MonoBehaviour
         }
     }
 
+    private void InitiPlayerChoiceDict()
+    {
+        foreach (var houseType in GameManager.Instance.availableHouseTypes)
+        {
+            playerChoices[houseType] = new List<HouseChoice>();
+        }
+    }
 
     private void OnEnable()
     {
@@ -60,7 +68,8 @@ public class StructureManager : MonoBehaviour
                 house.houseInfo = ReturnHouseInfoFor(houseType);
                 house.houseInfo.InitHouseInfo(house);
                 allMainHouses.Add(house);
-                playerChoices[houseType] = house.houseInfo.defaultChoice;
+                //playerChoices[houseType] = house.houseInfo.defaultChoice;
+                playerChoices[houseType].Add(house.houseInfo.defaultChoice);
                 house.SetHouseType(houseType);
                 allHouses.Remove(structure);
             }
@@ -212,13 +221,20 @@ public class StructureManager : MonoBehaviour
     {
         if(playerChoices.ContainsKey(type))
         {
-            playerChoices[type] = choice;
+            var choices = playerChoices[type];
+            //playerChoices[type] = choice;
+            choices.Add(choice );
+            if (choices.Count > 2)
+            {
+                choices.RemoveAt(0);
+            }
             return;
         }
-        playerChoices.Add(type, choice);
+        //playerChoices.Add(type, choice);
+        playerChoices.Add(type, new List<HouseChoice> { choice });
     }
 
-    public Dictionary<HouseType, HouseChoice> GetPlayerChoicesDict()
+    public Dictionary<HouseType, List<HouseChoice>> GetPlayerChoicesDict()
     {
         return playerChoices;
     }

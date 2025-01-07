@@ -233,7 +233,11 @@ public class ATC_dialogManager : MonoBehaviour
         bool followedOrders = GameManager.Instance.CountFollowedInstructions() >= 2;
         foreach (var type in availableHouseTypes)
         {
-            if (!dict[type].isNormal) totalValidCount++;
+            foreach(var c in dict[type])
+            {
+                if(!c.isNormal) totalValidCount++;
+            }
+            //if (!dict[type].isNormal) totalValidCount++;
         }
 
         if (followedOrders && validCount != 0)
@@ -250,20 +254,26 @@ public class ATC_dialogManager : MonoBehaviour
         {
 
             var type = availableHouseTypes[i];
-            var choice = dict[type].choiceName;
-            var response = GameManager.Instance.houseResponses[type.ToString()];
-            quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
-            if (dict[type].isNormal) continue;
-            validCount++;
-            // Add and before the last choice
-            if (validCount == totalValidCount)
+            foreach (var c in dict[type])
             {
-                res += $"and {choice}.";
+                //var choice = dict[type].choiceName;
+                var choice = c.choiceName;
+                var response = GameManager.Instance.houseResponses[type.ToString()];
+                quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+                //if (dict[type].isNormal) continue;
+                if (c.isNormal) continue;
+                validCount++;
+                // Add and before the last choice
+                if (validCount == totalValidCount)
+                {
+                    res += $"and {choice}.";
+                }
+                else
+                {
+                    res += $"{choice}, ";
+                }
             }
-            else
-            {
-                res += $"{choice}, ";
-            }
+
             
         }
         if (followedOrders)

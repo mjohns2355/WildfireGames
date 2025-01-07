@@ -208,18 +208,30 @@ public class HouseStructure : Structure
         {
             currentOption = contextMenu.CurrentOption.GetOptionContent();
             Debug.Log($"Player selected {currentOption}");
-
+            var currentChoice = GetCurrentChoice(currentOption);
+            if (currentChoice != null)
+            {
+                GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+                Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
+            }
 
         }
         else
         {
+
             foreach(var option in contextMenu.selectedOptions)
             {
                 currentOption = option.GetOptionContent();
                 Debug.Log($"Player selected {currentOption}");
+                var currentChoice = GetCurrentChoice(currentOption);
+                if (currentChoice != null)
+                {
+                    GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+                    Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
+                }
             }
         }
-        var currentChoice = GetCurrentChoice(currentOption);
+        //var currentChoice = GetCurrentChoice(currentOption);
 
  
         
@@ -229,11 +241,11 @@ public class HouseStructure : Structure
         //    ApplyChoice();
         //}
         
-        if (currentChoice != null)
-        {
-            GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
-            Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
-        }
+        //if (currentChoice != null)
+        //{
+        //    GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+        //    Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
+        //}
     }
 
     void ApplyChoice()
