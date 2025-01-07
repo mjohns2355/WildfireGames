@@ -14,7 +14,7 @@ public class StructureContextMenu : MonoBehaviour
     public Action onOptionSelected;
     //public OptionButton changeResponseButton;
     //public OptionButton confirmButton;
-    public Button confirm, cancel;
+    public Button confirm, restart;
     public TextMeshProUGUI explaination;
     public GameObject menuUI;//ui
     public HouseIcon icon;//ui
@@ -39,11 +39,11 @@ public class StructureContextMenu : MonoBehaviour
     private void Awake()
     {
         //assignButton.gameObject.SetActive(false);
-        
+
     }
     private void Start()
     {
-        
+
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
 
@@ -53,50 +53,55 @@ public class StructureContextMenu : MonoBehaviour
         //});
         confirm.onClick.AddListener(() =>
         {
-            if(CurrentOption != null)
-            {
+            //if(CurrentOption != null)
+            //{
 
-            }
+            //}
             onOptionSelected.Invoke();
             isSelected = true;
             GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
         });
 
-        cancel.onClick.AddListener(() =>
+        restart.onClick.AddListener(() =>
         {
             ClearChoice();
-            GameManager.Instance.cameraMovement.ResetCam();
+            //GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
-
+            ShowDialog();
         });
         icon.InitIcon(house.HouseType);
         icon.AddOnClickActions(() =>
         {
             GameManager.Instance.cameraMovement.MoveToHouse(owner.camFocusPos);
-            ATC_UIController.Instance.toolsBar.SetActive(false);
+            
             if (isSelected)
             {
                 OnMenuEnable();
                 return;
             }
-            ATC_UIController.Instance.ShowDialog();
-            //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
-            GameManager.Instance.currentStage = LevelStage.HouseDialog;
-            ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+            ShowDialog();
         });
     }
 
+    void ShowDialog()
+    {
+        ATC_UIController.Instance.ShowDialog();
+        
+        //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
+        GameManager.Instance.currentStage = LevelStage.HouseDialog;
+        ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+    }
     public void OnMenuEnable()
     {
         if(owner == null) return;
         //menuUI.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
         Debug.Log($"{house.HouseType} is selected: {isSelected}");
-        if (CurrentOption != null)
-        {
-            Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
-        }
+        //if (CurrentOption != null)
+        //{
+        //    Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
+        //}
         confirm.interactable = isSelected;
         if (!house.isMainHouse) return;
         allowMultipleChoices = house.houseInfo.allowMultipleChoices;
@@ -127,6 +132,7 @@ public class StructureContextMenu : MonoBehaviour
         //ToggleChangeResponsePanel(false);
         //confirm.interactable = false;
         ClearOptionButtons();
+        ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
 
         //GameManager.Instance.cameraMovement.ResetCam();
@@ -158,16 +164,16 @@ public class StructureContextMenu : MonoBehaviour
 
     public void ClearChoice()
     {
-        previousOption = null;
-        CurrentOption = null;
-        if (allowMultipleChoices)
+        //previousOption = null;
+        //CurrentOption = null;
+        //if (allowMultipleChoices)
+        //{
+        foreach (var option in selectedOptions)
         {
-            foreach (var option in selectedOptions)
-            {
-                option.ToggleOptionSelectState(false);
-            }
-            selectedOptions.Clear();
+            option.ToggleOptionSelectState(false);
         }
+        selectedOptions.Clear();
+        //}
     }
 
     public void UpdateMenuForHouse(HouseStructure house)
@@ -211,14 +217,14 @@ public class StructureContextMenu : MonoBehaviour
             if (c.choiceName == text)
             {
                 optionButton.ToggleOptionSelectState(true);
-                if (allowMultipleChoices)
-                {
+                //if (allowMultipleChoices)
+                //{
                     selectedOptions.Add(optionButton);
-                }
-                else
-                {
-                    CurrentOption = optionButton;
-                }
+                //}
+                //else
+                //{
+                //    CurrentOption = optionButton;
+                //}
             }
         }
         //if(selectedChoice.choiceName == text)
@@ -245,39 +251,40 @@ public class StructureContextMenu : MonoBehaviour
     }
     public void OnOptionButtonClicked(OptionButton option)
     {
+        HouseStructure house = (HouseStructure)owner;
         //if (option.needConfirmation)
         //{
         //    //ToggleChangeResponsePanel(true,option);
         //}
         //else
         //{
-        confirm.interactable = true;
-        if (!allowMultipleChoices)
-        {
-            if (CurrentOption != null)
-            {
-                previousOption = CurrentOption;
-                previousOption.ToggleOptionSelectState(false);
-            }
-            CurrentOption = option;
-            CurrentOption.ToggleOptionSelectState(true);
-            //OnMenuDisable();
-            //}
+        //confirm.interactable = true;
+        //if (!allowMultipleChoices)
+        //{
+        //    if (CurrentOption != null)
+        //    {
+        //        previousOption = CurrentOption;
+        //        previousOption.ToggleOptionSelectState(false);
+        //    }
+        //    CurrentOption = option;
+        //    CurrentOption.ToggleOptionSelectState(true);
+        //    //OnMenuDisable();
+        //    //}
 
-            if (CurrentOption == null) return;
-            //onOptionSelected.Invoke();
-        }
-        else 
-        {
-            // Toggle selection
-            if (selectedOptions.Contains(option))
+        //    if (CurrentOption == null) return;
+        //    //onOptionSelected.Invoke();
+        //}
+        //else 
+        //{
+        // Toggle selection
+        if (selectedOptions.Contains(option))
             {
                 option.ToggleOptionSelectState(false);
                 selectedOptions.Remove(option);
             }
             else
             {
-                if (selectedOptions.Count >= 2)
+                if (selectedOptions.Count >= house.houseInfo.requiredChoicesCount)
                 {
                     var oldestOption = selectedOptions[0];
                     oldestOption.ToggleOptionSelectState(false);
@@ -288,9 +295,10 @@ public class StructureContextMenu : MonoBehaviour
                 option.ToggleOptionSelectState(true);
                 selectedOptions.Add(option);
             }
-
+        Debug.Log($"Selected {selectedOptions.Count} choices");
+        confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
             //onOptionSelected.Invoke();
-        }
+            // }
     }
     public void ApplyBehavior()
     {

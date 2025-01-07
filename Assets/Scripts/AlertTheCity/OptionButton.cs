@@ -5,16 +5,17 @@ using TMPro;
 using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
 {
-    public bool isLocked = false;
+    //public bool isLocked = false;
     //public bool isGoodOption {  get; private set; }
-    public bool needConfirmation;
+    //public bool needConfirmation;
     public StructureContextMenu owner;
     public Button button;
 
     [SerializeField] Button learnMoreButton;
     [SerializeField] TextMeshProUGUI optionText;
     [SerializeField] Image checkMark;
-    [SerializeField] Sprite check, blank;
+    [SerializeField] Sprite circleCheck, circleBlank, squareCheck, squareBlank;
+    bool isMultipleChoice = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -31,11 +32,11 @@ public class OptionButton : MonoBehaviour
     {
         if(state == true)
         {
-            checkMark.sprite = check;
+            checkMark.sprite = isMultipleChoice? squareCheck : circleCheck;
         }
         else
         {
-            checkMark.sprite = blank;
+            checkMark.sprite = isMultipleChoice ? squareBlank : circleBlank;
         }
     }
     public string GetOptionContent()
@@ -46,15 +47,17 @@ public class OptionButton : MonoBehaviour
     {
         this.owner = owner;
         optionText.text = buttonText;
-        needConfirmation = IsGoodOption(buttonText);
+        //needConfirmation = IsGoodOption(buttonText);
         var house = (HouseStructure)(owner.owner);
+        isMultipleChoice = house.houseInfo.allowMultipleChoices;
 
+        checkMark.sprite = isMultipleChoice? squareBlank: circleBlank;
         button.onClick.RemoveAllListeners();
 
         button.onClick.AddListener(() =>
         {
             //Debug.Log("Option: " + optionText.text + " is clicked");
-            owner.explaination.text = FindOptionExplaination(house);
+            //owner.explaination.text = FindOptionExplaination(house);
             owner.OnOptionButtonClicked(this);
             //owner.onOptionSelected.Invoke(this);
             //owner.OnClickGoodOptionButton(this);

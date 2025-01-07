@@ -35,16 +35,16 @@ public class ATC_HouseDialogManager : MonoBehaviour
         else
         {
             string json = jsonFile.text;
-            Debug.Log($"Loaded JSON: {json}");
+            //Debug.Log($"Loaded JSON: {json}");
             DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
 
             dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
             foreach (var dialogTree in collection.dialogTrees)
             {
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
-                Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
+                //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
-            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+            //Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
 
     }
@@ -137,7 +137,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void EndDialog()
     {
-        Debug.Log("House dialog completed");
+        //Debug.Log("House dialog completed");
         //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
         isWaitingForPlayer = true;

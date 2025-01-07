@@ -66,10 +66,10 @@ public class HouseStructure : Structure
         if (!isMainHouse) return;
         InitMainHouse();
 
-        // defaults to first option if player doesn't select
+        // defaults option if player doesn't select
         currentOption = houseInfo.defaultChoice.choiceName;
         contextMenu.onOptionSelected += OnOptionButtonClicked;
-
+        //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
         InitSpecialStructDict();
         //default destination
         var shelter =specialStructureDict[StructureType.Shelter];
@@ -204,20 +204,20 @@ public class HouseStructure : Structure
     void OnOptionButtonClicked()
     {
         
-        if (!contextMenu.allowMultipleChoices)
-        {
-            currentOption = contextMenu.CurrentOption.GetOptionContent();
-            Debug.Log($"Player selected {currentOption}");
-            var currentChoice = GetCurrentChoice(currentOption);
-            if (currentChoice != null)
-            {
-                GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
-                Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
-            }
+        //if (!contextMenu.allowMultipleChoices)
+        //{
+        //    currentOption = contextMenu.CurrentOption.GetOptionContent();
+        //    Debug.Log($"Player selected {currentOption}");
+        //    var currentChoice = GetCurrentChoice(currentOption);
+        //    if (currentChoice != null)
+        //    {
+        //        GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+        //        Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
+        //    }
 
-        }
-        else
-        {
+        //}
+        //else
+        //{
 
             foreach(var option in contextMenu.selectedOptions)
             {
@@ -230,7 +230,7 @@ public class HouseStructure : Structure
                     Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
                 }
             }
-        }
+        //}
         //var currentChoice = GetCurrentChoice(currentOption);
 
  
@@ -250,43 +250,57 @@ public class HouseStructure : Structure
 
     void ApplyChoice()
     {
-        var currentChoice = GetCurrentChoice(currentOption);
-
-        // 50% resident don't follow the instruction
-        if (!currentChoice.isNormal)
+        foreach(var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType])
         {
-            var rng = UnityEngine.Random.Range(0, 1f);
-            Debug.Log($"rng: {rng}");
-            if (rng > 0.5)
+            //var currentChoice = GetCurrentChoice(currentOption);
+           
+            // 50% resident don't follow the instruction
+            if (!currentChoice.isNormal)
             {
-                currentChoice = houseInfo.defaultChoice;
-                GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
+                var rng = UnityEngine.Random.Range(0, 1f);
+                Debug.Log($"rng: {rng}");
+                if (rng > 0.9)
+                {
+                    //currentChoice = houseInfo.defaultChoice;
+                    ApplyChoiceEffect(houseInfo.defaultChoice);
+                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
+                    return;
+                }
+                else
+                {
+                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+                }
             }
             else
             {
                 GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
             }
-        }
-        else
-        {
-            GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+            ApplyChoiceEffect(currentChoice);
+            
         }
 
-        Debug.Log($"{houseInfo.houseType} decides to {currentChoice.choiceName}");
-        if(currentChoice != null)
-        {
-            // avoid applying the same choices multiple times
-            if (lastOption == currentOption) return;
-            foreach (var house in sameTypeHouses)
-            {
-                currentChoice.ApplyEffect(house);
-            }
-            //choice.ApplyEffect(this);
-            lastOption = currentOption;
-        }
+        //if(currentChoice != null)
+        //{
+        //    // avoid applying the same choices multiple times
+        //    if (lastOption == currentOption) return;
+        //    foreach (var house in sameTypeHouses)
+        //    {
+        //        currentChoice.ApplyEffect(house);
+        //    }
+        //    //choice.ApplyEffect(this);
+        //    lastOption = currentOption;
+        //}
         //GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
     }
 
+    void ApplyChoiceEffect(HouseChoice choice)
+    {
+        foreach (var house in sameTypeHouses)
+        {
+            choice.ApplyEffect(house);
+        }
+        Debug.Log($"{houseInfo.houseType} decides to {choice.choiceName}");
+    }
     HouseChoice GetCurrentChoice(string name)
     {
         return houseInfo.ReturnChoiceByName(name).choice;

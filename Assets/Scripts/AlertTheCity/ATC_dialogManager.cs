@@ -127,11 +127,11 @@ public class ATC_dialogManager : MonoBehaviour
         //dialogIndex = isLocalNewsShown ? 2 : 0;
         DisplayNextMessage();
         //arrow.SetActive(true);
-        if (isToolBarBroughtToFront)
-        {
-            //ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
-            isToolBarBroughtToFront = false;
-        }
+        //if (isToolBarBroughtToFront)
+        //{
+        //    //ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
+        //    isToolBarBroughtToFront = false;
+        //}
     }
 
     public void HideDialogBox()

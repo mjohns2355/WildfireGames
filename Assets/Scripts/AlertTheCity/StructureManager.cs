@@ -223,8 +223,8 @@ public class StructureManager : MonoBehaviour
         {
             var choices = playerChoices[type];
             //playerChoices[type] = choice;
-            choices.Add(choice );
-            if (choices.Count > 2)
+            choices.Add(choice);
+            if (choices.Count > ReturnHouseInfoFor(type).requiredChoicesCount)
             {
                 choices.RemoveAt(0);
             }

@@ -310,11 +310,13 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         //PushPanel(dialogManager.gameObject);
         dialogManager.ShowDialogBox();
+        toolsBar.SetActive(false);
     }
 
     public void HideDialog()
     {
         dialogManager.HideDialogBox();
+        
     }
 
     public void ShowEndScreen()
