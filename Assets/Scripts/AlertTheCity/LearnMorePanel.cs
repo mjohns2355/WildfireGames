@@ -37,8 +37,8 @@ public class LearnMorePanel : MonoBehaviour
             var icon = obj.GetComponent<HouseIcon>();
             icon.InitIcon(houseType);
             icon.AddOnClickActions(OnIconClicked);
-            var iconIsLocked = GetHouseInfoFor(houseType).AllChoicesAreUnlocked();
-            icon.ToggleIconState(!iconIsLocked);
+            //var iconIsLocked = GetHouseInfoFor(houseType).AllChoicesAreUnlocked();
+            //icon.ToggleIconState(!iconIsLocked);
         }
     }
 

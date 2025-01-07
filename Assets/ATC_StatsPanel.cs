@@ -26,7 +26,8 @@ public class ATC_StatsPanel : MonoBehaviour
         if(GameManager.Instance.SimIsEnd) return;
         float timer = GameManager.Instance.SimTimer;
         statsText.text = "Real-time Stats" + "\n"
-            + "Timer:" + ConvertTimeToClockFormat(timer) + "\n"
+            //+ "Timer:" + ConvertTimeToClockFormat(timer) + "\n"
+            + "Timer: " + (int)timer + " minutes" + "\n"
             + "Cars Evacuated: " + GameManager.Instance.carsEvacuated + "\n"
             + "Houses Destroyed: " + GameManager.Instance.housesDestroyed;
     }

@@ -59,6 +59,7 @@ public class StructureContextMenu : MonoBehaviour
             //}
             onOptionSelected.Invoke();
             isSelected = true;
+
             GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
         });
@@ -134,7 +135,7 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
-
+        icon.ToggleIconState(!isSelected);
         //GameManager.Instance.cameraMovement.ResetCam();
         //GameManager.Instance.canControlCam = true;
         //StartCoroutine(house.SpawnCarRoutine());
