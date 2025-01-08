@@ -16,7 +16,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     public Transform bubblePos;
     public GameObject VFX;
     public Transform vfxPos;
-    HouseManager owner;
+    public HouseManager Owner { get; private set; }
     public HousePartType HousePartType { get; private set; }
 
     public bool isOnCursor = false;
@@ -59,7 +59,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         flammability = part.flammability;
         partInfo = part;
         combustibleInfo = partInfo;
-        this.owner = owner;
+        this.Owner = owner;
         ReplaceMeshMaterial(part.material);
         switch (HousePartType)
         {
@@ -120,7 +120,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private IEnumerator SpreadFireToNeighbour()
     {
-        if (owner == null || houseNode == null)
+        if (Owner == null || houseNode == null)
         {
             Debug.Log("No valid house node");
             yield break;
@@ -129,7 +129,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         
         while (isOnFire)
         {
-            var houseGraph = owner.houseGraph;
+            var houseGraph = Owner.houseGraph;
             var neighbours = houseGraph.GetNeighbors(houseNode);
             //Debug.Log("Spread to neighbour");
             foreach (var neighbor in neighbours)

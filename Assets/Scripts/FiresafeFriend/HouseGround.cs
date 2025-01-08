@@ -21,7 +21,7 @@ public class HouseGround : BaseHousePartObject
 
     private void ApplyFlammabilityMod()
     {
-        Debug.Log("Apply Flammability Mod: " +  flammabilityMod);
+        //Debug.Log("Apply Flammability Mod: " +  flammabilityMod);
         var plants = CheckPlants("Nature");
 
         foreach (var p in plants)
@@ -63,7 +63,7 @@ public class HouseGround : BaseHousePartObject
     public override void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         base.InitHousePartObject(owner, housePart);
-        Debug.Log($"Initialize {gameObject.name}");
+        //Debug.Log($"Initialize {gameObject.name}");
         flammabilityMod = ((GroundCombustibleInfo)combustibleInfo).flammabilityMod;
         ApplyFlammabilityMod();
     }

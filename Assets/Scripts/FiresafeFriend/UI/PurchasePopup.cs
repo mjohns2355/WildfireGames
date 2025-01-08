@@ -7,24 +7,35 @@ using UnityEngine.UI;
 using System;
 public class PurchasePopup : MonoBehaviour
 {
-    public TextMeshProUGUI priceText;
-    public TextMeshProUGUI classText;
-    public TextMeshProUGUI itemNameText;
-    public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI priceText, classText, itemNameText, descriptionText, moneyWarningText;
     public Image icon;
-    public Button cancel, purchase;
-
+    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney;
+    public GameObject purchaseScreen, warningScreen;
     private HousePartInfo partInfo;
 
     private void Start()
     {
-        cancel.onClick.AddListener(OnCancelClicked);
+        cancelPurchase.onClick.AddListener(OnCancelClicked);
+        cancelWarning.onClick.AddListener(OnCancelClicked);
         purchase.onClick.AddListener(OnPurchaseClicked);
+        earnMoreMoney.onClick.AddListener(OnEarnMoreMoneyClicked);
+    }
+
+    private void OnEarnMoreMoneyClicked()
+    {
+        HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
+        HH_GameManager.Instance.uiManager.ShowQuizPopup();
     }
 
     private void OnPurchaseClicked()
     {
-        if (!HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo)) return;
+        // insufficient money
+        if (!HH_GameManager.Instance.currentPlayer.PurchaseHousePart(partInfo))
+        {
+            purchaseScreen.SetActive(false);
+            warningScreen.SetActive(true);
+            return;
+        }
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
         var player = HH_GameManager.Instance.currentPlayer;
         player.ReplaceHousePartObject(partInfo);
@@ -46,5 +57,10 @@ public class PurchasePopup : MonoBehaviour
         itemNameText.text = partInfo.partID;
     }
 
+    private void OnDisable()
+    {
+        warningScreen.SetActive(false);
+        purchaseScreen.SetActive(true );
+    }
 
 }

@@ -12,6 +12,7 @@ public class Question
     public string questionText;
     public string[] options;
     public int correctAnswerIndex;
+    //public bool isAnswered;
 }
 [System.Serializable]
 public class QuestionList
@@ -24,6 +25,7 @@ public class QuizManager : MonoBehaviour
     public List<Question> questions;
 
     private string jsonFilePath;
+    private List<int> unusedQuestionIndices;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,9 +64,16 @@ public class QuizManager : MonoBehaviour
         {
             Debug.LogError($"Failed to load questions: {request.error}");
         }
-        
+        InitializeUnusedIndices();
     }
 
+    private void InitializeUnusedIndices()
+    {
+        unusedQuestionIndices = new List<int>(questions.Count);
+        for (int i = 0; i < questions.Count; i++) { 
+            unusedQuestionIndices.Add(i);
+        }
+    }
     private string WrapJsonArray(string json)
     {
         return $"{{\"questions\": {json}}}";
@@ -72,6 +81,16 @@ public class QuizManager : MonoBehaviour
 
     public Question ReturnRandomQuestion()
     {
-        return questions.OrderBy(x => Guid.NewGuid()).First();
+        if (unusedQuestionIndices.Count == 0)
+        {
+            Debug.Log("All questions have been used. Resetting unused questions.");
+            InitializeUnusedIndices();
+        }
+        int randomIndex = UnityEngine.Random.Range(0, unusedQuestionIndices.Count);
+        int questionIndex = unusedQuestionIndices[randomIndex];
+
+        unusedQuestionIndices.RemoveAt(randomIndex);
+
+        return questions[questionIndex];
     }
 }

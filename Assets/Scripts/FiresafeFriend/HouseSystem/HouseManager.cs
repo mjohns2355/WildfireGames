@@ -17,8 +17,7 @@ namespace HappyHouse.HouseSystem
         public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
-        public GameObject craftIcon;
-        public GameObject arrowUI;
+        public GameObject craftIcon, arrowUI,nameText;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
         //[SerializeField] BoxCollider clickBox;
       
@@ -85,6 +84,7 @@ namespace HappyHouse.HouseSystem
             HH_GameManager.Instance.StartRound(manager);
             //ToggleClickBox(false);
             arrowUI.SetActive(true);
+            nameText.SetActive(false);
             //UpdateHouseUI();
             StartCoroutine(UpdateHouseUI());
         }
@@ -177,6 +177,7 @@ namespace HappyHouse.HouseSystem
                 if (oldPart.shouldDisplayBubble)
                 {
                     oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+                    oldPart.shouldDisplayBubble = !shouldHideBubble;
                 }
                 //oldPart.partInfo = housePartInfo;
                 oldPart.InitHousePartObject(this,housePartInfo);

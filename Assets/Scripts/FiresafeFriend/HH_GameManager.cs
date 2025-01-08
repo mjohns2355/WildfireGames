@@ -62,7 +62,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
         Debug.Log($"Current Player is {currentPlayer.playerTag}");
         inputManager.OnHouseSelected.Invoke(currentPlayer);
-        currentPlayer.OnHouseSelected(currentPlayer);
+        //currentPlayer.OnHouseSelected(currentPlayer);
     }
 
     public void StartRound(HouseManager currentPlayer)
