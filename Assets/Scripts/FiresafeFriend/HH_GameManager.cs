@@ -12,6 +12,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HH_InputManager inputManager;
     public HH_CameraController cameraController;
     public QuizManager quizManager;
+    public FF_skybox skyboxController;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
     public GameObject[] fences;
@@ -86,7 +87,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         
         fireManager.StartFireSimulation();
-        
+        skyboxController.ChangeSky();
     }
 
     public void EndRound()
@@ -95,7 +96,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         uiManager.OnRoundEnd();
-        startFireBtn.gameObject.SetActive(true);
+        StartFire();
+        //startFireBtn.gameObject.SetActive(true);
         endRoundBtn.gameObject.SetActive(false);
     }
 
@@ -107,7 +109,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("HappyHouseScene");
+        SceneManager.LoadScene("FiresafeFriendScene");
     }
 
     

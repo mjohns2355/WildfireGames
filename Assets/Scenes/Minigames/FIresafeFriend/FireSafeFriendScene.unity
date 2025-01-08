@@ -5989,6 +5989,7 @@ Transform:
   - {fileID: 982221405}
   - {fileID: 1179019947}
   - {fileID: 1935168536}
+  - {fileID: 714207963}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &598965161 stripped
@@ -7565,7 +7566,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 135.56, y: 293}
+  m_AnchoredPosition: {x: 0, y: 342}
   m_SizeDelta: {x: 572.3734, y: 63.1556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687577756
@@ -7585,11 +7586,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
+  m_ChildAlignment: 1
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -7830,12 +7831,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714207961}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 64.0296, y: 1.4400005, z: 120.229996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 594504488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &721073312 stripped
 GameObject:
@@ -25783,6 +25784,7 @@ MonoBehaviour:
   inputManager: {fileID: 1179019946}
   cameraController: {fileID: 1557690521}
   quizManager: {fileID: 1935168537}
+  skyboxController: {fileID: 714207962}
   startFireBtn: {fileID: 1074516746}
   endRoundBtn: {fileID: 2102834634}
   fences: []
@@ -26606,10 +26608,10 @@ RectTransform:
   - {fileID: 351467806}
   m_Father: {fileID: 1087839860}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 455.13007}
-  m_SizeDelta: {x: 160, y: 73.74}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -84.869934}
+  m_SizeDelta: {x: 160, y: 73.73999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102834634
 MonoBehaviour:
@@ -26655,18 +26657,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2043702162}
-        m_TargetAssemblyTypeName: HH_GameManager, Assembly-CSharp
-        m_MethodName: EndRound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2123481750}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -28217,4 +28207,3 @@ SceneRoots:
   - {fileID: 1715153673}
   - {fileID: 301470578}
   - {fileID: 1310567849}
-  - {fileID: 714207963}
