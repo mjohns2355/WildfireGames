@@ -112,5 +112,5 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SceneManager.LoadScene("FiresafeFriendScene");
     }
 
-    
+
 }

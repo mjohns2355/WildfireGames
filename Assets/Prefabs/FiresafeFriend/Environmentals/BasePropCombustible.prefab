@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997592059164994730}
   - component: {fileID: 2196512633939899201}
+  - component: {fileID: 7377138048927884611}
   m_Layer: 13
   m_Name: BasePropCombustible
   m_TagString: Untagged
@@ -54,3 +55,24 @@ MonoBehaviour:
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
   baseBurnTime: 5
+--- !u!65 &7377138048927884611
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3576253907560853097}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

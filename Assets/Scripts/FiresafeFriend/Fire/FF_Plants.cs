@@ -23,9 +23,10 @@ public class FF_Plants : FF_BaseCombustible
 
     protected override void OnCombustibleClicked(GameObject obj)
     {
-        if (obj.transform.parent == transform)
+        //if (obj.transform.parent == transform)
+        if (obj == gameObject)
         {
-            //Debug.Log($"Clicked {gameObject.name}");
+            Debug.Log($"Clicked {gameObject.name}");
             StartCoroutine(PlantClickedRoutine());
         }
     }

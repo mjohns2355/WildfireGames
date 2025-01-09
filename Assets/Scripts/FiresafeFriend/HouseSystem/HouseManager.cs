@@ -17,7 +17,7 @@ namespace HappyHouse.HouseSystem
         public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
-        public GameObject craftIcon, arrowUI,nameText;
+        public GameObject /*craftIcon, */arrowUI,nameText;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
         //[SerializeField] BoxCollider clickBox;
       
@@ -230,10 +230,11 @@ namespace HappyHouse.HouseSystem
                 //}
 
                 //displayedPartTypes.Add(partType);
-                var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
+                //var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
+                var icon = HH_GameManager.Instance.uiManager.SpawnBubble();
                 purchaseFloatingButtons.Add(icon);
 
-                icon.InitBubble(node.housePart);
+                icon.InitBubbleForHousePart(node.housePart);
                 node.housePart.bubble = icon;;
 
             }

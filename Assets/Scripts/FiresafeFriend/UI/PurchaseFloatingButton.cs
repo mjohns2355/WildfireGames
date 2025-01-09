@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class PurchaseFloatingButton : MonoBehaviour
 {
-    public BaseHousePartObject owner;
+    public BaseHousePartObject ownerPart;
+    public FF_Plants ownerPlant;
     public Image iconImage;
     public Vector3 offset;
 
     private Camera mainCamera;
     [SerializeField] private Button button;
+    [SerializeField] Sprite purchase, plant, remove;
 
     // Static reference to the currently selected bubble button
     private static PurchaseFloatingButton currentSelectedButton;
@@ -41,25 +43,29 @@ public class PurchaseFloatingButton : MonoBehaviour
             // Select this button and open the store panel
             currentSelectedButton = this;
             SelectButton();
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.partInfo.housePartType, this);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
         }
     }
 
     void Update()
     {
-        if (owner != null && iconImage != null)
+        if (ownerPart != null && iconImage != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.bubblePos.position + offset);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(ownerPart.bubblePos.position + offset);
             iconImage.transform.position = screenPos;
             iconImage.enabled = screenPos.z > 0;
         }
     }
-    public void InitBubble(BaseHousePartObject ownerPart)
+    public void InitBubbleForHousePart(BaseHousePartObject ownerPart)
     {
-        owner = ownerPart;
+        this.ownerPart = ownerPart;
         //HH_GameManager.Instance.inputManager.OnHousePartSelected.AddListener(OnHousePartClicked);
     }
 
+    public void InitBubbleForPlant(FF_Plants plant)
+    {
+
+    }
     public void ResetButton()
     {
         currentSelectedButton = null;
