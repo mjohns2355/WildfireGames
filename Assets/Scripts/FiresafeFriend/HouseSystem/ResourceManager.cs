@@ -8,7 +8,7 @@ public class ResourceManager : UnitySingleton<ResourceManager>
 {
     public Dictionary<HousePartType, List<HousePartInfo>> allAvailableParts;
     public Dictionary<HousePartType, GameObject> VFXs;
-    public GameObject[] plants;
+    public List<FF_Plants> plants;
     // Start is called before the first frame update
     public override void Awake()
     {
@@ -70,7 +70,12 @@ public class ResourceManager : UnitySingleton<ResourceManager>
 
     private void LoadPlants() 
     { 
-        plants = Resources.LoadAll<GameObject>("FiresafeFriend/PlantsPrefab");
+        plants = new List<FF_Plants> ();
+        var plantObjs = Resources.LoadAll<GameObject>("FiresafeFriend/PlantsPrefab");
+        foreach (var plant in plantObjs)
+        {
+            plants.Add(plant.GetComponent<FF_Plants>());
+        }
     }
 
 }
