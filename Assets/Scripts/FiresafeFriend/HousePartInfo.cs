@@ -10,7 +10,7 @@ namespace HappyHouse.HouseSystem
     {
         //public string partID;
         public HousePartType housePartType;
-        public Sprite icon;
+        //public Sprite icon;
         //public float durability;
         //public float flammability;
         //public MaterialType materialType;

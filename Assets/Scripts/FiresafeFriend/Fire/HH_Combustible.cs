@@ -9,8 +9,10 @@ using UnityEngine;
 public abstract class FF_BaseCombustible : MonoBehaviour
 {
     public BaseCombustibleInfo combustibleInfo;
+
     public bool isOnFire = false;
-    public BurnStage burnStage = BurnStage.Igniting;
+    //public BurnStage burnStage = BurnStage.Igniting;
+
     public float heat = 0;
     [SerializeField] protected float heatThreshold = 100f;
     public bool mustDestroy = false;
@@ -19,8 +21,24 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     public bool shouldDisplayBubble = false;
 
     public Action OnIgnite;
+    public Action OnBurning;
     public Action OnBurnedOut;
-    
+    public Action OnCombustibleDestroyed;
+    public Action<BurnStage> OnBurnStageChanged;
+
+    protected BurnStage _burnStage;
+    public BurnStage BurnStage
+    {
+        get => _burnStage;
+        set
+        {
+            if (_burnStage != value)
+            {
+                _burnStage = value;
+                OnBurnStageChanged?.Invoke(_burnStage);
+            }
+        }
+    }
     protected bool isOverHeated = false;
     protected float durability;
     protected float flammability;
@@ -39,6 +57,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         //Debug.Log(combustibleInfo.durability);
         flammability = combustibleInfo.flammability;
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
+        OnBurnStageChanged += ChangeBurnStage;
     }
 
     protected virtual float CalculateFireCatchChance(float flammability)
@@ -87,7 +106,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         isOnFire = true;
         yield return new WaitForSeconds(durability / 10 + baseBurnTime);
         burnTimer = durability / flammability + baseBurnTime;
-        OnIgnite?.Invoke();
+        //OnIgnite?.Invoke();
         StartCoroutine(Burn());
     }
 
@@ -102,20 +121,21 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     }
     protected virtual IEnumerator Burn()
     {
-        burnStage = BurnStage.Igniting;
+        BurnStage = BurnStage.Igniting;
+        float startBurnTimer = burnTimer;
         while (isOnFire)
         {
             if (burnTimer > 0)
             {
                 burnTimer -= Time.deltaTime;
 
-                if (burnTimer <= durability * 0.75f && burnStage == BurnStage.Igniting)
+                if (/*burnTimer <= durability * 0.75f*/ burnTimer/startBurnTimer <= 0.75f && BurnStage == BurnStage.Igniting)
                 {
-                    burnStage = BurnStage.Burning;
+                    BurnStage = BurnStage.Burning;
                 }
-                else if (burnTimer <= durability * 0.25f && burnStage == BurnStage.Burning)
+                else if (/*burnTimer <= durability * 0.25f */ burnTimer / startBurnTimer <= 0.25f  && BurnStage == BurnStage.Burning)
                 {
-                    burnStage = BurnStage.BurnedOut;
+                    BurnStage = BurnStage.BurnedOut;
                 }
             }
             else
@@ -141,7 +161,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void BurnOut()
     {
         isOnFire = false;
-        OnBurnedOut?.Invoke();
+        OnCombustibleDestroyed?.Invoke();
     }
 
 
@@ -149,6 +169,23 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     {
         StopAllCoroutines();
         HH_GameManager.Instance.inputManager.OnObjectSelected -= OnCombustibleClicked;
+    }
+
+    private void ChangeBurnStage(BurnStage newStage)
+    {
+        //Debug.Log($"{gameObject.name}'s Burn Stage changed to {newStage}");
+        switch (newStage)
+        {
+            case BurnStage.Igniting:
+                OnIgnite?.Invoke();
+                break;
+            case BurnStage.Burning:
+                OnBurning.Invoke();
+                break;
+            case BurnStage.BurnedOut:
+                OnBurnedOut.Invoke();
+                break;
+        }
     }
 }
 
