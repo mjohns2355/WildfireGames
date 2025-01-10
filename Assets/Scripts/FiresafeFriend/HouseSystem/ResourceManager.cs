@@ -8,12 +8,14 @@ public class ResourceManager : UnitySingleton<ResourceManager>
 {
     public Dictionary<HousePartType, List<HousePartInfo>> allAvailableParts;
     public Dictionary<HousePartType, GameObject> VFXs;
+    public GameObject[] plants;
     // Start is called before the first frame update
     public override void Awake()
     {
         base.Awake();
         InitPartsDictionary();
         LoadVFXs();
+        LoadPlants();
     }
 
     private void InitPartsDictionary()
@@ -64,6 +66,11 @@ public class ResourceManager : UnitySingleton<ResourceManager>
             }
         }
 
+    }
+
+    private void LoadPlants() 
+    { 
+        plants = Resources.LoadAll<GameObject>("FiresafeFriend/PlantsPrefab");
     }
 
 }

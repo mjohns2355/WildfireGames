@@ -9,8 +9,10 @@ public class PurchaseFloatingButton : MonoBehaviour
     public FF_Plants ownerPlant;
     public Image iconImage;
     public Vector3 offset;
-
+    
     private Camera mainCamera;
+    private bool isPlant = false;
+    private Vector3 targetPosition;
     [SerializeField] private Button button;
     [SerializeField] Sprite purchase, plant, remove;
 
@@ -28,7 +30,15 @@ public class PurchaseFloatingButton : MonoBehaviour
         if (currentSelectedButton == this)
         {
             // If this button is already selected, deselect it and close the store panel
-            HH_GameManager.Instance.uiManager.HideStoreScreen();
+            if (isPlant)
+            {
+
+            }
+            else
+            {
+                HH_GameManager.Instance.uiManager.HideStoreScreen();
+            }
+            
             ResetButton();
             currentSelectedButton = null;
         }
@@ -43,15 +53,23 @@ public class PurchaseFloatingButton : MonoBehaviour
             // Select this button and open the store panel
             currentSelectedButton = this;
             SelectButton();
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
+            if (isPlant)
+            {
+
+            }
+            else
+            {
+                HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
+            }
         }
     }
 
     void Update()
     {
-        if (ownerPart != null && iconImage != null)
+        //if (ownerPlant == null & ownerPart == null) return;
+        if (iconImage != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(ownerPart.bubblePos.position + offset);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(/*ownerPart.bubblePos.position*/ targetPosition /*+ offset*/);
             iconImage.transform.position = screenPos;
             iconImage.enabled = screenPos.z > 0;
         }
@@ -59,12 +77,30 @@ public class PurchaseFloatingButton : MonoBehaviour
     public void InitBubbleForHousePart(BaseHousePartObject ownerPart)
     {
         this.ownerPart = ownerPart;
+        iconImage.sprite = purchase;
+        targetPosition = ownerPart.bubblePos.position;
         //HH_GameManager.Instance.inputManager.OnHousePartSelected.AddListener(OnHousePartClicked);
     }
 
     public void InitBubbleForPlant(FF_Plants plant)
     {
+        ownerPlant = plant;
+        isPlant = true;
+        
+    }
 
+    public void SetTargetPosition (Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
+    }
+    public void SetPlantIcon(bool isPlanted)
+    {
+        if (isPlanted)
+        {
+            iconImage.sprite = remove;
+            return;
+        }
+        iconImage.sprite = plant;
     }
     public void ResetButton()
     {
