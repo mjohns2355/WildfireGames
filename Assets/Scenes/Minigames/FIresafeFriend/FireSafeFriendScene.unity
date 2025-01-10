@@ -12589,6 +12589,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1074963085}
+  - component: {fileID: 1074963086}
   m_Layer: 5
   m_Name: PlantMenu
   m_TagString: Untagged
@@ -12616,6 +12617,20 @@ RectTransform:
   m_AnchoredPosition: {x: 6.5384, y: 10.2264}
   m_SizeDelta: {x: 661.4313, y: 428.4211}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1074963086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074963084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d672ef926b802478c0e90e30666d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1161638503}
+  plantOptionPrefab: {fileID: 3693310830688038350, guid: f4cb956160a43f04cafad9bee1a09ff5, type: 3}
 --- !u!1 &1080398328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8513424388201257645, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
