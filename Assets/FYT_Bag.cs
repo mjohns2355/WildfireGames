@@ -26,6 +26,7 @@ public class FYT_Bag : MonoBehaviour
 
     public void Evac()
     {
+        /*
         bagList2.text = "";
         bagList.text = "Good job evacuating quickly!";
         if (hasCat)
@@ -49,6 +50,7 @@ public class FYT_Bag : MonoBehaviour
             bagList.text += "\nIt was a good idea to take protective equipment for yourself, like the mask to protect from smoke.";
         }
         bagList3.text = "";
+        */
     }
 
     public void Restart()

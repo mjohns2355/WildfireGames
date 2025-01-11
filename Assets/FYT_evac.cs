@@ -17,7 +17,7 @@ public class FYT_evac : MonoBehaviour
 
             evacButton.SetActive(true);
             bagMenu.SetActive(true);
-        } else
+        } else if (GameObject.FindGameObjectWithTag("BagPanel") == null)
         {
             needKeyPopup.SetActive(true);
         }

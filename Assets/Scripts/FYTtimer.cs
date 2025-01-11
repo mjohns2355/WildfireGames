@@ -13,6 +13,7 @@ public class FYTtimer : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     public GameObject warning;
+    public GameObject startScreen;
     private bool paused = false;
 
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class FYTtimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!warning.activeInHierarchy)
+        if (!warning.activeInHierarchy && !startScreen.activeInHierarchy)
         {
             timer -= Time.deltaTime;
             mins = (int)timer / 60;
