@@ -73,7 +73,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         endRoundBtn.gameObject.SetActive(true);
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
-        uiManager.floatingIcons.gameObject.SetActive(false) ;
+        
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     //{
@@ -85,7 +85,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
-        
+        uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky();
     }
