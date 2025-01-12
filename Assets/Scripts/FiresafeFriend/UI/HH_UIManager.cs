@@ -17,6 +17,7 @@ public class HH_UIManager : MonoBehaviour
     public GameObject startText;
     public FF_QuizPopupUI quizPopup;
     public WarningPopupPanel warningPopup;
+    public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab;
     // Start is called before the first frame update
     void Start()
@@ -56,9 +57,16 @@ public class HH_UIManager : MonoBehaviour
         storePanel.ShowStorePanel(houseType);
     }
 
-    public void ShowPlantsMenu(BaseCombustibleInfo plantInfo)
+    public void ShowPlantsMenu(FF_DirtMound owner)
     {
+        //if (plantsMenu.gameObject.activeSelf) HidePlantsMenu();
+        plantsMenu.gameObject.SetActive(true);
+        plantsMenu.ShowPlantsMenu(owner);
+    }
 
+    public void HidePlantsMenu()
+    {
+        plantsMenu.ClosePlantsMenu();
     }
     public void HideStoreScreen()
     {

@@ -25,7 +25,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     public Action OnBurnedOut;
     public Action OnCombustibleDestroyed;
     public Action<BurnStage> OnBurnStageChanged;
-
+    public Vector3 topPosition, bottomPosition;
     protected BurnStage _burnStage;
     public BurnStage BurnStage
     {
@@ -49,6 +49,11 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     {
         if (notInteractable) return;
         collider = GetComponentInChildren<Collider>();
+        var top = collider.bounds.max;
+        var bottom = collider.bounds.min;
+        var center = collider.bounds.center;
+        bottomPosition = new Vector3(center.x, bottom.y, center.z);
+        topPosition = new Vector3(center.x, top.y, center.z);
     }
     protected virtual void Start()
     {
@@ -58,6 +63,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         flammability = combustibleInfo.flammability;
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
         OnBurnStageChanged += ChangeBurnStage;
+
     }
 
     protected virtual float CalculateFireCatchChance(float flammability)
@@ -122,6 +128,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual IEnumerator Burn()
     {
         BurnStage = BurnStage.Igniting;
+        ChangeBurnStage(BurnStage);
         float startBurnTimer = burnTimer;
         while (isOnFire)
         {
@@ -177,13 +184,14 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         switch (newStage)
         {
             case BurnStage.Igniting:
+                
                 OnIgnite?.Invoke();
                 break;
             case BurnStage.Burning:
-                OnBurning.Invoke();
+                OnBurning?.Invoke();
                 break;
             case BurnStage.BurnedOut:
-                OnBurnedOut.Invoke();
+                OnBurnedOut?.Invoke();
                 break;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,25 +8,29 @@ public class FF_DirtMound : MonoBehaviour
     public Transform plantHolder;
     public FF_Plants currentPlant;
     public Transform bubblePos;
+    public Vector3 menuPos;
     //public List<FF_Plants> ownedPlants = new List<FF_Plants>();
     public List<FF_Plants> availablePlants;
+    public Action OnPlanted;
     PurchaseFloatingButton bubble;
   
     // Start is called before the first frame update
     void Start()
     {        
         bubble = HH_GameManager.Instance.uiManager.SpawnBubble();
-        bubble.SetTargetPosition(bubblePos.position);
-        bubble.SetPlantIcon(!(currentPlant == null));
-        availablePlants= ResourceManager.Instance.plants;
-        var rng = Random.Range(0, 1f);
+        bubble.InitBubbleForPlant(this, !(currentPlant == null), bubblePos.position);
+        menuPos = bubblePos.position + new Vector3(0, 15f , 0);
+        //bubble.SetTargetPosition(bubblePos.position);
+        //bubble.SetPlantIcon(!(currentPlant == null));
+        availablePlants = new List<FF_Plants>(ResourceManager.Instance.plants);
+        var rng = UnityEngine.Random.Range(0, 1f);
         if(rng < 0.1)
         {
-            var index = Random.Range(0, availablePlants.Count);
+            var index = UnityEngine.Random.Range(0, availablePlants.Count);
             var p = availablePlants[index];
-            currentPlant = Instantiate(p, plantHolder);
-            availablePlants.Remove(p);
-            
+            //currentPlant = Instantiate(p, plantHolder);
+            //availablePlants.Remove(p);
+            Plant(p);
         }
     }
 
@@ -33,5 +38,39 @@ public class FF_DirtMound : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Plant(FF_Plants plant)
+    {
+        currentPlant = Instantiate(plant, plantHolder);
+        currentPlant.isClickable = false;
+        availablePlants.Remove(plant);
+        bubble.SetPlantIcon(true);
+        var newTargetPos = new Vector3(bubblePos.position.x, currentPlant.topPosition.y + 4f, bubblePos.position.z);
+        bubble.SetTargetPosition(newTargetPos);
+        menuPos = newTargetPos + new Vector3(0, currentPlant.topPosition.y + 15f, 0);
+        OnPlanted?.Invoke();
+    }
+
+    public void Shovel()
+    {
+        if (currentPlant != null)
+        {
+            Debug.Log("shovel");
+            //availablePlants.Add(currentPlant);
+            menuPos = bubblePos.position + new Vector3(0, 15f, 0);
+            bubble.SetTargetPosition(bubblePos.position);
+            foreach (var p in ResourceManager.Instance.plants)
+            {
+                if (p.combustibleInfo.partID == currentPlant.combustibleInfo.partID)
+                {
+                    availablePlants.Add(p);
+                    break;
+                }
+            }
+            var plantToDestroy = currentPlant;
+            currentPlant = null;
+            Destroy(plantToDestroy.gameObject);
+        }
     }
 }

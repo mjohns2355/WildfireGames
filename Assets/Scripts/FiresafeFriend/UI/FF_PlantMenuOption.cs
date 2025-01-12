@@ -11,13 +11,31 @@ public class FF_PlantMenuOption : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI nameText;
     public Button button;
-    public GameObject checkMark;
-    // Start is called before the first frame update
+    public FF_Plants ownerPlant;
+    public FF_DirtMound ownerMound;
 
-    public void InitPlantMenuOption (BaseCombustibleInfo combustibleInfo, bool isBought)
+    //public GameObject checkMark;
+    // Start is called before the first frame update
+    private void Start()
     {
-        icon.sprite = combustibleInfo.icon;
-        nameText.text = combustibleInfo.partID;
-        checkMark.SetActive(isBought);
+        button.onClick.AddListener(OnClick);
+    }
+    public void InitPlantMenuOption (FF_Plants plant, FF_DirtMound mound)
+    {
+        ownerPlant = plant;
+        ownerMound = mound;
+        icon.sprite = plant.combustibleInfo.icon;
+        nameText.text = plant.combustibleInfo.partID;
+        //checkMark.SetActive(isBought);
+    }
+
+    public void OnClick()
+    {
+       ownerMound.Plant(ownerPlant);
+    }
+
+    private void OnDestroy()
+    {
+       button.onClick.RemoveAllListeners();
     }
 }

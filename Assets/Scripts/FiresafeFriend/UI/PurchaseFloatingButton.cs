@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class PurchaseFloatingButton : MonoBehaviour
 {
     public BaseHousePartObject ownerPart;
-    public FF_Plants ownerPlant;
+    public FF_DirtMound ownerMound;
     public Image iconImage;
     public Vector3 offset;
     
     private Camera mainCamera;
     private bool isPlant = false;
+    private bool shouldShowRemoveIcon = false;
     private Vector3 targetPosition;
     [SerializeField] private Button button;
     [SerializeField] Sprite purchase, plant, remove;
@@ -27,41 +28,50 @@ public class PurchaseFloatingButton : MonoBehaviour
 
     public void OnBubbleClicked()
     {
-        if (currentSelectedButton == this)
+        if (shouldShowRemoveIcon)
         {
-            // If this button is already selected, deselect it and close the store panel
-            if (isPlant)
-            {
+            ownerMound.Shovel();
+            shouldShowRemoveIcon = false;
+            SetPlantIcon(false);
+            return;
+        }
 
-            }
-            else
-            {
-                HH_GameManager.Instance.uiManager.HideStoreScreen();
-            }
-            
-            ResetButton();
-            currentSelectedButton = null;
+        if (isPlant)
+        {
+            HH_GameManager.Instance.uiManager.ShowPlantsMenu(ownerMound);
         }
         else
         {
-            // Deselect the previously selected button, if any
-            if (currentSelectedButton != null)
-            {
-                currentSelectedButton.ResetButton();
-            }
-
-            // Select this button and open the store panel
-            currentSelectedButton = this;
-            SelectButton();
-            if (isPlant)
-            {
-
-            }
-            else
-            {
-                HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
-            }
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
         }
+        //if (currentSelectedButton == this)
+        //{
+        //    // If this button is already selected, deselect it and close the store panel
+
+        //    HH_GameManager.Instance.uiManager.HideStoreScreen();
+        //    ResetButton();
+        //    currentSelectedButton = null;
+        //}
+        //else
+        //{
+        //    // Deselect the previously selected button, if any
+        //    if (currentSelectedButton != null)
+        //    {
+        //        currentSelectedButton.ResetButton();
+        //    }
+
+        //    // Select this button and open the store panel
+        //    currentSelectedButton = this;
+        //    SelectButton();
+        //    if (isPlant)
+        //    {
+        //        HH_GameManager.Instance.uiManager.ShowPlantsMenu(ownerMound);
+        //    }
+        //    else
+        //    {
+        //        HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
+        //    }
+        //}
     }
 
     void Update()
@@ -82,11 +92,12 @@ public class PurchaseFloatingButton : MonoBehaviour
         //HH_GameManager.Instance.inputManager.OnHousePartSelected.AddListener(OnHousePartClicked);
     }
 
-    public void InitBubbleForPlant(FF_Plants plant)
+    public void InitBubbleForPlant(FF_DirtMound owner, bool isPlanted, Vector3 targetPosition)
     {
-        ownerPlant = plant;
+        ownerMound = owner;
         isPlant = true;
-        
+        SetPlantIcon(isPlanted);
+        SetTargetPosition(targetPosition);
     }
 
     public void SetTargetPosition (Vector3 targetPosition)
@@ -98,6 +109,7 @@ public class PurchaseFloatingButton : MonoBehaviour
         if (isPlanted)
         {
             iconImage.sprite = remove;
+            shouldShowRemoveIcon = true;
             return;
         }
         iconImage.sprite = plant;

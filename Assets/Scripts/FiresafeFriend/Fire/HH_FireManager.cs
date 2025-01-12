@@ -64,7 +64,7 @@ namespace HappyHouse.FireSystem
             fire.transform.localScale *= scaleMultiplier;
             
             var fireLife =  life == 0? defaultFireLife : life;
-            Debug.Log($"Spawn Fire, burn time: {fireLife}");
+            //Debug.Log($"Spawn Fire, burn time: {fireLife}");
             fire.GetComponent<FireController>().InitFire(onCombustible, fireLife, maxSize);
             return fire.GetComponent<FireController>();
         }

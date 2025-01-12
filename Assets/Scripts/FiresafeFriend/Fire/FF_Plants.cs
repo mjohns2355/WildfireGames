@@ -6,7 +6,7 @@ using UnityEngine;
 public class FF_Plants : FF_BaseCombustible
 {
     public int debris;
-    public bool blocker = false;
+    public bool isClickable = true;
     
     protected override void Start()
     {
@@ -24,7 +24,7 @@ public class FF_Plants : FF_BaseCombustible
     protected override void OnCombustibleClicked(GameObject obj)
     {
         //if (obj.transform.parent == transform)
-        if (obj == gameObject)
+        if (obj == gameObject && isClickable)
         {
             Debug.Log($"Clicked {gameObject.name}");
             StartCoroutine(PlantClickedRoutine());
