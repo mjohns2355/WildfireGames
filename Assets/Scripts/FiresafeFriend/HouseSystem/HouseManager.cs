@@ -57,21 +57,38 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //elses
-            //{
-            //    InitializeDefaultHouseLayout();
-            //}
-            //houseGraph.PrintGraph();
+            var allAvailableParts = ResourceManager.Instance.allAvailableParts;
+
+            // TO DO: Improve the code
+            foreach(var key in allAvailableParts.Keys)
+            {
+                var allInfos = allAvailableParts[key];
+                int index = UnityEngine.Random.Range(0, allInfos.Count);
+                var res = allInfos[index];
+                var oldParts = GetAllHousePartObjectsOf(res.housePartType);
+                //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
+                //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
+
+                foreach (var oldPart in oldParts)
+                {
+                    //oldPart.partInfo = housePartInfo;
+                    oldPart.InitHousePartObject(this, res);
+                }
+                inventory.AddNewPartToInventory(res);
+            }
+            
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
-        {        
+        {
             part.InitHousePartObject(this);
+            //part.InitHousePartObject(this, allInfos[index]);
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
             inventory.AddNewPartToInventory(part.partInfo);
+            //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
         public void ToggleClickBox(bool toggle)

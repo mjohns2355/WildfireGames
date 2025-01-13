@@ -66,7 +66,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-
+        IsGameStarted = true;
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
         uiManager.ToggleInventory(true);

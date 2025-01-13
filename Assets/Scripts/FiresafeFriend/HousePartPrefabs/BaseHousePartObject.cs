@@ -33,10 +33,14 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             partInfo = (HousePartInfo)combustibleInfo;
         }
+
+        //StartCoroutine(RandomizeStartingCondition());
+
     }
     protected override void Start()
     {
         base.Start();
+
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
         //OnBurning += HandleBurning;
