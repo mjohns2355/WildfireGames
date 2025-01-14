@@ -9,6 +9,7 @@ namespace HappyHouse.HouseSystem
     public class HouseManager : MonoBehaviour
     {
         //public HouseBlueprint houseBlueprint;
+        
         public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
@@ -23,6 +24,7 @@ namespace HappyHouse.HouseSystem
       
         private void Start()
         {
+            Debug.Log("test");
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager();
 
