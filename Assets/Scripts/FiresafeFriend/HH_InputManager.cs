@@ -49,14 +49,14 @@ public class HH_InputManager : MonoBehaviour
                     else
                     {
                         if(!HH_GameManager.Instance.IsGameStarted) return;
-                        Debug.Log($"Clicked {hit.collider.gameObject.name}");
+                        //Debug.Log($"Clicked {hit.collider.gameObject.name}");
                         OnObjectSelected?.Invoke(hit.collider.gameObject);
                     }
                 }
 
                 if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
                 {
-                    Debug.Log($"Hit {hit.collider.gameObject}");
+                    //Debug.Log($"Hit {hit.collider.gameObject}");
                     OnObjectSelected?.Invoke(hit.collider.gameObject);
                 }
                 //if(hit.collider.gameObject.layer == 10)

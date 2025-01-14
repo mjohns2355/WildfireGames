@@ -118,7 +118,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         //debug
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
-        if(Input.GetKeyDown(KeyCode.LeftShift)) { Time.timeScale = 6f; }
+        if(Input.GetKeyDown(KeyCode.F1)) { Time.timeScale = 6f; }
         if (!canControlCam) return;
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
         if(Input.touchCount == 2)

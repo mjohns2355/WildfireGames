@@ -10,6 +10,7 @@ namespace HappyHouse.HouseSystem
         public string partID;
         public float durability;
         public float flammability;
+        public Sprite icon;
         [TextArea]
         public string description;
     }

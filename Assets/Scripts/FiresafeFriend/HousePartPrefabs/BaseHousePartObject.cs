@@ -21,8 +21,9 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     public bool isOnCursor = false;
     public HousePartInfo partInfo;
-
+    public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
+
     protected override void Awake()
     {
         base.Awake();
@@ -32,12 +33,18 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             partInfo = (HousePartInfo)combustibleInfo;
         }
+
+        //StartCoroutine(RandomizeStartingCondition());
+
     }
     protected override void Start()
     {
         base.Start();
+
         OnIgnite += HandleIgnite;
-        OnBurnedOut += HandleBurnedOut;
+        OnCombustibleDestroyed += HandleDestroy;
+        //OnBurning += HandleBurning;
+        //OnBurnedOut += HandleBurnedOut;
 
     }
 
@@ -59,7 +66,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         flammability = part.flammability;
         partInfo = part;
         combustibleInfo = partInfo;
-        this.Owner = owner;
+        Owner = owner;
         ReplaceMeshMaterial(part.material);
         switch (HousePartType)
         {
@@ -158,15 +165,30 @@ public class BaseHousePartObject : FF_BaseCombustible
         }
     }
 
-
+    private void HandleBurning()
+    {
+        var newColor = new Color(85, 12, 12);
+        burnMaterial.SetColor("_Color", newColor);
+        ReplaceMeshMaterial(burnMaterial);
+    }
     private void HandleIgnite()
     {
-        SpawnFire();
+        SpawnFire();        
         StartCoroutine(SpreadFireToNeighbour());
-        UpdateMaterial(burnStage);
+        //UpdateMaterial(BurnStage);
+        //var newColor = Color.grey;
+        //burnMaterial.SetColor("_Color", newColor);
+        //ReplaceMeshMaterial(burnMaterial);
     }
 
     private void HandleBurnedOut()
+    {
+        var newColor = Color.black;
+        burnMaterial.SetColor("_Color", newColor);
+        ReplaceMeshMaterial(burnMaterial);
+    }
+
+    private void HandleDestroy()
     {
         if(VFX != null)
         {
@@ -195,15 +217,11 @@ public class BaseHousePartObject : FF_BaseCombustible
     private void SpawnFire()
     {
         //Debug.Log($"Burn Timer: {burnTimer}");
-        var top = collider.bounds.max;
-        var bottom = collider.bounds.min;
-        var center = collider.bounds.center;
-        var pos = new Vector3(center.x, bottom.y, center.z);
-        var end = new Vector3(center.x, top.y, center.z);
-        var fire = HH_GameManager.Instance.fireManager.SpawnFire(pos, transform,2f, 0.1f, true, burnTimer);
+        
+        var fire = HH_GameManager.Instance.fireManager.SpawnFire(bottomPosition, transform,2f, 0.1f, true, burnTimer);
         fire.canMove = true;
-        fire.startPos = pos;
-        fire.endPos = end;
+        fire.startPos = bottomPosition;
+        fire.endPos = topPosition;
     }
 
 }

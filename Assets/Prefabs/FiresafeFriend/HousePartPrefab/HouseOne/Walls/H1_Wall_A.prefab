@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 889800580269594327}
   - component: {fileID: 7020675399906901536}
   - component: {fileID: 8898474518109064123}
+  - component: {fileID: 2727964344948965467}
   m_Layer: 10
   m_Name: H1_Wall_A
   m_TagString: Untagged
@@ -101,11 +102,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6435395226360783821, guid: 52f1476f3cab3424d86f2d19182c7653, type: 3}
+--- !u!65 &2727964344948965467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707853998448454311}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0029272446, y: 0.04674371, z: 0.040531896}
+  m_Center: {x: 0.0047296723, y: 0.00000013330644, z: -0.0029856176}
 --- !u!1001 &4077576982169581250
 PrefabInstance:
   m_ObjectHideFlags: 0

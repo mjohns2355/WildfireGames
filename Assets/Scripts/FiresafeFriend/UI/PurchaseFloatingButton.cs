@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class PurchaseFloatingButton : MonoBehaviour
 {
-    public BaseHousePartObject owner;
+    public BaseHousePartObject ownerPart;
+    public FF_DirtMound ownerMound;
     public Image iconImage;
     public Vector3 offset;
-
+    
     private Camera mainCamera;
+    private bool isPlant = false;
+    private bool shouldShowRemoveIcon = false;
+    private Vector3 targetPosition;
     [SerializeField] private Button button;
+    [SerializeField] Sprite purchase, plant, remove;
 
     // Static reference to the currently selected bubble button
     private static PurchaseFloatingButton currentSelectedButton;
@@ -23,43 +28,92 @@ public class PurchaseFloatingButton : MonoBehaviour
 
     public void OnBubbleClicked()
     {
-        if (currentSelectedButton == this)
+        if (shouldShowRemoveIcon)
         {
-            // If this button is already selected, deselect it and close the store panel
-            HH_GameManager.Instance.uiManager.HideStoreScreen();
-            ResetButton();
-            currentSelectedButton = null;
+            ownerMound.Shovel();
+            shouldShowRemoveIcon = false;
+            SetPlantIcon(false);
+            return;
+        }
+
+        if (isPlant)
+        {
+            HH_GameManager.Instance.uiManager.ShowPlantsMenu(ownerMound);
         }
         else
         {
-            // Deselect the previously selected button, if any
-            if (currentSelectedButton != null)
-            {
-                currentSelectedButton.ResetButton();
-            }
-
-            // Select this button and open the store panel
-            currentSelectedButton = this;
-            SelectButton();
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(owner.partInfo.housePartType, this);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
         }
+        //if (currentSelectedButton == this)
+        //{
+        //    // If this button is already selected, deselect it and close the store panel
+
+        //    HH_GameManager.Instance.uiManager.HideStoreScreen();
+        //    ResetButton();
+        //    currentSelectedButton = null;
+        //}
+        //else
+        //{
+        //    // Deselect the previously selected button, if any
+        //    if (currentSelectedButton != null)
+        //    {
+        //        currentSelectedButton.ResetButton();
+        //    }
+
+        //    // Select this button and open the store panel
+        //    currentSelectedButton = this;
+        //    SelectButton();
+        //    if (isPlant)
+        //    {
+        //        HH_GameManager.Instance.uiManager.ShowPlantsMenu(ownerMound);
+        //    }
+        //    else
+        //    {
+        //        HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
+        //    }
+        //}
     }
 
     void Update()
     {
-        if (owner != null && iconImage != null)
+        //if (ownerPlant == null & ownerPart == null) return;
+        if (iconImage != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(owner.bubblePos.position + offset);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(/*ownerPart.bubblePos.position*/ targetPosition /*+ offset*/);
             iconImage.transform.position = screenPos;
             iconImage.enabled = screenPos.z > 0;
         }
     }
-    public void InitBubble(BaseHousePartObject ownerPart)
+    public void InitBubbleForHousePart(BaseHousePartObject ownerPart)
     {
-        owner = ownerPart;
+        this.ownerPart = ownerPart;
+        iconImage.sprite = purchase;
+        targetPosition = ownerPart.bubblePos.position;
         //HH_GameManager.Instance.inputManager.OnHousePartSelected.AddListener(OnHousePartClicked);
     }
 
+    public void InitBubbleForPlant(FF_DirtMound owner, bool isPlanted, Vector3 targetPosition)
+    {
+        ownerMound = owner;
+        isPlant = true;
+        SetPlantIcon(isPlanted);
+        SetTargetPosition(targetPosition);
+    }
+
+    public void SetTargetPosition (Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
+    }
+    public void SetPlantIcon(bool isPlanted)
+    {
+        if (isPlanted)
+        {
+            iconImage.sprite = remove;
+            shouldShowRemoveIcon = true;
+            return;
+        }
+        iconImage.sprite = plant;
+    }
     public void ResetButton()
     {
         currentSelectedButton = null;

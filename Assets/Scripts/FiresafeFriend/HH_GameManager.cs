@@ -31,7 +31,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             ToggleHousesClickBox(true);
         });
-        
     }
 
     private void Update()
@@ -46,6 +45,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         currentPlayer.OnHouseDeselected();
         uiManager.HideStoreScreen();
+        uiManager.earnMoreMoney.gameObject.SetActive(false);
         if (playerTag == "p1")
         {
             currentPlayer = p1;
@@ -67,13 +67,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-
+        IsGameStarted = true;
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
         uiManager.ToggleInventory(true);
         endRoundBtn.gameObject.SetActive(true);
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
+        
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     //{
@@ -85,7 +86,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
-        
+        uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky();
     }
@@ -112,5 +113,5 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SceneManager.LoadScene("FiresafeFriendScene");
     }
 
-    
+
 }

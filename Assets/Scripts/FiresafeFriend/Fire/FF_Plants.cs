@@ -6,13 +6,13 @@ using UnityEngine;
 public class FF_Plants : FF_BaseCombustible
 {
     public int debris;
-    public bool blocker = false;
+    public bool isClickable = true;
     
     protected override void Start()
     {
         base.Start();
         OnIgnite += HandleIgnite;
-        OnBurnedOut += HandleBurnedOut;
+        OnCombustibleDestroyed += HandleBurnedOut;
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 
@@ -23,9 +23,10 @@ public class FF_Plants : FF_BaseCombustible
 
     protected override void OnCombustibleClicked(GameObject obj)
     {
-        if (obj.transform.parent == transform)
+        //if (obj.transform.parent == transform)
+        if (obj == gameObject && isClickable)
         {
-            //Debug.Log($"Clicked {gameObject.name}");
+            Debug.Log($"Clicked {gameObject.name}");
             StartCoroutine(PlantClickedRoutine());
         }
     }

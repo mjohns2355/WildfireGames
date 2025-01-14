@@ -79,7 +79,6 @@ MonoBehaviour:
   playerTag: P2
   positionOffset: {x: 0, y: 0, z: 0}
   scaleMultiplier: 0
-  craftIcon: {fileID: 101270976333883414, guid: a0453dc297967bb46bf76f487cc92acf, type: 3}
   arrowUI: {fileID: 0}
   nameText: {fileID: 7615715049130348119}
 --- !u!114 &2783544366055045561
@@ -512,6 +511,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3701995051476114188}
     m_Modifications:
+    - target: {fileID: 2262340472061181335, guid: 3a2c4f96d3b3a9d4fadc7f6244b0ef39, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262340472061181335, guid: 3a2c4f96d3b3a9d4fadc7f6244b0ef39, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.19
+      objectReference: {fileID: 0}
     - target: {fileID: 5215733441372300306, guid: 3a2c4f96d3b3a9d4fadc7f6244b0ef39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.07
@@ -710,6 +717,10 @@ PrefabInstance:
       propertyPath: shouldDisplayBubble
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 344196d8ad43a9847b85d9424f41fc44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44
+      objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: 344196d8ad43a9847b85d9424f41fc44, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.35166
@@ -840,7 +851,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 877123724517758532, guid: 32dac5c2f6c8e3e4fb03e38819fd7dd4, type: 3}
       propertyPath: shouldDisplayBubble
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 32dac5c2f6c8e3e4fb03e38819fd7dd4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 32dac5c2f6c8e3e4fb03e38819fd7dd4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 32dac5c2f6c8e3e4fb03e38819fd7dd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: 32dac5c2f6c8e3e4fb03e38819fd7dd4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -948,9 +971,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: H2_Drain_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 43a01b47e0e41354ca33d1306680dc34, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 43a01b47e0e41354ca33d1306680dc34, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 43a01b47e0e41354ca33d1306680dc34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.38
+      objectReference: {fileID: 0}
     - target: {fileID: 7092038019442411402, guid: 43a01b47e0e41354ca33d1306680dc34, type: 3}
       propertyPath: shouldDisplayBubble
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1051,6 +1086,18 @@ PrefabInstance:
     - target: {fileID: 4155529571786220190, guid: 1afedf71a659e584eae0b83879dda466, type: 3}
       propertyPath: m_LocalPosition.z
       value: 3.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 1afedf71a659e584eae0b83879dda466, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 1afedf71a659e584eae0b83879dda466, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: 1afedf71a659e584eae0b83879dda466, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: 1afedf71a659e584eae0b83879dda466, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1320,6 +1367,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3701995051476114188}
     m_Modifications:
+    - target: {fileID: 877123724517758532, guid: ad88c464d707684458d2f84da852ae6b, type: 3}
+      propertyPath: shouldDisplayBubble
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: ad88c464d707684458d2f84da852ae6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: ad88c464d707684458d2f84da852ae6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.79
+      objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: ad88c464d707684458d2f84da852ae6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.013101965
@@ -1628,9 +1687,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: H2_Drain_00 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2900073870527320182, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.0016573047
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900073870527320182, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.0037809908
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900073870527320182, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_Center.x
+      value: 0.000007833653
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900073870527320182, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_Center.y
+      value: -0.0031863987
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900073870527320182, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_Center.z
+      value: 0.0022108061
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.34
+      objectReference: {fileID: 0}
     - target: {fileID: 7092038019442411402, guid: d272ee0e53e3f5040872483f81faa89f, type: 3}
       propertyPath: shouldDisplayBubble
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1897,13 +1988,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combustibleInfo: {fileID: 0}
   isOnFire: 0
-  burnStage: 0
   heat: 0
   heatThreshold: 100
   mustDestroy: 0
   notInteractable: 1
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
+  topPosition: {x: 0, y: 0, z: 0}
+  bottomPosition: {x: 0, y: 0, z: 0}
   baseBurnTime: 0
   meshes: []
   bubblePos: {fileID: 0}
@@ -1911,6 +2003,7 @@ MonoBehaviour:
   vfxPos: {fileID: 0}
   isOnCursor: 0
   partInfo: {fileID: 0}
+  burnMaterial: {fileID: 0}
   neighbours: []
 --- !u!4 &7609598314525169672 stripped
 Transform:
@@ -1968,6 +2061,18 @@ PrefabInstance:
     - target: {fileID: 1690658085150408456, guid: 49c311bc9425bdf45abd6065c93a5ed3, type: 3}
       propertyPath: m_Name
       value: H2_Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 49c311bc9425bdf45abd6065c93a5ed3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 49c311bc9425bdf45abd6065c93a5ed3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: 49c311bc9425bdf45abd6065c93a5ed3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.71
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2057,6 +2162,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3701995051476114188}
     m_Modifications:
+    - target: {fileID: 877123724517758532, guid: a2546b2947a4884449492e2e181e0700, type: 3}
+      propertyPath: shouldDisplayBubble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: a2546b2947a4884449492e2e181e0700, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: a2546b2947a4884449492e2e181e0700, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: a2546b2947a4884449492e2e181e0700, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: a2546b2947a4884449492e2e181e0700, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.7283616
@@ -2181,6 +2302,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3701995051476114188}
     m_Modifications:
+    - target: {fileID: 877123724517758532, guid: c1d6c00d30d112f43abc4ebd8f047c03, type: 3}
+      propertyPath: shouldDisplayBubble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: c1d6c00d30d112f43abc4ebd8f047c03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260750619183168151, guid: c1d6c00d30d112f43abc4ebd8f047c03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.93
+      objectReference: {fileID: 0}
     - target: {fileID: 7792996877898425106, guid: c1d6c00d30d112f43abc4ebd8f047c03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.372495
@@ -2286,6 +2419,14 @@ PrefabInstance:
     - target: {fileID: 1690658085150408456, guid: f6060714aaa60ca41816b07909cc163a, type: 3}
       propertyPath: m_Name
       value: H2_Gutter_00 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: f6060714aaa60ca41816b07909cc163a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153863761987693401, guid: f6060714aaa60ca41816b07909cc163a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.305
       objectReference: {fileID: 0}
     - target: {fileID: 7092038019442411402, guid: f6060714aaa60ca41816b07909cc163a, type: 3}
       propertyPath: shouldDisplayBubble

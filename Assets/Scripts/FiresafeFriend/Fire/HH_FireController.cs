@@ -47,7 +47,7 @@ namespace HappyHouse.FireSystem
                 ImpactFire(10);
             }
 
-            if(fireLife > 0 && onCombustible)
+            if (fireLife > 0 && onCombustible)
             {
                 fireLife -= Time.deltaTime;
                 GraduallyChangeFireSize(maxSize, 0.1f);
@@ -55,9 +55,9 @@ namespace HappyHouse.FireSystem
             if (fireLife < 0)
             {
                 Destroy(gameObject);
-               
+
             }
-            if(!canMove) return;
+            if (!canMove) return;
             transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);
         }
 
@@ -67,7 +67,7 @@ namespace HappyHouse.FireSystem
         {
             onCombustible = isOnCombustible;
             //this.speed = speed;
-            fireLife = life == 0? fireLife : life;
+            fireLife = life == 0 ? fireLife : life;
             this.maxSize = maxSize;
 
             if (!onCombustible)
@@ -112,28 +112,29 @@ namespace HappyHouse.FireSystem
         private void OnTriggerStay(Collider other)
         {
             if (onCombustible/* || totalHeat <= 0*/) return;
-           
+
             var hit = other.gameObject;
             if (hit == null) return;
-            
+
             //if (hit.layer == LayerMask.NameToLayer("Structure") || hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Combustible"))
             //{
-                // collider is on mesh
-                if (hit.transform.parent.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
-                {
-                   
-                    obj.AddHeat(0.5f);
-                }
-            //}
+            // collider is on mesh
+            FF_BaseCombustible obj;
+            //Debug.Log($"Hit {hit.name}");
+            if (hit.layer == LayerMask.NameToLayer("Structure"))
+            {
+                hit.transform.parent.TryGetComponent(out obj);
 
-            //if (hit.layer == LayerMask.NameToLayer("Nature"))
-            //{
-            //    if (hit.transform.TryGetComponent(out FF_BaseCombustible obj) && obj != null)
-            //    {
+            }
+            else
+            {
+                hit.transform.TryGetComponent(out obj);
+            }
 
-            //        obj.AddHeat(0.1f);
-            //    }
-            //}
+            if (obj != null)
+            {
+                obj.AddHeat(0.5f);
+            }
         }
 
         public void ImpactFire(float multiplier)

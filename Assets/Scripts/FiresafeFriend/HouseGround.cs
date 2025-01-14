@@ -65,6 +65,7 @@ public class HouseGround : BaseHousePartObject
         base.InitHousePartObject(owner, housePart);
         //Debug.Log($"Initialize {gameObject.name}");
         flammabilityMod = ((GroundCombustibleInfo)combustibleInfo).flammabilityMod;
+        //flammabilityMod = ((GroundCombustibleInfo)partInfo).flammabilityMod;
         ApplyFlammabilityMod();
     }
 }
