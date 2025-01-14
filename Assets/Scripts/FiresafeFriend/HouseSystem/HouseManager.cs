@@ -87,7 +87,7 @@ namespace HappyHouse.HouseSystem
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
-            inventory.AddNewPartToInventory(part.partInfo);
+            //inventory.AddNewPartToInventory(part.partInfo);
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 

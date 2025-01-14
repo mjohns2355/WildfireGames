@@ -10,6 +10,7 @@ public class FF_QuizPopupUI : MonoBehaviour
     public TextMeshProUGUI questionText;
     public Transform buttonsParent;
     public GameObject quizOptionButtonPrefab;
+    public Color normalColor, correctColor, wrongColor;
     private int correctAnswerIndex;
     private Question question;
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class FF_QuizPopupUI : MonoBehaviour
             var obj = Instantiate(quizOptionButtonPrefab, buttonsParent);
             var button = obj.GetComponent<Button>();
             button.GetComponentInChildren<TextMeshProUGUI>().text = question.options[i];
+            //button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
                 StartCoroutine(OnOptionButtonClickedRoutine(button));
@@ -40,24 +42,33 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     void OnOptionButtonClicked(Button button)
     {
+
         int index = -1;
         optionDict.TryGetValue(button, out index);
-        if(index == correctAnswerIndex)
+
+        if (index == correctAnswerIndex)
         {
             //Debug.Log("Correct Answer");
             button.GetComponent<Image>().color = Color.green;
+            //ChangeButtonColor(button, correctColor);
             var budgetManager = HH_GameManager.Instance.currentPlayer.budgetManager;
             budgetManager.IncreaseBudget(budgetManager.CalculateRewardBudget());
         }
         else
         {
             button.GetComponent<Image>().color = Color.red;
+
         }
     }
+
 
     IEnumerator OnOptionButtonClickedRoutine(Button button)
     {
         OnOptionButtonClicked(button);
+        foreach (var btn in optionDict.Keys)
+        {
+            btn.interactable = false;
+        }
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
         //hide earn more button
