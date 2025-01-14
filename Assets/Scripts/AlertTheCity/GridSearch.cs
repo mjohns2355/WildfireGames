@@ -51,8 +51,7 @@ public class GridSearch
             }
             visited[lastPoint]++;
 
-            // Limit how many times we visit a point (to avoid infinite loops)
-            if (visited[lastPoint] > K * 2) continue; // Allow some flexibility but prevent excessive visits
+            if (visited[lastPoint] > K * 2) continue;
             
             // Explore adjacent cells
             foreach (Point neighbour in grid.GetAdjacentCells(lastPoint, isAgent))

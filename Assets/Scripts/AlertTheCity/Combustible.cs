@@ -14,7 +14,7 @@ public class Combustible : MonoBehaviour
     [SerializeField] float waitTimeBeforeCatchOnFire;
     public bool burned = false;
     private float burnTime = 0;
-
+    
     //private ATC_dialogManager dialog;
 
     // Start is called before the first frame update
@@ -61,6 +61,7 @@ public class Combustible : MonoBehaviour
         
     }
 
+    
     public virtual IEnumerator CatchOnFireRoutine()
     {
         yield return new WaitForSeconds(waitTimeBeforeCatchOnFire);

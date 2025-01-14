@@ -85,7 +85,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.04
-  m_Center: {x: 0, y: 0.03, z: 0}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!65 &5288401989019888607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   currentTargetPosition: {x: 0, y: 0, z: 0}
   raycastStartingPoint: {fileID: 7828243858922119456}
   collisionRaycastLength: 0.1
+  collisionStop: 0
   <OnDrive>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -193,7 +194,7 @@ GameObject:
   m_Layer: 9
   m_Name: RaycastStarttingPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -206,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 7828243858922119456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0306, z: 0.14}
+  m_LocalPosition: {x: -0.016, y: 0.0921, z: 0.1156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

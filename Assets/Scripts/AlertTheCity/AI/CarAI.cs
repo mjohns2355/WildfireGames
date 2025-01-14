@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,6 +25,7 @@ public class CarAI : MonoBehaviour
 
     private float jamTimer = 0;
 
+    private bool sawFire = false;
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -124,6 +126,17 @@ public class CarAI : MonoBehaviour
             collisionStop = false;
             jamTimer = 0;
         }
+        //if (!sawFire)
+        //{
+        //    Collider[] firesInRange = Physics.OverlapSphere(transform.position, 1f, LayerMask.NameToLayer("Fire"));
+        //    if(firesInRange.Length > 0)
+        //    {
+        //        //Debug.Log("See fire");
+        //        sawFire = true;
+        //    }
+        //}
+        
+        //Debug.Log($"See {firesInRange.Length} fires");
     }
 
     private void Drive()

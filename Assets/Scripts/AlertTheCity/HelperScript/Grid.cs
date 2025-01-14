@@ -58,6 +58,7 @@ public enum CellType
 public class Grid
 {
     private CellType[,] _grid;
+    private float[,] _costs;
     private int _width;
     public int Width { get { return _width; } }
     private int _height;
@@ -72,6 +73,14 @@ public class Grid
         _width = width;
         _height = height;
         _grid = new CellType[width, height];
+        _costs = new float[width, height];
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                _costs[i, j] = 1f; // Default cost
+            }
+        }
     }
 
     // Adding index operator to our Grid class so that we can use grid[][] to access specific cell from our grid. 
@@ -97,6 +106,16 @@ public class Grid
             }
             _grid[i, j] = value;
         }
+    }
+
+    public float GetCellCost(int x, int y)
+    {
+        return _costs[x, y];
+    }
+
+    public void SetCellCost(int x, int y, float cost)
+    {
+        _costs[x, y] = cost;
     }
 
     public static bool IsCellWakable(CellType cellType, bool aiAgent = false)
@@ -153,9 +172,14 @@ public class Grid
 
     public float GetCostOfEnteringCell(Point cell)
     {
-        return 1;
+        //return 1;
+        return GetCellCost(cell.X, cell.Y);
     }
 
+    public void SetCostOfCell(Point cell, float cost)
+    {
+        SetCellCost(cell.X,cell.Y, cost);
+    }
     public List<Point> GetAllAdjacentCells(int x, int y)
     {
         List<Point> adjacentCells = new List<Point>();
