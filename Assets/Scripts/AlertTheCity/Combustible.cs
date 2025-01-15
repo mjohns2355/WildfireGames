@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 public class Combustible : MonoBehaviour
 {
     public Transform fireSpawnPos;
@@ -12,6 +13,7 @@ public class Combustible : MonoBehaviour
     [SerializeField] Color burntColor;
     FireMovementController fire;
     [SerializeField] float waitTimeBeforeCatchOnFire;
+    public UnityEvent OnIgnite;
     public bool burned = false;
     private float burnTime = 0;
     
@@ -71,7 +73,8 @@ public class Combustible : MonoBehaviour
             GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
             isOnfire = true;
             fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
-            if(fire != null)
+            OnIgnite.Invoke();
+            if (fire != null)
             {
                 fire.combustible = this;
             }

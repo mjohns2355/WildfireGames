@@ -11,10 +11,11 @@ public class Structure : MonoBehaviour
     public Outline outline;
     public int height = 1;
     public int width = 1;
+   
     public bool IsBigStructure { get {  return width> 1 ||  height> 1; } }
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
-    
+
     virtual public void OnStructureClick()
     {
         contextMenu.gameObject.SetActive(true);

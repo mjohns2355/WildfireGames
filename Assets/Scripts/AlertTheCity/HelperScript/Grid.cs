@@ -176,10 +176,11 @@ public class Grid
         return GetCellCost(cell.X, cell.Y);
     }
 
-    public void SetCostOfCell(Point cell, float cost)
-    {
-        SetCellCost(cell.X,cell.Y, cost);
-    }
+    //public void SetCostOfCell(Point cell, float cost)
+    //{
+    //    var newCost = GetCellCost(cell.X, cell.Y) + cost;
+    //    SetCellCost(cell.X,cell.Y, newCost);
+    //}
     public List<Point> GetAllAdjacentCells(int x, int y)
     {
         List<Point> adjacentCells = new List<Point>();

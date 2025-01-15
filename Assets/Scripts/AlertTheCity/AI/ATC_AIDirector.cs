@@ -21,10 +21,10 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     //random destination
     public void SpawnACar()
     {
-        foreach(var house in placementManager.GetAllHouses())
+        foreach (var house in placementManager.GetAllHouses())
         {
             var houseStructure = house.GetComponentInChildren<HouseStructure>();
-            if(houseStructure!= null && houseStructure.CanSpawnCar())
+            if (houseStructure != null && houseStructure.CanSpawnCar())
             {
                 TrySpawnACar(house, placementManager.GetRandomSpecialStrucutre());
                 houseStructure.AfterSpawnACar();
@@ -37,27 +37,25 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public void SpawnACar(ATC_StructureModel startStructure, ATC_StructureModel endStructure, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         //Debug.Log(startStructure, endStructure);
-        var structure = startStructure.GetComponent<HouseStructure>();
-        if (structure != null && structure.CanSpawnCar())
-        {
-            StartCoroutine(CarSpawn(carNum, startStructure, new List<ATC_StructureModel> { endStructure }, carSpeed));
-        }
+
+        StartCoroutine(CarSpawn(carNum, startStructure, new List<ATC_StructureModel> { endStructure }, carSpeed));
+
     }
 
     public void SpawnCarWithMultipleStops(ATC_StructureModel startStructure, List<ATC_StructureModel> stops, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
-        var structure = startStructure.GetComponent<HouseStructure>();
-        if (structure != null && structure.CanSpawnCar())
-        {
-            StartCoroutine(CarSpawn(carNum, startStructure, stops, carSpeed, true));
-        }
+        var house = startStructure.GetComponent<HouseStructure>();
+
+        if (house != null && !house.CanSpawnCar()) return;
+        StartCoroutine(CarSpawn(carNum, startStructure, stops, carSpeed, true));
+
     }
-    IEnumerator CarSpawn(int carNum, ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed,bool hasMultipleStops = false)
+    IEnumerator CarSpawn(int carNum, ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed, bool hasMultipleStops = false)
     {
         for (int i = 0; i < carNum; i++)
         {
             if (hasMultipleStops) {
-                TrySpawnCarWithMultipleStops(startStructure,endStructures,carSpeed);
+                TrySpawnCarWithMultipleStops(startStructure, endStructures, carSpeed);
             }
             else
             {
@@ -84,19 +82,28 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         List<Vector3> carPath = new List<Vector3>();
         this.startStructure = startStructure;
         this.endStructure = endStructure;
+        //bool isHouse = true;
         if (startStructure != null && endStructure != null)
         {
-
-            var startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
+            Vector3Int startRoadPos;
+            if (startStructure.GetComponent<HouseStructure>() != null)
+            {
+                startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
+            }
+            else
+            {
+                startRoadPos = Vector3Int.RoundToInt(startStructure.transform.position);
+                //isHouse = false;
+            }
             var endRoadPos = ((INeedingRoad)endStructure).RoadPosition;
             //Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
             var path = placementManager.GetPathBetween(startRoadPos, endRoadPos, true);
             path.Reverse();
 
-            if (path.Count == 0 && path.Count > 2) return;
+            if (path.Count == 0 || path.Count < 2) return;
             //if (Thouse.testHouse)
             //{
-                
+
             //    testcarPath = path;
             //}
             bool useInner = ShouldTakeInnerCarMarkers();
@@ -118,7 +125,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
             //}
             if (carPath.Count > 0)
             {
-                var house = startStructure.GetComponent<HouseStructure>();
+                //var house = startStructure.GetComponent<HouseStructure>();
                 var carSpawner = carPrefab.GetComponent<ATC_CarSpawner>();
                 //carSpawner.hasHorseTrailer = house.HasHorseTrailers;
                 var car = Instantiate(carPrefab, startMarkerPosition.Position, Quaternion.identity);
@@ -137,6 +144,43 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         }
     }
 
+    public List<Vector3> FindPath(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
+    {
+        //List<Vector3> carPath = new List<Vector3>();
+        Vector3Int startRoadPos;
+        if (startStructure.GetComponent<HouseStructure>() != null)
+        {
+            startRoadPos = ((INeedingRoad)startStructure).RoadPosition;
+        }
+        else
+        {
+            startRoadPos = Vector3Int.RoundToInt(startStructure.transform.position);
+            //isHouse = false;
+        }
+        var endRoadPos = ((INeedingRoad)endStructure).RoadPosition;
+        //Debug.Log("start: " + startRoadPos + ",end: " + endRoadPos);
+        var path = placementManager.GetPathBetween(startRoadPos, endRoadPos, true);
+        path.Reverse();
+
+        if (path.Count == 0 || path.Count < 2) return null;
+        //if (Thouse.testHouse)
+        //{
+
+        //    testcarPath = path;
+        //}
+        bool useInner = ShouldTakeInnerCarMarkers();
+
+        var start = placementManager.GetStructureAt(startRoadPos);
+        start.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
+        var end = placementManager.GetStructureAt(endRoadPos);
+        end.transform.GetChild(0).GetComponent<RoadHelper>().useInner = useInner;
+
+        var startMarkerPosition = start.GetCarSpawnMarker(path[1]);
+        var endMarkerPosition = end.GetCarEndMarker(path[path.Count - 2]);
+        if (startMarkerPosition == null || endMarkerPosition == null) return null;
+        var carPath = GetCarPath(path, startMarkerPosition.Position, endMarkerPosition.Position, useInner);
+        return carPath;
+    }
     bool ShouldTakeInnerCarMarkers()
     {
         return UnityEngine.Random.Range(0f, 1f) < 0.5f? true : false;
@@ -204,6 +248,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public void RespawnACar(ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         if(startStructure == null) return;
+        Debug.Log("Respawn Car");
         //debug
         spawnedCarNum--;
         if (endStructures.Count == 1)
