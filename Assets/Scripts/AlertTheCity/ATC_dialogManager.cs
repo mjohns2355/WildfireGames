@@ -56,6 +56,7 @@ public class ATC_dialogManager : MonoBehaviour
     private bool isToolBarBroughtToFront = false;
     public bool isInstructionShown = false;
     public int endQuotesNum;
+    //public Button proceedButton;
     //public GameObject arrow;
     //public GameObject arrow2;
 
@@ -153,7 +154,7 @@ public class ATC_dialogManager : MonoBehaviour
         switch (stage)
         {
             case LevelStage.AfterFirstSim:
-                dialogData[stage].messages[0] = result + " Can you do better? [Click to Proceed]";
+                dialogData[stage].messages[0] = result + " Can you do better?";
                 break;
             //case LevelStage.Win:
             //    dialogData[stage].messages[0] = result;

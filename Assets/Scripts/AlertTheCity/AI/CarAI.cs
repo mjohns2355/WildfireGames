@@ -28,6 +28,8 @@ public class CarAI : MonoBehaviour
     private bool sawFire = false;
 
     private float drivingTimer = 0;
+
+    float changeDirChance = 1f;
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -230,6 +232,7 @@ public class CarAI : MonoBehaviour
         if (other.CompareTag("Fire") && other.GetComponent<FireMovementController>().onCombustible && !sawFire && drivingTimer > 10f)
         {
             //Debug.Log("See fire");
+            if (changeDirChance <= 0.25f) return;
             sawFire = true;
             HandleFireDetection();
         }
@@ -237,7 +240,10 @@ public class CarAI : MonoBehaviour
 
     private void HandleFireDetection()
     {
-        if (UnityEngine.Random.Range(0, 1f) < 0.25f) return;
+        changeDirChance -= 0.25f;
+        Debug.Log("Chance: " + changeDirChance);
+        if (UnityEngine.Random.Range(0, 1f) < 1- changeDirChance) return;
+        
         Debug.Log("Change Direction");
         // Get nearest house or road and respawn car
         var pos = Vector3Int.RoundToInt(transform.position);

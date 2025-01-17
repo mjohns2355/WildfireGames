@@ -113,7 +113,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         statsPanel.ShowResultText();
         dialogManager.GenerateResult();
-        
+        replayOverlay.SetActive(false);
         if (GameManager.Instance.currentStage == LevelStage.AfterFirstSim)
         {
             ShowDialog();
