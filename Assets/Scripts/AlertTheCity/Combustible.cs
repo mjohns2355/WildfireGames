@@ -9,18 +9,18 @@ public class Combustible : MonoBehaviour
     public Transform fireSpawnPos;
     public float fireChance = 1;
     public MeshRenderer[] meshes;
-    [SerializeField]bool isOnfire = false;
-    [SerializeField] Color burntColor;
+    [SerializeField]protected bool isOnfire = false;
+    [SerializeField]protected Color burntColor;
     FireMovementController fire;
-    [SerializeField] float waitTimeBeforeCatchOnFire;
+    [SerializeField]protected float waitTimeBeforeCatchOnFire;
     public UnityEvent OnIgnite;
     public bool burned = false;
-    private float burnTime = 0;
-    
+    protected float burnTime = 0;
+
     //private ATC_dialogManager dialog;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
         meshes = GetComponentsInChildren<MeshRenderer>()
@@ -31,7 +31,7 @@ public class Combustible : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (isOnfire && !burned)
         {
@@ -53,6 +53,7 @@ public class Combustible : MonoBehaviour
     {
         if (isOnfire || burned) return;
         //if (fire != null && fire.isInFireSafeZone) return;
+
         if (Random.Range(0.4f,1) > fireChance)
         {
             fireChance += Time.deltaTime;
@@ -71,6 +72,7 @@ public class Combustible : MonoBehaviour
         {
 
             GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
+            
             isOnfire = true;
             fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
             OnIgnite.Invoke();

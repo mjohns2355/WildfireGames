@@ -35,6 +35,7 @@ public class GameManager : UnitySingleton<GameManager>
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
     public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
+    
     private bool isPaused = false;
     public override void Awake()
     {

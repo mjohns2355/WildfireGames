@@ -241,10 +241,10 @@ public class CarAI : MonoBehaviour
     private void HandleFireDetection()
     {
         changeDirChance -= 0.25f;
-        Debug.Log("Chance: " + changeDirChance);
+        //Debug.Log("Chance: " + changeDirChance);
         if (UnityEngine.Random.Range(0, 1f) < 1- changeDirChance) return;
         
-        Debug.Log("Change Direction");
+        //Debug.Log("Change Direction");
         // Get nearest house or road and respawn car
         var pos = Vector3Int.RoundToInt(transform.position);
         var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).Value;
