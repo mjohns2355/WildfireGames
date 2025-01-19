@@ -62,7 +62,8 @@ public class HouseStructure : Structure
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
-
+       
+        combustible.OnIgnite.AddListener(CheckNeighbourRoad);
         if (!isMainHouse) return;
         InitMainHouse();
 
@@ -75,6 +76,7 @@ public class HouseStructure : Structure
         var shelter =specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter});
         targetShelter = shelter;
+
     }
 
     private void OnEnable()
@@ -90,6 +92,18 @@ public class HouseStructure : Structure
         }
     }
 
+    void CheckNeighbourRoad()
+    {
+        var pos = Vector3Int.RoundToInt(transform.position);
+
+        var nearbyRoads = placementManager.GetNeighbourOfTypesFor(pos, CellType.Road);
+
+        foreach (var road in nearbyRoads)
+        {
+            placementManager.SetCostFor(road, 10f);
+        }
+
+    }
     void TestSpawnCar()
     {
         var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);

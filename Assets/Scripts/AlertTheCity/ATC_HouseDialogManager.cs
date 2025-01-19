@@ -16,7 +16,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     [SerializeField] private DialogNode currentNode;
     [SerializeField] private int paragraphIndex;
     [SerializeField] private string key;
-    [SerializeField] private Button nextButton;
+    [SerializeField] private Button proceedButton;
     //[SerializeField] GameObject nameTag;
     private bool isWaitingForPlayer = true;
 
@@ -79,8 +79,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
         // Click to end dialog
         if (currentNode.isEndNode)
         {
-            nextButton.gameObject.SetActive(true);
-            nextButton.onClick.AddListener(() =>
+            proceedButton.gameObject.SetActive(true);
+            proceedButton.onClick.AddListener(() =>
             {
                 isWaitingForPlayer = false;
             });
@@ -146,7 +146,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
         }
-        nextButton.onClick.RemoveAllListeners();
-        nextButton.gameObject.SetActive(false);
+        proceedButton.onClick.RemoveAllListeners();
+        proceedButton.gameObject.SetActive(false);
     }
 }

@@ -91,6 +91,17 @@ public class ATC_PlacementManager : MonoBehaviour
         return neighbours;
     }
 
+    internal void  SetCostFor (Vector3Int pos, float cost)
+    {
+        var newCost = GetCostFor(pos) + cost;
+        placementGrid.SetCellCost(pos.x, pos.z, newCost);
+    }
+
+    internal float GetCostFor (Vector3Int pos)
+    {
+        return placementGrid.GetCellCost(pos.x, pos.z);
+    }
+
     internal void RemoveAllTempStructures()
     {
         foreach (var structure in tempRoadObjects.Values)
@@ -113,23 +124,19 @@ public class ATC_PlacementManager : MonoBehaviour
         //    Debug.Log(new Vector3Int(point.X, 0, point.Y));
         //}
         //return path;
-        System.Random random = new System.Random();
+       
         var paths = GridSearch.KShortestPaths(placementGrid,
                                       new Point(startPosition.x, startPosition.z),
                                       new Point(endPosition.x, endPosition.z),
                                       2, isAgent);
 
-
+        
         if (paths.Count == 0)
         {
             return new List<Vector3Int>(); // Return an empty list if no paths are found
         }
 
-        int index = 0;
-        if (random.NextDouble() < 0.2)
-        {
-            index = 1;
-        }
+        int index = UnityEngine.Random.Range(0, paths.Count);
 
         var selectedPath = paths[index];
         //Debug.Log("Kshortest: ");
@@ -173,7 +180,7 @@ public class ATC_PlacementManager : MonoBehaviour
 
     }
 
-    private Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
+    internal Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
     {
         for (int x = 0; x < width; x++)
         {
@@ -191,8 +198,25 @@ public class ATC_PlacementManager : MonoBehaviour
         }
         return null;
     }
+    internal Vector3Int? GetNearestHouse(Vector3Int position, int width, int height)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, y);
+                var roads = GetNeighbourOfTypesFor(newPosition, CellType.Structure);
+                if (roads.Count > 0)
+                {
+                    return roads[0];
+                }
 
-    
+
+            }
+        }
+        return null;
+    }
+
     public List<ATC_StructureModel> GetAllHouses()
     {
         List<ATC_StructureModel> returnList = new List<ATC_StructureModel>();

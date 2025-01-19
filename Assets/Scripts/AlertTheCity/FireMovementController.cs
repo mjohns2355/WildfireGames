@@ -35,10 +35,7 @@ public class FireMovementController : MonoBehaviour
             fireSize = maxSize;
             StartCoroutine(OnDestroyFireRoutine());
         }
-        //else
-        //{
-        //    fireSize = 1;
-        //}
+
 
     }
     private void Update()

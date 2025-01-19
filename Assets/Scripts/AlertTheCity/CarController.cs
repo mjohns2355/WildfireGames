@@ -48,6 +48,8 @@ public class CarController : MonoBehaviour
             rb.AddForce(movementVector.y * transform.forward * power);
         }
         rb.AddTorque(movementVector.x * Vector3.up * torque * movementVector.y);
+
+        
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,10 +21,15 @@ public class CarAI : MonoBehaviour
     [SerializeField]
     private GameObject raycastStartingPoint = null;
     [SerializeField]
-    private float collisionRaycastLength = 0.1f;
+    private float collisionRaycastLength = 0.5f;
 
     private float jamTimer = 0;
 
+    private bool sawFire = false;
+
+    private float drivingTimer = 0;
+
+    float changeDirChance = 1f;
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -124,6 +130,8 @@ public class CarAI : MonoBehaviour
             collisionStop = false;
             jamTimer = 0;
         }
+       
+
     }
 
     private void Drive()
@@ -134,6 +142,7 @@ public class CarAI : MonoBehaviour
         }
         else
         {
+            drivingTimer += Time.deltaTime;
             Vector3 relativepoint = transform.InverseTransformPoint(currentTargetPosition);
             float angle = Mathf.Atan2(relativepoint.x, relativepoint.z) * Mathf.Rad2Deg;
             var rotateCar = 0;
@@ -216,5 +225,42 @@ public class CarAI : MonoBehaviour
         {
             currentTargetPosition = path[index];
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Fire") && other.GetComponent<FireMovementController>().onCombustible && !sawFire && drivingTimer > 10f)
+        {
+            //Debug.Log("See fire");
+            if (changeDirChance <= 0.25f) return;
+            sawFire = true;
+            HandleFireDetection();
+        }
+    }
+
+    private void HandleFireDetection()
+    {
+        changeDirChance -= 0.25f;
+        Debug.Log("Chance: " + changeDirChance);
+        if (UnityEngine.Random.Range(0, 1f) < 1- changeDirChance) return;
+        
+        Debug.Log("Change Direction");
+        // Get nearest house or road and respawn car
+        var pos = Vector3Int.RoundToInt(transform.position);
+        var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).Value;
+
+        var newStart = ATC_AIDirector.Instance.placementManager.GetStructureAt(roadPos);
+        var car = GetComponent<CarController>();
+
+        var newPath = ATC_AIDirector.Instance.FindPath(newStart, car.ends[0]);
+        if (newPath == null) return;
+        car.GetComponent<CarController>().start = newStart;
+
+        car.GetComponent<CarAI>().SetPath(newPath);
+        drivingTimer = 0f;
+        sawFire = false;
+        //Debug.Log($"New Path: {newPath.Count}");
+        //ATC_AIDirector.Instance.RespawnACar(newStart, car.ends, car.carSpeed);
+        //Destroy(gameObject);
     }
 }
