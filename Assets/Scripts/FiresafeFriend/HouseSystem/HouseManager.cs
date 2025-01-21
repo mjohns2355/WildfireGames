@@ -15,6 +15,7 @@ namespace HappyHouse.HouseSystem
         public RR_Inventory inventory;
         // player budget
         public FF_BudgetManager budgetManager;
+        public int initBudget;
         public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
@@ -26,7 +27,7 @@ namespace HappyHouse.HouseSystem
         {
             Debug.Log("test");
             houseGraph = new HouseGraph();
-            budgetManager = new FF_BudgetManager();
+            budgetManager = new FF_BudgetManager(initBudget);
 
             var fences = HH_GameManager.Instance.fences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
@@ -59,25 +60,25 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            var allAvailableParts = ResourceManager.Instance.allAvailableParts;
+            //var allAvailableParts = ResourceManager.Instance.allAvailableParts;
 
-            // TO DO: Improve the code
-            foreach(var key in allAvailableParts.Keys)
-            {
-                var allInfos = allAvailableParts[key];
-                int index = UnityEngine.Random.Range(0, allInfos.Count);
-                var res = allInfos[index];
-                var oldParts = GetAllHousePartObjectsOf(res.housePartType);
-                //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
-                //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
+            //// TO DO: Improve the code
+            //foreach(var key in allAvailableParts.Keys)
+            //{
+            //    var allInfos = allAvailableParts[key];
+            //    int index = UnityEngine.Random.Range(0, allInfos.Count);
+            //    var res = allInfos[index];
+            //    var oldParts = GetAllHousePartObjectsOf(res.housePartType);
+            //    //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
+            //    //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
 
-                foreach (var oldPart in oldParts)
-                {
-                    //oldPart.partInfo = housePartInfo;
-                    oldPart.InitHousePartObject(this, res);
-                }
-                inventory.AddNewPartToInventory(res);
-            }
+            //    foreach (var oldPart in oldParts)
+            //    {
+            //        //oldPart.partInfo = housePartInfo;
+            //        oldPart.InitHousePartObject(this, res);
+            //    }
+            //    inventory.AddNewPartToInventory(res);
+            //}
             
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
