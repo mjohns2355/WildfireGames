@@ -24,7 +24,6 @@ public class ResourceManager : UnitySingleton<ResourceManager>
         var allParts = Resources.LoadAll<HousePartInfo>("FiresafeFriend/HousePartsSO");
         foreach (var part in allParts)
         {
-           
             if (allAvailableParts.ContainsKey(part.housePartType))
             {
                 var value = allAvailableParts[part.housePartType];
@@ -50,7 +49,7 @@ public class ResourceManager : UnitySingleton<ResourceManager>
             HousePartType type;
             if(Enum.TryParse(vfx.name, out type))
             {
-                Debug.Log(type.ToString());
+                //Debug.Log(type.ToString());
                 if (VFXs.ContainsKey(type))
                 {
                     VFXs[type] = vfx;

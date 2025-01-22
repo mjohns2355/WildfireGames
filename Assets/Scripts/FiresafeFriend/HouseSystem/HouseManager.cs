@@ -27,7 +27,7 @@ namespace HappyHouse.HouseSystem
         {
             Debug.Log("test");
             houseGraph = new HouseGraph();
-            budgetManager = new FF_BudgetManager(initBudget);
+            budgetManager = new FF_BudgetManager(this,initBudget);
 
             var fences = HH_GameManager.Instance.fences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
@@ -90,7 +90,7 @@ namespace HappyHouse.HouseSystem
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
-            //inventory.AddNewPartToInventory(part.partInfo);
+            inventory.AddNewPartToInventory(part.partInfo);
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 

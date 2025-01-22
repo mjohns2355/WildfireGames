@@ -45,6 +45,7 @@ public class HH_UIManager : MonoBehaviour
     {
         warningPopup.gameObject.SetActive(true);
     }
+
     public void ShowQuizPopup()
     {
         quizPopup.gameObject.SetActive(true);

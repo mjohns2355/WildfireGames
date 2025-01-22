@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,8 +12,10 @@ public class FF_QuizPopupUI : MonoBehaviour
     public Transform buttonsParent;
     public GameObject quizOptionButtonPrefab;
     public Color normalColor, correctColor, wrongColor;
+    public Action OnCorrectAnswer;
     private int correctAnswerIndex;
     private Question question;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -51,8 +54,9 @@ public class FF_QuizPopupUI : MonoBehaviour
             //Debug.Log("Correct Answer");
             button.GetComponent<Image>().color = Color.green;
             //ChangeButtonColor(button, correctColor);
-            var budgetManager = HH_GameManager.Instance.currentPlayer.budgetManager;
-            budgetManager.IncreaseBudget(budgetManager.CalculateRewardBudget());
+            //var budgetManager = HH_GameManager.Instance.currentPlayer.budgetManager;
+            //budgetManager.IncreaseBudget(budgetManager.CalculateRewardBudget());
+            OnCorrectAnswer.Invoke();
         }
         else
         {
@@ -82,6 +86,7 @@ public class FF_QuizPopupUI : MonoBehaviour
         {
             Destroy(buttonsParent.GetChild(i).gameObject);
         }
+        optionDict.Clear();
         StopAllCoroutines();
     }
 }
