@@ -21,6 +21,10 @@ public class PurchasePopup : MonoBehaviour
         earnMoreMoney.onClick.AddListener(OnEarnMoreMoneyClicked);
     }
 
+    private void OnEnable()
+    {
+        earnMoreMoney.gameObject.SetActive(HH_GameManager.Instance.uiManager.earnMoreMoney.IsActive());
+    }
     private void OnEarnMoreMoneyClicked()
     {
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
