@@ -22,6 +22,11 @@ public class CameraMovement : MonoBehaviour
     Vector3 camPos;
     private Vector3 camStartPos;
     private Quaternion camStartRotation;
+    float smoothTime = 0.1f;
+    float velocity = 0.0f;
+
+    float touchDist = 0;
+    float lastDist = 0;
     private void Start()
     {
         camStartPos = transform.position;
@@ -79,21 +84,57 @@ public class CameraMovement : MonoBehaviour
     }
 
     public void ZoomCamera()
-    {
-        Touch touch1 = Input.GetTouch(0);
-        Touch touch2 = Input.GetTouch(1);
+    {    // Check for desktop input
 
-        Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
-        Vector2 touch2PrevPos = touch2.position - touch2.deltaPosition;
+        if (Input.touchCount == 2)
+        {
+            Touch touch1 = Input.GetTouch(0);
+            Touch touch2 = Input.GetTouch(1);
 
-        float prevTouchDeltaMag = (touch1PrevPos - touch2PrevPos).magnitude;
-        float touchDeltaMag = (touch1.position - touch2.position).magnitude;
+            if (touch1.phase == TouchPhase.Began && touch2.phase == TouchPhase.Began)
+            {
+                lastDist = Vector2.Distance(touch1.position, touch2.position);
+            }
 
-        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+            if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+            {
+                float newDist = Vector2.Distance(touch1.position, touch2.position);
+                touchDist = lastDist - newDist;
+                lastDist = newDist;
 
-        FOV -= deltaMagnitudeDiff * Time.deltaTime;
-        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-        gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
+
+                if (Mathf.Abs(touchDist) > 0.01f) // Ignore very small changes
+                {
+                    float sensitivity = 0.1f;
+                    touchDist = Mathf.Clamp(touchDist, -50f, 50f);
+                    FOV += touchDist * sensitivity;
+                    FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+                    gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+                }
+            }
+
+
+            //float zoomChange = (previousTouchDistance - currentTouchDistance)/Screen.height*100f;
+
+
+            //FOV -= zoomChange * 10f * Time.unscaledDeltaTime;
+            //FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+            ////gameCamera.fieldOfView = FOV;
+            //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+        }
+        else
+        {
+            float scrollInput = Input.GetAxis("Mouse ScrollWheel"); // Use scroll wheel for zooming
+           
+            if (Mathf.Abs(scrollInput) > 0.01f) // Small threshold to avoid noise
+            {
+                float adjustedScrollInput = scrollInput * 100f;
+                FOV -= adjustedScrollInput * 10f * Time.unscaledDeltaTime; // Scroll forward zooms in, backward zooms out
+                FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+                gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+            }
+        }
+
     }
 
     public void MoveToHouse(Transform targetHouse)

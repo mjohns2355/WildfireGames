@@ -114,6 +114,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         currentStage = LevelStage.PhaseOne;
         ResetGame();
+        Time.timeScale = 1f;
     }
     private void Update()
     {
@@ -122,16 +123,16 @@ public class GameManager : UnitySingleton<GameManager>
         if(Input.GetKeyDown(KeyCode.F1)) { Time.timeScale = 6f; }
         if (!canControlCam) return;
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
-        if(Input.touchCount == 2)
-        {
-            cameraMovement.ZoomCamera();
-        }
-        else
-        {
-            cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
-        }
+        //if (Input.touchCount == 2)
+        //{
+        //    cameraMovement.ZoomCamera();
+        //}
+        //else
+        //{
+        //    cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
+        //}
 
-
+        cameraMovement.ZoomCamera();
         if (!canStartSim) return;
         // don't forget to set it back to 70
         if (SimTimer < 70)
@@ -228,8 +229,8 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-
-        if(!IsFirstSim)
+        fireSFX.Play();
+        if (!IsFirstSim)
         {
             Time.timeScale = GameSpeed = 1f ;
             canStartSim = choseGoodOption;
