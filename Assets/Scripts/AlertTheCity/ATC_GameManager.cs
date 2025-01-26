@@ -357,6 +357,8 @@ public class GameManager : UnitySingleton<GameManager>
             availableHouseTypes.Add(HouseType.wui);
             // test version
             availableHouseTypes.Add(HouseType.kids);
+            availableHouseTypes.Add(HouseType.elderly);
+            //availableHouseTypes.Add(HouseType.pet);
         }
         else
         {

@@ -35,6 +35,7 @@ public class StructureContextMenu : MonoBehaviour
     public List<OptionButton> selectedOptions = new List<OptionButton>();
     public bool isSelected = false;
     public ATC_LearnMorePopup learnMorePopup;
+    public Image choicePicture;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -103,6 +104,7 @@ public class StructureContextMenu : MonoBehaviour
         //{
         //    Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
         //}
+        choicePicture.sprite = house.houseInfo.choicePicture;
         confirm.interactable = isSelected;
         if (!house.isMainHouse) return;
         allowMultipleChoices = house.houseInfo.allowMultipleChoices;
@@ -297,7 +299,8 @@ public class StructureContextMenu : MonoBehaviour
                 selectedOptions.Add(option);
             }
         Debug.Log($"Selected {selectedOptions.Count} choices");
-        confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
+        confirm.interactable = true;
+        //confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
             //onOptionSelected.Invoke();
             // }
     }

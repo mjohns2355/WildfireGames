@@ -45,7 +45,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         currentPlayer.OnHouseDeselected();
         uiManager.HideStoreScreen();
-        uiManager.earnMoreMoney.gameObject.SetActive(currentPlayer.budgetManager.canEarnMoreMoney);
+        
         if (playerTag == "p1")
         {
             currentPlayer = p1;

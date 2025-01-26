@@ -25,6 +25,8 @@ public class HouseTypeInfo : ScriptableObject
     public HouseChoice defaultChoice;
     public bool allowMultipleChoices;
     public int requiredChoicesCount;
+    public Sprite newsUISprite;
+    public Sprite choicePicture;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 

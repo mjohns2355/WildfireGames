@@ -194,6 +194,136 @@
           "isEndNode": "true"
         }
       ]
+    },
+    {
+      "houseType": "elderly",
+      "rootNodeId": "30",
+      "nodes": [
+        {
+          "id": "30",
+          "characterName": "Older Resident",
+          "dialogText": "Hello, dear. It’s nice to see someone checking in. I’ve lived here for decades, but with the way wildfires are these days, I get nervous every fire season. It’s harder for me to move quickly, so I need to be extra prepared. Any advice?",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Planning for an early evacuation is key. Have you thought about leaving sooner when there’s a red flag warning?",
+              "nextNodeId": "31"
+            },
+            {
+              "optionText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+              "nextNodeId": "32"
+            }
+          ]
+        },
+        {
+          "id": "31",
+          "characterName": "Older Resident",
+          "dialogText": "I’ve considered it, but it’s tough to leave before anyone else. It feels like I’m abandoning my home. What if it turns out to be a false alarm?",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "option": "Evacuate Early",
+              "optionText": "I understand, but leaving early can ensure your safety. Fires can move faster than we expect.",
+              "nextNodeId": "33"
+            },
+            {
+              "option": "Evacuate Early",
+              "optionText": "You’re not abandoning your home—you’re giving yourself the best chance to stay safe.",
+              "nextNodeId": "33"
+            }
+          ]
+        },
+        {
+          "id": "32",
+          "characterName": "Older Resident",
+          "dialogText": "I’ve got a few kind neighbors who’ve offered to help, but I hate feeling like a burden. And my kids, bless them, live hours away, so it’s hard for them to help in an emergency.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "option": "Help From Neighbour",
+              "optionText": "It’s good to have supportive neighbors. Maybe you can make a plan together so no one feels overwhelmed",
+              "nextNodeId": "33"
+            },
+            {
+              "option": "Help From Neighbour",
+              "optionText": "What about organizing a checklist for what you’d need to take? That might help you feel more prepared.",
+              "nextNodeId": "33"
+            }
+          ]
+        },
+        {
+          "id": "33",
+          "characterName": "Older Resident",
+          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for myself.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "isEndNode": "true"
+        }
+      ]
+    },
+    {
+      "houseType": "pet",
+      "rootNodeId": "40",
+      "nodes": [
+        {
+          "id": "40",
+          "characterName": "Pets Owner",
+          "dialogText": "Hi there! Thanks for stopping by. Wildfire season always worries me—not just for us but for our pets. We’ve got two dogs, a cat, and some fish, so it’s a lot to think about when we need to leave quickly.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Have you prepared a go-bag for your pets, like carriers, food, and supplies?",
+              "nextNodeId": "41"
+            },
+            {
+              "optionText": "Do you have a plan for how you’d transport all your animals if you need to leave?",
+              "nextNodeId": "42"
+            }
+          ]
+        },
+        {
+          "id": "41",
+          "characterName": "Pets Owner",
+          "dialogText": "I’ve got some supplies ready, like leashes and a carrier for the cat, but I’m not sure how much food or water I’d need. The fish are another story—I can’t exactly pack their tank!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "option": "Plan Ahead",
+              "optionText": "It’s a great start. You might also think about emergency boarding options for your pets if you can’t take them all.",
+              "nextNodeId": "43"
+            },
+            {
+              "option": "Plan Ahead",
+              "optionText": "Packing a little extra food and water can go a long way, and maybe a battery-powered air pump for the fish tank.",
+              "nextNodeId": "43"
+            }
+          ]
+        },
+        {
+          "id": "42",
+          "characterName": "Pets Owner",
+          "dialogText": "We’ve got crates for the dogs and a carrier for the cat, but they take up a lot of space in the car. I’m worried about fitting everything in if we have to leave in a hurry.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "option": "Plan Ahead",
+              "optionText": "Maybe you could practice loading up your car to see how everything fits.",
+              "nextNodeId": "43"
+            },
+            {
+              "option": "Plan Ahead",
+              "optionText": "What about asking a friend or neighbor to help transport your pets if needed?",
+              "nextNodeId": "43"
+            }
+          ]
+        },
+        {
+          "id": "43",
+          "characterName": "Pets Owner",
+          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my pets.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "isEndNode": "true"
+        }
+      ]
     }
   ]
 }

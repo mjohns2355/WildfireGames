@@ -48,12 +48,13 @@ public class ATC_dialogManager : MonoBehaviour
     [SerializeField] GameObject localNews;
     [SerializeField] Button dialogBoxButton;
     [SerializeField] GameObject dialogBox;
+    [SerializeField] Image newsImage;
     private QuoteData endQuoteData;
     private Dictionary<LevelStage, Dialog> dialogData;
     private int dialogIndex = 0;
-    private bool isLocalNewsShown = false;
+    //private bool isLocalNewsShown = false;
     private Dialog currentDialog;
-    private bool isToolBarBroughtToFront = false;
+    //private bool isToolBarBroughtToFront = false;
     public bool isInstructionShown = false;
     public int endQuotesNum;
     //public Button proceedButton;
@@ -245,33 +246,43 @@ public class ATC_dialogManager : MonoBehaviour
             res = "Despite warnings, many residents did not follow evacuation orders for a variety of personal circumstances. We need to come together as a community to prepare better for the next time.";
         }
 
-        for (int i = 0; i < availableHouseTypes.Count; i++)
+        var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
+        var houseType = availableHouseTypes[rng];
+        foreach (var c in dict[houseType])
         {
-
-            var type = availableHouseTypes[i];
-            foreach (var c in dict[type])
-            {
-                //var choice = dict[type].choiceName;
-                var choice = c.choiceName;
-                var response = GameManager.Instance.houseResponses[type.ToString()];
-                //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
-                allQuotes.Add(GetEndQuote(type.ToString(), choice, response));
-                //if (dict[type].isNormal) continue;
-                if (c.isNormal) continue;
-                validCount++;
-                // Add and before the last choice
-                if (validCount == totalValidCount)
-                {
-                    res += $"and {choice}.";
-                }
-                else
-                {
-                    res += $"{choice}, ";
-                }
-            }
-
-            
+            //var choice = dict[type].choiceName;
+            var choice = c.choiceName;
+            var response = GameManager.Instance.houseResponses[houseType.ToString()];
+            //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+            allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
         }
+        //for (int i = 0; i < availableHouseTypes.Count; i++)
+        //{
+
+        //    var type = availableHouseTypes[i];
+        //    foreach (var c in dict[type])
+        //    {
+        //        //var choice = dict[type].choiceName;
+        //        var choice = c.choiceName;
+        //        var response = GameManager.Instance.houseResponses[type.ToString()];
+        //        //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+        //        allQuotes.Add(GetEndQuote(type.ToString(), choice, response));
+        //        //if (dict[type].isNormal) continue;
+        //        if (c.isNormal) continue;
+        //        validCount++;
+        //        // Add and before the last choice
+        //        if (validCount == totalValidCount)
+        //        {
+        //            res += $"and {choice}.";
+        //        }
+        //        else
+        //        {
+        //            res += $"{choice}, ";
+        //        }
+        //    }
+
+
+        //}
         if (followedOrders)
         {
             firstHalf.text = $"Miraculously, only {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city." + res;
@@ -281,9 +292,9 @@ public class ATC_dialogManager : MonoBehaviour
             firstHalf.text = res;
         }
 
-        var rng = new System.Random();
-        List<string> randomQuotes = allQuotes.OrderBy(x => rng.Next()).Take(1).ToList();
-
+        var i = new System.Random();
+        List<string> randomQuotes = allQuotes.OrderBy(x => i.Next()).Take(1).ToList();
+        newsImage.sprite = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType).newsUISprite;
         var quote = string.Join("\n\n", randomQuotes);
         endQuote.text = quote;
 
