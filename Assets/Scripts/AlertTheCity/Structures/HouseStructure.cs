@@ -54,7 +54,7 @@ public class HouseStructure : Structure
     ATC_StructureModel targetShelter;
     List<ATC_StructureModel> destinations;
     float spawnCarChance = 0.9f;
-
+    bool followedOrder = false;
     Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
     Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
     private void Start()
@@ -272,16 +272,18 @@ public class HouseStructure : Structure
             if (!currentChoice.isNormal)
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
-                Debug.Log($"rng: {rng}");
-                if (rng > 0.9)
+                //Debug.Log($"rng: {rng}");
+                if (rng > 0.5)
                 {
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
+                    followedOrder = false;
                     GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
                     return;
                 }
                 else
                 {
+                    followedOrder = true;
                     GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
                 }
             }
@@ -341,11 +343,12 @@ public class HouseStructure : Structure
         {
             if (UnityEngine.Random.Range(0f, 1f) < spawnCarChance)
             {
-                if (HasKidsToPickUp)
+                if (HasKidsToPickUp && followedOrder)
                 {
                     var school = specialStructureDict[StructureType.School];
                     var shelter = specialStructureDict[StructureType.Shelter];
                     SetDestination(new List<ATC_StructureModel> { school, shelter });
+                    //Debug.Log("Added School to destinations");  
                     ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(),destinations, carSpeed, carNum);
                 }
                 else

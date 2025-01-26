@@ -82,9 +82,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   structureType: 1
-  menu: {fileID: 594638891721629485}
+  contextMenu: {fileID: 0}
+  camFocusPos: {fileID: 0}
   menuSpawnPos: {fileID: 0}
   outline: {fileID: 5568349200699339927}
+  height: 1
+  width: 1
   <capacity>k__BackingField: 5
   <availableSpace>k__BackingField: 0
   canHavePets: 0
@@ -102,7 +105,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -674,17 +677,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
---- !u!114 &594638891721629485 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1914636339070479467, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
-  m_PrefabInstance: {fileID: 1356343735015355206}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b49419e5e05634fbebd2f6fa7c2464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5657053114244527960 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6652749744439641118, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}

@@ -254,7 +254,7 @@ public class CarAI : MonoBehaviour
         
         if (UnityEngine.Random.Range(0, 1f) > changeDirChance) return;
         
-        Debug.Log("Change Direction");
+        //Debug.Log("Change Direction");
         // Get nearest house or road and respawn car
         var pos = Vector3Int.RoundToInt(transform.position);
         var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).Value;

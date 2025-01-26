@@ -248,6 +248,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
         var houseType = availableHouseTypes[rng];
+        Debug.Log("Chose Quote: " + houseType.ToString());
         foreach (var c in dict[houseType])
         {
             //var choice = dict[type].choiceName;
@@ -285,7 +286,7 @@ public class ATC_dialogManager : MonoBehaviour
         //}
         if (followedOrders)
         {
-            firstHalf.text = $"Miraculously, only {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city." + res;
+            firstHalf.text = $"Miraculously, only {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city. " + res;
         }
         else
         {
