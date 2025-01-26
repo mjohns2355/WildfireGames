@@ -54,7 +54,7 @@ public class FC_Tree : MonoBehaviour
     IEnumerator BurntRoutine(bool isBurnt)
     {
         yield return new WaitForSeconds(startTime);
-        Debug.Log($"{gameObject.name} is burnt");
+        //Debug.Log($"{gameObject.name} is burnt");
         normal.SetActive(!isBurnt);
         if (burnt != null)
             burnt.SetActive(isBurnt);

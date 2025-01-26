@@ -89,6 +89,8 @@ public class CarAI : MonoBehaviour
         {
             this.stops.Add(stops[i]);
         }
+
+        sawFire = true;
     }
     private void Update()
     {
@@ -240,11 +242,19 @@ public class CarAI : MonoBehaviour
 
     private void HandleFireDetection()
     {
-        changeDirChance -= 0.25f;
-        //Debug.Log("Chance: " + changeDirChance);
-        if (UnityEngine.Random.Range(0, 1f) < 1- changeDirChance) return;
+        //changeDirChance -= 0.25f;
+        if(changeDirChance >= 1f)
+        {
+            changeDirChance -= 0.1f;
+        }
+        else
+        {
+            changeDirChance -= 0.25f;
+        }
         
-        //Debug.Log("Change Direction");
+        if (UnityEngine.Random.Range(0, 1f) > changeDirChance) return;
+        
+        Debug.Log("Change Direction");
         // Get nearest house or road and respawn car
         var pos = Vector3Int.RoundToInt(transform.position);
         var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).Value;

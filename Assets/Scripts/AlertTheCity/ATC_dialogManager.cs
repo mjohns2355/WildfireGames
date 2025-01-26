@@ -282,7 +282,7 @@ public class ATC_dialogManager : MonoBehaviour
         }
 
         var rng = new System.Random();
-        List<string> randomQuotes = allQuotes.OrderBy(x => rng.Next()).Take(2).ToList();
+        List<string> randomQuotes = allQuotes.OrderBy(x => rng.Next()).Take(1).ToList();
 
         var quote = string.Join("\n\n", randomQuotes);
         endQuote.text = quote;

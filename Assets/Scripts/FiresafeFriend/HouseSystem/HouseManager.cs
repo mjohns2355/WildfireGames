@@ -20,6 +20,7 @@ namespace HappyHouse.HouseSystem
         public Vector3 positionOffset;
         public float scaleMultiplier;
         public GameObject /*craftIcon, */arrowUI,nameText;
+
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
         //[SerializeField] BoxCollider clickBox;
       
@@ -102,6 +103,7 @@ namespace HappyHouse.HouseSystem
         {
             if (manager != this) return;
             HH_GameManager.Instance.StartRound(manager);
+            HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(budgetManager.canEarnMoreMoney);
             //ToggleClickBox(false);
             arrowUI.SetActive(true);
             nameText.SetActive(false);

@@ -27,6 +27,7 @@ public class HH_UIManager : MonoBehaviour
         {
             HH_GameManager.Instance.SwitchPlayer("p1");
             
+
         });
         rightArrow.onClick.AddListener(() =>
         {

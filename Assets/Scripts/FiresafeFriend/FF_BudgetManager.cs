@@ -11,7 +11,8 @@ public class FF_BudgetManager
     public float spentBudget;
     public float rewardAmount;
     private float[] budgetThresholds;
-    private bool[] triggeredThresholds;
+    private bool[] triggeredThresholds; 
+    public bool canEarnMoreMoney = false;
     HouseManager owner;
     // Start is called before the first frame update
 
@@ -84,6 +85,7 @@ public class FF_BudgetManager
                 triggeredThresholds[i] = true;
                
                 HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
+                canEarnMoreMoney = true;
                 if (i == 0)
                 {
                     money += 15000;
