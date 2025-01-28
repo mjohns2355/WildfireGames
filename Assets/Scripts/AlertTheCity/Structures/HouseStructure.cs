@@ -64,6 +64,7 @@ public class HouseStructure : Structure
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
        
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
+
         if (!isMainHouse) return;
         InitMainHouse();
 
@@ -76,6 +77,12 @@ public class HouseStructure : Structure
         var shelter =specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter});
         targetShelter = shelter;
+
+        
+        var model = GetComponent<ATC_StructureModel>();
+        roadPosition = model.RoadPosition;
+
+        CheckRoadDirection();
 
     }
 

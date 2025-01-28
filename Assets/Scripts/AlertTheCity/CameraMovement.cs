@@ -14,9 +14,10 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float maxFOV;
     [SerializeField] private float minFOV;
     [SerializeField] private float defaultFOV;
-    public float focusDistance = 5f;
+    public float focusDistance = 10f;
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
+    private Transform target;
     private bool isFocusing = false;
     float FOV;
     Vector3 camPos;
@@ -42,22 +43,30 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (isFocusing)
+        //if (isFocusing)
+        //{
+
+        //    //transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMovementSpeed * Time.deltaTime);
+        //    //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraMovementSpeed * Time.deltaTime);
+        //    ////transform.LookAt(target.position);
+        //    gameCamera.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 30, cameraZoomSpeed * Time.deltaTime);
+        //    transform.LookAt(target);
+
+        //    if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        //    {
+        //        isFocusing = false;
+
+        //        //Debug.Log("Stop focusing");
+        //        //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
+        //    }
+        //}
+
+        if(isFocusing)
         {
-
-            transform.position = Vector3.Lerp(transform.position, targetPosition, cameraMovementSpeed * Time.deltaTime);
-
-
-            gameCamera.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 30, cameraZoomSpeed * Time.deltaTime);
-
-
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                isFocusing = false;
-
-                //Debug.Log("Stop focusing");
-                //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
-            }
+            gameCamera.transform.LookAt(target.position);
+            gameCamera.fieldOfView = 5;
+            transform.position = targetPosition;
+            
         }
     }
     public void MoveCamera(Vector3 inputVector)
@@ -137,16 +146,26 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    public void MoveToHouse(Transform targetHouse)
+    public void MoveToHouse(Structure targetHouse)
     {
+
         //Debug.Log($"Move to house {targetHouse.transform.position}");
         GameManager.Instance.canControlCam = false;
-        targetPosition = targetHouse.position + camPosOffset - targetHouse.forward * focusDistance;
+        Vector3 roadToHouse = (targetHouse.transform.position - targetHouse.roadPosition).normalized;
+
+
+        targetPosition = targetHouse.roadPosition - (roadToHouse* 10f);
+        targetPosition.y += 5f;
+
+        target = targetHouse.transform;
+
+
         isFocusing = true;
     }
 
     public void ResetCam()
     {
+        isFocusing = false;
         transform.SetPositionAndRotation(camStartPos, camStartRotation);
         GameManager.Instance.canControlCam = true;
     }

@@ -75,7 +75,7 @@ public class StructureContextMenu : MonoBehaviour
         icon.InitIcon(house.HouseType);
         icon.AddOnClickActions(() =>
         {
-            GameManager.Instance.cameraMovement.MoveToHouse(owner.camFocusPos);
+            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
             
             if (isSelected)
             {

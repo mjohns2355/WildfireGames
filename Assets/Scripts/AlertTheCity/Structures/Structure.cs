@@ -8,6 +8,8 @@ public class Structure : MonoBehaviour
     public StructureContextMenu contextMenu;
     public Transform camFocusPos;
     public Transform menuSpawnPos;
+    public Vector3Int roadPosition;
+    public Vector3 roadDirection;
     public Outline outline;
     public int height = 1;
     public int width = 1;
@@ -35,5 +37,16 @@ public class Structure : MonoBehaviour
         outline.enabled = false;
     }
 
-
+    public void CheckRoadDirection()
+    {
+       
+        if (Mathf.Abs(roadPosition.x - transform.position.x) > Mathf.Abs(roadPosition.z - transform.position.z))
+        {
+            roadDirection = Vector3.right; // Horizontal road
+        }
+        else
+        {
+            roadDirection = Vector3.forward; // Vertical road
+        }
+    }
 }
