@@ -15,7 +15,7 @@ public class PurchaseFloatingButton : MonoBehaviour
     private bool shouldShowRemoveIcon = false;
     private Vector3 targetPosition;
     [SerializeField] private Button button;
-    [SerializeField] Sprite purchase, plant, remove;
+    [SerializeField] Sprite purchase, plant;
 
     // Static reference to the currently selected bubble button
     private static PurchaseFloatingButton currentSelectedButton;
@@ -28,13 +28,13 @@ public class PurchaseFloatingButton : MonoBehaviour
 
     public void OnBubbleClicked()
     {
-        if (shouldShowRemoveIcon)
-        {
-            ownerMound.Shovel();
-            shouldShowRemoveIcon = false;
-            SetPlantIcon(false);
-            return;
-        }
+        //if (shouldShowRemoveIcon)
+        //{
+        //    ownerMound.Shovel();
+        //    shouldShowRemoveIcon = false;
+        //    SetPlantIcon(false);
+        //    return;
+        //}
 
         if (isPlant)
         {
@@ -44,34 +44,7 @@ public class PurchaseFloatingButton : MonoBehaviour
         {
             HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
         }
-        //if (currentSelectedButton == this)
-        //{
-        //    // If this button is already selected, deselect it and close the store panel
-
-        //    HH_GameManager.Instance.uiManager.HideStoreScreen();
-        //    ResetButton();
-        //    currentSelectedButton = null;
-        //}
-        //else
-        //{
-        //    // Deselect the previously selected button, if any
-        //    if (currentSelectedButton != null)
-        //    {
-        //        currentSelectedButton.ResetButton();
-        //    }
-
-        //    // Select this button and open the store panel
-        //    currentSelectedButton = this;
-        //    SelectButton();
-        //    if (isPlant)
-        //    {
-        //        HH_GameManager.Instance.uiManager.ShowPlantsMenu(ownerMound);
-        //    }
-        //    else
-        //    {
-        //        HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
-        //    }
-        //}
+        
     }
 
     void Update()
@@ -106,12 +79,12 @@ public class PurchaseFloatingButton : MonoBehaviour
     }
     public void SetPlantIcon(bool isPlanted)
     {
-        if (isPlanted)
-        {
-            iconImage.sprite = remove;
-            shouldShowRemoveIcon = true;
-            return;
-        }
+        //if (isPlanted)
+        //{
+        //    iconImage.sprite = remove;
+        //    shouldShowRemoveIcon = true;
+        //    return;
+        //}
         iconImage.sprite = plant;
     }
     public void ResetButton()
