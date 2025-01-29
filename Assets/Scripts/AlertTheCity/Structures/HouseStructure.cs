@@ -1,4 +1,4 @@
-//using System;
+﻿//using System;
 using System;
 using System.Buffers;
 using System.Collections;
@@ -18,7 +18,7 @@ public class HouseStructure : Structure
     public bool testHouse;
     [SerializeField] HouseType houseType;
     [SerializeField] GameObject[] houseModels;
-    [SerializeField] Transform mesh;
+    [SerializeField] Transform mesh,front;
     [SerializeField] Material metalRoofMaterial;
 
     public int petNum = 0;
@@ -65,6 +65,7 @@ public class HouseStructure : Structure
        
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
 
+
         if (!isMainHouse) return;
         InitMainHouse();
 
@@ -77,12 +78,10 @@ public class HouseStructure : Structure
         var shelter =specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter});
         targetShelter = shelter;
-
-        
         var model = GetComponent<ATC_StructureModel>();
         roadPosition = model.RoadPosition;
 
-        CheckRoadDirection();
+
 
     }
 
@@ -97,6 +96,9 @@ public class HouseStructure : Structure
         {
             TestSpawnCar();
         }
+       
+
+        //front.LookAt(roadPosition);
     }
 
     void CheckNeighbourRoad()
@@ -159,6 +161,8 @@ public class HouseStructure : Structure
             {
                 house.houseInfo = houseInfo;
                 house.houseInfo.InitHouseInfo(house);
+                var model = house.GetComponent<ATC_StructureModel>();
+                house.roadPosition = model.RoadPosition;
             }
         }
     }
@@ -224,49 +228,17 @@ public class HouseStructure : Structure
 
     void OnOptionButtonClicked()
     {
-        
-        //if (!contextMenu.allowMultipleChoices)
-        //{
-        //    currentOption = contextMenu.CurrentOption.GetOptionContent();
-        //    Debug.Log($"Player selected {currentOption}");
-        //    var currentChoice = GetCurrentChoice(currentOption);
-        //    if (currentChoice != null)
-        //    {
-        //        GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
-        //        Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
-        //    }
-
-        //}
-        //else
-        //{
-
-            foreach(var option in contextMenu.selectedOptions)
+        foreach (var option in contextMenu.selectedOptions)
+        {
+            currentOption = option.GetOptionContent();
+            Debug.Log($"Player selected {currentOption}");
+            var currentChoice = GetCurrentChoice(currentOption);
+            if (currentChoice != null)
             {
-                currentOption = option.GetOptionContent();
-                Debug.Log($"Player selected {currentOption}");
-                var currentChoice = GetCurrentChoice(currentOption);
-                if (currentChoice != null)
-                {
-                    GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
-                    Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
-                }
+                GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
+                Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
             }
-        //}
-        //var currentChoice = GetCurrentChoice(currentOption);
-
- 
-        
-        // apply home hardening immediately
-        //if (currentOption == "Home Hardening")
-        //{
-        //    ApplyChoice();
-        //}
-        
-        //if (currentChoice != null)
-        //{
-        //    GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
-        //    Debug.Log($"Updated Player Choices Dict ({houseType}, {currentChoice.choiceName})");
-        //}
+        }
     }
 
     void ApplyChoice()
@@ -302,18 +274,6 @@ public class HouseStructure : Structure
             
         }
 
-        //if(currentChoice != null)
-        //{
-        //    // avoid applying the same choices multiple times
-        //    if (lastOption == currentOption) return;
-        //    foreach (var house in sameTypeHouses)
-        //    {
-        //        currentChoice.ApplyEffect(house);
-        //    }
-        //    //choice.ApplyEffect(this);
-        //    lastOption = currentOption;
-        //}
-        //GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
     }
 
     void ApplyChoiceEffect(HouseChoice choice)
@@ -327,16 +287,6 @@ public class HouseStructure : Structure
     HouseChoice GetCurrentChoice(string name)
     {
         return houseInfo.ReturnChoiceByName(name).choice;
-        //choices = houseInfo.choices.Union(houseInfo.lockedChoices).ToList();
-        //foreach (var choice in choices)
-        //{
-        //    if (choice.choiceName == name)
-        //    {
-        //        return choice;
-        //    }
-        //}
-
-        //return null;
     }
     public IEnumerator SpawnCarRoutine()
     {
