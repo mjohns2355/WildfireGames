@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
+    public Transform h1, h2;
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
@@ -31,6 +32,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             ToggleHousesClickBox(true);
         });
+        
     }
 
     private void Update()
@@ -40,6 +42,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             Time.timeScale = 5.0f;
         }
     }
+
+    public void SpawnHouses()
+    {
+        var houses = ResourceManager.Instance.houses;
+        
+    }
+
 
     public void SwitchPlayer (string playerTag)
     {
