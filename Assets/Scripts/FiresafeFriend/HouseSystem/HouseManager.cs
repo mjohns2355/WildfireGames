@@ -20,11 +20,11 @@ namespace HappyHouse.HouseSystem
         public Vector3 positionOffset;
         public float scaleMultiplier;
         public GameObject /*craftIcon, */arrowUI, nameText;
-
+        [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
         //[SerializeField] BoxCollider clickBox;
-        private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
+        [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         private void Start()
         {
 
@@ -63,25 +63,6 @@ namespace HappyHouse.HouseSystem
             }
 
             RandomizeHouse();
-            //var allAvailableParts = ResourceManager.Instance.allAvailableParts;
-
-            //// TO DO: Improve the code
-            //foreach(var key in allAvailableParts.Keys)
-            //{
-            //    var allInfos = allAvailableParts[key];
-            //    int index = UnityEngine.Random.Range(0, allInfos.Count);
-            //    var res = allInfos[index];
-            //    var oldParts = GetAllHousePartObjectsOf(res.housePartType);
-            //    //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
-            //    //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
-
-            //    foreach (var oldPart in oldParts)
-            //    {
-            //        //oldPart.partInfo = housePartInfo;
-            //        oldPart.InitHousePartObject(this, res);
-            //    }
-            //    inventory.AddNewPartToInventory(res);
-            //}
 
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
@@ -125,37 +106,7 @@ namespace HappyHouse.HouseSystem
             arrowUI.SetActive(false);
 
         }
-        //void InitializeDefaultHouseLayout()
-        //{
-        //    Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
-        //    foreach (var part in houseBlueprint.partConnections)
-        //    {
-        //        var newPartInfo = part.partInfo;
-        //        var houseObj = HH_GameManager.Instance.CreateHousePartObject(newPartInfo,this);
-        //        houseObj.transform.parent = transform;
-        //        houseObj.transform.localPosition = part.localPosition + positionOffset;
-        //        houseObj.transform.localRotation = Quaternion.Euler(part.localRotation);
-        //        houseObj.transform.localScale = part.localScale * scaleMultiplier;
-        //        var node = houseGraph.AddHousePart(houseObj);
-        //        houseObj.houseNode = node;
-        //        nodeDictionary[part.partID] = node;
-        //        inventory.AddNewPartToInventory(newPartInfo);
-        //    }
-
-        //    foreach (var part in houseBlueprint.partConnections)
-        //    {
-        //        if (nodeDictionary.TryGetValue(part.partID, out HouseNode currentNode))
-        //        {
-        //            foreach (var connectedPartId in part.connectedPartsId)
-        //            {
-        //                if (nodeDictionary.TryGetValue(connectedPartId, out HouseNode connectedNode))
-        //                {
-        //                    houseGraph.ConnectParts(currentNode, connectedNode);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+  
 
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
@@ -266,68 +217,76 @@ namespace HappyHouse.HouseSystem
 
         public void RandomizeHouse()
         {
-            System.Random rand = new System.Random();
-            var randomTypes = upgradeList.OrderBy(x => rand.Next()).Take(3).ToList();
-            foreach (var type in randomTypes)
+            while (upgradeCount < 3 && upgradeList.Count > 0)
             {
-                var oldParts = GetAllHousePartObjectsOf(type);
-                HousePartInfo res = null;
-                switch (type)
+                System.Random rand = new System.Random();
+                var randomTypes = upgradeList.OrderBy(x => rand.Next()).Take(1).ToList();
+                foreach (var type in randomTypes)
                 {
-                    case HousePartType.Wall:
-                        var wallMaterial = RandomizeWall();
-                        if (wallMaterial != null)
-                        {
-                            Debug.Log($"Randomized Wall: {wallMaterial.name}");
-                            res = wallMaterial;
-                        }
-                        break;
-                    case HousePartType.Roof:
-                        var roofMaterial = RandomizeRoof();
-                        if (roofMaterial != null)
-                        {
-                            Debug.Log($"Randomized Roof: {roofMaterial.name}");
-                            res = roofMaterial;
-                        }
-                        break;
-                    default:
-                        var otherMaterial = RandomizeOtherParts(type);
-                        if (otherMaterial != null)
-                        {
-                            Debug.Log($"Randomized {type}: {otherMaterial.name}");
-                            res = otherMaterial;
-                        }
-                        break;
-                }
-
-
-                if (res != null)
-                {
-                    foreach (var oldPart in oldParts)
+                    upgradeList.Remove(type);
+                    var oldParts = GetAllHousePartObjectsOf(type);
+                    HousePartInfo res = null;
+                    switch (type)
                     {
-                        oldPart.InitHousePartObject(this, res);
+                        case HousePartType.Wall:
+                            var wallMaterial = RandomizeWall();
+                            if (wallMaterial != null)
+                            {
+                                Debug.Log($"Randomized Wall: {wallMaterial.name}");
+                                res = wallMaterial;
+                            }
+                            break;
+                        case HousePartType.Roof:
+                            var roofMaterial = RandomizeRoof();
+                            if (roofMaterial != null)
+                            {
+                                Debug.Log($"Randomized Roof: {roofMaterial.name}");
+                                res = roofMaterial;
+                            }
+                            break;
+                        default:
+                            var otherMaterial = RandomizeOtherParts(type);
+                            if (otherMaterial != null)
+                            {
+                                Debug.Log($"Randomized {type}: {otherMaterial.name}");
+                                res = otherMaterial;
+                            }
+                            break;
                     }
-                    inventory.AddNewPartToInventory(res);
+
+
+                    if (res != null)
+                    {
+                        foreach (var oldPart in oldParts)
+                        {
+                            oldPart.InitHousePartObject(this, res);
+                        }
+                        inventory.AddNewPartToInventory(res);
+                    }
+
+                   
                 }
+            
 
             }
             HousePartInfo RandomizeWall()
             {
                 HousePartInfo material = null;
+                
                 var rng = UnityEngine.Random.value;
-                if (rng < 0.1f)
+                if (rng < brickWallChance/10f)
                 {
                     // brick
                     upgradeCount++;
-                    upgradeList.Remove(HousePartType.Wall);
+                    
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.B);
                     return material;
                 }
-                if (rng < 0.2f)
+                if (rng < stuccoWallChance/10f)
                 {
                     //stucco
                     upgradeCount++;
-                    upgradeList.Remove(HousePartType.Wall);
+                    
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.C);
                     return material;
                 }
@@ -337,14 +296,15 @@ namespace HappyHouse.HouseSystem
 
             HousePartInfo RandomizeRoof()
             {
+                
                 HousePartInfo material = null;
                 var rng = UnityEngine.Random.value;
-                if (rng < 0.2f)
+                if (rng < compositeRoofChance/10f)
                 {
                     //composite
                     upgradeCount++;
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Roof].Find(x => x.partClass == MaterialClass.C);
-                    upgradeList.Remove(HousePartType.Roof);
+                   
                 }
 
                 return material;
@@ -352,9 +312,10 @@ namespace HappyHouse.HouseSystem
 
             HousePartInfo RandomizeOtherParts(HousePartType type)
             {
+                
                 HousePartInfo material = null;
                 var rng = UnityEngine.Random.value;
-                if (rng < 0.1f)
+                if (rng < otherPartUpgradeChance/10f)
                 {
                     upgradeCount++;
                     material = ResourceManager.Instance.allAvailableParts[type].Find(x => x.partClass == MaterialClass.A);
