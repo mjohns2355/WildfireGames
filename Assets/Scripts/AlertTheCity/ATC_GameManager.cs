@@ -358,7 +358,7 @@ public class GameManager : UnitySingleton<GameManager>
             // test version
             availableHouseTypes.Add(HouseType.kids);
             availableHouseTypes.Add(HouseType.elderly);
-            //availableHouseTypes.Add(HouseType.pet);
+            availableHouseTypes.Add(HouseType.pet);
         }
         else
         {

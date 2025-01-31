@@ -62,8 +62,8 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            RandomizeHouse();
-
+            //RandomizeHouse();
+            StartCoroutine(RandomizeStartingCondition());
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 
@@ -214,7 +214,11 @@ namespace HappyHouse.HouseSystem
 
             }
         }
-
+        IEnumerator RandomizeStartingCondition()
+        {
+            yield return new WaitForSeconds(0.1f);
+            RandomizeHouse();
+        }
         public void RandomizeHouse()
         {
             while (upgradeCount < 3 && upgradeList.Count > 0)
@@ -272,9 +276,10 @@ namespace HappyHouse.HouseSystem
             HousePartInfo RandomizeWall()
             {
                 HousePartInfo material = null;
-                
+                var anotherHouse = playerTag == "P1"? HH_GameManager.Instance.p2 : HH_GameManager.Instance.p1;
                 var rng = UnityEngine.Random.value;
-                if (rng < brickWallChance/10f)
+                var anotherHouseWall = anotherHouse.GetCurrentInUseHousePartObjectOf(HousePartType.Wall).partInfo;
+                if (rng < brickWallChance/10f && anotherHouseWall.partClass != MaterialClass.B)
                 {
                     // brick
                     upgradeCount++;
@@ -282,7 +287,7 @@ namespace HappyHouse.HouseSystem
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.B);
                     return material;
                 }
-                if (rng < stuccoWallChance/10f)
+                if (rng < stuccoWallChance/10f )
                 {
                     //stucco
                     upgradeCount++;

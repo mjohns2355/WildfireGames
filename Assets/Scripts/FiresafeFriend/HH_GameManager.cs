@@ -17,8 +17,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
     public GameObject[] fences;
-    [SerializeField] HouseManager p1;
-    [SerializeField] HouseManager p2;
+    public HouseManager p1;
+    public HouseManager p2;
     
     public override void Awake()
     {

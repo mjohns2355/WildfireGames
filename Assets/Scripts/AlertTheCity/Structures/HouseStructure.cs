@@ -252,7 +252,7 @@ public class HouseStructure : Structure
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
                 //Debug.Log($"rng: {rng}");
-                if (rng > 0.5)
+                if (GameManager.Instance.CountFollowedInstructions() == 0 || rng > 0.5)
                 {
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
