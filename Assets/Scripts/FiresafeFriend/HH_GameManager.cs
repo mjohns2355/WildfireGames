@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
+    public Transform h1, h2;
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
@@ -16,8 +17,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
     public GameObject[] fences;
-    [SerializeField] HouseManager p1;
-    [SerializeField] HouseManager p2;
+    public HouseManager p1;
+    public HouseManager p2;
     
     public override void Awake()
     {
@@ -31,6 +32,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             ToggleHousesClickBox(true);
         });
+        
     }
 
     private void Update()
@@ -40,6 +42,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             Time.timeScale = 5.0f;
         }
     }
+
+    public void SpawnHouses()
+    {
+        var houses = ResourceManager.Instance.houses;
+        
+    }
+
 
     public void SwitchPlayer (string playerTag)
     {

@@ -7,7 +7,8 @@ public class FF_Plants : FF_BaseCombustible
 {
     public int debris;
     public bool isClickable = true;
-    
+    public bool canClickToRemove = false;
+    public Action onPlantClicked;
     protected override void Start()
     {
         base.Start();
@@ -66,11 +67,19 @@ public class FF_Plants : FF_BaseCombustible
 
     IEnumerator PlantClickedRoutine()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        var vfx = Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
-        yield return new WaitForSeconds(1f);
-        Destroy(vfx);
-        Destroy(gameObject);
+        if (canClickToRemove)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            var vfx = Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
+            yield return new WaitForSeconds(1f);
+            Destroy(vfx);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Invoke onPlantClicked");
+            onPlantClicked?.Invoke();
+        }
 
     }
 

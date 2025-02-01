@@ -115,6 +115,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         foreach (var entry in endQuoteData.quotes)
         {
+            if (entry.response == "Followed") continue;
             if (entry.houseType == houseType && entry.choice == choice && entry.response == response)
             {
                 return entry.quote;

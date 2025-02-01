@@ -9,10 +9,12 @@ using UnityEngine.UI;
 public class FF_PlantMenuOption : MonoBehaviour
 {
     public Image icon;
+    public Sprite removeIcon;
     public TextMeshProUGUI nameText;
     public Button button;
     public FF_Plants ownerPlant;
     public FF_DirtMound ownerMound;
+    private bool isRemoveButton;
 
     //public GameObject checkMark;
     // Start is called before the first frame update
@@ -29,9 +31,21 @@ public class FF_PlantMenuOption : MonoBehaviour
         //checkMark.SetActive(isBought);
     }
 
+    public void InitRemoveButton(FF_DirtMound mound)
+    {
+        ownerMound = mound;
+        isRemoveButton = true;
+        nameText.text = "Remove Plant";
+        icon.sprite = removeIcon;
+    }
     public void OnClick()
     {
-       ownerMound.Plant(ownerPlant);
+        if(isRemoveButton)
+        {
+            ownerMound.Shovel();
+            return;
+        }
+        ownerMound.Plant(ownerPlant);
     }
 
     private void OnDestroy()

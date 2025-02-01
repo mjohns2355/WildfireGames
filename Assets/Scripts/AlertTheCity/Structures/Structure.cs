@@ -6,8 +6,9 @@ public class Structure : MonoBehaviour
     
     public StructureType structureType;
     public StructureContextMenu contextMenu;
-    public Transform camFocusPos;
     public Transform menuSpawnPos;
+    public Vector3Int roadPosition;
+
     public Outline outline;
     public int height = 1;
     public int width = 1;
@@ -34,6 +35,5 @@ public class Structure : MonoBehaviour
         contextMenu.gameObject.SetActive(false);
         outline.enabled = false;
     }
-
 
 }

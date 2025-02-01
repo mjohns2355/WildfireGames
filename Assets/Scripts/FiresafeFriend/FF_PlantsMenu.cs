@@ -51,6 +51,8 @@ public class FF_PlantsMenu : MonoBehaviour
             var option = Instantiate(plantOptionPrefab, grid).GetComponent<FF_PlantMenuOption>();
             option.InitPlantMenuOption(p,currentOwner);
         }
+        var removeButton = Instantiate(plantOptionPrefab, grid).GetComponent<FF_PlantMenuOption>();
+        removeButton.InitRemoveButton(currentOwner);
     }
 
     private void ClearOptions()

@@ -11160,8 +11160,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130961602}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 49.5, y: 0, z: 49.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11178,7 +11178,7 @@ Transform:
   - {fileID: 70945545}
   - {fileID: 1832331512}
   - {fileID: 1782694171}
-  m_Father: {fileID: 970204964}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &132557553 stripped
 Transform:
@@ -77860,7 +77860,6 @@ Transform:
   m_Children:
   - {fileID: 185400029}
   - {fileID: 1874407667}
-  - {fileID: 130961603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &971480380
@@ -156948,8 +156947,12 @@ MonoBehaviour:
   maxFOV: 22
   minFOV: 5
   defaultFOV: 10
-  focusDistance: 5
+  focusDistance: 8
   camPosOffset: {x: 0, y: 0, z: 0}
+  lastHit: {fileID: 0}
+  ignoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &2044992765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2100345786477648002, guid: 126bc1b54aa974c45b523eabbb58d51e, type: 3}
@@ -168611,6 +168614,7 @@ SceneRoots:
   - {fileID: 2044889012}
   - {fileID: 899223844}
   - {fileID: 603889763}
+  - {fileID: 130961603}
   - {fileID: 970204964}
   - {fileID: 681313533}
   - {fileID: 1641992811}

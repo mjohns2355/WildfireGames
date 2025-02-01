@@ -42,13 +42,17 @@ public class FF_DirtMound : MonoBehaviour
 
     public void Plant(FF_Plants plant)
     {
+        Debug.Log("plant");
         currentPlant = Instantiate(plant, plantHolder);
-        currentPlant.isClickable = false;
+
+        //currentPlant.isClickable = false;
         availablePlants.Remove(plant);
-        bubble.SetPlantIcon(true);
-        var newTargetPos = new Vector3(bubblePos.position.x, currentPlant.topPosition.y + 4f, bubblePos.position.z);
-        bubble.SetTargetPosition(newTargetPos);
-        menuPos = newTargetPos + new Vector3(0, currentPlant.topPosition.y + 15f, 0);
+        //bubble.SetPlantIcon(true);
+        bubble.gameObject.SetActive(false);
+        //var newTargetPos = new Vector3(bubblePos.position.x, currentPlant.topPosition.y + 4f, bubblePos.position.z);
+        //bubble.SetTargetPosition(newTargetPos);
+        //menuPos = newTargetPos + new Vector3(0, currentPlant.topPosition.y + 15f, 0);
+        currentPlant.onPlantClicked += () => HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
         OnPlanted?.Invoke();
     }
 
@@ -59,6 +63,7 @@ public class FF_DirtMound : MonoBehaviour
             Debug.Log("shovel");
             //availablePlants.Add(currentPlant);
             menuPos = bubblePos.position + new Vector3(0, 15f, 0);
+
             bubble.SetTargetPosition(bubblePos.position);
             foreach (var p in ResourceManager.Instance.plants)
             {
@@ -69,6 +74,7 @@ public class FF_DirtMound : MonoBehaviour
                 }
             }
             var plantToDestroy = currentPlant;
+            plantToDestroy.onPlantClicked = null;
             currentPlant = null;
             Destroy(plantToDestroy.gameObject);
         }

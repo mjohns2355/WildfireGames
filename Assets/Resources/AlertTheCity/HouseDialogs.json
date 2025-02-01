@@ -267,15 +267,15 @@
         {
           "id": "40",
           "characterName": "Pets Owner",
-          "dialogText": "Hi there! Thanks for stopping by. Wildfire season always worries me—not just for us but for our pets. We’ve got two dogs, a cat, and some fish, so it’s a lot to think about when we need to leave quickly.",
+          "dialogText": "Hey there! Wildfire season always stresses me out—not just for me, but for my pets. We’ve got two dogs, a cat, and even a few backyard chickens. If a fire comes close, I need to figure out how to get everyone to safety.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "Have you prepared a go-bag for your pets, like carriers, food, and supplies?",
+              "optionText": "Making a detailed evacuation plan—including supplies and transport—can help you stay ready when you need to leave.",
               "nextNodeId": "41"
             },
             {
-              "optionText": "Do you have a plan for how you’d transport all your animals if you need to leave?",
+              "optionText": "Since evacuating with pets can be tricky, have you considered pre-evacuating with them on red flag days?",
               "nextNodeId": "42"
             }
           ]
@@ -283,17 +283,17 @@
         {
           "id": "41",
           "characterName": "Pets Owner",
-          "dialogText": "I’ve got some supplies ready, like leashes and a carrier for the cat, but I’m not sure how much food or water I’d need. The fish are another story—I can’t exactly pack their tank!",
+          "dialogText": "I’ve got crates for the dogs and a carrier for the cat, but it’s hard to imagine how I’d get them all out quickly. The chickens? That’s a whole other challenge!",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
               "option": "Plan Ahead",
-              "optionText": "It’s a great start. You might also think about emergency boarding options for your pets if you can’t take them all.",
+              "optionText": "Doing a practice run might help you see where any issues come up before an actual emergency.",
               "nextNodeId": "43"
             },
             {
               "option": "Plan Ahead",
-              "optionText": "Packing a little extra food and water can go a long way, and maybe a battery-powered air pump for the fish tank.",
+              "optionText": "Having a go-bag ready for each pet—food, water, medicine—can make a huge difference in a rush.",
               "nextNodeId": "43"
             }
           ]
@@ -301,17 +301,17 @@
         {
           "id": "42",
           "characterName": "Pets Owner",
-          "dialogText": "We’ve got crates for the dogs and a carrier for the cat, but they take up a lot of space in the car. I’m worried about fitting everything in if we have to leave in a hurry.",
+          "dialogText": "I’ve thought about it, but it feels extreme to leave before an evacuation order. Plus, where would we even go? It’s not always easy to find a pet-friendly place to stay.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "option": "Plan Ahead",
-              "optionText": "Maybe you could practice loading up your car to see how everything fits.",
+              "option": "Evacuate Early",
+              "optionText": "It’s tough, but some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
               "nextNodeId": "43"
             },
             {
-              "option": "Plan Ahead",
-              "optionText": "What about asking a friend or neighbor to help transport your pets if needed?",
+              "option": "Evacuate Early",
+              "optionText": "If you have friends or family in a safer area, maybe you could stay with them when conditions get risky.",
               "nextNodeId": "43"
             }
           ]

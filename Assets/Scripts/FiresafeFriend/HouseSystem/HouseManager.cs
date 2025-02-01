@@ -9,7 +9,7 @@ namespace HappyHouse.HouseSystem
     public class HouseManager : MonoBehaviour
     {
         //public HouseBlueprint houseBlueprint;
-        
+
         public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
@@ -19,16 +19,17 @@ namespace HappyHouse.HouseSystem
         public string playerTag;
         public Vector3 positionOffset;
         public float scaleMultiplier;
-        public GameObject /*craftIcon, */arrowUI,nameText;
-
+        public GameObject /*craftIcon, */arrowUI, nameText;
+        [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
+        private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
         //[SerializeField] BoxCollider clickBox;
-      
+        [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         private void Start()
         {
-            Debug.Log("test");
+
             houseGraph = new HouseGraph();
-            budgetManager = new FF_BudgetManager(this,initBudget);
+            budgetManager = new FF_BudgetManager(this, initBudget);
 
             var fences = HH_GameManager.Instance.fences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
@@ -39,7 +40,7 @@ namespace HappyHouse.HouseSystem
                 InitHouseNode(nodeDictionary, part);
             }
 
-            foreach(var f in fences)
+            foreach (var f in fences)
             {
                 InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
             }
@@ -50,7 +51,7 @@ namespace HappyHouse.HouseSystem
                 if (part.notInteractable) continue;
                 if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
                 {
-                    
+
                     foreach (var neighbour in part.CheckNeighbours("Structure"))
                     {
                         if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
@@ -61,26 +62,8 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //var allAvailableParts = ResourceManager.Instance.allAvailableParts;
-
-            //// TO DO: Improve the code
-            //foreach(var key in allAvailableParts.Keys)
-            //{
-            //    var allInfos = allAvailableParts[key];
-            //    int index = UnityEngine.Random.Range(0, allInfos.Count);
-            //    var res = allInfos[index];
-            //    var oldParts = GetAllHousePartObjectsOf(res.housePartType);
-            //    //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
-            //    //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
-
-            //    foreach (var oldPart in oldParts)
-            //    {
-            //        //oldPart.partInfo = housePartInfo;
-            //        oldPart.InitHousePartObject(this, res);
-            //    }
-            //    inventory.AddNewPartToInventory(res);
-            //}
-            
+            //RandomizeHouse();
+            StartCoroutine(RandomizeStartingCondition());
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 
@@ -91,7 +74,7 @@ namespace HappyHouse.HouseSystem
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
-            inventory.AddNewPartToInventory(part.partInfo);
+            //inventory.AddNewPartToInventory(part.partInfo);
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
@@ -114,46 +97,16 @@ namespace HappyHouse.HouseSystem
         public void OnHouseDeselected()
         {
             HH_GameManager.Instance.inputManager.canClickHouse = true;
-            foreach(var icon in purchaseFloatingButtons)
+            foreach (var icon in purchaseFloatingButtons)
             {
                 Destroy(icon.gameObject);
             }
             //ToggleClickBox(true);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
-            
-        }
-        //void InitializeDefaultHouseLayout()
-        //{
-        //    Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
-        //    foreach (var part in houseBlueprint.partConnections)
-        //    {
-        //        var newPartInfo = part.partInfo;
-        //        var houseObj = HH_GameManager.Instance.CreateHousePartObject(newPartInfo,this);
-        //        houseObj.transform.parent = transform;
-        //        houseObj.transform.localPosition = part.localPosition + positionOffset;
-        //        houseObj.transform.localRotation = Quaternion.Euler(part.localRotation);
-        //        houseObj.transform.localScale = part.localScale * scaleMultiplier;
-        //        var node = houseGraph.AddHousePart(houseObj);
-        //        houseObj.houseNode = node;
-        //        nodeDictionary[part.partID] = node;
-        //        inventory.AddNewPartToInventory(newPartInfo);
-        //    }
 
-        //    foreach (var part in houseBlueprint.partConnections)
-        //    {
-        //        if (nodeDictionary.TryGetValue(part.partID, out HouseNode currentNode))
-        //        {
-        //            foreach (var connectedPartId in part.connectedPartsId)
-        //            {
-        //                if (nodeDictionary.TryGetValue(connectedPartId, out HouseNode connectedNode))
-        //                {
-        //                    houseGraph.ConnectParts(currentNode, connectedNode);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        }
+  
 
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
@@ -177,7 +130,7 @@ namespace HappyHouse.HouseSystem
         {
             foreach (var node in houseGraph.nodes)
             {
-                if(node.housePart.partInfo.partID == partInfo.partID)
+                if (node.housePart.partInfo.partID == partInfo.partID)
                 {
                     //Debug.Log($"{partInfo.partID} is in use by {playerTag}");
                     return true;
@@ -186,14 +139,14 @@ namespace HappyHouse.HouseSystem
             return false;
         }
 
-        public void ReplaceHousePartObject (/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
+        public void ReplaceHousePartObject(/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
         {
             bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == inventory.ownedParts[housePartInfo.housePartType].Count;
-           
+
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
-            
+
             foreach (var oldPart in oldParts)
             {
                 if (oldPart.shouldDisplayBubble)
@@ -202,7 +155,7 @@ namespace HappyHouse.HouseSystem
                     oldPart.shouldDisplayBubble = !shouldHideBubble;
                 }
                 //oldPart.partInfo = housePartInfo;
-                oldPart.InitHousePartObject(this,housePartInfo);
+                oldPart.InitHousePartObject(this, housePartInfo);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
@@ -210,9 +163,9 @@ namespace HappyHouse.HouseSystem
 
         public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
         {
-            foreach(var node in houseGraph.nodes)
+            foreach (var node in houseGraph.nodes)
             {
-                if(node.housePart.HousePartType == type)
+                if (node.housePart.HousePartType == type)
                 {
                     return node.housePart;
                 }
@@ -220,11 +173,11 @@ namespace HappyHouse.HouseSystem
             return null;
         }
 
-        public List<BaseHousePartObject> GetAllHousePartObjectsOf (HousePartType type)
+        public List<BaseHousePartObject> GetAllHousePartObjectsOf(HousePartType type)
         {
             var res = new List<BaseHousePartObject>();
-            Debug.Log($"Replace {type}");
-            foreach(var node in houseGraph.nodes)
+            //Debug.Log($"Replace {type}");
+            foreach (var node in houseGraph.nodes)
             {
                 if (node.housePart.HousePartType == type)
                 {
@@ -243,7 +196,7 @@ namespace HappyHouse.HouseSystem
 
             foreach (var node in houseGraph.nodes)
             {
-                if(!node.housePart.shouldDisplayBubble) continue;
+                if (!node.housePart.shouldDisplayBubble) continue;
                 //HousePartType partType = node.housePart.HousePartType;
 
                 //if (displayedPartTypes.Contains(partType))
@@ -257,11 +210,125 @@ namespace HappyHouse.HouseSystem
                 purchaseFloatingButtons.Add(icon);
 
                 icon.InitBubbleForHousePart(node.housePart);
-                node.housePart.bubble = icon;;
+                node.housePart.bubble = icon; ;
 
             }
         }
+        IEnumerator RandomizeStartingCondition()
+        {
+            yield return new WaitForSeconds(0.1f);
+            RandomizeHouse();
+        }
+        public void RandomizeHouse()
+        {
+            while (upgradeCount < 3 && upgradeList.Count > 0)
+            {
+                System.Random rand = new System.Random();
+                var randomTypes = upgradeList.OrderBy(x => rand.Next()).Take(1).ToList();
+                foreach (var type in randomTypes)
+                {
+                    upgradeList.Remove(type);
+                    var oldParts = GetAllHousePartObjectsOf(type);
+                    HousePartInfo res = null;
+                    switch (type)
+                    {
+                        case HousePartType.Wall:
+                            var wallMaterial = RandomizeWall();
+                            if (wallMaterial != null)
+                            {
+                                Debug.Log($"Randomized Wall: {wallMaterial.name}");
+                                res = wallMaterial;
+                            }
+                            break;
+                        case HousePartType.Roof:
+                            var roofMaterial = RandomizeRoof();
+                            if (roofMaterial != null)
+                            {
+                                Debug.Log($"Randomized Roof: {roofMaterial.name}");
+                                res = roofMaterial;
+                            }
+                            break;
+                        default:
+                            var otherMaterial = RandomizeOtherParts(type);
+                            if (otherMaterial != null)
+                            {
+                                Debug.Log($"Randomized {type}: {otherMaterial.name}");
+                                res = otherMaterial;
+                            }
+                            break;
+                    }
 
+
+                    if (res != null)
+                    {
+                        foreach (var oldPart in oldParts)
+                        {
+                            oldPart.InitHousePartObject(this, res);
+                        }
+                        inventory.AddNewPartToInventory(res);
+                    }
+
+                   
+                }
+            
+
+            }
+            HousePartInfo RandomizeWall()
+            {
+                HousePartInfo material = null;
+                var anotherHouse = playerTag == "P1"? HH_GameManager.Instance.p2 : HH_GameManager.Instance.p1;
+                var rng = UnityEngine.Random.value;
+                var anotherHouseWall = anotherHouse.GetCurrentInUseHousePartObjectOf(HousePartType.Wall).partInfo;
+                if (rng < brickWallChance/10f && anotherHouseWall.partClass != MaterialClass.B)
+                {
+                    // brick
+                    upgradeCount++;
+                    
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.B);
+                    return material;
+                }
+                if (rng < stuccoWallChance/10f )
+                {
+                    //stucco
+                    upgradeCount++;
+                    
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.C);
+                    return material;
+                }
+                return material;
+
+            }
+
+            HousePartInfo RandomizeRoof()
+            {
+                
+                HousePartInfo material = null;
+                var rng = UnityEngine.Random.value;
+                if (rng < compositeRoofChance/10f)
+                {
+                    //composite
+                    upgradeCount++;
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Roof].Find(x => x.partClass == MaterialClass.C);
+                   
+                }
+
+                return material;
+            }
+
+            HousePartInfo RandomizeOtherParts(HousePartType type)
+            {
+                
+                HousePartInfo material = null;
+                var rng = UnityEngine.Random.value;
+                if (rng < otherPartUpgradeChance/10f)
+                {
+                    upgradeCount++;
+                    material = ResourceManager.Instance.allAvailableParts[type].Find(x => x.partClass == MaterialClass.A);
+                }
+
+                return material;
+            }
+        }
     }
 }
 
