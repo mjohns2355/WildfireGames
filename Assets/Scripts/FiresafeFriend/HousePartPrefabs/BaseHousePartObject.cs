@@ -20,10 +20,9 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HousePartType HousePartType { get; private set; }
 
     public bool isOnCursor = false;
-    public HousePartInfo partInfo;
+    public HousePartInfo partInfo, defaultPartInfo;
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
-
     protected override void Awake()
     {
         base.Awake();
@@ -77,6 +76,8 @@ public class BaseHousePartObject : FF_BaseCombustible
                 VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
                 break;
         }
+
+        defaultPartInfo = part;
     }
 
     void ReplaceMeshMaterial(Material material)

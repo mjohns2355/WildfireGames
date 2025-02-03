@@ -74,7 +74,7 @@ namespace HappyHouse.HouseSystem
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
-            //inventory.AddNewPartToInventory(part.partInfo);
+            inventory.AddNewPartToInventory(part.partInfo);
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
@@ -112,7 +112,6 @@ namespace HappyHouse.HouseSystem
         {
             if (!budgetManager.SpendBudget(partInfo.price)) { return false; }
             // add to inventory
-            Debug.Log($"Player {playerTag}: ");
             inventory.AddNewPartToInventory(partInfo);
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(partInfo.housePartType);
             return true;
@@ -261,8 +260,11 @@ namespace HappyHouse.HouseSystem
 
                     if (res != null)
                     {
+
+                        
                         foreach (var oldPart in oldParts)
                         {
+                            inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
                             oldPart.InitHousePartObject(this, res);
                         }
                         inventory.AddNewPartToInventory(res);

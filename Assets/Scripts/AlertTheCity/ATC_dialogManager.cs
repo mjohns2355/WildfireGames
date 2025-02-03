@@ -115,7 +115,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         foreach (var entry in endQuoteData.quotes)
         {
-            if (entry.response == "Followed") continue;
+            if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
             if (entry.houseType == houseType && entry.choice == choice && entry.response == response)
             {
                 return entry.quote;
@@ -249,6 +249,7 @@ public class ATC_dialogManager : MonoBehaviour
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
         var houseType = availableHouseTypes[rng];
+        
         Debug.Log("Chose Quote: " + houseType.ToString());
         foreach (var c in dict[houseType])
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace HappyHouse.HouseSystem
@@ -26,6 +27,31 @@ namespace HappyHouse.HouseSystem
             return true;
         }
 
+        public bool RemovePartFromInventory(HousePartInfo partToRemove)
+        {
+            if (partToRemove == null) return false;
+
+            if (ownedParts.ContainsKey(partToRemove.housePartType))
+            {
+                var value = ownedParts[partToRemove.housePartType];
+
+                // Find the part with the matching ID and remove it
+                var part = value.FirstOrDefault(p => p.partID == partToRemove.partID);
+                if (part != null)
+                {
+                    value.Remove(part);
+
+                    if (value.Count == 0)
+                    {
+                        ownedParts.Remove(partToRemove.housePartType);
+                    }
+                    Debug.Log($"Removed {partToRemove.partID} from inventory");
+                    return true;
+                }
+            }
+
+            return false;
+        }
         public bool PlayerOwnsPart(HousePartInfo part)
         {
             //Debug.Log($"Check {part.partID}");
@@ -36,6 +62,8 @@ namespace HappyHouse.HouseSystem
             }
             return false;
         }
+
+
     }
 }
 

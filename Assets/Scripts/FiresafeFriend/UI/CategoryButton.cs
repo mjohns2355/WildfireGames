@@ -30,11 +30,11 @@ public class CategoryButton : MonoBehaviour
         categoryText.text = type.ToString();
         button.onClick.AddListener(() => { 
             
-            OnButtonSeleccted();
+            OnButtonSelected();
         });
     }
 
-    void OnButtonSeleccted()
+    void OnButtonSelected()
     {
         owner.UpdateInventoryUI(category);
 
