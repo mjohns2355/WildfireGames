@@ -53,7 +53,7 @@ public class InventoryItem : MonoBehaviour
         }
         if(partInfo == null)
         {
-            //Debug.Log($"Item {partInfo.partID} is not initialized");
+            Debug.Log($"Item {partInfo.partID} is not initialized");
             HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
             return ;
         }

@@ -52,7 +52,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         if (obj.transform.parent == transform && !notInteractable)
         {
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType, bubble);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType,partInfo.isPublic);
         }
     }
 

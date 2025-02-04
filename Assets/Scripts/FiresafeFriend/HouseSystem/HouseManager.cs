@@ -23,6 +23,7 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
+        private List<BaseHousePartObject> fences;
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         private void Start()
@@ -31,7 +32,7 @@ namespace HappyHouse.HouseSystem
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
 
-            var fences = HH_GameManager.Instance.fences;
+            fences = HH_GameManager.Instance.publicFences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -40,10 +41,10 @@ namespace HappyHouse.HouseSystem
                 InitHouseNode(nodeDictionary, part);
             }
 
-            foreach (var f in fences)
-            {
-                InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
-            }
+            //foreach (var f in fences)
+            //{
+            //    InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
+            //}
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -113,6 +114,7 @@ namespace HappyHouse.HouseSystem
             if (!budgetManager.SpendBudget(partInfo.price)) { return false; }
             // add to inventory
             inventory.AddNewPartToInventory(partInfo);
+
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(partInfo.housePartType);
             return true;
         }
@@ -129,9 +131,9 @@ namespace HappyHouse.HouseSystem
         {
             foreach (var node in houseGraph.nodes)
             {
-                if (node.housePart.partInfo.partID == partInfo.partID)
+                if (node.housePart.partInfo.partID == partInfo.partID && node.housePart.HousePartType == partInfo.housePartType)
                 {
-                    //Debug.Log($"{partInfo.partID} is in use by {playerTag}");
+                    Debug.Log($"{partInfo.partID} is in use by {node.housePart.name}");
                     return true;
                 }
             }
@@ -142,7 +144,7 @@ namespace HappyHouse.HouseSystem
         {
             bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == inventory.ownedParts[housePartInfo.housePartType].Count;
 
-            var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType);
+            var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
 
@@ -153,7 +155,7 @@ namespace HappyHouse.HouseSystem
                     oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
                     oldPart.shouldDisplayBubble = !shouldHideBubble;
                 }
-                //oldPart.partInfo = housePartInfo;
+                
                 oldPart.InitHousePartObject(this, housePartInfo);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
@@ -172,10 +174,23 @@ namespace HappyHouse.HouseSystem
             return null;
         }
 
-        public List<BaseHousePartObject> GetAllHousePartObjectsOf(HousePartType type)
+        public List<BaseHousePartObject> GetAllHousePartObjectsOf(HousePartType type, bool isPublic = false)
         {
             var res = new List<BaseHousePartObject>();
+
             //Debug.Log($"Replace {type}");
+            if (isPublic)
+            {
+                foreach (var fence in fences)
+                {
+                    if (fence.partInfo.housePartType == type)
+                    {
+                        res.Add(fence);
+                    }
+                }
+                return res;
+            }
+
             foreach (var node in houseGraph.nodes)
             {
                 if (node.housePart.HousePartType == type)
@@ -196,22 +211,25 @@ namespace HappyHouse.HouseSystem
             foreach (var node in houseGraph.nodes)
             {
                 if (!node.housePart.shouldDisplayBubble) continue;
-                //HousePartType partType = node.housePart.HousePartType;
-
-                //if (displayedPartTypes.Contains(partType))
-                //{
-                //    continue;
-                //}
-
-                //displayedPartTypes.Add(partType);
-                //var icon = Instantiate(craftIcon, HH_GameManager.Instance.uiManager.floatingIcons).GetComponent<PurchaseFloatingButton>();
-                var icon = HH_GameManager.Instance.uiManager.SpawnBubble();
-                purchaseFloatingButtons.Add(icon);
-
-                icon.InitBubbleForHousePart(node.housePart);
-                node.housePart.bubble = icon; ;
+                node.housePart.bubble = InitBubble(node.housePart);
 
             }
+
+            foreach(var fence in fences)
+            {
+                
+                if (!fence.shouldDisplayBubble) continue;
+                fence.bubble = InitBubble(fence);
+            }
+        }
+
+        private PurchaseFloatingButton InitBubble(BaseHousePartObject part)
+        {
+            var icon = HH_GameManager.Instance.uiManager.SpawnBubble();
+            purchaseFloatingButtons.Add(icon);
+
+            icon.InitBubbleForHousePart(part);
+            return icon;
         }
         IEnumerator RandomizeStartingCondition()
         {
@@ -265,6 +283,10 @@ namespace HappyHouse.HouseSystem
                         foreach (var oldPart in oldParts)
                         {
                             inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
+                            //if (oldPart.houseNode != null)
+                            //{
+                            //    houseGraph.RemoveHousePart(oldPart.houseNode);
+                            //}
                             oldPart.InitHousePartObject(this, res);
                         }
                         inventory.AddNewPartToInventory(res);

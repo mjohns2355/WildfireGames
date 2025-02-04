@@ -16,7 +16,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public FF_skybox skyboxController;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
-    public GameObject[] fences;
+    private GameObject[] fences;
+    public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
     
@@ -43,6 +44,19 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
     }
 
+    private void InitPublicFences(HouseManager currentPlayer)
+    {
+        foreach(var f in fences)
+        {
+            var fence = f.GetComponent<BaseHousePartObject>();
+            fence.InitHousePartObject(currentPlayer);
+            var info = Instantiate(fence.partInfo,transform);
+            info.isPublic = true;
+            fence.partInfo = info;
+            publicFences.Add(fence);
+            currentPlayer.inventory.AddNewPartToInventory(info);
+        }
+    }
     public void SpawnHouses()
     {
         var houses = ResourceManager.Instance.houses;
@@ -83,7 +97,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         endRoundBtn.gameObject.SetActive(true);
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
-        
+        InitPublicFences(currentPlayer);
 
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)

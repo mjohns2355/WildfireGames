@@ -18,6 +18,7 @@ namespace HappyHouse.HouseSystem
         //public GameObject mesh;
         public float price;
         public MaterialClass partClass;
+        public bool isPublic;
         //[TextArea]
         //public string description;
     }

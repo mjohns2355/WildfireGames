@@ -8,20 +8,22 @@ namespace HappyHouse.HouseSystem
     public class RR_Inventory : MonoBehaviour
     {
         public Dictionary<HousePartType, List<HousePartInfo>> ownedParts = new Dictionary<HousePartType, List<HousePartInfo>>();
+        public Dictionary<HousePartType, List<HousePartInfo>> ownedPublicParts = new Dictionary<HousePartType, List<HousePartInfo>>();
 
         public bool AddNewPartToInventory(HousePartInfo newPartInfo)
         {
             if(newPartInfo == null) return false;
-            if (ownedParts.ContainsKey(newPartInfo.housePartType))
+            var targetDict = newPartInfo.isPublic ? ownedPublicParts : ownedParts;
+            if (targetDict.ContainsKey(newPartInfo.housePartType))
             {
-                var value = ownedParts[newPartInfo.housePartType];
+                var value = targetDict[newPartInfo.housePartType];
 
                 if (value.Exists(part => part.partID == newPartInfo.partID)) return false;
                 value.Add(Instantiate(newPartInfo));
             }
             else
             {
-                ownedParts.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo });
+                targetDict.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo });
             }
             //Debug.Log($"Added {newPartInfo.partID} to inventory");
             return true;
@@ -30,10 +32,10 @@ namespace HappyHouse.HouseSystem
         public bool RemovePartFromInventory(HousePartInfo partToRemove)
         {
             if (partToRemove == null) return false;
-
-            if (ownedParts.ContainsKey(partToRemove.housePartType))
+            var targetDict = partToRemove.isPublic ? ownedPublicParts : ownedParts;
+            if (targetDict.ContainsKey(partToRemove.housePartType))
             {
-                var value = ownedParts[partToRemove.housePartType];
+                var value = targetDict[partToRemove.housePartType];
 
                 // Find the part with the matching ID and remove it
                 var part = value.FirstOrDefault(p => p.partID == partToRemove.partID);
@@ -43,7 +45,7 @@ namespace HappyHouse.HouseSystem
 
                     if (value.Count == 0)
                     {
-                        ownedParts.Remove(partToRemove.housePartType);
+                        targetDict.Remove(partToRemove.housePartType);
                     }
                     Debug.Log($"Removed {partToRemove.partID} from inventory");
                     return true;
@@ -54,11 +56,12 @@ namespace HappyHouse.HouseSystem
         }
         public bool PlayerOwnsPart(HousePartInfo part)
         {
+            var targetDict = part.isPublic ? ownedPublicParts : ownedParts;
             //Debug.Log($"Check {part.partID}");
-            if (ownedParts.ContainsKey(part.housePartType))
+            if (targetDict.ContainsKey(part.housePartType))
             {
-                var value = ownedParts[part.housePartType];
-                return ownedParts[part.housePartType].Exists(p => p.partID == part.partID);
+                var value = targetDict[part.housePartType];
+                return targetDict[part.housePartType].Exists(p => p.partID == part.partID);
             }
             return false;
         }

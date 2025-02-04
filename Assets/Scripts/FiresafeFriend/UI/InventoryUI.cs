@@ -71,11 +71,12 @@ public class InventoryUI : MonoBehaviour
         var partDict = player.inventory.ownedParts[partType];
         for (int i = 0;i < partDict.Count; i++)
         {
-            var categoryItem = items[i];
+            var inventoryItem = items[i];
             var info = partDict[i];
+            //Debug.Log($"info {i} = {info.partID}");
             items[i].InitCategoryItem(info);
             bool isInUse = player.PartIsInUse(info);
-            categoryItem.SetIsInUse(isInUse);
+            inventoryItem.SetIsInUse(isInUse);
         }
         //foreach (var p in player.inventory.ownedParts[partType])
         //{

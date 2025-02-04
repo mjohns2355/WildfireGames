@@ -52,11 +52,15 @@ public class HH_UIManager : MonoBehaviour
         quizPopup.gameObject.SetActive(true);
         quizPopup.InitQuizPopup();
     }
-    public void ShowStoreScreen(HousePartType houseType, PurchaseFloatingButton clickedButton = null)
+    public void ShowStoreScreen(HousePartType partType, bool isPublic = false/*, PurchaseFloatingButton clickedButton = null*/)
     {
+        if (isPublic)
+        {
+            Debug.Log("Show store of public fences");
+        }
         storePanel.gameObject.SetActive(true);
-        storePanel.SetCurrentPurchaseFloatingButton(clickedButton);
-        storePanel.ShowStorePanel(houseType);
+        //storePanel.SetCurrentPurchaseFloatingButton(clickedButton);
+        storePanel.ShowStorePanel(partType,isPublic);
     }
 
     public void ShowPlantsMenu(FF_DirtMound owner)

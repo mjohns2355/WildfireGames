@@ -42,7 +42,7 @@ public class PurchaseFloatingButton : MonoBehaviour
         }
         else
         {
-            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType, this);
+            HH_GameManager.Instance.uiManager.ShowStoreScreen(ownerPart.partInfo.housePartType,ownerPart.partInfo.isPublic);
         }
         
     }

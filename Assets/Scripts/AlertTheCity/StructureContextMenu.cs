@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 public class StructureContextMenu : MonoBehaviour
 {
     //public Action<OptionButton> onOptionSelected;
-    public Action onOptionSelected;
+    public Action onOptionConfirmed;
     //public OptionButton changeResponseButton;
     //public OptionButton confirmButton;
     public Button confirm, restart;
@@ -58,7 +59,7 @@ public class StructureContextMenu : MonoBehaviour
             //{
 
             //}
-            onOptionSelected.Invoke();
+            onOptionConfirmed.Invoke();
             isSelected = true;
 
             GameManager.Instance.cameraMovement.ResetCam();
@@ -99,7 +100,7 @@ public class StructureContextMenu : MonoBehaviour
         if(owner == null) return;
         //menuUI.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
-        Debug.Log($"{house.HouseType} is selected: {isSelected}");
+        //Debug.Log($"{house.HouseType} is selected: {isSelected}");
         //if (CurrentOption != null)
         //{
         //    Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
@@ -255,54 +256,44 @@ public class StructureContextMenu : MonoBehaviour
     public void OnOptionButtonClicked(OptionButton option)
     {
         HouseStructure house = (HouseStructure)owner;
-        //if (option.needConfirmation)
-        //{
-        //    //ToggleChangeResponsePanel(true,option);
-        //}
-        //else
-        //{
-        //confirm.interactable = true;
-        //if (!allowMultipleChoices)
-        //{
-        //    if (CurrentOption != null)
-        //    {
-        //        previousOption = CurrentOption;
-        //        previousOption.ToggleOptionSelectState(false);
-        //    }
-        //    CurrentOption = option;
-        //    CurrentOption.ToggleOptionSelectState(true);
-        //    //OnMenuDisable();
-        //    //}
-
-        //    if (CurrentOption == null) return;
-        //    //onOptionSelected.Invoke();
-        //}
-        //else 
-        //{
-        // Toggle selection
+        string waitForNotice = "Wait for Notice";
+        string evacuateEarly = "Evacuate Early";
         if (selectedOptions.Contains(option))
-            {
-                option.ToggleOptionSelectState(false);
-                selectedOptions.Remove(option);
-            }
-            else
-            {
-                if (selectedOptions.Count >= house.houseInfo.requiredChoicesCount)
-                {
-                    var oldestOption = selectedOptions[0];
-                    oldestOption.ToggleOptionSelectState(false);
-                    selectedOptions.RemoveAt(0);
-                }
+        {
+            option.ToggleOptionSelectState(false);
+            selectedOptions.Remove(option);
+        }
+        else
+        {
+            // Check for conflicting options
+            OptionButton conflictingOption = selectedOptions.FirstOrDefault(o =>
+                        (o.GetOptionContent() == waitForNotice && option.GetOptionContent() == evacuateEarly) ||
+                        (o.GetOptionContent() == evacuateEarly && option.GetOptionContent() == waitForNotice));
 
-                // Add the new selection
-                option.ToggleOptionSelectState(true);
-                selectedOptions.Add(option);
+            if (conflictingOption != null)
+            {
+                Debug.Log("Conflicting options: " + conflictingOption.GetOptionContent());
+                conflictingOption.ToggleOptionSelectState(false);
+                selectedOptions.Remove(conflictingOption);
             }
-        Debug.Log($"Selected {selectedOptions.Count} choices");
+
+            // handle any multi-choice logic
+            if (selectedOptions.Count >= house.houseInfo.requiredChoicesCount)
+            {
+                var oldestOption = selectedOptions[0];
+                oldestOption.ToggleOptionSelectState(false);
+                selectedOptions.RemoveAt(0);
+            }
+
+            // Add the new selection
+            option.ToggleOptionSelectState(true);
+            selectedOptions.Add(option);
+        }
+        //Debug.Log($"Selected {selectedOptions.Count} choices");
         confirm.interactable = true;
         //confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
-            //onOptionSelected.Invoke();
-            // }
+        //onOptionSelected.Invoke();
+        // }
     }
     public void ApplyBehavior()
     {
@@ -310,28 +301,5 @@ public class StructureContextMenu : MonoBehaviour
         StartCoroutine(house.SpawnCarRoutine());
     }
 
-    //void ToggleChangeResponsePanel(bool state, OptionButton currentOption = null)
-    //{
-    //    explaination.transform.parent.gameObject.SetActive(state);
-    //    options.gameObject.SetActive(!state);
 
-    //    if(state == true)
-    //    {
-    //        confirmButton.button.onClick.AddListener(() =>
-    //        {
-    //            currentOption.needConfirmation = false;
-    //            OnOptionButtonClicked(currentOption);
-    //        });
-    //    }
-    //    else
-    //    {
-    //        if(currentOption != null)
-    //        {
-    //            currentOption.needConfirmation = true;
-    //            confirmButton.button.onClick.RemoveAllListeners();
-    //        }
-
-    //    }
-
-    //}
 }

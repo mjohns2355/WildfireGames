@@ -16,6 +16,7 @@ public class StorePanel : MonoBehaviour
     private PurchaseFloatingButton currentButton;
     private List<PartButton> allShopPartIcons;
     private HouseManager player;
+    private bool isPublic;
 
     private void Start()
     {
@@ -32,10 +33,10 @@ public class StorePanel : MonoBehaviour
 
     }
 
-    public void ShowStorePanel(HousePartType type)
+    public void ShowStorePanel(HousePartType type, bool isPublic = false)
     {
         ClearIconsInStores();
-
+        this.isPublic = isPublic;
         player = HH_GameManager.Instance.currentPlayer;
         targetCategory = type;
         typeCategoryText.text = type.ToString();
@@ -62,13 +63,16 @@ public class StorePanel : MonoBehaviour
     {
         foreach( var p in ResourceManager.Instance.allAvailableParts[targetCategory])
         {
-            if (player.inventory.PlayerOwnsPart(p))
+            var info = Instantiate(p, available);
+            info.isPublic = isPublic;
+
+            if (player.inventory.PlayerOwnsPart(info))
             {
-                //Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
+                Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
                 continue;
             }
             var icon = Instantiate(shopPartIcon,available.transform).GetComponent<PartButton>();
-            icon.InitPartIconButton(p);
+            icon.InitPartIconButton(info);
         }
     }
 

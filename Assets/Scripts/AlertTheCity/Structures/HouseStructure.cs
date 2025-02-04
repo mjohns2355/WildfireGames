@@ -71,7 +71,7 @@ public class HouseStructure : Structure
 
         // defaults option if player doesn't select
         currentOption = houseInfo.defaultChoice.choiceName;
-        contextMenu.onOptionSelected += OnOptionButtonClicked;
+        contextMenu.onOptionConfirmed += OnOptionConfirmed;
         //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
         InitSpecialStructDict();
         //default destination
@@ -226,7 +226,7 @@ public class HouseStructure : Structure
 
 
 
-    void OnOptionButtonClicked()
+    void OnOptionConfirmed()
     {
         foreach (var option in contextMenu.selectedOptions)
         {
@@ -251,7 +251,7 @@ public class HouseStructure : Structure
             if (!currentChoice.isNormal)
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
-                //Debug.Log($"rng: {rng}");
+                //Make sure at least one type of house doesn't follow the instruction
                 if (GameManager.Instance.CountFollowedInstructions() == 0 || rng > 0.5)
                 {
                     //currentChoice = houseInfo.defaultChoice;
