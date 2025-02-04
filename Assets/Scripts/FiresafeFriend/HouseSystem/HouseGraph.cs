@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HappyHouse.HouseSystem;
+using System.Linq;
 public class HouseGraph
 {
     public List<HouseNode> nodes = new List<HouseNode>();
@@ -45,10 +46,9 @@ public class HouseGraph
         Debug.Log($"Removed node {node.housePart.name}");
         // Remove connections to the node being removed
 
-        for (int i = node.neighbourNodes.Count - 1; i >= 0; i--)
+        foreach (var neighbour in node.neighbourNodes.ToList())
         {
-            var neighbour = node.neighbourNodes[i];
-            neighbour.RemoveConnection(node); // Modify the collection safely
+            neighbour.RemoveConnection(node);
         }
         //foreach (var neighbour in node.neighbourNodes)
         //{

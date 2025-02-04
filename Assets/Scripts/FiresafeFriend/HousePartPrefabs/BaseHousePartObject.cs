@@ -130,11 +130,9 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         if (Owner == null || houseNode == null)
         {
-            Debug.Log("No valid house node");
+            //Debug.Log("No valid house node");
             yield break;
         }
-
-        
         while (isOnFire)
         {
             var houseGraph = Owner.houseGraph;

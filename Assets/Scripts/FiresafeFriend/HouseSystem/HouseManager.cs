@@ -150,13 +150,28 @@ namespace HappyHouse.HouseSystem
 
             foreach (var oldPart in oldParts)
             {
-                if (oldPart.shouldDisplayBubble)
+ 
+                if (oldPart.houseNode != null)
                 {
-                    oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
-                    oldPart.shouldDisplayBubble = !shouldHideBubble;
+                    if (oldPart.shouldDisplayBubble)
+                    {
+                        oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+                        oldPart.shouldDisplayBubble = !shouldHideBubble;
+                    }
+
+                    var oldNeighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
+                    houseGraph.RemoveHousePart(oldPart.houseNode);  // Remove old node
+
+                    oldPart.InitHousePartObject(this, housePartInfo);
+                    var newNode = houseGraph.AddHousePart(oldPart);
+                    oldPart.houseNode = newNode;
+
+                    // Reconnect previous neighbors
+                    foreach (var neighbor in oldNeighbors)
+                    {
+                        houseGraph.ConnectParts(newNode, neighbor);
+                    }
                 }
-                
-                oldPart.InitHousePartObject(this, housePartInfo);
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
