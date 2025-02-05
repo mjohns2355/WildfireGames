@@ -53,13 +53,15 @@ public class BaseHousePartObject : FF_BaseCombustible
         if (obj.transform.parent == transform && !notInteractable)
         {
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType,partInfo.isPublic);
+            
         }
+
+        
     }
 
     public virtual void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         var part = housePart == null ? partInfo : housePart;
-        
         HousePartType = part.housePartType;
         durability = part.durability;
         flammability = part.flammability;
@@ -128,9 +130,13 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private IEnumerator SpreadFireToNeighbour()
     {
+        if(gameObject.tag == "Fence")
+        {
+            yield break;
+        }
         if (Owner == null || houseNode == null)
         {
-            //Debug.Log("No valid house node");
+            Debug.Log("No valid house node");
             yield break;
         }
         while (isOnFire)
