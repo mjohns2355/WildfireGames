@@ -19,7 +19,7 @@ public class FF_DirtMound : MonoBehaviour
     {        
         bubble = HH_GameManager.Instance.uiManager.SpawnBubble();
         bubble.InitBubbleForPlant(this, !(currentPlant == null), bubblePos.position);
-        menuPos = bubblePos.position + new Vector3(0, 15f , 0);
+        //menuPos = bubblePos.position + new Vector3(0, 15f , 0);
         //bubble.SetTargetPosition(bubblePos.position);
         //bubble.SetPlantIcon(!(currentPlant == null));
         availablePlants = new List<FF_Plants>(ResourceManager.Instance.plants);
@@ -64,9 +64,11 @@ public class FF_DirtMound : MonoBehaviour
         {
             Debug.Log("shovel");
             //availablePlants.Add(currentPlant);
-            menuPos = bubblePos.position + new Vector3(0, 15f, 0);
+            //menuPos = bubblePos.position + new Vector3(0, 15f, 0);
 
-            bubble.SetTargetPosition(bubblePos.position);
+            //bubble.SetTargetPosition(bubblePos.position);
+            HH_GameManager.Instance.uiManager.HidePlantsMenu();
+            bubble.gameObject.SetActive(true);
             foreach (var p in ResourceManager.Instance.plants)
             {
                 if (p.combustibleInfo.partID == currentPlant.combustibleInfo.partID)
@@ -79,6 +81,7 @@ public class FF_DirtMound : MonoBehaviour
             plantToDestroy.onPlantClicked = null;
             currentPlant = null;
             Destroy(plantToDestroy.gameObject);
+            
         }
     }
 }

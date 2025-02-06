@@ -21,10 +21,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
-    bool isPlantMode = false;
+    public bool IsPlantMode { get; private set; }
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
+        IsPlantMode = false;
         base.Awake();
         fences = GameObject.FindGameObjectsWithTag("Fence");
     }
@@ -39,6 +40,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void Update()
     {
+        //debug
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Time.timeScale = 5.0f;
@@ -141,7 +143,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void ChangeGameMode(bool isPlantMode)
     {
-        this.isPlantMode = isPlantMode;
+        IsPlantMode = isPlantMode;
         if(isPlantMode)
         {
             Debug.Log("Plant Mode");

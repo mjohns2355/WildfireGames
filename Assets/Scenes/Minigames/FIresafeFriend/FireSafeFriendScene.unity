@@ -12919,6 +12919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 1161638503}
   plantOptionPrefab: {fileID: 3693310830688038350, guid: f4cb956160a43f04cafad9bee1a09ff5, type: 3}
+  posOffset: {x: 0, y: 15, z: 0}
 --- !u!1 &1080398328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8513424388201257645, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
@@ -13054,8 +13055,8 @@ RectTransform:
   - {fileID: 1452184648}
   - {fileID: 1523360523}
   - {fileID: 2123481751}
-  - {fileID: 1074963085}
   - {fileID: 1331221329}
+  - {fileID: 1074963085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -26363,6 +26364,7 @@ MonoBehaviour:
   h1CamPos: {fileID: 1157772347}
   h2CamPos: {fileID: 1972183036}
   plantModeCamPos: {fileID: 1224234722}
+  plantModeCamFOV: 30
   uiManager: {fileID: 1087839861}
   currentPlayer: {fileID: 0}
   inputManager: {fileID: 1179019946}

@@ -7,27 +7,52 @@ public class FF_PlantsMenu : MonoBehaviour
 {
     public Transform grid;
     public GameObject plantOptionPrefab;
-
+    [SerializeField] Vector3 posOffset;
     FF_DirtMound currentOwner;
     Vector3 pos;
+    float baseDistance;
     // Start is called before the first frame update
     void Start()
     {
-      
+        baseDistance = Vector3.Distance(Camera.main.transform.position, pos);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
+        Vector3 adjustedOffset = Vector3.zero;
+        if (HH_GameManager.Instance.IsPlantMode)
+        {
+            float fovScale = Mathf.Clamp(Camera.main.fieldOfView / 60, 0.5f, 1.2f);
+            adjustedOffset = posOffset * fovScale;
+           
+        }
+        else
+        {
+            float distance = Vector3.Distance(Camera.main.transform.position, pos);
+            
+            float distanceScale = Mathf.Clamp(distance / baseDistance, 0.5f, 1.2f);
+
+            adjustedOffset = posOffset * distanceScale;
+        }
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(pos + adjustedOffset);
+        float padding = 50f; 
+        screenPos.x = Mathf.Clamp(screenPos.x, padding, Screen.width - padding);
+        screenPos.y = Mathf.Clamp(screenPos.y, padding, Screen.height - padding);
+
         transform.position = screenPos;
+        //Vector3 cameraForward = Camera.main.transform.forward;
+        //cameraForward.y = 0; // Keep it upright (prevents unwanted tilting)
+
+        //transform.rotation = Quaternion.LookRotation(cameraForward);
     }
 
     public void ShowPlantsMenu(FF_DirtMound owner)
     {
         ClearOptions();
         currentOwner = owner;
-        pos = owner.menuPos;
+        pos = owner.bubblePos.position;
         currentOwner.OnPlanted += OnPlanted;
         PopulateOptions();
     }
