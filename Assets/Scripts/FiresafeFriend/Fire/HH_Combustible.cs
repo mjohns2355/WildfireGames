@@ -83,7 +83,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     }
     public virtual void TryIgnite()
     {
-        if (isOnFire) return;
+        if (isOnFire ||!HH_GameManager.Instance.IsFireStarted) return;
 
         float fireCatchChance = CalculateFireCatchChance(flammability);
 

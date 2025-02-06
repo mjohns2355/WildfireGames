@@ -1,3 +1,4 @@
+using HappyHouse.FireSystem;
 using HappyHouse.HouseSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,plantModeCamPos;
+    public float fireTimer = 60f;
     public float plantModeCamFOV = 30f;
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
@@ -17,6 +19,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public FF_skybox skyboxController;
     [SerializeField] Button startFireBtn, endRoundBtn;
     public bool IsGameStarted {  get; private set; }
+    public bool IsFireStarted {  get; private set; }
     private GameObject[] fences;
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
@@ -31,15 +34,28 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     private void Start()
     {
-        fireManager.fireEndEvent.AddListener(() =>
-        {
-            ToggleHousesClickBox(true);
-        });
+
+
         
     }
 
     private void Update()
     {
+
+        if (!IsFireStarted) return;
+        if (fireTimer > 0)
+        {
+            fireTimer -= Time.deltaTime;
+        }
+        else
+        {
+            IsFireStarted = false;
+            var fires = FindObjectsOfType<FireController>();
+            foreach (var f in fires)
+            {
+                Destroy(f.gameObject);
+            }
+        }
         //debug
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -113,6 +129,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
+        IsFireStarted = true;
         uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky();
@@ -128,6 +145,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         StartFire();
         //startFireBtn.gameObject.SetActive(true);
         endRoundBtn.gameObject.SetActive(false);
+        p1.nameText.SetActive(false);
+        p2.nameText.SetActive(false);
     }
 
     public void ToggleHousesClickBox(bool toggle)
