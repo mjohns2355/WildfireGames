@@ -9,16 +9,18 @@ public class HH_CameraController : MonoBehaviour
     public float zoomSpeed = 5f;
     public float moveSpeed = 5f; 
     public float zoomDistance = 5f;
-    public float maxFOV = 50;
+    public float maxFOV = 70;
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
     private bool isZooming = false;
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    private Vector3 defaultPosition;
+    private Quaternion defaultRotation;
+    private float defaultFOV;
     private void Awake()
     {
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
+        defaultPosition = transform.position;
+        defaultRotation = transform.rotation;
+        defaultFOV = Camera.main.fieldOfView;   
     }
     private void Start()
     {
@@ -46,12 +48,19 @@ public class HH_CameraController : MonoBehaviour
     }
 
 
-    private void MoveToHouse(HouseManager targetHouse)
+    public void MoveToHouse(HouseManager targetHouse)
     {
         Debug.Log($"Move to house {targetHouse.playerTag}");
         //targetPosition = targetHouse.transform.position + camPosOffset - targetHouse.transform.forward * zoomDistance;
-        targetPosition = targetHouse.camTransform.position;
-        Camera.main.transform.rotation = targetHouse.camTransform.rotation;
+        var targetCamTransform = targetHouse.playerTag == "P1" ? HH_GameManager.Instance.h1CamPos : HH_GameManager.Instance.h2CamPos;
+        Zoomcamera(targetCamTransform);
+    }
+
+    public void Zoomcamera(Transform targetTransform, float maxFov = 70)
+    {
+        maxFOV = maxFov;
+        targetPosition = targetTransform.position;
+        Camera.main.transform.rotation = targetTransform.rotation;
         isZooming = true;
     }
 
@@ -59,6 +68,7 @@ public class HH_CameraController : MonoBehaviour
     {
         Debug.Log("Reset Camera");
         
-        transform.SetPositionAndRotation(originalPosition, originalRotation);
+        transform.SetPositionAndRotation(defaultPosition, defaultRotation);
+        Camera.main.fieldOfView = defaultFOV;
     }
 }

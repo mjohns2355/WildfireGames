@@ -10,7 +10,7 @@ namespace HappyHouse.HouseSystem
     {
         //public HouseBlueprint houseBlueprint;
 
-        public Transform camTransform;
+        //public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
         // player budget
@@ -121,6 +121,7 @@ namespace HappyHouse.HouseSystem
 
         public void ToggleAllPurchaseIcons(bool state)
         {
+            if (purchaseFloatingButtons.Count == 0) return;
             foreach (var icon in purchaseFloatingButtons)
             {
                 icon.gameObject.SetActive(state);

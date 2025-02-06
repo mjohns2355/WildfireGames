@@ -89,8 +89,12 @@ public class HH_UIManager : MonoBehaviour
     {
         purchasePopup.gameObject.SetActive(false);
         //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
-        storePanel.gameObject.SetActive(true);
-        storePanel.ShowStorePanel(partInfo.housePartType);
+        if (partInfo)
+        {
+            storePanel.gameObject.SetActive(true);
+            storePanel.ShowStorePanel(partInfo.housePartType);
+        }
+            
 
     }
 

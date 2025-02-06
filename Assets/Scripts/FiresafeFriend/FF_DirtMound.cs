@@ -42,6 +42,8 @@ public class FF_DirtMound : MonoBehaviour
 
     public void Plant(FF_Plants plant)
     {
+        //shovel existing plant
+        Shovel();
         Debug.Log("plant");
         currentPlant = Instantiate(plant, plantHolder);
 

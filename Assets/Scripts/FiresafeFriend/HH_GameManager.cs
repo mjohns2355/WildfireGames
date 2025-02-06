@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public HappyHouse.FireSystem.FireManager fireManager;
-    public Transform h1, h2;
+    public Transform h1, h2, h1CamPos,h2CamPos,plantModeCamPos;
+    public float plantModeCamFOV = 30f;
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
@@ -20,7 +21,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
-    
+    bool isPlantMode = false;
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
@@ -138,5 +139,37 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SceneManager.LoadScene("FiresafeFriendScene");
     }
 
+    public void ChangeGameMode(bool isPlantMode)
+    {
+        this.isPlantMode = isPlantMode;
+        if(isPlantMode)
+        {
+            Debug.Log("Plant Mode");
+            cameraController.Zoomcamera(plantModeCamPos,plantModeCamFOV);
+            inputManager.canClickHouse = false;
+            //hide ui
 
+            if (currentPlayer)
+            {
+                currentPlayer.ToggleAllPurchaseIcons(false);
+            }
+
+            uiManager.HideStoreScreen();
+            uiManager.ToggleInventory(false);
+            uiManager.HidePurchasePopup(null);
+        }
+        else
+        {
+            Debug.Log("House Mode");
+            inputManager.canClickHouse = true;
+            if (IsGameStarted)
+            {
+                cameraController.MoveToHouse(currentPlayer);
+            }
+            else
+            {
+                cameraController.ResetCamera();
+            }
+        }
+    }
 }
