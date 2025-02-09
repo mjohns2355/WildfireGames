@@ -44,7 +44,7 @@ public class FF_DirtMound : MonoBehaviour
     {
         //shovel existing plant
         Shovel();
-        Debug.Log("plant");
+        //Debug.Log("plant");
         currentPlant = Instantiate(plant, plantHolder);
 
         //currentPlant.isClickable = false;
@@ -62,7 +62,7 @@ public class FF_DirtMound : MonoBehaviour
     {
         if (currentPlant != null)
         {
-            Debug.Log("shovel");
+            //Debug.Log("shovel");
             //availablePlants.Add(currentPlant);
             //menuPos = bubblePos.position + new Vector3(0, 15f, 0);
 

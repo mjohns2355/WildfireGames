@@ -134,7 +134,7 @@ namespace HappyHouse.HouseSystem
             {
                 if (node.housePart.partInfo.partID == partInfo.partID && node.housePart.HousePartType == partInfo.housePartType)
                 {
-                    Debug.Log($"{partInfo.partID} is in use by {node.housePart.name}");
+                    //Debug.Log($"{partInfo.partID} is in use by {node.housePart.name}");
                     return true;
                 }
             }
@@ -147,7 +147,7 @@ namespace HappyHouse.HouseSystem
 
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
-            //Debug.Log($"{oldParts.Count} pieces of {newPart.name} is in use");
+            //Debug.Log($"{oldParts.Count} pieces of {housePartInfo.housePartType} is in use");
 
             foreach (var oldPart in oldParts)
             {
@@ -172,6 +172,10 @@ namespace HappyHouse.HouseSystem
                     {
                         houseGraph.ConnectParts(newNode, neighbor);
                     }
+                }
+                else if(housePartInfo.isPublic)
+                {
+                    oldPart.InitHousePartObject(this, housePartInfo);
                 }
             }
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
@@ -269,7 +273,7 @@ namespace HappyHouse.HouseSystem
                             var wallMaterial = RandomizeWall();
                             if (wallMaterial != null)
                             {
-                                Debug.Log($"Randomized Wall: {wallMaterial.name}");
+                                //Debug.Log($"Randomized Wall: {wallMaterial.name}");
                                 res = wallMaterial;
                             }
                             break;
@@ -277,7 +281,7 @@ namespace HappyHouse.HouseSystem
                             var roofMaterial = RandomizeRoof();
                             if (roofMaterial != null)
                             {
-                                Debug.Log($"Randomized Roof: {roofMaterial.name}");
+                                //Debug.Log($"Randomized Roof: {roofMaterial.name}");
                                 res = roofMaterial;
                             }
                             break;
@@ -285,7 +289,7 @@ namespace HappyHouse.HouseSystem
                             var otherMaterial = RandomizeOtherParts(type);
                             if (otherMaterial != null)
                             {
-                                Debug.Log($"Randomized {type}: {otherMaterial.name}");
+                                //Debug.Log($"Randomized {type}: {otherMaterial.name}");
                                 res = otherMaterial;
                             }
                             break;

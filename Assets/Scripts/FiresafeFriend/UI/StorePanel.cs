@@ -64,11 +64,12 @@ public class StorePanel : MonoBehaviour
         foreach( var p in ResourceManager.Instance.allAvailableParts[targetCategory])
         {
             var info = Instantiate(p, available);
+            //Debug.Log($"{p.name} is public: {isPublic}");
             info.isPublic = isPublic;
 
             if (player.inventory.PlayerOwnsPart(info))
             {
-                Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
+                //Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
                 continue;
             }
             var icon = Instantiate(shopPartIcon,available.transform).GetComponent<PartButton>();

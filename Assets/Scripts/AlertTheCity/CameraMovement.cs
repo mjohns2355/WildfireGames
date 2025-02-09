@@ -8,8 +8,8 @@ public class CameraMovement : MonoBehaviour
 {
     public Camera gameCamera;
     public float cameraMovementSpeed = 5;
-    [Range(0f, 1f)]
-    [SerializeField] float cameraZoomSpeed;
+    [Range(0f, 10f)]
+    [SerializeField] float cameraZoomSpeed,cameraZoomToHouseSpeed;
     [SerializeField] float lerpSpeed;
     [SerializeField] private float maxFOV;
     [SerializeField] private float minFOV;
@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
     Vector3 camPos;
     private Vector3 camStartPos;
     private Quaternion camStartRotation;
-    private float camStartFOV;
+    private float camStartFOV,targetFOV;
     float smoothTime = 0.1f;
     float velocity = 0.0f;
     [SerializeField] private GameObject lastHit;
@@ -47,10 +47,13 @@ public class CameraMovement : MonoBehaviour
     {
         if(isFocusing)
         {
+            
+            //gameCamera.fieldOfView = 5;
+            //transform.position = targetPosition;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, cameraZoomToHouseSpeed * Time.deltaTime);
             gameCamera.transform.LookAt(target.position);
-            gameCamera.fieldOfView = 5;
-            transform.position = targetPosition;
-           
+
+            gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, targetFOV, cameraZoomToHouseSpeed * Time.deltaTime);
 
             RaycastHit hit;
 
@@ -140,6 +143,7 @@ public class CameraMovement : MonoBehaviour
         //Debug.Log($"Move to house {targetHouse.transform.position}");
         GameManager.Instance.canControlCam = false;
         camStartFOV = gameCamera.fieldOfView;
+        targetFOV = 5f;
         Vector3 roadToHouse = (targetHouse.transform.position - targetHouse.roadPosition).normalized;
         targetPosition = targetHouse.roadPosition - (roadToHouse* focusDistance);
         targetPosition.y += 5f;
@@ -159,6 +163,9 @@ public class CameraMovement : MonoBehaviour
             lastHit = null;
         }
         gameCamera.fieldOfView = camStartFOV;
+        targetPosition = camStartPos;
+        transform.rotation = camStartRotation;
+
         transform.SetPositionAndRotation(camStartPos, camStartRotation);
         GameManager.Instance.canControlCam = true;
     }
