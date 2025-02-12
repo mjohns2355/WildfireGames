@@ -182,10 +182,11 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             foreach(var mesh in meshes)
             {
-                var burnt = Instantiate(burntModel);
+                var burnt = Instantiate(burntModel,transform);
                 burnt.transform.position = mesh.transform.position;
                 burnt.material = mesh.material;
                 mesh.gameObject.SetActive(false);
+                mesh.material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
             }
         }
     }
@@ -202,7 +203,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     private void HandleBurnedOut()
     {
         //Debug.Log("Burnt");
-        Destroy(gameObject);
     }
 
     private void HandleDestroy()

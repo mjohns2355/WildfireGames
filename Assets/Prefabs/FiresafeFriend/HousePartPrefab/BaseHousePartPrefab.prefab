@@ -79,19 +79,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combustibleInfo: {fileID: 0}
   isOnFire: 0
+  burntColor: {r: 0, g: 0, b: 0, a: 0.4745098}
   heat: 0
   heatThreshold: 100
   mustDestroy: 0
   notInteractable: 0
   bubble: {fileID: 0}
   shouldDisplayBubble: 0
+  topPosition: {x: 0, y: 0, z: 0}
+  bottomPosition: {x: 0, y: 0, z: 0}
   baseBurnTime: 10
   meshes: []
+  burntModel: {fileID: 0}
   bubblePos: {fileID: 267767040213175381}
   VFX: {fileID: 0}
   vfxPos: {fileID: 89261144152478812}
   isOnCursor: 0
   partInfo: {fileID: 0}
+  defaultPartInfo: {fileID: 0}
   burnMaterial: {fileID: -1580535799172915004, guid: 9d79a90f129e6814aad24a99025bbf42, type: 3}
   neighbours: []
 --- !u!1 &8336627148926145573

@@ -12,7 +12,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
 
     public bool isOnFire = false;
     //public BurnStage burnStage = BurnStage.Igniting;
-
+    [SerializeField] protected Color burntColor;
     public float heat = 0;
     [SerializeField] protected float heatThreshold = 100f;
     public bool mustDestroy = false;
