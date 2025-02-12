@@ -5,63 +5,63 @@
       "rootNodeId": "1",
       "nodes": [
         {
-          "id": "1",
-          "characterName": "Owner of 2 Cars",
-          "dialogText": "Hi there! I heard you're asking folks about wildfire safety. We've been thinking about it a lot lately, especially since we've got two cars and both of us have work commitments. It's hard to know the best plan.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "optionText": "It sounds like having two cars could give you more options. How do you plan to use them if a fire comes close?",
-              "nextNodeId": "2"
-            },
-            {
-              "optionText": "Have you considered whether having two cars might complicate your evacuation?",
-              "nextNodeId": "3"
-            }
-          ]
+            "id": "1",
+            "characterName": "Owner of 2 Cars",
+            "dialogText": "Hi! I heard you're asking about wildfire safety. We've been thinking about it too. We have two cars and jobs, so making a plan is tricky.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "optionText": "Having two cars could help. What’s your plan if a fire gets close?",
+                    "nextNodeId": "2"
+                },
+                {
+                    "optionText": "Have you thought about how two cars might make evacuating harder?",
+                    "nextNodeId": "3"
+                }
+            ]
         },
         {
-          "id": "2",
-          "characterName": "Owner of 2 Cars",
-          "dialogText": "That's what we were thinking too. With two cars, we could leave separately if needed, or fit more stuff in each one. But we worry about traffic—if we both drive out, what if one of us gets stuck?",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "option": "Take both Cars",
-              "optionText": "That's a good point. Do you have a plan to stick together in case you need to evacuate at the same time?",
-              "nextNodeId": "4"
-            },
-            {
-              "option": "Leave one Car",
-              "optionText": "Maybe it's safer to leave one car behind and travel together, especially if traffic is bad.",
-              "nextNodeId": "4"
-            }
-          ]
+            "id": "2",
+            "characterName": "Owner of 2 Cars",
+            "dialogText": "Yeah, that’s what we thought too. We could leave separately and pack more, but what if one of us gets stuck in traffic?",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "option": "Take both Cars",
+                    "optionText": "Good point. Do you have a plan to stay together if you evacuate at the same time?",
+                    "nextNodeId": "4"
+                },
+                {
+                    "option": "Leave one Car",
+                    "optionText": "Maybe it’s safer to take one car and stay together, especially if traffic is bad.",
+                    "nextNodeId": "4"
+                }
+            ]
         },
         {
-          "id": "3",
-          "characterName": "Owner of 2 Cars",
-          "dialogText": "Hmm, yeah, we've been going back and forth on that. One car could simplify things, but what if we need the second car for flexibility? Plus, we'd hate to leave one behind—it's a big part of our daily routine.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "option": "Leave one Car",
-              "optionText": "Sometimes simplifying your plan can save time in a stressful situation.",
-              "nextNodeId": "4"
-            },
-            {
-              "option": "Relocate 2nd Car",
-              "optionText": "It's always a risk to leave something behind. Maybe you could look into a place to relocate the second car on Red Flag Days?",
-              "nextNodeId": "4"
-            }
-          ]
+            "id": "3",
+            "characterName": "Owner of 2 Cars",
+            "dialogText": "Yeah, we’ve been debating that. One car is simpler, but the second gives us options. Plus, it’s hard to leave it behind since we use it every day.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "option": "Leave one Car",
+                    "optionText": "A simple plan saves time when things get stressful.",
+                    "nextNodeId": "4"
+                },
+                {
+                    "option": "Relocate 2nd Car",
+                    "optionText": "Leaving something behind is tough. Could you move the second car to a safer spot on Red Flag Days?",
+                    "nextNodeId": "4"
+                }
+            ]
         },
         {
-          "id": "4",
-          "characterName": "Owner of 2 Cars",
-          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my family.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "isEndNode": "true"
+            "id": "4",
+            "characterName": "Owner of 2 Cars",
+            "dialogText": "It's a lot to think about. Ultimately we need to make the choice that's right for us.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "isEndNode": "true"
         }
       ]
     },
@@ -70,61 +70,61 @@
       "rootNodeId": "10",
       "nodes": [
         {
-          "id": "10",
-          "characterName": "Worried Parents",
-          "dialogText": "Hey! Thanks for coming by. We've got two young kids, and wildfire season's been worrying us. Their school is nearby, and we're wondering what to do if a fire comes while they're at school.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
-          "options": [
-            {
-              "optionText": "Have you spoken to the school about their wildfire evacuation plans?",
-              "nextNodeId": "11"
-            },
-            {
-              "optionText": "In a wildfire, schools are generally safe places. Would it make sense to leave them there?",
-              "nextNodeId": "12"
-            }
-          ]
+            "id": "10",
+            "characterName": "Worried Parents",
+            "dialogText": "Thanks for talking with me. We’ve got two young kids, and wildfire season’s been worrying us. We’re not sure what to do if a fire hits while they’re at school.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+            "options": [
+                {
+                    "optionText": "Have you talked to the school about their wildfire evacuation plans?",
+                    "nextNodeId": "11"
+                },
+                {
+                    "optionText": "Schools are safer during a wildfire, should you leave them there?",
+                    "nextNodeId": "12"
+                }
+            ]
         },
         {
-          "id": "11",
-          "characterName": "Worried Parents",
-          "dialogText": "Yeah, they do have a plan, but I still feel uneasy. I mean, I'd feel better if we were all together. The thought of being apart from them during an evacuation is terrifying.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
-          "options": [
-            {
-              "option": "Safer at school",
-              "optionText": "It might help to trust the school's plan so you can focus on your evacuation.",
-              "nextNodeId": "13"
-            },
-            {
-              "option": "Pick up children",
-              "optionText": "I get it, safety is the priority. Have you considered picking them up early just to be safe?",
-              "nextNodeId": "13"
-            }
-          ]
+            "id": "11",
+            "characterName": "Worried Parents",
+            "dialogText": "They have a plan, but I still feel uneasy. I'd feel better if we were together—being apart during an evacuation is scary.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+            "options": [
+                {
+                    "option": "Safer at school",
+                    "optionText": "It might help to trust the school's plan so you can focus on your own evacuation.",
+                    "nextNodeId": "13"
+                },
+                {
+                    "option": "Pick up children",
+                    "optionText": "I get it, safety comes first. Are you thinking about picking them up early to be safe?",
+                    "nextNodeId": "13"
+                }
+            ]
         },
         {
-          "id": "12",
-          "characterName": "Worried Parents",
-          "dialogText": "That's what I've heard too, but as a parent, it's tough to just leave them there. I want to get them as soon as possible, but I know the roads could be jammed.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
-          "options": [
-            {
-              "option": "Wait for notice",
-              "optionText": "You might want to think about the timing. If roads are crowded, it could slow your evacuation.",
-              "nextNodeId": "13"
-            },
-            {
-              "option":  "Safer at school",
-              "optionText": "Maybe you could coordinate with other parents or the school to ensure everyone is safe.",
-              "nextNodeId": "13"
-            }
-          ]
+            "id": "12",
+            "characterName": "Worried Parents",
+            "dialogText": "I’ve heard that, but as a parent, it’s tough to leave them. I want to pick them up, but the roads could be jammed.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+            "options": [
+                {
+                    "option": "Wait for notice",
+                    "optionText": "If roads are crowded, it could slow your evacuation.",
+                    "nextNodeId": "13"
+                },
+                {
+                    "option": "Safer at school",
+                    "optionText": "Maybe coordinate with other parents or the school to ensure everyone is safe.",
+                    "nextNodeId": "13"
+                }
+            ]
         },
         {
           "id": "13",
           "characterName": "Worried Parents",
-          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my family.",
+          "dialogText": "It's a lot to consider. Ultimately I need to make the choice that's best for my family.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "isEndNode": "true"
         }
@@ -135,61 +135,61 @@
       "rootNodeId": "20",
       "nodes": [
         {
-          "id": "20",
-          "characterName": "WUI Resident",
-          "dialogText": "Living here in the wildland-urban interface keeps me on edge, especially during fire season. We're doing what we can, but it's tough. Should we invest in home hardening? Should we evacuate on Red Flag days?",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Home-hardening is important, especially in high-risk areas like this. Have you taken any steps already?",
-              "nextNodeId": "21"
-            },
-            {
-              "optionText": "Home-hardening protects your home, and early evaucation protects your family. On Red Flag days, leaving early can make all the difference.",
-              "nextNodeId": "22"
-            }
-          ]
+            "id": "20",
+            "characterName": "WUI Resident",
+            "dialogText": "Living in the wildland-urban interface is stressful during fire season. We do our best, but it’s tough. Should we invest in home hardening? Should we evacuate on Red Flag days?",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "optionText": "Home-hardening is important, especially in high-risk areas. Have you taken any steps?",
+                    "nextNodeId": "21"
+                },
+                {
+                    "optionText": "Home hardening protects your house, and early evacuation keeps your family safe. Leaving early on Red Flag days makes a big difference.",
+                    "nextNodeId": "22"
+                }
+            ]
         },
         {
-          "id": "21",
-          "characterName": "WUI Resident",
-          "dialogText": "Yes, we've tried to make some improvements—clearing brush, adding fire-resistant vents. But I worry it's not enough. There's so much ground to cover here, and it's costly.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "option": "Home Hardening",
-              "optionText": "It sounds like you're doing a lot. Even small upgrades can increase your home's resilience to embers, like removing anything flammable within 5 feet of your home.",
-              "nextNodeId": "23"
-            },
-            {
-              "option": "Home Hardening",
-              "optionText": "You're right, it's a big task. Balancing home upgrades with an early evacuation plan could help.",
-              "nextNodeId": "23"
-            }
-          ]
+            "id": "21",
+            "characterName": "WUI Resident",
+            "dialogText": "We’ve made some improvements—clearing brush, adding fire-resistant vents—but I worry it’s not enough. It’s a lot of work, and it’s expensive.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "option": "Home Hardening",
+                    "optionText": "That's great, even small upgrades, like removing flammable items within 5 feet of your home, can boost resilience to embers.",
+                    "nextNodeId": "23"
+                },
+                {
+                    "option": "Home Hardening",
+                    "optionText": "It is a big task. Balancing home upgrades with an early evacuation plan could help.",
+                    "nextNodeId": "23"
+                }
+            ]
         },
         {
-          "id": "22",
-          "characterName": "WUI Resident",
-          "dialogText": "Leaving early does seem safer. But it's tricky—I want to protect our home, and it's hard to just leave. We've put so much into this place, and it's hard to think about leaving it all behind.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "option": "Evacuate Early",
-              "optionText": "It's certainly tough. Maybe having a solid early evacuation plan can give you more peace of mind.",
-              "nextNodeId": "23"
-            },
-            {
-              "option": "Evacuate Early",
-              "optionText": "With risks so high, safety is key. Home-hardening is important, and getting out early is critical to stay safe.",
-              "nextNodeId": "23"
-            }
-          ]
+            "id": "22",
+            "characterName": "WUI Resident",
+            "dialogText": "Leaving early does seem safer. But it’s tough. I want to protect our home—we’ve invested so much, and it’s hard to think about leaving it behind.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "It’s certainly tough. A solid early evacuation plan might give you some peace of mind.",
+                    "nextNodeId": "23"
+                },
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "Safety is key. Home-hardening is important, and getting out early is critical to stay safe.",
+                    "nextNodeId": "23"
+                }
+            ]
         },
         {
           "id": "23",
           "characterName": "WUI Resident",
-          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for us and our home.",
+          "dialogText": "It's a lot to think about. In the end I need to make the choice that's best for us and our home.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "isEndNode": "true"
         }
@@ -200,53 +200,53 @@
       "rootNodeId": "30",
       "nodes": [
         {
-          "id": "30",
-          "characterName": "Older Resident",
-          "dialogText": "Hello, dear. It’s nice to see someone checking in. I’ve lived here for decades, but with the way wildfires are these days, I get nervous every fire season. It’s harder for me to move quickly, so I need to be extra prepared. Any advice?",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "optionText": "Planning for an early evacuation is key. Have you thought about leaving sooner when there’s a red flag warning?",
-              "nextNodeId": "31"
-            },
-            {
-              "optionText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
-              "nextNodeId": "32"
-            }
-          ]
+            "id": "30",
+            "characterName": "Older Resident",
+            "dialogText": "Hello dear, it’s nice you’re checking in. I’ve lived here for decades, but with wildfires getting worse, I get nervous every season. It’s harder for me to move quickly, so I need to be extra prepared. Any advice?",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "optionText": "Planning for an early evacuation is important. Have you thought about leaving early when there’s a red flag warning?",
+                    "nextNodeId": "31"
+                },
+                {
+                    "optionText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+                    "nextNodeId": "32"
+                }
+            ]
         },
         {
-          "id": "31",
-          "characterName": "Older Resident",
-          "dialogText": "I’ve considered it, but it’s tough to leave before anyone else. It feels like I’m abandoning my home. What if it turns out to be a false alarm?",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "option": "Evacuate Early",
-              "optionText": "I understand, but leaving early can ensure your safety. Fires can move faster than we expect.",
-              "nextNodeId": "33"
-            },
-            {
-              "option": "Evacuate Early",
-              "optionText": "You’re not abandoning your home—you’re giving yourself the best chance to stay safe.",
-              "nextNodeId": "33"
-            }
-          ]
+            "id": "31",
+            "characterName": "Older Resident",
+            "dialogText": "I’ve have, but it’s tough to leave before anyone else. It feels like I’m abandoning my home. What if it's a false alarm?",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "I understand, but leaving early ensures your safety. Fires move faster than we expect.",
+                    "nextNodeId": "33"
+                },
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "You’re not abandoning your home—you’re giving yourself the best chance to stay safe.",
+                    "nextNodeId": "33"
+                }
+            ]
         },
         {
           "id": "32",
           "characterName": "Older Resident",
-          "dialogText": "I’ve got a few kind neighbors who’ve offered to help, but I hate feeling like a burden. And my kids, bless them, live hours away, so it’s hard for them to help in an emergency.",
+          "dialogText": "I have a few kind neighbors who could help, but I hate to be a burden. And my kids live hours away, so it’s hard for them to help in an emergency.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
               "option": "Help From Neighbour",
-              "optionText": "It’s good to have supportive neighbors. Maybe you can make a plan together so no one feels overwhelmed",
+              "optionText": "It’s good to have supportive neighbors. Can you make a plan together so no one feels overwhelmed?",
               "nextNodeId": "33"
             },
             {
               "option": "Help From Neighbour",
-              "optionText": "What about organizing a checklist for what you’d need to take? That might help you feel more prepared.",
+              "optionText": "What about organizing a checklist for what you’d need to take? So you are more prepared.",
               "nextNodeId": "33"
             }
           ]
@@ -254,7 +254,7 @@
         {
           "id": "33",
           "characterName": "Older Resident",
-          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for myself.",
+          "dialogText": "It's a lot to think about, I hope I make the best choice.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "isEndNode": "true"
         }
@@ -265,56 +265,56 @@
       "rootNodeId": "40",
       "nodes": [
         {
-          "id": "40",
-          "characterName": "Pets Owner",
-          "dialogText": "Hey there! Wildfire season always stresses me out—not just for me, but for my pets. We’ve got two dogs, a cat, and even a few backyard chickens. If a fire comes close, I need to figure out how to get everyone to safety.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Making a detailed evacuation plan—including supplies and transport—can help you stay ready when you need to leave.",
-              "nextNodeId": "41"
-            },
-            {
-              "optionText": "Since evacuating with pets can be tricky, have you considered pre-evacuating with them on red flag days?",
-              "nextNodeId": "42"
-            }
-          ]
+            "id": "40",
+            "characterName": "Pets Owner",
+            "dialogText": "Wildfire season stresses me out, especially for my pets. We’ve got two dogs, a cat, and even a few chickens. If a fire gets close, I need a plan to get everyone to safety.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "optionText": "A detailed evacuation plan, with supplies and transport ready, can help when it’s time to leave.",
+                    "nextNodeId": "41"
+                },
+                {
+                    "optionText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
+                    "nextNodeId": "42"
+                }
+            ]
         },
         {
-          "id": "41",
-          "characterName": "Pets Owner",
-          "dialogText": "I’ve got crates for the dogs and a carrier for the cat, but it’s hard to imagine how I’d get them all out quickly. The chickens? That’s a whole other challenge!",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "option": "Plan Ahead",
-              "optionText": "Doing a practice run might help you see where any issues come up before an actual emergency.",
-              "nextNodeId": "43"
-            },
-            {
-              "option": "Plan Ahead",
-              "optionText": "Having a go-bag ready for each pet—food, water, medicine—can make a huge difference in a rush.",
-              "nextNodeId": "43"
-            }
-          ]
+            "id": "41",
+            "characterName": "Pets Owner",
+            "dialogText": "I’ve got dog crates and a carrier for the cat, but getting them out quickly is tough. The chickens? That’s a whole different challenge!",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "option": "Plan Ahead",
+                    "optionText": "Doing a practice run might help you prepare before an actual emergency.",
+                    "nextNodeId": "43"
+                },
+                {
+                    "option": "Plan Ahead",
+                    "optionText": "Having a go-bag ready for each pet—food, water, medicine—makes a huge difference in a rush.",
+                    "nextNodeId": "43"
+                }
+            ]
         },
         {
-          "id": "42",
-          "characterName": "Pets Owner",
-          "dialogText": "I’ve thought about it, but it feels extreme to leave before an evacuation order. Plus, where would we even go? It’s not always easy to find a pet-friendly place to stay.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "option": "Evacuate Early",
-              "optionText": "It’s tough, but some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
-              "nextNodeId": "43"
-            },
-            {
-              "option": "Evacuate Early",
-              "optionText": "If you have friends or family in a safer area, maybe you could stay with them when conditions get risky.",
-              "nextNodeId": "43"
-            }
-          ]
+            "id": "42",
+            "characterName": "Pets Owner",
+            "dialogText": "I’ve thought about it, but it feels extreme to leave before an order. Plus, where would we go? Finding a pet-friendly place is tough.",
+            "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
+                    "nextNodeId": "43"
+                },
+                {
+                    "option": "Evacuate Early",
+                    "optionText": "If you have friends or family in a safer area, maybe you could stay with them when it's risky?",
+                    "nextNodeId": "43"
+                }
+            ]
         },
         {
           "id": "43",
