@@ -28,6 +28,11 @@ public class BaseHousePartObject : FF_BaseCombustible
         base.Awake();
         if (notInteractable) return;
         meshes = GetComponentsInChildren<MeshRenderer>();
+
+        foreach(var mesh in meshes)
+        {
+            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
+        }
         if (combustibleInfo != null)
         {
             partInfo = (HousePartInfo)combustibleInfo;
