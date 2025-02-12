@@ -81,6 +81,7 @@ public class HH_UIManager : MonoBehaviour
 
     public void ShowPurchasePopup(HousePartInfo partInfo)
     {
+        //Debug.Log($"Show PUBLIC purchase popup: {partInfo.isPublic}");
         purchasePopup.gameObject.SetActive(true);
         purchasePopup.InitPurchasePopup(partInfo);
     }
@@ -92,7 +93,7 @@ public class HH_UIManager : MonoBehaviour
         if (partInfo)
         {
             storePanel.gameObject.SetActive(true);
-            storePanel.ShowStorePanel(partInfo.housePartType);
+            storePanel.ShowStorePanel(partInfo.housePartType, partInfo.isPublic);
         }
             
 

@@ -47,7 +47,7 @@ namespace HappyHouse.HouseSystem
                     {
                         targetDict.Remove(partToRemove.housePartType);
                     }
-                    Debug.Log($"Removed {partToRemove.partID} from inventory");
+                    //Debug.Log($"Removed {partToRemove.partID} from inventory");
                     return true;
                 }
             }
