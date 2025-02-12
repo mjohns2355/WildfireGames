@@ -24,6 +24,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HousePartInfo partInfo, defaultPartInfo;
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
+    private MeshRenderer burntMesh;
     protected override void Awake()
     {
         base.Awake();
@@ -53,7 +54,14 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     }
 
-
+    private void Update()
+    {
+        if (burntMesh)
+        {
+            burntMesh.material.color = Color.Lerp(burntMesh.material.color, burntColor, Time.deltaTime);
+        }
+        
+    }
     protected override void OnCombustibleClicked(GameObject obj)
     {
         if (obj.transform.parent == transform && !notInteractable)
@@ -178,17 +186,19 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurning()
     {
-        if (burntModel)
+        if (burntModel && burntMesh == null)
         {
-            foreach(var mesh in meshes)
+            foreach (var mesh in meshes)
             {
-                var burnt = Instantiate(burntModel,transform);
-                burnt.transform.position = mesh.transform.position;
-                burnt.material = mesh.material;
+                burntMesh = Instantiate(burntModel, transform);
+                burntMesh.transform.position = mesh.transform.position;
+                burntMesh.material = mesh.material;
                 mesh.gameObject.SetActive(false);
-                mesh.material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
+
             }
         }
+
+        
     }
     private void HandleIgnite()
     {
@@ -203,6 +213,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     private void HandleBurnedOut()
     {
         //Debug.Log("Burnt");
+
     }
 
     private void HandleDestroy()
