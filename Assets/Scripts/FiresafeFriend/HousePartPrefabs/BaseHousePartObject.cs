@@ -49,7 +49,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
         OnBurning += HandleBurning;
-        //OnBurnedOut += HandleBurnedOut;
+        OnBurnedOut += HandleBurnedOut;
 
     }
 
@@ -201,9 +201,8 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurnedOut()
     {
-        var newColor = Color.black;
-        burnMaterial.SetColor("_Color", newColor);
-        ReplaceMeshMaterial(burnMaterial);
+        //Debug.Log("Burnt");
+        Destroy(gameObject);
     }
 
     private void HandleDestroy()
