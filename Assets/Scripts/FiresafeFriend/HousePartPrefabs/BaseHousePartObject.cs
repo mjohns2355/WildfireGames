@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 public class BaseHousePartObject : FF_BaseCombustible
 {
     public MeshRenderer[] meshes;
+    public MeshRenderer burntModel;
     public HouseNode houseNode;
     public Transform bubblePos;
     public GameObject VFX;
@@ -47,7 +48,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
-        //OnBurning += HandleBurning;
+        OnBurning += HandleBurning;
         //OnBurnedOut += HandleBurnedOut;
 
     }
@@ -177,9 +178,16 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurning()
     {
-        var newColor = new Color(85, 12, 12);
-        burnMaterial.SetColor("_Color", newColor);
-        ReplaceMeshMaterial(burnMaterial);
+        if (burntModel)
+        {
+            foreach(var mesh in meshes)
+            {
+                var burnt = Instantiate(burntModel);
+                burnt.transform.position = mesh.transform.position;
+                burnt.material = mesh.material;
+                mesh.gameObject.SetActive(false);
+            }
+        }
     }
     private void HandleIgnite()
     {

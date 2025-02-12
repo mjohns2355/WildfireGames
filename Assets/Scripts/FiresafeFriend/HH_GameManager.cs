@@ -57,7 +57,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             }
         }
         //debug
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F1)|| Input.GetKeyDown(KeyCode.Q))
         {
             Time.timeScale = 5.0f;
         }
