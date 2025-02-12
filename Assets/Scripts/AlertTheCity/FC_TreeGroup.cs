@@ -11,28 +11,26 @@ public class FC_TreeGroup : Combustible
         
         waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
         trees = GetComponentsInChildren<FC_Tree>();
+        foreach (FC_Tree tree in trees)
+        {
+            var mesh = tree.normal.GetComponentsInChildren<MeshRenderer>();
+            foreach(var m in mesh)
+            {
+                if (m.CompareTag("Tree"))
+                {
+                    meshes.Add(m);
+                }
+            }
+        }
     }
     public override void Update()
     {
-        //Debug.Log($"isOnfire: {isOnfire}, burned: {burned}");
-        if (isOnfire && !burned)
+        base.Update();
+        if (burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
         {
-            burnTime += Time.deltaTime;
             foreach (FC_Tree tree in trees)
             {
-
-                var m = tree.normal.GetComponentInChildren<MeshRenderer>();
-                var c = m.material.GetColor("_Color");
-                var color = Color.Lerp(c, burntColor, Time.deltaTime);
-                m.material.SetColor("_Color", color);
-            }
-            if (burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
-            {
-                foreach (FC_Tree tree in trees)
-                {
-                    tree.IsBurnt = true;
-                }
-                burned = true;
+                tree.IsBurnt = true;
             }
         }
     }

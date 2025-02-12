@@ -8,7 +8,7 @@ public class Combustible : MonoBehaviour
 {
     public Transform fireSpawnPos;
     public float fireChance = 1;
-    public MeshRenderer[] meshes;
+    public List<MeshRenderer> meshes;
     [SerializeField]protected bool isOnfire = false;
     [SerializeField]protected Color burntColor;
     FireMovementController fire;
@@ -25,7 +25,7 @@ public class Combustible : MonoBehaviour
         waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
         meshes = GetComponentsInChildren<MeshRenderer>()
             .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
-            .ToArray();
+            .ToList();
         //dialog = GameObject.FindGameObjectWithTag("Dialog").GetComponent<ATC_dialogManager>();
        
     }
