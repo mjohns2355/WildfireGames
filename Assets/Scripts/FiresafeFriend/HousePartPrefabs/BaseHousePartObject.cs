@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 public class BaseHousePartObject : FF_BaseCombustible
 {
     public MeshRenderer[] meshes;
+    public MeshRenderer burntModel;
     public HouseNode houseNode;
     public Transform bubblePos;
     public GameObject VFX;
@@ -23,11 +24,17 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HousePartInfo partInfo, defaultPartInfo;
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
+    private MeshRenderer burntMesh;
     protected override void Awake()
     {
         base.Awake();
         if (notInteractable) return;
         meshes = GetComponentsInChildren<MeshRenderer>();
+
+        foreach(var mesh in meshes)
+        {
+            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
+        }
         if (combustibleInfo != null)
         {
             partInfo = (HousePartInfo)combustibleInfo;
@@ -42,12 +49,19 @@ public class BaseHousePartObject : FF_BaseCombustible
 
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
-        //OnBurning += HandleBurning;
-        //OnBurnedOut += HandleBurnedOut;
+        OnBurning += HandleBurning;
+        OnBurnedOut += HandleBurnedOut;
 
     }
 
-
+    private void Update()
+    {
+        if (burntMesh)
+        {
+            burntMesh.material.color = Color.Lerp(burntMesh.material.color, burntColor, Time.deltaTime);
+        }
+        
+    }
     protected override void OnCombustibleClicked(GameObject obj)
     {
         if (obj.transform.parent == transform && !notInteractable)
@@ -172,9 +186,19 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurning()
     {
-        var newColor = new Color(85, 12, 12);
-        burnMaterial.SetColor("_Color", newColor);
-        ReplaceMeshMaterial(burnMaterial);
+        if (burntModel && burntMesh == null)
+        {
+            foreach (var mesh in meshes)
+            {
+                burntMesh = Instantiate(burntModel, transform);
+                burntMesh.transform.position = mesh.transform.position;
+                burntMesh.material = mesh.material;
+                mesh.gameObject.SetActive(false);
+
+            }
+        }
+
+        
     }
     private void HandleIgnite()
     {
@@ -188,9 +212,8 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleBurnedOut()
     {
-        var newColor = Color.black;
-        burnMaterial.SetColor("_Color", newColor);
-        ReplaceMeshMaterial(burnMaterial);
+        //Debug.Log("Burnt");
+
     }
 
     private void HandleDestroy()

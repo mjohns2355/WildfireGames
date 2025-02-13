@@ -43,7 +43,7 @@ public class WarningPopupPanel : MonoBehaviour
 
     private void ProceedAction()
     {
-        Debug.Log("Both players are ready");
+        //Debug.Log("Both players are ready");
         HH_GameManager.Instance.EndRound();
         gameObject.SetActive(false);
     }
