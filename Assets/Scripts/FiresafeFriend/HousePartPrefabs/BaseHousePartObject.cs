@@ -7,11 +7,12 @@ using UnityEngine.EventSystems;
 using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using System.Linq;
 
 
 public class BaseHousePartObject : FF_BaseCombustible
 {
-    public MeshRenderer[] meshes;
+    public List<MeshRenderer> meshes;
     public MeshRenderer burntModel;
     public HouseNode houseNode;
     public Transform bubblePos;
@@ -29,9 +30,11 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         base.Awake();
         if (notInteractable) return;
-        meshes = GetComponentsInChildren<MeshRenderer>();
+        meshes = GetComponentsInChildren<MeshRenderer>()
+            .Where(x => x.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
+            .ToList();
 
-        foreach(var mesh in meshes)
+        foreach (var mesh in meshes)
         {
             mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
         }
@@ -230,12 +233,13 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     IEnumerator DestroyRoutine()
     {
-        var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
-        yield return new WaitForSeconds(1f);
         foreach (var m in meshes)
         {
             m.gameObject.SetActive(false);
         }
+        var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
+        //yield return new WaitForSeconds(1f);
+
         
         yield return new WaitForSeconds(1f);
 

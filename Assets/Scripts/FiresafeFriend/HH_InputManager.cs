@@ -20,6 +20,7 @@ public class HH_InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (HH_GameManager.Instance.IsFireStarted) return;
         DetectInput();
     }
 
