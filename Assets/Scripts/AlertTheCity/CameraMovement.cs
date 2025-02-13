@@ -118,7 +118,8 @@ public class CameraMovement : MonoBehaviour
                     touchDist = Mathf.Clamp(touchDist, -50f, 50f);
                     FOV += touchDist * sensitivity;
                     FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-                    gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+                    gameCamera.fieldOfView = FOV;
+                    //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
                 }
             }
         }
@@ -131,7 +132,8 @@ public class CameraMovement : MonoBehaviour
                 float adjustedScrollInput = scrollInput * 100f;
                 FOV -= adjustedScrollInput * 10f * Time.unscaledDeltaTime;
                 FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-                gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+                //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
+                gameCamera.fieldOfView = FOV;
             }
         }
 
