@@ -63,8 +63,11 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //RandomizeHouse();
-            StartCoroutine(RandomizeStartingCondition());
+            if (!HH_GameManager.Instance.isTutorial)
+            {
+                StartCoroutine(RandomizeStartingCondition());
+            }
+
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
 

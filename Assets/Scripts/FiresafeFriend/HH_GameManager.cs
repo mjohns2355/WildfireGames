@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
+    public bool isTutorial;
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,plantModeCamPos;
     public float fireTimer = 60f;
@@ -27,7 +28,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public bool IsPlantMode { get; private set; }
     public override void Awake()
     {
-        shouldNotDestroyOnLoad = false;
+        shouldNotDestroyOnLoad = true;
         IsPlantMode = false;
         base.Awake();
         fences = GameObject.FindGameObjectsWithTag("Fence");
@@ -112,11 +113,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         IsGameStarted = true;
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
+        if (isTutorial) return;
         uiManager.ToggleInventory(true);
         endRoundBtn.gameObject.SetActive(true);
         startFireBtn.gameObject.SetActive(false);
         uiManager.startText.SetActive(false) ;
         InitPublicFences(currentPlayer);
+
 
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
