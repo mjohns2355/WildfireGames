@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class FF_BaseCombustible : MonoBehaviour
 {
     public BaseCombustibleInfo combustibleInfo;
-
+    public bool isClickable = true;
     public bool isOnFire = false;
     //public BurnStage burnStage = BurnStage.Igniting;
     [SerializeField] protected Color burntColor;
@@ -121,7 +121,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         flammability *= 1- precentage;
     }
 
-    protected virtual void OnCombustibleClicked(GameObject obj)
+    public virtual void OnCombustibleClicked(GameObject obj)
     {
 
     }

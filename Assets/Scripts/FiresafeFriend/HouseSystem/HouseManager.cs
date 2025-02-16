@@ -38,6 +38,10 @@ namespace HappyHouse.HouseSystem
             {
                 var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
                 if (part.notInteractable) continue;
+                if (HH_GameManager.Instance.isTutorial)
+                {
+                    part.isClickable = false;
+                }
                 InitHouseNode(nodeDictionary, part);
             }
 
@@ -181,6 +185,8 @@ namespace HappyHouse.HouseSystem
                     oldPart.InitHousePartObject(this, housePartInfo);
                 }
             }
+
+            if(HH_GameManager.Instance.isTutorial) return;
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
@@ -376,6 +382,10 @@ namespace HappyHouse.HouseSystem
                 return material;
             }
         }
+
+        //tutorial stuff
+        //show sample house part
+
     }
 }
 

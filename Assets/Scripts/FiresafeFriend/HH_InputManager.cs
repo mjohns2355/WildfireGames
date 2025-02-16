@@ -41,7 +41,7 @@ public class HH_InputManager : MonoBehaviour
 
                 if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    if (canClickHouse )
+                    if (canClickHouse)
                     {
                         if (hit.collider.transform.parent.CompareTag("Fence")) return;
                         var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
@@ -49,9 +49,12 @@ public class HH_InputManager : MonoBehaviour
                     }
                     else
                     {
-                        if(!HH_GameManager.Instance.IsGameStarted) return;
+                        if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
+                        {
+                            OnObjectSelected?.Invoke(hit.collider.gameObject);
+                        }
                         //Debug.Log($"Clicked {hit.collider.gameObject.name}");
-                        OnObjectSelected?.Invoke(hit.collider.gameObject);
+                        
                     }
                 }
 

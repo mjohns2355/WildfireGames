@@ -28,14 +28,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public bool IsPlantMode { get; private set; }
     public override void Awake()
     {
-        shouldNotDestroyOnLoad = true;
+        shouldNotDestroyOnLoad = false;
         IsPlantMode = false;
         base.Awake();
         fences = GameObject.FindGameObjectsWithTag("Fence");
     }
     private void Start()
     {
-
 
         
     }
@@ -110,7 +109,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-        IsGameStarted = true;
+        SetGameStart(true);
         inputManager.canClickHouse = false;
         this.currentPlayer = currentPlayer;
         if (isTutorial) return;
@@ -141,7 +140,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void EndRound()
     {
-        IsGameStarted = false;
+        SetGameStart(false);
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         uiManager.OnRoundEnd();
@@ -169,7 +168,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if(isPlantMode)
         {
             Debug.Log("Plant Mode");
-            cameraController.Zoomcamera(plantModeCamPos,plantModeCamFOV);
+            cameraController.Zoomcamera(plantModeCamPos,true,plantModeCamFOV);
             inputManager.canClickHouse = false;
             //hide ui
 
@@ -195,5 +194,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 cameraController.ResetCamera();
             }
         }
+    }
+
+    void SetGameStart(bool state)
+    {
+        IsGameStarted = state;
     }
 }

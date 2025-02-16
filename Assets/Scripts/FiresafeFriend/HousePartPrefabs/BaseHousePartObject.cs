@@ -21,7 +21,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HouseManager Owner { get; private set; }
     public HousePartType HousePartType { get; private set; }
 
-    public bool isOnCursor = false;
+    //public bool isOnCursor = false;
     public HousePartInfo partInfo, defaultPartInfo;
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
@@ -65,9 +65,9 @@ public class BaseHousePartObject : FF_BaseCombustible
         }
         
     }
-    protected override void OnCombustibleClicked(GameObject obj)
+    public override void OnCombustibleClicked(GameObject obj)
     {
-        if (obj.transform.parent == transform && !notInteractable)
+        if (obj.transform.parent == transform && !notInteractable && isClickable)
         {
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType,partInfo.isPublic);
             

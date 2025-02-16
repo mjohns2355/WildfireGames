@@ -14,7 +14,7 @@ public class PurchaseFloatingButton : MonoBehaviour
     private bool isPlant = false;
     private bool shouldShowRemoveIcon = false;
     private Vector3 targetPosition;
-    [SerializeField] private Button button;
+    public Button button;
     [SerializeField] Sprite purchase, plant;
 
     // Static reference to the currently selected bubble button

@@ -16,22 +16,24 @@ public class FF_TutorialStep
     public float zoomSize;
     public UnityEvent onStepStart;
     public UnityEvent onStepComplete;
+    public bool autoProceed;
 }
-public class FF_TutorialManager : MonoBehaviour
+public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 {
     public List<FF_TutorialStep> tutorialSteps;
-    private int currentStepIndex = 0;
+    public int currentStepIndex = 0;
     private HH_CameraController cameraController;
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
     public GameObject introPanel, tutorialPanel; 
     public Button introStartButton; 
+    
     // Start is called before the first frame update
     void Start()
     {
         cameraController = HH_GameManager.Instance.cameraController;
         nextButton.SetActive(false);
-
+        nextButton.GetComponent<Button>().onClick.AddListener(() => ProceedToNextStep());
         // Start the tutorial with the intro panel
         introPanel.SetActive(true);
         introStartButton.onClick.AddListener(() => StartTutorial());
@@ -52,7 +54,8 @@ public class FF_TutorialManager : MonoBehaviour
 
     void StartStep(int stepIndex)
     {
-        if(stepIndex >= tutorialSteps.Count)
+        Debug.Log($"Starting tutorial step {stepIndex + 1}");
+        if (stepIndex >= tutorialSteps.Count)
         {
             Debug.LogError("Step index out of range.");
             return;
@@ -68,14 +71,16 @@ public class FF_TutorialManager : MonoBehaviour
 
         if (step.zoomToObject)
         {
-            cameraController.Zoomcamera(step.zoomPosition, step.zoomSize);
+            cameraController.Zoomcamera(step.zoomPosition, false, step.zoomSize);
         }
 
         step.onStepStart?.Invoke();
 
-        if (step.onStepComplete.GetPersistentEventCount() > 0)
+        if (/*step.onStepComplete.GetPersistentEventCount() > 0 &&*/ step.autoProceed)
         {
+            Debug.Log("Step is auto-proceeding");
             step.onStepComplete.AddListener(() => ProceedToNextStep());
+            nextButton.SetActive(false);
         }
         else
         {
@@ -93,6 +98,7 @@ public class FF_TutorialManager : MonoBehaviour
             //{
             //    if (obj) obj.SetActive(false);
             //}
+            //step.onStepStart.RemoveAllListeners();
             step.onStepComplete.RemoveAllListeners();
 
             currentStepIndex++;

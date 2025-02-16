@@ -14,7 +14,6 @@ public class StorePanel : MonoBehaviour
     [SerializeField]private Button closeButton;
     private HousePartType targetCategory;
     private PurchaseFloatingButton currentButton;
-    private List<PartButton> allShopPartIcons;
     private HouseManager player;
     private bool isPublic;
 
