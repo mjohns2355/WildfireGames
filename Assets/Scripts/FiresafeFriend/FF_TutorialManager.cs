@@ -21,7 +21,7 @@ public class FF_TutorialStep
 public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 {
     public List<FF_TutorialStep> tutorialSteps;
-    public int currentStepIndex = 0;
+    private int currentStepIndex = 0;
     private HH_CameraController cameraController;
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;

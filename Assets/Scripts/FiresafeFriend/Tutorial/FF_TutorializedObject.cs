@@ -23,7 +23,7 @@ public class FF_TutorializedObject : MonoBehaviour
     }
     public virtual void OnTutorialStepComplete()
     {
-        Debug.Log($"Completing step {stepIndex + 1}");
+        //Debug.Log($"Completing step {stepIndex + 1}");
         FF_TutorialManager.Instance.tutorialSteps[stepIndex].onStepComplete.Invoke();
         enabled = false;
     }

@@ -25,8 +25,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         houseManager = HH_GameManager.Instance.currentPlayer;
         partObjects = houseManager.GetAllHousePartObjectsOf(partType);
         storePurchaseButton.onClick.AddListener(() =>
-        {
-            Debug.Log("?????????????????????????");
+        { 
             OnTutorialStepComplete();
         });
     }
@@ -57,7 +56,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         {
             OnPartTapped(gameObject);
         });
-        //enable house part clicking
+        //enable house part clickingß
         //HH_GameManager.Instance.SetGameStart(true);
         foreach (var part in partObjects)
         {
