@@ -96,11 +96,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         {
             // Clean up the previous step
             FF_TutorialStep step = tutorialSteps[currentStepIndex];
-            //foreach (var obj in step.animationObjects)
-            //{
-            //    if (obj) obj.SetActive(false);
-            //}
-            //step.onStepStart.RemoveAllListeners();
             step.onStepComplete.RemoveAllListeners();
 
             currentStepIndex++;
