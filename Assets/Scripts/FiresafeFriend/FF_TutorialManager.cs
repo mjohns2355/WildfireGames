@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 [System.Serializable]
 public class FF_TutorialStep
 {
@@ -21,7 +22,7 @@ public class FF_TutorialStep
 public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 {
     public List<FF_TutorialStep> tutorialSteps;
-    private int currentStepIndex = 0;
+    [SerializeField]private int currentStepIndex = 0;
     private HH_CameraController cameraController;
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
@@ -62,6 +63,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         }
         var step = tutorialSteps[stepIndex];
         tutorialText.text = step.description;
+        tutorialPanel.SetActive(true);
 
         // Temp Implemetation for playing animation
         //foreach (var obj in step.animationObjects)
@@ -104,10 +106,12 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
             currentStepIndex++;
             if (currentStepIndex < tutorialSteps.Count)
             {
+                Debug.Log($"Proceeding to tutorial step {currentStepIndex+1}");
                 StartStep(currentStepIndex);
             }
             else
             {
+                Debug.Log($"End Tutorial");
                 EndTutorial();
             }
         }
@@ -116,8 +120,8 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     void EndTutorial()
     {
         tutorialText.text = "Tutorial Complete!";
-
+        nextButton.SetActive(false);
         // Load the game scene 
-        
+        SceneManager.LoadScene("FireSafeFriendScene");
     }
 }

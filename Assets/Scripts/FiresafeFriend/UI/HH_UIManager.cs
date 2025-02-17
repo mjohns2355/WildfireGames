@@ -93,7 +93,8 @@ public class HH_UIManager : MonoBehaviour
         if (partInfo)
         {
             storePanel.gameObject.SetActive(true);
-            storePanel.ShowStorePanel(partInfo.housePartType, partInfo.isPublic);
+            storePanel.UpdateStorePanel();
+            //storePanel.ShowStorePanel(partInfo.housePartType, partInfo.isPublic);
         }
             
 

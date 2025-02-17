@@ -1,6 +1,7 @@
 using HappyHouse.HouseSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 {
     public HousePartType partType;
     public Button storePurchaseButton;
+    public HighlightMesh highlightMesh;
     PurchaseFloatingButton bubble;
     HouseManager houseManager;
     List<BaseHousePartObject> partObjects;
@@ -22,7 +24,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     IEnumerator Routine()
     {
         yield return new WaitForSeconds(1f);
-        houseManager = HH_GameManager.Instance.currentPlayer;
+        houseManager = HH_GameManager.Instance.currentPlayer;       
         partObjects = houseManager.GetAllHousePartObjectsOf(partType);
         storePurchaseButton.onClick.AddListener(() =>
         { 
@@ -61,15 +63,19 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         foreach (var part in partObjects)
         {
             part.isClickable = true;
+            highlightMesh.meshRenders.AddRange(part.meshes);
         }
+        highlightMesh.HighlightMeshes();
 
-        
     }
 
     public override void OnTutorialStepComplete()
     {
-        Debug.Log($"Completing step {5}");
-        FF_TutorialManager.Instance.tutorialSteps[4].onStepComplete.Invoke();
+        if(stepIndex == 3)
+        {
+            stepIndex++;
+        }
+        base.OnTutorialStepComplete();
     }
 
     void OnPartTapped(GameObject obj)

@@ -20302,9 +20302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1356afd0850e3445af5c8f46f049ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  close: {fileID: 1519350771}
   questionText: {fileID: 1999919463}
   buttonsParent: {fileID: 687577755}
   quizOptionButtonPrefab: {fileID: 3735307587459426531, guid: 65f961c4499350142aa92ebd39bc5647, type: 3}
+  quizPanel: {fileID: 1377082349}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   correctColor: {r: 0.09627117, g: 0.9433962, b: 0.06674972, a: 0}
   wrongColor: {r: 0.9528302, g: 0.04045032, b: 0.04045032, a: 0}
@@ -20321,7 +20323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -25108,6 +25110,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 620952628}
     m_Modifications:
+    - target: {fileID: 671274886135577509, guid: cde0033683fef4340840d6d06e526f13, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 671274886135577509, guid: cde0033683fef4340840d6d06e526f13, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2005557465873198096, guid: cde0033683fef4340840d6d06e526f13, type: 3}
       propertyPath: m_Name
       value: NewHouseOne
@@ -25156,6 +25166,10 @@ PrefabInstance:
       propertyPath: arrowUI
       value: 
       objectReference: {fileID: 1736339369}
+    - target: {fileID: 8052792393052325983, guid: cde0033683fef4340840d6d06e526f13, type: 3}
+      propertyPath: shouldDisplayBubble
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27407,6 +27421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0bc2313a3d6224f8ab0856b19171b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 0
   fireManager: {fileID: 982221404}
   h1: {fileID: 620952628}
   h2: {fileID: 1374789156}

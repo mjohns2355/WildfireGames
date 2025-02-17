@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using HappyHouse.HouseSystem;
 using UnityEngine.UI;
+using DG.Tweening;
 public class StorePanel : MonoBehaviour
 {
     public TextMeshProUGUI typeCategoryText;
@@ -16,6 +17,7 @@ public class StorePanel : MonoBehaviour
     private PurchaseFloatingButton currentButton;
     private HouseManager player;
     private bool isPublic;
+    private float currentMoney;
 
     private void Start()
     {
@@ -44,6 +46,11 @@ public class StorePanel : MonoBehaviour
         PopulateIconsInStore();
     }
 
+    public void UpdateStorePanel()
+    {
+        ClearIconsInStores();
+        PopulateIconsInStore();
+    }
     public void HideStorePanel()
     {
         ClearIconsInStores();
@@ -84,9 +91,32 @@ public class StorePanel : MonoBehaviour
         }
     }
 
-    public void UpdateBudgetText(float amount)
+    public void UpdateBudgetText(float newMoney, float oldMoney = -1)
     {
-        budgetText.text = $"$ {amount:N0}";
+        Debug.Log($"Update budget text: {newMoney},{oldMoney}");
+        if (oldMoney == -1)
+        {
+            budgetText.text = $"$ {newMoney:N0}";
+            currentMoney = newMoney;
+            return;
+        }
+
+        // simple animation
+        budgetText.transform.DOPunchScale(Vector3.one * 0.2f, 0.2f, 5, 1);
+        if(newMoney > oldMoney)
+        {
+            budgetText.DOColor(Color.green, 0.3f).OnComplete(() => budgetText.DOColor(Color.white, 0.3f));
+        }
+        else
+        {
+            budgetText.DOColor(Color.red, 0.3f).OnComplete(() => budgetText.DOColor(Color.white, 0.3f));
+        }
+        DOTween.To(() => currentMoney, x =>
+        {
+            currentMoney = x;
+            budgetText.text = $"${(int)currentMoney:N0}";
+        }, newMoney, 0.5f)
+        .SetEase(Ease.OutQuad);
     }
 
     

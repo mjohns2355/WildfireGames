@@ -44,10 +44,11 @@ public class FF_BudgetManager
             Debug.Log("Not enough money!");
             return false;
         }
+        var oldBudget = currentBudget;
         currentBudget -= amount;
         spentBudget += amount;
         //invoke ui changes
-        HH_GameManager.Instance.uiManager.storePanel.UpdateBudgetText(currentBudget);
+        HH_GameManager.Instance.uiManager.storePanel.UpdateBudgetText(currentBudget, oldBudget );
         CheckBudgetThresholds();
 
         return true;
@@ -55,10 +56,11 @@ public class FF_BudgetManager
 
     public void IncreaseBudget(float amount)
     {
+        var oldBudget = currentBudget;
         currentBudget += amount;
         initBudget += amount;
         //invoke ui changes
-        HH_GameManager.Instance.uiManager.storePanel.UpdateBudgetText(currentBudget);
+        HH_GameManager.Instance.uiManager.storePanel.UpdateBudgetText(currentBudget,oldBudget);
         Debug.Log($"Increased budget by {amount}!");
         //ResetBudgetThresholds();
     }
