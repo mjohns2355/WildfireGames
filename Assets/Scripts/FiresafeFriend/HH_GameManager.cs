@@ -76,9 +76,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             currentPlayer.inventory.AddNewPartToInventory(info);
         }
     }
-    public void SpawnHouses()
+    public void SpawnHouses(string playerTag)
     {
-        var houses = ResourceManager.Instance.houses;
+        //var houses = ResourceManager.Instance.houses;
         
     }
 

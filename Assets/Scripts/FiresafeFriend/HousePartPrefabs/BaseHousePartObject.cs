@@ -12,7 +12,7 @@ using System.Linq;
 
 public class BaseHousePartObject : FF_BaseCombustible
 {
-    public List<MeshRenderer> meshes;
+
     public MeshRenderer burntModel;
     public HouseNode houseNode;
     public Transform bubblePos;
@@ -30,9 +30,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         base.Awake();
         if (notInteractable) return;
-        meshes = GetComponentsInChildren<MeshRenderer>()
-            .Where(x => x.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
-            .ToList();
+       
 
         foreach (var mesh in meshes)
         {

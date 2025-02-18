@@ -29,6 +29,11 @@ namespace HappyHouse.HouseSystem
         private void Start()
         {
 
+            InitHouseManager();
+        }
+
+        public void InitHouseManager()
+        {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
 
@@ -74,7 +79,6 @@ namespace HappyHouse.HouseSystem
 
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
-
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
         {
             part.InitHousePartObject(this);

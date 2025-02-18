@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class FF_TutorialStep
 {
     public int stepNumber;
+    [TextArea (1,20)]
     public string description;
     //public List<GameObject> animationObjects = new List<GameObject>();
     public bool zoomToObject;
