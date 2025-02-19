@@ -29,17 +29,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     protected override void Awake()
     {
         base.Awake();
-        if (notInteractable) return;
-       
 
-        foreach (var mesh in meshes)
-        {
-            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
-        }
-        if (combustibleInfo != null)
-        {
-            partInfo = (HousePartInfo)combustibleInfo;
-        }
 
         //StartCoroutine(RandomizeStartingCondition());
 
@@ -52,7 +42,17 @@ public class BaseHousePartObject : FF_BaseCombustible
         OnCombustibleDestroyed += HandleDestroy;
         OnBurning += HandleBurning;
         OnBurnedOut += HandleBurnedOut;
+        if (notInteractable) return;
 
+
+        foreach (var mesh in meshes)
+        {
+            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
+        }
+        if (combustibleInfo != null)
+        {
+            partInfo = (HousePartInfo)combustibleInfo;
+        }
     }
 
     private void Update()

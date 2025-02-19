@@ -32,6 +32,18 @@ public class FF_DirtMound : MonoBehaviour
             //availablePlants.Remove(p);
             Plant(p);
         }
+        if (currentPlant == null)
+        {
+            SetBubbleState(false);
+        }
+        HH_GameManager.Instance.OnPlantModeChanged += (isPlantMode) =>
+        {
+            if (currentPlant == null)
+            {
+                SetBubbleState(isPlantMode);
+            }
+        };
+
     }
 
     // Update is called once per frame
@@ -84,4 +96,11 @@ public class FF_DirtMound : MonoBehaviour
             
         }
     }
+
+    void SetBubbleState(bool state)
+    {
+        bubble.gameObject.SetActive(state);
+    }
+
+
 }

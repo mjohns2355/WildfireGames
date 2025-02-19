@@ -10,7 +10,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
 {
     public List<MeshRenderer> meshes;
     public BaseCombustibleInfo combustibleInfo;
-    public bool isClickable = true;
+    public bool isClickable;
     public bool isOnFire = false;
     //public BurnStage burnStage = BurnStage.Igniting;
     [SerializeField] protected Color burntColor;

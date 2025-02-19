@@ -14,6 +14,10 @@ public class FF_Plants : FF_BaseCombustible
         base.Start();
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleBurnedOut;
+        HH_GameManager.Instance.OnPlantModeChanged += (isPlantMode) =>
+        {
+            isClickable = isPlantMode;
+        };
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 

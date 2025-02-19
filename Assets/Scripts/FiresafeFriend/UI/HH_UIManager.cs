@@ -11,10 +11,10 @@ public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
-    public Button leftArrow, rightArrow,earnMoreMoney;
+    public Button leftArrow,rightArrow,earnMoreMoney, startFireBtn, endRoundBtn;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
-    public GameObject startText;
+    public GameObject startText, modeToggle;
     public FF_QuizPopupUI quizPopup;
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
@@ -34,6 +34,13 @@ public class HH_UIManager : MonoBehaviour
             HH_GameManager.Instance.SwitchPlayer("p2");
         });
 
+        HH_GameManager.Instance.OnRoundStart += OnRoundStart;
+        HH_GameManager.Instance.OnRoundEnd += OnRoundEnd;
+
+        HH_GameManager.Instance.OnPlantModeChanged += (mode) =>
+        {
+            modeToggle.GetComponent<Toggle>().isOn = mode;
+        };
 
     }
 
@@ -109,12 +116,22 @@ public class HH_UIManager : MonoBehaviour
         inventoryPanel.inventoryUI.SetActive(false);
     }
 
+    public void OnRoundStart()
+    {
+        ToggleInventory(true);
+        endRoundBtn.gameObject.SetActive(true);
+        startFireBtn.gameObject.SetActive(false);
+        startText.SetActive(false);
+        modeToggle.SetActive(true);
+    }
     public void OnRoundEnd()
     {
         ToggleInventory(false);
         HideStoreScreen();
         leftArrow.gameObject.SetActive(false);
         rightArrow.gameObject.SetActive(false);
+        modeToggle.SetActive(false);
+        endRoundBtn.gameObject.SetActive(false);
     }
 
     public PurchaseFloatingButton SpawnBubble()
