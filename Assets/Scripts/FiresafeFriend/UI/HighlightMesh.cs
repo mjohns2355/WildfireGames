@@ -15,7 +15,6 @@ public class HighlightMesh : MonoBehaviour
         foreach(var meshRender in meshRenders)
         {
             Material panelMaterial = meshRender.material;
-
             panelMaterial.EnableKeyword("_EMISSION");
 
             panelMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;

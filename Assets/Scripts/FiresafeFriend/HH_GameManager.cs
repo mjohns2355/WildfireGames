@@ -104,6 +104,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void SwitchPlayer (string playerTag)
     {
+        if (isTutorial)
+        {
+            currentPlayer = p2;
+            IsPlantMode = false;
+            cameraController.Zoomcamera(h2CamPos, true, 60);
+            return;
+        }
         currentPlayer.OnHouseDeselected();
         uiManager.HideStoreScreen();
         IsPlantMode = false;
@@ -201,6 +208,12 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
         else
         {
+
+            if (isTutorial)
+            {
+                cameraController.MoveToHouse(currentPlayer);
+                return;
+            }
             Debug.Log("House Mode");
             inputManager.canClickHouse = true;
             if (IsGameStarted)

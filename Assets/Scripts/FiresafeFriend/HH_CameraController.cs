@@ -10,12 +10,14 @@ public class HH_CameraController : MonoBehaviour
     public float moveSpeed = 5f; 
     public float zoomDistance = 5f;
     public float maxFOV = 70;
+    public Action OnCameraZoomComplete;
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
     private bool isZooming,shouldLerp = false;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
     private float defaultFOV;
+
     private void Awake()
     {
         defaultPosition = transform.position;
@@ -43,6 +45,7 @@ public class HH_CameraController : MonoBehaviour
             if (shouldLerp && Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 isZooming = false;
+                OnCameraZoomComplete?.Invoke();
                 //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
             }
         }

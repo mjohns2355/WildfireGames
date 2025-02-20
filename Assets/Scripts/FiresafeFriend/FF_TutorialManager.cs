@@ -96,6 +96,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         if (currentStepIndex < tutorialSteps.Count)
         {
             // Clean up the previous step
+            
             FF_TutorialStep step = tutorialSteps[currentStepIndex];
             step.onStepComplete.RemoveAllListeners();
 
