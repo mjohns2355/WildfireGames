@@ -121,4 +121,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         // Load the game scene 
         SceneManager.LoadScene("FireSafeFriendScene");
     }
+
+
 }

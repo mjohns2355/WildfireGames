@@ -9,23 +9,20 @@ public class FF_TutorializedBurningPlant : FF_TutorializedObject
     public FF_Plants plant;
     public Renderer meshRender;
 
-    public override void Start()
+    
+    public void StartBurningPlant()
     {
-        base.Start();
-        animator.enabled = false;
-        FF_TutorialManager.Instance.tutorialSteps[stepIndex].onStepStart.AddListener(() =>
-        {
-            animator.enabled = true;
-            animator.Play("PlantBurningAnim");
-            plant.isOnFire = true;
-        });
+        animator.enabled = true;
+        animator.Play("PlantBurningAnim");
+        plant.isOnFire = true;
     }
-
 
     public void OnAnimFinished()
     {
         //plant.gameObject.SetActive(false);
-        base.OnTutorialStepComplete();
-        
+        OnTutorialStepComplete();
+        Destroy(plant.gameObject);
+        Destroy(gameObject);
+
     }
 }

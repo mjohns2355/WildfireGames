@@ -7,40 +7,21 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 {
     public List<FF_Plants> bushes;
     public List<FF_DirtMound> dirtMounds;
-    public GameObject leftArrow,rightArrow,plantModeToggle,dirtMoundsParent,bushesParent;
-    public Color highlightColor;
+    public GameObject leftArrow,rightArrow,dirtMoundsParent,bushesParent;
+    public Transform plantModeCamH2;
     int bushesNeededToRemove;
     int dirtMoundsNeededToFill;
-    Vector2 toggleEndPos, toggleStartPos;
+
     public override void Start()
     {
-        toggleEndPos = plantModeToggle.GetComponent<RectTransform>().anchoredPosition;
         bushesNeededToRemove = bushes.Count;
         dirtMoundsNeededToFill = dirtMounds.Count;
-        // move the plant mode toggle to the center of the screen
-        RectTransform parentRect = plantModeToggle.transform.parent.GetComponent<RectTransform>();
-        float centerX = parentRect.rect.width / 2;
-        float centerY = -parentRect.rect.height / 2;
-        toggleStartPos = new Vector2(centerX, centerY);
-        plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
-        {
-            if (value)
-            {
-                if(HH_GameManager.Instance.currentPlayer.playerTag == "P1")
-                    ShowBushes();
-                else
-                {
-                    Debug.Log("Show dirt mounds");
-                    ShowDirtMound();
-                }
-            }
-        });
 
     }
 
     public void ShowBushes()
     {     
-        FF_TutorialManager.Instance.tutorialText.text = "Tap to remove the dead bushes in the critical zone.";
+        //FF_TutorialManager.Instance.tutorialText.text = "Tap to remove the dead bushes in the critical zone.";
         foreach (var bush in bushes)
         {
 
@@ -63,6 +44,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
         //HH_GameManager.Instance.SwitchPlayer("P2");
         foreach (var mound in dirtMounds)
         {
+            mound.SetBubbleState(true);
             mound.OnPlanted += () =>
             {
                 dirtMoundsNeededToFill--;
@@ -82,42 +64,6 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
         }
     }
 
-    public void MoveIcon()
-    {
-        var canvasGroup = plantModeToggle.GetComponent<CanvasGroup>();
-        var toggleRect = plantModeToggle.GetComponent<RectTransform>();
-
-        // Start Position and Visibility
-        PrepareToggle(canvasGroup, toggleRect);
-
-        // Create the Animation Sequence
-        Sequence toggleSequence = DOTween.Sequence();
-
-        toggleSequence.PrependInterval(1.5f);
-        // Step 1: Fade In
-        toggleSequence.Append(FadeIn(canvasGroup));
-
-        // Step 2: Pulse Animation
-        toggleSequence.Append(ScaleEffect(toggleRect));
-
-        // Step 3: Move to End Position
-        toggleSequence.Append(MoveToEndPosition(toggleRect,toggleEndPos));
-
-        //after the animation is done, show the tutorial panel
-        toggleSequence.OnComplete(() =>
-        {
-            canvasGroup.interactable = true;
-            FF_TutorialManager.Instance.tutorialPanel.SetActive(true);
-            
-        });
-    }
-
-    private void PrepareToggle(CanvasGroup canvasGroup, RectTransform toggleRect)
-    {
-        toggleRect.anchoredPosition = toggleStartPos;
-        canvasGroup.alpha = 0;
-        FF_TutorialManager.Instance.tutorialPanel.SetActive(false);
-    }
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
@@ -132,11 +78,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
                          .SetEase(Ease.InOutQuad);
     }
 
-    private Tween MoveToEndPosition(RectTransform rect, Vector2 endPosition)
-    {
-        return rect.DOAnchorPos(endPosition, 1.5f)
-                         .SetEase(Ease.InOutQuad);
-    }
+
 
 
     private void MoveToHouseTwo()
@@ -163,6 +105,12 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
         arrowSequence.onComplete += () =>
         {
             canvasGroup.interactable = true;
+            rightArrow.GetComponent<Button>().onClick.RemoveAllListeners();
+            rightArrow.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                HH_GameManager.Instance.cameraController.Zoomcamera(plantModeCamH2, true, 60);
+                ShowDirtMound();
+            });
         };
     }
 }

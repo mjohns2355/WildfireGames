@@ -8,7 +8,7 @@ public class PartButton : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
-
+    public MaterialClass materialClass;
     [SerializeField]private Image icon;
     private UnityEngine.UI.Outline outline;
     private HousePartInfo partInfo;
@@ -28,6 +28,7 @@ public class PartButton : MonoBehaviour
         //nameText.text = partInfo.partID;
         icon.sprite = partInfo.icon;
         priceText.text = $"$ {partInfo.price:N0}";
+        materialClass = partInfo.partClass;
     }
 
     void OnShopPartIconClicked()

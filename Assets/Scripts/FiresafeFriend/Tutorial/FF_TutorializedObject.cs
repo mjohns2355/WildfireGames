@@ -25,6 +25,7 @@ public class FF_TutorializedObject : MonoBehaviour
     {
         
         FF_TutorialManager.Instance.tutorialSteps[stepIndex].onStepComplete.Invoke();
+        enabled = false;
         //enabled = false;
     }
 }

@@ -102,7 +102,7 @@ public class FF_DirtMound : MonoBehaviour
         }
     }
 
-    void SetBubbleState(bool state)
+    public void SetBubbleState(bool state)
     {
         bubble.gameObject.SetActive(state);
     }

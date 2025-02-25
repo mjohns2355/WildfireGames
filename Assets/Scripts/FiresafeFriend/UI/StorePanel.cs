@@ -76,7 +76,17 @@ public class StorePanel : MonoBehaviour
             if (player.inventory.PlayerOwnsPart(info))
             {
                 //Debug.Log($"Skip {p.name}: player {player.playerTag} has already owned this part");
+                Destroy(info);
                 continue;
+            }
+
+            if (HH_GameManager.Instance.isTutorial)
+            {
+                if (info.partClass != MaterialClass.A)
+                {
+                    Destroy(info);
+                    continue;
+                }
             }
             var icon = Instantiate(shopPartIcon,available.transform).GetComponent<PartButton>();
             icon.InitPartIconButton(info);
