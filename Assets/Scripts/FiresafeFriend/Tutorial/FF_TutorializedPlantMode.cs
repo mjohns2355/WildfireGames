@@ -40,7 +40,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     public void ShowBushes()
     {     
-        FF_TutorialManager.Instance.tutorialText.text = "Click on the bushes to remove them";
+        FF_TutorialManager.Instance.tutorialText.text = "Tap to remove the dead bushes in the critical zone.";
         foreach (var bush in bushes)
         {
 
@@ -59,7 +59,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     public void ShowDirtMound()
     {
-        FF_TutorialManager.Instance.tutorialText.text = "Click the bubble to plant";
+        FF_TutorialManager.Instance.tutorialText.text = "To decorate the yard, we can use fire-resistant plants. Click on the bubble to choose your plants.";
         //HH_GameManager.Instance.SwitchPlayer("P2");
         foreach (var mound in dirtMounds)
         {
@@ -69,7 +69,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
                 if (dirtMoundsNeededToFill <= 0)
                 {
                     //dirtMounds.Clear();
-                    FF_TutorialManager.Instance.tutorialText.text = "Good Job! Let's move to next";
+                    FF_TutorialManager.Instance.tutorialText.text = "Great job! Let’s move on to home hardening.";
                     DOVirtual.DelayedCall(2f, () => OnTutorialStepComplete());
                     
                 }
@@ -143,7 +143,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
     {
         HH_GameManager.Instance.cameraController.OnCameraZoomComplete += () =>
         {
-            FF_TutorialManager.Instance.tutorialText.text = "Let's switch to plant mode first";
+            //FF_TutorialManager.Instance.tutorialText.text = "Let's switch to plant mode first";
             rightArrow.SetActive(false);
             HH_GameManager.Instance.cameraController.OnCameraZoomComplete = null;
         };
@@ -152,7 +152,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
         canvasGroup.interactable = false;
         Sequence arrowSequence = DOTween.Sequence();
-        FF_TutorialManager.Instance.tutorialText.text = "Now, click the arrow on the screen to switch to house 2!";
+        FF_TutorialManager.Instance.tutorialText.text = "Now that you’re done cleaning, click on the arrow to change houses.";
         arrowSequence.PrependInterval(1f);
         // Step 1: Fade In
         arrowSequence.Append(FadeIn(canvasGroup));
