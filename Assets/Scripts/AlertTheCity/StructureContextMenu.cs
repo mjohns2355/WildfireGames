@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ public class StructureContextMenu : MonoBehaviour
     public TextMeshProUGUI title;
     [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
-    public Button closeButton;
+    //public Button closeButton;
     //public Button assignButton;
     public Structure owner;
     //bool optionsAreLocked = true;
@@ -76,24 +77,32 @@ public class StructureContextMenu : MonoBehaviour
         icon.InitIcon(house.HouseType);
         icon.AddOnClickActions(() =>
         {
-            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
+            
             
             if (isSelected)
             {
+                GameManager.Instance.cameraMovement.MoveToHouse(owner,false);
                 OnMenuEnable();
                 return;
             }
+            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
             ShowDialog();
+
         });
+
     }
 
     void ShowDialog()
     {
-        ATC_UIController.Instance.ShowDialog();
         
-        //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
-        GameManager.Instance.currentStage = LevelStage.HouseDialog;
-        ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+            ATC_UIController.Instance.ShowDialog();
+
+            //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
+            GameManager.Instance.currentStage = LevelStage.HouseDialog;
+            ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+        
+
+
     }
     public void OnMenuEnable()
     {

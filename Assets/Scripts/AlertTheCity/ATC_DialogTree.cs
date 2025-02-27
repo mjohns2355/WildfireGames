@@ -30,7 +30,10 @@ public class DialogNode
 public class DialogOption
 {
     public string option;
+    // text on option button
     public string optionText;
+    // text actually sent in message
+    public string messageText;
     public string nextNodeId;
 
 }

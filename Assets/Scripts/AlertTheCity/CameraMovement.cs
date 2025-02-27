@@ -139,8 +139,9 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    public void MoveToHouse(Structure targetHouse)
+    public void MoveToHouse(Structure targetHouse, bool shouldLerp = true)
     {
+        
 
         //Debug.Log($"Move to house {targetHouse.transform.position}");
         GameManager.Instance.canControlCam = false;
@@ -151,7 +152,14 @@ public class CameraMovement : MonoBehaviour
         targetPosition.y += 5f;
 
         target = targetHouse.transform;
-        
+        if (!shouldLerp)
+        {
+            transform.position = targetPosition;
+            gameCamera.transform.LookAt(target.position);
+
+            gameCamera.fieldOfView = targetFOV;
+            return;
+        }
 
         isFocusing = true;
     }

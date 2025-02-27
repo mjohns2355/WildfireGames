@@ -5,26 +5,22 @@ using UnityEngine.UI;
 using TMPro;
 public class FC_MessageBubble : MonoBehaviour
 {
-    public TextMeshProUGUI messageText,nametText;
+    public TextMeshProUGUI messageText,nameText;
     public HorizontalLayoutGroup layoutGroup;
     public RectTransform background;
     public Image backgroundImage;
-    public GameObject namePlate;
-
-    [SerializeField] string message;
-    [SerializeField] bool isSentByUser;
+    public Sprite npcSprite, playerSprite;
+    public GameObject namePlate,sendButton;
+    public Button messageBox;
+    public CanvasGroup canvasGroup;
+    //[SerializeField] string message;
+    //[SerializeField] bool isSentByUser;
 
     [Header("Settings")]
     public float minWidth = 200f; // Minimum width for short messages
     public float maxWidth = 500f; // Maximum width before wrapping
     public float padding = 20f;   // Padding inside the background
-
-    private void Start()
-    {
-        UpdateBackgroundSize();
-        SetupMessage(message,isSentByUser);
-    }
-    public void SetupMessage(string message, bool isSentByUser)
+    public void SetupMessage(string message, string name, bool isSentByUser)
     {
         if (isSentByUser)
         {
@@ -38,12 +34,20 @@ public class FC_MessageBubble : MonoBehaviour
             // Align to the left
             layoutGroup.childAlignment = TextAnchor.MiddleLeft;
             backgroundImage.color = new Color(0.9f, 0.9f, 0.9f);
+            nameText.text = name;
         }
         messageText.text = message;
         UpdateBackgroundSize();
+    }
 
-
-
+    public void SetupOptionButton(string optionText)
+    {
+        layoutGroup.childAlignment = TextAnchor.LowerRight;
+        messageText.text = optionText;
+        messageBox.interactable = true;
+        namePlate.SetActive(false);
+        sendButton.SetActive(true);
+        UpdateBackgroundSize();
     }
     private void UpdateBackgroundSize()
     {

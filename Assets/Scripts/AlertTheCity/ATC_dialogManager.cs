@@ -88,7 +88,7 @@ public class ATC_dialogManager : MonoBehaviour
         else
         {
             string json = jsonFile.text;
-            Debug.Log($"Loaded JSON: {json}");
+            //Debug.Log($"Loaded JSON: {json}");
             if (json != null)
             {
                 endQuoteData = JsonUtility.FromJson<QuoteData>(json);
@@ -127,10 +127,10 @@ public class ATC_dialogManager : MonoBehaviour
 
     public void ShowDialogBox()
     {
-        dialogBox.SetActive(true);
-        dialogIndex = 0;
+        //dialogBox.SetActive(true);
+        //dialogIndex = 0;
         //dialogIndex = isLocalNewsShown ? 2 : 0;
-        DisplayNextMessage();
+        //DisplayNextMessage();
         //arrow.SetActive(true);
         //if (isToolBarBroughtToFront)
         //{
