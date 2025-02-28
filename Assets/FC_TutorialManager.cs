@@ -62,6 +62,7 @@ public class FC_TutorialManager : MonoBehaviour
     {
         InitTutorialHouse();
         GameManager.Instance.cameraMovement.MoveToHouse(fireStation);
+        bottomDialogBox.SetActive(false);
         //dialogManager.StartDialog("Tutorial");
     }
 }
