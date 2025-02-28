@@ -17,6 +17,10 @@ public class Structure : MonoBehaviour
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
 
+    private void Start()
+    {
+        roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
+    }
     virtual public void OnStructureClick()
     {
         contextMenu.gameObject.SetActive(true);

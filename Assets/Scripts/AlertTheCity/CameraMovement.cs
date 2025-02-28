@@ -141,9 +141,8 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveToHouse(Structure targetHouse, bool shouldLerp = true)
     {
-        
-
         //Debug.Log($"Move to house {targetHouse.transform.position}");
+
         GameManager.Instance.canControlCam = false;
         camStartFOV = gameCamera.fieldOfView;
         targetFOV = 5f;

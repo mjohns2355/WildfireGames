@@ -74,7 +74,7 @@ public class StructureContextMenu : MonoBehaviour
             OnMenuDisable();
             ShowDialog();
         });
-        icon.InitIcon(house.HouseType);
+        icon.InitIcon(house.houseType);
         icon.AddOnClickActions(() =>
         {
             
@@ -223,7 +223,7 @@ public class StructureContextMenu : MonoBehaviour
         //}
         if(!isSelected) return;
         HouseStructure house = (HouseStructure)owner;
-        var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.HouseType];
+        var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.houseType];
 
         foreach(var c in selectedChoice)
         {

@@ -171,7 +171,7 @@ public class ATC_dialogManager : MonoBehaviour
     {
         var stage = GameManager.Instance.currentStage;
 
-        if (stage == LevelStage.HouseDialog) return;
+        if (stage == LevelStage.HouseDialog || stage == LevelStage.Tutorial) return;
         dialogBoxButton.onClick.AddListener(DisplayNextMessage);
         currentDialog = dialogData[stage];
         if (dialogIndex < currentDialog.messages.Length)

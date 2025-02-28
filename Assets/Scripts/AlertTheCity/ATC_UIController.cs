@@ -86,8 +86,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         //ShowDialog();
         //startPrompt.SetActive(true);
 
-        //TEST
-        houseDialogManager.StartDialog("tutorial");
 
     }
 
@@ -242,7 +240,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         foreach(var menu in contextMenus)
         {
             var house = (HouseStructure)menu.owner;
-            if (house.HouseType == type)
+            if (house.houseType == type)
             {
                 return menu;
             }
