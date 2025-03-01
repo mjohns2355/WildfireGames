@@ -121,7 +121,7 @@ public class StructureContextMenu : MonoBehaviour
         house.OnStructureClick();
         ATC_UIController.Instance.PushPanel(menuUI);
         icon.gameObject.SetActive(false);
-        UpdateMenuForHouse(house);
+        UpdateMenuForHouse(house, GameManager.Instance.currentStage == LevelStage.Tutorial);
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             if (menu == this) continue;
@@ -189,16 +189,28 @@ public class StructureContextMenu : MonoBehaviour
         //}
     }
 
-    public void UpdateMenuForHouse(HouseStructure house)
+    public void UpdateMenuForHouse(HouseStructure house, bool isTutorial = false)
     {
         ClearOptionButtons();
         //var houseInfo = house.info;
         var houseInfo = house.houseInfo;
         title.text = houseInfo.menuTitle;
+
+
         foreach (var entry in houseInfo.houseChoicesDict)
         {
             var choice = entry.Value.choice;
-            SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+            if (isTutorial)
+            {
+                if(choice.choiceName == "Plan Ahead")
+                {
+                    SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+                    break;
+                }
+            }
+            else {
+                SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+            }
         }
         
         //foreach(var choice in houseInfo.lockedChoices)

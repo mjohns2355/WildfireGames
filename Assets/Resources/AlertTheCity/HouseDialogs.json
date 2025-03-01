@@ -61,7 +61,12 @@
           "characterName": "Owner of 2 Cars",
           "dialogText": "It's a lot to think about. Ultimately we need to make the choice that's right for us.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "isEndNode": "true"
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Happy To Help!"
+            }
+          ]
         }
       ]
     },
@@ -126,7 +131,12 @@
           "characterName": "Worried Parents",
           "dialogText": "It's a lot to consider. Ultimately I need to make the choice that's best for my family.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
-          "isEndNode": "true"
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Happy To Help!"
+            }
+          ]
         }
       ]
     },
@@ -191,7 +201,12 @@
           "characterName": "WUI Resident",
           "dialogText": "It's a lot to think about. In the end I need to make the choice that's best for us and our home.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode": "true"
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Happy To Help!"
+            }
+          ]
         }
       ]
     },
@@ -256,7 +271,12 @@
           "characterName": "Older Resident",
           "dialogText": "It's a lot to think about, I hope I make the best choice.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "isEndNode": "true"
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Happy To Help!"
+            }
+          ]
         }
       ]
     },
@@ -323,12 +343,17 @@
           "characterName": "Pets Owner",
           "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my pets.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode": "true"
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Happy To Help!"
+            }
+          ]
         }
       ]
     },
     {
-      "houseType": "tutorial",
+      "houseType": "intro",
       "rootNodeId": "50",
       "nodes": [
         {
@@ -430,11 +455,320 @@
           "characterName": "Firefighter",
           "dialogText": "Earlier, I got a call from <b>Mary</b>, a neighbor of ours. Let's go speak to her, and see if <b>we can help</b>!",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "isEndNode": "true",
+          "options": [
+            {
+              "optionText": "Let's go! (End Conversation)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "houseType": "tutorial",
+      "rootNodeId": "58",
+      "nodes": [
+        {
+          "id": "58",
+          "characterName": "Mary",
+          "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is <b>close</b>, and I’m a little <b>worried</b>.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "What's the problem?",
+              "messageText": "What's worrying you about this fire season?",
+              "nextNodeId": "59"
+            },
+            {
+              "optionText": "Happy to help!",
+              "messageText": "What's worrying you about this fire season?",
+              "nextNodeId": "59"
+            }
+          ]
+        },
+        {
+          "id": "59",
+          "characterName": "Mary",
+          "dialogText": "Well, I’ve recently started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "That's amazing!",
+              "nextNodeId": "60"
+            },
+            {
+              "optionText": "Pet evacuation?",
+              "messageText": "Are you concerned about keeping your pets safe?",
+              "nextNodeId": "61"
+            }
+          ]
+        },
+        {
+          "id": "60",
+          "characterName": "Mary",
+          "dialogText": "Thank you! But now I start to worry about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "62"
+            }
+          ]
+        },
+        {
+          "id": "61",
+          "characterName": "Mary",
+          "dialogText": "Exactly. I’m worried about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "62"
+            }
+          ]
+        },
+        {
+          "id": "62",
+          "characterName": "Firefighter",
+          "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to listen, and <b>respond accordingly!</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "63"
+            }
+          ]
+        },
+        {
+          "id": "63",
+          "characterName": "Firefighter",
+          "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>go bag.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "64"
+            }
+          ]
+        },
+        {
+          "id": "64",
+          "characterName": "Firefighter",
+          "dialogText": "How about you <b>tell Mary</b>, then we’ll <b>head out.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Got it! (Tell Mary)",
+              "messageText": "You should prepare your pets supplies as you would with your own! Creating a <b>go bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moments notice!",
+              "nextNodeId": "65"
+            }
+          ]
+        },
+        {
+          "id": "65",
+          "characterName": "Mary",
+          "dialogText": "That’s a great idea, I’ll try to get that <b>done!</b> It’s hard to stay on top of things, but I know it will be <b>relieving in the long run.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "isEndNode":"true",
           "options": [
             {
-              "optionText": "Let's go! (End Conversation)",
-              "nextNodeId": "58"
+              "optionText": "Happy to help! (End Conversation)"
+            }
+          ]
+        }
+      ]
+    },
+        {
+      "houseType": "tutorial",
+      "rootNodeId": "58",
+      "nodes": [
+        {
+          "id": "58",
+          "characterName": "Mary",
+          "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is <b>close</b>, and I’m a little <b>worried</b>.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "What's the problem?",
+              "messageText": "What's worrying you about this fire season?",
+              "nextNodeId": "59"
+            },
+            {
+              "optionText": "Happy to help!",
+              "messageText": "What's worrying you about this fire season?",
+              "nextNodeId": "59"
+            }
+          ]
+        },
+        {
+          "id": "59",
+          "characterName": "Mary",
+          "dialogText": "Well, I’ve recently started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "That's amazing!",
+              "nextNodeId": "60"
+            },
+            {
+              "optionText": "Pet evacuation?",
+              "messageText": "Are you concerned about keeping your pets safe?",
+              "nextNodeId": "61"
+            }
+          ]
+        },
+        {
+          "id": "60",
+          "characterName": "Mary",
+          "dialogText": "Thank you! But now I start to worry about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "62"
+            }
+          ]
+        },
+        {
+          "id": "61",
+          "characterName": "Mary",
+          "dialogText": "Exactly. I’m worried about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "62"
+            }
+          ]
+        },
+        {
+          "id": "62",
+          "characterName": "Firefighter",
+          "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to listen, and <b>respond accordingly!</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "63"
+            }
+          ]
+        },
+        {
+          "id": "63",
+          "characterName": "Firefighter",
+          "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>go bag.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "64"
+            }
+          ]
+        },
+        {
+          "id": "64",
+          "characterName": "Firefighter",
+          "dialogText": "How about you <b>tell Mary</b>, then we’ll <b>head out.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Got it! (Tell Mary)",
+              "messageText": "You should prepare your pets supplies as you would with your own! Creating a <b>go bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moments notice!",
+              "nextNodeId": "65"
+            }
+          ]
+        },
+        {
+          "id": "65",
+          "characterName": "Mary",
+          "dialogText": "That’s a great idea, I’ll try to get that <b>done!</b> It’s hard to stay on top of things, but I know it will be <b>relieving in the long run.</b>",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "isEndNode":"true",
+          "options": [
+            {
+              "optionText": "Happy to help! (End Conversation)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "houseType": "outro",
+      "rootNodeId": "66",
+      "nodes": [
+        {
+          "id": "66",
+          "characterName": "Firefighter",
+          "dialogText": "You can see you spoke to <b>Mary</b> from the <b>Great icon!</b> Now, you can see all the other homes that <b>need your help.</b>",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "options": [
+            {
+              "optionText": "Sounds good!",
+              "nextNodeId": "67"
+            }
+          ]
+        },
+        {
+          "id": "67",
+          "characterName": "Firefighter",
+          "dialogText": "Once you have <b>spoken to everyone</b>, press on that <b>play icon.</b> Then we will see what happened, and the <b>impact you made!</b>",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "options": [
+            {
+              "optionText": "Sounds good! I think I'm ready now.",
+              "nextNodeId": "68"
+            }
+          ]
+        },
+        {
+          "id": "68",
+          "characterName": "Firefighter",
+          "dialogText": "Great! Oh, one last thing.",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "69"
+            }
+          ]
+        },
+        {
+          "id": "69",
+          "characterName": "Firefighter",
+          "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be from a bunch of different reasons, but it’s <b>important to keep in mind</b> that their actions <b>might not reflect what you told them.</b>",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "70"
+            }
+          ]
+        },
+        {
+          "id": "70",
+          "characterName": "Firefighter",
+          "dialogText": "Just listen to each situation, and do what you think is best! Are you ready to begin?",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "options": [
+            {
+              "optionText": "Yes (Begin Game)",
+              "nextNodeId": "71"
+            },
+            {
+              "optionText": "No (Review Tutorial)",
+              "nextNodeId": "66"
+            }
+          ]
+        },
+        {
+          "id": "71",
+          "characterName": "Firefighter",
+          "dialogText": "Great! Good luck out there!",
+          "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "isEndNode": true,
+          "options": [
+            {
+              "optionText": "Start Game"
             }
           ]
         }

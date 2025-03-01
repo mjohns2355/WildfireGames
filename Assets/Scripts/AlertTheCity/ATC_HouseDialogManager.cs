@@ -17,11 +17,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
     [SerializeField] private Button[] optionButtons; // Buttons for responses
     [SerializeField] private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
-    private ATC_DialogTree currentDialogTree;
+    [SerializeField] private ATC_DialogTree currentDialogTree;
     private DialogNode currentNode;
     [SerializeField] private int paragraphIndex;
     [SerializeField] private string key;
     [SerializeField] private Button proceedButton;
+
+    public Action OnDialogueComplete;
     //[SerializeField] GameObject nameTag;
     private bool isWaitingForPlayer = true;
 
@@ -49,7 +51,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
-            //Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
 
     }
@@ -209,20 +211,27 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void EndDialog()
     {
+
         //Debug.Log("House dialog completed");
         //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
-        isWaitingForPlayer = true;
+        //isWaitingForPlayer = true;
         characterPortrait.gameObject.SetActive(false);
+        OnDialogueComplete.Invoke();
+
+
+
         if (Enum.TryParse(key, out HouseType houseType))
         {
             ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
         }
+
+
         //proceedButton.onClick.RemoveAllListeners();
         //proceedButton.gameObject.SetActive(false);
     }
-    private FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption)
+    public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption)
     {
         if (isOption)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 public class Structure : MonoBehaviour
 {
     
@@ -19,7 +20,10 @@ public class Structure : MonoBehaviour
 
     private void Start()
     {
-        roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
+        });
     }
     virtual public void OnStructureClick()
     {
