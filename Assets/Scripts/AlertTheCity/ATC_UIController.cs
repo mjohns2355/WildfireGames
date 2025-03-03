@@ -284,6 +284,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
+        toolsBar.gameObject.SetActive(true);
         start.interactable = true;
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;

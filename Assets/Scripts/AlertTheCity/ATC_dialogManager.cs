@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 
 
-[System.Serializable]
+[Serializable]
 public class QuoteEntry
 {
     public string houseType;
@@ -18,7 +18,7 @@ public class QuoteEntry
     public string quote;    
 }
 
-[System.Serializable]
+[Serializable]
 public class QuoteData
 {
     public List<QuoteEntry> quotes;
@@ -49,7 +49,7 @@ public class ATC_dialogManager : MonoBehaviour
     [SerializeField] Button dialogBoxButton;
     [SerializeField] GameObject dialogBox;
     [SerializeField] Image newsImage;
-    private QuoteData endQuoteData;
+    [SerializeField] private QuoteData endQuoteData;
     private Dictionary<LevelStage, Dialog> dialogData;
     private int dialogIndex = 0;
     //private bool isLocalNewsShown = false;
@@ -112,7 +112,7 @@ public class ATC_dialogManager : MonoBehaviour
     
     public string GetEndQuote(string houseType, string choice, string response)
     {
-
+        Debug.Log($"Get end qupte for house: {houseType}, Selected Choice: {choice}, Response: {response}");
         foreach (var entry in endQuoteData.quotes)
         {
             if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
@@ -251,11 +251,12 @@ public class ATC_dialogManager : MonoBehaviour
         var houseType = availableHouseTypes[rng];
         
         Debug.Log("Chose Quote: " + houseType.ToString());
+
         foreach (var c in dict[houseType])
         {
             //var choice = dict[type].choiceName;
             var choice = c.choiceName;
-            var response = GameManager.Instance.houseResponses[houseType.ToString()];
+            var response = GameManager.Instance.houseResponses[houseType];
             //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
             allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
         }

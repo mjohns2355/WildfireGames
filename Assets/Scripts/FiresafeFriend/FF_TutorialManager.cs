@@ -116,7 +116,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
     void EndTutorial()
     {
-        tutorialText.text = "Tutorial Complete!";
+        //tutorialText.text = "Tutorial Complete!";
         nextButton.SetActive(false);
         // Load the game scene 
         SceneManager.LoadScene("FireSafeFriendScene");

@@ -41,7 +41,7 @@ public class HouseStructure : Structure
 
 
     List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
-    List<HouseChoice> choices = new List<HouseChoice>();
+    //List<HouseChoice> choices = new List<HouseChoice>();
     string lastOption = string.Empty;
     string currentOption;
     ATC_PlacementManager placementManager;
@@ -52,6 +52,10 @@ public class HouseStructure : Structure
     float spawnCarChance = 0.9f;
     bool followedOrder = false;
 
+    private void Awake()
+    {
+        houseInfo = null;
+    }
     private void Start()
     {
         combustible =  GetComponent<Combustible>();
@@ -114,7 +118,7 @@ public class HouseStructure : Structure
 
     public void InitMainHouse()
     {
-        Debug.Log("Init Main House");
+        //Debug.Log("Init Main House");
         // only main house has info
         contextMenu.gameObject.SetActive(true);
         var isFirstSim = GameManager.Instance.IsFirstSim;
@@ -222,18 +226,18 @@ public class HouseStructure : Structure
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
                     followedOrder = false;
-                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
+                    GameManager.Instance.UpdateHouseResponse(houseType, "Disregarded");
                     return;
                 }
                 else
                 {
                     followedOrder = true;
-                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+                    GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
                 }
             }
             else
             {
-                GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+                GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
             }
             ApplyChoiceEffect(currentChoice);
             
@@ -247,7 +251,7 @@ public class HouseStructure : Structure
         {
             choice.ApplyEffect(house);
         }
-        Debug.Log($"{houseInfo.houseType} decides to {choice.choiceName}");
+        Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
     HouseChoice GetCurrentChoice(string name)
     {

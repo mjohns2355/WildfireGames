@@ -381,7 +381,8 @@
             },
             {
               "optionText": "Get started (Skip Tutorial)",
-              "nextNodeId": "55"
+              "messageText": "I think I'm ready now.",
+              "nextNodeId": "71"
             }
           ]
         },
@@ -699,11 +700,11 @@
         {
           "id": "66",
           "characterName": "Firefighter",
-          "dialogText": "You can see you spoke to <b>Mary</b> from the <b>Great icon!</b> Now, you can see all the other homes that <b>need your help.</b>",
+          "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"pet_unlocked\">. Great work! Now, you can see all the other homes that <b>need your help.</b>",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
           "options": [
             {
-              "optionText": "Sounds good!",
+              "optionText": "Continue",
               "nextNodeId": "67"
             }
           ]
@@ -711,11 +712,12 @@
         {
           "id": "67",
           "characterName": "Firefighter",
-          "dialogText": "Once you have <b>spoken to everyone</b>, press on that <b>play icon.</b> Then we will see what happened, and the <b>impact you made!</b>",
+          "dialogText": "Once you have <b>spoken to everyone</b>, press on that <sprite name=\"play\"> icon. Then we will see what happened, and the <b>impact you made!</b>",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
           "options": [
             {
-              "optionText": "Sounds good! I think I'm ready now.",
+              "optionText": "Sounds good!",
+              "messageText": "Sounds good! I think I'm ready now.",
               "nextNodeId": "68"
             }
           ]
@@ -735,7 +737,7 @@
         {
           "id": "69",
           "characterName": "Firefighter",
-          "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be from a bunch of different reasons, but it’s <b>important to keep in mind</b> that their actions <b>might not reflect what you told them.</b>",
+          "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be from a bunch of different reasons, but it’s <b>important</b> to keep in mind that their <b>actions might not reflect what you told them.</b>",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
           "options": [
             {
@@ -749,21 +751,23 @@
           "characterName": "Firefighter",
           "dialogText": "Just listen to each situation, and do what you think is best! Are you ready to begin?",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
+          "isEndNode": true,
           "options": [
             {
               "optionText": "Yes (Begin Game)",
-              "nextNodeId": "71"
+              "messageText": "Yes"
             },
             {
               "optionText": "No (Review Tutorial)",
-              "nextNodeId": "66"
+              "messageText": "I wanna review the tutorial.",
+              "nextNodeId": "50"
             }
           ]
         },
         {
           "id": "71",
           "characterName": "Firefighter",
-          "dialogText": "Great! Good luck out there!",
+          "dialogText": "Great! The get out here, and <b>help our citizens become fire wise!</b>",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
           "isEndNode": true,
           "options": [

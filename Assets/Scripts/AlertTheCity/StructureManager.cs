@@ -17,14 +17,15 @@ public class StructureManager : MonoBehaviour
 
     Dictionary<HouseType, List<HouseChoice>> playerChoices = new Dictionary<HouseType, List<HouseChoice>>();
     Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
-    public Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
+    public Dictionary<HouseType, List<HouseStructure>> houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
     public Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
     private void Start()
     {
+
         PlacePreBuiltStructures();
-        InitHouseTypeDict();
         InitialHouseInfoDict();
         InitiPlayerChoiceDict();
+
         InitSpecialStructDict();
         InitialMainHouses();
 
@@ -45,28 +46,15 @@ public class StructureManager : MonoBehaviour
         }
     }
 
-    void InitHouseTypeDict()
+    void UpdateSameTypeHouseDict(HouseType key, HouseStructure house)
     {
-        if (houseTypeDict == null)
+
+        if (!houseTypeDict.ContainsKey(house.houseType))
         {
-            houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
-
-            foreach (var house in placementManager.GetAllHouses())
-            {
-                if (house == null) continue;
-
-                var houseStructure = house.GetComponent<HouseStructure>();
-                if (houseStructure == null) continue;
-
-                if (!houseTypeDict.ContainsKey(houseStructure.houseType))
-                {
-                    houseTypeDict[houseStructure.houseType] = new List<HouseStructure>();
-                }
-
-                houseTypeDict[houseStructure.houseType].Add(houseStructure);
-            }
+            houseTypeDict[house.houseType] = new List<HouseStructure>();
         }
 
+        houseTypeDict[key].Add(house);
 
     }
     private void InitialHouseInfoDict()
@@ -95,40 +83,52 @@ public class StructureManager : MonoBehaviour
     
     public void InitialMainHouses()
     {
-
-        //make sure each type has at least one house in the group
-        foreach (var houseType in GameManager.Instance.availableHouseTypes)
+        foreach(var pair in houseTypeDict)
         {
-            if (allHouses.Count == 0) return;
-            var structure = allHouses[UnityEngine.Random.Range(0, allHouses.Count-1)];
-            if (allMainHouses.ContainsKey(houseType))
+            var houseType = pair.Key;
+            var sameTypeHouseList = pair.Value;
+            if (!allMainHouses.ContainsKey(houseType))
             {
-                InitMainHouse(houseType, allMainHouses[houseType]);
-                //allMainHouses[houseType].outline.enabled = true;
-                continue;
-            }
-            var house = structure.GetComponent<HouseStructure>();
-            var housePosition = Vector3Int.RoundToInt(structure.transform.position);
-            if (house != null && !house.isMainHouse && !CloseToMainHouse(housePosition))
-            {
-                InitMainHouse(houseType, house);
+                HouseStructure selectedHouse = null;
+
+                // Try to find a valid house that is not close to another main house
+                for (int i = 0; i < sameTypeHouseList.Count; i++)
+                {
+                    var house = sameTypeHouseList[UnityEngine.Random.Range(0, sameTypeHouseList.Count)];
+                    var housePosition = Vector3Int.RoundToInt(house.transform.position);
+
+                    if (!CloseToMainHouse(housePosition))
+                    {
+                        selectedHouse = house;
+                        break;
+                    }
+                }
+
+                // If no valid house was found, pick the first available one
+                if (selectedHouse == null)
+                {
+                    selectedHouse = sameTypeHouseList[0];
+                }
+
+                InitMainHouse(houseType, selectedHouse);
+
+                sameTypeHouseList.Remove(selectedHouse);
             }
         }
-
-
     }
 
     private void InitMainHouse(HouseType houseType, HouseStructure house)
     {
         house.outline.enabled = true;
         house.isMainHouse = true;
+        house.SetHouseType(houseType);
         house.houseInfo = ReturnHouseInfoFor(houseType);
         house.houseInfo.InitHouseInfo(house);
+        //Debug.Log($"Init main house: {houseType}, house info: {ReturnHouseInfoFor(houseType)}");
         allMainHouses[houseType] = house;
         //playerChoices[houseType] = house.houseInfo.defaultChoice;
         playerChoices[houseType].Add(house.houseInfo.defaultChoice);
-        house.SetHouseType(houseType);
-        //allHouses.Remove(structure);
+
         // remove main house from same type house list
         houseTypeDict[houseType].Remove(house);
         house.InitMainHouse();
@@ -144,57 +144,54 @@ public class StructureManager : MonoBehaviour
             Destroy(structureTilemap.transform.GetChild(i).gameObject);
         }
 
-        EvenlyRanomizeHouse();
-        //// randomize house type at start
-        //foreach (var structure in allHouses)
-        //{
-        //    var house = structure.GetComponent<HouseStructure>();
-        //    // skip specified house
-        //    if (house.HouseType != HouseType.none) continue;
-        //    house.RandomizeHouseType();
-        //}
+        EvenlyRandomizeHouse();
     }
 
-    void EvenlyRanomizeHouse()
+    void EvenlyRandomizeHouse()
     {
         if (allHouses.Count == 0)
         {
             allHouses = placementManager.GetAllHouses();
         }
-        // Collect houses that need randomization
+
+        Dictionary<HouseType, int> presetHouseCounts = new Dictionary<HouseType, int>();
         List<HouseStructure> housesToRandomize = new List<HouseStructure>();
+
         foreach (var structure in allHouses)
         {
             var house = structure.GetComponent<HouseStructure>();
-            if (house.isMainHouse && house.houseType != HouseType.none)
-            {
-                allMainHouses[house.houseType] = house;
-            }
-            else
+
+            if (house.houseType == HouseType.none)
             {
                 housesToRandomize.Add(house);
             }
-            
+
+            else
+            {
+                // Count pre-set house types
+                if (!presetHouseCounts.ContainsKey(house.houseType))
+                {
+                    presetHouseCounts[house.houseType] = 0;
+                }
+                presetHouseCounts[house.houseType]++;
+            }
         }
-        //Debug.Log("Houses to randomize: " + housesToRandomize.Count);
-        // Get all house types except 'none'
-        HouseType[] houseTypes = Enum.GetValues(typeof(HouseType))
-                                     .Cast<HouseType>()
-                                     .Where(type => type != HouseType.none)
-                                     .ToArray();
+
 
         int totalHouses = housesToRandomize.Count;
-        int numTypes = houseTypes.Length;
+        int numTypes = GameManager.Instance.availableHouseTypes.Count();
 
-        // Calculate the base number of houses per type and the remainder
-        int baseCount = totalHouses / numTypes;
-        int remainder = totalHouses % numTypes;
+        Dictionary<HouseType, int> targetCounts = new Dictionary<HouseType, int>();
+
+        // Calculate base counts
+        int baseCount = allHouses.Count / numTypes;
+        int remainder = allHouses.Count % numTypes;
 
         // Create the target distribution list
         List<HouseType> targetDistribution = new List<HouseType>();
 
         // Distribute the base count for each type
-        foreach (var type in houseTypes)
+        foreach (var type in GameManager.Instance.availableHouseTypes)
         {
             for (int i = 0; i < baseCount; i++)
             {
@@ -207,7 +204,7 @@ public class StructureManager : MonoBehaviour
 
         for (int i = 0; i < remainder; i++)
         {
-            targetDistribution.Add(houseTypes[remainderIndices[i]]);
+            targetDistribution.Add(GameManager.Instance.availableHouseTypes[remainderIndices[i]]);
         }
 
         // Shuffle the list to randomize the order
@@ -221,9 +218,11 @@ public class StructureManager : MonoBehaviour
         for (int i = 0; i < housesToRandomize.Count; i++)
         {
             housesToRandomize[i].SetHouseType(targetDistribution[i]);
+            UpdateSameTypeHouseDict(targetDistribution[i], housesToRandomize[i]);
         }
-
     }
+
+  
     public void ClickStructre(Vector3Int position)
     {
         var clickedStructure = placementManager.GetStructureAt(position);
@@ -368,6 +367,7 @@ public class StructureManager : MonoBehaviour
     {
         return playerChoices;
     }
+
 
     bool CloseToMainHouse(Vector3Int position)
     {

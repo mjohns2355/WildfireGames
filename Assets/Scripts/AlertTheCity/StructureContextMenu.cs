@@ -77,11 +77,13 @@ public class StructureContextMenu : MonoBehaviour
         icon.InitIcon(house.houseType);
         icon.AddOnClickActions(() =>
         {
-            
-            
+
+            if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
+            ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
             if (isSelected)
             {
                 GameManager.Instance.cameraMovement.MoveToHouse(owner,false);
+                
                 OnMenuEnable();
                 return;
             }
@@ -99,7 +101,7 @@ public class StructureContextMenu : MonoBehaviour
 
             //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
             GameManager.Instance.currentStage = LevelStage.HouseDialog;
-            ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+            ATC_UIController.Instance.houseDialogManager.StartDialogue(icon.iconHouseType.ToString());
         
 
 

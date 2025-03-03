@@ -2,6 +2,7 @@ using cakeslice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,7 +35,7 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_DialogTree[] houseDialogs;
     [SerializeField] private int previousHousesDestroyed = 0; 
     [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
-    public Dictionary<string,string> houseResponses = new Dictionary<string,string>();
+    public Dictionary<HouseType,string> houseResponses = new Dictionary<HouseType, string>();
     
     private bool isPaused = false;
     public override void Awake()
@@ -161,7 +162,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
     }
 
-    public void UpdateHouseResponse(string houseType, string response)
+    public void UpdateHouseResponse(HouseType houseType, string response)
     {
         if (houseResponses.ContainsKey(houseType))
         {
@@ -292,11 +293,13 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void ResetGame()
     {
-        if(!IsFirstSim) {
+        Debug.Log(currentStage);
+        if(!IsFirstSim && currentStage!= LevelStage.Tutorial) {
             currentStage = LevelStage.PhaseOne;
         }
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
+        Time.timeScale = GameSpeed = 2f;
         carsEvacuated = 0;
         housesDestroyed = 0;
         SimTimer = 0;
@@ -350,24 +353,27 @@ public class GameManager : UnitySingleton<GameManager>
         {
             availableHouseTypes.Clear();
         }
-        
-        if (CurrentLevel == 0)
-        {
-            availableHouseTypes.Add(HouseType.twoCar);
-            availableHouseTypes.Add(HouseType.wui);
-            // test version
-            availableHouseTypes.Add(HouseType.kids);
-            availableHouseTypes.Add(HouseType.elderly);
-            availableHouseTypes.Add(HouseType.pet);
-        }
-        else
-        {
-            for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
-            {
-                var houseType = (HouseType)i;
-                availableHouseTypes.Add(houseType);
-            }
-        }
+        availableHouseTypes = Enum.GetValues(typeof(HouseType))
+                                     .Cast<HouseType>()
+                                     .Where(type => type != HouseType.none)
+                                     .ToList();
+        //if (CurrentLevel == 0)
+        //{
+        //    availableHouseTypes.Add(HouseType.twoCar);
+        //    availableHouseTypes.Add(HouseType.wui);
+        //    // test version
+        //    availableHouseTypes.Add(HouseType.kids);
+        //    availableHouseTypes.Add(HouseType.elderly);
+        //    availableHouseTypes.Add(HouseType.pet);
+        //}
+        //else
+        //{
+        //    for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
+        //    {
+        //        var houseType = (HouseType)i;
+        //        availableHouseTypes.Add(houseType);
+        //    }
+        //}
     }
 
     public int CountFollowedInstructions()

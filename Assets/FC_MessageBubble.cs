@@ -26,14 +26,21 @@ public class FC_MessageBubble : MonoBehaviour
         {
             // Align to the right
             layoutGroup.childAlignment = TextAnchor.MiddleRight;
-            backgroundImage.color = new Color(0.19f, 0.56f, 0.93f);
+            backgroundImage.color = new Color(255, 204, 0);
             namePlate.SetActive(false);
         }
         else
         {
+            if(name == "Mary"){
+                backgroundImage.color = Color.magenta;
+
+            }
+            else{
+                backgroundImage.color = new Color(0.9f, 0.9f, 0.9f);
+            }
             // Align to the left
             layoutGroup.childAlignment = TextAnchor.MiddleLeft;
-            backgroundImage.color = new Color(0.9f, 0.9f, 0.9f);
+           
             nameText.text = name;
         }
         messageText.text = message;
