@@ -158,8 +158,11 @@ MonoBehaviour:
   layoutGroup: {fileID: 3439706884198104888}
   background: {fileID: 4383537782330532606}
   backgroundImage: {fileID: 6245877343269216035}
-  npcSprite: {fileID: 0}
-  playerSprite: {fileID: 0}
+  playerBGSpriteShort: {fileID: 21300000, guid: 59c64235c82724a069351bd86025c140, type: 3}
+  playerBGSpriteLong: {fileID: 21300000, guid: c5182d71fbfeb48918deb2bb651524a0, type: 3}
+  choiceSprite: {fileID: 21300000, guid: 8c044881e30ae46b5b3025f60096e54a, type: 3}
+  fireFighterSprite: {fileID: 21300000, guid: 724d99d3a325b4336a53b688941bb0f1, type: 3}
+  fireFighterSpriteShort: {fileID: 21300000, guid: 54992dbe805904324a72f743ae91788a, type: 3}
   namePlate: {fileID: 4462985061556069405}
   sendButton: {fileID: 7424875945610285951}
   messageBox: {fileID: 5058840025446736893}
@@ -167,6 +170,7 @@ MonoBehaviour:
   minWidth: 200
   maxWidth: 500
   padding: 20
+  tailHeight: 40
 --- !u!225 &824857484590474897
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -382,8 +386,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
