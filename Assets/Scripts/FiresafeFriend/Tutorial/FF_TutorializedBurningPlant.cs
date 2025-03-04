@@ -5,11 +5,9 @@ using UnityEngine;
 public class FF_TutorializedBurningPlant : FF_TutorializedObject
 {
     public Animator animator;
-    public GameObject fireParticle;
+    public GameObject fireParticle, normalPlant, burningPlant;
     public FF_Plants plant;
-    public Renderer meshRender;
 
-    
     public void StartBurningPlant()
     {
         animator.enabled = true;
@@ -21,7 +19,8 @@ public class FF_TutorializedBurningPlant : FF_TutorializedObject
     {
         //plant.gameObject.SetActive(false);
         OnTutorialStepComplete();
-        Destroy(plant.gameObject);
+        Destroy(normalPlant);
+        Destroy(burningPlant);
         Destroy(gameObject);
 
     }

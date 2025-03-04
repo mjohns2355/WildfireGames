@@ -11,6 +11,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     public override void Start()
     {
+        plantModeToggle.SetActive(false);
         toggleEndPos = plantModeToggle.GetComponent<RectTransform>().anchoredPosition;
 
         // move the plant mode toggle to the center of the screen
@@ -21,6 +22,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
         plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
         {
+            
             criticalZoneHighlight.HighlightMeshes();
             FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it’s important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
             plantModeToggle.GetComponent<Toggle>().interactable = false;
@@ -28,6 +30,8 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
             {
                 Destroy(criticalZoneHighlight);
                 OnTutorialStepComplete();
+                plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
+               
             });
         });
     }
@@ -64,6 +68,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     private void PrepareToggle(CanvasGroup canvasGroup, RectTransform toggleRect)
     {
+        plantModeToggle.SetActive(true);
         toggleRect.anchoredPosition = toggleStartPos;
         canvasGroup.alpha = 0;
         FF_TutorialManager.Instance.tutorialPanel.SetActive(false);
