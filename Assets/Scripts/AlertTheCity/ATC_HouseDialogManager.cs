@@ -143,7 +143,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             text = selectedOption.optionText;
         }
 
-        SpawnAMessageBubble(text, "", true, false);
+        SpawnAMessageBubble(text, null, true, false);
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
         // jump to end if it node is an end node
@@ -193,7 +193,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         for (int i = 0; i < currentNode.options.Length; i++)
         {
             var index = i;
-            var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, "", false, true);
+            var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, null, false, true);
 
             // Add click listener
             optionBubble.messageBox.onClick.AddListener(() =>
@@ -271,7 +271,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
 
         var messageBubble = Instantiate(messageBubblePrefab, messagebBubblesContainer).GetComponent<FC_MessageBubble>();
-        messageBubble.SetupMessage(message, name, isSentByUser);
+        messageBubble.SetupMessage(message, name, isSentByUser,key);
         AnimateMessageBubble(messageBubble.GetComponent<CanvasGroup>());
 
         return messageBubble;

@@ -8,164 +8,165 @@ public class FC_MessageBubble : MonoBehaviour
     public TextMeshProUGUI messageText,nameText;
     public HorizontalLayoutGroup layoutGroup;
     public RectTransform background;
-    public Image backgroundImage;
-    public Sprite playerBGSpriteShort, playerBGSpriteLong, choiceSprite, fireFighterSprite, fireFighterSpriteShort;
+    public Image backgroundImage,namePlateBackgrondImage;
     public GameObject namePlate,sendButton;
     public Button messageBox;
     public CanvasGroup canvasGroup;
-    //[SerializeField] string message;
-    //[SerializeField] bool isSentByUser;
 
     [Header("Settings")]
     public float minWidth = 200f; // Minimum width for short messages
     public float maxWidth = 500f; // Maximum width before wrapping
     public float padding = 20f;   // Padding inside the background
     public float tailHeight = 30f;  // speech bubble tail height
+    public float namePlatePadding = 5f; // Extra space for name plate messages
+    public float sendButtonPadding = 50f; // Extra space for the send button in option bubbles
 
     private float textWidth, textHeight;
     private bool isSentByUser, isOption = false;
-    public void SetupMessage(string message, string name, bool isSentByUser)
+
+    public void SetupMessage(string message, string name, bool isSentByUser,string houseType)
     {
+
         this.isSentByUser = isSentByUser;
+        isOption = false; // Reset option flag
+        bool hasNamePlate = !string.IsNullOrEmpty(name);
+
         messageText.text = message;
-        UpdateBackgroundSize();
+        nameText.text = name;
+        namePlate.SetActive(hasNamePlate);
 
-        if (isSentByUser)
-        {
+        // Align the message depending on the sender
+        layoutGroup.childAlignment = isSentByUser ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft;
 
-            // Align to the right
-            layoutGroup.childAlignment = TextAnchor.MiddleRight;
-            //backgroundImage.color = new Color(255, 204, 0);
-            namePlate.SetActive(false);
-        }
-        else
-        {
-            
-            if(name == "Mary"){
-                backgroundImage.color = Color.magenta;
-
-            }
-            // Align to the left
-            layoutGroup.childAlignment = TextAnchor.MiddleLeft;
-           
-            nameText.text = name;
-        }
+        // Update bubble size & background
+        UpdateBackgroundSize(hasNamePlate);
         SetBackgroundImageSprite();
     }
 
     public void SetupOptionButton(string optionText)
     {
         isOption = true;
-        tailHeight = 0;
+        tailHeight = 0; // No tail for option bubbles
         messageText.text = optionText;
-        UpdateBackgroundSize();
-        layoutGroup.childAlignment = TextAnchor.LowerRight;
-
+        layoutGroup.childAlignment = TextAnchor.MiddleRight;
         messageBox.interactable = true;
         namePlate.SetActive(false);
         sendButton.SetActive(true);
+
+        UpdateBackgroundSize(false);
         SetBackgroundImageSprite();
     }
 
     private void SetBackgroundImageSprite()
     {
-        //if (textWidth < minWidth && textWidth < 120f)
-        //{
-        //    if (isSentByUser)
-        //    {
-        //        backgroundImage.sprite = playerBGSpriteShort;
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (isSentByUser)
-        //    {
-        //        backgroundImage.sprite = playerBGSpriteLong;
-        //    }
-
-        //}
+        var config = MessageBubbleConfig.Instance;
+        if (isOption)
+        {
+            backgroundImage.sprite = config.choiceSprite;
+            return;
+        }
 
         if (isSentByUser)
         {
-            if (textWidth < minWidth || textHeight < 130f)
-            {
-                Debug.Log("Short");
-                backgroundImage.sprite = playerBGSpriteShort;
-            }
-            else
-            {
-                backgroundImage.sprite = playerBGSpriteLong;
-            }
-
-            
+            backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.playerBGShort : config.playerBGLong;
         }
-
-        if (isOption)
+        else
         {
-            backgroundImage.sprite = choiceSprite;
-        }
-
-        else if(isSentByUser == false)
-        {
-            if (textWidth < minWidth || textHeight < 130f)
+            var name = nameText.text;
+            Debug.Log(name);
+            switch (name)
             {
+                case "Mary":
+                case "pet":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.petHomeBGShort : config.petHomeBGLong;
+                    namePlateBackgrondImage.sprite = config.petHomeNamePlate;
+                    break;
 
-                backgroundImage.sprite = fireFighterSpriteShort;
-            }
-            else
-            {
-                backgroundImage.sprite = fireFighterSprite;
+                case "Firefighter":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.firefighterBGShort : config.firefighterBGLong;
+                    namePlateBackgrondImage.sprite = config.firefighterNamePlate;
+                    break;
+
+                case "Owner of 2 Cars":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.twoCarsHomeBGShort : config.twoCarsHomeBGLong;
+                    namePlateBackgrondImage.sprite = config.twoCarsHomeNamePlate;
+                    break;
+
+                case "Worried Parents":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.kidsHomeBGShort : config.kidsHomeBGLong;
+                    namePlateBackgrondImage.sprite = config.kidsHomeNamePlate;
+                    break;
+
+                case "WUI Resident":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.wuiHomeBGShort : config.wuiHomeBGLong;
+                    namePlateBackgrondImage.sprite = config.wuiHomeNamePlate;
+                    break;
+
+                case "Older Resident":
+                    backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.elderlyHomeBGShort : config.elderlyHomeBGLong;
+                    namePlateBackgrondImage.sprite = config.elderlyHomeNamePlate;
+                    break;
+
+                default:
+                    Debug.LogWarning($"No matching background found for name: {name}");
+                    break;
             }
 
-                
+
         }
     }
-    private void UpdateBackgroundSize()
+    private void UpdateBackgroundSize(bool hasNamePlate)
     {
         // Get the preferred width and height for the text
         Vector2 preferredValues = messageText.GetPreferredValues(messageText.text);
 
         // Calculate the new width and height with padding
-        float newWidth = preferredValues.x + padding * 2;
+        float extraPadding = isOption ? sendButtonPadding : 0; // Add padding for the send button if it's an option
+        float newWidth = preferredValues.x + padding * 2 + extraPadding;
         newWidth = Mathf.Clamp(newWidth, minWidth, maxWidth);
-        // Force the TextMeshPro to wrap within the max width
-        messageText.rectTransform.sizeDelta = new Vector2(newWidth - padding * 2, preferredValues.y);
-       
-        // Calculate the new height after text wrapping
-        Vector2 wrappedSize = messageText.GetPreferredValues(messageText.text, newWidth - padding * 2, Mathf.Infinity);
+        // Force TextMeshPro to wrap within max width
+        messageText.rectTransform.sizeDelta = new Vector2(newWidth - padding * 2 - extraPadding, preferredValues.y);
+
+        // Calculate new height after wrapping
+        Vector2 wrappedSize = messageText.GetPreferredValues(messageText.text, newWidth - padding * 2 - extraPadding, Mathf.Infinity);
         float newHeight = wrappedSize.y + padding * 2 + tailHeight;
 
-        // Update the background size
+        // Add extra space if the message has a name plate
+        if (hasNamePlate)
+        {
+            newHeight += namePlatePadding;
+        }
+
+        // Apply new size
         background.sizeDelta = new Vector2(newWidth, newHeight);
-        textHeight = newHeight;
         textWidth = newWidth;
-        Debug.Log(newHeight);
+        textHeight = newHeight;
+
         ResetTextPosition();
+
     }
 
     private void ResetTextPosition()
     {
-        // Align Text to Top Left
         messageText.rectTransform.pivot = new Vector2(0, 1);
         messageText.rectTransform.anchorMin = new Vector2(0, 1);
         messageText.rectTransform.anchorMax = new Vector2(0, 1);
 
-        // Compensate for internal padding
         float textOffsetX = 3f;
         float textOffsetY = -3f;
-        // Offset the text upwards to compensate for the tail
-        if(tailHeight != 0)
+        if (tailHeight != 0)
         {
-            textOffsetY = -padding + tailHeight / 2;
+            textOffsetY = -padding + (tailHeight / 2);
         }
+        
 
-        // Apply the offset
-        messageText.rectTransform.anchoredPosition = new Vector2(padding + textOffsetX, -padding + textOffsetY);
+        // Adjust for send button in option bubbles
+        float xOffset = isOption ? -sendButtonPadding / 2 : 0;
 
-        // Force TextMeshPro to recalculate layout
+        messageText.rectTransform.anchoredPosition = new Vector2(padding + textOffsetX + xOffset, -padding + textOffsetY);
         messageText.ForceMeshUpdate();
     }
+
 }
 
 
