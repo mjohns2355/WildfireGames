@@ -93,7 +93,6 @@ public class FC_MessageBubble : MonoBehaviour
             switch (name)
             {
                 case "Mary":
-                case "pet":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.petHomeBGShort : config.petHomeBGLong;
                     namePlateBackgrondImage.sprite = config.petHomeNamePlate;
                     break;
@@ -103,22 +102,22 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.firefighterNamePlate;
                     break;
 
-                case "Owner of 2 Cars":
+                case "Bob":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.twoCarsHomeBGShort : config.twoCarsHomeBGLong;
                     namePlateBackgrondImage.sprite = config.twoCarsHomeNamePlate;
                     break;
 
-                case "Worried Parents":
+                case "David":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.kidsHomeBGShort : config.kidsHomeBGLong;
                     namePlateBackgrondImage.sprite = config.kidsHomeNamePlate;
                     break;
 
-                case "WUI Resident":
+                case "Annie":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.wuiHomeBGShort : config.wuiHomeBGLong;
                     namePlateBackgrondImage.sprite = config.wuiHomeNamePlate;
                     break;
 
-                case "Older Resident":
+                case "Alice":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.elderlyHomeBGShort : config.elderlyHomeBGLong;
                     namePlateBackgrondImage.sprite = config.elderlyHomeNamePlate;
                     break;
