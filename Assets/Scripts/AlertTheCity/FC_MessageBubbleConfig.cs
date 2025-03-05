@@ -3,15 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MessageBubbleConfig", menuName = "UI/MessageBubbleConfig")]
 public class MessageBubbleConfig : ScriptableObject
 {
-    public Sprite playerBGShort, playerBGLong;
+    public Sprite playerBGShort, playerBGLong,playerTypingIndicator;
     public Sprite choiceSprite;
 
-    public Sprite firefighterBGShort, firefighterBGLong, firefighterNamePlate;
-    public Sprite petHomeBGShort, petHomeBGLong, petHomeNamePlate;
-    public Sprite elderlyHomeBGShort, elderlyHomeBGLong, elderlyHomeNamePlate;
-    public Sprite twoCarsHomeBGShort, twoCarsHomeBGLong, twoCarsHomeNamePlate;
-    public Sprite wuiHomeBGShort, wuiHomeBGLong, wuiHomeNamePlate;
-    public Sprite kidsHomeBGShort, kidsHomeBGLong, kidsHomeNamePlate;
+    public Sprite firefighterBGShort, firefighterBGLong, firefighterNamePlate,firefighterTypingIndicator;
+    public Sprite petHomeBGShort, petHomeBGLong, petHomeNamePlate,petTypingIndicator;
+    public Sprite elderlyHomeBGShort, elderlyHomeBGLong, elderlyHomeNamePlate, elderlyTypingIndicator;
+    public Sprite twoCarsHomeBGShort, twoCarsHomeBGLong, twoCarsHomeNamePlate, twoCarTypingIndicator;
+    public Sprite wuiHomeBGShort, wuiHomeBGLong, wuiHomeNamePlate, wuiTypingIndicator;
+    public Sprite kidsHomeBGShort, kidsHomeBGLong, kidsHomeNamePlate, kidsTypingIndicator;
 
     private static MessageBubbleConfig _instance;
 

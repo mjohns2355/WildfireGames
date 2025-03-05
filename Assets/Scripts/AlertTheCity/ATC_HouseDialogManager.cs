@@ -101,9 +101,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
             skipButton.gameObject.SetActive(canShowSkipButton);
             // Create a message bubble after the delay
         }
+
+        //var isUser = string.IsNullOrEmpty(currentNode.characterName);
+        //var typingIndicator = SpawnAMessageBubble(null, currentNode.characterName, isUser, false, true);
+        //typingIndicator.GetComponent<CanvasGroup>().DOFade(1f, 0.3f).SetEase(Ease.OutBack);
+        //yield return new WaitForSeconds(1.0f);
+        //Destroy(typingIndicator.gameObject);
         float delayTime = baseWaitTime + currentNode.dialogText.Length * waitTimePerCharacter;
                                                     
-        SpawnAMessageBubble(currentNode.dialogText, currentNode.characterName, false, false);
+        SpawnAMessageBubble(currentNode.dialogText, currentNode.characterName, false, false, false);
 
         if (!string.IsNullOrEmpty(currentNode.portraitPath))
         {
@@ -143,7 +149,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             text = selectedOption.optionText;
         }
 
-        SpawnAMessageBubble(text, null, true, false);
+        SpawnAMessageBubble(text, null, true, false,false);
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
         // jump to end if it node is an end node
@@ -193,7 +199,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         for (int i = 0; i < currentNode.options.Length; i++)
         {
             var index = i;
-            var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, null, false, true);
+            var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, null, false, true,false);
 
             // Add click listener
             optionBubble.messageBox.onClick.AddListener(() =>
@@ -255,7 +261,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //proceedButton.onClick.RemoveAllListeners();
         //proceedButton.gameObject.SetActive(false);
     }
-    public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption)
+    public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption,bool isTypingIndicator)
     {
         if (isOption)
         {
@@ -270,8 +276,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
             return optionBubble;
         }
 
+        if (isTypingIndicator)
+        {
+            var indicator = Instantiate(messageBubblePrefab, messagebBubblesContainer).GetComponent<FC_MessageBubble>();
+            indicator.SetupTypingIndicator(isSentByUser,name);
+            return indicator;
+        }
         var messageBubble = Instantiate(messageBubblePrefab, messagebBubblesContainer).GetComponent<FC_MessageBubble>();
-        messageBubble.SetupMessage(message, name, isSentByUser,key);
+        messageBubble.SetupMessage(message, name, isSentByUser);
         AnimateMessageBubble(messageBubble.GetComponent<CanvasGroup>());
 
         return messageBubble;

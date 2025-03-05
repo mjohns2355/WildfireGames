@@ -24,7 +24,7 @@ public class FC_MessageBubble : MonoBehaviour
     private float textWidth, textHeight;
     private bool isSentByUser, isOption = false;
 
-    public void SetupMessage(string message, string name, bool isSentByUser,string houseType)
+    public void SetupMessage(string message, string name, bool isSentByUser)
     {
 
         this.isSentByUser = isSentByUser;
@@ -43,6 +43,23 @@ public class FC_MessageBubble : MonoBehaviour
         SetBackgroundImageSprite();
     }
 
+    public void SetupTypingIndicator(bool isSentByUser, string name)
+    {
+        var config = MessageBubbleConfig.Instance;
+        layoutGroup.childAlignment = isSentByUser ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft;
+        messageText.gameObject.SetActive(false);
+        Debug.Log(name);
+        backgroundImage.sprite = name switch
+        {
+            "Mary" or "pet" => config.petTypingIndicator,
+            "Firefighter" => config.firefighterTypingIndicator,
+            "Owner of 2 Cars" => config.twoCarTypingIndicator,
+            "Worried Parents" => config.kidsTypingIndicator,
+            "WUI Resident" => config.wuiTypingIndicator,
+            "Older Resident" => config.elderlyTypingIndicator,
+            _ => config.playerTypingIndicator,//Debug.LogWarning($"No matching background found for name: {name}");
+        };
+    }
     public void SetupOptionButton(string optionText)
     {
         isOption = true;
@@ -73,7 +90,6 @@ public class FC_MessageBubble : MonoBehaviour
         else
         {
             var name = nameText.text;
-            Debug.Log(name);
             switch (name)
             {
                 case "Mary":
