@@ -26,7 +26,7 @@ public class FC_TreeGroup : Combustible
     public override void Update()
     {
         base.Update();
-        if (burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
+        if (burnTime > 10 && !burned && !GameManager.Instance.SimIsEnd)
         {
             foreach (FC_Tree tree in trees)
             {
