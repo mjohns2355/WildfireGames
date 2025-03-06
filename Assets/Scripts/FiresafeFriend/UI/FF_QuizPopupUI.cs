@@ -98,7 +98,7 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     private void OnDisable()
     {
-
+        HH_GameManager.Instance.currentPlayer.budgetManager.canEarnMoreMoney = false;
         for (int i = 0; i < buttonsParent.childCount; i++)
         {
             Destroy(buttonsParent.GetChild(i).gameObject);

@@ -62,6 +62,7 @@ public class HH_UIManager : MonoBehaviour
         // 2. Add listener to handle user input
         toggle.onValueChanged.AddListener(OnToggleValueChanged);
 
+        earnMoreMoney.onClick.AddListener(ShowQuizPopup);
     }
 
     private void OnToggleValueChanged(bool value)
