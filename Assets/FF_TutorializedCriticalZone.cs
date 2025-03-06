@@ -7,6 +7,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 {
     Vector2 toggleEndPos, toggleStartPos;
     public GameObject plantModeToggle;
+    public RectTransform parentRect;
     public HighlightMesh criticalZoneHighlight;
 
     public override void Start()
@@ -15,9 +16,11 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         toggleEndPos = plantModeToggle.GetComponent<RectTransform>().anchoredPosition;
 
         // move the plant mode toggle to the center of the screen
-        RectTransform parentRect = plantModeToggle.transform.parent.GetComponent<RectTransform>();
+        //RectTransform parentRect = plantModeToggle.transform.parent.GetComponent<RectTransform>();
         float centerX = parentRect.rect.width / 2;
+
         float centerY = -parentRect.rect.height / 2;
+
         toggleStartPos = new Vector2(centerX, centerY);
 
         plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>

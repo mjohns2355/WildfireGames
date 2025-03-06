@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using DG.Tweening;
 namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
@@ -28,8 +29,11 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         private void Start()
         {
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                InitHouseManager();
+            });
 
-            InitHouseManager();
         }
 
         public void InitHouseManager()

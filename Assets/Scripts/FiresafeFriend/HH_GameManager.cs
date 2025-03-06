@@ -218,6 +218,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             inputManager.canClickHouse = true;
             if (IsGameStarted)
             {
+                if (currentPlayer)
+                {
+                    currentPlayer.ToggleAllPurchaseIcons(true);
+                }
                 cameraController.MoveToHouse(currentPlayer);
             }
             else

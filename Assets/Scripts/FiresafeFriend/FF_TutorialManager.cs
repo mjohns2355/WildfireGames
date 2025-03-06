@@ -28,7 +28,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
     public GameObject introPanel, tutorialPanel; 
-    public Button introStartButton; 
+    public Button startTutorialYesButton,startTutorialNoButton; 
     
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,8 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         nextButton.GetComponent<Button>().onClick.AddListener(() => ProceedToNextStep());
         // Start the tutorial with the intro panel
         introPanel.SetActive(true);
-        introStartButton.onClick.AddListener(() => StartTutorial());
+        startTutorialYesButton.onClick.AddListener(StartTutorial);
+        startTutorialNoButton.onClick.AddListener(EndTutorial);
     }
 
     // Update is called once per frame
