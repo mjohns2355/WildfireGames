@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using DG.Tweening;
 public class ATC_UIController : UnitySingleton<ATC_UIController>
 {
     public GameObject canvas;
@@ -20,7 +20,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject endScreen;
     public GameObject learnMorePanel;
     public TextMeshProUGUI levelText;
-    public GameObject startPrompt;
+    public GameObject startPrompt,dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
     //public GameObject buildingMenu;
@@ -85,6 +85,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
         //ShowDialog();
         //startPrompt.SetActive(true);
+
+
     }
 
     private void Update()
@@ -238,7 +240,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         foreach(var menu in contextMenus)
         {
             var house = (HouseStructure)menu.owner;
-            if (house.HouseType == type)
+            if (house.houseType == type)
             {
                 return menu;
             }
@@ -282,6 +284,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
+        toolsBar.gameObject.SetActive(true);
         start.interactable = true;
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
@@ -308,15 +311,18 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void ShowDialog()
     {
+        
+        dialoguePanel.SetActive(true);
         //PushPanel(dialogManager.gameObject);
-        dialogManager.ShowDialogBox();
+        //dialogManager.ShowDialogBox();
         toolsBar.SetActive(false);
     }
 
     public void HideDialog()
     {
-        dialogManager.HideDialogBox();
-        
+        dialoguePanel.SetActive(false);
+        //dialogManager.HideDialogBox();
+
     }
 
     public void ShowEndScreen()

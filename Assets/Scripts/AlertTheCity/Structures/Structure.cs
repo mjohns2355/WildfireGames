@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 public class Structure : MonoBehaviour
 {
     
@@ -17,6 +18,13 @@ public class Structure : MonoBehaviour
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
 
+    private void Start()
+    {
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
+        });
+    }
     virtual public void OnStructureClick()
     {
         contextMenu.gameObject.SetActive(true);

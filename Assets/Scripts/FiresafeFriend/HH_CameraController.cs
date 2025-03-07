@@ -10,12 +10,14 @@ public class HH_CameraController : MonoBehaviour
     public float moveSpeed = 5f; 
     public float zoomDistance = 5f;
     public float maxFOV = 70;
+    public Action OnCameraZoomComplete;
     public Vector3 camPosOffset = Vector3.zero;
     private Vector3 targetPosition;
-    private bool isZooming = false;
+    private bool isZooming,shouldLerp = false;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
     private float defaultFOV;
+
     private void Awake()
     {
         defaultPosition = transform.position;
@@ -32,16 +34,18 @@ public class HH_CameraController : MonoBehaviour
     {
         if (isZooming)
         {
-            
-            transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
+            if (shouldLerp)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            }
             
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, maxFOV, zoomSpeed * Time.deltaTime);
 
             
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (shouldLerp && Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 isZooming = false;
+                OnCameraZoomComplete?.Invoke();
                 //HH_GameManager.Instance.inputManager.OnHouseSelected -= MoveToHouse;
             }
         }
@@ -56,11 +60,16 @@ public class HH_CameraController : MonoBehaviour
         Zoomcamera(targetCamTransform);
     }
 
-    public void Zoomcamera(Transform targetTransform, float maxFov = 70)
+    public void Zoomcamera(Transform targetTransform,bool shouldLerp = true, float maxFov = 70)
     {
         maxFOV = maxFov;
+        this.shouldLerp = shouldLerp;
         targetPosition = targetTransform.position;
         Camera.main.transform.rotation = targetTransform.rotation;
+        if(!shouldLerp)
+        {
+            transform.position = targetPosition;
+        }
         isZooming = true;
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class FF_Plants : FF_BaseCombustible
 {
     public int debris;
-    public bool isClickable = true;
+
     public bool canClickToRemove = false;
     public Action onPlantClicked;
     protected override void Start()
@@ -14,6 +14,10 @@ public class FF_Plants : FF_BaseCombustible
         base.Start();
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleBurnedOut;
+        HH_GameManager.Instance.OnPlantModeChanged += (isPlantMode) =>
+        {
+            isClickable = isPlantMode;
+        };
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 
@@ -22,7 +26,7 @@ public class FF_Plants : FF_BaseCombustible
         Destroy(gameObject);
     }
 
-    protected override void OnCombustibleClicked(GameObject obj)
+    public override void OnCombustibleClicked(GameObject obj)
     {
         //if (obj.transform.parent == transform)
         if (obj == gameObject && isClickable)
@@ -71,9 +75,11 @@ public class FF_Plants : FF_BaseCombustible
         {
             transform.GetChild(0).gameObject.SetActive(false);
             var vfx = Instantiate(Resources.Load("sticks 1"), transform.position, transform.rotation);
+            collider.enabled = false;
             yield return new WaitForSeconds(1f);
             Destroy(vfx);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            OnCombustibleDestroyed?.Invoke();
         }
         else
         {

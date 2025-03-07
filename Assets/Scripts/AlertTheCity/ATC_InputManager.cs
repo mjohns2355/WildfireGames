@@ -23,7 +23,7 @@ public class ATC_InputManager : MonoBehaviour
 
     private Vector3 lastTouchPosition;
     private bool isDragging;
-
+    public bool isKeyboard = false;
     //   public Vector2 CameraMovementVector
     //   {
     //	get { return cameraMovementVector; }
@@ -68,6 +68,7 @@ public class ATC_InputManager : MonoBehaviour
     {
 
         if (!checkKeyboard) return;
+        isKeyboard = true;
         cameraMovementVector = Vector2.zero;
         cameraZoomAxis = Input.GetAxis("Mouse ScrollWheel") * 10f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W)

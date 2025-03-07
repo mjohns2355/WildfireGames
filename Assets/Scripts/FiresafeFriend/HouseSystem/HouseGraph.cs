@@ -43,7 +43,7 @@ public class HouseGraph
             return;
         }
         nodes.Remove(node);
-        Debug.Log($"Removed node {node.housePart.name}");
+        //Debug.Log($"Removed node {node.housePart.name}");
         // Remove connections to the node being removed
 
         foreach (var neighbour in node.neighbourNodes.ToList())

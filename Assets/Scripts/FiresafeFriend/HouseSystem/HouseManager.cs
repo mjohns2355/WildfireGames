@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using DG.Tweening;
 namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
@@ -28,7 +29,15 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         private void Start()
         {
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                InitHouseManager();
+            });
 
+        }
+
+        public void InitHouseManager()
+        {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
 
@@ -38,6 +47,10 @@ namespace HappyHouse.HouseSystem
             {
                 var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
                 if (part.notInteractable) continue;
+                if (HH_GameManager.Instance.isTutorial)
+                {
+                    part.isClickable = false;
+                }
                 InitHouseNode(nodeDictionary, part);
             }
 
@@ -63,11 +76,13 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //RandomizeHouse();
-            StartCoroutine(RandomizeStartingCondition());
+            if (!HH_GameManager.Instance.isTutorial)
+            {
+                StartCoroutine(RandomizeStartingCondition());
+            }
+
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
         }
-
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
         {
             part.InitHousePartObject(this);
@@ -178,6 +193,8 @@ namespace HappyHouse.HouseSystem
                     oldPart.InitHousePartObject(this, housePartInfo);
                 }
             }
+
+            if(HH_GameManager.Instance.isTutorial) return;
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
@@ -373,6 +390,10 @@ namespace HappyHouse.HouseSystem
                 return material;
             }
         }
+
+        //tutorial stuff
+        //show sample house part
+
     }
 }
 

@@ -17,7 +17,7 @@ public class FF_Props : FF_BaseCombustible
     {
         Destroy(gameObject);
     }
-    protected override void OnCombustibleClicked(GameObject obj)
+    public override void OnCombustibleClicked(GameObject obj)
     {
         if (obj.transform == transform )
         {

@@ -64,4 +64,9 @@ public class HouseIcon : MonoBehaviour
     {
         button.onClick.AddListener(action);
     }
+
+    public void RemoveOnClickAction(UnityAction action)
+    {
+        button.onClick.RemoveListener(action);
+    }
 }

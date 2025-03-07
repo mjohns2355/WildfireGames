@@ -12,6 +12,7 @@ public class FF_DirtMound : MonoBehaviour
     //public List<FF_Plants> ownedPlants = new List<FF_Plants>();
     public List<FF_Plants> availablePlants;
     public Action OnPlanted;
+    public Action OnShoveled;
     PurchaseFloatingButton bubble;
   
     // Start is called before the first frame update
@@ -23,15 +24,31 @@ public class FF_DirtMound : MonoBehaviour
         //bubble.SetTargetPosition(bubblePos.position);
         //bubble.SetPlantIcon(!(currentPlant == null));
         availablePlants = new List<FF_Plants>(ResourceManager.Instance.plants);
-        var rng = UnityEngine.Random.Range(0, 1f);
-        if(rng < 0.1)
+        if (!HH_GameManager.Instance.isTutorial)
         {
-            var index = UnityEngine.Random.Range(0, availablePlants.Count);
-            var p = availablePlants[index];
-            //currentPlant = Instantiate(p, plantHolder);
-            //availablePlants.Remove(p);
-            Plant(p);
+            var rng = UnityEngine.Random.Range(0, 1f);
+            if (rng < 0.1)
+            {
+                var index = UnityEngine.Random.Range(0, availablePlants.Count);
+                var p = availablePlants[index];
+                //currentPlant = Instantiate(p, plantHolder);
+                //availablePlants.Remove(p);
+                Plant(p);
+            }
         }
+
+        if (currentPlant == null)
+        {
+            SetBubbleState(false);
+        }
+        HH_GameManager.Instance.OnPlantModeChanged += (isPlantMode) =>
+        {
+            if (currentPlant == null)
+            {
+                SetBubbleState(isPlantMode);
+            }
+        };
+
     }
 
     // Update is called once per frame
@@ -81,7 +98,14 @@ public class FF_DirtMound : MonoBehaviour
             plantToDestroy.onPlantClicked = null;
             currentPlant = null;
             Destroy(plantToDestroy.gameObject);
-            
+            OnShoveled?.Invoke();
         }
     }
+
+    public void SetBubbleState(bool state)
+    {
+        bubble.gameObject.SetActive(state);
+    }
+
+
 }

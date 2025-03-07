@@ -12,7 +12,7 @@ using System.Linq;
 
 public class BaseHousePartObject : FF_BaseCombustible
 {
-    public List<MeshRenderer> meshes;
+
     public MeshRenderer burntModel;
     public HouseNode houseNode;
     public Transform bubblePos;
@@ -21,7 +21,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     public HouseManager Owner { get; private set; }
     public HousePartType HousePartType { get; private set; }
 
-    public bool isOnCursor = false;
+    //public bool isOnCursor = false;
     public HousePartInfo partInfo, defaultPartInfo;
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
@@ -29,19 +29,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     protected override void Awake()
     {
         base.Awake();
-        if (notInteractable) return;
-        meshes = GetComponentsInChildren<MeshRenderer>()
-            .Where(x => x.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
-            .ToList();
 
-        foreach (var mesh in meshes)
-        {
-            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
-        }
-        if (combustibleInfo != null)
-        {
-            partInfo = (HousePartInfo)combustibleInfo;
-        }
 
         //StartCoroutine(RandomizeStartingCondition());
 
@@ -54,7 +42,17 @@ public class BaseHousePartObject : FF_BaseCombustible
         OnCombustibleDestroyed += HandleDestroy;
         OnBurning += HandleBurning;
         OnBurnedOut += HandleBurnedOut;
+        if (notInteractable) return;
 
+
+        foreach (var mesh in meshes)
+        {
+            mesh.gameObject.layer = LayerMask.NameToLayer("Structure");
+        }
+        if (combustibleInfo != null)
+        {
+            partInfo = (HousePartInfo)combustibleInfo;
+        }
     }
 
     private void Update()
@@ -65,9 +63,9 @@ public class BaseHousePartObject : FF_BaseCombustible
         }
         
     }
-    protected override void OnCombustibleClicked(GameObject obj)
+    public override void OnCombustibleClicked(GameObject obj)
     {
-        if (obj.transform.parent == transform && !notInteractable)
+        if (obj.transform.parent == transform && !notInteractable && isClickable)
         {
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType,partInfo.isPublic);
             

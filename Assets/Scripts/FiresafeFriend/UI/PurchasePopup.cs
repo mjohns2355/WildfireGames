@@ -43,6 +43,12 @@ public class PurchasePopup : MonoBehaviour
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
         var player = HH_GameManager.Instance.currentPlayer;
         player.ReplaceHousePartObject(partInfo);
+
+        // for tutorial 
+        if (HH_GameManager.Instance.isTutorial)
+        {
+            HH_GameManager.Instance.uiManager.HideStoreScreen();
+        }
     }
 
     private void OnCancelClicked()

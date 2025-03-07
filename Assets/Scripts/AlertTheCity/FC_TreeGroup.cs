@@ -25,20 +25,12 @@ public class FC_TreeGroup : Combustible
     }
     public override void Update()
     {
-        if (isOnfire && !burned)
+        base.Update();
+        if (burnTime > 10 && !burned && !GameManager.Instance.SimIsEnd)
         {
-            burnTime += Time.deltaTime;
-            foreach (MeshRenderer m in meshes)
+            foreach (FC_Tree tree in trees)
             {
-                m.material.color = Color.Lerp(m.material.color, burntColor, Time.deltaTime);
-            }
-            if (burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
-            {
-                foreach (FC_Tree tree in trees)
-                {
-                    tree.IsBurnt = true;
-                }
-                burned = true;
+                tree.IsBurnt = true;
             }
         }
     }

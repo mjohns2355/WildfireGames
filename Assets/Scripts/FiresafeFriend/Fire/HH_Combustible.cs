@@ -8,8 +8,9 @@ using UnityEngine;
 
 public abstract class FF_BaseCombustible : MonoBehaviour
 {
+    public List<MeshRenderer> meshes;
     public BaseCombustibleInfo combustibleInfo;
-
+    public bool isClickable;
     public bool isOnFire = false;
     //public BurnStage burnStage = BurnStage.Igniting;
     [SerializeField] protected Color burntColor;
@@ -63,9 +64,19 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         flammability = combustibleInfo.flammability;
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
         OnBurnStageChanged += ChangeBurnStage;
-
+        meshes = GetComponentsInChildren<MeshRenderer>()
+           .Where(x => x.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
+           .ToList();
     }
 
+    private void Update()
+    {
+        if (!isOnFire) return;
+        foreach(var mesh in meshes)
+        {
+           mesh.material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
+        }
+    }
     protected virtual float CalculateFireCatchChance(float flammability)
     {
         float baseCatchChance = Mathf.Clamp01(flammability / 100f);
@@ -121,7 +132,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         flammability *= 1- precentage;
     }
 
-    protected virtual void OnCombustibleClicked(GameObject obj)
+    public virtual void OnCombustibleClicked(GameObject obj)
     {
 
     }

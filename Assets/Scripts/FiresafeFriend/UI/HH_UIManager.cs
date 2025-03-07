@@ -11,10 +11,10 @@ public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
-    public Button leftArrow, rightArrow,earnMoreMoney;
+    public Button leftArrow, rightArrow, earnMoreMoney, startFireBtn, endRoundBtn;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
-    public GameObject startText;
+    public GameObject startText, modeToggle;
     public FF_QuizPopupUI quizPopup;
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
@@ -26,7 +26,7 @@ public class HH_UIManager : MonoBehaviour
         leftArrow.onClick.AddListener(() =>
         {
             HH_GameManager.Instance.SwitchPlayer("p1");
-            
+
 
         });
         rightArrow.onClick.AddListener(() =>
@@ -34,13 +34,45 @@ public class HH_UIManager : MonoBehaviour
             HH_GameManager.Instance.SwitchPlayer("p2");
         });
 
+        HH_GameManager.Instance.OnRoundStart += OnRoundStart;
+        HH_GameManager.Instance.OnRoundEnd += OnRoundEnd;
 
+        Toggle toggle = modeToggle.GetComponent<Toggle>();
+
+        // Synchronize Toggle state with GameManager on startup
+        toggle.isOn = HH_GameManager.Instance.IsPlantMode;
+
+        // 1. Subscribe to GameManager's OnPlantModeChanged event
+        HH_GameManager.Instance.OnPlantModeChanged += (mode) =>
+        {
+            // Only update the Toggle if the value is different
+            if (toggle.isOn != mode)
+            {
+                // Temporarily remove the listener to avoid circular event
+                toggle.onValueChanged.RemoveListener(OnToggleValueChanged);
+
+                // Update the Toggle state
+                toggle.isOn = mode;
+
+                // Re-attach the listener
+                toggle.onValueChanged.AddListener(OnToggleValueChanged);
+            }
+        };
+
+        // 2. Add listener to handle user input
+        toggle.onValueChanged.AddListener(OnToggleValueChanged);
+
+        earnMoreMoney.onClick.AddListener(ShowQuizPopup);
     }
 
+    private void OnToggleValueChanged(bool value)
+    {
+        HH_GameManager.Instance.ChangeGameMode(value);
+    }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void ShowWarningPopup()
     {
@@ -60,7 +92,7 @@ public class HH_UIManager : MonoBehaviour
         }
         storePanel.gameObject.SetActive(true);
         //storePanel.SetCurrentPurchaseFloatingButton(clickedButton);
-        storePanel.ShowStorePanel(partType,isPublic);
+        storePanel.ShowStorePanel(partType, isPublic);
     }
 
     public void ShowPlantsMenu(FF_DirtMound owner)
@@ -93,27 +125,38 @@ public class HH_UIManager : MonoBehaviour
         if (partInfo)
         {
             storePanel.gameObject.SetActive(true);
-            storePanel.ShowStorePanel(partInfo.housePartType, partInfo.isPublic);
+            storePanel.UpdateStorePanel();
+            //storePanel.ShowStorePanel(partInfo.housePartType, partInfo.isPublic);
         }
-            
+
 
     }
 
     public void ToggleInventory(bool state)
     {
         inventoryPanel.gameObject.SetActive(state);
-       
+
         if (!inventoryPanel.inventoryUI.activeInHierarchy) return;
         // make sure the inventory grid is disabled when switching player
         inventoryPanel.inventoryUI.SetActive(false);
     }
 
+    public void OnRoundStart()
+    {
+        ToggleInventory(true);
+        endRoundBtn.gameObject.SetActive(true);
+        startFireBtn.gameObject.SetActive(false);
+        startText.SetActive(false);
+        modeToggle.SetActive(true);
+    }
     public void OnRoundEnd()
     {
         ToggleInventory(false);
         HideStoreScreen();
         leftArrow.gameObject.SetActive(false);
         rightArrow.gameObject.SetActive(false);
+        modeToggle.SetActive(false);
+        endRoundBtn.gameObject.SetActive(false);
     }
 
     public PurchaseFloatingButton SpawnBubble()

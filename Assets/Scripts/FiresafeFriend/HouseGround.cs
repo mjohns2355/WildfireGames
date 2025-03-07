@@ -6,18 +6,6 @@ using UnityEngine;
 public class HouseGround : BaseHousePartObject
 {
     [SerializeField]private float flammabilityMod;
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    StartCoroutine(OnGroundPlaced());
-    //}
-
-    //IEnumerator OnGroundPlaced()
-    //{
-    //    yield return new WaitForSeconds(1);
-
-    //    ApplyFlammabilityMod();
-    //}
 
     private void ApplyFlammabilityMod()
     {

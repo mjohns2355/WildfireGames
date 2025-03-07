@@ -15,8 +15,8 @@ public class HouseStructure : Structure
 {
     public bool isMainHouse;
     public HouseTypeInfo houseInfo;
-    public bool testHouse;
-    [SerializeField] HouseType houseType;
+    public HouseType houseType;
+    //[SerializeField] HouseType houseType;
     [SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh,front;
     [SerializeField] Material metalRoofMaterial;
@@ -38,14 +38,10 @@ public class HouseStructure : Structure
         get { return houseType == HouseType.kids && kidNum != 0; }
         set { HasKidsToPickUp = value; }
     }
-    public HouseType HouseType
-    {
-        get { return houseType; }
-        private set { houseType = value; }
-    }
+
 
     List<HouseStructure> sameTypeHouses = new List<HouseStructure>();
-    List<HouseChoice> choices = new List<HouseChoice>();
+    //List<HouseChoice> choices = new List<HouseChoice>();
     string lastOption = string.Empty;
     string currentOption;
     ATC_PlacementManager placementManager;
@@ -55,8 +51,11 @@ public class HouseStructure : Structure
     List<ATC_StructureModel> destinations;
     float spawnCarChance = 0.9f;
     bool followedOrder = false;
-    Dictionary<HouseType, List<HouseStructure>> houseTypeDict;
-    Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
+
+    private void Awake()
+    {
+        houseInfo = null;
+    }
     private void Start()
     {
         combustible =  GetComponent<Combustible>();
@@ -66,20 +65,10 @@ public class HouseStructure : Structure
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
 
 
-        if (!isMainHouse) return;
-        InitMainHouse();
+        //if (!isMainHouse) return;
+        //InitMainHouse();
 
-        // defaults option if player doesn't select
-        currentOption = houseInfo.defaultChoice.choiceName;
-        contextMenu.onOptionConfirmed += OnOptionConfirmed;
-        //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
-        InitSpecialStructDict();
-        //default destination
-        var shelter =specialStructureDict[StructureType.Shelter];
-        SetDestination(new List<ATC_StructureModel> { shelter});
-        targetShelter = shelter;
-        var model = GetComponent<ATC_StructureModel>();
-        roadPosition = model.RoadPosition;
+
 
 
 
@@ -92,10 +81,10 @@ public class HouseStructure : Structure
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F) && testHouse)
-        {
-            TestSpawnCar();
-        }
+        //if(Input.GetKeyDown(KeyCode.F) && testHouse)
+        //{
+        //    TestSpawnCar();
+        //}
        
 
         //front.LookAt(roadPosition);
@@ -113,13 +102,13 @@ public class HouseStructure : Structure
         }
 
     }
-    void TestSpawnCar()
-    {
-        var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
-        var targetSchool= GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
-        //ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
-        ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
-    }
+    //void TestSpawnCar()
+    //{
+    //    var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
+    //    var targetSchool= GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
+    //    //ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
+    //    ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
+    //}
     void SpawnHouseModel()
     {
         if (mesh.childCount >= 1) return;
@@ -127,59 +116,39 @@ public class HouseStructure : Structure
         currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
     }
 
-    void InitMainHouse()
+    public void InitMainHouse()
     {
+        //Debug.Log("Init Main House");
         // only main house has info
         contextMenu.gameObject.SetActive(true);
         var isFirstSim = GameManager.Instance.IsFirstSim;
         contextMenu.icon.gameObject.SetActive(!isFirstSim);
         ATC_UIController.Instance.AddMenu(contextMenu);
+        var model = GetComponent<ATC_StructureModel>();
+        roadPosition = model.RoadPosition;
 
-        if (houseTypeDict == null)
-        {
-            houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
-
-            foreach (var house in placementManager.GetAllHouses())
-            {
-                if (house == null) continue;
-
-                var houseStructure = house.GetComponent<HouseStructure>();
-                if (houseStructure == null) continue;
-
-                if (!houseTypeDict.ContainsKey(houseStructure.houseType))
-                {
-                    houseTypeDict[houseStructure.houseType] = new List<HouseStructure>();
-                }
-
-                houseTypeDict[houseStructure.houseType].Add(houseStructure);
-            }
-        }
-
-        if (houseTypeDict.TryGetValue(houseType, out sameTypeHouses))
+        if (GameManager.Instance.structureManager.houseTypeDict.TryGetValue(houseType, out sameTypeHouses))
         {
             foreach (var house in sameTypeHouses)
             {
                 house.houseInfo = houseInfo;
                 house.houseInfo.InitHouseInfo(house);
-                var model = house.GetComponent<ATC_StructureModel>();
-                house.roadPosition = model.RoadPosition;
+                var m = house.GetComponent<ATC_StructureModel>();
+                house.roadPosition = m.RoadPosition;
             }
         }
+        // defaults option if player doesn't select
+        currentOption = houseInfo.defaultChoice.choiceName;
+        contextMenu.onOptionConfirmed += OnOptionConfirmed;
+        //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
+        //InitSpecialStructDict();
+        //default destination
+        var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
+        SetDestination(new List<ATC_StructureModel> { shelter });
+        targetShelter = shelter;
+
     }
-    void InitSpecialStructDict()
-    {
-        if (specialStructureDict == null)
-        {
-            specialStructureDict = new Dictionary<StructureType, ATC_StructureModel>();
-            StructureType[] values = (StructureType[])Enum.GetValues(typeof(StructureType));
-            foreach ( var type in values)
-            {
-                // house is not a special structure
-                if (type == StructureType.House) continue;
-                specialStructureDict[type] = placementManager.GetRandomSpecialStructursOfType(type);
-            }
-        }
-    }
+
     public void RandomizeHouseType()
     {
         // 0 is None
@@ -243,7 +212,7 @@ public class HouseStructure : Structure
 
     void ApplyChoice()
     {
-        foreach(var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType])
+        foreach(var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
             //var currentChoice = GetCurrentChoice(currentOption);
            
@@ -257,18 +226,18 @@ public class HouseStructure : Structure
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
                     followedOrder = false;
-                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Disregarded");
+                    GameManager.Instance.UpdateHouseResponse(houseType, "Disregarded");
                     return;
                 }
                 else
                 {
                     followedOrder = true;
-                    GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+                    GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
                 }
             }
             else
             {
-                GameManager.Instance.UpdateHouseResponse(houseInfo.houseType.ToString(), "Followed");
+                GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
             }
             ApplyChoiceEffect(currentChoice);
             
@@ -282,7 +251,7 @@ public class HouseStructure : Structure
         {
             choice.ApplyEffect(house);
         }
-        Debug.Log($"{houseInfo.houseType} decides to {choice.choiceName}");
+        Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
     HouseChoice GetCurrentChoice(string name)
     {
@@ -302,8 +271,8 @@ public class HouseStructure : Structure
             {
                 if (HasKidsToPickUp && followedOrder)
                 {
-                    var school = specialStructureDict[StructureType.School];
-                    var shelter = specialStructureDict[StructureType.Shelter];
+                    var school = GameManager.Instance.structureManager.specialStructureDict[StructureType.School];
+                    var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
                     SetDestination(new List<ATC_StructureModel> { school, shelter });
                     //Debug.Log("Added School to destinations");  
                     ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(),destinations, carSpeed, carNum);
@@ -324,7 +293,7 @@ public class HouseStructure : Structure
 
     public void RelocateHorses()
     {
-        var stable = specialStructureDict[StructureType.Stable];
+        var stable = GameManager.Instance.structureManager.specialStructureDict[StructureType.Stable];
         stable.GetComponent<StableStructure>().RelocateHorse();
         
     }

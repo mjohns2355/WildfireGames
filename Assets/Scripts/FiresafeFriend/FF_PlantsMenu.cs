@@ -23,18 +23,21 @@ public class FF_PlantsMenu : MonoBehaviour
         Vector3 adjustedOffset = Vector3.zero;
         if (HH_GameManager.Instance.IsPlantMode)
         {
-            float fovScale = Mathf.Clamp(Camera.main.fieldOfView / 60, 0.5f, 1.2f);
-            adjustedOffset = posOffset * fovScale;
-           
-        }
-        else
-        {
+            //float fovScale = Mathf.Clamp(Camera.main.fieldOfView / 60, 0.5f, 1.2f);
+            //adjustedOffset = posOffset * fovScale;
             float distance = Vector3.Distance(Camera.main.transform.position, pos);
-            
-            float distanceScale = Mathf.Clamp(distance / baseDistance, 0.5f, 1.2f);
+            float distanceScale = Mathf.Clamp(distance / baseDistance, 0.2f, 0.8f);
 
             adjustedOffset = posOffset * distanceScale;
         }
+        //else
+        //{
+        //    float distance = Vector3.Distance(Camera.main.transform.position, pos);
+            
+        //    float distanceScale = Mathf.Clamp(distance / baseDistance, 0.5f, 1.2f);
+
+        //    adjustedOffset = posOffset * distanceScale;
+        //}
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(pos + adjustedOffset);
         float padding = 50f; 

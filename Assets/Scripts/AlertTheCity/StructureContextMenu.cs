@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ public class StructureContextMenu : MonoBehaviour
     public TextMeshProUGUI title;
     [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
-    public Button closeButton;
+    //public Button closeButton;
     //public Button assignButton;
     public Structure owner;
     //bool optionsAreLocked = true;
@@ -73,27 +74,37 @@ public class StructureContextMenu : MonoBehaviour
             OnMenuDisable();
             ShowDialog();
         });
-        icon.InitIcon(house.HouseType);
+        icon.InitIcon(house.houseType);
         icon.AddOnClickActions(() =>
         {
-            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
-            
+
+            if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
+            ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
             if (isSelected)
             {
+                GameManager.Instance.cameraMovement.MoveToHouse(owner,false);
+                
                 OnMenuEnable();
                 return;
             }
+            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
             ShowDialog();
+
         });
+
     }
 
     void ShowDialog()
     {
-        ATC_UIController.Instance.ShowDialog();
         
-        //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
-        GameManager.Instance.currentStage = LevelStage.HouseDialog;
-        ATC_UIController.Instance.houseDialogManager.StartDialog(icon.iconHouseType.ToString());
+            ATC_UIController.Instance.ShowDialog();
+
+            //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
+            GameManager.Instance.currentStage = LevelStage.HouseDialog;
+            ATC_UIController.Instance.houseDialogManager.StartDialogue(icon.iconHouseType.ToString());
+        
+
+
     }
     public void OnMenuEnable()
     {
@@ -107,12 +118,13 @@ public class StructureContextMenu : MonoBehaviour
         //}
         choicePicture.sprite = house.houseInfo.choicePicture;
         confirm.interactable = isSelected;
+        restart.interactable = !(GameManager.Instance.currentStage == LevelStage.Tutorial);
         if (!house.isMainHouse) return;
         allowMultipleChoices = house.houseInfo.allowMultipleChoices;
         house.OnStructureClick();
         ATC_UIController.Instance.PushPanel(menuUI);
         icon.gameObject.SetActive(false);
-        UpdateMenuForHouse(house);
+        UpdateMenuForHouse(house, GameManager.Instance.currentStage == LevelStage.Tutorial);
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
             if (menu == this) continue;
@@ -180,16 +192,28 @@ public class StructureContextMenu : MonoBehaviour
         //}
     }
 
-    public void UpdateMenuForHouse(HouseStructure house)
+    public void UpdateMenuForHouse(HouseStructure house, bool isTutorial = false)
     {
         ClearOptionButtons();
         //var houseInfo = house.info;
         var houseInfo = house.houseInfo;
         title.text = houseInfo.menuTitle;
+
+
         foreach (var entry in houseInfo.houseChoicesDict)
         {
             var choice = entry.Value.choice;
-            SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+            if (isTutorial)
+            {
+                if(choice.choiceName == "Plan Ahead")
+                {
+                    SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+                    break;
+                }
+            }
+            else {
+                SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+            }
         }
         
         //foreach(var choice in houseInfo.lockedChoices)
@@ -214,7 +238,7 @@ public class StructureContextMenu : MonoBehaviour
         //}
         if(!isSelected) return;
         HouseStructure house = (HouseStructure)owner;
-        var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.HouseType];
+        var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.houseType];
 
         foreach(var c in selectedChoice)
         {

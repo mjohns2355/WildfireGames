@@ -1,5 +1,6 @@
 using HappyHouse.FireSystem;
 using HappyHouse.HouseSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,36 +8,50 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
+    public bool isTutorial;
     public HappyHouse.FireSystem.FireManager fireManager;
-    public Transform h1, h2, h1CamPos,h2CamPos,plantModeCamPos;
+    public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
     public float fireTimer = 60f;
-    public float plantModeCamFOV = 30f;
+    public Action OnRoundStart, OnRoundEnd;
+    public Action<bool> OnPlantModeChanged;
     public HH_UIManager uiManager;
     public HouseManager currentPlayer;
     public HH_InputManager inputManager;
     public HH_CameraController cameraController;
     public QuizManager quizManager;
     public FF_skybox skyboxController;
-    [SerializeField] Button startFireBtn, endRoundBtn;
+
     public bool IsGameStarted {  get; private set; }
     public bool IsFireStarted {  get; private set; }
     private GameObject[] fences;
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
-    public bool IsPlantMode { get; private set; }
+
+    [SerializeField]private bool _isPlantMode;
+    public bool IsPlantMode
+    {
+        get => _isPlantMode;
+        set
+        {
+            if (_isPlantMode != value)
+            {
+                _isPlantMode = value;
+                OnPlantModeChanged?.Invoke(_isPlantMode);
+            }
+        }
+    }
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
-        IsPlantMode = false;
+
         base.Awake();
         fences = GameObject.FindGameObjectsWithTag("Fence");
     }
     private void Start()
     {
 
-
-        
+        _isPlantMode = false;
     }
 
     private void Update()
@@ -76,18 +91,29 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             currentPlayer.inventory.AddNewPartToInventory(info);
         }
     }
-    public void SpawnHouses()
+    public void SpawnHouses(string playerTag)
     {
-        var houses = ResourceManager.Instance.houses;
-        
+        //var houses = ResourceManager.Instance.houses;
+        if (playerTag == "p1")
+        {
+
+        }
+
     }
 
 
     public void SwitchPlayer (string playerTag)
     {
+        //if (isTutorial)
+        //{
+        //    currentPlayer = p2;
+        //    IsPlantMode = false;
+        //    cameraController.Zoomcamera(h2CamPos, true, 60);
+        //    return;
+        //}
         currentPlayer.OnHouseDeselected();
         uiManager.HideStoreScreen();
-        
+        IsPlantMode = false;
         if (playerTag == "p1")
         {
             currentPlayer = p1;
@@ -109,14 +135,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-        IsGameStarted = true;
+        SetRoundStart(true);
         inputManager.canClickHouse = false;
+     
         this.currentPlayer = currentPlayer;
-        uiManager.ToggleInventory(true);
-        endRoundBtn.gameObject.SetActive(true);
-        startFireBtn.gameObject.SetActive(false);
-        uiManager.startText.SetActive(false) ;
+        if (isTutorial) return;
+        //uiManager.OnRoundStart();
         InitPublicFences(currentPlayer);
+
 
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
@@ -138,13 +164,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void EndRound()
     {
-        IsGameStarted = false;
+        SetRoundStart(false);
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
-        uiManager.OnRoundEnd();
+        //uiManager.OnRoundEnd();
         StartFire();
         //startFireBtn.gameObject.SetActive(true);
-        endRoundBtn.gameObject.SetActive(false);
+
         p1.nameText.SetActive(false);
         p2.nameText.SetActive(false);
     }
@@ -165,8 +191,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         IsPlantMode = isPlantMode;
         if(isPlantMode)
         {
-            Debug.Log("Plant Mode");
-            cameraController.Zoomcamera(plantModeCamPos,plantModeCamFOV);
+            var zoomPos = currentPlayer.playerTag == "P1" ? h1PlantCamPos : h2PlantCamPos;
+            cameraController.Zoomcamera(zoomPos, true,60);
+            Debug.Log($"Zoom Position: {zoomPos}");
             inputManager.canClickHouse = false;
             //hide ui
 
@@ -181,16 +208,40 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
         else
         {
+
+            if (isTutorial)
+            {
+                cameraController.MoveToHouse(currentPlayer);
+                return;
+            }
             Debug.Log("House Mode");
             inputManager.canClickHouse = true;
             if (IsGameStarted)
             {
+                if (currentPlayer)
+                {
+                    currentPlayer.ToggleAllPurchaseIcons(true);
+                }
                 cameraController.MoveToHouse(currentPlayer);
             }
             else
             {
                 cameraController.ResetCamera();
             }
+        }
+    }
+
+    void SetRoundStart(bool state)
+    {
+        IsGameStarted = state;
+
+        if(state)
+        {
+            OnRoundStart?.Invoke();
+        }
+        else
+        {
+            OnRoundEnd?.Invoke();
         }
     }
 }

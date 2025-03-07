@@ -66,7 +66,7 @@ public class PanelSlot : MonoBehaviour, IPointerClickHandler
     {
         var obj = new GameObject(part.name);
         var houseObj = obj.AddComponent<BaseHousePartObject>();
-        houseObj.isOnCursor = true;
+        //houseObj.isOnCursor = true;
         //houseObj.housePart = part;
         //houseObj.meshRenderer = Instantiate(part.mesh,houseObj.transform).GetComponent<MeshRenderer>();
         return houseObj;    

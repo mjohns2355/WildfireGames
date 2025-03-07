@@ -27,7 +27,7 @@ public class FC_Tree : MonoBehaviour
 
     public void Start()
     {
-        startTime = Random.Range(3f, 10f);
+        startTime = Random.Range(0,3f);
         burnt.SetActive(false);
         float randomY = Random.Range(0f, 360f);
         rotation = Quaternion.Euler(0, randomY, 0);
