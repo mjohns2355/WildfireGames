@@ -312,7 +312,7 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
 
-        SceneManager.LoadScene(CurrentLevel);
+        SceneManager.LoadScene("FC_Level0");
     }
 
     public void RestartGame()

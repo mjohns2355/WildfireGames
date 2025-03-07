@@ -37,7 +37,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     protected override void Start()
     {
         base.Start();
-
+        isClickable = true;
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
         OnBurning += HandleBurning;
@@ -65,8 +65,10 @@ public class BaseHousePartObject : FF_BaseCombustible
     }
     public override void OnCombustibleClicked(GameObject obj)
     {
+        
         if (obj.transform.parent == transform && !notInteractable && isClickable)
         {
+
             HH_GameManager.Instance.uiManager.ShowStoreScreen(partInfo.housePartType,partInfo.isPublic);
             
         }
