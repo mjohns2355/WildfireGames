@@ -100,7 +100,7 @@ public class FC_TutorialManager : MonoBehaviour
         {
             return nodeId;
         }
-        Debug.Log("Invalid string parse to int");
+        //Debug.Log("Invalid string parse to int");
         return 0;
     }
     private void MoveSidePortrait(float moveDistance)
@@ -118,7 +118,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     private void OnConfirmedTutorialHouseMenu()
     {
-        Debug.Log("Invoke outro");
+        //Debug.Log("Invoke outro");
         fireFighterDialogue.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
         dialogManager.StartDialogue("outro");
@@ -130,7 +130,7 @@ public class FC_TutorialManager : MonoBehaviour
     //end tutorial
     private void OnOutroDialogueComplete()
     {
-        Debug.Log("Outro is completed");
+        //Debug.Log("Outro is completed");
         isTutorialStarted = false;
         GameManager.Instance.cameraMovement.ResetCam();
         var houseIcon = tutorialHouse.contextMenu.icon;
