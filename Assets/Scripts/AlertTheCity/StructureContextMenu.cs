@@ -38,6 +38,7 @@ public class StructureContextMenu : MonoBehaviour
     public bool isSelected = false;
     public ATC_LearnMorePopup learnMorePopup;
     public Image choicePicture;
+    private GameObject schoolText;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class StructureContextMenu : MonoBehaviour
     }
     private void Start()
     {
-
+        schoolText = GameObject.FindGameObjectWithTag("marker");
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
 
@@ -77,7 +78,8 @@ public class StructureContextMenu : MonoBehaviour
         icon.InitIcon(house.houseType);
         icon.AddOnClickActions(() =>
         {
-
+            // school text
+            schoolText.SetActive(false);
             if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
             ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
             if (isSelected)
@@ -151,6 +153,9 @@ public class StructureContextMenu : MonoBehaviour
         ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
         icon.ToggleIconState(!isSelected);
+        //school text
+
+        schoolText.SetActive(true);
         //GameManager.Instance.cameraMovement.ResetCam();
         //GameManager.Instance.canControlCam = true;
         //StartCoroutine(house.SpawnCarRoutine());

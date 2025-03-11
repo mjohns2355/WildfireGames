@@ -9,7 +9,6 @@ public class Structure : MonoBehaviour
     public StructureContextMenu contextMenu;
     public Transform menuSpawnPos;
     public Vector3Int roadPosition;
-
     public Outline outline;
     public int height = 1;
     public int width = 1;

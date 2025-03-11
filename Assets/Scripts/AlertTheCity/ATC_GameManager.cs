@@ -15,6 +15,7 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_InputManager inputManager;
     public FireManager fireManager;
     public AudioSource fireSFX;
+    public FC_TutorialManager tutorialManager;
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool choseGoodOption = false;
@@ -51,6 +52,7 @@ public class GameManager : UnitySingleton<GameManager>
         SimTimer = 0f;
         Time.timeScale = GameSpeed = 2f;
         CurrentLevel = 0;
+        tutorialManager.InitTutorialManager();
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -311,7 +313,6 @@ public class GameManager : UnitySingleton<GameManager>
         StopAllCoroutines();
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
-
         //SceneManager.LoadScene(CurrentLevel);
         SceneManager.LoadScene("FC_Level0");
     }
@@ -343,7 +344,9 @@ public class GameManager : UnitySingleton<GameManager>
         inputManager = FindObjectOfType<ATC_InputManager>();
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
+        tutorialManager = FindObjectOfType<FC_TutorialManager>();
 
+        
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

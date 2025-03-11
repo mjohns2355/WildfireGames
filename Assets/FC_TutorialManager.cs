@@ -20,8 +20,8 @@ public class FC_TutorialManager : MonoBehaviour
     RectTransform uiIcon;
     bool isTutorialStarted = false;
     bool isFirstTimeTutorial = true;
-    // Start is called before the first frame update
-    void Start()
+
+    public void InitTutorialManager()
     {
         titleCard.onClick.AddListener(() =>
         {
@@ -30,12 +30,11 @@ public class FC_TutorialManager : MonoBehaviour
         });
 
         dialogManager.OnDialogueNodeDisplayed += CheckDialogueNode;
-        dialogManager.OnDialogueOptionSelected+= CheckDialogueOption;
+        dialogManager.OnDialogueOptionSelected += CheckDialogueOption;
 
         fireStationIcon.onClick.AddListener(OnFirestationIconClicked);
         uiIcon = fireStationIcon.GetComponent<RectTransform>();
     }
-
     private void CheckDialogueOption(DialogOption option)
     {
         int nextNodeId = ParseStringToInt(option.nextNodeId);
@@ -216,4 +215,5 @@ public class FC_TutorialManager : MonoBehaviour
         fireStationIcon.gameObject.SetActive(false);
         dialogManager.StartDialogue("intro");
     }
+
 }
