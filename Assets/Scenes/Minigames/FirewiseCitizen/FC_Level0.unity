@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465149, g: 0.49634326, b: 0.57478184, a: 1}
+  m_IndirectSpecularColor: {r: 0.44651526, g: 0.49634337, b: 0.57478285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -49780,8 +49780,26 @@ MonoBehaviour:
   messageBubblePrefab: {fileID: 5855604953193179393, guid: 73b6c0cd37f4b5b49bb92057e5881a4e, type: 3}
   messagebBubblesContainer: {fileID: 758331175}
   waitTimePerCharacter: 0.05
-  baseWaitTime: 0.2
+  baseWaitTime: 1
   scrollRect: {fileID: 853898008}
+  currentDialogTree:
+    houseType: 
+    rootNodeId: 
+    nodes: []
+  currentNode:
+    id: 
+    dialogText: 
+    characterName: 
+    portraitPath: 
+    options: []
+    isEndNode: 0
+  previousNode:
+    id: 
+    dialogText: 
+    characterName: 
+    portraitPath: 
+    options: []
+    isEndNode: 0
   skipButton: {fileID: 250865099}
   isWaitingForPlayer: 1
   canShowSkipButton: 0

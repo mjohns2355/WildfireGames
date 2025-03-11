@@ -146,68 +146,296 @@
       "nodes": [
         {
           "id": "20",
-          "characterName": "Annie",
-          "dialogText": "Living in the wildland-urban interface is stressful during fire season. We do our best, but it’s tough. Should we invest in home hardening? Should we evacuate on Red Flag days?",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "dialogText": "<i>A woman is turned away from you on a stepladder, painting the side of her home. She looks in your direction, and waves. She climbs down the ladder and approaches you, wiping sweat off her brow.</i>",
           "options": [
             {
-              "optionText": "Home-hardening is important, especially in high-risk areas. Have you taken any steps?",
+              "optionText": "Continue",
               "nextNodeId": "21"
-            },
-            {
-              "optionText": "Home hardening protects your house, and early evacuation keeps your family safe. Leaving early on Red Flag days makes a big difference.",
-              "nextNodeId": "22"
             }
           ]
         },
         {
           "id": "21",
-          "characterName": "Annie",
-          "dialogText": "We’ve made some improvements—clearing brush, adding fire-resistant vents—but I worry it’s not enough. It’s a lot of work, and it’s expensive.",
+          "characterName": "Sarah",
+          "dialogText": "Hey there! I'm Sarah, it's nice to meet you. My husband Jerry is busy right now, but I can catch him up later.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "option": "Home Hardening",
-              "optionText": "That's great, even small upgrades, like removing flammable items within 5 feet of your home, can boost resilience to embers.",
-              "nextNodeId": "23"
-            },
-            {
-              "option": "Home Hardening",
-              "optionText": "It is a big task. Balancing home upgrades with an early evacuation plan could help.",
-              "nextNodeId": "23"
+              "optionText": "Continue",
+              "nextNodeId": "22"
             }
           ]
         },
         {
           "id": "22",
-          "characterName": "Annie",
-          "dialogText": "Leaving early does seem safer. But it’s tough. I want to protect our home—we’ve invested so much, and it’s hard to think about leaving it behind.",
+          "characterName": "Sarah",
+          "dialogText": "I do hope you can help us out.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "option": "Evacuate Early",
-              "optionText": "It’s certainly tough. A solid early evacuation plan might give you some peace of mind.",
+              "optionText": "What's the problem?",
               "nextNodeId": "23"
             },
             {
-              "option": "Evacuate Early",
-              "optionText": "Safety is key. Home-hardening is important, and getting out early is critical to stay safe.",
+              "optionText": "What are you painting?",
+              "nextNodeId": "31"
+            }
+          ]
+        },
+        {
+          "id": "31",
+          "characterName": "Sarah",
+          "dialogText": "I'm just finishing up painting the exterior of our house!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "32"
+            }
+          ]
+        },
+        {
+          "id": "32",
+          "characterName": "Sarah",
+          "dialogText": "We bought this house as a fixer-upper. A year and a lot of money later, we are putting in the final touches.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "33"
+            }
+          ]
+        },
+        {
+          "id": "33",
+          "characterName": "Sarah",
+          "dialogText": "It's the main reason why I called you here, actually.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "What's the problem?",
               "nextNodeId": "23"
             }
           ]
         },
         {
           "id": "23",
-          "characterName": "Annie",
-          "dialogText": "It's a lot to think about. In the end I need to make the choice that's best for us and our home.",
+          "characterName": "Sarah",
+          "dialogText": "Living in the wildland-urban interface is incredibly stressful during fire season.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode": "true",
           "options": [
             {
-              "optionText": "Happy To Help!"
+              "optionText": "Continue",
+              "nextNodeId": "24"
             }
           ]
+        },
+        {
+          "id": "24",
+          "characterName": "Sarah",
+          "dialogText": "We've invested so much fixing up this house; it was a fixer upper and we're just now starting to see results. It's hard to decide the best next plan.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "25"
+            }
+          ]
+        },
+        {
+          "id": "25",
+          "characterName": "Sarah",
+          "dialogText": "What do you think are some options?",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Home Hardening",
+              "messageText":"Home hardening is the process of making your home more resistant to wildfires. That can be a good option, especially living in a WUI.",
+              "nextNodeId": "26"
+            },
+            {
+              "optionText": "Early Evacuation",
+              "messageText":"An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
+              "nextNodeId": "34"
+            }
+          ]
+        },
+        {
+          "id": "26",
+          "characterName": "Player",
+          "dialogText": "Some examples of home hardening are choosing fire resistant materials, clearing debris, and clearly marking your address on the street for emergency responders.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "27"
+            }
+          ]
+        },
+        {
+          "id": "27",
+          "characterName": "Sarah",
+          "dialogText": "That makes a lot of sense, it could save money in the long run investing in home hardening.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "28"
+            }
+          ]
+        },
+        {
+          "id": "28",
+          "characterName": "Sarah",
+          "dialogText": "However, money is tight, so I would have to cut costs in other parts of my life first.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Early Evacuation",
+              "messageText":"An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
+              "nextNodeId": "29"
+            }
+          ]
+        },
+        {
+          "id": "29",
+          "characterName": "Sarah",
+          "dialogText": "That also makes sense. At the end of the day, safety should be the number one priority.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "30"
+            }
+          ]
+        },
+        {
+          "id": "30",
+          "characterName": "Sarah",
+          "dialogText": "The only problem is, there are so many Red Flag days, it would be stressful to evacuate every single time. That's too much.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Thoughts?",
+              "messageText":"What do you think about those options?",
+              "nextNodeId": "40"
+            }
+          ]
+        },
+        {
+          "id": "34",
+          "characterName": "Sarah",
+          "dialogText": "That makes sense. At the end of the day, safety should be the number one priority.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "35"
+            }
+          ]
+        },
+        {
+          "id": "35",
+          "characterName": "Sarah",
+          "dialogText": "The only problem is, there are so many Red Flag days, it would be stressful to evacuate every single time. That's too much.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Home Hardening",
+              "messageText":"Home hardening is the process of making your home more resistant to wildfires. That can also be a good option, especially living in a WUI.",
+              "nextNodeId": "36"
+            }
+          ]
+        },
+        {
+          "id": "36",
+          "characterName": "Player",
+          "dialogText": "Some examples of home hardening are choosing fire resistant materials, clearing debris, and clearly marking your address on the street for emergency responders.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "37"
+            }
+          ]
+        },
+        {
+          "id": "37",
+          "characterName": "Sarah",
+          "dialogText": "That makes a lot of sense, it could save money in the long run investing in home hardening.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "38"
+            }
+          ]
+        },
+        {
+          "id": "38",
+          "characterName": "Sarah",
+          "dialogText": "However, money is tight, so I would have to cut costs in other parts of my life first.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Thoughts?",
+              "messageText":"What do you think about those options?",
+              "nextNodeId": "40"
+            }
+          ]
+        },
+        {
+          "id": "40",
+          "characterName": "Sarah",
+          "dialogText": "It's definitely a lot to think about.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "41"
+            }
+          ]
+        },
+        {
+          "id": "41",
+          "characterName": "Sarah",
+          "dialogText": "Home hardening is a great way to protect your home in a wildfire. We've worked so hard on this place, I want to do everything I can to keep it safe.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "42"
+            }
+          ]
+        },
+        {
+          "id": "42",
+          "characterName": "Sarah",
+          "dialogText": "But at the end of the day, our lives are more important. We can rebuild, like we did when we bought this home. Early evacuations can ensure that my husband Jerry and I are safe.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "43"
+            }
+          ]
+        },
+        {
+          "id": "43",
+          "characterName": "Sarah",
+          "dialogText": "Both require time, and resources, each of which are limited. I'll do my best to do both, but I need to decide one to prefer.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "44"
+            }
+          ]
+        },
+        {
+          "id": "44",
+          "dialogText": "<b>What do you think?</b>",
+          "isEndNode":"true"
         }
+
       ]
     },
     {

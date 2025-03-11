@@ -42,12 +42,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         startTutorialNoButton.onClick.AddListener(EndTutorial);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void StartTutorial()
     {
         introPanel.SetActive(false);
@@ -67,12 +61,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         tutorialText.text = step.description;
         tutorialPanel.SetActive(true);
 
-        // Temp Implemetation for playing animation
-        //foreach (var obj in step.animationObjects)
-        //{
-        //    if (obj) obj.SetActive(true);
-        //}
-
         if (step.zoomToObject)
         {
             cameraController.Zoomcamera(step.zoomPosition, false, step.zoomSize);
@@ -80,7 +68,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
         step.onStepStart?.Invoke();
 
-        if (/*step.onStepComplete.GetPersistentEventCount() > 0 &&*/ step.autoProceed)
+        if (step.autoProceed)
         {
             Debug.Log("Step is auto-proceeding");
             step.onStepComplete.AddListener(() => ProceedToNextStep());
@@ -96,7 +84,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     {
         if (currentStepIndex < tutorialSteps.Count)
         {
-            // Clean up the previous step
             
             FF_TutorialStep step = tutorialSteps[currentStepIndex];
             step.onStepComplete.RemoveAllListeners();

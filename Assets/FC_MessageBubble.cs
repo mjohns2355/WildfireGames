@@ -22,7 +22,7 @@ public class FC_MessageBubble : MonoBehaviour
     public float sendButtonPadding = 50f; // Extra space for the send button in option bubbles
 
     private float textWidth, textHeight;
-    private bool isSentByUser, isOption = false;
+    private bool isSentByUser, isOption, isDescription = false;
 
     public void SetupMessage(string message, string name, bool isSentByUser)
     {
@@ -48,7 +48,6 @@ public class FC_MessageBubble : MonoBehaviour
         var config = MessageBubbleConfig.Instance;
         layoutGroup.childAlignment = isSentByUser ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft;
         messageText.gameObject.SetActive(false);
-        Debug.Log(name);
         backgroundImage.sprite = name switch
         {
             "Mary" or "pet" => config.petTypingIndicator,
@@ -59,6 +58,17 @@ public class FC_MessageBubble : MonoBehaviour
             "Older Resident" => config.elderlyTypingIndicator,
             _ => config.playerTypingIndicator,//Debug.LogWarning($"No matching background found for name: {name}");
         };
+    }
+
+    public void SetupDescription(string message)
+    {
+        isDescription = true;
+        tailHeight = 0;
+        layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+        messageText.text = message;
+        namePlate.SetActive(false);
+        UpdateBackgroundSize(false);
+        SetBackgroundImageSprite();
     }
     public void SetupOptionButton(string optionText)
     {
@@ -82,7 +92,11 @@ public class FC_MessageBubble : MonoBehaviour
             backgroundImage.sprite = config.choiceSprite;
             return;
         }
-
+        if (isDescription)
+        {
+            backgroundImage.sprite = config.descriptionBG;
+            return;
+        }
         if (isSentByUser)
         {
             backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.playerBGShort : config.playerBGLong;
@@ -112,7 +126,7 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.kidsHomeNamePlate;
                     break;
 
-                case "Annie":
+                case "Sarah":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.wuiHomeBGShort : config.wuiHomeBGLong;
                     namePlateBackgrondImage.sprite = config.wuiHomeNamePlate;
                     break;

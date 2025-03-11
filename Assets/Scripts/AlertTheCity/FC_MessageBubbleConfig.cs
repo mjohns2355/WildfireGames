@@ -4,7 +4,7 @@ using UnityEngine;
 public class MessageBubbleConfig : ScriptableObject
 {
     public Sprite playerBGShort, playerBGLong,playerTypingIndicator;
-    public Sprite choiceSprite;
+    public Sprite choiceSprite,descriptionBG;
 
     public Sprite firefighterBGShort, firefighterBGLong, firefighterNamePlate,firefighterTypingIndicator;
     public Sprite petHomeBGShort, petHomeBGLong, petHomeNamePlate,petTypingIndicator;

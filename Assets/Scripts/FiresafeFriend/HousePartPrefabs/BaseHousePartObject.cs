@@ -26,14 +26,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     public Material burnMaterial;
     public List<BaseHousePartObject> neighbours = new List<BaseHousePartObject>();
     private MeshRenderer burntMesh;
-    protected override void Awake()
-    {
-        base.Awake();
-
-
-        //StartCoroutine(RandomizeStartingCondition());
-
-    }
+    public bool isTesting;
     protected override void Start()
     {
         base.Start();
@@ -52,6 +45,11 @@ public class BaseHousePartObject : FF_BaseCombustible
         if (combustibleInfo != null)
         {
             partInfo = (HousePartInfo)combustibleInfo;
+        }
+
+        if (isTesting)
+        {
+            InitHousePartObject(HH_GameManager.Instance.currentPlayer);
         }
     }
 
