@@ -116,12 +116,12 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.firefighterNamePlate;
                     break;
 
-                case "Bob":
+                case "Bailey":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.twoCarsHomeBGShort : config.twoCarsHomeBGLong;
                     namePlateBackgrondImage.sprite = config.twoCarsHomeNamePlate;
                     break;
 
-                case "David":
+                case "Gabe":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.kidsHomeBGShort : config.kidsHomeBGLong;
                     namePlateBackgrondImage.sprite = config.kidsHomeNamePlate;
                     break;

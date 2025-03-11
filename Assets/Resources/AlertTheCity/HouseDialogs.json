@@ -6,67 +6,261 @@
       "nodes": [
         {
           "id": "1",
-          "characterName": "Bob",
-          "dialogText": "Hi! I heard you're asking about wildfire safety. We've been thinking about it too. We have two cars and jobs, so making a plan is tricky.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "dialogText": "<i>You approach a woman in an oil stained shirt peering into the lifted hood of a truck. Another car is parked in the driveway as well.</i>",
           "options": [
             {
-              "optionText": "Having two cars could help. What’s your plan if a fire gets close?",
+              "optionText": "Continue",
               "nextNodeId": "2"
-            },
-            {
-              "optionText": "Have you thought about how two cars might make evacuating harder?",
-              "nextNodeId": "3"
             }
           ]
         },
         {
           "id": "2",
-          "characterName": "Bob",
-          "dialogText": "Yeah, that’s what we thought too. We could leave separately and pack more, but what if one of us gets stuck in traffic?",
+          "characterName": "Bailey",
+          "dialogText": "You the one talking about fire safety?",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
-              "option": "Take both Cars",
-              "optionText": "Good point. Do you have a plan to stay together if you evacuate at the same time?",
-              "nextNodeId": "4"
+              "optionText": "Yes",
+              "messageText":"Yes I am. I would love to help if I can.",
+              "nextNodeId": "3"
             },
             {
-              "option": "Leave one Car",
-              "optionText": "Maybe it’s safer to take one car and stay together, especially if traffic is bad.",
+              "optionText": "Nice Car",
+              "messageText": "That's a pretty nice truck you got there. Same with the car.",
+              "nextNodeId": "20"
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "characterName": "Bailey",
+          "dialogText": "Appreciate it. Rebuilt both of them myself.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "21"
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "characterName": "Bailey",
+          "dialogText": "The name's Bailey, by the way.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "22"
+            }
+          ]
+        },
+        {
+          "id": "22",
+          "characterName": "Bailey",
+          "dialogText": "So, think you can advise me, or what?",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "What's the problem?",
+              "messageText": "It's nice to meet you Bailey. What can I do to help?",
               "nextNodeId": "4"
             }
           ]
         },
         {
           "id": "3",
-          "characterName": "Bob",
-          "dialogText": "Yeah, we’ve been debating that. One car is simpler, but the second gives us options. Plus, it’s hard to leave it behind since we use it every day.",
+          "characterName": "Bailey",
+          "dialogText": "Glad to see someone helping out around here. My name's Bailey.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [
             {
-              "option": "Leave one Car",
-              "optionText": "A simple plan saves time when things get stressful.",
-              "nextNodeId": "4"
-            },
-            {
-              "option": "Relocate 2nd Car",
-              "optionText": "Leaving something behind is tough. Could you move the second car to a safer spot on Red Flag Days?",
+              "optionText": "What's the problem?",
+              "messageText": "It's nice to meet you Bailey. What can I do to help?",
               "nextNodeId": "4"
             }
           ]
         },
         {
           "id": "4",
-          "characterName": "Bob",
-          "dialogText": "It's a lot to think about. Ultimately we need to make the choice that's right for us.",
+          "characterName": "Bailey",
+          "dialogText": "Well, everyone's been buzzing about wildfire safety. So my partner and I've been thinking about it too.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
-          "isEndNode": "true",
           "options": [
             {
-              "optionText": "Happy To Help!"
+              "optionText": "Continue",
+              "nextNodeId": "5"
             }
           ]
+        },
+        {
+          "id": "5",
+          "characterName": "Bailey",
+          "dialogText": "We got two jobs and these two cars, so making a plan is tricky.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Two Cars could help",
+              "messageText": "Having two cars could help. What's your plan if a fire gets close?",
+              "nextNodeId": "6"
+            },
+            {
+              "optionText": "Two Cars could hurt",
+              "messageText": "Have you thought about how two cars might make evacuating harder?",
+              "nextNodeId": "50"
+            }
+          ]
+        },
+        {
+          "id": "50",
+          "characterName": "Bailey",
+          "dialogText": "Yeah, we've been debating that.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "51"
+            }
+          ]
+        },
+        {
+          "id": "51",
+          "characterName": "Bailey",
+          "dialogText": "Having one car is simpler, and faster.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "52"
+            }
+          ]
+        },
+        {
+          "id": "52",
+          "characterName": "Bailey",
+          "dialogText": "It would reduce the traffic on the road, which would help everyone.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "53"
+            }
+          ]
+        },
+        {
+          "id": "53",
+          "characterName": "Bailey",
+          "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Relocate second car",
+              "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
+              "nextNodeId": "40"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "characterName": "Bailey",
+          "dialogText": "We was thinking about driving both, so we could pack more and save both vehicles.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "7"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "characterName": "Bailey",
+          "dialogText": "But, traffic is what concerns me. I don't want one us getting caught up.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
+          "options": [
+            {
+              "optionText": "Take one car",
+              "messageText": "It makes sense to not want to be seperated, or risk someone getting hurt because they were stuck in traffic.",
+              "nextNodeId": "30"
+            },
+            {
+              "optionText": "Relocate second car",
+              "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
+              "nextNodeId": "40"
+            }
+          ]
+        },
+        {
+          "id": "30",
+          "characterName": "Player",
+          "dialogText": "Have you thought about just taking one car?",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "31"
+            }
+          ]
+        },
+        {
+          "id": "31",
+          "characterName": "Bailey",
+          "dialogText": "Yeah, we've thought about that too.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "32"
+            }
+          ]
+        },
+        {
+          "id": "32",
+          "characterName": "Bailey",
+          "dialogText": "Having one car is simpler, and faster.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "33"
+            }
+          ]
+        },
+        {
+          "id": "33",
+          "characterName": "Bailey",
+          "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "40",
+          "characterName": "Bailey",
+          "dialogText": "Hm, I think that could work. I know a garage we could stash one of the cars at.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "41"
+            }
+          ]
+        },
+        {
+          "id": "41",
+          "characterName": "Bailey",
+          "dialogText": "It would take some planning ahead though, which could be timely.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "dialogText": "What is best for Bailey?",
+          "isEndNode":"true"
         }
       ]
     },
@@ -76,67 +270,290 @@
       "nodes": [
         {
           "id": "10",
-          "characterName": "David",
-          "dialogText": "Thanks for talking with me. We’ve got two young kids, and wildfire season’s been worrying us. We’re not sure what to do if a fire hits while they’re at school.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "dialogText": "<i>You see a man attempting to gather a mountain of childrens toys in his arms. Upon seeing you, he unsuccessfully piles the toys in the front yard, with several balls escaping and rolling into the grass.</i>",
           "options": [
             {
-              "optionText": "Have you talked to the school about their wildfire evacuation plans?",
+              "optionText": "Continue",
               "nextNodeId": "11"
-            },
-            {
-              "optionText": "Schools are safer during a wildfire, should you leave them there?",
-              "nextNodeId": "12"
             }
           ]
         },
         {
           "id": "11",
-          "characterName": "David",
-          "dialogText": "They have a plan, but I still feel uneasy. I'd feel better if we were together—being apart during an evacuation is scary.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "dialogText": "<i>One soccer ball bumps past you as he approaches to give you a handshake.</i>",
           "options": [
             {
-              "option": "Safer at school",
-              "optionText": "It might help to trust the school's plan so you can focus on your own evacuation.",
-              "nextNodeId": "13"
-            },
-            {
-              "option": "Pick up children",
-              "optionText": "I get it, safety comes first. Are you thinking about picking them up early to be safe?",
-              "nextNodeId": "13"
+              "optionText": "Continue",
+              "nextNodeId": "12"
             }
           ]
         },
         {
           "id": "12",
-          "characterName": "David",
-          "dialogText": "I’ve heard that, but as a parent, it’s tough to leave them. I want to pick them up, but the roads could be jammed.",
+          "characterName": "Gabe",
+          "dialogText": "Hey there friend! My name's Gabe. It's great to chat with ya.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
           "options": [
             {
-              "option": "Wait for notice",
-              "optionText": "If roads are crowded, it could slow your evacuation.",
-              "nextNodeId": "13"
-            },
-            {
-              "option": "Safer at school",
-              "optionText": "Maybe coordinate with other parents or the school to ensure everyone is safe.",
+              "optionText": "Continue",
               "nextNodeId": "13"
             }
           ]
         },
         {
           "id": "13",
-          "characterName": "David",
-          "dialogText": "It's a lot to consider. Ultimately I need to make the choice that's best for my family.",
+          "characterName": "Gabe",
+          "dialogText": "You actually caught me at a pretty good time. The kids are at after school soccer practice, so I don't have to wrangle them in right now.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
-          "isEndNode": "true",
           "options": [
             {
-              "optionText": "Happy To Help!"
+              "optionText": "Kids",
+              "messageText": "It's nice to meet you Gabe. Seems like you got some pretty sporty kids!",
+              "nextNodeId": "100"
+            },
+            {
+              "optionText": "Problem?",
+              "messageText": "It's nice to meet you Gabe. What seems to be the problem?",
+              "nextNodeId": "14"
             }
           ]
+        },
+        {
+          "id": "100",
+          "characterName": "Gabe",
+          "dialogText": "You're tellin me! My partner Sam and I have had turn our garage basically into a sporting goods store just to store all their team equipment!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "101"
+            }
+          ]
+        },
+        {
+          "id": "101",
+          "characterName": "Gabe",
+          "dialogText": "My two kiddos are elementary age, so they play pretty much every sport you can think of. We're always on the road for another game.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Problem?",
+              "messageText": "What advice can I offer to help you?",
+              "nextNodeId": "14"
+            }
+          ]
+        },
+        {
+          "id": "14",
+          "characterName": "Gabe",
+          "dialogText": "Well, with wildfire season coming up, my partner Sam and I have been trying to plan in case of emergency.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "15"
+            }
+          ]
+        },
+        {
+          "id": "15",
+          "characterName": "Gabe",
+          "dialogText": "We've got two young kids, elementary school age. We're not sure what to do if a fire hits while they're at school.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "School Evacuation Plans?",
+              "messageText":"Have you talked to the school about their wildfire evacuation plans?",
+              "nextNodeId": "16"
+            }
+          ]
+        },
+        {
+          "id": "16",
+          "characterName": "Gabe",
+          "dialogText": "The school has a plan, but I can't help but feel uneasy.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "17"
+            }
+          ]
+        },
+        {
+          "id": "17",
+          "characterName": "Gabe",
+          "dialogText": "Being apart from your kids during an evacuation is scary - I would much prefer it if we were together.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Safer at School",
+              "messageText":"Being worried about being seperated is completely understandable.",
+              "nextNodeId": "18"
+            },
+            {
+              "optionText": "Pick up Children",
+              "messageText":"Being worried about being seperated is completely understandable.",
+              "nextNodeId": "21"
+            }
+          ]
+        },
+        {
+          "id": "18",
+          "characterName": "Player",
+          "dialogText": "Schools are safer during a wildfire - it might help to trust the school's plan so you can focus on your own evacuation.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "19"
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "characterName": "Player",
+          "dialogText": "That way you're ready to go get your kids the second you are contacted to!",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "20"
+            }
+          ]
+        },
+        {
+          "id": "19",
+          "characterName": "Gabe",
+          "dialogText": "That's true, I do trust the school to have a solid plan in case of emergency.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "20"
+            }
+          ]
+        },
+        {
+          "id": "20",
+          "characterName": "Gabe",
+          "dialogText": "As a parent, it's just so tough to leave them",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Pick up Children",
+              "messageText":"Being worried about being seperated is completely understandable.",
+              "nextNodeId": "21"
+            },
+            {
+              "optionText": "Reach out to School",
+              "messageText":"It might ease your anxiety to reach out to the school again. They could host a conference or meeting discussing these topics.",
+              "nextNodeId": "40"
+            }
+          ]
+        },
+        {
+          "id": "21",
+          "characterName": "Player",
+          "dialogText": "Are you considering picking them up to be safe?",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "22"
+            }
+          ]
+        },
+        {
+          "id": "22",
+          "characterName": "Gabe",
+          "dialogText": "We have been thinking about it, but another concern is traffic.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "23"
+            }
+          ]
+        },
+        {
+          "id": "23",
+          "characterName": "Gabe",
+          "dialogText": "I want to pick them up, but the roads could be jammed.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Coordinate with Parents",
+              "messageText": "Maybe you could coordinate with other parents to carpool, or ensure everyone is safe?",
+              "nextNodeId": "24"
+            },
+            {
+              "optionText": "Pick Up Early",
+              "messageText": "Have you thought about picking them up early out of school? That might help with the traffic concerns.",
+              "nextNodeId": "30"
+            }
+          ]
+        },
+        {
+          "id": "24",
+          "characterName": "Gabe",
+          "dialogText": "That isn't a bad idea at all. It would take some planning, but that way we at least know our children are alright.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "25"
+            }
+          ]
+        },
+        {
+          "id": "25",
+          "characterName": "Gabe",
+          "dialogText": "There still is always the issue of traffic, even with a carpool.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "30",
+          "characterName": "Gabe",
+          "dialogText": "We have, and it isn't a bad idea. That might get us ahead of most of the traffic, but we also need to consider our commute from our jobs to the school.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "40",
+          "characterName": "Player",
+          "dialogText": "That would be the perfect place to present your concerns, and make sure they are addressed!",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "41"
+            }
+          ]
+        },
+        {
+          "id": "41",
+          "characterName": "Gabe",
+          "dialogText": "That isn't a bad idea at all. If I had a better understanding of their plan, I know Sam and I would feel a lot safer about our kids.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_03",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "dialogText": "<b>What is best for Gabe and Sam?</b>",
+          "isEndNode":"true"
         }
       ]
     },
@@ -444,7 +861,7 @@
       "nodes": [
         {
           "id": "30",
-          "characterName": "Alice",
+          "characterName": "June",
           "dialogText": "Hello dear, it’s nice you’re checking in. I’ve lived here for decades, but with wildfires getting worse, I get nervous every season. It’s harder for me to move quickly, so I need to be extra prepared. Any advice?",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_01",
           "options": [

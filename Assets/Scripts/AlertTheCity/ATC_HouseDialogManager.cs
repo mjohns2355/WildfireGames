@@ -134,8 +134,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         if (isDisplayingNode) return;
         isDisplayingNode = true;
-       
-        OnDialogueNodeDisplayed(currentNode);
+
+        OnDialogueNodeDisplayed?.Invoke(currentNode);
 
 
         if (string.IsNullOrEmpty(currentNode.characterName))
