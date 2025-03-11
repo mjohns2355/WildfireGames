@@ -67,13 +67,13 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
-        return canvasGroup.DOFade(1, 1f)
+        return canvasGroup.DOFade(1, 0.2f)
                           .SetEase(Ease.InOutQuad);
     }
 
     private Tween ScaleEffect(RectTransform rect)
     {
-        return rect.DOScale(Vector3.one * 1.5f, 1f)
+        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
                          .SetLoops(4, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }

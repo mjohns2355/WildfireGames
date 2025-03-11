@@ -9,6 +9,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
     public GameObject plantModeToggle;
     public RectTransform parentRect;
     public HighlightMesh criticalZoneHighlight;
+    public float waitTime;
 
     public override void Start()
     {
@@ -29,7 +30,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
             criticalZoneHighlight.HighlightMeshes();
             FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
             plantModeToggle.GetComponent<Toggle>().interactable = false;
-            DOVirtual.DelayedCall(5f  , () =>
+            DOVirtual.DelayedCall(waitTime  , () =>
             {
                 Destroy(criticalZoneHighlight);
                 OnTutorialStepComplete();
@@ -79,13 +80,13 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
-        return canvasGroup.DOFade(1, 1f)
+        return canvasGroup.DOFade(1, 0.2f)
                           .SetEase(Ease.InOutQuad);
     }
 
     private Tween ScaleEffect(RectTransform rect)
     {
-        return rect.DOScale(Vector3.one * 1.5f, 1f)
+        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
                          .SetLoops(4, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }

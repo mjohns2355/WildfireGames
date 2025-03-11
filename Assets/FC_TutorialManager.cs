@@ -21,6 +21,7 @@ public class FC_TutorialManager : MonoBehaviour
     bool isTutorialStarted = false;
     bool isFirstTimeTutorial = true;
 
+
     public void InitTutorialManager()
     {
         titleCard.onClick.AddListener(() =>
@@ -189,9 +190,15 @@ public class FC_TutorialManager : MonoBehaviour
     void SetUpTutorialHouse()
     {
         if (tutorialHouse != null || !isFirstTimeTutorial) return;
+        foreach (var house in structureManager.allMainHouses.Values)
+        {
+            house.outline.enabled = false;
+        }
         tutorialHouse = structureManager.allMainHouses[HouseType.pet];
+        tutorialHouse.outline.enabled = true;
         var houseIcon = tutorialHouse.contextMenu.icon;
         houseIcon.AddOnClickActions(OnClickTutorialHouse);
+        tutorialHouse.contextMenu.restart.gameObject.SetActive(false);
         tutorialHouse.contextMenu.confirm.onClick.AddListener(() =>
         {
             OnConfirmedTutorialHouseMenu();
@@ -201,6 +208,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     private void OnClickTutorialHouse()
     {
+
         GameManager.Instance.cameraMovement.MoveToHouse(tutorialHouse);
         bottomDialogBox.SetActive(false);
         ATC_UIController.Instance.ShowDialog();

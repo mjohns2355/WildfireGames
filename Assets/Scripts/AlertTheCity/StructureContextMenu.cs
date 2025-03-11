@@ -120,7 +120,6 @@ public class StructureContextMenu : MonoBehaviour
         //}
         choicePicture.sprite = house.houseInfo.choicePicture;
         confirm.interactable = isSelected;
-        restart.interactable = !(GameManager.Instance.currentStage == LevelStage.Tutorial);
         if (!house.isMainHouse) return;
         allowMultipleChoices = house.houseInfo.allowMultipleChoices;
         house.OnStructureClick();

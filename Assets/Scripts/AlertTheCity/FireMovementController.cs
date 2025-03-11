@@ -66,12 +66,11 @@ public class FireMovementController : MonoBehaviour
         var hit = other.gameObject;
         if (hit == null) return;
         // Check for fire-safe zone first
-        if (hit.layer == LayerMask.NameToLayer("FireSafe"))
+        if (hit.layer == LayerMask.NameToLayer("FireSafe") && !onCombustible)
         {
 
             particleParent.SetActive(false);
-
-            return; 
+            return;
         }
 
         if (hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))

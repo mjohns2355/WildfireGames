@@ -391,9 +391,14 @@ namespace HappyHouse.HouseSystem
             }
         }
 
-        //tutorial stuff
-        //show sample house part
-
+        public void ToggleHousePartClickable(bool state)
+        {
+            foreach(var node in houseGraph.nodes)
+            {
+                var part = node.housePart;
+                part.isClickable = state;
+            }
+        }
     }
 }
 

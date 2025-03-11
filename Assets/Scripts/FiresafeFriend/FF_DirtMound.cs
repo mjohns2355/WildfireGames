@@ -47,6 +47,10 @@ public class FF_DirtMound : MonoBehaviour
             {
                 SetBubbleState(isPlantMode);
             }
+            else
+            {
+                currentPlant.isClickable = isPlantMode;
+            }
         };
 
     }
@@ -71,6 +75,7 @@ public class FF_DirtMound : MonoBehaviour
         //var newTargetPos = new Vector3(bubblePos.position.x, currentPlant.topPosition.y + 4f, bubblePos.position.z);
         //bubble.SetTargetPosition(newTargetPos);
         //menuPos = newTargetPos + new Vector3(0, currentPlant.topPosition.y + 15f, 0);
+        currentPlant.isClickable = true;
         currentPlant.onPlantClicked += () => HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
         OnPlanted?.Invoke();
     }
@@ -105,6 +110,7 @@ public class FF_DirtMound : MonoBehaviour
     public void SetBubbleState(bool state)
     {
         bubble.gameObject.SetActive(state);
+
     }
 
 

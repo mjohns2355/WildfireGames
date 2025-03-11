@@ -115,7 +115,7 @@ public class ATC_dialogManager : MonoBehaviour
         Debug.Log($"Get end qupte for house: {houseType}, Selected Choice: {choice}, Response: {response}");
         foreach (var entry in endQuoteData.quotes)
         {
-            if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
+            //if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
             if (entry.houseType == houseType && entry.choice == choice && entry.response == response)
             {
                 return entry.quote;

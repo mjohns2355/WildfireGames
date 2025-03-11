@@ -27,19 +27,18 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         {
             OnTutorialStepComplete();
         });
-
-        ShowToggle();
+        DOVirtual.DelayedCall(8f, () =>
+        {
+            ShowToggle();
+        });
+        
     }
 
     public void ShowToggle()
     {
         plantModeToggle.SetActive(true);
-        DOVirtual.DelayedCall(3f, () =>
-        {
-            FF_TutorialManager.Instance.tutorialText.text = "Click on the toggle to switch to “House Mode”";
-        });
+        FF_TutorialManager.Instance.tutorialText.text = "Click on the toggle to switch to “House Mode”";
         Sequence toggleSequence = DOTween.Sequence();
-        toggleSequence.PrependInterval(5f);
         toggleSequence.Append(ScaleEffect(plantModeToggle.GetComponent<RectTransform>()));
         toggleSequence.onComplete += () =>
         {
@@ -49,7 +48,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     }
     private Tween ScaleEffect(RectTransform rect)
     {
-        return rect.DOScale(Vector3.one * 1.5f, 1f)
+        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
                          .SetLoops(4, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }
@@ -72,12 +71,12 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
             }
             break;
         }
-
+        
         ShowUpgradeHousePart();
     }
     public void ShowUpgradeHousePart()
     {
-        Debug.Log("Step 5 behaviour");
+        //Debug.Log("Step 5 behaviour");
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnPartTapped;
         bubble.button.enabled = true;
         bubble.button.onClick.AddListener(() =>
@@ -86,12 +85,17 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         });
         //enable house part clickingß
         //HH_GameManager.Instance.SetGameStart(true);
-        foreach (var part in partObjects)
-        {
-            part.isClickable = true;
-            highlightMesh.meshRenders.AddRange(part.meshes);
-        }
         highlightMesh.HighlightMeshes();
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            foreach (var part in partObjects)
+            {
+                part.isClickable = true;
+                highlightMesh.meshRenders.AddRange(part.meshes);
+            }
+
+        });
+
 
     }
 

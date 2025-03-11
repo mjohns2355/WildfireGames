@@ -200,6 +200,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             if (currentPlayer)
             {
                 currentPlayer.ToggleAllPurchaseIcons(false);
+                currentPlayer.ToggleHousePartClickable(false);
             }
 
             uiManager.HideStoreScreen();
@@ -221,6 +222,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 if (currentPlayer)
                 {
                     currentPlayer.ToggleAllPurchaseIcons(true);
+                    currentPlayer.ToggleHousePartClickable(true);
                 }
                 cameraController.MoveToHouse(currentPlayer);
             }
