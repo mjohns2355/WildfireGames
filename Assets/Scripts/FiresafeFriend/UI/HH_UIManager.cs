@@ -157,6 +157,7 @@ public class HH_UIManager : MonoBehaviour
         rightArrow.gameObject.SetActive(false);
         modeToggle.SetActive(false);
         endRoundBtn.gameObject.SetActive(false);
+        HidePlantsMenu();
     }
 
     public PurchaseFloatingButton SpawnBubble()

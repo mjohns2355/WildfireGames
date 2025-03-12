@@ -113,6 +113,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //}
         currentPlayer.OnHouseDeselected();
         uiManager.HideStoreScreen();
+        uiManager.HidePlantsMenu();
         IsPlantMode = false;
         if (playerTag == "p1")
         {
@@ -188,6 +189,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void ChangeGameMode(bool isPlantMode)
     {
+        uiManager.HidePlantsMenu();
         IsPlantMode = isPlantMode;
         if(isPlantMode)
         {
@@ -206,6 +208,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             uiManager.HideStoreScreen();
             uiManager.ToggleInventory(false);
             uiManager.HidePurchasePopup(null);
+
         }
         else
         {
@@ -230,6 +233,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             {
                 cameraController.ResetCamera();
             }
+            TogglePublicFenceClickable(true);
         }
     }
 
@@ -244,6 +248,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         else
         {
             OnRoundEnd?.Invoke();
+        }
+    }
+
+    void TogglePublicFenceClickable(bool state)
+    {
+        foreach(var fence in fences)
+        {
+            fence.GetComponent<BaseHousePartObject>().isClickable = state;
         }
     }
 }

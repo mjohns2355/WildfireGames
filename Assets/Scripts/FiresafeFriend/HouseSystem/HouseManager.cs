@@ -158,7 +158,19 @@ namespace HappyHouse.HouseSystem
 
         public void ReplaceHousePartObject(/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
         {
-            bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == inventory.ownedParts[housePartInfo.housePartType].Count;
+            //  hide bubble when no purchasing possible
+            int ownedPartsCount = -1;
+            if (housePartInfo.isPublic)
+            {
+               
+                ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;
+            }
+            else
+            {
+                ownedPartsCount = inventory.ownedParts[housePartInfo.housePartType].Count;
+            }
+
+            bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == ownedPartsCount;
 
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
@@ -190,6 +202,11 @@ namespace HappyHouse.HouseSystem
                 }
                 else if(housePartInfo.isPublic)
                 {
+                    if (oldPart.shouldDisplayBubble)
+                    {
+                        oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+                        oldPart.shouldDisplayBubble = !shouldHideBubble;
+                    }
                     oldPart.InitHousePartObject(this, housePartInfo);
                 }
             }

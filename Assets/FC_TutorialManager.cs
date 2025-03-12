@@ -145,16 +145,16 @@ public class FC_TutorialManager : MonoBehaviour
     {
         var text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"pet\">.\n";
         var controlText = string.Empty;
-        if (GameManager.Instance.inputManager.isKeyboard)
-        {
-            controlText = "<b>Use W A S D to move, </b>";
-        }
-        else
-        {
-            controlText = "<b>Press and hold on the map to scroll, </b>";
-        }
+        //if (GameManager.Instance.inputManager.isKeyboard)
+        //{
+        //    controlText = "<b>Use W A S D to move, </b>";
+        //}
+        //else
+        //{
+        //    controlText = "<b>Press and hold on the map to scroll, </b>";
+        //}
         var text2 = " and <b>select Mary's Home.</b>";
-        string message = text1 + controlText + text2;
+        string message = text1 + "<b>Use W A S D to move OR Press and hold on the map to scroll </b>" + text2;
         UpdateBottomDialog(message);
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);

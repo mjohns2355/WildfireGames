@@ -34,6 +34,7 @@ public class FF_DirtMound : MonoBehaviour
                 //currentPlant = Instantiate(p, plantHolder);
                 //availablePlants.Remove(p);
                 Plant(p);
+                currentPlant.isClickable = false;
             }
         }
 

@@ -80,6 +80,7 @@ public class StorePanel : MonoBehaviour
                 continue;
             }
 
+            //tutorial store
             if (HH_GameManager.Instance.isTutorial)
             {
                 if (info.partClass != MaterialClass.A)

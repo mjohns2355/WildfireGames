@@ -162,7 +162,7 @@ public class HouseStructure : Structure
     }
     public override void OnStructureClick()
     {
-        if (isMainHouse)
+        if (isMainHouse && GameManager.Instance.currentStage != LevelStage.HouseDialog)
         {
             contextMenu.OnMainHouseClicked();
             //foreach (var house in sameTypeHouses)
