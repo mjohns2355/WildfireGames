@@ -56,7 +56,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             GameManager.Instance.ToggleSimStatus(true);
             popUp.SetActive(false);
-            //PushPanel(popUp);
             start.interactable = false;
             learnMore.interactable= false;
 

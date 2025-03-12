@@ -76,24 +76,25 @@ public class StructureContextMenu : MonoBehaviour
             ShowDialog();
         });
         icon.InitIcon(house.houseType);
-        icon.AddOnClickActions(() =>
+        icon.AddOnClickActions(OnMainHouseClicked);
+
+    }
+
+    public void OnMainHouseClicked()
+    {
+        // school text
+        schoolText.SetActive(false);
+        if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
+        ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
+        if (isSelected)
         {
-            // school text
-            schoolText.SetActive(false);
-            if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
-            ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
-            if (isSelected)
-            {
-                GameManager.Instance.cameraMovement.MoveToHouse(owner,false);
-                
-                OnMenuEnable();
-                return;
-            }
-            GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
-            ShowDialog();
+            GameManager.Instance.cameraMovement.MoveToHouse(owner, false);
 
-        });
-
+            OnMenuEnable();
+            return;
+        }
+        GameManager.Instance.cameraMovement.MoveToHouse(owner/*.camFocusPos*/);
+        ShowDialog();
     }
 
     void ShowDialog()

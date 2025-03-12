@@ -56,8 +56,9 @@ public class HouseStructure : Structure
     {
         houseInfo = null;
     }
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         combustible =  GetComponent<Combustible>();
         placementManager = GameManager.Instance.structureManager.placementManager;
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
@@ -85,9 +86,7 @@ public class HouseStructure : Structure
         //{
         //    TestSpawnCar();
         //}
-       
-
-        //front.LookAt(roadPosition);
+        
     }
 
     void CheckNeighbourRoad()
@@ -163,11 +162,14 @@ public class HouseStructure : Structure
     }
     public override void OnStructureClick()
     {
-        
-        foreach (var house in sameTypeHouses)
+        if (isMainHouse)
         {
-            house.outline.enabled = true;
-            ATC_UIController.Instance.AddSelectedHouse(house);
+            contextMenu.OnMainHouseClicked();
+            //foreach (var house in sameTypeHouses)
+            //{
+            //    house.outline.enabled = true;
+            //    ATC_UIController.Instance.AddSelectedHouse(house);
+            //}
         }
     }
 
@@ -319,4 +321,6 @@ public class HouseStructure : Structure
     {
         this.destinations = destinations;
     }
+
+
 }

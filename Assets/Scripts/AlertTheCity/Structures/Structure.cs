@@ -17,8 +17,15 @@ public class Structure : MonoBehaviour
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
 
-    private void Start()
+    public virtual void Start()
     {
+        GameManager.Instance.inputManager.OnStructureClicked += (structure) =>
+        {
+            if (structure == this)
+            {
+                OnStructureClick();
+            }
+        };
         DOVirtual.DelayedCall(0.2f, () =>
         {
             roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
@@ -26,9 +33,9 @@ public class Structure : MonoBehaviour
     }
     virtual public void OnStructureClick()
     {
-        contextMenu.gameObject.SetActive(true);
-        //menu.UpdateText(structureInfoDict);
-        outline.enabled = true;
+        //contextMenu.gameObject.SetActive(true);
+        ////menu.UpdateText(structureInfoDict);
+        //outline.enabled = true;
     }
 
     virtual public void StopSturctureClick()

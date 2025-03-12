@@ -10,6 +10,7 @@ public class ATC_InputManager : MonoBehaviour
     public Action<Vector3Int> OnMouseClick, OnMouseHold;
     public Action OnMouseUp;
     public Action<int> OnMouseScroll;
+    public Action<Structure> OnStructureClicked;
     public float cameraZoomAxis;
     public Vector2 cameraMovementVector;
     public bool checkKeyboard;
@@ -64,6 +65,18 @@ public class ATC_InputManager : MonoBehaviour
 
         return null;
     }
+
+    private Structure? RaycastStructure()
+    {
+        RaycastHit hit;
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, structureMask))
+        {
+            var structure = hit.collider.gameObject.GetComponent<Structure>();
+            return structure;
+        }
+        return null;
+    }
     private void CheckArrowInput()
     {
 
@@ -84,6 +97,7 @@ public class ATC_InputManager : MonoBehaviour
     private void SimulateTouchWithMouse()
     {
         if(!checkKeyboard) return;
+        isKeyboard = false;
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             lastTouchPosition = Input.mousePosition;
@@ -123,6 +137,7 @@ public class ATC_InputManager : MonoBehaviour
             {
                 isDragging = false;
             }
+            isKeyboard = false;
         }
     }
 
@@ -135,6 +150,7 @@ public class ATC_InputManager : MonoBehaviour
             {
                 OnMouseHold?.Invoke(position.Value);
             }
+
         }
 
     }
@@ -161,6 +177,11 @@ public class ATC_InputManager : MonoBehaviour
             {
                 OnMouseClick?.Invoke(position.Value);
 
+            }
+            var structure = RaycastStructure();
+            if(structure != null)
+            {
+                OnStructureClicked?.Invoke(structure);
             }
         }
     }
