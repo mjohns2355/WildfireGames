@@ -106,7 +106,7 @@ public class FC_MessageBubble : MonoBehaviour
             var name = nameText.text;
             switch (name)
             {
-                case "Mary":
+                case "Mary" or "Genaro":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.petHomeBGShort : config.petHomeBGLong;
                     namePlateBackgrondImage.sprite = config.petHomeNamePlate;
                     break;

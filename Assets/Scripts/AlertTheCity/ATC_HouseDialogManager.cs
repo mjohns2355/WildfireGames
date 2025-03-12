@@ -95,7 +95,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         else if(currentNode.isEndNode)
         {
-            DOVirtual.DelayedCall(1f,EndDialog).SetId(gameObject);
+            DOVirtual.DelayedCall(0.2f,EndDialog).SetId(gameObject);
         }
     }
 
@@ -116,7 +116,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             if (inDialogue) return;
             isWaitingForPlayer = false;
             canClick = false;
-            DOVirtual.DelayedCall(3f, () =>
+            DOVirtual.DelayedCall(1f, () =>
             {
                 DisplayCurrentNode();
                 canClick = true;
@@ -158,7 +158,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             characterPortrait.sprite = portrait;
         }
 
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(2f, () =>
         {
             ShowOptions();
             isDisplayingNode = false;

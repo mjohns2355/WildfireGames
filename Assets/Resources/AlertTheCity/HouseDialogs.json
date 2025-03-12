@@ -22,7 +22,7 @@
           "options": [
             {
               "optionText": "Yes",
-              "messageText":"Yes I am. I would love to help if I can.",
+              "messageText": "Yes I am. I would love to help if I can.",
               "nextNodeId": "3"
             },
             {
@@ -260,7 +260,7 @@
         {
           "id": "200",
           "dialogText": "What is best for Bailey?",
-          "isEndNode":"true"
+          "isEndNode": "true"
         }
       ]
     },
@@ -363,7 +363,7 @@
           "options": [
             {
               "optionText": "School Evacuation Plans?",
-              "messageText":"Have you talked to the school about their wildfire evacuation plans?",
+              "messageText": "Have you talked to the school about their wildfire evacuation plans?",
               "nextNodeId": "16"
             }
           ]
@@ -388,12 +388,12 @@
           "options": [
             {
               "optionText": "Safer at School",
-              "messageText":"Being worried about being seperated is completely understandable.",
+              "messageText": "Being worried about being seperated is completely understandable.",
               "nextNodeId": "18"
             },
             {
               "optionText": "Pick up Children",
-              "messageText":"Being worried about being seperated is completely understandable.",
+              "messageText": "Being worried about being seperated is completely understandable.",
               "nextNodeId": "21"
             }
           ]
@@ -440,12 +440,12 @@
           "options": [
             {
               "optionText": "Pick up Children",
-              "messageText":"Being worried about being seperated is completely understandable.",
+              "messageText": "Being worried about being seperated is completely understandable.",
               "nextNodeId": "21"
             },
             {
               "optionText": "Reach out to School",
-              "messageText":"It might ease your anxiety to reach out to the school again. They could host a conference or meeting discussing these topics.",
+              "messageText": "It might ease your anxiety to reach out to the school again. They could host a conference or meeting discussing these topics.",
               "nextNodeId": "40"
             }
           ]
@@ -553,7 +553,7 @@
         {
           "id": "200",
           "dialogText": "<b>What is best for Gabe and Sam?</b>",
-          "isEndNode":"true"
+          "isEndNode": "true"
         }
       ]
     },
@@ -667,12 +667,12 @@
           "options": [
             {
               "optionText": "Home Hardening",
-              "messageText":"Home hardening is the process of making your home more resistant to wildfires. That can be a good option, especially living in a WUI.",
+              "messageText": "Home hardening is the process of making your home more resistant to wildfires. That can be a good option, especially living in a WUI.",
               "nextNodeId": "26"
             },
             {
               "optionText": "Early Evacuation",
-              "messageText":"An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
+              "messageText": "An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
               "nextNodeId": "34"
             }
           ]
@@ -708,7 +708,7 @@
           "options": [
             {
               "optionText": "Early Evacuation",
-              "messageText":"An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
+              "messageText": "An early evacuation, especially on Red Flag days, can be the world's difference to your safety. With the traffic, commotion, and panic, it never hurts to get out early.",
               "nextNodeId": "29"
             }
           ]
@@ -733,7 +733,7 @@
           "options": [
             {
               "optionText": "Thoughts?",
-              "messageText":"What do you think about those options?",
+              "messageText": "What do you think about those options?",
               "nextNodeId": "40"
             }
           ]
@@ -758,7 +758,7 @@
           "options": [
             {
               "optionText": "Home Hardening",
-              "messageText":"Home hardening is the process of making your home more resistant to wildfires. That can also be a good option, especially living in a WUI.",
+              "messageText": "Home hardening is the process of making your home more resistant to wildfires. That can also be a good option, especially living in a WUI.",
               "nextNodeId": "36"
             }
           ]
@@ -794,7 +794,7 @@
           "options": [
             {
               "optionText": "Thoughts?",
-              "messageText":"What do you think about those options?",
+              "messageText": "What do you think about those options?",
               "nextNodeId": "40"
             }
           ]
@@ -850,9 +850,8 @@
         {
           "id": "44",
           "dialogText": "<b>What do you think?</b>",
-          "isEndNode":"true"
+          "isEndNode": "true"
         }
-
       ]
     },
     {
@@ -931,69 +930,362 @@
       "nodes": [
         {
           "id": "40",
-          "characterName": "Mary",
-          "dialogText": "Wildfire season stresses me out, especially for my pets. We’ve got two dogs, a cat, and even a few chickens. If a fire gets close, I need a plan to get everyone to safety.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "dialogText": "<i>You see a person playing fetch with two large dogs. As you approach, the two dogs bound over, dropping a slobbery ball at your feet. Their owner jogs over, and waves hello, before picking up the ball and tossing it, the dogs not far behind.</i>",
           "options": [
             {
-              "optionText": "A detailed evacuation plan, with supplies and transport ready, can help when it’s time to leave.",
+              "optionText": "Continue",
               "nextNodeId": "41"
-            },
-            {
-              "optionText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
-              "nextNodeId": "42"
             }
           ]
         },
         {
           "id": "41",
-          "characterName": "Mary",
-          "dialogText": "I’ve got dog crates and a carrier for the cat, but getting them out quickly is tough. The chickens? That’s a whole different challenge!",
+          "characterName": "Genaro",
+          "dialogText": "Pippin, Porkchop, fetch!",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "option": "Plan Ahead",
-              "optionText": "Doing a practice run might help you prepare before an actual emergency.",
-              "messageText": "",
-              "nextNodeId": "43"
-            },
-            {
-              "option": "Plan Ahead",
-              "optionText": "Having a go-bag ready for each pet—food, water, medicine—makes a huge difference in a rush.",
-              "messageText": "",
-              "nextNodeId": "43"
+              "optionText": "Continue",
+              "nextNodeId": "42"
             }
           ]
         },
         {
           "id": "42",
-          "characterName": "Mary",
-          "dialogText": "I’ve thought about it, but it feels extreme to leave before an order. Plus, where would we go? Finding a pet-friendly place is tough.",
+          "characterName": "Genaro",
+          "dialogText": "Those dogs are tireless! I feel like I could charge a battery off of them.",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
           "options": [
             {
-              "option": "Evacuate Early",
-              "optionText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
-              "nextNodeId": "43"
-            },
-            {
-              "option": "Evacuate Early",
-              "optionText": "If you have friends or family in a safer area, maybe you could stay with them when it's risky?",
+              "optionText": "Continue",
               "nextNodeId": "43"
             }
           ]
         },
         {
           "id": "43",
-          "characterName": "Mary",
-          "dialogText": "It's a lot to think about. Ultimately I need to make the choice that's best for my pets.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode": "true",
+          "dialogText": "<i>They wipe slobber off their pants before extending for a handshake.</i>",
           "options": [
             {
-              "optionText": "Happy To Help!"
+              "optionText": "Continue",
+              "nextNodeId": "44"
             }
           ]
+        },
+        {
+          "id": "44",
+          "characterName": "Genaro",
+          "dialogText": "My name's Genaro. I appreciate you stopping by!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "How can I help?",
+              "messageText": "Pleasure to meet you Genaro. How can I help?",
+              "nextNodeId": "45"
+            },
+            {
+              "optionText": "Compliment pets",
+              "messageText": "Those are some really cute dogs. Do you have other pets?",
+              "nextNodeId": "400"
+            }
+          ]
+        },
+        {
+          "id": "400",
+          "characterName": "Genaro",
+          "dialogText": "Yeah I do! I'm the proud parent of two dogs, a cat, and two rabbits.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "401"
+            }
+          ]
+        },
+        {
+          "id": "401",
+          "characterName": "Genaro",
+          "dialogText": "I'm a notorious foster failure. Sometimes they're just too cute! I can't help it they would leave a pet sized hole in my heart if I let them go.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "402"
+            }
+          ]
+        },
+        {
+          "id": "402",
+          "characterName": "Genaro",
+          "dialogText": "They're actually the reason I called you here.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "How can I help?",
+              "nextNodeId": "45"
+            }
+          ]
+        },
+        {
+          "id": "45",
+          "characterName": "Genaro",
+          "dialogText": "Wildfire season stresses me out. Like really stresses me out.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "46"
+            }
+          ]
+        },
+        {
+          "id": "46",
+          "characterName": "Genaro",
+          "dialogText": "But not because of me. Because of my pets!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "47"
+            }
+          ]
+        },
+        {
+          "id": "47",
+          "characterName": "Genaro",
+          "dialogText": "I've got two dogs, a cat, and two rabbits, all of whom I love with my entire heart.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "48"
+            }
+          ]
+        },
+        {
+          "id": "48",
+          "characterName": "Genaro",
+          "dialogText": "If the fire gets close, I need a plan to get everyone to safety.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Evacuation Plan?",
+              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
+              "nextNodeId": "49"
+            },
+            {
+              "optionText": "Evacuate Early?",
+              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "49",
+          "characterName": "Genaro",
+          "dialogText": "I've got crates and carriers for all of them, but getting them out quickly is tough.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "50"
+            }
+          ]
+        },
+        {
+          "id": "50",
+          "characterName": "Genaro",
+          "dialogText": "Rabbits are incredibly skittish - if they hide, it would take forever to try and find them fast!",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Practice Evacuation",
+              "messageText": "Doing a practice run might help you prepare before an actual emergency.",
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Prep a go bag",
+              "messageText": "Having a go-bag ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+              "nextNodeId": "300"
+            },
+            {
+              "optionText": "Evacuate Early?",
+              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "300",
+          "characterName": "Genaro",
+          "dialogText": "Definetly. I've been trying to keep a go bag ready.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "301"
+            }
+          ]
+        },
+        {
+          "id": "301",
+          "characterName": "Genaro",
+          "dialogText": "The only issue is that some items expire after a period of time. It's costly to upkeep a go bag.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Practice Evacuation",
+              "messageText": "Doing a practice run might help you prepare before an actual emergency.",
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Evacuate Early?",
+              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "characterName": "Player",
+          "dialogText": "It would be a great way to catch things you might have previously overlooked.",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "201"
+            }
+          ]
+        },
+        {
+          "id": "201",
+          "characterName": "Genaro",
+          "dialogText": "Oh you're so right! There are absolutely some things I have overlooked, it wouldn't hurt at all to practice.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "202"
+            }
+          ]
+        },
+        {
+          "id": "202",
+          "characterName": "Genaro",
+          "dialogText": "It might also help with my bunny wrangling skills.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "500"
+            }
+          ]
+        },
+        {
+          "id": "100",
+          "characterName": "Genaro",
+          "dialogText": "I've thought about it, but it feels extreme to leave before an order.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "101"
+            }
+          ]
+        },
+        {
+          "id": "101",
+          "characterName": "Genaro",
+          "dialogText": "Plus, where would we go? Finding a pet-friendly place is tough.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Find Pet Friendly Spots",
+              "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
+              "nextNodeId": "102"
+            },
+            {
+              "optionText": "Friends or Family",
+              "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+              "nextNodeId": "104"
+            }
+          ]
+        },
+        {
+          "id": "102",
+          "characterName": "Genaro",
+          "dialogText": "That isn't a bad idea. I would have to do a lot of research.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "103"
+            }
+          ]
+        },
+        {
+          "id": "103",
+          "characterName": "Genaro",
+          "dialogText": "I worry that a lot of those places will fill up quick. What would I do then if they were full?",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Friends or Family",
+              "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+              "nextNodeId": "104"
+            },
+            {
+              "optionText": "Evacuation Plan?",
+              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
+              "nextNodeId": "49"
+            }
+          ]
+        },
+        {
+          "id": "104",
+          "characterName": "Genaro",
+          "dialogText": "That's not a bad idea. I would just hate to be a burden though.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "105"
+            }
+          ]
+        },
+        {
+          "id": "105",
+          "characterName": "Genaro",
+          "dialogText": "I'm used to taking care of this many animals, but I understand why a lot of others wouldn't.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue",
+              "nextNodeId": "106"
+            }
+          ]
+        },
+        {
+          "id": "106",
+          "characterName": "Genaro",
+          "dialogText": "I also know it would stress my pets out a lot! I don't want to overwhelm them by evacuating too much.",
+          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Find Pet Friendly Spots",
+              "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
+              "nextNodeId": "102"
+            },
+            {
+              "optionText": "Evacuation Plan?",
+              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
+              "nextNodeId": "49"
+            }
+          ]
+        },
+        {
+          "id": "500",
+          "dialogText": "What is best for Genaro?",
+          "isEndNode": "true"
         }
       ]
     },
@@ -1004,7 +1296,7 @@
         {
           "id": "50",
           "characterName": "Firefighter",
-          "dialogText": "Hey there! Thank you for coming into town to help our community learn about <b>fire awareness</b>.",
+          "dialogText": "Hey there! Thank you for coming into town to help our community learn about <b>fire awareness</b>. You can <b>Click</b> or <b>Tap</b> to read the next message.",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
           "options": [
             {
@@ -1104,7 +1396,8 @@
           "isEndNode": "true",
           "options": [
             {
-              "optionText": "Let's go! (End Conversation)"
+              "optionText": "Let's go! (End Conversation)",
+              "messageText": "Let's go!"
             }
           ]
         }
@@ -1127,7 +1420,7 @@
             },
             {
               "optionText": "Happy to help!",
-              "messageText": "What's worrying you about this fire season?",
+              "messageText": "Hi Mary, I'm happy to help you.",
               "nextNodeId": "59"
             }
           ]
@@ -1215,124 +1508,11 @@
           "characterName": "Mary",
           "dialogText": "That’s a great idea, I’ll try to get that <b>done!</b> It’s hard to stay on top of things, but I know it will be <b>relieving in the long run.</b>",
           "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode":"true",
+          "isEndNode": "true",
           "options": [
             {
-              "optionText": "Happy to help! (End Conversation)"
-            }
-          ]
-        }
-      ]
-    },
-        {
-      "houseType": "tutorial",
-      "rootNodeId": "58",
-      "nodes": [
-        {
-          "id": "58",
-          "characterName": "Mary",
-          "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is <b>close</b>, and I’m a little <b>worried</b>.",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "What's the problem?",
-              "messageText": "What's worrying you about this fire season?",
-              "nextNodeId": "59"
-            },
-            {
-              "optionText": "Happy to help!",
-              "messageText": "What's worrying you about this fire season?",
-              "nextNodeId": "59"
-            }
-          ]
-        },
-        {
-          "id": "59",
-          "characterName": "Mary",
-          "dialogText": "Well, I’ve recently started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "That's amazing!",
-              "nextNodeId": "60"
-            },
-            {
-              "optionText": "Pet evacuation?",
-              "messageText": "Are you concerned about keeping your pets safe?",
-              "nextNodeId": "61"
-            }
-          ]
-        },
-        {
-          "id": "60",
-          "characterName": "Mary",
-          "dialogText": "Thank you! But now I start to worry about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Continue",
-              "nextNodeId": "62"
-            }
-          ]
-        },
-        {
-          "id": "61",
-          "characterName": "Mary",
-          "dialogText": "Exactly. I’m worried about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Continue",
-              "nextNodeId": "62"
-            }
-          ]
-        },
-        {
-          "id": "62",
-          "characterName": "Firefighter",
-          "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to listen, and <b>respond accordingly!</b>",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Continue",
-              "nextNodeId": "63"
-            }
-          ]
-        },
-        {
-          "id": "63",
-          "characterName": "Firefighter",
-          "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>go bag.</b>",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Continue",
-              "nextNodeId": "64"
-            }
-          ]
-        },
-        {
-          "id": "64",
-          "characterName": "Firefighter",
-          "dialogText": "How about you <b>tell Mary</b>, then we’ll <b>head out.</b>",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Got it! (Tell Mary)",
-              "messageText": "You should prepare your pets supplies as you would with your own! Creating a <b>go bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moments notice!",
-              "nextNodeId": "65"
-            }
-          ]
-        },
-        {
-          "id": "65",
-          "characterName": "Mary",
-          "dialogText": "That’s a great idea, I’ll try to get that <b>done!</b> It’s hard to stay on top of things, but I know it will be <b>relieving in the long run.</b>",
-          "portraitPath": "AlertTheCity/Portraits/AtC_Char_02",
-          "isEndNode":"true",
-          "options": [
-            {
-              "optionText": "Happy to help! (End Conversation)"
+              "optionText": "Happy to help! (End Conversation)",
+              "messageText": "Happy to help!"
             }
           ]
         }
@@ -1414,7 +1594,7 @@
           "characterName": "Firefighter",
           "dialogText": "Great! The get out here, and <b>help our citizens become fire wise!</b>",
           "portraitPath": "AlertTheCity/Portraits/firefighterWorried",
-          "isEndNode": true,
+          "isEndNode":"true",
           "options": [
             {
               "optionText": "Start Game"
