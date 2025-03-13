@@ -11,7 +11,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public TextMeshProUGUI dialogText;
     public TextMeshProUGUI characterNameText;
     public Image characterPortrait;
-    public GameObject messageBubblePrefab;
+    public GameObject messageBubblePrefab,topFade,bottomFade;
     public Transform messagebBubblesContainer;
     [Range(0.01f, 0.05f)]
     public float waitTimePerCharacter = 0.01f;
@@ -22,7 +22,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
     [SerializeField] private ATC_DialogTree currentDialogTree;
-    [SerializeField] private DialogNode currentNode,previousNode;
+    [SerializeField] private DialogNode currentNode;
     //[SerializeField] private int paragraphIndex;
     private string key;
     public Button skipButton;
@@ -33,15 +33,29 @@ public class ATC_HouseDialogManager : MonoBehaviour
     //[SerializeField] GameObject nameTag;
     public bool isWaitingForPlayer =  true;
     public bool canShowSkipButton = false;
-    private bool canClick = true;
-
-    private bool isDisplayingNode = false;
+    [SerializeField] private bool canClick = false;
 
     private void Start()
     {
         LoadDialogTrees("Assets/Resources/AlertTheCity/HouseDialogs.json");
         skipButton.onClick.AddListener(SkipDialogue);
+        scrollRect.onValueChanged.AddListener(_ => UpdateEdgeFadeVisibility());
     }
+
+    private void UpdateEdgeFadeVisibility()
+    {
+        if (scrollRect == null || topFade == null || bottomFade == null) return;
+
+
+        float pos = scrollRect.verticalNormalizedPosition;
+
+        CanvasGroup topGroup = topFade.GetComponent<CanvasGroup>();
+
+        float topTargetAlpha = (pos < 0.98f) ? 1f : 0f;
+
+        topGroup?.DOFade(topTargetAlpha, 0.2f);
+    }
+
     public void LoadDialogTrees(string jsonFilePath)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("AlertTheCity/HouseDialogs");
@@ -70,7 +84,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
         {
             canClick = false;
-            DOVirtual.DelayedCall(0.5f, () => canClick = true); //cooldown
+            DOVirtual.DelayedCall(0.2f, () => canClick = true); //cooldown
 
             isWaitingForPlayer = false;
             ProceedToNextNode();
@@ -79,7 +93,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void ProceedToNextNode()
     {
-        if (isDisplayingNode) return;
         //if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != "Continue")
         //{
         //    ShowOptions();
@@ -87,16 +100,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (!currentNode.isEndNode && currentNode.options.Length == 1 && currentNode.options[0].optionText == "Continue")
         {
             //if (currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId).id == currentNode.id) return;
-
-            previousNode = currentNode;
+            
             currentNode = currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId);
-            //Debug.Log($"Node {previousNode.id} proceeds to {currentNode.id}");
             DisplayCurrentNode();
         }
-        else if(currentNode.isEndNode)
-        {
-            DOVirtual.DelayedCall(0.2f,EndDialog).SetId(gameObject);
-        }
+        //else if(currentNode.isEndNode)
+        //{
+            
+        //    DOVirtual.DelayedCall(0.1f,EndDialog).SetId(gameObject);
+        //}
     }
 
     public void SkipDialogue()
@@ -132,8 +144,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void DisplayCurrentNode()
     {
-        if (isDisplayingNode) return;
-        isDisplayingNode = true;
 
         OnDialogueNodeDisplayed?.Invoke(currentNode);
 
@@ -157,13 +167,25 @@ public class ATC_HouseDialogManager : MonoBehaviour
             characterPortrait.gameObject.SetActive(true);
             characterPortrait.sprite = portrait;
         }
+        canClick = false;
 
-        DOVirtual.DelayedCall(2f, () =>
+        if (currentNode.options == null || currentNode.options[0].optionText == "Continue" )
         {
-            ShowOptions();
-            isDisplayingNode = false;
-            isWaitingForPlayer = true; // Only allow input after the node is fully ready
-        });
+            canClick = true;
+            isWaitingForPlayer = true;
+            if (currentNode.isEndNode)
+            {
+                DOVirtual.DelayedCall(2f, EndDialog).SetId(gameObject);
+            }
+        }
+        else
+        {
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                ShowOptions();
+                isWaitingForPlayer = true; // Only allow input after the node is fully ready
+            });
+        }
 
 
 
@@ -247,16 +269,16 @@ public class ATC_HouseDialogManager : MonoBehaviour
         SpawnAMessageBubble(text, null, true, false,false);
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
-        // jump to end if it node is an end node
-        //if (currentNode.isEndNode)
-        //{
-        //    DOVirtual.DelayedCall(2.0f, () =>
-        //    {
-        //        EndDialog();
-        //    }).SetId(gameObject);
+        //jump to end if it node is an end node
+        if (currentNode.isEndNode)
+        {
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                EndDialog();
+            }).SetId(gameObject);
 
-        //    return;
-        //}
+            return;
+        }
         float delayTime = baseWaitTime + text.Length * waitTimePerCharacter;
 
         StartCoroutine(OptionSelectedRoutine(delayTime,selectedOption));
@@ -272,30 +294,22 @@ public class ATC_HouseDialogManager : MonoBehaviour
         // show next node with delay
         string nextNodeId = selectedOption.nextNodeId;
         // Find the next node
-        previousNode = currentNode;
         currentNode = currentDialogTree.GetNodeById(nextNodeId);
         //isWaitingForPlayer = true;
         DOVirtual.DelayedCall(1f, () =>
         {
             isWaitingForPlayer = true;
+            canClick = true;
             DisplayCurrentNode();
         });
         //DisplayCurrentNode();
     }
     private void ShowOptions()
     {
-        if (currentNode.isEndNode) return;
+        //if (currentNode.isEndNode) return;
         //skip empty options
-        if (currentNode.options[0].optionText == "Continue")
-        {
-            //string nextNodeId = currentNode.options[0].nextNodeId;
-            //// Find the next node
-            //previousNode = currentNode;
-            //currentNode = currentDialogTree.GetNodeById(nextNodeId);
-            //DisplayCurrentNode();
-            return;
-        }
 
+       
         for (int i = 0; i < currentNode.options.Length; i++)
         {
             var index = i;
@@ -342,6 +356,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog()
     {
         StopAllCoroutines();
+        topFade.GetComponent<CanvasGroup>().alpha = 0;
         //Debug.Log("House dialog completed");
         //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
