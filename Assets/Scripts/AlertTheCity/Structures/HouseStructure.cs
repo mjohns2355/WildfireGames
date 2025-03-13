@@ -139,6 +139,7 @@ public class HouseStructure : Structure
         // defaults option if player doesn't select
         currentOption = houseInfo.defaultChoice.choiceName;
         contextMenu.onOptionConfirmed += OnOptionConfirmed;
+        ATC_UIController.Instance.icons.Add(contextMenu.icon);
         //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
         //InitSpecialStructDict();
         //default destination

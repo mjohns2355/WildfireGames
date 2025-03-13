@@ -41,6 +41,7 @@ public class HouseIcon : MonoBehaviour
 
         //houseDialog = GameManager.Instance.houseDialogs[0];
         ToggleIconState(true);
+
     }
 
     public void ToggleIconState(bool isLocked)

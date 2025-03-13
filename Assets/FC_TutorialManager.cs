@@ -153,11 +153,12 @@ public class FC_TutorialManager : MonoBehaviour
         //{
         //    controlText = "<b>Press and hold on the map to scroll, </b>";
         //}
-        var text2 = " and <b>select Mary's Home.</b>";
-        string message = text1 + "<b>Use W A S D to move OR Press and hold on the map to scroll </b>" + text2;
+        var text2 = "and <b>select Mary's Home.</b>";
+        string message = text1 + "<b>Use W A S D to move</b> OR <b>Press and hold on the map to scroll </b>" + text2;
         UpdateBottomDialog(message);
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
+        tutorialHouse.outline.enabled = true;
         dialogManager.canShowSkipButton = !isFirstTimeTutorial;
         dialogManager.OnDialogueComplete = null;
         dialogManager.OnDialogueComplete += OnTutroialDialogueComplete;
@@ -195,7 +196,6 @@ public class FC_TutorialManager : MonoBehaviour
             house.outline.enabled = false;
         }
         tutorialHouse = structureManager.allMainHouses[HouseType.pet];
-        tutorialHouse.outline.enabled = true;
         var houseIcon = tutorialHouse.contextMenu.icon;
         houseIcon.AddOnClickActions(OnClickTutorialHouse);
         tutorialHouse.contextMenu.restart.gameObject.SetActive(false);

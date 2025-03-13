@@ -27,7 +27,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
     public RectTransform windDirectionIndicator;
-
+    public List<HouseIcon> icons = new List<HouseIcon>();
     Stack<GameObject> panelStack = new Stack<GameObject> ();
     private void Start()
     {
@@ -288,6 +288,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
+        icons.Clear();
         CloseAllUI();
         if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
         {
@@ -327,6 +328,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public void ShowEndScreen()
     {
         PushPanel(endScreen);
+    }
+
+    public void ToggleHouseIcons(bool state)
+    {
+        foreach(var icon in icons)
+        {
+            icon.gameObject.SetActive(state);
+        }
     }
     //public void ShowEndDialog()
     //{

@@ -126,6 +126,7 @@ public class StructureContextMenu : MonoBehaviour
         house.OnStructureClick();
         ATC_UIController.Instance.PushPanel(menuUI);
         icon.gameObject.SetActive(false);
+        //ATC_UIController.Instance.ToggleHouseIcons(false);
         UpdateMenuForHouse(house, GameManager.Instance.currentStage == LevelStage.Tutorial);
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {
@@ -152,6 +153,7 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
+        //ATC_UIController.Instance.ToggleHouseIcons(true);
         icon.ToggleIconState(!isSelected);
         //school text
 

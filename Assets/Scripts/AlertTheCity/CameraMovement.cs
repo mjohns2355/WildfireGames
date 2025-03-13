@@ -94,7 +94,7 @@ public class CameraMovement : MonoBehaviour
 
     public void ZoomCamera()
     {    // Check for desktop input
-
+        if (GameManager.Instance.currentStage == LevelStage.HouseDialog) return;
         if (Input.touchCount == 2)
         {
             Touch touch1 = Input.GetTouch(0);

@@ -33,27 +33,31 @@ public class ATC_HouseDialogManager : MonoBehaviour
     //[SerializeField] GameObject nameTag;
     public bool isWaitingForPlayer =  true;
     public bool canShowSkipButton = false;
-    [SerializeField] private bool canClick = false;
+    private bool canClick = false;
+    private CanvasGroup topEdgeFade;
 
     private void Start()
     {
         LoadDialogTrees("Assets/Resources/AlertTheCity/HouseDialogs.json");
         skipButton.onClick.AddListener(SkipDialogue);
         scrollRect.onValueChanged.AddListener(_ => UpdateEdgeFadeVisibility());
+        topEdgeFade = topFade.GetComponent<CanvasGroup>();
     }
 
     private void UpdateEdgeFadeVisibility()
     {
         if (scrollRect == null || topFade == null || bottomFade == null) return;
 
+        float contentHeight = scrollRect.content.rect.height;
+        float viewportHeight = scrollRect.viewport.rect.height;
 
+        var scrollEnabled = contentHeight > viewportHeight;
+        if (!scrollEnabled) return;
         float pos = scrollRect.verticalNormalizedPosition;
 
-        CanvasGroup topGroup = topFade.GetComponent<CanvasGroup>();
+        float topTargetAlpha = (pos < 0.9f) ? 1f : 0f;
 
-        float topTargetAlpha = (pos < 0.98f) ? 1f : 0f;
-
-        topGroup?.DOFade(topTargetAlpha, 0.2f);
+        topEdgeFade?.DOFade(topTargetAlpha, 0.2f);
     }
 
     public void LoadDialogTrees(string jsonFilePath)
@@ -119,7 +123,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     // inDialogue means start dialog it the middle of another dialogue
     public void StartDialogue(string key, bool inDialogue = false)
     {
-
+        topEdgeFade.alpha = 0;
         this.key = key;
         //nextButton.onClick.RemoveAllListeners();
         if (dialogTreeMap.TryGetValue(key, out currentDialogTree))
@@ -191,57 +195,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         //StartCoroutine(DisplayNodeWithDelay());
     }
-    //private IEnumerator DisplayNodeWithDelay()
-    //{
-    //    // Initial delay for the first message
-    //    if (currentNode.id == currentDialogTree.rootNodeId)
-    //    {
-    //        yield return new WaitForSeconds(3.0f);
-    //        skipButton.gameObject.SetActive(canShowSkipButton);
-    //        // Create a message bubble after the delay
-    //    }
 
-    //    //var isUser = string.IsNullOrEmpty(currentNode.characterName);
-    //    //var typingIndicator = SpawnAMessageBubble(null, currentNode.characterName, isUser, false, true);
-    //    //typingIndicator.GetComponent<CanvasGroup>().DOFade(1f, 0.3f).SetEase(Ease.OutBack);
-    //    //yield return new WaitForSeconds(1.0f);
-    //    //Destroy(typingIndicator.gameObject);
-    //    //float delayTime = baseWaitTime + currentNode.dialogText.Length * waitTimePerCharacter;
-
-    //    if (string.IsNullOrEmpty(currentNode.characterName))
-    //    {
-    //        SpawnAMessageBubble(currentNode.dialogText, null, false, false, true);
-    //    }
-    //    else if(currentNode.characterName == "Player")
-    //    {
-    //        SpawnAMessageBubble(currentNode.dialogText, null, true, false, false);
-    //    }
-    //    else
-    //    {
-    //        //Debug.Log("Spawn messages for node " + currentNode.id);
-    //        SpawnAMessageBubble(currentNode.dialogText, currentNode.characterName, false, false, false);
-    //    }
-
-    //    if (!string.IsNullOrEmpty(currentNode.portraitPath))
-    //    {
-    //        Sprite portrait = Resources.Load<Sprite>(currentNode.portraitPath);
-    //        characterPortrait.gameObject.SetActive(true);
-    //        characterPortrait.sprite = portrait;
-    //    }
-    //    else
-    //    {
-    //        characterPortrait.gameObject.SetActive(false);
-    //    }
-
-
-
-    //    //yield return new WaitForSeconds(delayTime);
-    //    //ShowOptions();
-    //    // Click to end dialog
-    //    // Mark as ready for next input
-    //    yield return null;
-    //    isWaitingForPlayer = true;
-    //}
 
     private void OnOptionSelected(int optionIndex)
     {
@@ -306,9 +260,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void ShowOptions()
     {
-        //if (currentNode.isEndNode) return;
-        //skip empty options
-
        
         for (int i = 0; i < currentNode.options.Length; i++)
         {
@@ -318,47 +269,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
             // Add click listener
             optionBubble.messageBox.onClick.AddListener(() =>
             {
-                //foreach (var option in optionMessageBubbles)
-                //{
-                //    if (option != optionBubble)
-                //    {
-                //        option.gameObject.SetActive(false);
-                //    }
-                //}
-
-                //optionBubble.sendButton.SetActive(false);
                 OnOptionSelected(index);
-                //Sequence sequence = DOTween.Sequence();
-                //sequence.Append(optionBubble.transform.DOScale(0.8f, 0.1f).SetEase(Ease.InOutQuad));
-                //sequence.Append(optionBubble.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutQuad));
-                //sequence.AppendInterval(1f);
-                //sequence.OnComplete(() =>
-                //{
-                //    OnOptionSelected(index);
-                //});
             });
 
         }
     }
-    //private void HideOptions()
-    //{
-    //    foreach (var button in optionButtons)
-    //    {
-    //        button.gameObject.SetActive(false);
-    //    }
-    //}
 
-    //IEnumerator EndDialogWithDelay()
-    //{
-    //    yield return new WaitUntil(() => !isWaitingForPlayer);
-    //    EndDialog();
-    //}
     public void EndDialog()
     {
         StopAllCoroutines();
-        topFade.GetComponent<CanvasGroup>().alpha = 0;
-        //Debug.Log("House dialog completed");
-        //ATC_UIController.Instance.PopPanel();
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
         //isWaitingForPlayer = true;
@@ -372,9 +291,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
             ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
         }
 
-
-        //proceedButton.onClick.RemoveAllListeners();
-        //proceedButton.gameObject.SetActive(false);
     }
     public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption,bool isDescription)
     {
@@ -421,6 +337,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void ResetScrollPosition()
     {
+        
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 1f;
         Canvas.ForceUpdateCanvases();
