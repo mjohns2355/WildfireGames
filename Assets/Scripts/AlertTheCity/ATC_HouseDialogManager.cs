@@ -88,7 +88,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
         {
             canClick = false;
-            DOVirtual.DelayedCall(0.2f, () => canClick = true); //cooldown
+            DOVirtual.DelayedCall(baseWaitTime, () => canClick = true); //cooldown
 
             isWaitingForPlayer = false;
             ProceedToNextNode();
@@ -97,10 +97,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void ProceedToNextNode()
     {
-        //if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != "Continue")
-        //{
-        //    ShowOptions();
-        //}
+        if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != "Continue")
+        {
+           ShowOptions();
+        }
         if (!currentNode.isEndNode && currentNode.options.Length == 1 && currentNode.options[0].optionText == "Continue")
         {
             //if (currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId).id == currentNode.id) return;
@@ -184,11 +184,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         else
         {
-            DOVirtual.DelayedCall(2f, () =>
-            {
-                ShowOptions();
-                isWaitingForPlayer = true; // Only allow input after the node is fully ready
-            });
+            //DOVirtual.DelayedCall(2f, () =>
+            //{
+            //    ShowOptions();
+            //    isWaitingForPlayer = true; // Only allow input after the node is fully ready
+            //});
+            isWaitingForPlayer = true;
+            canClick = true;
         }
 
 
@@ -249,14 +251,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
         string nextNodeId = selectedOption.nextNodeId;
         // Find the next node
         currentNode = currentDialogTree.GetNodeById(nextNodeId);
-        //isWaitingForPlayer = true;
+        
         DOVirtual.DelayedCall(1f, () =>
         {
             isWaitingForPlayer = true;
             canClick = true;
             DisplayCurrentNode();
         });
-        //DisplayCurrentNode();
+        
     }
     private void ShowOptions()
     {

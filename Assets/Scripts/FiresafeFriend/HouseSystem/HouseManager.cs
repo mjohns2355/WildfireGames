@@ -82,6 +82,7 @@ namespace HappyHouse.HouseSystem
             }
 
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
+            ToggleHousePartClickable(false);
         }
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
         {
@@ -102,10 +103,11 @@ namespace HappyHouse.HouseSystem
         {
             if (manager != this) return;
             HH_GameManager.Instance.StartRound(manager);
-            HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(budgetManager.canEarnMoreMoney);
+            HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(budgetManager.canEarnMoreMoney);
             //ToggleClickBox(false);
             arrowUI.SetActive(true);
             nameText.SetActive(false);
+            ToggleHousePartClickable(true);
             //UpdateHouseUI();
             StartCoroutine(UpdateHouseUI());
         }
@@ -118,6 +120,7 @@ namespace HappyHouse.HouseSystem
                 Destroy(icon.gameObject);
             }
             //ToggleClickBox(true);
+            ToggleHousePartClickable(false);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
 

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
@@ -22,7 +22,7 @@ public class HH_UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // TODO: add a confirmation pop up
+        
         leftArrow.onClick.AddListener(() =>
         {
             HH_GameManager.Instance.SwitchPlayer("p1");
@@ -163,5 +163,21 @@ public class HH_UIManager : MonoBehaviour
     public PurchaseFloatingButton SpawnBubble()
     {
         return Instantiate(bubblePrefab, floatingIcons).GetComponent<PurchaseFloatingButton>();
+    }
+
+    public void ToggleEarnMoreMoneyButton(bool state)
+    {
+        if (state)
+        {
+            earnMoreMoney.gameObject.SetActive(true);
+            var rect = earnMoreMoney.GetComponent<RectTransform>();
+            rect.DOScale(Vector3.one * 1.5f, 0.3f)
+                         .SetLoops(4, LoopType.Yoyo)
+                         .SetEase(Ease.InOutQuad);
+        }
+        else
+        {
+            earnMoreMoney.gameObject.SetActive(false);
+        }
     }
 }

@@ -198,6 +198,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             //menu.gameObject.SetActive(false);
 
         }
+        
         evacNotice.SetActive(false);
         statsPanel.gameObject.SetActive(false);
         ClearAllPanels();

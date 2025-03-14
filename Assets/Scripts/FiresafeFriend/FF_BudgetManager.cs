@@ -65,28 +65,16 @@ public class FF_BudgetManager
         //ResetBudgetThresholds();
     }
     void CheckBudgetThresholds()
-    {
-        //float spendingPrecentage = (spentBudget / initBudget) * 100f;
-
-        //for (int i = 0; i < budgetThresholds.Length; i++)
-        //{
-        //    if (spendingPrecentage >= budgetThresholds[i] && !triggeredThresholds[i])
-        //    {
-        //        triggeredThresholds[i] = true;
-        //        //HH_GameManager.Instance.uiManager.ShowQuizPopup();
-        //        HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
-        //        Debug.Log($"You’ve spent {budgetThresholds[i]}% of your money!");
-        //    }
-        //}
-       
+    {     
         int money = 0;
         for (int i = 0; i < budgetThresholds.Length; i++)
         {
             if (currentBudget < budgetThresholds[i] && !triggeredThresholds[i])
             {
                 triggeredThresholds[i] = true;
-               
-                HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
+
+                //HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
+                HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(true);
                 canEarnMoreMoney = true;
                 if (i == 0)
                 {

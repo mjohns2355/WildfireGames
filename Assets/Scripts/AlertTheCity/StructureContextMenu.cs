@@ -84,6 +84,8 @@ public class StructureContextMenu : MonoBehaviour
     {
         // school text
         schoolText.SetActive(false);
+        owner.outline.enabled = false;
+        ATC_UIController.Instance.toolsBar.SetActive(false);
         if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
         ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
         if (isSelected)
@@ -153,10 +155,11 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
+        //ATC_UIController.Instance.toolsBar.SetActive(true);
         //ATC_UIController.Instance.ToggleHouseIcons(true);
         icon.ToggleIconState(!isSelected);
         //school text
-
+        owner.outline.enabled = true;
         schoolText.SetActive(true);
         //GameManager.Instance.cameraMovement.ResetCam();
         //GameManager.Instance.canControlCam = true;

@@ -160,7 +160,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky();
-        uiManager.earnMoreMoney.gameObject.SetActive(false);
+        uiManager.ToggleEarnMoreMoneyButton(false);
     }
 
     public void EndRound()

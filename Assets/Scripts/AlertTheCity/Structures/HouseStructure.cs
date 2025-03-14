@@ -263,6 +263,7 @@ public class HouseStructure : Structure
     public IEnumerator SpawnCarRoutine()
     {
         ApplyChoice();
+        outline.enabled = false;
         yield return new WaitForSeconds(carSpawnWaitTime);
 
         //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");

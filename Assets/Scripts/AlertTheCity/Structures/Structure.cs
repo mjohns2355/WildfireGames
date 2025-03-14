@@ -40,6 +40,7 @@ public class Structure : MonoBehaviour
 
     virtual public void StopSturctureClick()
     {
+
         HideUI();
 
     }
@@ -47,7 +48,7 @@ public class Structure : MonoBehaviour
     public void HideUI()
     {
         contextMenu.gameObject.SetActive(false);
-        outline.enabled = false;
+        //outline.enabled = true;
     }
 
 }
