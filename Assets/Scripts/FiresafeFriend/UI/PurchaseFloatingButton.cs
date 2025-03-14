@@ -12,7 +12,7 @@ public class PurchaseFloatingButton : MonoBehaviour
     
     private Camera mainCamera;
     private bool isPlant = false;
-    private bool shouldShowRemoveIcon = false;
+    public bool isActive = true;
     private Vector3 targetPosition;
     public Button button;
     [SerializeField] Sprite purchase, plant;
@@ -26,6 +26,13 @@ public class PurchaseFloatingButton : MonoBehaviour
         button.onClick.AddListener(OnBubbleClicked);
     }
 
+    private void OnEnable()
+    {
+        if (!isActive)
+        {
+            gameObject.SetActive(false); // Disable the button if it's not active
+        }
+    }
     public void OnBubbleClicked()
     {
         //if (shouldShowRemoveIcon)

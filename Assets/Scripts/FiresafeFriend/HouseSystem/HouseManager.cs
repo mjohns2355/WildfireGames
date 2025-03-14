@@ -183,6 +183,7 @@ namespace HappyHouse.HouseSystem
                 {
                     if (oldPart.shouldDisplayBubble)
                     {
+                        oldPart.bubble.isActive = !shouldHideBubble;
                         oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
                         oldPart.shouldDisplayBubble = !shouldHideBubble;
                     }

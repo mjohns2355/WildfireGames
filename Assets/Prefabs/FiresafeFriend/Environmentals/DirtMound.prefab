@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8762893887687706928}
   - component: {fileID: 6613128620428802808}
+  - component: {fileID: 3665376619741828198}
   m_Layer: 0
   m_Name: DirtMound
   m_TagString: Untagged
@@ -50,6 +51,29 @@ MonoBehaviour:
   plantHolder: {fileID: 2199990548034397676}
   currentPlant: {fileID: 0}
   bubblePos: {fileID: 8708312245884029163}
+  menuPos: {x: 0, y: 0, z: 0}
+  availablePlants: []
+--- !u!65 &3665376619741828198
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3650642674641716002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.8785553, y: 1.0552113, z: 4.4583435}
+  m_Center: {x: -0.09023285, y: 0.027605653, z: 0.03352356}
 --- !u!1 &3720089063785684297
 GameObject:
   m_ObjectHideFlags: 0
