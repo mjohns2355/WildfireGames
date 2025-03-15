@@ -11,11 +11,6 @@ public class HH_InputManager : MonoBehaviour
     public Action<HouseManager> OnHouseSelected;
     public Action<GameObject> OnObjectSelected;
     public bool canClickHouse = true;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -29,49 +24,58 @@ public class HH_InputManager : MonoBehaviour
         // Handle mouse click for PC
         if (Input.GetMouseButtonDown(0))
         {
+            if (IsPointerOverUI(Input.mousePosition))
+            {
+                Debug.Log("Pointer is over a UI element. Skipping raycast.");
+                return;
+            }
             StartCoroutine(DelayedRaycast(Input.mousePosition));
+
         }
 
-    }
-
-    IEnumerator DelayedRaycast(Vector2 screenPos)
-    {
-        yield return null; // Wait one frame
-
-        if (EventSystem.current.IsPointerOverGameObject())
+        IEnumerator DelayedRaycast(Vector2 screenPos)
         {
-            Debug.Log("Pointer is over a UI element. Raycast blocked.");
-            yield break;
-        }
-            
+            yield return null; // Wait one frame
 
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
+            Ray ray = Camera.main.ScreenPointToRay(screenPos);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (canClickHouse)
+                if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
-                    if (hit.collider.transform.parent.CompareTag("Fence")) yield break;
-                    var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
-                    OnHouseSelected?.Invoke(house);
-                }
-                else
-                {
-                    if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
+                    if (canClickHouse)
                     {
-                        OnObjectSelected?.Invoke(hit.collider.gameObject);
+                        if (hit.collider.transform.parent.CompareTag("Fence")) yield break;
+                        var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
+                        OnHouseSelected?.Invoke(house);
                     }
-                    //Debug.Log($"Clicked {hit.collider.gameObject.name}");
+                    else
+                    {
+                        if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
+                        {
+                            OnObjectSelected?.Invoke(hit.collider.gameObject);
+                        }
+                        Debug.Log($"Clicked {hit.collider.gameObject.name}");
 
+                    }
+                }
+
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
+                {
+                    //Debug.Log($"Hit {hit.collider.gameObject}");
+                    OnObjectSelected?.Invoke(hit.collider.gameObject);
                 }
             }
+        }
 
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
-            {
-                //Debug.Log($"Hit {hit.collider.gameObject}");
-                OnObjectSelected?.Invoke(hit.collider.gameObject);
-            }
+        bool IsPointerOverUI(Vector2 screenPos)
+        {
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            eventData.position = screenPos;
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            return results.Count > 0;
         }
     }
 }

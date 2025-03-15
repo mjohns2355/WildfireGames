@@ -1,11 +1,9 @@
 using HappyHouse.FireSystem;
 using HappyHouse.HouseSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public bool isTutorial;
@@ -64,18 +62,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
         else
         {
-            IsFireStarted = false;
-            var fires = FindObjectsOfType<FireController>();
-            foreach (var f in fires)
-            {
-                Destroy(f.gameObject);
-            }
+            OnFireEnd();
         }
         //debug
-        //if (Input.GetKeyDown(KeyCode.F1)|| Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    Time.timeScale = 5.0f;
-        //}
+        if (Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.Q))
+        {
+            Time.timeScale = 5.0f;
+        }
     }
 
     private void InitPublicFences(HouseManager currentPlayer)
@@ -101,7 +94,23 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     }
 
-
+    void OnFireEnd()
+    {
+        IsFireStarted = false;
+        var fires = FindObjectsOfType<FireController>();
+        var combustibles = FindObjectsOfType<FF_BaseCombustible>();
+        
+        foreach (var c in combustibles)
+        {
+            c.isOnFire = false;
+            c.StopAllCoroutines();
+        }
+        foreach (var f in fires)
+        {
+            Destroy(f.gameObject);
+        }
+        uiManager.ShowEndScreen();
+    }
     public void SwitchPlayer (string playerTag)
     {
         //if (isTutorial)
@@ -112,6 +121,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //    return;
         //}
         currentPlayer.OnHouseDeselected();
+        List<HousePartInfo> ownedPublicFences = new List<HousePartInfo>();
+        if (currentPlayer != null && currentPlayer.inventory.ownedPublicParts[HousePartType.Fence] != null)
+        {
+            ownedPublicFences = currentPlayer.inventory.ownedPublicParts[HousePartType.Fence];
+        }
         uiManager.HideStoreScreen();
         uiManager.HidePlantsMenu();
         IsPlantMode = false;
@@ -130,6 +144,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
 
         Debug.Log($"Current Player is {currentPlayer.playerTag}");
+        if (ownedPublicFences.Count > 0)
+        {
+            foreach (var fence in ownedPublicFences)
+            {
+                currentPlayer.inventory.AddNewPartToInventory(fence);
+            }
+        }
         inputManager.OnHouseSelected.Invoke(currentPlayer);
         //currentPlayer.OnHouseSelected(currentPlayer);
     }
@@ -138,7 +159,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         SetRoundStart(true);
         inputManager.canClickHouse = false;
-     
+
+
+
         this.currentPlayer = currentPlayer;
         if (isTutorial) return;
         //uiManager.OnRoundStart();

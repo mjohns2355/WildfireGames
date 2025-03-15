@@ -10,7 +10,7 @@ namespace HappyHouse.HouseSystem
     public class HouseManager : MonoBehaviour
     {
         //public HouseBlueprint houseBlueprint;
-
+        public float burnedPercent;
         //public Transform camTransform;
         public HouseGraph houseGraph;
         public RR_Inventory inventory;
@@ -27,9 +27,10 @@ namespace HappyHouse.HouseSystem
         private List<BaseHousePartObject> fences;
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
+        public int totalPartsCount, burnedPartsCount = 0;
         private void Start()
         {
-            DOVirtual.DelayedCall(1f, () =>
+            DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
             });
@@ -52,6 +53,7 @@ namespace HappyHouse.HouseSystem
                     part.isClickable = false;
                 }
                 InitHouseNode(nodeDictionary, part);
+                totalPartsCount++;
             }
 
             //foreach (var f in fences)
@@ -125,7 +127,7 @@ namespace HappyHouse.HouseSystem
             arrowUI.SetActive(false);
 
         }
-  
+
 
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
@@ -165,7 +167,6 @@ namespace HappyHouse.HouseSystem
             int ownedPartsCount = -1;
             if (housePartInfo.isPublic)
             {
-               
                 ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;
             }
             else
@@ -181,7 +182,7 @@ namespace HappyHouse.HouseSystem
 
             foreach (var oldPart in oldParts)
             {
- 
+
                 if (oldPart.houseNode != null)
                 {
                     if (oldPart.shouldDisplayBubble)
@@ -204,7 +205,7 @@ namespace HappyHouse.HouseSystem
                         houseGraph.ConnectParts(newNode, neighbor);
                     }
                 }
-                else if(housePartInfo.isPublic)
+                else if (housePartInfo.isPublic)
                 {
                     if (oldPart.shouldDisplayBubble)
                     {
@@ -215,7 +216,7 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            if(HH_GameManager.Instance.isTutorial) return;
+            if (HH_GameManager.Instance.isTutorial) return;
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
             HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
         }
@@ -273,9 +274,9 @@ namespace HappyHouse.HouseSystem
 
             }
 
-            foreach(var fence in fences)
+            foreach (var fence in fences)
             {
-                
+
                 if (!fence.shouldDisplayBubble) continue;
                 fence.bubble = InitBubble(fence);
             }
@@ -337,7 +338,7 @@ namespace HappyHouse.HouseSystem
                     if (res != null)
                     {
 
-                        
+
                         foreach (var oldPart in oldParts)
                         {
                             inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
@@ -350,30 +351,30 @@ namespace HappyHouse.HouseSystem
                         inventory.AddNewPartToInventory(res);
                     }
 
-                   
+
                 }
-            
+
 
             }
             HousePartInfo RandomizeWall()
             {
                 HousePartInfo material = null;
-                var anotherHouse = playerTag == "P1"? HH_GameManager.Instance.p2 : HH_GameManager.Instance.p1;
+                var anotherHouse = playerTag == "P1" ? HH_GameManager.Instance.p2 : HH_GameManager.Instance.p1;
                 var rng = UnityEngine.Random.value;
                 var anotherHouseWall = anotherHouse.GetCurrentInUseHousePartObjectOf(HousePartType.Wall).partInfo;
-                if (rng < brickWallChance/10f && anotherHouseWall.partClass != MaterialClass.B)
+                if (rng < brickWallChance / 10f && anotherHouseWall.partClass != MaterialClass.B)
                 {
                     // brick
                     upgradeCount++;
-                    
+
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.B);
                     return material;
                 }
-                if (rng < stuccoWallChance/10f )
+                if (rng < stuccoWallChance / 10f)
                 {
                     //stucco
                     upgradeCount++;
-                    
+
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.C);
                     return material;
                 }
@@ -383,15 +384,15 @@ namespace HappyHouse.HouseSystem
 
             HousePartInfo RandomizeRoof()
             {
-                
+
                 HousePartInfo material = null;
                 var rng = UnityEngine.Random.value;
-                if (rng < compositeRoofChance/10f)
+                if (rng < compositeRoofChance / 10f)
                 {
                     //composite
                     upgradeCount++;
                     material = ResourceManager.Instance.allAvailableParts[HousePartType.Roof].Find(x => x.partClass == MaterialClass.C);
-                   
+
                 }
 
                 return material;
@@ -399,10 +400,10 @@ namespace HappyHouse.HouseSystem
 
             HousePartInfo RandomizeOtherParts(HousePartType type)
             {
-                
+
                 HousePartInfo material = null;
                 var rng = UnityEngine.Random.value;
-                if (rng < otherPartUpgradeChance/10f)
+                if (rng < otherPartUpgradeChance / 10f)
                 {
                     upgradeCount++;
                     material = ResourceManager.Instance.allAvailableParts[type].Find(x => x.partClass == MaterialClass.A);
@@ -414,11 +415,18 @@ namespace HappyHouse.HouseSystem
 
         public void ToggleHousePartClickable(bool state)
         {
-            foreach(var node in houseGraph.nodes)
+            foreach (var node in houseGraph.nodes)
             {
                 var part = node.housePart;
                 part.isClickable = state;
             }
+        }
+
+        public float GetBurnedPercent()
+        {
+            if (totalPartsCount == 0) return 0;
+            burnedPercent = (float)burnedPartsCount / totalPartsCount;
+            return (int) (burnedPercent * 100f);
         }
     }
 }

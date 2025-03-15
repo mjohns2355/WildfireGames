@@ -8,6 +8,7 @@ using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using System.Linq;
+using DG.Tweening;
 
 
 public class BaseHousePartObject : FF_BaseCombustible
@@ -55,7 +56,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void Update()
     {
-        if (burntMesh)
+        if (burntMesh && isOnFire)
         {
             burntMesh.material.color = Color.Lerp(burntMesh.material.color, burntColor, Time.deltaTime);
         }
@@ -221,29 +222,28 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         if(VFX != null)
         {
-            StartCoroutine(DestroyRoutine());
+            //StartCoroutine(DestroyRoutine());
+            foreach (var m in meshes)
+            {
+                m.gameObject.SetActive(false);
+            }
+            var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
+            //yield return new WaitForSeconds(1f);
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                Destroy(vfx);
+                Destroy(gameObject);
+            });
+           
         }
         else
         {
             Destroy(gameObject);
         }
+        Owner.burnedPartsCount++;
     }
 
-    IEnumerator DestroyRoutine()
-    {
-        foreach (var m in meshes)
-        {
-            m.gameObject.SetActive(false);
-        }
-        var vfx = Instantiate(VFX, vfxPos.position, Quaternion.identity, vfxPos);
-        //yield return new WaitForSeconds(1f);
 
-        
-        yield return new WaitForSeconds(1f);
-
-        Destroy(vfx);
-        Destroy(gameObject);
-    }
     private void SpawnFire()
     {
         //Debug.Log($"Burn Timer: {burnTimer}");

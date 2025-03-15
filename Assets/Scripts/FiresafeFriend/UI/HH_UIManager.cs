@@ -14,11 +14,12 @@ public class HH_UIManager : MonoBehaviour
     public Button leftArrow, rightArrow, earnMoreMoney, startFireBtn, endRoundBtn;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
-    public GameObject startText, modeToggle;
+    public GameObject startText, modeToggle, endScreen;
     public FF_QuizPopupUI quizPopup;
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab;
+    public TextMeshProUGUI p1BurnPercentText, p2BurnPercentText;
     // Start is called before the first frame update
     void Start()
     {
@@ -179,5 +180,12 @@ public class HH_UIManager : MonoBehaviour
         {
             earnMoreMoney.gameObject.SetActive(false);
         }
+    }
+
+    public void ShowEndScreen()
+    {
+        p1BurnPercentText.text = $"{HH_GameManager.Instance.p1.GetBurnedPercent()}%";
+        p2BurnPercentText.text = $"{HH_GameManager.Instance.p2.GetBurnedPercent()}%";
+        endScreen.SetActive(true);
     }
 }

@@ -25,7 +25,7 @@ namespace HappyHouse.HouseSystem
             {
                 targetDict.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo });
             }
-            
+            Debug.Log($"Added {newPartInfo.partID} into inventory");
             return true;
         }
 
@@ -57,7 +57,7 @@ namespace HappyHouse.HouseSystem
         public bool PlayerOwnsPart(HousePartInfo part)
         {
             var targetDict = part.isPublic ? ownedPublicParts : ownedParts;
-            //Debug.Log($"Check {part.partID}");
+            Debug.Log($"Check {part.partID}");
             if (targetDict.ContainsKey(part.housePartType))
             {
                 var value = targetDict[part.housePartType];

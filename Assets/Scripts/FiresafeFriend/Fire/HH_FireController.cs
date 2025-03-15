@@ -157,11 +157,11 @@ namespace HappyHouse.FireSystem
             scaler.z = Mathf.Lerp(scaler.z, targetSize, t * Time.deltaTime);
         }
 
-        IEnumerator ChangeFireSizeRoutine(float maxSize)
-        {
-            yield return new WaitForSeconds(waitTime);
-            GraduallyChangeFireSize(maxSize, 0.02f);
-        }
+        //IEnumerator ChangeFireSizeRoutine(float maxSize)
+        //{
+        //    yield return new WaitForSeconds(waitTime);
+        //    GraduallyChangeFireSize(maxSize, 0.02f);
+        //}
 
         //IEnumerator OnDestroyFireRoutine()
         //{

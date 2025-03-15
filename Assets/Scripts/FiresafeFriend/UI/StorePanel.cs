@@ -104,7 +104,7 @@ public class StorePanel : MonoBehaviour
 
     public void UpdateBudgetText(float newMoney, float oldMoney = -1)
     {
-        Debug.Log($"Update budget text: {newMoney},{oldMoney}");
+        //Debug.Log($"Update budget text: {newMoney},{oldMoney}");
         if (oldMoney == -1)
         {
             budgetText.text = $"$ {newMoney:N0}";
@@ -125,7 +125,7 @@ public class StorePanel : MonoBehaviour
         DOTween.To(() => currentMoney, x =>
         {
             currentMoney = x;
-            budgetText.text = $"${(int)currentMoney:N0}";
+            budgetText.text = $"$ {(int)currentMoney:N0}";
         }, newMoney, 0.5f)
         .SetEase(Ease.OutQuad);
     }
