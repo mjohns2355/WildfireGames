@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class CameraMovement : MonoBehaviour
     float touchDist = 0;
     float lastDist = 0;
     public LayerMask ignoreLayerMask;
+    private Tween moveTween;
+    private Tween fovTween;
+    private Tween positionTween;
     private void Start()
     {
         camStartPos = transform.position;
@@ -81,20 +85,21 @@ public class CameraMovement : MonoBehaviour
 
         camPos = new Vector3(clampedX, camPos.y, clampedZ);
 
-        gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, camPos, Time.deltaTime * lerpSpeed);
+        if (moveTween != null && moveTween.IsActive()) moveTween.Kill();
+        moveTween = gameCamera.transform.DOMove(camPos, 1f / lerpSpeed).SetEase(Ease.OutQuad);
     }
 
-    public void ZoomCamera(float mouseAxis)
-    {
+    //public void ZoomCamera(float mouseAxis)
+    //{
 
-        FOV += mouseAxis * -1 * cameraZoomSpeed;
-        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-        gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
-    }
+    //    FOV += mouseAxis * -1 * cameraZoomSpeed;
+    //    FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
+    //    gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
+    //}
 
     public void ZoomCamera()
     {    // Check for desktop input
-        if (GameManager.Instance.currentStage == LevelStage.HouseDialog) return;
+        if (!GameManager.Instance.canControlCam) return;
         if (Input.touchCount == 2)
         {
             Touch touch1 = Input.GetTouch(0);
@@ -118,7 +123,9 @@ public class CameraMovement : MonoBehaviour
                     touchDist = Mathf.Clamp(touchDist, -50f, 50f);
                     FOV += touchDist * sensitivity;
                     FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-                    gameCamera.fieldOfView = FOV;
+
+                    if (fovTween != null && fovTween.IsActive()) fovTween.Kill();
+                    fovTween = gameCamera.DOFieldOfView(FOV, 0.3f).SetEase(Ease.OutQuad);
                     //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
                 }
             }
@@ -133,7 +140,8 @@ public class CameraMovement : MonoBehaviour
                 FOV -= adjustedScrollInput * 10f * Time.unscaledDeltaTime;
                 FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
                 //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
-                gameCamera.fieldOfView = FOV;
+                if (fovTween != null && fovTween.IsActive()) fovTween.Kill();
+                fovTween = gameCamera.DOFieldOfView(FOV, 0.3f).SetEase(Ease.OutQuad);
             }
         }
 
