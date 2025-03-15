@@ -180,7 +180,7 @@ public class StructureContextMenu : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
         //menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
