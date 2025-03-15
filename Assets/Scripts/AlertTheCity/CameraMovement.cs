@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -24,12 +24,11 @@ public class CameraMovement : MonoBehaviour
     private Vector3 camStartPos;
     private Quaternion camStartRotation;
     private float camStartFOV,targetFOV;
-    float smoothTime = 0.1f;
-    float velocity = 0.0f;
     [SerializeField] private GameObject lastHit;
     float touchDist = 0;
     float lastDist = 0;
     public LayerMask ignoreLayerMask;
+    private Tween fovTween;
     private void Start()
     {
         camStartPos = transform.position;
@@ -118,7 +117,9 @@ public class CameraMovement : MonoBehaviour
                     touchDist = Mathf.Clamp(touchDist, -50f, 50f);
                     FOV += touchDist * sensitivity;
                     FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-                    gameCamera.fieldOfView = FOV;
+                    if (fovTween != null && fovTween.IsActive()) fovTween.Kill();
+                    fovTween = gameCamera.DOFieldOfView(FOV, 0.3f).SetEase(Ease.OutQuad);
+                    // gameCamera.fieldOfView = FOV;
                     //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
                 }
             }
@@ -133,7 +134,9 @@ public class CameraMovement : MonoBehaviour
                 FOV -= adjustedScrollInput * 10f * Time.unscaledDeltaTime;
                 FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
                 //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
-                gameCamera.fieldOfView = FOV;
+                //gameCamera.fieldOfView = FOV;
+                if (fovTween != null && fovTween.IsActive()) fovTween.Kill();
+                fovTween = gameCamera.DOFieldOfView(FOV, 0.3f).SetEase(Ease.OutQuad);
             }
         }
 
