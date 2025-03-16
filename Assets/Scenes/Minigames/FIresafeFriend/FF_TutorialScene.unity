@@ -6969,6 +6969,10 @@ PrefabInstance:
       propertyPath: burntColor.a
       value: 0.53333336
       objectReference: {fileID: 0}
+    - target: {fileID: 6450735017486111914, guid: 8fd04e7c5b5be924a8aacb5d823f9b27, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6717460150644245251, guid: 8fd04e7c5b5be924a8aacb5d823f9b27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.103596
@@ -14733,6 +14737,10 @@ PrefabInstance:
       propertyPath: burntColor.a
       value: 0.53333336
       objectReference: {fileID: 0}
+    - target: {fileID: 6450735017486111914, guid: 8fd04e7c5b5be924a8aacb5d823f9b27, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6717460150644245251, guid: 8fd04e7c5b5be924a8aacb5d823f9b27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 65.39
@@ -17720,10 +17728,13 @@ MonoBehaviour:
   floatingIcons: {fileID: 2028402887}
   startText: {fileID: 0}
   modeToggle: {fileID: 488379236}
+  endScreen: {fileID: 0}
   quizPopup: {fileID: 260933656}
   warningPopup: {fileID: 1565216999}
   plantsMenu: {fileID: 69158125}
   bubblePrefab: {fileID: 101270976333883414, guid: a0453dc297967bb46bf76f487cc92acf, type: 3}
+  p1BurnPercentText: {fileID: 0}
+  p2BurnPercentText: {fileID: 0}
 --- !u!114 &1011932186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24765,7 +24776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0.9245283, g: 0.09158063, b: 0.09158063, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
@@ -27990,7 +28001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0.9245283, g: 0.09158063, b: 0.09158063, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
@@ -29539,7 +29550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0.9245283, g: 0.09158063, b: 0.09158063, a: 1}
+  outlineColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
