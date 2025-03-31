@@ -18,7 +18,7 @@ public class FF_FiresafeZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<FireController>(out var fire))
+        if (other.gameObject.TryGetComponent<FF_FireController>(out var fire))
         {
             Debug.Log($"fire touches fire safe zone");
             fire.gameObject.SetActive(false);

@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class FF_BaseCombustible : MonoBehaviour
 {
     public List<MeshRenderer> meshes;
-    public BaseCombustibleInfo combustibleInfo;
+    public FF_BaseCombustibleInfo combustibleInfo;
     public bool isClickable;
     public bool isOnFire = false;
     //public BurnStage burnStage = BurnStage.Igniting;

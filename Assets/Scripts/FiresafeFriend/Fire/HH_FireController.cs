@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HappyHouse.FireSystem
-{
-    public class FireController : MonoBehaviour
+
+    public class FF_FireController : MonoBehaviour
     {
         public bool onCombustible = false;
         //public Combustible combustible;
@@ -176,5 +175,4 @@ namespace HappyHouse.FireSystem
         //    Destroy(gameObject);
         //}
     }
-}
 

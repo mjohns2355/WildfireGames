@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HappyHouse.HouseSystem
-{
+
     [CreateAssetMenu(fileName = "New Combustible Info", menuName = "Combustible Info")]
-    public class BaseCombustibleInfo : ScriptableObject
+    public class FF_BaseCombustibleInfo : ScriptableObject
     {
         public string partID;
         public float durability;
@@ -14,5 +13,5 @@ namespace HappyHouse.HouseSystem
         [TextArea]
         public string description;
     }
-}
+
 

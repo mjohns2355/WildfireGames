@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HappyHouse.HouseSystem
 {
-    public class RR_Inventory : MonoBehaviour
+    public class FF_Inventory : MonoBehaviour
     {
         public Dictionary<HousePartType, List<HousePartInfo>> ownedParts = new Dictionary<HousePartType, List<HousePartInfo>>();
         public Dictionary<HousePartType, List<HousePartInfo>> ownedPublicParts = new Dictionary<HousePartType, List<HousePartInfo>>();

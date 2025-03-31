@@ -6,7 +6,7 @@ using UnityEngine;
 namespace HappyHouse.HouseSystem
 {
     [CreateAssetMenu(fileName = "New House Part Info", menuName = "House System/House Part Info")]
-    public class HousePartInfo : BaseCombustibleInfo
+    public class HousePartInfo : FF_BaseCombustibleInfo
     {
         //public string partID;
         public HousePartType housePartType;

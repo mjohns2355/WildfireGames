@@ -15,10 +15,10 @@ namespace HappyHouse.FireSystem
         public GameObject mainEmbersPrefab;
         public GameObject backgroundFire;
         public float fireTimer = 100f;
-        public List<FireController> spawnedFires = new List<FireController>();
+        public List<FF_FireController> spawnedFires = new List<FF_FireController>();
         public float defaultFireLife = 10f;
         public UnityEvent fireEndEvent;
-        FireController mainFire;
+        FF_FireController mainFire;
        
         private void Start()
         {
@@ -49,15 +49,15 @@ namespace HappyHouse.FireSystem
             backgroundFire.SetActive(true);
         }
 
-        public FireController SpawnEmbers(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)
+        public FF_FireController SpawnEmbers(Transform spawnPos, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f)
         {
             var fire = Instantiate(mainEmbersPrefab, spawnPos.position, Quaternion.identity, spawnPos);
             fire.transform.localScale *= scaleMultiplier;
             var fireLife = life == 0 ? defaultFireLife : life;
-            fire.GetComponent<FireController>().InitFire(onCombustible,0,1f);
-            return fire.GetComponent<FireController>();
+            fire.GetComponent<FF_FireController>().InitFire(onCombustible,0,1f);
+            return fire.GetComponent<FF_FireController>();
         }
-        public FireController SpawnFire(Vector3 spawnPos, Transform spawnParent, float fireSpeed = 1, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f, float maxSize = 1f)
+        public FF_FireController SpawnFire(Vector3 spawnPos, Transform spawnParent, float fireSpeed = 1, float scaleMultiplier = 1, bool onCombustible = false, float life = 0f, float maxSize = 1f)
         {
 
             var fire = Instantiate(firePrefab, spawnPos, Quaternion.identity, spawnParent);
@@ -65,8 +65,8 @@ namespace HappyHouse.FireSystem
             
             var fireLife =  life == 0? defaultFireLife : life;
             //Debug.Log($"Spawn Fire, burn time: {fireLife}");
-            fire.GetComponent<FireController>().InitFire(onCombustible, fireLife, maxSize);
-            return fire.GetComponent<FireController>();
+            fire.GetComponent<FF_FireController>().InitFire(onCombustible, fireLife, maxSize);
+            return fire.GetComponent<FF_FireController>();
         }
 
         // test only function

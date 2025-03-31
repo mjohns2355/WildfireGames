@@ -97,7 +97,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     void OnFireEnd()
     {
         IsFireStarted = false;
-        var fires = FindObjectsOfType<FireController>();
+        var fires = FindObjectsOfType<FF_FireController>();
         var combustibles = FindObjectsOfType<FF_BaseCombustible>();
         
         foreach (var c in combustibles)

@@ -13,7 +13,7 @@ namespace HappyHouse.HouseSystem
         public float burnedPercent;
         //public Transform camTransform;
         public HouseGraph houseGraph;
-        public RR_Inventory inventory;
+        public FF_Inventory inventory;
         // player budget
         public FF_BudgetManager budgetManager;
         public int initBudget;
