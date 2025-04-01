@@ -20,7 +20,7 @@ public class MessageBubbleConfig : ScriptableObject
         get
         {
             if (_instance == null)
-                _instance = Resources.Load<MessageBubbleConfig>("AlertTheCity/MessageBubbleConfig");
+                _instance = Resources.Load<MessageBubbleConfig>("FirewiseCitizen/MessageBubbleConfig");
             return _instance;
         }
     }

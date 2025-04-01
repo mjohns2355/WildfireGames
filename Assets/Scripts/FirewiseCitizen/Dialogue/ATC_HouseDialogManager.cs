@@ -38,7 +38,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void Start()
     {
-        LoadDialogTrees("Assets/Resources/AlertTheCity/HouseDialogs.json");
+        LoadDialogTrees("Assets/Resources/FirewiseCitizen/HouseDialogs.json");
         skipButton.onClick.AddListener(SkipDialogue);
         scrollRect.onValueChanged.AddListener(_ => UpdateEdgeFadeVisibility());
         topEdgeFade = topFade.GetComponent<CanvasGroup>();
@@ -62,7 +62,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void LoadDialogTrees(string jsonFilePath)
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("AlertTheCity/HouseDialogs");
+        TextAsset jsonFile = Resources.Load<TextAsset>("FirewiseCitizen/HouseDialogs");
         if (jsonFile == null)
         {
             Debug.LogError("JSON file not found in Resources!");

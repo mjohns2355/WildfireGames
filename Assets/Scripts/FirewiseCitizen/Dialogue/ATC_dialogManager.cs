@@ -75,11 +75,11 @@ public class ATC_dialogManager : MonoBehaviour
     private void Start()
     {
         localNewsCloseButton.onClick.AddListener(HideLocalNews);
-        LoadQuotes("Assets/Resources/AlertTheCity/EndQuotes.json");
+        LoadQuotes("Assets/Resources/FirewiseCitizen/EndQuotes.json");
     }
     private void LoadQuotes(string filePath)
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("AlertTheCity/EndQuotes");
+        TextAsset jsonFile = Resources.Load<TextAsset>("FirewiseCitizen/EndQuotes");
         //string json = File.ReadAllText(filePath);
         if (jsonFile == null)
         {
