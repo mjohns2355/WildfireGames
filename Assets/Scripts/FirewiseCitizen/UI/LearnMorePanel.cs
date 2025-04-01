@@ -149,23 +149,23 @@ public class LearnMorePanel : MonoBehaviour
 
     }
 
-    void OnUnlockedButtonClicked()
-    {
-        if(targetMenu == null) return;
-        var unlockButton = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>();
-        var choiceName = unlockButton.btnText.text;
-        var choice = targetHouseInfo.ReturnChoiceByName(choiceName).choice;
-        choice.isLocked = false;
-        var choseGoodOption = GameManager.Instance.choseGoodOption;
-        if(!choseGoodOption)
-        {
-            GameManager.Instance.choseGoodOption = true;
-        }
-        var iconIsLocked = targetHouseInfo.AllChoicesAreUnlocked();
-        targetMenu.icon.ToggleIconState(!iconIsLocked);
-        targetMenu.OnMenuEnable();
-        //gameObject.SetActive(false);
-    }
+    //void OnUnlockedButtonClicked()
+    //{
+    //    if(targetMenu == null) return;
+    //    var unlockButton = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UnlockedButton>();
+    //    var choiceName = unlockButton.btnText.text;
+    //    var choice = targetHouseInfo.ReturnChoiceByName(choiceName).choice;
+    //    choice.isLocked = false;
+    //    var choseGoodOption = GameManager.Instance.allGoodOptionsChose;
+    //    if(!choseGoodOption)
+    //    {
+    //        GameManager.Instance.allGoodOptionsChose = true;
+    //    }
+    //    var iconIsLocked = targetHouseInfo.AllChoicesAreUnlocked();
+    //    targetMenu.icon.ToggleIconState(!iconIsLocked);
+    //    targetMenu.OnMenuEnable();
+    //    //gameObject.SetActive(false);
+    //}
 
     HouseTypeInfo GetHouseInfoFor(HouseType type)
     {

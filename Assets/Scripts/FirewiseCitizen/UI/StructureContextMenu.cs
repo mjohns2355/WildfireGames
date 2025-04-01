@@ -32,7 +32,7 @@ public class StructureContextMenu : MonoBehaviour
     [SerializeField] float menuOffset = 120f;
     Camera cam;
     public OptionButton CurrentOption { get; private set; }
-    OptionButton previousOption = null;
+    //OptionButton previousOption = null;
     public bool allowMultipleChoices;
     public List<OptionButton> selectedOptions = new List<OptionButton>();
     public bool isSelected = false;
@@ -57,10 +57,6 @@ public class StructureContextMenu : MonoBehaviour
         //});
         confirm.onClick.AddListener(() =>
         {
-            //if(CurrentOption != null)
-            //{
-
-            //}
             onOptionConfirmed.Invoke();
             isSelected = true;
 

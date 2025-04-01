@@ -15,16 +15,18 @@ public class StructureManager : MonoBehaviour
     public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
     public Dictionary<HouseType, HouseStructure> allMainHouses = new Dictionary<HouseType, HouseStructure>();
 
+    // player choices
     Dictionary<HouseType, List<HouseChoice>> playerChoices = new Dictionary<HouseType, List<HouseChoice>>();
     Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
     public Dictionary<HouseType, List<HouseStructure>> houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
     public Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
+
     private void Start()
     {
 
         PlacePreBuiltStructures();
         InitialHouseInfoDict();
-        InitiPlayerChoiceDict();
+        //InitiPlayerChoiceDict();
 
         InitSpecialStructDict();
         InitialMainHouses();
@@ -75,11 +77,6 @@ public class StructureManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     
     public void InitialMainHouses()
     {
@@ -127,7 +124,8 @@ public class StructureManager : MonoBehaviour
         //Debug.Log($"Init main house: {houseType}, house info: {ReturnHouseInfoFor(houseType)}");
         allMainHouses[houseType] = house;
         //playerChoices[houseType] = house.houseInfo.defaultChoice;
-        playerChoices[houseType].Add(house.houseInfo.defaultChoice);
+        UpdatePlayerChoicesDict(houseType, house.houseInfo.defaultChoice);
+        //playerChoices[houseType].Add(house.houseInfo.defaultChoice);
 
         // remove main house from same type house list
         houseTypeDict[houseType].Remove(house);
@@ -368,6 +366,17 @@ public class StructureManager : MonoBehaviour
         return playerChoices;
     }
 
+    public bool IsAllHouseChoseGoodOptions()
+    {
+        int count = 0;
+        foreach (var type in GameManager.Instance.availableHouseTypes)
+        {
+            if (playerChoices.TryGetValue(type, out var choices) && choices.Any(c => c.isLocked)) count++;
+        }
+
+        Debug.Log($"Count: {count}, availableHouseTypes.Count: {GameManager.Instance.availableHouseTypes.Count}");
+        return count == GameManager.Instance.availableHouseTypes.Count;
+    }
 
     bool CloseToMainHouse(Vector3Int position)
     {

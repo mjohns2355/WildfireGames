@@ -18,7 +18,6 @@ public class GameManager : UnitySingleton<GameManager>
     public FC_TutorialManager tutorialManager;
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
-    public bool choseGoodOption = false;
     public bool IsFirstSim { get { return currentStage == LevelStage.BeforeFirstSim; }}
     public float GameSpeed { get; private set; }
     public List<HouseType> availableHouseTypes;
@@ -30,12 +29,13 @@ public class GameManager : UnitySingleton<GameManager>
 
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
+    public float simulationTime = 70f;
     public bool SimIsEnd { get; private set; }
     public bool canControlCam = true;
     public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
     public ATC_DialogTree[] houseDialogs;
-    [SerializeField] private int previousHousesDestroyed = 0; 
-    [SerializeField] private float previousFirstEvacTime, previousLastEvacTime = 0f;
+    private int previousHousesDestroyed = 0; 
+    private float previousFirstEvacTime, previousLastEvacTime = 0f;
     public Dictionary<HouseType,string> houseResponses = new Dictionary<HouseType, string>();
     
     private bool isPaused = false;
@@ -122,23 +122,18 @@ public class GameManager : UnitySingleton<GameManager>
     private void Update()
     {
         //debug
+#if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.F1)) { Time.timeScale = 6f; }
+#endif
+        // camera movement
         if (!canControlCam) return;
         cameraMovement.MoveCamera(new Vector3(inputManager.cameraMovementVector.x, 0, inputManager.cameraMovementVector.y));
-        //if (Input.touchCount == 2)
-        //{
-        //    cameraMovement.ZoomCamera();
-        //}
-        //else
-        //{
-        //    cameraMovement.ZoomCamera(inputManager.cameraZoomAxis);
-        //}
-
         cameraMovement.ZoomCamera();
+
+        // check if simulation is end
         if (!canStartSim) return;
-        // don't forget to set it back to 70
-        if (SimTimer < 70)
+        if (SimTimer < simulationTime)
         {
             SimTimer += Time.deltaTime;
         }
@@ -164,6 +159,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
     }
 
+    // record if house follow the instruction
     public void UpdateHouseResponse(HouseType houseType, string response)
     {
         if (houseResponses.ContainsKey(houseType))
@@ -175,6 +171,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     void OnSimEnd()
     {
+        // clear all remaining cars
         var remainingCars = GameObject.FindGameObjectsWithTag("Car");
         foreach (var car in remainingCars)
         {
@@ -236,11 +233,7 @@ public class GameManager : UnitySingleton<GameManager>
         if (!IsFirstSim)
         {
             Time.timeScale = GameSpeed = 1f ;
-            canStartSim = choseGoodOption;
-            if (!choseGoodOption)
-            {
-                ATC_UIController.Instance.popUp.SetActive(true);
-            }
+            ATC_UIController.Instance.popUp.SetActive(true);
         }
         else
         {
@@ -267,8 +260,10 @@ public class GameManager : UnitySingleton<GameManager>
             menu.ApplyBehavior();
         }
         //debug
+#if UNITY_EDITOR
         yield return new WaitForSeconds(10f);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
+#endif
     }
 
 
@@ -314,6 +309,7 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
         //SceneManager.LoadScene(CurrentLevel);
+        //TO-DO: Multiple levels
         SceneManager.LoadScene("FC_Level0");
     }
 
