@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3304160677795389601}
   - component: {fileID: 7671409625286349466}
-  - component: {fileID: 3599221324420429262}
+  - component: {fileID: 7886261169407840049}
   m_Layer: 0
   m_Name: NewHouseOne
   m_TagString: Untagged
@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28893625f22741749bb98efd9325c248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 3599221324420429262}
+  burnedPercent: 0
+  inventory: {fileID: 7886261169407840049}
   initBudget: 40000
   playerTag: P1
   positionOffset: {x: 0, y: 0, z: 0}
@@ -102,7 +103,9 @@ MonoBehaviour:
   compositeRoofChance: 20
   otherPartUpgradeChance: 10
   upgradeList: 01000000000000000700000008000000090000000600000003000000
---- !u!114 &3599221324420429262
+  totalPartsCount: 0
+  burnedPartsCount: 0
+--- !u!114 &7886261169407840049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005557465873198096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f1020fadd3d3f468e63d012d126729, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a489bc99fb578f4795ea8d3e5df09fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4972129276428505080
