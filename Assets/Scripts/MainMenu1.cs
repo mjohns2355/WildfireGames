@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class MainMenu1 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private string selectedScene = "";
+
+    public void SelectScene(string sceneName)
     {
-        
+        selectedScene = sceneName;
+        Debug.Log("Scene selected: " + sceneName);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySelectedScene()
     {
-        
+        if(!string.IsNullOrEmpty(selectedScene))
+        {
+            SceneManager.LoadScene(selectedScene);
+        }else
+        {
+            Debug.LogWarning("Nothing is selected");
+        }
     }
 }

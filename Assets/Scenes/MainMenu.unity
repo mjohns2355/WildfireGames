@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.4339623, g: 0.43191528, b: 0.43191528, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -444,7 +444,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 473679407}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 492029706}
+        m_TargetAssemblyTypeName: MainMenu1, Assembly-CSharp
+        m_MethodName: PlaySelectedScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &473679407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6b69974fedb72b542ae97495a1edf57e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f148ba1cf2b2a4e90995dfd0cd0e7915, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -558,6 +570,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488180072}
   m_CullTransparentMesh: 1
+--- !u!1 &492029705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492029707}
+  - component: {fileID: 492029706}
+  m_Layer: 0
+  m_Name: GameSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &492029706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492029705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3113522f57dba4f60b6b3cb433362b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &492029707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492029705}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1041.1904, y: 407.85074, z: -65.17644}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &761790809
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +862,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 492029706}
+        m_TargetAssemblyTypeName: MainMenu1, Assembly-CSharp
+        m_MethodName: SelectScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: findYourThingsExport
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1216709883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.6431373}
-  m_EffectDistance: {x: -5.91, y: -5.45}
+  m_EffectDistance: {x: 7.29, y: -5.45}
   m_UseGraphicAlpha: 1
 --- !u!1 &1218870896
 GameObject:
@@ -972,7 +1040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2, y: 86.9}
+  m_AnchoredPosition: {x: -0.3, y: 98.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1670608962
@@ -1055,7 +1123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 243, y: 0.000013709}
+  m_AnchoredPosition: {x: -7.2, y: 0.000013709}
   m_SizeDelta: {x: 151.11, y: 144.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679817129
@@ -1174,6 +1242,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 492029706}
+        m_TargetAssemblyTypeName: MainMenu1, Assembly-CSharp
+        m_MethodName: SelectScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FC_Level0
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1679817130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,7 +1305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.6431373}
-  m_EffectDistance: {x: -5.91, y: -5.45}
+  m_EffectDistance: {x: 7.29, y: -5.45}
   m_UseGraphicAlpha: 1
 --- !u!1 &1727094883
 GameObject:
@@ -1261,7 +1341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076293945, y: 170.6}
+  m_AnchoredPosition: {x: 2, y: 170.6}
   m_SizeDelta: {x: 400.1277, y: 55.1747}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727094885
@@ -1512,7 +1592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5999908, y: 86}
+  m_AnchoredPosition: {x: 1.5999908, y: 97}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1752446807
@@ -1595,7 +1675,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12, y: -0.0000023842}
+  m_AnchoredPosition: {x: 242.8, y: -0.0000023842}
   m_SizeDelta: {x: 151.11, y: 144.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886123740
@@ -1714,6 +1794,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 492029706}
+        m_TargetAssemblyTypeName: MainMenu1, Assembly-CSharp
+        m_MethodName: SelectScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FF_TutorialScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1886123741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,7 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.6431373}
-  m_EffectDistance: {x: -5.91, y: -5.45}
+  m_EffectDistance: {x: 7.29, y: -5.45}
   m_UseGraphicAlpha: 1
 --- !u!1 &1995376179
 GameObject:
@@ -1906,7 +1998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.1337128, y: 87.4}
+  m_AnchoredPosition: {x: 0.7, y: 98.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2083229518
@@ -2038,3 +2130,4 @@ SceneRoots:
   - {fileID: 1739915956}
   - {fileID: 1995376183}
   - {fileID: 165572048}
+  - {fileID: 492029707}
