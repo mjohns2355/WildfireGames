@@ -281,4 +281,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             fence.GetComponent<BaseHousePartObject>().isClickable = state;
         }
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
