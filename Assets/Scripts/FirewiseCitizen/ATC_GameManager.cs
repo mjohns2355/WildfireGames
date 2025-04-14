@@ -37,6 +37,10 @@ public class GameManager : UnitySingleton<GameManager>
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
     public Dictionary<HouseType,string> houseResponses = new Dictionary<HouseType, string>();
+
+    //Quick Fix - This needs to be changed after IndieCade
+    public GameObject toolBar;
+    public GameObject topBanner;
     
     private bool isPaused = false;
     public override void Awake()
@@ -206,6 +210,13 @@ public class GameManager : UnitySingleton<GameManager>
         }
         Debug.Log("Game win? " + won);
         return won;
+    }
+
+    public void MainMenu()
+    {
+        toolBar.SetActive(false);
+        topBanner.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
     }
     //private void ClearInputAction()
     //{
