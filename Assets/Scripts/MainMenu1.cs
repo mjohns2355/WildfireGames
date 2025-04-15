@@ -25,4 +25,9 @@ public class MainMenu1 : MonoBehaviour
             Debug.LogWarning("Nothing is selected");
         }
     }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
