@@ -70,7 +70,6 @@ public class FC_TutorialManager : MonoBehaviour
         {
             isFirstTimeTutorial = false;
             houseDialogManager.OnDialogueComplete = null;
-
             DOVirtual.DelayedCall(1f, () =>
             {
                 houseDialogManager.EndDialog();
@@ -234,6 +233,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     public void OnFirestationIconClicked()
     {
+        houseDialogManager.ClearMessages();
         GameManager.Instance.cameraMovement.MoveToHouse(fireStation);
         bottomDialogBox.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
