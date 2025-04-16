@@ -70,6 +70,7 @@ public class FC_TutorialManager : MonoBehaviour
         {
             isFirstTimeTutorial = false;
             houseDialogManager.OnDialogueComplete = null;
+            GameManager.Instance.cameraMovement.ResetCam();
             DOVirtual.DelayedCall(1f, () =>
             {
                 houseDialogManager.EndDialog();
