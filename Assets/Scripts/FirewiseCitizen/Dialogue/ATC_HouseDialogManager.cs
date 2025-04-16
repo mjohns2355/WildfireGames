@@ -85,6 +85,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void Update()
     {
+        // click through dialogue
         if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
         {
             canClick = false;

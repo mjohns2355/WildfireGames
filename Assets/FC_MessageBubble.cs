@@ -131,7 +131,7 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.wuiHomeNamePlate;
                     break;
 
-                case "Alice":
+                case "June":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.elderlyHomeBGShort : config.elderlyHomeBGLong;
                     namePlateBackgrondImage.sprite = config.elderlyHomeNamePlate;
                     break;

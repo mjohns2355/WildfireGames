@@ -19,7 +19,7 @@ public class GameManager : UnitySingleton<GameManager>
     //public ATC_dialogManager dialogManager;
     public bool canStartSim = false;
     public bool IsFirstSim { get { return currentStage == LevelStage.BeforeFirstSim; }}
-    public float GameSpeed { get; private set; }
+    //public float GameSpeed { get; private set; }
     public List<HouseType> availableHouseTypes;
     public UnityEvent SimStartsEvent;
     public UnityEvent SimEndsEvent;
@@ -31,7 +31,7 @@ public class GameManager : UnitySingleton<GameManager>
     public float SimTimer { get; private set; }
     public float simulationTime = 70f;
     public bool SimIsEnd { get; private set; }
-    public bool canControlCam = true;
+    public bool canControlCam;
     public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
@@ -54,9 +54,10 @@ public class GameManager : UnitySingleton<GameManager>
         InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SimTimer = 0f;
-        Time.timeScale = GameSpeed = 2f;
+        //Time.timeScale = GameSpeed = 2f;
         CurrentLevel = 0;
         tutorialManager.InitTutorialManager();
+        canControlCam = false;
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -99,24 +100,26 @@ public class GameManager : UnitySingleton<GameManager>
         {
             Time.timeScale = 0f;
             fireSFX.Pause();
-           ATC_UIController.Instance.TogglePauseMenu(true);
+            ATC_UIController.Instance.TogglePauseMenu(true);
         }
         else
         {
-            Time.timeScale = GameSpeed;
+            //Time.timeScale = GameSpeed;
+            Time.timeScale = 1f;
             fireSFX.Play();
             ATC_UIController.Instance.TogglePauseMenu(false);
         }
     }
 
-    public void ResumeGame()
-    {
-        isPaused = false ;
-        Debug.Log($"Game is Paused: {isPaused}");
-        Time.timeScale = GameSpeed;
-        fireSFX.Play();
-        ATC_UIController.Instance.TogglePauseMenu(false);
-    }
+    //public void ResumeGame()
+    //{
+    //    TogglePause()
+    //    //isPaused = false ;
+    //    //Debug.Log($"Game is Paused: {isPaused}");
+    //    ////Time.timeScale = GameSpeed;
+    //    //fireSFX.Play();
+    //    //ATC_UIController.Instance.TogglePauseMenu(false);
+    //}
     public void SkipSimulationRec()
     {
         currentStage = LevelStage.PhaseOne;
@@ -212,12 +215,6 @@ public class GameManager : UnitySingleton<GameManager>
         return won;
     }
 
-    public void MainMenu()
-    {
-        toolBar.SetActive(false);
-        topBanner.SetActive(false);
-        SceneManager.LoadScene("MainMenu");
-    }
     //private void ClearInputAction()
     //{
     //    inputManager.OnMouseClick = null;
@@ -243,12 +240,12 @@ public class GameManager : UnitySingleton<GameManager>
         fireSFX.Play();
         if (!IsFirstSim)
         {
-            Time.timeScale = GameSpeed = 1f ;
+            //Time.timeScale = GameSpeed = 1f ;
             ATC_UIController.Instance.popUp.SetActive(true);
         }
         else
         {
-            Time.timeScale = GameSpeed = 2f;
+            //Time.timeScale = GameSpeed = 2f;
             canStartSim = true;
             ATC_UIController.Instance.replayOverlay.SetActive(true);
         }
@@ -307,7 +304,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
-        Time.timeScale = GameSpeed = 2f;
+        //Time.timeScale = GameSpeed = 2f;
         carsEvacuated = 0;
         housesDestroyed = 0;
         SimTimer = 0;
@@ -317,20 +314,30 @@ public class GameManager : UnitySingleton<GameManager>
         SimStartsEvent.RemoveAllListeners();
         SimEndsEvent.RemoveAllListeners();
         StopAllCoroutines();
+        // unpause the game
+        isPaused = false;
+        Time.timeScale = 1f;
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
         //SceneManager.LoadScene(CurrentLevel);
         //TO-DO: Multiple levels
         SceneManager.LoadScene("FC_Level0");
+
     }
 
     public void RestartGame()
     {
         CurrentLevel = 0;
         currentStage = LevelStage.BeforeFirstSim;
-        Time.timeScale = GameSpeed = 2f;
+        //Time.timeScale = GameSpeed = 2f;
         ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
+    }
+    public void RestartGameFromTutorial()
+    {
+        ResetGame();
+        
+        tutorialManager.ReloadTutorial();
     }
 
     public void NextLevel()
@@ -352,8 +359,12 @@ public class GameManager : UnitySingleton<GameManager>
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
         tutorialManager = FindObjectOfType<FC_TutorialManager>();
+        if (tutorialManager)
+        {
+            tutorialManager.InitTutorialManager();
+        }
 
-        
+
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

@@ -20,7 +20,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject endScreen;
     public GameObject learnMorePanel;
     public TextMeshProUGUI levelText;
-    public GameObject startPrompt,dialoguePanel;
+    public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
     //public GameObject buildingMenu;
@@ -166,10 +166,12 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         if (shouldShow)
         {
             PushPanel(pauseMenu.gameObject);
+            start.gameObject.SetActive(false);
         }
         else
         {
             PopPanel();
+            start.gameObject.SetActive(true);
         }
     }
 

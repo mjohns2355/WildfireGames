@@ -388,4 +388,12 @@ public class StructureManager : MonoBehaviour
 
         return false;
     }
+
+    public void ClearAllPlayerChoices()
+    {
+       foreach( var house in allMainHouses)
+        {
+            UpdatePlayerChoicesDict(house.Key, house.Value.houseInfo.defaultChoice);
+        }
+    }
 }

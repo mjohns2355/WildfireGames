@@ -11,8 +11,8 @@ public class FC_TutorialManager : MonoBehaviour
     public Button titleCard,fireStationIcon;
     public GameObject bottomDialogBox, fireFighterDialogue, sideFirefighterPortrait;
     public TextMeshProUGUI bottomDialogText;
-    public ATC_HouseDialogManager dialogManager;
-    public StructureManager structureManager;
+    //public ATC_HouseDialogManager dialogManager;
+    //public StructureManager structureManager;
     public HouseStructure tutorialHouse;
     public Structure fireStation;
 
@@ -20,21 +20,33 @@ public class FC_TutorialManager : MonoBehaviour
     RectTransform uiIcon;
     bool isTutorialStarted = false;
     bool isFirstTimeTutorial = true;
-
+    [SerializeField] StructureManager structureManager;
+    [SerializeField] ATC_HouseDialogManager houseDialogManager;
 
     public void InitTutorialManager()
     {
+        // reassign variables
+        structureManager = GameManager.Instance.structureManager;
+        houseDialogManager = ATC_UIController.Instance.houseDialogManager;
+        //clean up old listeners
+        titleCard.onClick.RemoveAllListeners();
+        houseDialogManager.OnDialogueNodeDisplayed = null;
+        houseDialogManager.OnDialogueOptionSelected = null;
+        fireStationIcon.onClick.RemoveAllListeners();
+
+        uiIcon = fireStationIcon.GetComponent<RectTransform>();
+        // add listeners
         titleCard.onClick.AddListener(() =>
         {
             titleCard.gameObject.SetActive(false);
             StartTutorial();
         });
 
-        dialogManager.OnDialogueNodeDisplayed += CheckDialogueNode;
-        dialogManager.OnDialogueOptionSelected += CheckDialogueOption;
+        houseDialogManager.OnDialogueNodeDisplayed += CheckDialogueNode;
+        houseDialogManager.OnDialogueOptionSelected += CheckDialogueOption;
 
         fireStationIcon.onClick.AddListener(OnFirestationIconClicked);
-        uiIcon = fireStationIcon.GetComponent<RectTransform>();
+
     }
     private void CheckDialogueOption(DialogOption option)
     {
@@ -49,19 +61,19 @@ public class FC_TutorialManager : MonoBehaviour
         else if (nextNodeId == skipTutorialNodeId)
         {
             GameManager.Instance.cameraMovement.ResetCam();
-            dialogManager.StartDialogue("outro",true);
-            dialogManager.OnDialogueComplete = null;
-            dialogManager.OnDialogueComplete += OnOutroDialogueComplete;
+            houseDialogManager.StartDialogue("outro",true);
+            houseDialogManager.OnDialogueComplete = null;
+            houseDialogManager.OnDialogueComplete += OnOutroDialogueComplete;
         }
         //restart the tutorial but show the skip button
         else if (nextNodeId == reviewTutorialNodeId)
         {
             isFirstTimeTutorial = false;
-            dialogManager.OnDialogueComplete = null;
+            houseDialogManager.OnDialogueComplete = null;
 
             DOVirtual.DelayedCall(1f, () =>
             {
-                dialogManager.EndDialog();
+                houseDialogManager.EndDialog();
 
                 // hide all the house icons
                 foreach (var menu in ATC_UIController.Instance.contextMenus)
@@ -70,16 +82,16 @@ public class FC_TutorialManager : MonoBehaviour
                 }
 
                 //clear choice
-                structureManager.GetPlayerChoicesDict().Clear();
+                GameManager.Instance.structureManager.GetPlayerChoicesDict().Clear();
                 tutorialHouse.contextMenu.isSelected = false;
                 tutorialHouse.contextMenu.icon.ToggleIconState(true);
-                dialogManager.isWaitingForPlayer = true;
+                houseDialogManager.isWaitingForPlayer = true;
                 StartTutorial();
             });
 
         }
         //dialog will only display after player selected options
-        dialogManager.isWaitingForPlayer = false;
+        houseDialogManager.isWaitingForPlayer = false;
     }
 
     private void CheckDialogueNode(DialogNode node)
@@ -121,10 +133,10 @@ public class FC_TutorialManager : MonoBehaviour
         //Debug.Log("Invoke outro");
         fireFighterDialogue.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
-        dialogManager.StartDialogue("outro");
-        dialogManager.canShowSkipButton = false;
-        dialogManager.OnDialogueComplete = null;
-        dialogManager.OnDialogueComplete += OnOutroDialogueComplete;
+        houseDialogManager.StartDialogue("outro");
+        houseDialogManager.canShowSkipButton = false;
+        houseDialogManager.OnDialogueComplete = null;
+        houseDialogManager.OnDialogueComplete += OnOutroDialogueComplete;
     }
 
     //end tutorial
@@ -135,14 +147,15 @@ public class FC_TutorialManager : MonoBehaviour
         GameManager.Instance.cameraMovement.ResetCam();
         var houseIcon = tutorialHouse.contextMenu.icon;
         houseIcon.RemoveOnClickAction(OnClickTutorialHouse);
-        dialogManager.canShowSkipButton = true;
-        dialogManager.isWaitingForPlayer = false;
+        houseDialogManager.canShowSkipButton = true;
+        houseDialogManager.isWaitingForPlayer = false;
         GameManager.Instance.SkipSimulationRec();
-        dialogManager.OnDialogueComplete = null;
+        houseDialogManager.OnDialogueComplete = null;
     }
 
     private void OnIntroDialogueComplete()
     {
+        GameManager.Instance.canControlCam = true;
         var text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"pet\">.\n";
         var controlText = string.Empty;
         //if (GameManager.Instance.inputManager.isKeyboard)
@@ -159,23 +172,27 @@ public class FC_TutorialManager : MonoBehaviour
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
         tutorialHouse.outline.enabled = true;
-        dialogManager.canShowSkipButton = !isFirstTimeTutorial;
-        dialogManager.OnDialogueComplete = null;
-        dialogManager.OnDialogueComplete += OnTutroialDialogueComplete;
+        houseDialogManager.canShowSkipButton = !isFirstTimeTutorial;
+        houseDialogManager.OnDialogueComplete = null;
+        houseDialogManager.OnDialogueComplete += OnTutroialDialogueComplete;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isTutorialStarted || !fireStationIcon.gameObject.activeSelf) return;
+        if (!isTutorialStarted || !fireStationIcon.gameObject.activeSelf || fireStation == null) return;
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(fireStation.transform.position);
         uiIcon.position = screenPosition + new Vector3(0,100f,0f);
     }
     public void StartTutorial()
     {
         GameManager.Instance.currentStage = LevelStage.Tutorial;
+        GameManager.Instance.canControlCam = false; 
+
+        // hide all icons
+        ATC_UIController.Instance.ToggleHouseIcons(false);
         //dialogManager.canShowSkipButton = false;
-        dialogManager.OnDialogueComplete += OnIntroDialogueComplete;
+        houseDialogManager.OnDialogueComplete += OnIntroDialogueComplete;
         isTutorialStarted = true;
         UpdateBottomDialog("Welcome to Firewise Citizens! Tap on the Fire Station to Begin");
         fireStationIcon.gameObject.SetActive(true);
@@ -212,7 +229,7 @@ public class FC_TutorialManager : MonoBehaviour
         GameManager.Instance.cameraMovement.MoveToHouse(tutorialHouse);
         bottomDialogBox.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
-        dialogManager.StartDialogue("tutorial");
+        houseDialogManager.StartDialogue("tutorial");
     }
 
     public void OnFirestationIconClicked()
@@ -221,7 +238,11 @@ public class FC_TutorialManager : MonoBehaviour
         bottomDialogBox.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
         fireStationIcon.gameObject.SetActive(false);
-        dialogManager.StartDialogue("intro");
+        houseDialogManager.StartDialogue("intro");
     }
 
+    public void ReloadTutorial()
+    {
+        titleCard.gameObject.SetActive(true);
+    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465146, g: 0.49634284, b: 0.57478094, a: 1}
+  m_IndirectSpecularColor: {r: 0.44651526, g: 0.49634337, b: 0.57478285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21892,7 +21892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076294, y: -48.920074}
+  m_AnchoredPosition: {x: 6, y: -0.0000038147}
   m_SizeDelta: {x: 397.3226, y: 428.654}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216462554
@@ -21912,6 +21912,7 @@ MonoBehaviour:
   clear: {fileID: 1937216151}
   instructions: {fileID: 2076558805}
   resume: {fileID: 1274686210}
+  mainMenu: {fileID: 1352684356}
   note: {fileID: 302196004}
 --- !u!114 &216462555
 MonoBehaviour:
@@ -55064,6 +55065,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 690164700}
+  - {fileID: 773485457}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &684956509
@@ -65744,12 +65746,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 773485456}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1641992811}
+  m_Father: {fileID: 684956508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &773485458
 MonoBehaviour:
@@ -65769,14 +65771,14 @@ MonoBehaviour:
   fireFighterDialogue: {fileID: 429798143}
   sideFirefighterPortrait: {fileID: 664999021}
   bottomDialogText: {fileID: 1903638292}
-  dialogManager: {fileID: 570783361}
-  structureManager: {fileID: 394225674}
   tutorialHouse: {fileID: 0}
   fireStation: {fileID: 0}
   fireFighterStartNodeId: 62
   fireFighterEndNodeId: 65
   skipTutorialNodeId: 71
   reviewTutorialNodeId: 50
+  structureManager: {fileID: 0}
+  houseDialogManager: {fileID: 0}
 --- !u!1001 &776535702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108361,43 +108363,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1762258951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 602700947}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 684956509}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ResetGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 684956509}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: MainMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1352684357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130138,7 +130104,6 @@ Transform:
   - {fileID: 899936277}
   - {fileID: 851458449}
   - {fileID: 1890947749}
-  - {fileID: 773485457}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1642561554 stripped
@@ -161687,7 +161652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2076558804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -164327,11 +164292,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.1792453, g: 0.17332682, b: 0.17332682, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1

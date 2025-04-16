@@ -195,6 +195,7 @@ public class StructureContextMenu : MonoBehaviour
             option.ToggleOptionSelectState(false);
         }
         selectedOptions.Clear();
+        //icon.ToggleIconState(true);
         //}
     }
 
