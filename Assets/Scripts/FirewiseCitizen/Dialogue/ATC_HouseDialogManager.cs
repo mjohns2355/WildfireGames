@@ -327,7 +327,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private void AnimateMessageBubble(CanvasGroup canvasGroup)
     {
         canvasGroup.alpha = 0f;
-        canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutBack);
+        canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutBack).SetLink(canvasGroup.gameObject);
         ScrollToBottom();
         //bubbleTransform.localScale = Vector3.zero;
     }
