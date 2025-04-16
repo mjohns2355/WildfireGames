@@ -64,11 +64,7 @@ public class ATC_PauseMenu : MonoBehaviour
     }
     void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
-        Destroy(GameManager.Instance.gameObject);
-        Destroy(ATC_UIController.Instance.gameObject);
-        // reset time scale
-        Time.timeScale = 1f;
+        GameManager.Instance.BackToMainMenu();
     }
 
     void ResumeGame()

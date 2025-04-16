@@ -336,6 +336,15 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
     }
+    public void BackToMainMenu()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.LoadScene("MainMenu");
+        Destroy(gameObject);
+        Destroy(ATC_UIController.Instance.gameObject);
+        // reset time scale
+        Time.timeScale = 1f;
+    }
     public void RestartGameFromTutorial()
     {
         ResetGame();
@@ -355,7 +364,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        if (scene.name != "FC_Level0") return;
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();
@@ -365,6 +374,7 @@ public class GameManager : UnitySingleton<GameManager>
         if (tutorialManager)
         {
             tutorialManager.InitTutorialManager();
+            
         }
         DOTween.Clear(true);
 
