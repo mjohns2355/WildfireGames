@@ -1,4 +1,5 @@
 using cakeslice;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,6 +59,7 @@ public class GameManager : UnitySingleton<GameManager>
         CurrentLevel = 0;
         tutorialManager.InitTutorialManager();
         canControlCam = false;
+        DOTween.Clear(true);
         //inputManager.OnMouseClick += structureManager.ClickStructre;
         //inputManager.OnMouseClick += HandleMouseClick;
         //uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -319,6 +321,7 @@ public class GameManager : UnitySingleton<GameManager>
         Time.timeScale = 1f;
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
+
         //SceneManager.LoadScene(CurrentLevel);
         //TO-DO: Multiple levels
         SceneManager.LoadScene("FC_Level0");
@@ -363,7 +366,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             tutorialManager.InitTutorialManager();
         }
-
+        DOTween.Clear(true);
 
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
