@@ -9,7 +9,7 @@ public class PurchasePopup : MonoBehaviour
 {
     public TextMeshProUGUI priceText, classText, itemNameText, descriptionText, moneyWarningText;
     public Image icon;
-    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney;
+    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney,closeBGBtn;
     public GameObject purchaseScreen, warningScreen;
     private HousePartInfo partInfo;
 
@@ -19,6 +19,7 @@ public class PurchasePopup : MonoBehaviour
         cancelWarning.onClick.AddListener(OnCancelClicked);
         purchase.onClick.AddListener(OnPurchaseClicked);
         earnMoreMoney.onClick.AddListener(OnEarnMoreMoneyClicked);
+        closeBGBtn.onClick.AddListener(OnCancelClicked);
     }
 
     private void OnEnable()

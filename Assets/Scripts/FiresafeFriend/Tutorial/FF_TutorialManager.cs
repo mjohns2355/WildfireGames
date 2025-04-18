@@ -68,6 +68,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
         step.onStepStart?.Invoke();
 
+
         if (step.autoProceed)
         {
             Debug.Log("Step is auto-proceeding");
@@ -110,5 +111,10 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         SceneManager.LoadScene("FireSafeFriendScene");
     }
 
+
+    public void UpdateTutorialText(string text)
+    {
+        tutorialText.text = text;
+    }
 
 }

@@ -12,6 +12,7 @@ public class HighlightMesh : MonoBehaviour
     public float flashDuration;
 
     private List<Tween> activeTweens = new List<Tween>();
+    private List<Material> panelMaterials = new List<Material>();
     private void Start()
     {
         
@@ -22,6 +23,7 @@ public class HighlightMesh : MonoBehaviour
         {
            
             Material panelMaterial = new Material(meshRender.material);
+            panelMaterials.Add(panelMaterial);
             meshRender.material = panelMaterial;
             panelMaterial.EnableKeyword("_EMISSION");
 
@@ -43,10 +45,25 @@ public class HighlightMesh : MonoBehaviour
         
     }
 
+    public void StopHighlight()
+    {
+        foreach (var panelMaterial in panelMaterials)
+        {
+
+            panelMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+
+            panelMaterial.SetColor("_EmissionColor", highlightColor * baseIntensity);
+
+            panelMaterial.DisableKeyword("_EMISSION");
+
+        }
+    }
+
     private void OnDestroy()
     {
         Debug.Log("On destroy");
         Debug.Log($"Active tweens: {activeTweens.Count}");
+        StopHighlight();
         foreach (var meshRender in meshRenders)
         {
             foreach (var tween in activeTweens)

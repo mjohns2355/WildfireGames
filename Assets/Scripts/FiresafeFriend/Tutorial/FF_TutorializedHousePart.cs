@@ -15,9 +15,9 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     PurchaseFloatingButton bubble;
     HouseManager houseManager;
     List<BaseHousePartObject> partObjects;
-
     public override void OnTutorialStepStart()
     {
+
         plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((vlaue) =>
         {
             SwitchToHouseMode();
@@ -25,18 +25,27 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
         storePurchaseButton.onClick.AddListener(() =>
         {
+            canClick = true;
+            foreach(var part in partObjects)
+            {
+                part.isClickable = false;
+            }
+            HH_GameManager.Instance.inputManager.OnObjectSelected -= OnPartTapped;
+            Destroy(bubble.gameObject);
             OnTutorialStepComplete();
         });
-        DOVirtual.DelayedCall(8f, () =>
-        {
-            ShowToggle();
-        });
-        
+        //DOVirtual.DelayedCall(8f, () =>
+        //{
+        //    ShowToggle();
+        //});
+
+        onClick.AddListener(ShowToggle);
     }
 
     public void ShowToggle()
     {
         plantModeToggle.SetActive(true);
+        onClick.RemoveAllListeners();
         FF_TutorialManager.Instance.tutorialText.text = "Click on the toggle to switch to “House Mode”";
         Sequence toggleSequence = DOTween.Sequence();
         toggleSequence.Append(ScaleEffect(plantModeToggle.GetComponent<RectTransform>()));
@@ -55,6 +64,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     void SwitchToHouseMode()
     {
         FF_TutorialManager.Instance.tutorialText.text = "Let’s try upgrading the roof. Tap to see the roofing options.";
+        canClick = false;
         HH_GameManager.Instance.cameraController.Zoomcamera(camH1, true, 60);
         houseManager = HH_GameManager.Instance.currentPlayer;
         partObjects = houseManager.GetAllHousePartObjectsOf(partType);
@@ -103,10 +113,17 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnPartTapped(GameObject obj)
     {
-        
         //if (!FF_TutorialManager.Instance.tutorialPanel.activeInHierarchy) return;
-        //FF_TutorialManager.Instance.tutorialPanel.SetActive(false);
-        FF_TutorialManager.Instance.tutorialText.text = "Each material is graded for fire resistance, with Class A being the highest rating. Let’s purchase this metal roofing.";
+        //FF_TutorialManager.Instance.tutorialPanel.SetActive(false);     
+        var part = obj.GetComponentInParent<BaseHousePartObject>();
+        if (part)
+        {         
+            if (part.HousePartType == partType)
+            {
+                FF_TutorialManager.Instance.tutorialText.text = "Each material is graded for fire resistance, with Class A being the highest rating. Let’s purchase this metal roofing.";
+            }
+        }
+
     }
 
 }
