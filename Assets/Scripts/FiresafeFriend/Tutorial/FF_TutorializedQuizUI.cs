@@ -11,6 +11,7 @@ public class FF_TutorializedQuizUI : FF_TutorializedObject
 
     public override void OnTutorialStepStart()
     {
+        earnMoreButton.gameObject.SetActive(true);
         ScaleEffect(earnMoreButton.GetComponent<RectTransform>()).onComplete += () =>
         {
             earnMoreButton.interactable = true;

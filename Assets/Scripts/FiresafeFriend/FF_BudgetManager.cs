@@ -74,7 +74,11 @@ public class FF_BudgetManager
                 triggeredThresholds[i] = true;
 
                 //HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(true);
-                HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(true);
+                if (!HH_GameManager.Instance.isTutorial)
+                {
+                    Debug.Log("Show earn more money button!");
+                    HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(true);
+                }   
                 canEarnMoreMoney = true;
                 if (i == 0)
                 {
