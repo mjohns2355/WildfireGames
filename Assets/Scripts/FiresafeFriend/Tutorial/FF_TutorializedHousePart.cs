@@ -25,18 +25,21 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
         storePurchaseButton.onClick.AddListener(() =>
         {
+            canClick = true;
             OnTutorialStepComplete();
         });
-        DOVirtual.DelayedCall(8f, () =>
-        {
-            ShowToggle();
-        });
-        
+        //DOVirtual.DelayedCall(8f, () =>
+        //{
+        //    ShowToggle();
+        //});
+
+        onClick.AddListener(ShowToggle);
     }
 
     public void ShowToggle()
     {
         plantModeToggle.SetActive(true);
+        onClick.RemoveAllListeners();
         FF_TutorialManager.Instance.tutorialText.text = "Click on the toggle to switch to “House Mode”";
         Sequence toggleSequence = DOTween.Sequence();
         toggleSequence.Append(ScaleEffect(plantModeToggle.GetComponent<RectTransform>()));
@@ -55,6 +58,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     void SwitchToHouseMode()
     {
         FF_TutorialManager.Instance.tutorialText.text = "Let’s try upgrading the roof. Tap to see the roofing options.";
+        canClick = false;
         HH_GameManager.Instance.cameraController.Zoomcamera(camH1, true, 60);
         houseManager = HH_GameManager.Instance.currentPlayer;
         partObjects = houseManager.GetAllHousePartObjectsOf(partType);

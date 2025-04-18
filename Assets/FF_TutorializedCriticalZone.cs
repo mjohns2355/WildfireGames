@@ -28,14 +28,23 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         {
             
             criticalZoneHighlight.HighlightMeshes();
-            FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
+            var text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection."; ;
+            FF_TutorialManager.Instance.UpdateTutorialText(text);
+            //FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
             plantModeToggle.GetComponent<Toggle>().interactable = false;
-            DOVirtual.DelayedCall(waitTime  , () =>
+
+            // make sure player have enough time to read before they click through the dialogue
+            //DOVirtual.DelayedCall(3f, () =>
+            //{
+ 
+
+            //});
+
+            onClick.AddListener(() =>
             {
                 Destroy(criticalZoneHighlight);
                 OnTutorialStepComplete();
                 plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
-               
             });
         });
     }
