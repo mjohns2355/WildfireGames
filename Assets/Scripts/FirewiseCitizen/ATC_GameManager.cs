@@ -33,7 +33,8 @@ public class GameManager : UnitySingleton<GameManager>
     public float simulationTime = 70f;
     public bool SimIsEnd { get; private set; }
     public bool canControlCam;
-    public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
+    public int levelNum = 3;
+    public bool IsLastLevel { get { return CurrentLevel + 1 == levelNum; } }
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
@@ -384,14 +385,14 @@ public class GameManager : UnitySingleton<GameManager>
 
     void InitiAvailableHouseType()
     {
-        if(availableHouseTypes.Count > 0)
+        if (availableHouseTypes.Count > 0)
         {
             availableHouseTypes.Clear();
         }
-        availableHouseTypes = Enum.GetValues(typeof(HouseType))
-                                     .Cast<HouseType>()
-                                     .Where(type => type != HouseType.none)
-                                     .ToList();
+        //availableHouseTypes = Enum.GetValues(typeof(HouseType))
+        //                             .Cast<HouseType>()
+        //                             .Where(type => type != HouseType.none)
+        //                             .ToList();
         //if (CurrentLevel == 0)
         //{
         //    availableHouseTypes.Add(HouseType.twoCar);
@@ -409,6 +410,21 @@ public class GameManager : UnitySingleton<GameManager>
         //        availableHouseTypes.Add(houseType);
         //    }
         //}
+
+        switch (CurrentLevel)
+        {
+            case 0:
+                availableHouseTypes.Add(HouseType.twoCar);
+                availableHouseTypes.Add(HouseType.wui);
+                break;
+            case 1:
+                availableHouseTypes.Add(HouseType.kids);
+                availableHouseTypes.Add(HouseType.elderly);
+                break;
+            case 2:
+                availableHouseTypes.Add(HouseType.pet);
+                break;
+        }
     }
 
     public int CountFollowedInstructions()

@@ -90,6 +90,11 @@ public class FC_MessageBubble : MonoBehaviour
         if (isOption)
         {
             backgroundImage.sprite = config.choiceSprite;
+
+             if(messageText.text == "Conclude")
+            {
+                backgroundImage.color = Color.green;
+            }
             return;
         }
         if (isDescription)

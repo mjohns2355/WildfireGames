@@ -19,12 +19,13 @@ public class FC_TutorialManager : MonoBehaviour
     public int fireFighterStartNodeId, fireFighterEndNodeId, skipTutorialNodeId, reviewTutorialNodeId;
     RectTransform uiIcon;
     bool isTutorialStarted = false;
-    bool isFirstTimeTutorial = true;
+    [SerializeField] bool isFirstTimeTutorial = true;
     [SerializeField] StructureManager structureManager;
     [SerializeField] ATC_HouseDialogManager houseDialogManager;
 
     public void InitTutorialManager()
     {
+
         // reassign variables
         structureManager = GameManager.Instance.structureManager;
         houseDialogManager = ATC_UIController.Instance.houseDialogManager;
@@ -46,7 +47,13 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueOptionSelected += CheckDialogueOption;
 
         fireStationIcon.onClick.AddListener(OnFirestationIconClicked);
-
+        // only hide the skip button when player first time playing the tutorial
+        if (!isFirstTimeTutorial) return;
+        houseDialogManager.SetSkipButton(false);
+        houseDialogManager.canShowSkipButton = false;
+        //add pet to available house types for tutorial
+        // TO-DO: should have a tutorial house type instead of using existing pet
+        GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
     }
     private void CheckDialogueOption(DialogOption option)
     {
@@ -134,7 +141,7 @@ public class FC_TutorialManager : MonoBehaviour
         fireFighterDialogue.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
         houseDialogManager.StartDialogue("outro");
-        houseDialogManager.canShowSkipButton = false;
+        //houseDialogManager.canShowSkipButton = false;
         houseDialogManager.OnDialogueComplete = null;
         houseDialogManager.OnDialogueComplete += OnOutroDialogueComplete;
     }
@@ -142,15 +149,18 @@ public class FC_TutorialManager : MonoBehaviour
     //end tutorial
     private void OnOutroDialogueComplete()
     {
-        //Debug.Log("Outro is completed");
         isTutorialStarted = false;
+        isFirstTimeTutorial = false;
         GameManager.Instance.cameraMovement.ResetCam();
         var houseIcon = tutorialHouse.contextMenu.icon;
         houseIcon.RemoveOnClickAction(OnClickTutorialHouse);
         houseDialogManager.canShowSkipButton = true;
+        houseDialogManager.SetSkipButton(true);
         houseDialogManager.isWaitingForPlayer = false;
         GameManager.Instance.SkipSimulationRec();
+        GameManager.Instance.availableHouseTypes.Remove(HouseType.pet);
         houseDialogManager.OnDialogueComplete = null;
+
     }
 
     private void OnIntroDialogueComplete()
@@ -172,7 +182,7 @@ public class FC_TutorialManager : MonoBehaviour
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
         tutorialHouse.outline.enabled = true;
-        houseDialogManager.canShowSkipButton = !isFirstTimeTutorial;
+        //houseDialogManager.canShowSkipButton = !isFirstTimeTutorial;
         houseDialogManager.OnDialogueComplete = null;
         houseDialogManager.OnDialogueComplete += OnTutroialDialogueComplete;
     }

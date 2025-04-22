@@ -230,7 +230,7 @@
           "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
           "options": [
             {
-              "optionText": "Continue",
+              "optionText": "Conclude",
               "nextNodeId": "200"
             }
           ]
@@ -259,7 +259,7 @@
         },
         {
           "id": "200",
-          "dialogText": "What is best for Bailey?",
+          "dialogText": "<b>What is best for Bailey?</b>",
           "isEndNode": "true"
         }
       ]
@@ -510,7 +510,12 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Continue",
+              "optionText": "Safer at School",
+              "messageText": "Being worried about being seperated is completely understandable.",
+              "nextNodeId": "18"
+            },
+            {
+              "optionText": "Conclude",
               "nextNodeId": "200"
             }
           ]
@@ -522,7 +527,12 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Continue",
+              "optionText": "Safer at School",
+              "messageText": "Being worried about being seperated is completely understandable.",
+              "nextNodeId": "18"
+            },
+            {
+              "optionText": "Conclude",
               "nextNodeId": "200"
             }
           ]
@@ -545,7 +555,12 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Continue",
+              "optionText": "Pick up Children",
+              "messageText": "Being worried about being seperated is completely understandable.",
+              "nextNodeId": "21"
+            },
+            {
+              "optionText": "Conclude",
               "nextNodeId": "200"
             }
           ]
@@ -1218,6 +1233,10 @@
                 "optionText": "Evacuate Early?",
                 "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
                 "nextNodeId": "100"
+              },
+              {
+                "optionText": "Conclude",
+                "nextNodeId": "500"
               }
             ]
           },
@@ -1251,7 +1270,17 @@
             "portraitPath": "FirewiseCitizen/Portraits/dogowner",
             "options": [
               {
-                "optionText": "Continue",
+                "optionText": "Prep a go bag",
+                "messageText": "Having a go-bag ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+                "nextNodeId": "300"
+              },
+              {
+                "optionText": "Evacuate Early?",
+                "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
+                "nextNodeId": "100"
+              },
+              {
+                "optionText": "Conclude",
                 "nextNodeId": "500"
               }
             ]
@@ -1313,6 +1342,10 @@
                 "optionText": "Evacuation Plan?",
                 "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
                 "nextNodeId": "49"
+              },
+              {
+                "optionText": "Conclude",
+                "nextNodeId": "500"
               }
             ]
           },
@@ -1355,12 +1388,16 @@
                 "optionText": "Evacuation Plan?",
                 "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
                 "nextNodeId": "49"
+              },
+              {
+                "optionText": "Conclude",
+                "nextNodeId": "500"
               }
             ]
           },
           {
             "id": "500",
-            "dialogText": "What is best for Genaro?",
+            "dialogText": "<b>What is best for Genaro?</b>",
             "isEndNode": "true"
           }
         ]
