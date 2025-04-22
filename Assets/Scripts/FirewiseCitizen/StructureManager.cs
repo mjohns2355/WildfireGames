@@ -30,7 +30,10 @@ public class StructureManager : MonoBehaviour
 
         InitSpecialStructDict();
         InitialMainHouses();
-
+        
+        CalculateTotalCars();
+        GameManager.Instance.totalHouses = allHouses.Count;
+        Debug.Log($"Total Houses: {GameManager.Instance.totalHouses}, Total Cars: {GameManager.Instance.totalCars}");
     }
 
     void InitSpecialStructDict()
@@ -178,7 +181,7 @@ public class StructureManager : MonoBehaviour
 
         int totalHouses = housesToRandomize.Count;
         int numTypes = GameManager.Instance.availableHouseTypes.Count();
-
+        Debug.Log($"Total Houses: {totalHouses}, Num Types: {numTypes}");
         Dictionary<HouseType, int> targetCounts = new Dictionary<HouseType, int>();
 
         // Calculate base counts
@@ -218,6 +221,8 @@ public class StructureManager : MonoBehaviour
             housesToRandomize[i].SetHouseType(targetDistribution[i]);
             UpdateSameTypeHouseDict(targetDistribution[i], housesToRandomize[i]);
         }
+
+
     }
 
   
@@ -395,5 +400,23 @@ public class StructureManager : MonoBehaviour
         {
             UpdatePlayerChoicesDict(house.Key, house.Value.houseInfo.defaultChoice);
         }
+    }
+
+    void CalculateTotalCars()
+    {
+        int totalCars = 0;
+        foreach (var pair in houseTypeDict)
+        {
+            if(pair.Key == HouseType.twoCar)
+            {
+                totalCars += pair.Value.Count * 2;
+            }
+            else
+            {
+                totalCars += pair.Value.Count;
+            }
+        }
+
+        GameManager.Instance.totalCars = totalCars;
     }
 }

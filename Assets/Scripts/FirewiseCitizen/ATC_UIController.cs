@@ -7,18 +7,19 @@ using System.Collections;
 using DG.Tweening;
 public class ATC_UIController : UnitySingleton<ATC_UIController>
 {
-    public GameObject canvas;
+    //public GameObject canvas;
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
     public ATC_HouseDialogManager houseDialogManager;
+    public FC_StarScreen starScreen;
     //public GameObject toolsBar;
     public GameObject replayOverlay;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
-    public GameObject endScreen;
-    public GameObject learnMorePanel;
+    //public GameObject endScreen;
+    public GameObject learnMorePanel, restartPrompt;
     public TextMeshProUGUI levelText;
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
@@ -32,7 +33,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     private void Start()
     {
         //buildingMenu.SetActive(false);
-        levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
+        levelText.text = $"Level {GameManager.Instance.currentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePause();
@@ -291,16 +292,17 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
+        starScreen.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
-        if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
-        {
-            levelText.text = "Instruction";
-        }
-        else
-        {
-            levelText.text = $"Level 1";
-        }
+        //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
+        //{
+        //    levelText.text = "Instruction";
+        //}
+        //else
+        //{
+        //    levelText.text = $"Level 1";
+        //}
         //levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         //if (!dialogManager.isInstructionShown)
         //{
@@ -330,7 +332,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void ShowEndScreen()
     {
-        PushPanel(endScreen);
+        //PushPanel(endScreen);
     }
 
     public void ToggleHouseIcons(bool state)
@@ -345,4 +347,10 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     //    PushPanel(dialogManager.gameObject);
     //    //dialogManager.EndDialog();
     //}
+
+    public void ShowStarScreen()
+    {
+        starScreen.gameObject.SetActive(true);
+        starScreen.ShowStars();
+    }
 }

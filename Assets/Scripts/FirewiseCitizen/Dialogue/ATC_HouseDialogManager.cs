@@ -359,6 +359,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         optionMessageBubbles.Clear();
         characterPortrait.gameObject.SetActive(false);
         ResetScrollPosition();
+        DOTween.KillAll();
     }
 
     public void SetSkipButton(bool isActive)

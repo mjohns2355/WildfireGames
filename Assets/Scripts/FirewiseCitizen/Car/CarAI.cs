@@ -216,8 +216,8 @@ public class CarAI : MonoBehaviour
             }
 
             GameManager.Instance.carsEvacuated++;
-            ATC_AIDirector.Instance.spawnedCarNum--;
-            if(ATC_AIDirector.Instance.spawnedCarNum == 0)
+            ATC_AIDirector.Instance.currentCarNum--;
+            if(ATC_AIDirector.Instance.currentCarNum == 0)
             {
                 GameManager.Instance.lastEvacCarTimeStamp = GameManager.Instance.SimTimer;
             }

@@ -49,7 +49,7 @@ public class HouseStructure : Structure
     [SerializeField] MeshRenderer currentHouseModel;
     ATC_StructureModel targetShelter;
     List<ATC_StructureModel> destinations;
-    float spawnCarChance = 0.9f;
+
     bool followedOrder = false;
 
     private void Awake()
@@ -120,8 +120,9 @@ public class HouseStructure : Structure
         //Debug.Log("Init Main House");
         // only main house has info
         contextMenu.gameObject.SetActive(true);
-        var isFirstSim = GameManager.Instance.IsFirstSim;
-        contextMenu.icon.gameObject.SetActive(!isFirstSim);
+        //var isFirstSim = GameManager.Instance.IsFirstSim;
+        //contextMenu.icon.gameObject.SetActive(!isFirstSim);
+        contextMenu.icon.gameObject.SetActive(true);
         ATC_UIController.Instance.AddMenu(contextMenu);
         var model = GetComponent<ATC_StructureModel>();
         roadPosition = model.RoadPosition;
@@ -218,13 +219,12 @@ public class HouseStructure : Structure
         foreach(var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
             //var currentChoice = GetCurrentChoice(currentOption);
-           
-            // 50% resident don't follow the instruction
+     
             if (!currentChoice.isNormal)
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
-                //Make sure at least one type of house doesn't follow the instruction
-                if (GameManager.Instance.CountFollowedInstructions() == 0 || rng > 0.5)
+               
+                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > GameManager.Instance.houseFollowOrderChance)
                 {
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
@@ -252,7 +252,14 @@ public class HouseStructure : Structure
     {
         foreach (var house in sameTypeHouses)
         {
+            //Debug.Log($"{house.houseType} applies {choice.choiceName},car num mod: {choice.carNumberMod}");
             choice.ApplyEffect(house);
+        }
+
+        if (isMainHouse)
+        {
+            choice.ApplyEffect(this);
+            choice.ApplySpecialEffect(this);
         }
         Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
@@ -267,30 +274,36 @@ public class HouseStructure : Structure
         yield return new WaitForSeconds(carSpawnWaitTime);
 
         //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
-        //destination shelter
-
+        //make sure main house also spawn car
+        SpawnCar(this);
         foreach (var house in sameTypeHouses)
         {
-            if (UnityEngine.Random.Range(0f, 1f) < spawnCarChance)
+            SpawnCar(house);
+        }
+    }
+
+    private void SpawnCar(HouseStructure house)
+    {
+        if (UnityEngine.Random.Range(0f, 1f) < GameManager.Instance.spawnCarChance)
+        {
+            if (HasKidsToPickUp && followedOrder)
             {
-                if (HasKidsToPickUp && followedOrder)
-                {
-                    var school = GameManager.Instance.structureManager.specialStructureDict[StructureType.School];
-                    var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
-                    SetDestination(new List<ATC_StructureModel> { school, shelter });
-                    //Debug.Log("Added School to destinations");  
-                    ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(),destinations, carSpeed, carNum);
-                }
-                else
-                {
-                    ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), destinations.Last(), carSpeed, carNum);
-                }
+                var school = GameManager.Instance.structureManager.specialStructureDict[StructureType.School];
+                var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
+                SetDestination(new List<ATC_StructureModel> { school, shelter });
+                //Debug.Log("Added School to destinations");  
+                ATC_AIDirector.Instance.SpawnCarWithMultipleStops(house.GetComponent<ATC_StructureModel>(), destinations, carSpeed, carNum);
+            }
+            else
+            {
+                ATC_AIDirector.Instance.SpawnACar(house.GetComponent<ATC_StructureModel>(), destinations.Last(), carSpeed, carNum);
             }
         }
     }
 
     public void RelocateSecondCar()
     {
+
         var shelter = targetShelter.GetComponent<ShelterStructure>();
         shelter.RelocateCarToShelter();
     }
