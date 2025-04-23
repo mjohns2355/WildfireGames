@@ -83,7 +83,7 @@ public class StructureContextMenu : MonoBehaviour
         owner.outline.enabled = false;
         ATC_UIController.Instance.toolsBar.SetActive(false);
         if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
-        ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
+        //ATC_UIController.Instance.houseDialogManager.canShowSkipButton = isSelected;
         if (isSelected)
         {
             GameManager.Instance.cameraMovement.MoveToHouse(owner, false);

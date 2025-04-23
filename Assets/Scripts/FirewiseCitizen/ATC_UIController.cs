@@ -7,22 +7,25 @@ using System.Collections;
 using DG.Tweening;
 public class ATC_UIController : UnitySingleton<ATC_UIController>
 {
-    public GameObject canvas;
+    //public GameObject canvas;
     public GameObject popUp;
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
     public ATC_HouseDialogManager houseDialogManager;
+    public FC_StarScreen starScreen;
     //public GameObject toolsBar;
     public GameObject replayOverlay;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
-    public GameObject endScreen;
-    public GameObject learnMorePanel;
+    //public GameObject endScreen;
+    public GameObject learnMorePanel, restartPrompt;
     public TextMeshProUGUI levelText;
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
+    public CanvasGroup loadingScreen;
+    public float loadingTime;
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
@@ -32,7 +35,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     private void Start()
     {
         //buildingMenu.SetActive(false);
-        levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
+        levelText.text = $"Level {GameManager.Instance.currentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePause();
@@ -69,7 +72,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             start.interactable = true;
             learnMore.interactable = true;
         });
-
+        HideLoadingScreen();
         //restartGame.onClick.AddListener(() =>
         //{
         //    GameManager.Instance.ResetGame(0);
@@ -291,16 +294,17 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
+        starScreen.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
-        if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
-        {
-            levelText.text = "Instruction";
-        }
-        else
-        {
-            levelText.text = $"Level 1";
-        }
+        //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
+        //{
+        //    levelText.text = "Instruction";
+        //}
+        //else
+        //{
+        //    levelText.text = $"Level 1";
+        //}
         //levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
         //if (!dialogManager.isInstructionShown)
         //{
@@ -330,7 +334,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void ShowEndScreen()
     {
-        PushPanel(endScreen);
+        //PushPanel(endScreen);
     }
 
     public void ToggleHouseIcons(bool state)
@@ -345,4 +349,29 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     //    PushPanel(dialogManager.gameObject);
     //    //dialogManager.EndDialog();
     //}
+
+    public void ShowStarScreen()
+    {
+        starScreen.gameObject.SetActive(true);
+        starScreen.ShowStars();
+    }
+
+    public void ShowLoadingScreen()
+    {
+        loadingScreen.blocksRaycasts = true;
+        loadingScreen.alpha = 1;
+        GameManager.Instance.canControlCam = false;
+        DOVirtual.DelayedCall(loadingTime, () =>
+        {
+            loadingScreen.DOFade(0, 0.5f).SetEase(Ease.InOutQuad).OnComplete(HideLoadingScreen);
+        });
+        
+    }
+
+    public void HideLoadingScreen()
+    {
+        loadingScreen.blocksRaycasts = false;
+        GameManager.Instance.canControlCam = true;
+        loadingScreen.alpha = 0;
+    }
 }

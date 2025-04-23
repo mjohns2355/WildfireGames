@@ -24,16 +24,18 @@ public class GameManager : UnitySingleton<GameManager>
     public List<HouseType> availableHouseTypes;
     public UnityEvent SimStartsEvent;
     public UnityEvent SimEndsEvent;
-    public int CurrentLevel { get; private set; }
-    public int carsEvacuated, housesDestroyed, carsNotEvacuated = 0;
+    public int currentLevel = 0;
+    public int carsEvacuated, housesDestroyed, carsNotEvacuated, totalCars, totalHouses = 0;
     public float firstEvacCarTimeStamp, lastEvacCarTimeStamp = 0f;
-
+    [Range(0,1f)]
+    public float houseFollowOrderChance,spawnCarChance = 1f;
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
     public float simulationTime = 70f;
     public bool SimIsEnd { get; private set; }
     public bool canControlCam;
-    public bool IsLastLevel { get { return CurrentLevel + 1 > 1; } }
+    public int levelNum = 3;
+    public bool IsLastLevel { get { return currentLevel + 1 == levelNum; } }
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
@@ -56,7 +58,7 @@ public class GameManager : UnitySingleton<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
         SimTimer = 0f;
         //Time.timeScale = GameSpeed = 2f;
-        CurrentLevel = 0;
+        currentLevel = 0;
         tutorialManager.InitTutorialManager();
         canControlCam = false;
         DOTween.Clear(true);
@@ -191,7 +193,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             lastEvacCarTimeStamp = SimTimer;
         }
-        carsNotEvacuated = ATC_AIDirector.Instance.spawnedCarNum;
+        carsNotEvacuated = ATC_AIDirector.Instance.currentCarNum;
 
         SaveResults();
     }
@@ -239,7 +241,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-        fireSFX.Play();
+
         if (!IsFirstSim)
         {
             //Time.timeScale = GameSpeed = 1f ;
@@ -263,6 +265,7 @@ public class GameManager : UnitySingleton<GameManager>
     IEnumerator StartSimRoutine()
     {
         yield return new WaitUntil(()=>canStartSim);
+        fireSFX.Play();
         SimStartsEvent.Invoke();
         SimIsEnd = false;
         foreach(var menu in ATC_UIController.Instance.contextMenus)
@@ -271,7 +274,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
         //debug
 #if UNITY_EDITOR
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(20f);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
 #endif
     }
@@ -300,8 +303,9 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void ResetGame()
     {
-        Debug.Log(currentStage);
-        if(!IsFirstSim && currentStage!= LevelStage.Tutorial) {
+        ATC_UIController.Instance.ShowLoadingScreen();
+        //Debug.Log(currentStage);
+        if (!IsFirstSim && currentStage!= LevelStage.Tutorial) {
             currentStage = LevelStage.PhaseOne;
         }
         firstEvacCarTimeStamp = 0f;
@@ -322,18 +326,19 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
 
-        //SceneManager.LoadScene(CurrentLevel);
+        var currentLevel = "FC_Level" + this.currentLevel.ToString();
+        SceneManager.LoadScene(currentLevel);
         //TO-DO: Multiple levels
-        SceneManager.LoadScene("FC_Level0");
+        //SceneManager.LoadScene("FC_Level0");
 
     }
 
     public void RestartGame()
     {
-        CurrentLevel = 0;
-        currentStage = LevelStage.BeforeFirstSim;
+        currentLevel = 0;
+        //currentStage = LevelStage.BeforeFirstSim;
         //Time.timeScale = GameSpeed = 2f;
-        ATC_UIController.Instance.startPrompt.SetActive(true);
+        //ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
     }
     public void BackToMainMenu()
@@ -347,6 +352,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     public void RestartGameFromTutorial()
     {
+        currentLevel = 0;
         ResetGame();
         
         tutorialManager.ReloadTutorial();
@@ -354,17 +360,20 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void NextLevel()
     {
-        CurrentLevel++;
+        currentLevel++;
         previousLastEvacTime = previousFirstEvacTime = 0f;
         previousHousesDestroyed = 0;
-        currentStage = LevelStage.BeforeFirstSim;
+        //currentStage = LevelStage.BeforeFirstSim;
+        SkipSimulationRec();
         ResetGame();
 
         //previousHousesDestroyed = previousCarsEvacuated = 0;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "FC_Level0") return;
+        //DOTween.Clear(true);
+        if (scene.name == "MainMenu") return;
+        
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();
@@ -376,7 +385,6 @@ public class GameManager : UnitySingleton<GameManager>
             tutorialManager.InitTutorialManager();
             
         }
-        DOTween.Clear(true);
 
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
@@ -384,14 +392,14 @@ public class GameManager : UnitySingleton<GameManager>
 
     void InitiAvailableHouseType()
     {
-        if(availableHouseTypes.Count > 0)
+        if (availableHouseTypes.Count > 0)
         {
             availableHouseTypes.Clear();
         }
-        availableHouseTypes = Enum.GetValues(typeof(HouseType))
-                                     .Cast<HouseType>()
-                                     .Where(type => type != HouseType.none)
-                                     .ToList();
+        //availableHouseTypes = Enum.GetValues(typeof(HouseType))
+        //                             .Cast<HouseType>()
+        //                             .Where(type => type != HouseType.none)
+        //                             .ToList();
         //if (CurrentLevel == 0)
         //{
         //    availableHouseTypes.Add(HouseType.twoCar);
@@ -409,6 +417,27 @@ public class GameManager : UnitySingleton<GameManager>
         //        availableHouseTypes.Add(houseType);
         //    }
         //}
+
+        switch (currentLevel)
+        {
+            case 0:
+                availableHouseTypes.Add(HouseType.twoCar);
+                availableHouseTypes.Add(HouseType.wui);
+                break;
+            case 1:
+                availableHouseTypes.Add(HouseType.twoCar);
+                availableHouseTypes.Add(HouseType.wui);
+                availableHouseTypes.Add(HouseType.kids);
+                availableHouseTypes.Add(HouseType.elderly);
+                break;
+            case 2:
+                availableHouseTypes.Add(HouseType.twoCar);
+                availableHouseTypes.Add(HouseType.wui);
+                availableHouseTypes.Add(HouseType.kids);
+                availableHouseTypes.Add(HouseType.elderly);
+                availableHouseTypes.Add(HouseType.pet);
+                break;
+        }
     }
 
     public int CountFollowedInstructions()

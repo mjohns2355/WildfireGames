@@ -15,8 +15,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public Transform messagebBubblesContainer;
     [Range(0.01f, 0.05f)]
     public float waitTimePerCharacter = 0.01f;
-    [Range(0f, 2f)]
-    public float baseWaitTime = 1;
+    [Range(0f, 5f)]
+    public float clickCooldown = 1f;
     public ScrollRect scrollRect;
     //[SerializeField] private Button[] optionButtons; // Buttons for responses
     private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
@@ -89,7 +89,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
         {
             canClick = false;
-            DOVirtual.DelayedCall(baseWaitTime, () => canClick = true); //cooldown
+            DOVirtual.DelayedCall(clickCooldown, () => canClick = true); //cooldown
 
             isWaitingForPlayer = false;
             ProceedToNextNode();
@@ -137,7 +137,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
             {
                 DisplayCurrentNode();
                 canClick = true;
+            }).OnComplete(() =>
+            {
+                SetSkipButton(true);
             });
+
 
         }
         else
@@ -216,7 +220,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
        
         if (!string.IsNullOrEmpty(selectedOption.messageText))
         {
-            text = currentNode.options[optionIndex].messageText;
+            text = selectedOption.messageText;
         }
         else
         {
@@ -236,7 +240,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             return;
         }
-        float delayTime = baseWaitTime + text.Length * waitTimePerCharacter;
+        float delayTime = clickCooldown + text.Length * waitTimePerCharacter;
 
         StartCoroutine(OptionSelectedRoutine(delayTime,selectedOption));
 
@@ -269,7 +273,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             var index = i;
             var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, null, false, true,false);
 
-            // Add click listener
+            // what happen after palyer clicks the option
             optionBubble.messageBox.onClick.AddListener(() =>
             {
                 OnOptionSelected(index);
@@ -355,6 +359,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
         optionMessageBubbles.Clear();
         characterPortrait.gameObject.SetActive(false);
         ResetScrollPosition();
+        DOTween.KillAll();
+    }
+
+    public void SetSkipButton(bool isActive)
+    {
+        if (!canShowSkipButton) return;
+        skipButton.gameObject.SetActive(isActive);
     }
 
 }

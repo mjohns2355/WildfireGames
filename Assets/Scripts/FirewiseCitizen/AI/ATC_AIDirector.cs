@@ -16,7 +16,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     ATC_StructureModel startStructure;
     ATC_StructureModel endStructure;
 
-    public int spawnedCarNum = 0;
+    public int spawnedCarNum, currentCarNum = 0;
 
     //random destination
     public void SpawnACar()
@@ -136,6 +136,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
                 //debug
                 spawnedCarNum++;
+                currentCarNum++;
             }
             else
             {
@@ -238,6 +239,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
                 //debug
                 spawnedCarNum++;
+                currentCarNum++;
             }
             else
             {
@@ -251,6 +253,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
         Debug.Log("Respawn Car");
         //debug
         spawnedCarNum--;
+        currentCarNum--;
         if (endStructures.Count == 1)
         {
             SpawnACar(startStructure, endStructures[0], carSpeed, carNum);

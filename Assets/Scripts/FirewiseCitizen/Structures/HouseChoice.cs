@@ -25,7 +25,7 @@ public class HouseChoice
 
     float carSpawnTimeMod = 0;
 
-    void ApplySpecialEffect(HouseStructure owner)
+    public void ApplySpecialEffect(HouseStructure owner)
     {
         switch (choiceName)
         {
@@ -49,10 +49,7 @@ public class HouseChoice
     }
     public void ApplyEffect(HouseStructure owner)
     {
-        if (owner.isMainHouse)
-        {
-            ApplySpecialEffect(owner);
-        }
+
         //CheckChocieBehavior(owner.currentOption);
         if (carSpeedMod != CarSpeed.none)
         {
