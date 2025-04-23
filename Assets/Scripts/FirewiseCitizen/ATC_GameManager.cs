@@ -241,7 +241,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartSimulation()
     {
-        fireSFX.Play();
+
         if (!IsFirstSim)
         {
             //Time.timeScale = GameSpeed = 1f ;
@@ -265,6 +265,7 @@ public class GameManager : UnitySingleton<GameManager>
     IEnumerator StartSimRoutine()
     {
         yield return new WaitUntil(()=>canStartSim);
+        fireSFX.Play();
         SimStartsEvent.Invoke();
         SimIsEnd = false;
         foreach(var menu in ATC_UIController.Instance.contextMenus)
@@ -302,8 +303,9 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void ResetGame()
     {
+        ATC_UIController.Instance.ShowLoadingScreen();
         //Debug.Log(currentStage);
-        if(!IsFirstSim && currentStage!= LevelStage.Tutorial) {
+        if (!IsFirstSim && currentStage!= LevelStage.Tutorial) {
             currentStage = LevelStage.PhaseOne;
         }
         firstEvacCarTimeStamp = 0f;
@@ -350,6 +352,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     public void RestartGameFromTutorial()
     {
+        currentLevel = 0;
         ResetGame();
         
         tutorialManager.ReloadTutorial();
@@ -368,7 +371,9 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //DOTween.Clear(true);
         if (scene.name == "MainMenu") return;
+        
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();
@@ -380,7 +385,6 @@ public class GameManager : UnitySingleton<GameManager>
             tutorialManager.InitTutorialManager();
             
         }
-        DOTween.Clear(true);
 
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();

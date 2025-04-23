@@ -26,10 +26,9 @@ public class Structure : MonoBehaviour
                 OnStructureClick();
             }
         };
-        DOVirtual.DelayedCall(0.2f, () =>
-        {
-            roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
-        });
+
+        StartCoroutine(DelayedRoadPosition());
+
     }
     virtual public void OnStructureClick()
     {
@@ -51,4 +50,14 @@ public class Structure : MonoBehaviour
         //outline.enabled = true;
     }
 
+    IEnumerator DelayedRoadPosition()
+    {
+        yield return new WaitForSeconds(0.1f);
+        roadPosition = GetComponent<ATC_StructureModel>().RoadPosition;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
 }

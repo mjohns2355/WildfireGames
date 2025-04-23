@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class FC_StarScreen : MonoBehaviour
 {
     public GameObject starsContainer, buttonsContainer;
     public Sprite greyStar, yellowStar;
-    public Button restart, nextLevel, mainMenu;
+    public Button restart, nextLevel, mainMenu,restartFromBeginning;
 
     const int HOUSE_PENALTY = 50;
     const int CAR_PENALTY = 50;
@@ -16,6 +17,7 @@ public class FC_StarScreen : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+       
         //Debug.Log("Star Container Count: " + starsContainer.transform.childCount);
         for (int i = 0; i< starsContainer.transform.childCount; i++)
         {
@@ -25,7 +27,13 @@ public class FC_StarScreen : MonoBehaviour
         restart.onClick.AddListener(() => { GameManager.Instance.ResetGame(); });
         nextLevel.onClick.AddListener(() => { GameManager.Instance.NextLevel(); });
         mainMenu.onClick.AddListener(() => { GameManager.Instance.BackToMainMenu(); });
+        restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGameFromTutorial(); });
+
+        nextLevel.gameObject.SetActive(!GameManager.Instance.IsLastLevel);
+        restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
     }
+
+
 
     private void OnDisable()
     {
@@ -42,9 +50,9 @@ public class FC_StarScreen : MonoBehaviour
 
         float ratio = 1f - Mathf.Clamp01((float)damage / maxPenalty);
         Debug.Log("Damage: " + damage + " ,Max Penalty: " + maxPenalty + " ,Ratio: " + ratio);
-        if (ratio >= 0.7f) return 3;
-        if (ratio >= 0.5f) return 2;
-        if (ratio >= 0.2f) return 1;
+        if (ratio >= 0.8f) return 3;
+        if (ratio >= 0.6f) return 2;
+        if (ratio >= 0.4f) return 1;
         return 0;
     }
 

@@ -24,6 +24,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
+    public CanvasGroup loadingScreen;
+    public float loadingTime;
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
@@ -70,7 +72,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             start.interactable = true;
             learnMore.interactable = true;
         });
-
+        HideLoadingScreen();
         //restartGame.onClick.AddListener(() =>
         //{
         //    GameManager.Instance.ResetGame(0);
@@ -352,5 +354,24 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         starScreen.gameObject.SetActive(true);
         starScreen.ShowStars();
+    }
+
+    public void ShowLoadingScreen()
+    {
+        loadingScreen.blocksRaycasts = true;
+        loadingScreen.alpha = 1;
+        GameManager.Instance.canControlCam = false;
+        DOVirtual.DelayedCall(loadingTime, () =>
+        {
+            loadingScreen.DOFade(0, 0.5f).SetEase(Ease.InOutQuad).OnComplete(HideLoadingScreen);
+        });
+        
+    }
+
+    public void HideLoadingScreen()
+    {
+        loadingScreen.blocksRaycasts = false;
+        GameManager.Instance.canControlCam = true;
+        loadingScreen.alpha = 0;
     }
 }
