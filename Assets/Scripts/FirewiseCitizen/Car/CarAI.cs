@@ -30,6 +30,8 @@ public class CarAI : MonoBehaviour
     private float drivingTimer = 0;
 
     float changeDirChance = 1f;
+
+
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -41,7 +43,7 @@ public class CarAI : MonoBehaviour
     private bool stop;
     public bool collisionStop = false;
     private bool noStops = false;
-
+    Combustible combustible;
     public bool Stop
     {
         get { return stop || collisionStop; }
@@ -53,13 +55,30 @@ public class CarAI : MonoBehaviour
 
     private void Start()
     {
-        if(path == null || path.Count == 0)
+        if (path == null || path.Count == 0)
         {
             Stop = true;
         }
         else
         {
             currentTargetPosition = path[index];
+        }
+
+        combustible = GetComponentInChildren<Combustible>();
+        if (combustible)
+        {
+            combustible.OnIgnite.AddListener(() =>
+            {
+                if (Stop) return;
+                Debug.Log("Car on fire");
+                Stop = true;
+            });
+
+            combustible.OnStopIgniting.AddListener(() =>
+            {
+                if (!Stop) return;
+                Stop = false;
+            });
         }
     }
 
@@ -123,7 +142,7 @@ public class CarAI : MonoBehaviour
     }
     private void CheckForCollisions()
     {
-        if(Physics.Raycast(raycastStartingPoint.transform.position, transform.forward,collisionRaycastLength, 1 << gameObject.layer))
+        if (Physics.Raycast(raycastStartingPoint.transform.position, transform.forward, collisionRaycastLength, 1<<gameObject.layer))
         {
             collisionStop = true;
         }
@@ -132,7 +151,7 @@ public class CarAI : MonoBehaviour
             collisionStop = false;
             jamTimer = 0;
         }
-       
+        //Debug.DrawRay(raycastStartingPoint.transform.position, transform.forward* collisionRaycastLength, Color.red);
 
     }
 
@@ -171,6 +190,12 @@ public class CarAI : MonoBehaviour
             if(Vector3.Distance(currentTargetPosition,transform.position) < distanceToCheck)
             {
                 SetNextTargetIndex();
+            }
+            // Avoid changing direction when car is close to destination
+            if (Vector3.Distance(path[^1],transform.position) < 3f)
+            {
+                //Debug.Log("Close to destination");
+                changeDirChance = 0;
             }
         }
     }
@@ -238,6 +263,7 @@ public class CarAI : MonoBehaviour
             sawFire = true;
             HandleFireDetection();
         }
+
     }
 
     private void HandleFireDetection()

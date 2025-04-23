@@ -78,23 +78,21 @@ public class FC_TutorialManager : MonoBehaviour
             isFirstTimeTutorial = false;
             houseDialogManager.OnDialogueComplete = null;
             GameManager.Instance.cameraMovement.ResetCam();
-            DOVirtual.DelayedCall(1f, () =>
+            houseDialogManager.EndDialog();
+
+            // hide all the house icons
+            foreach (var menu in ATC_UIController.Instance.contextMenus)
             {
-                houseDialogManager.EndDialog();
+                menu.icon.gameObject.SetActive(false);
+            }
 
-                // hide all the house icons
-                foreach (var menu in ATC_UIController.Instance.contextMenus)
-                {
-                    menu.icon.gameObject.SetActive(false);
-                }
-
-                //clear choice
-                GameManager.Instance.structureManager.GetPlayerChoicesDict().Clear();
-                tutorialHouse.contextMenu.isSelected = false;
-                tutorialHouse.contextMenu.icon.ToggleIconState(true);
-                houseDialogManager.isWaitingForPlayer = true;
-                StartTutorial();
-            });
+            //clear choice
+            GameManager.Instance.structureManager.GetPlayerChoicesDict().Clear();
+            tutorialHouse.contextMenu.isSelected = false;
+            tutorialHouse.contextMenu.icon.ToggleIconState(true);
+            tutorialHouse.outline.enabled = false;
+            houseDialogManager.isWaitingForPlayer = true;
+            ReloadTutorial();
 
         }
         //dialog will only display after player selected options

@@ -73,7 +73,7 @@ public class FireMovementController : MonoBehaviour
             return;
         }
 
-        if (hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure"))
+        if (hit.layer == LayerMask.NameToLayer("Nature") || hit.layer == LayerMask.NameToLayer("Structure") || hit.layer == LayerMask.NameToLayer("Car"))
         {
             Combustible obj;
             if (hit.TryGetComponent(out obj) && obj != null)
@@ -140,11 +140,22 @@ public class FireMovementController : MonoBehaviour
         fireSize = minSize;
         yield return new WaitForSeconds(10f);
         //Debug.Log("Destroy Fire");
-        if(combustible != null && combustible.gameObject.layer != 7 && combustible.burned)
+        if(combustible != null && combustible.burned)
         {
+            switch(combustible.gameObject.layer)
+            {
+                case 10:
+                    //Debug.Log("Burned Structure");
+                    Instantiate(Resources.Load("Burned"), combustible.transform.position, combustible.transform.rotation, combustible.transform.parent);
+                    Destroy(combustible.gameObject);
+                    break;
+                case 9:
+                    //Debug.Log("Burned Car");
+                    Destroy(combustible.transform.parent.gameObject);
+                    break;
 
-            Instantiate(Resources.Load("Burned"), combustible.transform.position, combustible.transform.rotation, combustible.transform.parent);
-            Destroy(combustible.gameObject);
+            }
+            
         }
         Destroy(gameObject);
     }

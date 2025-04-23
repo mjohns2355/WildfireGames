@@ -13,8 +13,11 @@ public class Combustible : MonoBehaviour
     [SerializeField]protected Color burntColor;
     FireMovementController fire;
     [SerializeField]protected float waitTimeBeforeCatchOnFire;
+    [SerializeField]protected float particleScale = 0.3f;
     public UnityEvent OnIgnite;
+    public UnityEvent OnStopIgniting;
     public bool burned = false;
+    public bool canBurn = true;
     protected float burnTime = 0;
 
     //private ATC_dialogManager dialog;
@@ -23,9 +26,12 @@ public class Combustible : MonoBehaviour
     public virtual void Start()
     {
         waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
-        meshes = GetComponentsInChildren<MeshRenderer>()
+        if(meshes.Count == 0)
+        {
+            meshes = GetComponentsInChildren<MeshRenderer>()
             .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
             .ToList();
+        }
         //dialog = GameObject.FindGameObjectWithTag("Dialog").GetComponent<ATC_dialogManager>();
        
     }
@@ -33,6 +39,7 @@ public class Combustible : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
+        if (!canBurn) return;
         if (isOnfire && !burned)
         {
             burnTime += Time.deltaTime;
@@ -42,7 +49,10 @@ public class Combustible : MonoBehaviour
             }
             if(burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
             {
-                GameManager.Instance.housesDestroyed++;
+                if(gameObject.layer == LayerMask.NameToLayer("Structure"))
+                {
+                    GameManager.Instance.housesDestroyed++;
+                }
                 //dialog.houseDestroyed++;
                 burned = true;
             }
@@ -51,6 +61,7 @@ public class Combustible : MonoBehaviour
 
     public virtual void CatchOnFire()
     {
+        if (!canBurn) return;
         if (isOnfire || burned) return;
         //if (fire != null && fire.isInFireSafeZone) return;
 
@@ -64,6 +75,25 @@ public class Combustible : MonoBehaviour
         
     }
 
+    public virtual void StopFire()
+    {
+        StopAllCoroutines();
+        OnStopIgniting.Invoke();
+        isOnfire = false;
+
+        var fires = GetComponentsInChildren<FireMovementController>();
+
+        foreach(var f in fires)
+        {
+            Destroy(f.gameObject);
+        }
+
+        if (fire != null)
+        {
+            fire = null;
+        }
+
+    }
     
     public virtual IEnumerator CatchOnFireRoutine()
     {
@@ -71,7 +101,7 @@ public class Combustible : MonoBehaviour
         if (!GameManager.Instance.SimIsEnd)
         {
 
-            GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, 0.3f, true);
+            GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, particleScale, true);
             
             isOnfire = true;
             fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
@@ -93,8 +123,19 @@ public class Combustible : MonoBehaviour
         // Check for fire-safe zone first
         if (hit.layer == LayerMask.NameToLayer("FireSafe"))
         {
-            this.enabled = false;
+            StopFire();
+            canBurn = false;
+
             return;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var hit = other.gameObject;
+        if (hit != null && hit.layer == LayerMask.NameToLayer("FireSafe"))
+        {
+            canBurn = true;
         }
     }
 

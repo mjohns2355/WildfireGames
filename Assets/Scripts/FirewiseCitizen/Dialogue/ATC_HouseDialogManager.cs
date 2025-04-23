@@ -124,6 +124,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     // inDialogue means start dialog it the middle of another dialogue
     public void StartDialogue(string key, bool inDialogue = false)
     {
+
         topEdgeFade.alpha = 0;
         this.key = key;
         //nextButton.onClick.RemoveAllListeners();
@@ -131,6 +132,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
             if (inDialogue) return;
+            ClearMessages();
             isWaitingForPlayer = false;
             canClick = false;
             DOVirtual.DelayedCall(1f, () =>

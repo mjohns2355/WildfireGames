@@ -11,6 +11,11 @@ public class ATC_carHonks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // only 50% cars honks
+        if(Random.Range(0,1f) < 0.5f)
+        {
+            enabled = false;
+        }
         GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.25f);
         GetComponent<AudioSource>().volume = Random.Range(0.6f, 1);
         car = GetComponentInParent<CarAI>();
