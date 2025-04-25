@@ -10,6 +10,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
     public float fireTimer = 60f;
+    public float fireChance = 0.5f; // 50% chance to start fire
     public Action OnRoundStart, OnRoundEnd;
     public Action<bool> OnPlantModeChanged;
     public HH_UIManager uiManager;
@@ -141,6 +142,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //    cameraController.Zoomcamera(h2CamPos, true, 60);
         //    return;
         //}
+
         currentPlayer.OnHouseDeselected();
         List<HousePartInfo> ownedPublicFences = new List<HousePartInfo>();
         if (currentPlayer != null && currentPlayer.inventory.ownedPublicParts[HousePartType.Fence] != null)
@@ -150,11 +152,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         uiManager.HideStoreScreen();
         uiManager.HidePlantsMenu();
         IsPlantMode = false;
-        if (playerTag == "p1")
+        if (playerTag == "P1")
         {
             currentPlayer = p1;
         }
-        else if(playerTag == "p2")
+        else if(playerTag == "P2")
         {
             currentPlayer = p2;
         }
@@ -207,13 +209,23 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         uiManager.ToggleEarnMoreMoneyButton(false);
     }
 
+    // player 1 and player 2 finished upgrade
     public void EndRound()
     {
         SetRoundStart(false);
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         //uiManager.OnRoundEnd();
-        StartFire();
+        var rng = UnityEngine.Random.Range(0, 1f);
+        if (rng < fireChance)
+        {
+            StartFire();
+        }
+        else
+        {
+            p1.CalculateRating();
+            p2.CalculateRating();
+        }
         //startFireBtn.gameObject.SetActive(true);
 
         p1.nameText.SetActive(false);

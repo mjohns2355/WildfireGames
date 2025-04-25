@@ -10,6 +10,7 @@ using UnityEngine;
         public float durability;
         public float flammability;
         public Sprite icon;
+        public MaterialClass materialClass;
         [TextArea]
         public string description;
     }

@@ -22,6 +22,7 @@ namespace HappyHouse.HouseSystem
         public Vector3 positionOffset;
         public float scaleMultiplier;
         public GameObject /*craftIcon, */arrowUI, nameText;
+        // chance for upgrading at the start of the game
         [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
@@ -29,6 +30,9 @@ namespace HappyHouse.HouseSystem
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
+        public List<FF_Plants> ownedPlants;
+        Dictionary<HousePartType,MaterialClass> upgradeClassDictionary = new Dictionary<HousePartType, MaterialClass>();
+
         private void Start()
         {
             DOVirtual.DelayedCall(0.2f, () =>
@@ -79,7 +83,6 @@ namespace HappyHouse.HouseSystem
                     }
                 }
             }
-
             if (!HH_GameManager.Instance.isTutorial)
             {
                 StartCoroutine(RandomizeStartingCondition());
@@ -96,6 +99,7 @@ namespace HappyHouse.HouseSystem
             part.houseNode = node;
             nodeDictionary[part.name] = node;
             inventory.AddNewPartToInventory(part.partInfo);
+            AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
@@ -181,7 +185,7 @@ namespace HappyHouse.HouseSystem
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {housePartInfo.housePartType} is in use");
-
+            AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
             foreach (var oldPart in oldParts)
             {
 
@@ -351,6 +355,7 @@ namespace HappyHouse.HouseSystem
                             oldPart.InitHousePartObject(this, res);
                         }
                         inventory.AddNewPartToInventory(res);
+                        AddMaterialToDictionary(res.housePartType, res.materialClass);
                     }
 
 
@@ -364,12 +369,12 @@ namespace HappyHouse.HouseSystem
                 var anotherHouse = playerTag == "P1" ? HH_GameManager.Instance.p2 : HH_GameManager.Instance.p1;
                 var rng = UnityEngine.Random.value;
                 var anotherHouseWall = anotherHouse.GetCurrentInUseHousePartObjectOf(HousePartType.Wall).partInfo;
-                if (rng < brickWallChance / 10f && anotherHouseWall.partClass != MaterialClass.B)
+                if (rng < brickWallChance / 10f && anotherHouseWall.materialClass != MaterialClass.B)
                 {
                     // brick
                     upgradeCount++;
 
-                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.B);
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.materialClass == MaterialClass.B);
                     return material;
                 }
                 if (rng < stuccoWallChance / 10f)
@@ -377,7 +382,7 @@ namespace HappyHouse.HouseSystem
                     //stucco
                     upgradeCount++;
 
-                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.partClass == MaterialClass.C);
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Wall].Find(x => x.materialClass == MaterialClass.C);
                     return material;
                 }
                 return material;
@@ -393,7 +398,7 @@ namespace HappyHouse.HouseSystem
                 {
                     //composite
                     upgradeCount++;
-                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Roof].Find(x => x.partClass == MaterialClass.C);
+                    material = ResourceManager.Instance.allAvailableParts[HousePartType.Roof].Find(x => x.materialClass == MaterialClass.C);
 
                 }
 
@@ -408,7 +413,7 @@ namespace HappyHouse.HouseSystem
                 if (rng < otherPartUpgradeChance / 10f)
                 {
                     upgradeCount++;
-                    material = ResourceManager.Instance.allAvailableParts[type].Find(x => x.partClass == MaterialClass.A);
+                    material = ResourceManager.Instance.allAvailableParts[type].Find(x => x.materialClass == MaterialClass.A);
                 }
 
                 return material;
@@ -429,6 +434,60 @@ namespace HappyHouse.HouseSystem
             if (totalPartsCount == 0) return 0;
             burnedPercent = (float)burnedPartsCount / totalPartsCount;
             return (int) (burnedPercent * 100f);
+        }
+
+        public float CalculateRating ()
+        {
+            //float totalScore = 0f;
+            //float totalParts = 0f;
+            //foreach (var pair in upgradeClassDictionary)
+            //{
+            //    Debug.Log($"{pair.Key}'s mateiral is {pair.Value}");
+            //    totalScore += pair.Value.GetMaterialScore();
+            //    totalParts++;
+            //}
+            //Debug.Log($" {playerTag}'s Rating: {totalScore / totalParts}");
+            //return totalScore / totalParts;
+            float totalWeightedScore = 0f;
+            float totalWeight = 0f;
+            foreach (var pair in upgradeClassDictionary)
+            {
+                //Debug.Log($"{pair.Key}'s mateiral is {pair.Value}");
+                float materialScore = pair.Value.GetMaterialScore();
+                totalWeightedScore += materialScore * pair.Key.GetHousePartWeight();
+                totalWeight += pair.Key.GetHousePartWeight();
+            }
+
+            // no plants should get full score
+            if (ownedPlants.Count == 0)
+            {
+                totalWeightedScore += 10 * 3 * 0.1f;
+                totalWeight += 0.3f;
+            }
+            else
+            {
+                foreach (var plant in ownedPlants)
+                {
+                    totalWeightedScore += plant.combustibleInfo.materialClass.GetMaterialScore() * 0.1f;
+                    totalWeight += 0.1f;
+                }
+            }
+            var res = totalWeight > 0 ? totalWeightedScore / totalWeight : 0;
+            Debug.Log($" {playerTag}'s Rating: {res}");
+            return totalWeight > 0 ? totalWeightedScore / totalWeight : 0;
+        }
+
+        public void AddMaterialToDictionary(HousePartType type, MaterialClass materialClass)
+        {
+            if (upgradeClassDictionary.ContainsKey(type))
+            {
+                upgradeClassDictionary[type] = materialClass;
+            }
+            else
+            {
+                upgradeClassDictionary.Add(type, materialClass);
+            }
+            Debug.Log($"Added {type} with class {materialClass.GetMaterialScore()} to dictionary");
         }
     }
 }

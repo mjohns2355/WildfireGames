@@ -26,13 +26,13 @@ public class HH_UIManager : MonoBehaviour
         
         leftArrow.onClick.AddListener(() =>
         {
-            HH_GameManager.Instance.SwitchPlayer("p1");
+            HH_GameManager.Instance.SwitchPlayer("P1");
 
 
         });
         rightArrow.onClick.AddListener(() =>
         {
-            HH_GameManager.Instance.SwitchPlayer("p2");
+            HH_GameManager.Instance.SwitchPlayer("P2");
         });
 
         HH_GameManager.Instance.OnRoundStart += OnRoundStart;

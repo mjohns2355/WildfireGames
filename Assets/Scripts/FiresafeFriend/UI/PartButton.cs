@@ -28,7 +28,7 @@ public class PartButton : MonoBehaviour
         //nameText.text = partInfo.partID;
         icon.sprite = partInfo.icon;
         priceText.text = $"$ {partInfo.price:N0}";
-        materialClass = partInfo.partClass;
+        materialClass = partInfo.materialClass;
     }
 
     void OnShopPartIconClicked()

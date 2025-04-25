@@ -63,7 +63,7 @@ public class PurchasePopup : MonoBehaviour
     {
         this.partInfo = partInfo;
         priceText.text = $"Cost: ${partInfo.price:N0}";
-        classText.text = $"Class {partInfo.partClass}";
+        classText.text = $"Class {partInfo.materialClass}";
         descriptionText.text = partInfo.description;
         icon.sprite = partInfo.icon;
         itemNameText.text = partInfo.partID;

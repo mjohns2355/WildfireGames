@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,9 +52,17 @@ public class FF_DirtMound : MonoBehaviour
             else
             {
                 currentPlant.isClickable = isPlantMode;
+                
             }
         };
 
+        HH_GameManager.Instance.OnRoundEnd += () =>
+        {
+            if (currentPlant != null)
+            {
+                HH_GameManager.Instance.currentPlayer.ownedPlants.Add(currentPlant);
+            }
+        };
     }
 
     // Update is called once per frame
@@ -77,7 +86,11 @@ public class FF_DirtMound : MonoBehaviour
         //bubble.SetTargetPosition(newTargetPos);
         //menuPos = newTargetPos + new Vector3(0, currentPlant.topPosition.y + 15f, 0);
         currentPlant.isClickable = true;
-        currentPlant.onPlantClicked += () => HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
+        if (HH_GameManager.Instance.currentPlayer)
+        {
+            HH_GameManager.Instance.currentPlayer.ownedPlants.Add(currentPlant);
+        }
+
         OnPlanted?.Invoke();
     }
 

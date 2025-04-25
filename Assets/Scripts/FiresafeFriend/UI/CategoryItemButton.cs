@@ -40,7 +40,7 @@ public class InventoryItem : MonoBehaviour
         this.isInUse = isInUse;
         outline.enabled = isInUse;
         if (!isInUse ) return;
-        HH_GameManager.Instance.uiManager.inventoryPanel.UpdateItemDetails(partInfo.partClass, partInfo.partID);
+        HH_GameManager.Instance.uiManager.inventoryPanel.UpdateItemDetails(partInfo.materialClass, partInfo.partID);
         //inUseText.gameObject.SetActive(isInUse);
     }
 
