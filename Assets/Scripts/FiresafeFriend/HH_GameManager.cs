@@ -50,6 +50,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
 
         _isPlantMode = false;
+        SpawnHouses();
     }
 
     private void Update()
@@ -84,14 +85,34 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             currentPlayer.inventory.AddNewPartToInventory(info);
         }
     }
-    public void SpawnHouses(string playerTag)
+    public void SpawnHouses()
     {
-        //var houses = ResourceManager.Instance.houses;
-        if (playerTag == "p1")
+        var houses = new List<GameObject>(ResourceManager.Instance.houses);
+        if (houses.Count < 2)
         {
-
+            Debug.LogError("Not enough houses to assign different ones to P1 and P2.");
+            return;
         }
 
+        int index1 = UnityEngine.Random.Range(0, houses.Count);
+        var house1Prefab = houses[index1];
+        houses.RemoveAt(index1);
+
+        int index2 = UnityEngine.Random.Range(0, houses.Count);
+        var house2Prefab = houses[index2];
+
+        var h1Instance = Instantiate(house1Prefab, h1);
+        p1 = h1Instance.GetComponent<HouseManager>();
+        p1.playerTag = "P1";       
+        p1.arrowUI = uiManager.rightArrow.gameObject;
+        // flip the model 
+        h1Instance.transform.localScale = new Vector3(h1Instance.transform.localScale.x * -1 , 1, 1);
+        p1.nameText.transform.localScale = new Vector3(p1.nameText.transform.localScale.x * -1, 1, 1);
+
+        var h2Instance = Instantiate(house2Prefab, h2);
+        p2 = h2Instance.GetComponent<HouseManager>();
+        p2.playerTag = "P2";
+        p2.arrowUI = uiManager.leftArrow.gameObject;
     }
 
     void OnFireEnd()

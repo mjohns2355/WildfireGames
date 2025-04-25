@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using DG.Tweening;
+using TMPro;
 namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
@@ -60,6 +61,7 @@ namespace HappyHouse.HouseSystem
             //{
             //    InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
             //}
+            nameText.GetComponent<TextMeshPro>().text = playerTag;
 
             for (int i = 0; i < transform.childCount; i++)
             {

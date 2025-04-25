@@ -113,6 +113,11 @@ public class FF_DirtMound : MonoBehaviour
         bubble.gameObject.SetActive(state);
 
     }
+    private void OnMouseDown()
+    {
+        if (!HH_GameManager.Instance.IsPlantMode) return;
+        HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
+    }
 
 
 }
