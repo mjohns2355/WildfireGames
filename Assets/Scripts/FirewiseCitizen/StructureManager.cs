@@ -5,8 +5,15 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[Serializable]
+public class HouseModel
+{
+    public HouseType houseType;
+    public GameObject model;
+}
 public class StructureManager : MonoBehaviour
 {
+    public List<HouseModel> houseModels = new List<HouseModel>();
     public GameObject housePrefab;
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
@@ -18,12 +25,16 @@ public class StructureManager : MonoBehaviour
     // player choices
     Dictionary<HouseType, List<HouseChoice>> playerChoices = new Dictionary<HouseType, List<HouseChoice>>();
     Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
+    Dictionary<HouseType, GameObject> houseModelsDict = new Dictionary<HouseType, GameObject>();
     public Dictionary<HouseType, List<HouseStructure>> houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
     public Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
-
+    private void Awake()
+    {
+        InitHouseModelsDict();
+    }
     private void Start()
     {
-
+        
         PlacePreBuiltStructures();
         InitialHouseInfoDict();
         //InitiPlayerChoiceDict();
@@ -51,6 +62,22 @@ public class StructureManager : MonoBehaviour
         }
     }
 
+    void InitHouseModelsDict()
+    {
+        if (houseModels.Count == 0)
+        {
+            Debug.LogError("No house models found");
+            return;
+        }
+
+        foreach (var model in houseModels)
+        {
+            if (!houseModelsDict.ContainsKey(model.houseType))
+            {
+                houseModelsDict.Add(model.houseType, model.model);
+            }
+        }
+    }
     void UpdateSameTypeHouseDict(HouseType key, HouseStructure house)
     {
 
@@ -72,16 +99,16 @@ public class StructureManager : MonoBehaviour
         }
     }
 
-    private void InitiPlayerChoiceDict()
-    {
-        foreach (var houseType in GameManager.Instance.availableHouseTypes)
-        {
-            playerChoices[houseType] = new List<HouseChoice>();
-        }
-    }
+    //private void InitiPlayerChoiceDict()
+    //{
+    //    foreach (var houseType in GameManager.Instance.availableHouseTypes)
+    //    {
+    //        playerChoices[houseType] = new List<HouseChoice>();
+    //    }
+    //}
 
     
-    public void InitialMainHouses()
+    private void InitialMainHouses()
     {
         foreach(var pair in houseTypeDict)
         {
@@ -119,7 +146,8 @@ public class StructureManager : MonoBehaviour
 
     private void InitMainHouse(HouseType houseType, HouseStructure house)
     {
-        house.outline.enabled = true;
+        //house.outline.enabled = true;
+        house.SetOutline(true);
         house.isMainHouse = true;
         house.SetHouseType(houseType);
         house.houseInfo = ReturnHouseInfoFor(houseType);
@@ -135,7 +163,7 @@ public class StructureManager : MonoBehaviour
         house.InitMainHouse();
     }
 
-    public void PlacePreBuiltStructures()
+    private void PlacePreBuiltStructures()
     {
         for (int i = 0; i < structureTilemap.transform.childCount; i++)
         {
@@ -223,6 +251,12 @@ public class StructureManager : MonoBehaviour
         }
 
 
+        // spawn the models after the type is set
+        foreach (var s in allHouses)
+        {
+            var house = s.GetComponent<HouseStructure>();
+            house.SpawnHouseModel();
+        }
     }
 
   
@@ -235,7 +269,7 @@ public class StructureManager : MonoBehaviour
         structure.OnStructureClick();
     }
 
-    public void PlacePreBuiltStructure(Vector3Int position, Structure structure)
+    private void PlacePreBuiltStructure(Vector3Int position, Structure structure)
     {
         structure.transform.localPosition = Vector3.zero;
         if (structure.IsBigStructure)
@@ -244,6 +278,7 @@ public class StructureManager : MonoBehaviour
         }
         else if (structure.structureType == StructureType.House)
         {
+            //structure.GetComponent<HouseStructure>().SpawnHouseModel();
             PlaceHouse(position, structure.gameObject);
         }
         else
@@ -418,5 +453,18 @@ public class StructureManager : MonoBehaviour
         }
 
         GameManager.Instance.totalCars = totalCars;
+    }
+
+    public GameObject GetHouseModel(HouseType type)
+    {
+        if (houseModelsDict.TryGetValue(type, out GameObject model))
+        {
+            return model;
+        }
+        else
+        {
+            Debug.LogError($"House model not found for type: {type}");
+            return null;
+        }
     }
 }

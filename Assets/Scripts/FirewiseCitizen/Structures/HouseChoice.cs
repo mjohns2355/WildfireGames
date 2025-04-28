@@ -39,12 +39,12 @@ public class HouseChoice
                 owner.RelocateHorses();
                 break ;
             
-            case "Home Hardening":
+            //case "Home Hardening":
 
-                Debug.Log("Applied Home Hardening Effect");
-                owner.ApplyHomeHardening(homeHardeningMod);
+            //    Debug.Log("Applied Home Hardening Effect");
+            //    owner.ApplyHomeHardening(homeHardeningMod);
                 
-                break ;
+            //    break ;
         }
     }
     public void ApplyEffect(HouseStructure owner)
@@ -67,6 +67,11 @@ public class HouseChoice
         //owner.
     }
 
+    public void ApplyHomeHardening(HouseStructure owner)
+    {
+        Debug.Log("Applied Home Hardening Effect");
+        owner.ApplyHomeHardening(homeHardeningMod);
+    }
     void GetSpawnTimeMod()
     {
         switch(carLeaveTime)

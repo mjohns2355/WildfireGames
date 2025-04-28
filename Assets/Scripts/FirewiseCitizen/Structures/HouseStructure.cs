@@ -17,7 +17,7 @@ public class HouseStructure : Structure
     public HouseTypeInfo houseInfo;
     public HouseType houseType;
     //[SerializeField] HouseType houseType;
-    [SerializeField] GameObject[] houseModels;
+    //[SerializeField] GameObject[] houseModels;
     [SerializeField] Transform mesh,front;
     [SerializeField] Material metalRoofMaterial;
 
@@ -75,10 +75,10 @@ public class HouseStructure : Structure
 
     }
 
-    private void OnEnable()
-    {
-        SpawnHouseModel();
-    }
+    //private void OnEnable()
+    //{
+    //    SpawnHouseModel();
+    //}
 
     private void Update()
     {
@@ -108,11 +108,18 @@ public class HouseStructure : Structure
     //    //ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
     //    ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
     //}
-    void SpawnHouseModel()
+    public void SpawnHouseModel()
     {
         if (mesh.childCount >= 1) return;
-        GameObject houseModel = houseModels[UnityEngine.Random.Range(0, houseModels.Length)];
+        //GameObject houseModel = houseModels[UnityEngine.Random.Range(0, houseModels.Length)];
+        GameObject houseModel = GameManager.Instance.structureManager.GetHouseModel(houseType);
+        if (!houseModel)
+        {
+            Debug.Log("House Model is null, please check the prefab in the resource manager");
+            return;
+        }
         currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
+        //Debug.Log($"House {houseType} spawned model");
     }
 
     public void InitMainHouse()
@@ -160,7 +167,7 @@ public class HouseStructure : Structure
     public void SetHouseType(HouseType type)
     {
         houseType = type;
-        
+
     }
     public override void OnStructureClick()
     {
@@ -179,7 +186,8 @@ public class HouseStructure : Structure
     {
         foreach (var house in sameTypeHouses)
         {
-            house.outline.enabled=false;
+            //house.outline.enabled=false;
+            house.SetOutline(false);
         }
     }
     public void AfterSpawnACar()
@@ -206,6 +214,13 @@ public class HouseStructure : Structure
             currentOption = option.GetOptionContent();
             Debug.Log($"Player selected {currentOption}");
             var currentChoice = GetCurrentChoice(currentOption);
+            // home hardening should apply immediately
+            if(currentChoice.choiceName == "Home Hardening")
+            {
+                currentChoice.ApplyHomeHardening(this);
+                ApplyHomeHardening(currentChoice.homeHardeningMod);
+            }
+
             if (currentChoice != null)
             {
                 GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
@@ -270,7 +285,8 @@ public class HouseStructure : Structure
     public IEnumerator SpawnCarRoutine()
     {
         ApplyChoice();
-        outline.enabled = false;
+        //outline.enabled = false;
+        SetOutline(false);
         yield return new WaitForSeconds(carSpawnWaitTime);
 
         //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
@@ -327,6 +343,7 @@ public class HouseStructure : Structure
     void HomeHardeningBehavior(float homeHardeningMod)
     {
         if (currentHouseModel == null) { Debug.Log("No house Model"); return; }
+        Debug.Log("Apply Home Hardening");
         currentHouseModel.material = metalRoofMaterial;
         combustible.fireChance = 1 - homeHardeningMod;
         //Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);

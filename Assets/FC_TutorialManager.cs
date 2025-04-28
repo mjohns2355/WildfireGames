@@ -90,7 +90,7 @@ public class FC_TutorialManager : MonoBehaviour
             GameManager.Instance.structureManager.GetPlayerChoicesDict().Clear();
             tutorialHouse.contextMenu.isSelected = false;
             tutorialHouse.contextMenu.icon.ToggleIconState(true);
-            tutorialHouse.outline.enabled = false;
+            tutorialHouse.SetOutline(false);
             houseDialogManager.isWaitingForPlayer = true;
             ReloadTutorial();
 
@@ -179,7 +179,7 @@ public class FC_TutorialManager : MonoBehaviour
         UpdateBottomDialog(message);
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
-        tutorialHouse.outline.enabled = true;
+        tutorialHouse.SetOutline(true);
         //houseDialogManager.canShowSkipButton = !isFirstTimeTutorial;
         houseDialogManager.OnDialogueComplete = null;
         houseDialogManager.OnDialogueComplete += OnTutroialDialogueComplete;
@@ -218,7 +218,7 @@ public class FC_TutorialManager : MonoBehaviour
         if (tutorialHouse != null || !isFirstTimeTutorial) return;
         foreach (var house in structureManager.allMainHouses.Values)
         {
-            house.outline.enabled = false;
+            house.SetOutline(false);
         }
         tutorialHouse = structureManager.allMainHouses[HouseType.pet];
         var houseIcon = tutorialHouse.contextMenu.icon;

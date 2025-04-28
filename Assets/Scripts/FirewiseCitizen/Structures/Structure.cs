@@ -9,14 +9,13 @@ public class Structure : MonoBehaviour
     public StructureContextMenu contextMenu;
     public Transform menuSpawnPos;
     public Vector3Int roadPosition;
-    public Outline outline;
     public int height = 1;
     public int width = 1;
-   
+    
     public bool IsBigStructure { get {  return width> 1 ||  height> 1; } }
     // people, car, pet
     public Dictionary<string,string> structureInfoDict = new Dictionary<string,string>();
-
+    Outline outline;
     public virtual void Start()
     {
         GameManager.Instance.inputManager.OnStructureClicked += (structure) =>
@@ -59,5 +58,14 @@ public class Structure : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    public void SetOutline(bool isActive)
+    {
+        if (outline == null)
+        {
+            outline = gameObject.AddComponent<Outline>();
+        }
+        outline.enabled = isActive;
     }
 }

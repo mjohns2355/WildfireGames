@@ -10,7 +10,7 @@ public class FireManager : MonoBehaviour
     //public Transform fireSpawnPoint;
     public GameObject firePrefab;
     public ATC_WindZone wind;
-    public GameObject fireSafeZone;
+    //public GameObject fireSafeZone;
     public Transform townCenter;
     //public List<FireMovementController> fireList;
     // Start is called before the first frame update
