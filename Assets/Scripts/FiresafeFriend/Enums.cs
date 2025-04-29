@@ -7,6 +7,7 @@ using UnityEngine;
 //public enum MaterialType { Wooden, Metal, Brick, FireProof };
 public enum HousePartType { Roof, Wall, Floor, Door, Gable, Fence, Window, Gutter, Vent, Drain, Ground, Stairs};
 
+public enum GameStage {BeforeGame, RoundStart, Fire, Competition, RoundEnd, GameEnd};
 public enum BurnStage { Igniting, Burning, Smoldering, BurnedOut};
 
 public enum MaterialClass { A, B, C, F };

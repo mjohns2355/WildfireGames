@@ -11,6 +11,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
     public float fireTimer = 60f;
     public float fireChance = 0.5f; // 50% chance to start fire
+    public int maxRounds = 10;
     public Action OnRoundStart, OnRoundEnd;
     public Action<bool> OnPlantModeChanged;
     public HH_UIManager uiManager;
@@ -20,14 +21,15 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public QuizManager quizManager;
     public FF_skybox skyboxController;
 
-    public bool IsGameStarted {  get; private set; }
-    public bool IsFireStarted {  get; private set; }
+    public bool IsGameStarted { get => _currentStage != GameStage.BeforeGame; }
+    public bool IsFireStarted {  get => _currentStage == GameStage.Fire; }
     private GameObject[] fences;
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
-
     [SerializeField]private bool _isPlantMode;
+    private int consecutiveCompetitionCount,currentRoundCount = 0;
+    private bool mustForceCompetition = false;
     public bool IsPlantMode
     {
         get => _isPlantMode;
@@ -40,6 +42,24 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             }
         }
     }
+
+    [SerializeField] private GameStage _currentStage;
+    public GameStage CurrentStage
+    {
+        get => _currentStage;
+        set
+        {
+            if (_currentStage == value) return;
+
+            var previousStage = _currentStage;
+            _currentStage = value;
+            Debug.Log($"GameStage changed from {previousStage} to {_currentStage}");
+
+            OnStageChanged(_currentStage);
+        }
+    }
+
+
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
@@ -49,7 +69,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     private void Start()
     {
-
+        CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
         SpawnHouses();
     }
@@ -75,7 +95,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void InitPublicFences(HouseManager currentPlayer)
     {
-        foreach(var f in fences)
+        if(publicFences.Count > 0)
+        {
+            publicFences.Clear();
+        }
+        foreach (var f in fences)
         {
             var fence = f.GetComponent<BaseHousePartObject>();
             fence.InitHousePartObject(currentPlayer);
@@ -118,10 +142,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     void OnFireEnd()
     {
-        IsFireStarted = false;
+        //IsFireStarted = false;
         var fires = FindObjectsOfType<FF_FireController>();
         var combustibles = FindObjectsOfType<FF_BaseCombustible>();
-        
+        skyboxController.ChangeSky(false);
         foreach (var c in combustibles)
         {
             c.isOnFire = false;
@@ -131,18 +155,17 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             Destroy(f.gameObject);
         }
-        uiManager.ShowEndScreen();
+        uiManager.ShowEndScreen(true,p1.GetBurnedPercent(),p2.GetBurnedPercent());
+    }
+
+    void OnCompetition()
+    {
+        var p1Socre = p1.CalculateRating();
+        var p2Socre = p2.CalculateRating();
+        uiManager.ShowEndScreen(false, p1Socre, p2Socre);
     }
     public void SwitchPlayer (string playerTag)
     {
-        //if (isTutorial)
-        //{
-        //    currentPlayer = p2;
-        //    IsPlantMode = false;
-        //    cameraController.Zoomcamera(h2CamPos, true, 60);
-        //    return;
-        //}
-
         currentPlayer.OnHouseDeselected();
         List<HousePartInfo> ownedPublicFences = new List<HousePartInfo>();
         if (currentPlayer != null && currentPlayer.inventory.ownedPublicParts[HousePartType.Fence] != null)
@@ -180,17 +203,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartRound(HouseManager currentPlayer)
     {
-        SetRoundStart(true);
-        inputManager.canClickHouse = false;
-
-
-
+        CurrentStage = GameStage.RoundStart;
         this.currentPlayer = currentPlayer;
         if (isTutorial) return;
         //uiManager.OnRoundStart();
         InitPublicFences(currentPlayer);
-
-
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     //{
@@ -202,40 +219,67 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void StartFire()
     {
-        IsFireStarted = true;
+        //IsFireStarted = true;
+        CurrentStage = GameStage.Fire;
         uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
-        skyboxController.ChangeSky();
+        skyboxController.ChangeSky(true);
         uiManager.ToggleEarnMoreMoneyButton(false);
     }
 
     // player 1 and player 2 finished upgrade
     public void EndRound()
     {
-        SetRoundStart(false);
+        OnRoundEnd?.Invoke();
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
-        //uiManager.OnRoundEnd();
-        var rng = UnityEngine.Random.Range(0, 1f);
-        if (rng < fireChance)
+        DecideNextEvent();
+        p1.nameText.SetActive(false);
+        p2.nameText.SetActive(false);
+        if (currentRoundCount > maxRounds)
         {
-            StartFire();
+            Debug.Log("Game Ends");
+            CurrentStage = GameStage.GameEnd;
+            return;
+        }
+        currentRoundCount++;
+    }
+
+    // fire or competition
+    void DecideNextEvent()
+    {
+        if (mustForceCompetition)
+        {
+            Debug.Log("Force Competition After Fire");
+            consecutiveCompetitionCount++;
+            mustForceCompetition = false;
+            CurrentStage = GameStage.Competition;
+            return;
+        }
+
+        if(consecutiveCompetitionCount >= 2)
+        {
+            Debug.Log("Force Fire After Two Consecutive Competitions");
+            mustForceCompetition = true;
+            consecutiveCompetitionCount = 0;
+            CurrentStage = GameStage.Fire;
+            return;
+        }
+
+        float roll = UnityEngine.Random.value;
+        if (roll < fireChance)
+        {
+            Debug.Log("Random Roll -> Fire.");
+            mustForceCompetition = true;
+            consecutiveCompetitionCount = 0;
+            CurrentStage = GameStage.Fire;
         }
         else
         {
-            p1.CalculateRating();
-            p2.CalculateRating();
+            Debug.Log("Random Roll -> Competition.");
+            consecutiveCompetitionCount++;
+            CurrentStage = GameStage.Competition;
         }
-        //startFireBtn.gameObject.SetActive(true);
-
-        p1.nameText.SetActive(false);
-        p2.nameText.SetActive(false);
-    }
-
-    public void ToggleHousesClickBox(bool toggle)
-    {
-        //p1.ToggleClickBox(toggle);
-        //p2.ToggleClickBox(toggle);
     }
 
     public void RestartGame()
@@ -243,6 +287,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SceneManager.LoadScene("FiresafeFriendScene");
     }
 
+    public void NextRound()
+    {
+        CurrentStage = GameStage.BeforeGame;
+        
+    }
     public void ChangeGameMode(bool isPlantMode)
     {
         uiManager.HidePlantsMenu();
@@ -293,19 +342,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
     }
 
-    void SetRoundStart(bool state)
-    {
-        IsGameStarted = state;
-
-        if(state)
-        {
-            OnRoundStart?.Invoke();
-        }
-        else
-        {
-            OnRoundEnd?.Invoke();
-        }
-    }
 
     void TogglePublicFenceClickable(bool state)
     {
@@ -318,5 +354,42 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnStageChanged(GameStage newStage)
+    {
+        switch (newStage)
+        {
+            case GameStage.BeforeGame:
+                // Initialize the game
+                Debug.Log("Game is starting...");
+                uiManager.endScreenManager.HideEndScreens();
+                p1.OnHouseDeselected();
+                p1.nameText.SetActive(true);
+                p2.OnHouseDeselected();
+                p2.nameText.SetActive(true);
+                cameraController.ResetCamera();
+                break;
+            case GameStage.RoundStart:
+                OnRoundStart?.Invoke();
+                inputManager.canClickHouse = false;
+                break;
+
+            case GameStage.Fire:
+                StartFire();
+                break;
+
+            case GameStage.Competition:
+                OnCompetition();
+                break;
+
+            case GameStage.RoundEnd:
+                EndRound();
+                break;
+
+            case GameStage.GameEnd:
+                RestartGame();
+                break;
+        }
     }
 }

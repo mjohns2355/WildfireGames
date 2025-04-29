@@ -14,12 +14,12 @@ public class HH_UIManager : MonoBehaviour
     public Button leftArrow, rightArrow, earnMoreMoney, startFireBtn, endRoundBtn;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
-    public GameObject startText, modeToggle, endScreen;
+    public FF_EndScreensManager endScreenManager;
     public FF_QuizPopupUI quizPopup;
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
-    public GameObject bubblePrefab;
-    public TextMeshProUGUI p1BurnPercentText, p2BurnPercentText;
+    public GameObject bubblePrefab,startText, modeToggle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -182,10 +182,17 @@ public class HH_UIManager : MonoBehaviour
         }
     }
 
-    public void ShowEndScreen()
+    public void ShowEndScreen(bool isFire, float p1Score, float p2Score)
     {
-        p1BurnPercentText.text = $"{HH_GameManager.Instance.p1.GetBurnedPercent()}%";
-        p2BurnPercentText.text = $"{HH_GameManager.Instance.p2.GetBurnedPercent()}%";
-        endScreen.SetActive(true);
+        endScreenManager.gameObject.SetActive(true);
+        if (isFire)
+        {
+            endScreenManager.ShowFireResultScreen(p1Score, p2Score);
+        }
+        else
+        {
+            endScreenManager.ShowCompetitionResult(p1Score, p2Score);
+        }
     }
+
 }

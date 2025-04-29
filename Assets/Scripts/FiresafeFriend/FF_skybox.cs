@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FF_skybox : MonoBehaviour
 {
-    public Material fireSky;
-
-    public void ChangeSky()
+    public Material fireSky, normalSky;
+    public void ChangeSky(bool isOnFire)
     {
-        RenderSettings.skybox = fireSky;
+        if (!isOnFire)
+            RenderSettings.skybox = normalSky;
+        else
+            RenderSettings.skybox = fireSky;
     }
 }

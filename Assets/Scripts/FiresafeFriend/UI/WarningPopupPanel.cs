@@ -22,9 +22,7 @@ public class WarningPopupPanel : MonoBehaviour
     private void ClosePopup()
     {
         gameObject.SetActive(false);
-        p1Toggle.isOn = false;
-        p2Toggle.isOn = false;
-        proceedButton.interactable = false;
+
     }
 
     private void CheckReadyStatus(bool arg0)
@@ -47,9 +45,11 @@ public class WarningPopupPanel : MonoBehaviour
         HH_GameManager.Instance.EndRound();
         gameObject.SetActive(false);
     }
-    // Update is called once per frame
-    void Update()
+
+    private void OnDisable()
     {
-        
+        p1Toggle.isOn = false;
+        p2Toggle.isOn = false;
+        proceedButton.interactable = false;
     }
 }
