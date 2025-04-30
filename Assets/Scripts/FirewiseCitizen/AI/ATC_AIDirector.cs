@@ -10,6 +10,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public ATC_PlacementManager placementManager;
 
     public GameObject carPrefab;
+    public List<GameObject> carModels;
     AdjacencyGraph testcarGraph = new AdjacencyGraph();
 
     List<Vector3Int> testcarPath = new List<Vector3Int>();
@@ -18,6 +19,10 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     public int spawnedCarNum, currentCarNum = 0;
 
+    private void Start()
+    {
+        carModels = Resources.LoadAll<GameObject>("FirewiseCitizen/Cars").ToList();
+    }
     //random destination
     public void SpawnACar()
     {

@@ -185,18 +185,18 @@ public class StructureManager : MonoBehaviour
 
         Dictionary<HouseType, int> presetHouseCounts = new Dictionary<HouseType, int>();
         List<HouseStructure> housesToRandomize = new List<HouseStructure>();
-
         foreach (var structure in allHouses)
         {
             var house = structure.GetComponent<HouseStructure>();
 
-            if (house.houseType == HouseType.none)
+            if (house.houseType == HouseType.none || !GameManager.Instance.availableHouseTypes.Contains(house.houseType))
             {
                 housesToRandomize.Add(house);
             }
 
             else
             {
+                UpdateSameTypeHouseDict(house.houseType, house);
                 // Count pre-set house types
                 if (!presetHouseCounts.ContainsKey(house.houseType))
                 {
@@ -222,7 +222,9 @@ public class StructureManager : MonoBehaviour
         // Distribute the base count for each type
         foreach (var type in GameManager.Instance.availableHouseTypes)
         {
-            for (int i = 0; i < baseCount; i++)
+            int alreadyAssigned = presetHouseCounts.ContainsKey(type) ? presetHouseCounts[type] : 0;
+            int countToAdd = baseCount - alreadyAssigned;
+            for (int i = 0; i < countToAdd; i++)
             {
                 targetDistribution.Add(type);
             }
@@ -250,6 +252,7 @@ public class StructureManager : MonoBehaviour
             UpdateSameTypeHouseDict(targetDistribution[i], housesToRandomize[i]);
         }
 
+        
 
         // spawn the models after the type is set
         foreach (var s in allHouses)
@@ -280,6 +283,7 @@ public class StructureManager : MonoBehaviour
         {
             //structure.GetComponent<HouseStructure>().SpawnHouseModel();
             PlaceHouse(position, structure.gameObject);
+
         }
         else
         {

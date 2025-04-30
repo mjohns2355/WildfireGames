@@ -46,7 +46,7 @@ public class HouseStructure : Structure
     string currentOption;
     ATC_PlacementManager placementManager;
     Combustible combustible;
-    [SerializeField] MeshRenderer currentHouseModel;
+    [SerializeField] List<MeshRenderer> currentHouseModels;
     ATC_StructureModel targetShelter;
     List<ATC_StructureModel> destinations;
 
@@ -64,7 +64,7 @@ public class HouseStructure : Structure
         carSpawnWaitTime = GameManager.Instance.fireManager.fireWaitTimeBeforeStart;
        
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
-
+        ModifyStructureRotation();
 
         //if (!isMainHouse) return;
         //InitMainHouse();
@@ -118,8 +118,7 @@ public class HouseStructure : Structure
             Debug.Log("House Model is null, please check the prefab in the resource manager");
             return;
         }
-        currentHouseModel = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentInChildren<MeshRenderer>();
-        //Debug.Log($"House {houseType} spawned model");
+        currentHouseModels = Instantiate(houseModel, transform.position, mesh.transform.rotation, mesh).GetComponentsInChildren<MeshRenderer>().ToList();
     }
 
     public void InitMainHouse()
@@ -342,9 +341,12 @@ public class HouseStructure : Structure
     
     void HomeHardeningBehavior(float homeHardeningMod)
     {
-        if (currentHouseModel == null) { Debug.Log("No house Model"); return; }
+        if (currentHouseModels.Count == 0) { Debug.Log("No house Model"); return; }
         Debug.Log("Apply Home Hardening");
-        currentHouseModel.material = metalRoofMaterial;
+        foreach(var model in currentHouseModels)
+        {
+            model.material = metalRoofMaterial;
+        }
         combustible.fireChance = 1 - homeHardeningMod;
         //Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
     }

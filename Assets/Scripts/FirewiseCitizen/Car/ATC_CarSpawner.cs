@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ATC_CarSpawner : MonoBehaviour
 {
-    public GameObject[] carPrefabs;
     public GameObject horseTrailers;
     public bool hasHorseTrailer = false;
     private void Start()
@@ -13,10 +12,12 @@ public class ATC_CarSpawner : MonoBehaviour
         StartCoroutine(CarSpawnRoutine());
     }
 
-    private GameObject ReturnACarPrefab()
+    private GameObject ReturnACarModel()
     {
-       var randomIndex = UnityEngine.Random.Range(0, carPrefabs.Length);
-        return carPrefabs[randomIndex];
+        var carModels = ATC_AIDirector.Instance.carModels;
+        var randomIndex = UnityEngine.Random.Range(0, carModels.Count);
+        carModels[randomIndex].transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+        return carModels[randomIndex];
     }
 
     IEnumerator CarSpawnRoutine()
@@ -28,7 +29,7 @@ public class ATC_CarSpawner : MonoBehaviour
 
         if (!hasHorseTrailer)
         {
-            Instantiate(ReturnACarPrefab(), transform);
+            Instantiate(ReturnACarModel(), transform);
         }
         else
         {

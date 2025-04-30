@@ -13,6 +13,7 @@ public class ATC_StructureModel : MonoBehaviour, INeedingRoad
     {
         //var structure = Instantiate(model,transform);
         //yHeight = structure.transform.position.y;
+
         yHeight = model.transform.position.y;
     }
 
