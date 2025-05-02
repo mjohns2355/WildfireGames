@@ -98,6 +98,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         defaultPartInfo = part;
     }
 
+    
     void ReplaceMeshMaterial(Material material)
     {
         //Debug.Log($"Replace material with {material.name}");
@@ -220,6 +221,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
     private void HandleDestroy()
     {
+        StopAllCoroutines();
         if(VFX != null)
         {
             //StartCoroutine(DestroyRoutine());

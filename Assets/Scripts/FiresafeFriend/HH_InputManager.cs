@@ -26,7 +26,7 @@ public class HH_InputManager : MonoBehaviour
         {
             if (IsPointerOverUI(Input.mousePosition))
             {
-                Debug.Log("Pointer is over a UI element. Skipping raycast.");
+                //Debug.Log("Pointer is over a UI element. Skipping raycast.");
                 return;
             }
             StartCoroutine(DelayedRaycast(Input.mousePosition));

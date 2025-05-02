@@ -25,7 +25,11 @@ namespace HappyHouse.HouseSystem
             {
                 targetDict.Add(newPartInfo.housePartType, new List<HousePartInfo> { newPartInfo });
             }
-            //Debug.Log($"Added {newPartInfo.partID} into inventory");
+            if(newPartInfo.isPublic)
+            {
+                Debug.Log($"Added {newPartInfo.name} into inventory");
+            }
+
             return true;
         }
 

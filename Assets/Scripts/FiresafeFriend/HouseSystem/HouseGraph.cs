@@ -87,6 +87,11 @@ public class HouseGraph
 
         foreach (var node in nodes)
         {
+            if(node.housePart == null)
+            {
+                Debug.Log("Node's house part is null");
+                continue;
+            }
             string nodeInfo = $"{node.housePart.name} (Node)";
             if (node.neighbourNodes.Count > 0)
             {

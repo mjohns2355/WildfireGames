@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public bool isTutorial;
+    public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
     public float fireTimer = 60f;
@@ -65,7 +66,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         shouldNotDestroyOnLoad = false;
 
         base.Awake();
-        fences = GameObject.FindGameObjectsWithTag("Fence");
     }
     private void Start()
     {
@@ -95,19 +95,19 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void InitPublicFences(HouseManager currentPlayer)
     {
-        if(publicFences.Count > 0)
-        {
-            publicFences.Clear();
-        }
+        fences = GameObject.FindGameObjectsWithTag("Fence");
         foreach (var f in fences)
         {
-            var fence = f.GetComponent<BaseHousePartObject>();
-            fence.InitHousePartObject(currentPlayer);
-            var info = Instantiate(fence.partInfo,transform);
-            info.isPublic = true;
-            fence.partInfo = info;
-            publicFences.Add(fence);
-            currentPlayer.inventory.AddNewPartToInventory(info);
+            if(f.TryGetComponent<BaseHousePartObject>(out var fence))
+            {
+                fence.InitHousePartObject(currentPlayer);
+                var info = Instantiate(fence.partInfo, transform);
+                info.isPublic = true;
+                fence.partInfo = info;
+                publicFences.Add(fence);
+                currentPlayer.inventory.AddNewPartToInventory(info);
+            }
+
         }
     }
     public void SpawnHouses()
@@ -168,9 +168,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         currentPlayer.OnHouseDeselected();
         List<HousePartInfo> ownedPublicFences = new List<HousePartInfo>();
-        if (currentPlayer != null && currentPlayer.inventory.ownedPublicParts[HousePartType.Fence] != null)
+
+        if (currentPlayer != null && !currentPlayer.inventory.ownedPublicParts.TryGetValue(HousePartType.Fence,out ownedPublicFences))
         {
-            ownedPublicFences = currentPlayer.inventory.ownedPublicParts[HousePartType.Fence];
+            ownedPublicFences = new List<HousePartInfo>();
         }
         uiManager.HideStoreScreen();
         uiManager.HidePlantsMenu();
@@ -231,18 +232,20 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void EndRound()
     {
         OnRoundEnd?.Invoke();
+
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         DecideNextEvent();
         p1.nameText.SetActive(false);
         p2.nameText.SetActive(false);
+        currentRoundCount++;
         if (currentRoundCount > maxRounds)
         {
             Debug.Log("Game Ends");
             CurrentStage = GameStage.GameEnd;
             return;
         }
-        currentRoundCount++;
+
     }
 
     // fire or competition
@@ -290,7 +293,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void NextRound()
     {
         CurrentStage = GameStage.BeforeGame;
-        
+        p1.InitHouseManager();
+        p2.InitHouseManager();
     }
     public void ChangeGameMode(bool isPlantMode)
     {
@@ -369,6 +373,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2.OnHouseDeselected();
                 p2.nameText.SetActive(true);
                 cameraController.ResetCamera();
+                uiManager.floatingIcons.gameObject.SetActive(true);
                 break;
             case GameStage.RoundStart:
                 OnRoundStart?.Invoke();

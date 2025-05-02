@@ -26,15 +26,17 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
-        private List<BaseHousePartObject> fences;
+        [SerializeField] private List<BaseHousePartObject> fences;
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
         public List<FF_Plants> ownedPlants;
-        Dictionary<HousePartType,MaterialClass> upgradeClassDictionary = new Dictionary<HousePartType, MaterialClass>();
+        Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new Dictionary<HousePartType, MaterialClass>();
 
         private void Start()
         {
+            houseGraph = new HouseGraph();
+            budgetManager = new FF_BudgetManager(this, initBudget);
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
@@ -44,21 +46,21 @@ namespace HappyHouse.HouseSystem
 
         public void InitHouseManager()
         {
-            houseGraph = new HouseGraph();
-            budgetManager = new FF_BudgetManager(this, initBudget);
-
+            houseGraph.nodes.Clear();
             fences = HH_GameManager.Instance.publicFences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
+            nodeDictionary.Clear();
             for (int i = 0; i < transform.childCount; i++)
             {
-                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                if (part.notInteractable) continue;
-                if (HH_GameManager.Instance.isTutorial)
-                {
-                    part.isClickable = false;
+                if(transform.GetChild(i).TryGetComponent<BaseHousePartObject>(out var part)){
+                    if (part.notInteractable) continue;
+                    if (HH_GameManager.Instance.isTutorial)
+                    {
+                        part.isClickable = false;
+                    }
+                    InitHouseNode(nodeDictionary, part);
+                    totalPartsCount++;
                 }
-                InitHouseNode(nodeDictionary, part);
-                totalPartsCount++;
             }
 
             //foreach (var f in fences)
@@ -69,26 +71,30 @@ namespace HappyHouse.HouseSystem
 
             for (int i = 0; i < transform.childCount; i++)
             {
-                var part = transform.GetChild(i).GetComponent<BaseHousePartObject>();
-                if (part.notInteractable) continue;
-                if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
+                if (transform.GetChild(i).TryGetComponent<BaseHousePartObject>(out var part))
                 {
-
-                    foreach (var neighbour in part.CheckNeighbours("Structure"))
+                    if (part.notInteractable) continue;
+                    if (nodeDictionary.TryGetValue(part.name, out HouseNode currentNode))
                     {
-                        if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
+
+                        foreach (var neighbour in part.CheckNeighbours("Structure"))
                         {
-                            houseGraph.ConnectParts(currentNode, connectedNode);
+                            if (nodeDictionary.TryGetValue(neighbour.name, out HouseNode connectedNode))
+                            {
+                                houseGraph.ConnectParts(currentNode, connectedNode);
+                            }
                         }
                     }
                 }
             }
-            if (!HH_GameManager.Instance.isTutorial)
+            // don't roll start condition when it is tutorial or first round
+            if (!HH_GameManager.Instance.isTutorial || !HH_GameManager.Instance.IsFirstRound)
             {
                 StartCoroutine(RandomizeStartingCondition());
             }
-
+            HH_GameManager.Instance.inputManager.OnHouseSelected -= OnHouseSelected;
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
+            //houseGraph.PrintGraph();
             ToggleHousePartClickable(false);
         }
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
@@ -110,6 +116,7 @@ namespace HappyHouse.HouseSystem
         public void OnHouseSelected(HouseManager manager)
         {
             if (manager != this) return;
+
             HH_GameManager.Instance.StartRound(manager);
             HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(budgetManager.canEarnMoreMoney);
             //ToggleClickBox(false);
@@ -275,6 +282,7 @@ namespace HappyHouse.HouseSystem
 
             foreach (var node in houseGraph.nodes)
             {
+                //Debug.Log($"Init Bubble for {node.housePart}");
                 if (!node.housePart.shouldDisplayBubble) continue;
                 node.housePart.bubble = InitBubble(node.housePart);
 
@@ -282,7 +290,7 @@ namespace HappyHouse.HouseSystem
 
             foreach (var fence in fences)
             {
-
+                //Debug.Log("Init Bubble for Fences");
                 if (!fence.shouldDisplayBubble) continue;
                 fence.bubble = InitBubble(fence);
             }
@@ -433,10 +441,10 @@ namespace HappyHouse.HouseSystem
         {
             if (totalPartsCount == 0) return 0;
             burnedPercent = (float)burnedPartsCount / totalPartsCount;
-            return (int) (burnedPercent * 100f);
+            return (int)(burnedPercent * 100f);
         }
 
-        public float CalculateRating ()
+        public float CalculateRating()
         {
             //float totalScore = 0f;
             //float totalParts = 0f;
@@ -487,7 +495,18 @@ namespace HappyHouse.HouseSystem
             {
                 upgradeClassDictionary.Add(type, materialClass);
             }
-            Debug.Log($"Added {type} with class {materialClass.GetMaterialScore()} to dictionary");
+            //Debug.Log($"Added {type} with class {materialClass.GetMaterialScore()} to dictionary");
+        }
+
+        public void OnHousePartDestroyed(BaseHousePartObject part)
+        {
+            if (part == null) return;
+            if (part.partInfo.isPublic)
+            {
+                HH_GameManager.Instance.publicFences.Remove(part);
+                return;
+            }
+            houseGraph.RemoveHousePart(part.houseNode);
         }
     }
 }
