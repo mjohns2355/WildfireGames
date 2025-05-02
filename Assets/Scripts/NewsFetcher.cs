@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
-using SimpleJSON; 
+using SimpleJSON;
 
 public class NewsFetcher : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class NewsFetcher : MonoBehaviour
     public Text newsText;
 
     private const string zipApi = "https://api.zippopotam.us/us/";
-    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Our current API key from NewsAPI
+    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Your NewsAPI key
     private const string newsApiBase = "https://newsapi.org/v2/everything";
 
     void Start()
@@ -35,7 +35,7 @@ public class NewsFetcher : MonoBehaviour
         var locationJson = JSON.Parse(locationRequest.downloadHandler.text);
         string city = locationJson["places"][0]["place name"];
         string state = locationJson["places"][0]["state abbreviation"];
-        string query = $"wildfire {city} {state}";
+        string query = $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{city}\" AND \"{state}\"";
 
         string newsUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(query)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
 
@@ -51,14 +51,22 @@ public class NewsFetcher : MonoBehaviour
         }
 
         var newsJson = JSON.Parse(newsRequest.downloadHandler.text);
+        var articles = newsJson["articles"];
+
+        if (articles.Count == 0)
+        {
+            newsText.text = "No news found related to wildfires in your area.";
+            yield break;
+        }
+
         newsText.text = "";
 
-        foreach (var article in newsJson["articles"].Children)
+        foreach (var article in articles.Children)
         {
             string title = article["title"];
             string url = article["url"];
             string date = article["publishedAt"];
-            newsText.text += $"<b>{title}</b>\n{date}\n<a href='{url}'>{url}</a>\n\n";
+            newsText.text += $"<b>{title}</b>\n{date}\n{url}\n\n";
         }
     }
 }
