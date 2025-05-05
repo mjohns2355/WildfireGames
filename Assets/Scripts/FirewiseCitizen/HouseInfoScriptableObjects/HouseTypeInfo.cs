@@ -27,6 +27,7 @@ public class HouseTypeInfo : ScriptableObject
     public int requiredChoicesCount;
     public Sprite newsUISprite;
     public Sprite choicePicture;
+    public float homeHardeningChance = 0.4f;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 
@@ -38,6 +39,7 @@ public class HouseTypeInfo : ScriptableObject
         owner.petNum = petNumber;
         owner.carSpeed = carSpeed;
         owner.kidNum = kidNumber;
+        owner.homeHardeningChance = homeHardeningChance;
         //owner.carSpawnWaitTime = carSpawnTime;
 
         //foreach(var choice in lockedChoices)

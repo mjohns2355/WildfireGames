@@ -15,20 +15,6 @@ MonoBehaviour:
   houseType: 5
   menuTitle: Near Wildland
   choices:
-  - choiceName: Wait for Notice
-    carNumberMod: 0
-    horseNumberMod: 0
-    kidNumberMod: 0
-    petNumberMod: 0
-    homeHardeningMod: 0
-    carSpeedMod: 1
-    carLeaveTime: 2
-    choiceDetail: 'No city-wide plan requests. Let residents make a decision when
-      the evacuation notice goes out. '
-    endGameFeedback: A number of households along the Wildland Urban Interface were
-      not ready and managed to evacuate only just in time.
-    isLocked: 0
-    isNormal: 1
   - choiceName: Evacuate Early
     carNumberMod: 0
     horseNumberMod: 0
@@ -43,14 +29,14 @@ MonoBehaviour:
       to evacuate without waiting for a notice.
     isLocked: 1
     isNormal: 0
-  - choiceName: Home Hardening
+  - choiceName: Evacuate Early & Home Hardening
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
     petNumberMod: 0
     homeHardeningMod: 0.8
     carSpeedMod: 2
-    carLeaveTime: 1
+    carLeaveTime: 0
     choiceDetail: Home hardening can help prevent a house from catchingg fire. This
       includes things  like replcaing the roof with nonflamable materials and clearing
       vegetations.
@@ -84,7 +70,7 @@ MonoBehaviour:
     endGameFeedback: 
     isLocked: 0
     isNormal: 0
-  allowMultipleChoices: 1
-  requiredChoicesCount: 2
+  allowMultipleChoices: 0
+  requiredChoicesCount: 1
   newsUISprite: {fileID: 21300000, guid: 7cbf1a4c789c54e6baec5ee76e5cfb51, type: 3}
   choicePicture: {fileID: 21300000, guid: 7dcc616578d9a43339c839ed2fb14fd4, type: 3}
