@@ -129,7 +129,7 @@ namespace HappyHouse.HouseSystem
 
         public void OnHouseDeselected()
         {
-            HH_GameManager.Instance.inputManager.canClickHouse = true;
+            //HH_GameManager.Instance.inputManager.canClickHouse = true;
             foreach (var icon in purchaseFloatingButtons)
             {
                 Destroy(icon.gameObject);

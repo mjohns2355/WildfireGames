@@ -367,6 +367,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             case GameStage.BeforeGame:
                 // Initialize the game
                 Debug.Log("Game is starting...");
+                HH_GameManager.Instance.inputManager.canClickHouse = true;
                 uiManager.endScreenManager.HideEndScreens();
                 p1.OnHouseDeselected();
                 p1.nameText.SetActive(true);
