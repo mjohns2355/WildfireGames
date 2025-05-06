@@ -321,7 +321,7 @@ public class StructureContextMenu : MonoBehaviour
             selectedOptions.Add(option);
         }
         //Debug.Log($"Selected {selectedOptions.Count} choices");
-        confirm.interactable = true;
+        confirm.interactable = selectedOptions.Count != 0;
         //confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
         //onOptionSelected.Invoke();
         // }
