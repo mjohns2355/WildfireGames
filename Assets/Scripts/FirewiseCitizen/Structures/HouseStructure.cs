@@ -27,6 +27,7 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
+    public float homeHardeningChance;
     //public bool HasHorseTrailers
     //{
     //    get { return houseType == HouseType.horse && horseNum != 0; }
@@ -214,11 +215,11 @@ public class HouseStructure : Structure
             Debug.Log($"Player selected {currentOption}");
             var currentChoice = GetCurrentChoice(currentOption);
             // home hardening should apply immediately
-            if(currentChoice.choiceName == "Home Hardening")
-            {
-                currentChoice.ApplyHomeHardening(this);
-                ApplyHomeHardening(currentChoice.homeHardeningMod);
-            }
+            //if(currentChoice.choiceName == "Evacuate Early & Home Hardening")
+            //{
+            //    currentChoice.ApplyHomeHardening(this);
+            //    ApplyHomeHardeningToAllHouses(currentChoice.homeHardeningMod);
+            //}
 
             if (currentChoice != null)
             {
@@ -237,8 +238,10 @@ public class HouseStructure : Structure
             if (!currentChoice.isNormal)
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
-               
-                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > GameManager.Instance.houseFollowOrderChance)
+
+                // wui house has vary low chance to follow order at the beginning
+                float chance = houseType == HouseType.wui ? 0.2f : GameManager.Instance.houseFollowOrderChance;
+                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > chance)
                 {
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
@@ -329,11 +332,20 @@ public class HouseStructure : Structure
         stable.GetComponent<StableStructure>().RelocateHorse();
         
     }
-    public void ApplyHomeHardening(float homeHardeningMod)
+    public void ApplyHomeHardeningToAllHouses(float homeHardeningMod)
     {
         foreach(var house in sameTypeHouses)
         {
-            house.HomeHardeningBehavior(homeHardeningMod);
+            var rng = UnityEngine.Random.Range(0f, 1f);
+            if(rng < homeHardeningChance)
+            {
+                house.HomeHardeningBehavior(homeHardeningMod);
+            }
+            else
+            {
+                Debug.Log("Home Hardening Failed");
+            }
+
         }
         
     }

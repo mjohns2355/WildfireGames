@@ -184,7 +184,8 @@ MonoBehaviour:
   kidNum: 0
   carSpeed: 1
   carSpawnWaitTime: 0
-  currentHouseModel: {fileID: 0}
+  homeHardeningChance: 0
+  currentHouseModels: []
 --- !u!65 &4729918362590646441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -534,6 +535,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6401036436331986868, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401036436331986868, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401036436331986868, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6652749744439641118, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -651,12 +664,16 @@ PrefabInstance:
       value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7073574422419585981, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073574422419585981, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_fontSizeMax
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7073574422419585981, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_fontSizeMin
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7073574422419585981, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_fontSizeBase
@@ -672,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073574422419585981, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_enableWordWrapping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7538529934546397905, guid: 47b295ff42cd7054bbd3719638c40bad, type: 3}
       propertyPath: m_Sprite
