@@ -27,8 +27,8 @@ MonoBehaviour:
       early, even when there isn't an evacuation order, is the safe choice.
     endGameFeedback: Houses along the Wildland Urban Interface were ready and knew
       to evacuate without waiting for a notice.
-    isLocked: 1
-    isNormal: 0
+    isLocked: 0
+    isNormal: 1
   - choiceName: Evacuate Early & Home Hardening
     carNumberMod: 0
     horseNumberMod: 0
@@ -74,3 +74,4 @@ MonoBehaviour:
   requiredChoicesCount: 1
   newsUISprite: {fileID: 21300000, guid: 7cbf1a4c789c54e6baec5ee76e5cfb51, type: 3}
   choicePicture: {fileID: 21300000, guid: 7dcc616578d9a43339c839ed2fb14fd4, type: 3}
+  homeHardeningChance: 0.4

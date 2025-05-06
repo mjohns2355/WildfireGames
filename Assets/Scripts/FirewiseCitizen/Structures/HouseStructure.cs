@@ -238,8 +238,10 @@ public class HouseStructure : Structure
             if (!currentChoice.isNormal)
             {
                 var rng = UnityEngine.Random.Range(0, 1f);
-               
-                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > GameManager.Instance.houseFollowOrderChance)
+
+                // wui house has vary low chance to follow order at the beginning
+                float chance = houseType == HouseType.wui ? 0.2f : GameManager.Instance.houseFollowOrderChance;
+                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > chance)
                 {
                     //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
