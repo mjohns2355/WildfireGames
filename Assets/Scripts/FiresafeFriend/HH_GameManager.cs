@@ -71,6 +71,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
+        // don't spawn house at tutorial
+        if (isTutorial) return;
         SpawnHouses();
     }
 

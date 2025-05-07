@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plants: []
   houses: []
+  publicFences: []
 --- !u!1001 &113693540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1776,6 +1777,8 @@ MonoBehaviour:
   h1PlantCamPos: {fileID: 558905938}
   h2PlantCamPos: {fileID: 2069119501}
   fireTimer: 60
+  fireChance: 0.5
+  maxRounds: 10
   uiManager: {fileID: 1011932185}
   currentPlayer: {fileID: 1356811451}
   inputManager: {fileID: 1940618262}
@@ -1786,6 +1789,7 @@ MonoBehaviour:
   p1: {fileID: 1356811451}
   p2: {fileID: 627146728}
   _isPlantMode: 0
+  _currentStage: 0
 --- !u!4 &139962031
 Transform:
   m_ObjectHideFlags: 0
@@ -14255,67 +14259,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.0001, y: -0.000083923}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &750692486
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1162526734520649585, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e60baa7f834fe849ad97b84bb13c657, type: 2}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 128.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 121.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.12850744
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.12850744
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.6953315
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.6953315
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5788966625813438236, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -200.942
-      objectReference: {fileID: 0}
-    - target: {fileID: 7795666305044995551, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
-      propertyPath: m_Name
-      value: LawnChair (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3d56daa1d7e9e094d89d7727a336613b, type: 3}
 --- !u!1001 &756535868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17726,15 +17669,13 @@ MonoBehaviour:
   endRoundBtn: {fileID: 0}
   inventoryPanel: {fileID: 671064704}
   floatingIcons: {fileID: 2028402887}
-  startText: {fileID: 0}
-  modeToggle: {fileID: 488379236}
-  endScreen: {fileID: 0}
+  endScreenManager: {fileID: 0}
   quizPopup: {fileID: 260933656}
   warningPopup: {fileID: 1565216999}
   plantsMenu: {fileID: 69158125}
   bubblePrefab: {fileID: 101270976333883414, guid: a0453dc297967bb46bf76f487cc92acf, type: 3}
-  p1BurnPercentText: {fileID: 0}
-  p2BurnPercentText: {fileID: 0}
+  startText: {fileID: 0}
+  modeToggle: {fileID: 488379236}
 --- !u!114 &1011932186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18643,7 +18584,7 @@ Transform:
   m_GameObject: {fileID: 1066348162}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 78.37, y: 2.3, z: 126.89}
+  m_LocalPosition: {x: 78.37, y: 2.3, z: 120.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21216,6 +21157,10 @@ PrefabInstance:
       value: NewHouseOne
       objectReference: {fileID: 0}
     - target: {fileID: 3304160677795389601, guid: cde0033683fef4340840d6d06e526f13, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3304160677795389601, guid: cde0033683fef4340840d6d06e526f13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -21257,6 +21202,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972129276428505080, guid: cde0033683fef4340840d6d06e526f13, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6265468679295819159, guid: cde0033683fef4340840d6d06e526f13, type: 3}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6798090942473396768, guid: cde0033683fef4340840d6d06e526f13, type: 3}
@@ -22889,6 +22838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSky: {fileID: 2100000, guid: bdfc475e919710248bf14d75643fefd2, type: 2}
+  normalSky: {fileID: 0}
 --- !u!1 &1421634588
 GameObject:
   m_ObjectHideFlags: 0
@@ -27537,6 +27487,7 @@ MonoBehaviour:
   purchase: {fileID: 1122814062}
   cancelWarning: {fileID: 376786156}
   earnMoreMoney: {fileID: 1691705019}
+  closeBGBtn: {fileID: 0}
   purchaseScreen: {fileID: 1561788244}
   warningScreen: {fileID: 1350379215}
 --- !u!114 &1639508500
@@ -29126,7 +29077,7 @@ Transform:
   m_GameObject: {fileID: 1782847347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 112.07219, y: 1.78, z: 114.933495}
+  m_LocalPosition: {x: 112.07219, y: 1.78, z: 111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34076,7 +34027,6 @@ SceneRoots:
   - {fileID: 1719448684}
   - {fileID: 1282184159}
   - {fileID: 1066348163}
-  - {fileID: 750692486}
   - {fileID: 1020037516}
   - {fileID: 1625505265}
   - {fileID: 769738367}

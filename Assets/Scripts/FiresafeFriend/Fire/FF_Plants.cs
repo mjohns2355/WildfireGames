@@ -23,6 +23,9 @@ public class FF_Plants : FF_BaseCombustible
 
     private void HandleBurnedOut()
     {
+        onPlantClicked = null;
+        OnCombustibleDestroyed = null;
+        OnIgnite = null;
         Destroy(gameObject);
     }
 

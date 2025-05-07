@@ -77,7 +77,7 @@ public class FF_DirtMound : MonoBehaviour
         Shovel();
         //Debug.Log("plant");
         currentPlant = Instantiate(plant, plantHolder);
-
+        currentPlant.onPlantClicked += ()=> HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
         //currentPlant.isClickable = false;
         availablePlants.Remove(plant);
         //bubble.SetPlantIcon(true);
@@ -126,11 +126,11 @@ public class FF_DirtMound : MonoBehaviour
         bubble.gameObject.SetActive(state);
 
     }
-    private void OnMouseDown()
-    {
-        if (!HH_GameManager.Instance.IsPlantMode) return;
-        HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
-    }
+    //private void OnMouseDown()
+    //{
+    //    if (!HH_GameManager.Instance.IsPlantMode) return;
+    //    HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
+    //}
 
 
 }
