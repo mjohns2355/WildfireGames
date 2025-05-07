@@ -11,7 +11,7 @@ public class NewsFetcher : MonoBehaviour
     public Text newsText;
 
     private const string zipApi = "https://api.zippopotam.us/us/";
-    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Your NewsAPI key
+    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Our current NewsAPI key
     private const string newsApiBase = "https://newsapi.org/v2/everything";
 
     void Start()
