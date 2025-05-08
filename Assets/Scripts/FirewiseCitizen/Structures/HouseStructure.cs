@@ -28,6 +28,7 @@ public class HouseStructure : Structure
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
     public float homeHardeningChance;
+    public float followOrderChance = 0.5f;
     //public bool HasHorseTrailers
     //{
     //    get { return houseType == HouseType.horse && horseNum != 0; }
@@ -240,7 +241,7 @@ public class HouseStructure : Structure
                 var rng = UnityEngine.Random.Range(0, 1f);
 
                 // wui house has vary low chance to follow order at the beginning
-                float chance = houseType == HouseType.wui ? 0.2f : GameManager.Instance.houseFollowOrderChance;
+                float chance = houseType == HouseType.wui ? 0.2f : followOrderChance;
                 if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > chance)
                 {
                     //currentChoice = houseInfo.defaultChoice;
