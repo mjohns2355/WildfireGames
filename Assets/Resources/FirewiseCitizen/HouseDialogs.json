@@ -3,6 +3,11 @@
     {
       "houseType": "twoCar",
       "rootNodeId": "1",
+      "flags":{
+        "hasSpoken": false,
+        "hasIncentives": false,
+        "gaveIncentives": false
+      },
       "nodes": [
         {
           "id": "1",
@@ -267,6 +272,11 @@
     {
       "houseType": "kids",
       "rootNodeId": "10",
+      "flags":{
+        "hasSpoken": false,
+        "hasIncentives": false,
+        "gaveIncentives": false
+      },
       "nodes": [
         {
           "id": "10",
@@ -575,6 +585,11 @@
     {
       "houseType": "wui",
       "rootNodeId": "20",
+      "flags":{
+        "hasSpoken": false,
+        "hasIncentives": false,
+        "gaveIncentives": false
+      },
       "nodes": [
         {
           "id": "20",
@@ -584,12 +599,13 @@
               "optionText": "Continue",
               "nextNodeId": "21"
             }
+
           ]
         },
         {
           "id": "21",
           "characterName": "Sarah",
-          "dialogText": "Hey there! I'm Sarah, it's nice to meet you. My husband Jerry is busy right now, but I can catch him up later.",
+          "dialogText": "Hey there! I'm Sarah, it's nice to meet you. ",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -601,16 +617,20 @@
         {
           "id": "22",
           "characterName": "Sarah",
-          "dialogText": "I do hope you can help us out.",
+          "dialogText": "I do hope you can offer my husband and I some advice for the upcoming wildfire season.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "What's the problem?",
+              "optionText": "Ask About Problem",
+              "messageText": "It's nice to meet you Sarah! How can I help?",
               "nextNodeId": "23"
             },
             {
-              "optionText": "What are you painting?",
-              "nextNodeId": "31"
+              "optionText": "Conclude",
+              "nextNodeId": "44",
+              "conditions":{
+                "hasSpoken":true
+              }
             }
           ]
         },
@@ -872,6 +892,11 @@
     {
       "houseType": "elderly",
       "rootNodeId": "30",
+      "flags":{
+        "hasSpoken": false,
+        "hasIncentives": false,
+        "gaveIncentives": false
+      },
       "nodes": [
         {
           "id": "30",
@@ -1018,6 +1043,11 @@
       {
         "houseType": "pet",
         "rootNodeId": "40",
+        "flags":{
+          "hasSpoken": false,
+          "hasIncentives": false,
+          "gaveIncentives": false
+        },
         "nodes": [
           {
             "id": "40",

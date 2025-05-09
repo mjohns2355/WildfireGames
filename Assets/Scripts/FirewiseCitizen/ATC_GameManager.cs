@@ -36,6 +36,7 @@ public class GameManager : UnitySingleton<GameManager>
     public bool canControlCam;
     public int levelNum = 3;
     public bool IsLastLevel { get { return currentLevel + 1 == levelNum; } }
+    public bool HasIncentives { get { return currentLevel != 0; } }
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
@@ -325,7 +326,7 @@ public class GameManager : UnitySingleton<GameManager>
         Time.timeScale = 1f;
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
-
+        ATC_UIController.Instance.houseDialogManager.ResetFlags();
         var currentLevel = "FC_Level" + this.currentLevel.ToString();
         SceneManager.LoadScene(currentLevel);
         //TO-DO: Multiple levels
@@ -365,8 +366,9 @@ public class GameManager : UnitySingleton<GameManager>
         previousHousesDestroyed = 0;
         //currentStage = LevelStage.BeforeFirstSim;
         SkipSimulationRec();
-        ResetGame();
 
+        ResetGame();
+        
         //previousHousesDestroyed = previousCarsEvacuated = 0;
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -91,10 +91,10 @@ public class FC_MessageBubble : MonoBehaviour
         {
             backgroundImage.sprite = config.choiceSprite;
 
-             if(messageText.text == "Conclude")
-            {
-                backgroundImage.color = Color.green;
-            }
+            // if(messageText.text == "Conclude" || messageText.text == "Skip")
+            //{
+            //    backgroundImage.color = Color.green;
+            //}
             return;
         }
         if (isDescription)

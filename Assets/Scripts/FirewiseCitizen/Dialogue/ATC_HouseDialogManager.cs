@@ -6,12 +6,13 @@ using System.IO;
 using TMPro;
 using System;
 using DG.Tweening;
+using System.Linq;
 public class ATC_HouseDialogManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogText;
     public TextMeshProUGUI characterNameText;
     public Image characterPortrait;
-    public GameObject messageBubblePrefab,topFade,bottomFade;
+    public GameObject messageBubblePrefab, topFade, bottomFade;
     public Transform messagebBubblesContainer;
     [Range(0.01f, 0.05f)]
     public float waitTimePerCharacter = 0.01f;
@@ -21,6 +22,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     //[SerializeField] private Button[] optionButtons; // Buttons for responses
     private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
+    private Dictionary<string, DialogFlags> dialogFlagsMap;
     [SerializeField] private ATC_DialogTree currentDialogTree;
     [SerializeField] private DialogNode currentNode;
     //[SerializeField] private int paragraphIndex;
@@ -31,7 +33,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public Action<DialogNode> OnDialogueNodeDisplayed;
     public Action<DialogOption> OnDialogueOptionSelected;
     //[SerializeField] GameObject nameTag;
-    public bool isWaitingForPlayer =  true;
+    public bool isWaitingForPlayer = true;
     public bool canShowSkipButton = false;
     private bool canClick = false;
     private CanvasGroup topEdgeFade;
@@ -74,9 +76,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
             DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
 
             dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
+            dialogFlagsMap = new Dictionary<string, DialogFlags>();
             foreach (var dialogTree in collection.dialogTrees)
             {
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
+                dialogFlagsMap[dialogTree.houseType] = dialogTree.flags;
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
             Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
@@ -100,18 +104,18 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != "Continue")
         {
-           ShowOptions();
+            ShowOptions();
         }
-        if (!currentNode.isEndNode && currentNode.options.Length == 1 && currentNode.options[0].optionText == "Continue")
+        if (!currentNode.isEndNode && currentNode.options.Length > 0 && currentNode.options[0].optionText == "Continue")
         {
             //if (currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId).id == currentNode.id) return;
-            
+
             currentNode = currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId);
             DisplayCurrentNode();
         }
         //else if(currentNode.isEndNode)
         //{
-            
+
         //    DOVirtual.DelayedCall(0.1f,EndDialog).SetId(gameObject);
         //}
     }
@@ -180,7 +184,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         canClick = false;
 
-        if (currentNode.options == null || currentNode.options[0].optionText == "Continue" )
+        if (currentNode.options == null || currentNode.options[0].optionText == "Continue")
         {
             canClick = true;
             isWaitingForPlayer = true;
@@ -219,7 +223,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //instantiate new message bubble (use message text if option text and message text is different)
         string text = string.Empty;
         var selectedOption = currentNode.options[optionIndex];
-       
+
         if (!string.IsNullOrEmpty(selectedOption.messageText))
         {
             text = selectedOption.messageText;
@@ -229,7 +233,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             text = selectedOption.optionText;
         }
 
-        SpawnAMessageBubble(text, null, true, false,false);
+        SpawnAMessageBubble(text, null, true, false, false);
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
         //jump to end if it node is an end node
@@ -244,7 +248,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         float delayTime = clickCooldown + text.Length * waitTimePerCharacter;
 
-        StartCoroutine(OptionSelectedRoutine(delayTime,selectedOption));
+        StartCoroutine(OptionSelectedRoutine(delayTime, selectedOption));
 
         //DisplayCurrentNode();
         //HideOptions();
@@ -258,35 +262,43 @@ public class ATC_HouseDialogManager : MonoBehaviour
         string nextNodeId = selectedOption.nextNodeId;
         // Find the next node
         currentNode = currentDialogTree.GetNodeById(nextNodeId);
-        
+
         DOVirtual.DelayedCall(1f, () =>
         {
             isWaitingForPlayer = true;
             canClick = true;
             DisplayCurrentNode();
         });
-        
+
+    }
+    private bool CheckOptionConditions(DialogOption option)
+    {
+        if (option.conditions == null) return true;
+        var flags = dialogFlagsMap[currentDialogTree.houseType];
+        if (option.conditions.hasSpoken && !flags.hasSpoken) return false;
+        if (option.conditions.hasIncentives && !flags.hasIncentives) return false;
+        if (option.conditions.gaveIncentives && !flags.gaveIncentives) return false;
+        return true;
     }
     private void ShowOptions()
     {
-       
-        for (int i = 0; i < currentNode.options.Length; i++)
-        {
-            var index = i;
-            var optionBubble = SpawnAMessageBubble(currentNode.options[i].optionText, null, false, true,false);
 
-            // what happen after palyer clicks the option
+        foreach (var option in currentNode.options)
+        {
+            if (!CheckOptionConditions(option)) continue;
+
+            var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
             optionBubble.messageBox.onClick.AddListener(() =>
             {
-                OnOptionSelected(index);
+                OnOptionSelected(currentNode.options.ToList().IndexOf(option));
             });
-
         }
     }
 
     public void EndDialog()
     {
         StopAllCoroutines();
+        SetFlag("hasSpoken", true);
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
         //isWaitingForPlayer = true;
@@ -301,7 +313,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
 
     }
-    public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption,bool isDescription)
+    public FC_MessageBubble SpawnAMessageBubble(string message, string name, bool isSentByUser, bool isOption, bool isDescription)
     {
         if (isOption)
         {
@@ -346,7 +358,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void ResetScrollPosition()
     {
-        
+
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 1f;
         Canvas.ForceUpdateCanvases();
@@ -370,4 +382,35 @@ public class ATC_HouseDialogManager : MonoBehaviour
         skipButton.gameObject.SetActive(isActive);
     }
 
+    public void SetFlag(string flagName, bool value)
+    {
+        if (!dialogFlagsMap.TryGetValue(key, out DialogFlags flags)) return;
+        if (flags == null) return;
+        switch (flagName)
+        {
+            case "hasSpoken":
+                flags.hasSpoken = value;
+                break;
+            case "hasIncentives":
+                flags.hasIncentives = value;
+                break;
+            case "gaveIncentives":
+                flags.gaveIncentives = value;
+                break;
+            default:
+                Debug.LogError($"Flag '{flagName}' not found.");
+                break;
+        }
+    }
+
+
+    public void ResetFlags()
+    {
+        foreach (var flags in dialogFlagsMap.Values)
+        {
+            flags.hasIncentives = GameManager.Instance.HasIncentives;
+            flags.hasSpoken = false;
+            flags.gaveIncentives = false;
+        }
+    }
 }

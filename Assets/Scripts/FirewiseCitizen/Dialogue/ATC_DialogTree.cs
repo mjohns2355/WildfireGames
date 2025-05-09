@@ -13,6 +13,14 @@ public class ATC_DialogTree
     {
         return nodes.Find(node => node.id == id);
     }
+    public DialogFlags flags;
+}
+[System.Serializable]
+public class DialogFlags
+{
+    public bool hasSpoken;
+    public bool hasIncentives;
+    public bool gaveIncentives;
 }
 [System.Serializable]
 public class DialogNode
@@ -24,8 +32,15 @@ public class DialogNode
     //public string[] messages;
     public DialogOption[] options;
     public bool isEndNode;
-}
 
+}
+[System.Serializable]
+public class DialogCondition
+{
+    public bool hasSpoken;
+    public bool hasIncentives;
+    public bool gaveIncentives;
+}
 [System.Serializable]
 public class DialogOption
 {
@@ -35,7 +50,7 @@ public class DialogOption
     // text actually sent in message
     public string messageText;
     public string nextNodeId;
-
+    public DialogCondition conditions;
 }
 
 [System.Serializable]
