@@ -134,11 +134,6 @@ namespace HappyHouse.HouseSystem
 
         }
 
-        public void Move()
-        {
-            ToggleHousePartClickable(true);
-            StartCoroutine(UpdateHouseUI());
-        }
         public void ToggleClickBox(bool toggle)
         {
             //clickBox.enabled = toggle;

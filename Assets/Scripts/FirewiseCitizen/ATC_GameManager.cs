@@ -302,13 +302,22 @@ public class GameManager : UnitySingleton<GameManager>
     //    return words;
     //}
 
-    public void ResetGame()
+    public void ResetGame(bool restartFromTutorial = false)
     {
+
         ATC_UIController.Instance.ShowLoadingScreen();
         //Debug.Log(currentStage);
-        if (!IsFirstSim && currentStage!= LevelStage.Tutorial) {
+        if (restartFromTutorial)
+        {
+            currentStage = LevelStage.Tutorial;
+        }
+        else
+        {
             currentStage = LevelStage.PhaseOne;
         }
+        //else if (/*!IsFirstSim && */currentStage!= LevelStage.Tutorial) {
+        //    currentStage = LevelStage.PhaseOne;
+        //}
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
         //Time.timeScale = GameSpeed = 2f;
@@ -354,7 +363,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void RestartGameFromTutorial()
     {
         currentLevel = 0;
-        ResetGame();
+        ResetGame(true);
         
         tutorialManager.ReloadTutorial();
     }
@@ -365,7 +374,7 @@ public class GameManager : UnitySingleton<GameManager>
         previousLastEvacTime = previousFirstEvacTime = 0f;
         previousHousesDestroyed = 0;
         //currentStage = LevelStage.BeforeFirstSim;
-        SkipSimulationRec();
+        //SkipSimulationRec();
 
         ResetGame();
         
@@ -382,10 +391,10 @@ public class GameManager : UnitySingleton<GameManager>
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
         tutorialManager = FindObjectOfType<FC_TutorialManager>();
-        if (tutorialManager)
+        if (tutorialManager && currentStage == LevelStage.Tutorial)
         {
             tutorialManager.InitTutorialManager();
-            
+
         }
 
         //dialogManager = FindObjectOfType<ATC_dialogManager>();

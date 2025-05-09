@@ -61,6 +61,7 @@ public class StructureContextMenu : MonoBehaviour
             isSelected = true;
 
             GameManager.Instance.cameraMovement.ResetCam();
+            GameManager.Instance.currentStage = LevelStage.PhaseOne;
             OnMenuDisable();
         });
 

@@ -35,15 +35,6 @@ public class HH_UIManager : MonoBehaviour
             HH_GameManager.Instance.SwitchPlayer("P2");
         });
 
-        repairBtn.onClick.AddListener(() =>
-        {
-            HH_GameManager.Instance.RepairHouse();
-        });
-
-        moveBtn.onClick.AddListener(() =>
-        {
-            HH_GameManager.Instance.MoveHouse();
-        });
         HH_GameManager.Instance.OnRoundStart += OnRoundStart;
         HH_GameManager.Instance.OnRoundEnd += OnRoundEnd;
 
@@ -73,6 +64,18 @@ public class HH_UIManager : MonoBehaviour
         toggle.onValueChanged.AddListener(OnToggleValueChanged);
 
         earnMoreMoney.onClick.AddListener(ShowQuizPopup);
+
+        if (HH_GameManager.Instance.isTutorial) return;
+
+        repairBtn.onClick.AddListener(() =>
+        {
+            HH_GameManager.Instance.RepairHouse();
+        });
+
+        moveBtn.onClick.AddListener(() =>
+        {
+            HH_GameManager.Instance.MoveHouse();
+        });
     }
 
     private void OnToggleValueChanged(bool value)

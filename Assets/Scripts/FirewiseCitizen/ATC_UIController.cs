@@ -290,6 +290,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
         toolsBar.gameObject.SetActive(true);
+        start.gameObject.SetActive(true);
         start.interactable = true;
         learnMore.interactable = !isFirstSim;
         pause.interactable = !isFirstSim;

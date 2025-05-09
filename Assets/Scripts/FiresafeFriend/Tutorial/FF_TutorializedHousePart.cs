@@ -63,6 +63,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     }
     void SwitchToHouseMode()
     {
+        plantModeToggle.GetComponent<Toggle>().interactable = false;
         FF_TutorialManager.Instance.tutorialText.text = "Let’s try upgrading the roof. Tap to see the roofing options.";
         canClick = false;
         HH_GameManager.Instance.cameraController.Zoomcamera(camH1, true, 60);

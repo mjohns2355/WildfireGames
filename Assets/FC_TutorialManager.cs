@@ -47,13 +47,14 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueOptionSelected += CheckDialogueOption;
 
         fireStationIcon.onClick.AddListener(OnFirestationIconClicked);
+        // TO-DO: should have a tutorial house type instead of using existing pet
+        GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
         // only hide the skip button when player first time playing the tutorial
         if (!isFirstTimeTutorial) return;
         houseDialogManager.SetSkipButton(false);
         houseDialogManager.canShowSkipButton = false;
         //add pet to available house types for tutorial
-        // TO-DO: should have a tutorial house type instead of using existing pet
-        GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
+
     }
     private void CheckDialogueOption(DialogOption option)
     {
@@ -155,8 +156,10 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.canShowSkipButton = true;
         houseDialogManager.SetSkipButton(true);
         houseDialogManager.isWaitingForPlayer = false;
-        GameManager.Instance.SkipSimulationRec();
+        //GameManager.Instance.SkipSimulationRec();
+        GameManager.Instance.ResetGame();
         GameManager.Instance.availableHouseTypes.Remove(HouseType.pet);
+        ATC_UIController.Instance.ToggleHouseIcons(true);
         houseDialogManager.OnDialogueComplete = null;
 
     }
@@ -215,7 +218,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     void SetUpTutorialHouse()
     {
-        if (tutorialHouse != null || !isFirstTimeTutorial) return;
+        if (tutorialHouse != null) return;
         foreach (var house in structureManager.allMainHouses.Values)
         {
             house.SetOutline(false);
@@ -252,6 +255,8 @@ public class FC_TutorialManager : MonoBehaviour
 
     public void ReloadTutorial()
     {
+
         titleCard.gameObject.SetActive(true);
+
     }
 }
