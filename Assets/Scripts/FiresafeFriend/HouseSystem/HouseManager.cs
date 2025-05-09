@@ -25,13 +25,14 @@ namespace HappyHouse.HouseSystem
         // chance for upgrading at the start of the game
         [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
-        private List<PurchaseFloatingButton> purchaseFloatingButtons = new List<PurchaseFloatingButton>();
+        private List<PurchaseFloatingButton> purchaseFloatingButtons = new ();
         [SerializeField] private List<BaseHousePartObject> fences;
         //[SerializeField] BoxCollider clickBox;
-        [SerializeField] private List<HousePartType> upgradeList = new List<HousePartType> { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
+        [SerializeField] private List<HousePartType> upgradeList = new () { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
         public List<FF_Plants> ownedPlants;
-        Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new Dictionary<HousePartType, MaterialClass>();
+        public bool isRepairing = false;
+        public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
 
         private void Start()
         {
@@ -88,10 +89,11 @@ namespace HappyHouse.HouseSystem
                 }
             }
             // don't roll start condition when it is tutorial or first round
-            if (!HH_GameManager.Instance.isTutorial || !HH_GameManager.Instance.IsFirstRound)
+            if (!HH_GameManager.Instance.isTutorial && /*!HH_GameManager.Instance.IsFirstRound &&*/ HH_GameManager.Instance.isNewLevel)
             {
                 StartCoroutine(RandomizeStartingCondition());
             }
+
             HH_GameManager.Instance.inputManager.OnHouseSelected -= OnHouseSelected;
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
             //houseGraph.PrintGraph();
@@ -109,6 +111,34 @@ namespace HappyHouse.HouseSystem
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
+        public void Repair(Dictionary<HousePartType,MaterialClass> upgradeDict)
+        {
+            upgradeClassDictionary = upgradeDict;
+            foreach (var pair in upgradeDict)
+            {
+                var oldParts = GetAllHousePartObjectsOf(pair.Key);
+                var newPart = ResourceManager.Instance.allAvailableParts[pair.Key].Find(x => x.materialClass == pair.Value);
+                foreach (var oldPart in oldParts)
+                {
+                    //inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
+                    //if (oldPart.houseNode != null)
+                    //{
+                    //    houseGraph.RemoveHousePart(oldPart.houseNode);
+                    //}
+                    oldPart.InitHousePartObject(this, newPart);
+                }
+                inventory.AddNewPartToInventory(newPart);
+            }
+            ToggleHousePartClickable(true);
+            StartCoroutine(UpdateHouseUI());
+
+        }
+
+        public void Move()
+        {
+            ToggleHousePartClickable(true);
+            StartCoroutine(UpdateHouseUI());
+        }
         public void ToggleClickBox(bool toggle)
         {
             //clickBox.enabled = toggle;
@@ -291,7 +321,7 @@ namespace HappyHouse.HouseSystem
             foreach (var fence in fences)
             {
                 //Debug.Log("Init Bubble for Fences");
-                if (!fence.shouldDisplayBubble) continue;
+                if (!fence.shouldDisplayBubble || fence == null) continue;
                 fence.bubble = InitBubble(fence);
             }
         }
@@ -507,6 +537,17 @@ namespace HappyHouse.HouseSystem
                 return;
             }
             houseGraph.RemoveHousePart(part.houseNode);
+
+        }
+
+        private void OnDestroy()
+        {
+            foreach(var icon in purchaseFloatingButtons)
+            {
+                if(icon == null) continue;  
+                Destroy(icon.gameObject);
+            }
+            
         }
     }
 }

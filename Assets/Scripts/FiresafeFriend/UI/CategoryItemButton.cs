@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    public Image icon;
+    public Image icon,BG;
+    public Sprite inUseBG, emptyBG;
     [SerializeField] UnityEngine.UI.Outline outline;
     public HousePartType housePartType;
     bool isInUse;
@@ -22,7 +23,7 @@ public class InventoryItem : MonoBehaviour
         //gradeText.text = $"Grade {partInfo.grade}";
         icon.sprite = partInfo.icon;
         icon.gameObject.SetActive(true);
-        
+        BG.sprite = partInfo != null ? inUseBG : emptyBG;
     }
 
     //public void OnPointerClick(PointerEventData eventData)

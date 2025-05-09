@@ -1,3 +1,4 @@
+using DG.Tweening;
 using HappyHouse.FireSystem;
 using HappyHouse.HouseSystem;
 using System;
@@ -6,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
-    public bool isTutorial;
+    public bool isTutorial, isNewLevel;
     public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
@@ -31,6 +32,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField]private bool _isPlantMode;
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
+    [SerializeField] List<GameObject> houses = new();
+    [SerializeField] List<GameObject> currentHousePrefabs = new(){ null, null};
     public bool IsPlantMode
     {
         get => _isPlantMode;
@@ -71,6 +74,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
+        houses = ResourceManager.Instance.houses;
+        isNewLevel = true;
         // don't spawn house at tutorial
         if (isTutorial) return;
         SpawnHouses();
@@ -114,34 +119,96 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     public void SpawnHouses()
     {
-        var houses = new List<GameObject>(ResourceManager.Instance.houses);
         if (houses.Count < 2)
         {
             Debug.LogError("Not enough houses to assign different ones to P1 and P2.");
             return;
         }
 
-        int index1 = UnityEngine.Random.Range(0, houses.Count);
-        var house1Prefab = houses[index1];
-        houses.RemoveAt(index1);
+        p1 = SpawnSingleHouse("P1",h1);    
 
-        int index2 = UnityEngine.Random.Range(0, houses.Count);
-        var house2Prefab = houses[index2];
 
-        var h1Instance = Instantiate(house1Prefab, h1);
-        p1 = h1Instance.GetComponent<HouseManager>();
-        p1.playerTag = "P1";       
-        p1.arrowUI = uiManager.rightArrow.gameObject;
-        // flip the model 
-        h1Instance.transform.localScale = new Vector3(h1Instance.transform.localScale.x * -1 , 1, 1);
-        p1.nameText.transform.localScale = new Vector3(p1.nameText.transform.localScale.x * -1, 1, 1);
-
-        var h2Instance = Instantiate(house2Prefab, h2);
-        p2 = h2Instance.GetComponent<HouseManager>();
-        p2.playerTag = "P2";
-        p2.arrowUI = uiManager.leftArrow.gameObject;
+        p2 = SpawnSingleHouse("P2", h2);
     }
 
+    private HouseManager SpawnSingleHouse(string playerTag, Transform parent,bool reRoll = true)
+    {
+        GameObject housePrefab;
+        if (reRoll)
+        {
+            int index = UnityEngine.Random.Range(0, houses.Count);
+            housePrefab = houses[index];
+            var i = playerTag == "P1" ? 0 : 1;
+            currentHousePrefabs[i] = housePrefab;
+            houses.RemoveAt(index);
+        }
+        else
+        {
+            housePrefab = currentHousePrefabs[playerTag == "P1" ? 0 : 1];
+        }
+
+        var instance = Instantiate(housePrefab, parent);
+        var house = instance.GetComponent<HouseManager>();
+        house.playerTag = playerTag;
+        house.arrowUI = playerTag == "P1" ? uiManager.rightArrow.gameObject : uiManager.leftArrow.gameObject;
+        if(playerTag == "P1")
+        {
+            // flip the model 
+            instance.transform.localScale = new Vector3(instance.transform.localScale.x * -1, 1, 1);
+            house.nameText.transform.localScale = new Vector3(house.nameText.transform.localScale.x * -1, 1, 1);
+        }
+        return house;
+    }
+
+    private void RemoveHouse(string playerTag, bool reRoll)
+    {
+        var houseToRemove = playerTag == "P1" ? p1 : p2;
+        inputManager.OnHouseSelected -= houseToRemove.OnHouseSelected;
+        currentPlayer = null;
+        if (reRoll)
+        {
+            var index = playerTag == "P1" ? 0 : 1;
+            houses.Add(currentHousePrefabs[index]);
+        }
+        Destroy(houseToRemove.gameObject);
+    }
+    public void RepairHouse()
+    {
+        RespawnHouse(false);
+
+    }
+
+    public void MoveHouse()
+    {
+        RespawnHouse(true);
+    }
+    public void RespawnHouse(bool reRoll)
+    {
+        var temp = currentPlayer;
+        var upgradeDict = temp.upgradeClassDictionary;
+        var currentBudget = temp.budgetManager.currentBudget;
+        var canEarnMoreMoney = temp.budgetManager.canEarnMoreMoney;
+        RemoveHouse(temp.playerTag,reRoll);
+        var newHouse = SpawnSingleHouse(temp.playerTag, temp.transform.parent, reRoll);
+        currentPlayer = newHouse;
+
+        DOVirtual.DelayedCall(0.3f, () =>
+        {
+
+            newHouse.Repair(upgradeDict);
+            
+            newHouse.budgetManager.currentBudget = currentBudget;
+            newHouse.budgetManager.canEarnMoreMoney = canEarnMoreMoney;
+            if (newHouse.playerTag == "P1")
+            {
+                p1 = newHouse;
+            }
+            else
+            {
+                p2 = newHouse;
+            }
+        });
+    }
     void OnFireEnd()
     {
         //IsFireStarted = false;
@@ -377,10 +444,12 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2.nameText.SetActive(true);
                 cameraController.ResetCamera();
                 uiManager.floatingIcons.gameObject.SetActive(true);
+                isNewLevel = true;
                 break;
             case GameStage.RoundStart:
                 OnRoundStart?.Invoke();
                 inputManager.canClickHouse = false;
+                isNewLevel = false;
                 break;
 
             case GameStage.Fire:

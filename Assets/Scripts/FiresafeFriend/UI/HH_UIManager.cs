@@ -11,7 +11,7 @@ public class HH_UIManager : MonoBehaviour
 {
     public StorePanel storePanel;
     public PurchasePopup purchasePopup;
-    public Button leftArrow, rightArrow, earnMoreMoney, startFireBtn, endRoundBtn;
+    public Button leftArrow, rightArrow, earnMoreMoney, startFireBtn, endRoundBtn, repairBtn,moveBtn;
     public InventoryUI inventoryPanel;
     public Transform floatingIcons;
     public FF_EndScreensManager endScreenManager;
@@ -35,6 +35,15 @@ public class HH_UIManager : MonoBehaviour
             HH_GameManager.Instance.SwitchPlayer("P2");
         });
 
+        repairBtn.onClick.AddListener(() =>
+        {
+            HH_GameManager.Instance.RepairHouse();
+        });
+
+        moveBtn.onClick.AddListener(() =>
+        {
+            HH_GameManager.Instance.MoveHouse();
+        });
         HH_GameManager.Instance.OnRoundStart += OnRoundStart;
         HH_GameManager.Instance.OnRoundEnd += OnRoundEnd;
 

@@ -187,6 +187,8 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     {
         StopAllCoroutines();
         HH_GameManager.Instance.inputManager.OnObjectSelected -= OnCombustibleClicked;
+        if (bubble == null) return;
+        bubble.button.onClick.RemoveAllListeners();
     }
 
     private void ChangeBurnStage(BurnStage newStage)
