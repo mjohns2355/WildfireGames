@@ -157,10 +157,14 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.SetSkipButton(true);
         houseDialogManager.isWaitingForPlayer = false;
         //GameManager.Instance.SkipSimulationRec();
-        GameManager.Instance.ResetGame();
+        Debug.Log("Remove Pet");
         GameManager.Instance.availableHouseTypes.Remove(HouseType.pet);
         ATC_UIController.Instance.ToggleHouseIcons(true);
         houseDialogManager.OnDialogueComplete = null;
+        houseDialogManager.OnDialogueNodeDisplayed -= CheckDialogueNode;
+        houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
+        GameManager.Instance.ResetGame();
+
 
     }
 

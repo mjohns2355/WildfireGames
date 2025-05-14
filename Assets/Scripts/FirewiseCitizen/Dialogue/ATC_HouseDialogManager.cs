@@ -74,7 +74,19 @@ public class ATC_HouseDialogManager : MonoBehaviour
             string json = jsonFile.text;
             //Debug.Log($"Loaded JSON: {json}");
             DialogTreeCollection collection = JsonUtility.FromJson<DialogTreeCollection>(json);
-
+            foreach (var dialogTree in collection.dialogTrees)
+            {
+                foreach (var node in dialogTree.nodes)
+                {
+                    if (node.options != null)
+                    {
+                        foreach (var option in node.options)
+                        {
+                            option.parentId = node.id;
+                        }
+                    }
+                }
+            }
             dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
             dialogFlagsMap = new Dictionary<string, DialogFlags>();
             foreach (var dialogTree in collection.dialogTrees)
@@ -99,19 +111,43 @@ public class ATC_HouseDialogManager : MonoBehaviour
             ProceedToNextNode();
         }
     }
-
+    private bool CheckNodeConditions(DialogNode node)
+    {
+        if (node.conditions == null) return true;
+        var flags = dialogFlagsMap[currentDialogTree.houseType];
+        if (node.conditions.hasSpoken && !flags.hasSpoken) return false;
+        if (node.conditions.hasIncentives && !flags.hasIncentives) return false;
+        if (node.conditions.gaveIncentives && !flags.gaveIncentives) return false;
+        return true;
+    }
     private void ProceedToNextNode()
     {
-        if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != "Continue")
+        if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != null)
         {
             ShowOptions();
         }
-        if (!currentNode.isEndNode && currentNode.options.Length > 0 && currentNode.options[0].optionText == "Continue")
+        else if (!currentNode.isEndNode)
         {
-            //if (currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId).id == currentNode.id) return;
+            string nextId = currentNode.GetNextNodeId();
+            DialogNode nextNode = currentDialogTree.GetNodeById(nextId);
 
-            currentNode = currentDialogTree.GetNodeById(currentNode.options[0].nextNodeId);
-            DisplayCurrentNode();
+            //Skip nodes that don't meet condition
+            while (nextNode != null && !CheckNodeConditions(nextNode))
+            {
+                nextId = nextNode.GetNextNodeId();
+                nextNode = currentDialogTree.GetNodeById(nextId);
+            }
+
+            if (nextNode != null)
+            {
+                currentNode = nextNode;
+                DisplayCurrentNode();
+            }
+            else
+            {
+                Debug.Log("No valid next node found.");
+                //EndDialog();
+            }
         }
         //else if(currentNode.isEndNode)
         //{
@@ -162,7 +198,12 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         OnDialogueNodeDisplayed?.Invoke(currentNode);
 
-
+        if(string.IsNullOrEmpty(currentNode.characterName) && string.IsNullOrEmpty(currentNode.dialogText)&& string.IsNullOrEmpty(currentNode.portraitPath))
+        {
+            isWaitingForPlayer = true;
+            canClick = true;
+            return;
+        }
         if (string.IsNullOrEmpty(currentNode.characterName))
         {
             SpawnAMessageBubble(currentNode.dialogText, null, false, false, true);
@@ -184,7 +225,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         canClick = false;
 
-        if (currentNode.options == null || currentNode.options[0].optionText == "Continue")
+        if (currentNode.options == null || currentNode.options[0].optionText == "")
         {
             canClick = true;
             isWaitingForPlayer = true;
@@ -258,10 +299,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         yield return new WaitUntil(() => isWaitingForPlayer == false);
 
-        // show next node with delay
-        string nextNodeId = selectedOption.nextNodeId;
         // Find the next node
-        currentNode = currentDialogTree.GetNodeById(nextNodeId);
+        currentNode = currentDialogTree.GetNodeById(selectedOption.GetNextNodeId());
 
         DOVirtual.DelayedCall(1f, () =>
         {
