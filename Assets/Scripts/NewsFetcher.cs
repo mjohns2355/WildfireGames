@@ -3,12 +3,15 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using SimpleJSON;
+using TMPro;
+
 
 public class NewsFetcher : MonoBehaviour
 {
     public InputField zipCodeInput;
     public Button fetchButton;
-    public Text newsText;
+    public TMP_Text newsText;
+
 
     private const string zipApi = "https://api.zippopotam.us/us/";
     private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Our current NewsAPI key
@@ -66,7 +69,8 @@ public class NewsFetcher : MonoBehaviour
             string title = article["title"];
             string url = article["url"];
             string date = article["publishedAt"];
-            newsText.text += $"<b>{title}</b>\n{date}\n{url}\n\n";
+            newsText.text += $"<link={url}><color=#0000EE><u>{title}</u></color></link>\n{date}\n\n";
+
         }
     }
 }
