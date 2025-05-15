@@ -4,9 +4,9 @@
       "houseType": "twoCar",
       "rootNodeId": "1",
       "flags": {
-        "hasSpoken": false,
-        "hasIncentives": false,
-        "gaveIncentives": false
+        "hasSpoken": -1,
+        "hasIncentives": -1,
+        "gaveIncentives": -1
       },
       "nodes": [
         {
@@ -586,9 +586,9 @@
       "houseType": "wui",
       "rootNodeId": "20",
       "flags": {
-        "hasSpoken": false,
-        "hasIncentives": false,
-        "gaveIncentives": false
+        "hasSpoken": 0,
+        "hasIncentives": 0,
+        "gaveIncentives": 0
       },
       "nodes": [
         {
@@ -598,67 +598,58 @@
         {
           "id": "21",
           "characterName": "Sarah",
-          "variantGroup": "greeting",
           "dialogText": "Hey there! I'm Sarah, it's nice to meet you. ",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "conditions": {
-            "hasSpoken": false
+            "hasSpoken": 0
           }
         },
         {
           "id": "21",
           "characterName": "Sarah",
-          "variantGroup": "greeting",
           "dialogText": "Hey there, good to see you again! ",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "conditions": {
-            "hasSpoken": true
+            "hasSpoken": 1
           }
         },
         {
           "id": "22",
           "characterName": "Sarah",
-          "variantGroup": "greeting",
           "dialogText": "I do hope you can offer my husband and I some advice for the upcoming wildfire season.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Ask About Problem",
-              "messageText": "It's nice to meet you Sarah! How can I help?"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+          "conditions": {
+            "hasSpoken": 0
+          }
         },
         {
           "id": "22",
           "characterName": "Sarah",
-          "variantGroup": "greeting",
           "dialogText": "I hope you can help us out again this fire season.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "conditions": {
-            "hasSpoken": true
+            "hasSpoken": 1
           }
         },
         {
           "id": "23",
           "characterName": "Sarah",
-          "variantGroup": "greeting",
-          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+          "dialogText": "Not too much has changed around here. We're still working hard, and money is still tight.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "conditions": {
-            "hasSpoken": true
+            "hasSpoken": 1
           },
           "options": [
             {
               "optionText": "Ask About Problem",
-              "messageText": "It's nice to meet you Sarah! How can I help?"
+              "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?"
             },
             {
               "optionText": "Skip to Incentives",
               "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
               "nextNodeId": "200"
             },
             {
@@ -669,19 +660,54 @@
         },
         {
           "id": "23",
-          "characterName": "Sarah",
-          "variantGroup": "greeting",
-          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+          "conditions": {
+            "hasSpoken": 0
+          },
+          "options": [
+            {
+              "optionText": "Ask About Problem",
+              "messageText": "It's nice to meet you Sarah! How can I help?"
+            },
+            {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Skip to Final Decisions",
+              "nextNodeId": "100"
+            }
+          ]
         },
         {
           "id": "24",
+          "characterName": "Sarah",
+          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "conditions": {
+            "hasSpoken": 0
+          }
+        },
+        {
+          "id": "24",
+          "characterName": "Sarah",
+          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "conditions": {
+            "hasSpoken": 1
+          }
+        },
+        {
+          "id": "25",
           "characterName": "Sarah",
           "dialogText": "I love being so close to the forest and nature. Plus, housing is a lot cheaper here! Especially compared to more developed communities.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "25",
+          "id": "26",
           "characterName": "Sarah",
           "dialogText": "However, wildfires are always a risk.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
@@ -691,37 +717,45 @@
               "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
             },
             {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
+            {
               "optionText": "Skip to Final Decisions",
               "nextNodeId": "100"
             }
           ]
         },
         {
-          "id": "26",
+          "id": "27",
           "characterName": "Sarah",
           "dialogText": "Which is why we need your help.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "27",
+          "id": "28",
           "characterName": "Sarah",
           "dialogText": "TWe have invested so much into our new home. Time, money, and a lot of love.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "28",
+          "id": "29",
           "characterName": "Sarah",
           "dialogText": "If we lose our home, we lose almost everything. Our funds are empty.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "29",
+          "id": "30",
           "characterName": "Sarah",
           "dialogText": "With wildfire season right around the corner, I can't stop thinking about the worst case scenario.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "30",
+          "id": "31",
           "characterName": "Sarah",
           "dialogText": "In case of a fire, my house is my number one priority.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
@@ -731,17 +765,12 @@
               "messageText": "Your number one priority should be you and your husband's safety, not the house."
             },
             {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
-        },
-        {
-          "id": "31",
-          "options": [
-            {
-              "optionText": "Explain importance of early evacuation",
-              "messageText": "In the case of a wildfire, it's critical to get out quickly. There can be a lot of stress around evacuations, but your personal health should never be risked."
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
             },
             {
               "optionText": "Skip to Final Decisions",
@@ -751,11 +780,18 @@
         },
         {
           "id": "32",
-          "characterName": "Player",
-          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical, and should always be done if there is threat of a fire near you.",
           "options": [
             {
-              "optionText": "Continue"
+              "optionText": "Explain importance of early evacuation",
+              "messageText": "In the case of a wildfire, it's critical to get out quickly. There can be a lot of stress around evacuations, but your personal health should never be risked."
+            },
+            {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
             },
             {
               "optionText": "Skip to Final Decisions",
@@ -765,18 +801,40 @@
         },
         {
           "id": "33",
+          "characterName": "Player",
+          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical, and should always be done if there is threat of a fire near you.",
+          "options": [
+            {
+              "optionText": "Continue"
+            },
+            {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Skip to Final Decisions",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "34",
           "characterName": "Sarah",
           "dialogText": "Wow, I never thought about it that way! Even though I love my home, it's better to make sure I can come back in the first place.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "34",
+          "id": "35",
           "characterName": "Sarah",
           "dialogText": "I'll make sure we have our go bags ready, and will keep checking our fire department for evacuation information.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "35",
+          "id": "36",
           "characterName": "Sarah",
           "dialogText": "Do you have other advice for us?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
@@ -786,18 +844,12 @@
               "messageText": "There are ways to keep your house safe before you evacute; this is known as home hardening."
             },
             {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
-        },
-        {
-          "id": "36",
-          "characterName": "Player",
-          "dialogText": "Home hardening means making efforts to decrease the chance of your home catching on fire. This can include installing ember resistant vents, clearing your gutters of combustible debris, and removing flammable plants in your front yard.",
-          "options": [
-            {
-              "optionText": "Continue"
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
             },
             {
               "optionText": "Skip to Final Decisions",
@@ -807,49 +859,19 @@
         },
         {
           "id": "37",
-          "characterName": "Sarah",
-          "dialogText": "That sounds pretty costly.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "characterName": "Player",
+          "dialogText": "Home hardening means making efforts to decrease the chance of your home catching on fire. This can include installing ember resistant vents, clearing your gutters of combustible debris, and removing flammable plants in your front yard.",
           "options": [
             {
               "optionText": "Continue"
-            }
-          ]
-        },
-        {
-          "id": "38",
-          "characterName": "Player",
-          "dialogText": "Unfortunately, it can be. It takes some time, effort, and money to harden your home."
-        },
-        {
-          "id": "39",
-          "characterName": "Player",
-          "dialogText": "However, it's worth it if you want to keep your home safe."
-        },
-        {
-          "id": "40",
-          "dialogText": "<i>She looks back at her freshly painted house. You notice most of the roof, windows, and stairs are brand new.</i>"
-        },
-        {
-          "id": "41",
-          "characterName": "Sarah",
-          "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "42",
-          "characterName": "Sarah",
-          "dialogText": "I'm not saying it's impossible to do both. But if we are to evacuate early, that means taking time off work.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "43",
-          "characterName": "Sarah",
-          "dialogText": "Losing money and hours that could have been spent on preparing our home for fires.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
+            },
             {
-              "optionText": "Continue"
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
             },
             {
               "optionText": "Skip to Final Decisions",
@@ -858,11 +880,91 @@
           ]
         },
         {
+          "id": "38",
+          "characterName": "Sarah",
+          "dialogText": "That sounds pretty costly.",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue"
+            },
+            {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Skip to Final Decisions",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "39",
+          "characterName": "Player",
+          "dialogText": "Unfortunately, it can be. It takes some time, effort, and money to harden your home."
+        },
+        {
+          "id": "40",
+          "characterName": "Player",
+          "dialogText": "However, it's worth it if you want to keep your home safe."
+        },
+        {
+          "id": "41",
+          "dialogText": "<i>She looks back at her freshly painted house. You notice most of the roof, windows, and stairs are brand new.</i>"
+        },
+        {
+          "id": "42",
+          "characterName": "Sarah",
+          "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+        },
+        {
+          "id": "43",
+          "characterName": "Sarah",
+          "dialogText": "I'm not saying it's impossible to do both. But if we are to evacuate early, that means taking time off work.",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+        },
+        {
           "id": "44",
+          "characterName": "Sarah",
+          "dialogText": "Losing money and hours that could have been spent on preparing our home for fires.",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "options": [
+            {
+              "optionText": "Continue"
+            },
+            {
+              "optionText": "Skip to Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
+            {
+              "optionText": "Skip to Final Decisions",
+              "nextNodeId": "100"
+            }
+          ]
+        },
+        {
+          "id": "45",
           "characterName": "Sarah",
           "dialogText": "I just don't see how we can afford home hardening.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
+            {
+              "optionText": "Offer Incentives",
+              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "conditions": {
+                "hasIncentives": 1
+              },
+              "nextNodeId": "200"
+            },
             {
               "optionText": "List cheaper home hardening options",
               "messageText": "There are less costly options as well!"
@@ -875,29 +977,29 @@
           ]
         },
         {
-          "id": "45",
+          "id": "46",
           "characterName": "Player",
           "dialogText": "For example, swapping out mulch for gravel, or even simply bringing in patio furniture indoors on red flag days are great choices."
         },
         {
-          "id": "46",
+          "id": "47",
           "characterName": "Player",
           "dialogText": "While it is still important to replace household parts, hopefully these are cheaper options you can do in the meantime to home harden."
         },
         {
-          "id": "47",
+          "id": "48",
           "characterName": "Sarah",
           "dialogText": "Wow, I didn't realize those also counted as home hardening.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "48",
+          "id": "49",
           "characterName": "Sarah",
           "dialogText": "I feel a lot more confident in our ability to do those. Thank you for letting me know!",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "49",
+          "id": "50",
           "characterName": "Sarah",
           "dialogText": "That being said, I just don't know how we would be able to afford more expensive home hardening.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",

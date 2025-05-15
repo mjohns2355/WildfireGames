@@ -111,15 +111,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
             ProceedToNextNode();
         }
     }
-    private bool CheckNodeConditions(DialogNode node)
-    {
-        if (node.conditions == null) return true;
-        var flags = dialogFlagsMap[currentDialogTree.houseType];
-        if (node.conditions.hasSpoken && !flags.hasSpoken) return false;
-        if (node.conditions.hasIncentives && !flags.hasIncentives) return false;
-        if (node.conditions.gaveIncentives && !flags.gaveIncentives) return false;
-        return true;
-    }
     private void ProceedToNextNode()
     {
         if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != null)
@@ -131,22 +122,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
             string nextId = currentNode.GetNextNodeId();
             DialogNode nextNode = currentDialogTree.GetNodeById(nextId);
 
-            //Skip nodes that don't meet condition
-            while (nextNode != null && !CheckNodeConditions(nextNode))
-            {
-                nextId = nextNode.GetNextNodeId();
-                nextNode = currentDialogTree.GetNodeById(nextId);
-            }
-
             if (nextNode != null)
             {
                 currentNode = nextNode;
                 DisplayCurrentNode();
-            }
-            else
-            {
-                Debug.Log("No valid next node found.");
-                //EndDialog();
             }
         }
         //else if(currentNode.isEndNode)
@@ -310,21 +289,12 @@ public class ATC_HouseDialogManager : MonoBehaviour
         });
 
     }
-    private bool CheckOptionConditions(DialogOption option)
-    {
-        if (option.conditions == null) return true;
-        var flags = dialogFlagsMap[currentDialogTree.houseType];
-        if (option.conditions.hasSpoken && !flags.hasSpoken) return false;
-        if (option.conditions.hasIncentives && !flags.hasIncentives) return false;
-        if (option.conditions.gaveIncentives && !flags.gaveIncentives) return false;
-        return true;
-    }
     private void ShowOptions()
     {
-
+        var flags = dialogFlagsMap[currentDialogTree.houseType];
         foreach (var option in currentNode.options)
         {
-            if (!CheckOptionConditions(option)) continue;
+            if (!option.conditions.IsMet(flags)) continue;
 
             var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
             optionBubble.messageBox.onClick.AddListener(() =>
@@ -337,7 +307,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog()
     {
         StopAllCoroutines();
-        SetFlag("hasSpoken", true);
+        SetFlag("hasSpoken", 1);
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
         //isWaitingForPlayer = true;
@@ -421,7 +391,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         skipButton.gameObject.SetActive(isActive);
     }
 
-    public void SetFlag(string flagName, bool value)
+    public void SetFlag(string flagName, int value)
     {
         if (!dialogFlagsMap.TryGetValue(key, out DialogFlags flags)) return;
         if (flags == null) return;
@@ -447,9 +417,9 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         foreach (var flags in dialogFlagsMap.Values)
         {
-            flags.hasIncentives = GameManager.Instance.HasIncentives;
-            flags.hasSpoken = false;
-            flags.gaveIncentives = false;
+            flags.hasIncentives = GameManager.Instance.HasIncentives == true? 1:0;
+            flags.hasSpoken = 0;
+            flags.gaveIncentives = 0;
         }
     }
 }

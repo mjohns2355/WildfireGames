@@ -335,7 +335,7 @@ public class GameManager : UnitySingleton<GameManager>
         Time.timeScale = 1f;
         ATC_UIController.Instance.ResetUI();
         fireSFX.Stop();
-        ATC_UIController.Instance.houseDialogManager.ResetFlags();
+        //ATC_UIController.Instance.houseDialogManager.ResetFlags();
         var currentLevel = "FC_Level" + this.currentLevel.ToString();
         SceneManager.LoadScene(currentLevel);
         //TO-DO: Multiple levels

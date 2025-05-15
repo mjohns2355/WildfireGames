@@ -15,19 +15,24 @@ public class ATC_DialogTree
     public DialogNode GetNodeById(string id)
     {
         var variants = nodes.Where(n => n.id == id).ToList();
-        Debug.Log("Variants count: " + variants.Count);
+        if (variants.Count >= 2)
+        {
+            foreach (var node in variants)
+            {
+
+                Debug.Log("Node: " + node.dialogText + ", " + "Node conditions: " + node.conditions.hasSpoken + ", " + node.conditions.hasIncentives + ", " + node.conditions.gaveIncentives);
+            }
+        }
+
         foreach (var node in variants)
         {
-            if (node.conditions == null) return node;
-            Debug.Log("Node conditions: " + node.conditions.hasSpoken + ", " + node.conditions.hasIncentives + ", " + node.conditions.gaveIncentives);
+            if (node.conditions == null || node.conditions.IsEmpty()) return node;
+           
             Debug.Log("Flags: " + flags.hasSpoken + ", " + flags.hasIncentives + ", " + flags.gaveIncentives);
 
-            if ((!node.conditions.hasSpoken || flags.hasSpoken) &&
-                (!node.conditions.hasIncentives || flags.hasIncentives) &&
-                (!node.conditions.gaveIncentives || flags.gaveIncentives))
-            {
-                return node;
-            }
+            if (!node.conditions.IsMet(flags)) continue;
+            Debug.Log("Node conditions met: " + node.dialogText);
+            return node;
         }
         return null;
         //return nodes.Find(node => node.id == id);
@@ -38,15 +43,15 @@ public class ATC_DialogTree
 [System.Serializable]
 public class DialogFlags
 {
-    public bool hasSpoken;
-    public bool hasIncentives;
-    public bool gaveIncentives;
+    public int hasSpoken =  -1;
+    public int hasIncentives = -1;
+    public int gaveIncentives = -1;
 }
 [System.Serializable]
 public class DialogNode
 {
     public string id;
-    public string variantGroup;
+    //public string variantGroup;
     public string dialogText;
     public string characterName;
     public string portraitPath;
@@ -65,16 +70,33 @@ public class DialogNode
         {
             nextNodeId = options[0].nextNodeId ?? (Convert.ToInt32(id) + 1).ToString();
         }
-        Debug.Log("Next node id: " + nextNodeId);
+        //Debug.Log("Next node id: " + nextNodeId);
         return nextNodeId;
     }
 }
 [System.Serializable]
 public class DialogCondition
 {
-    public bool hasSpoken;
-    public bool hasIncentives;
-    public bool gaveIncentives;
+    public int hasSpoken = -1;
+    public int hasIncentives = -1;
+    public int gaveIncentives = -1;
+
+    public bool IsMet(DialogFlags flags)
+    {
+        return Matches(flags.hasSpoken, hasSpoken) &&
+               Matches(flags.hasIncentives, hasIncentives) &&
+               Matches(flags.gaveIncentives, gaveIncentives);
+    }
+
+    private bool Matches(int actual, int expected)
+    {
+        return expected == -1 || actual == expected;
+    }
+
+    public bool IsEmpty()
+    {
+        return hasSpoken == -1 && hasIncentives == -1 && gaveIncentives == -1;
+    }
 }
 [System.Serializable]
 public class DialogOption
