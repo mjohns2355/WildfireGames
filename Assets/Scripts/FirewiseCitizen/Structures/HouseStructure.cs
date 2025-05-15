@@ -155,7 +155,8 @@ public class HouseStructure : Structure
         var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter });
         targetShelter = shelter;
-
+        //wui house has very low chance to follow order at the beginning
+        followOrderChance = houseType == HouseType.wui ? 0.2f : followOrderChance;
     }
 
     public void RandomizeHouseType()
@@ -232,19 +233,19 @@ public class HouseStructure : Structure
 
     void ApplyChoice()
     {
-        foreach(var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
+        var otherHousesRng = UnityEngine.Random.Range(0, 1f);
+        foreach (var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
             //var currentChoice = GetCurrentChoice(currentOption);
      
             if (!currentChoice.isNormal)
             {
-                var rng = UnityEngine.Random.Range(0, 1f);
-
                 // wui house has vary low chance to follow order at the beginning
-                float chance = houseType == HouseType.wui ? 0.2f : followOrderChance;
-                if (/*GameManager.Instance.CountFollowedInstructions() == 0 || */rng > chance)
+                // each wui house has individual chance to follow order
+                float rng = houseType == HouseType.wui ? UnityEngine.Random.Range(0f, 1f) : otherHousesRng;
+
+                if (rng < followOrderChance)
                 {
-                    //currentChoice = houseInfo.defaultChoice;
                     ApplyChoiceEffect(houseInfo.defaultChoice);
                     followedOrder = false;
                     GameManager.Instance.UpdateHouseResponse(houseType, "Disregarded");
@@ -351,7 +352,10 @@ public class HouseStructure : Structure
         
     }
 
-    
+    public void OnReceivedIncentives()
+    {
+        followOrderChance = 1f;
+    }
     void HomeHardeningBehavior(float homeHardeningMod)
     {
         if (currentHouseModels.Count == 0) { Debug.Log("No house Model"); return; }

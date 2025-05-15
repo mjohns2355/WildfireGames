@@ -10,6 +10,7 @@ public class ATC_DialogTree
 {
     public string houseType;
     public string rootNodeId;
+    public int optionsCount;
     public List<DialogNode> nodes;
     public DialogFlags flags;
     public DialogNode GetNodeById(string id)

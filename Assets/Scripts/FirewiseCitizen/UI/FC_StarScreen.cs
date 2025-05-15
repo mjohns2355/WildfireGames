@@ -6,23 +6,19 @@ using UnityEngine.UI;
 public class FC_StarScreen : MonoBehaviour
 {
     public GameObject starsContainer, buttonsContainer;
-    public Sprite greyStar, yellowStar;
+    public Sprite emptyStar, halfStar, fullStar;
     public Button restart, nextLevel, mainMenu,restartFromBeginning;
 
     const int HOUSE_PENALTY = 50;
     const int CAR_PENALTY = 50;
 
-    List<GameObject> stars = new List<GameObject>();
-    
+    [SerializeField] List<Image> houseProtectedStars = new List<Image>();
+    [SerializeField] List<Image> injuriesPreventedStars = new List<Image>();
+    [SerializeField] List<Image> converstationQualityStars = new List<Image>();
+
     // Start is called before the first frame update
     void OnEnable()
     {
-       
-        //Debug.Log("Star Container Count: " + starsContainer.transform.childCount);
-        for (int i = 0; i< starsContainer.transform.childCount; i++)
-        {
-            stars.Add(starsContainer.transform.GetChild(i).gameObject);
-        }
 
         restart.onClick.AddListener(() => { GameManager.Instance.ResetGame(); });
         nextLevel.onClick.AddListener(() => { GameManager.Instance.NextLevel(); });
@@ -31,13 +27,15 @@ public class FC_StarScreen : MonoBehaviour
 
         nextLevel.gameObject.SetActive(!GameManager.Instance.IsLastLevel);
         restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
+
+        CalculateHouseProtectedScore();
+        CalculateInjuriesProventedScore();
     }
 
 
 
     private void OnDisable()
     {
-        stars.Clear();
         restart.onClick.RemoveAllListeners();
         nextLevel.onClick.RemoveAllListeners();
         mainMenu.onClick.RemoveAllListeners();
@@ -56,6 +54,26 @@ public class FC_StarScreen : MonoBehaviour
         return 0;
     }
 
+    float CalculateStarRating(float percent)
+    {
+        return Mathf.Clamp(3f - Mathf.Floor(percent * 4f) * 0.5f, 0f, 3f);
+    }
+    
+    public void CalculateHouseProtectedScore()
+    {
+        int totalHouses = GameManager.Instance.totalHouses;
+        int housesDestroyed = GameManager.Instance.housesDestroyed;
+        float percentBurned = (float)housesDestroyed / totalHouses;
+        ShowStars(CalculateStarRating(percentBurned),houseProtectedStars);
+    }
+    
+    public void CalculateInjuriesProventedScore()
+    {
+        int totalCars = GameManager.Instance.totalCars;
+        int carsNotEvacuated = GameManager.Instance.carsNotEvacuated;
+        float percentInjured = (float)carsNotEvacuated / totalCars;
+        ShowStars(CalculateStarRating(percentInjured), injuriesPreventedStars);
+    }
     public int CalculateDamageScore()
     {
         int damage = 0;
@@ -71,20 +89,32 @@ public class FC_StarScreen : MonoBehaviour
         penalty += GameManager.Instance.totalCars * CAR_PENALTY;
         return penalty;
     }
-    public void ShowStars()
+    public void ShowStars(float stars, List<Image> starImages)
     {
-        int starsCount = CalculateStars();
-        Debug.Log("Start Counts " + starsCount);
-        for (int i = 0; i < stars.Count; i++)
+        int fullStars = Mathf.FloorToInt(stars);
+        bool hasHalfStar = stars - fullStars >= 0.5f;
+
+        for (int i = 0; i < starImages.Count; i++)
         {
-            if (i < starsCount)
-            {
-                stars[i].GetComponent<Image>().sprite = yellowStar;
-            }
+            if (i < fullStars)
+                starImages[i].sprite = fullStar;
+            else if (i == fullStars && hasHalfStar)
+                starImages[i].sprite = halfStar;
             else
-            {
-                stars[i].GetComponent<Image>().sprite = greyStar;
-            }
+                starImages[i].sprite = emptyStar;
         }
+        //int starsCount = CalculateStars();
+        //Debug.Log("Start Counts " + starsCount);
+        //for (int i = 0; i < stars.Count; i++)
+        //{
+        //    if (i < starsCount)
+        //    {
+        //        stars[i].GetComponent<Image>().sprite = yellowStar;
+        //    }
+        //    else
+        //    {
+        //        stars[i].GetComponent<Image>().sprite = greyStar;
+        //    }
+        //}
     }
 }

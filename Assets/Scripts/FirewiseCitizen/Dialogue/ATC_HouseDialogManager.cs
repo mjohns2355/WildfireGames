@@ -23,6 +23,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
     private Dictionary<string, DialogFlags> dialogFlagsMap;
+    private Dictionary<string, int> dialogOptionsCount;
     [SerializeField] private ATC_DialogTree currentDialogTree;
     [SerializeField] private DialogNode currentNode;
     //[SerializeField] private int paragraphIndex;
@@ -93,6 +94,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             {
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
                 dialogFlagsMap[dialogTree.houseType] = dialogTree.flags;
+                dialogOptionsCount[dialogTree.houseType] = dialogTree.optionsCount;
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
             Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");

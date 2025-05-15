@@ -354,7 +354,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public void ShowStarScreen()
     {
         starScreen.gameObject.SetActive(true);
-        starScreen.ShowStars();
+        //starScreen.ShowStars();
     }
 
     public void ShowLoadingScreen()
