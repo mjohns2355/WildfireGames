@@ -33,6 +33,7 @@ public class FF_EndScreensManager : MonoBehaviour
         var p2 = (int)(p2Score * 10f);
         p1CompetitionScore.text = $"{p1} pts";
         p2CompetitionScore.text = $"{p2} pts";
+        winnerText.text = p1 > p2 ? "Player 1 Wins!" : p1 < p2 ? "Player 2 Wins!" : "It's a Tie!";
         competitionResultScreen.SetActive(true);
     }
 

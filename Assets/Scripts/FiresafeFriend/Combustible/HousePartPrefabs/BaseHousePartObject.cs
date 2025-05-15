@@ -242,7 +242,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             Destroy(gameObject);
         }
-        Owner.burnedPartsCount++;
+        Owner.burnedWeight += HousePartType.GetHousePartWeight();
     }
 
 
@@ -250,7 +250,7 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         //Debug.Log($"Burn Timer: {burnTimer}");
         
-        var fire = HH_GameManager.Instance.fireManager.SpawnFire(bottomPosition, transform,2f, 0.1f, true, burnTimer);
+        var fire = HH_GameManager.Instance.fireManager.SpawnFire(bottomPosition, transform,2f, 0.2f, true, burnTimer);
         fire.canMove = true;
         fire.startPos = bottomPosition;
         fire.endPos = topPosition;

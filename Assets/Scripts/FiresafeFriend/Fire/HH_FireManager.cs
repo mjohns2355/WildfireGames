@@ -14,7 +14,8 @@ namespace HappyHouse.FireSystem
         public GameObject firePrefab;
         public GameObject mainEmbersPrefab;
         public GameObject backgroundFire;
-        public float fireTimer = 100f;
+        public float fireTimer = 50f;
+        [SerializeField]private float _fireTimer;
         public List<FF_FireController> spawnedFires = new List<FF_FireController>();
         public float defaultFireLife = 10f;
         public UnityEvent fireEndEvent;
@@ -22,20 +23,20 @@ namespace HappyHouse.FireSystem
        
         private void Start()
         {
-           
+           _fireTimer = fireTimer;
         }
 
         private void Update()
         {
 
             if(!startFire) return;
-            if (fireTimer > 0)
+            if (_fireTimer > 0)
             {
-                fireTimer -= Time.deltaTime;
+                //mainFire.transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);
+                _fireTimer -= Time.deltaTime;
             }
             else
             {
-                startFire = false;
                 Destroy(mainFire.gameObject);
                 backgroundFire.SetActive(false);
                 fireEndEvent.Invoke();
@@ -43,7 +44,8 @@ namespace HappyHouse.FireSystem
         }
         void StartFire()
         {
-            if (startFire) return;
+            //if (startFire) return;
+            _fireTimer = fireTimer;
             startFire = true;
             mainFire = SpawnEmbers(fireSpawnPoint, 1);
             backgroundFire.SetActive(true);
@@ -69,7 +71,6 @@ namespace HappyHouse.FireSystem
             return fire.GetComponent<FF_FireController>();
         }
 
-        // test only function
         public void StartFireSimulation()
         {
             StartFire();

@@ -40,7 +40,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
             }
         }
     }
-    protected bool isOverHeated = false;
+    public bool isOverHeated = false;
     protected float durability;
     protected float flammability;
     public float baseBurnTime = 10f;
@@ -94,7 +94,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     }
     public virtual void TryIgnite()
     {
-        if (isOnFire ||!HH_GameManager.Instance.IsFireStarted) return;
+        if (isOnFire) return;
 
         float fireCatchChance = CalculateFireCatchChance(flammability);
 
@@ -208,6 +208,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
                 break;
         }
     }
+
 }
 
 

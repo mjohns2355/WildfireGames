@@ -76,6 +76,9 @@ public class HH_UIManager : MonoBehaviour
         {
             HH_GameManager.Instance.MoveHouse();
         });
+
+        // disable move and repair
+        ToggleMoveAndRepairBtns(false);
     }
 
     private void OnToggleValueChanged(bool value)
@@ -96,6 +99,12 @@ public class HH_UIManager : MonoBehaviour
     {
         quizPopup.gameObject.SetActive(true);
         quizPopup.InitQuizPopup();
+    }
+
+    public void ToggleMoveAndRepairBtns(bool state)
+    {
+        moveBtn.gameObject.SetActive(state);
+        repairBtn.gameObject.SetActive(state);
     }
     public void ShowStoreScreen(HousePartType partType, bool isPublic = false/*, PurchaseFloatingButton clickedButton = null*/)
     {

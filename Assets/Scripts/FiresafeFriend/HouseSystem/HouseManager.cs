@@ -31,9 +31,9 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private List<HousePartType> upgradeList = new () { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
         public List<FF_Plants> ownedPlants;
-        public bool isRepairing = false;
+        public bool isMoving = false;
         public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
-
+        public float burnedWeight, totalWeight = 0f;
         private void Start()
         {
             houseGraph = new HouseGraph();
@@ -60,7 +60,7 @@ namespace HappyHouse.HouseSystem
                         part.isClickable = false;
                     }
                     InitHouseNode(nodeDictionary, part);
-                    totalPartsCount++;
+                    
                 }
             }
 
@@ -89,11 +89,11 @@ namespace HappyHouse.HouseSystem
                 }
             }
             // don't roll start condition when it is tutorial or first round
-            if (!HH_GameManager.Instance.isTutorial && /*!HH_GameManager.Instance.IsFirstRound &&*/ HH_GameManager.Instance.isNewLevel)
+            if (!HH_GameManager.Instance.isTutorial && /*!HH_GameManager.Instance.IsFirstRound &&*/ HH_GameManager.Instance.isNewLevel || isMoving)
             {
                 StartCoroutine(RandomizeStartingCondition());
             }
-
+            isMoving = false;
             HH_GameManager.Instance.inputManager.OnHouseSelected -= OnHouseSelected;
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
             //houseGraph.PrintGraph();
@@ -111,24 +111,28 @@ namespace HappyHouse.HouseSystem
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
-        public void Repair(Dictionary<HousePartType,MaterialClass> upgradeDict)
+        public void Repair(Dictionary<HousePartType,MaterialClass> upgradeDict, bool isMoving)
         {
-            upgradeClassDictionary = upgradeDict;
-            foreach (var pair in upgradeDict)
+            if (!isMoving)
             {
-                var oldParts = GetAllHousePartObjectsOf(pair.Key);
-                var newPart = ResourceManager.Instance.allAvailableParts[pair.Key].Find(x => x.materialClass == pair.Value);
-                foreach (var oldPart in oldParts)
+                upgradeClassDictionary = upgradeDict;
+                foreach (var pair in upgradeDict)
                 {
-                    //inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
-                    //if (oldPart.houseNode != null)
-                    //{
-                    //    houseGraph.RemoveHousePart(oldPart.houseNode);
-                    //}
-                    oldPart.InitHousePartObject(this, newPart);
+                    var oldParts = GetAllHousePartObjectsOf(pair.Key);
+                    var newPart = ResourceManager.Instance.allAvailableParts[pair.Key].Find(x => x.materialClass == pair.Value);
+                    foreach (var oldPart in oldParts)
+                    {
+                        //inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
+                        //if (oldPart.houseNode != null)
+                        //{
+                        //    houseGraph.RemoveHousePart(oldPart.houseNode);
+                        //}
+                        oldPart.InitHousePartObject(this, newPart);
+                    }
+                    inventory.AddNewPartToInventory(newPart);
                 }
-                inventory.AddNewPartToInventory(newPart);
             }
+            burnedWeight = 0f;
             ToggleHousePartClickable(true);
             StartCoroutine(UpdateHouseUI());
 
@@ -166,7 +170,18 @@ namespace HappyHouse.HouseSystem
 
         }
 
-
+        public void CalculateTotalHousePartWeight()
+        {
+            if (burnedWeight != 0) return;
+            totalWeight = 0;
+            foreach(var node in houseGraph.nodes)
+            {
+                if(node != null)
+                {
+                    totalWeight += node.housePart.HousePartType.GetHousePartWeight();
+                }
+            }
+        }
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
             if (!budgetManager.SpendBudget(partInfo.price)) { return false; }
@@ -462,25 +477,17 @@ namespace HappyHouse.HouseSystem
             }
         }
 
-        public float GetBurnedPercent()
+        public int GetBurnedPercent()
         {
-            if (totalPartsCount == 0) return 0;
-            burnedPercent = (float)burnedPartsCount / totalPartsCount;
-            return (int)(burnedPercent * 100f);
+            if (totalWeight <= 0f)
+                return 0;
+
+            float rawPercent = (burnedWeight / totalWeight) * 100f;
+            return Mathf.CeilToInt(rawPercent);
         }
 
         public float CalculateRating()
         {
-            //float totalScore = 0f;
-            //float totalParts = 0f;
-            //foreach (var pair in upgradeClassDictionary)
-            //{
-            //    Debug.Log($"{pair.Key}'s mateiral is {pair.Value}");
-            //    totalScore += pair.Value.GetMaterialScore();
-            //    totalParts++;
-            //}
-            //Debug.Log($" {playerTag}'s Rating: {totalScore / totalParts}");
-            //return totalScore / totalParts;
             float totalWeightedScore = 0f;
             float totalWeight = 0f;
             foreach (var pair in upgradeClassDictionary)
@@ -523,17 +530,17 @@ namespace HappyHouse.HouseSystem
             //Debug.Log($"Added {type} with class {materialClass.GetMaterialScore()} to dictionary");
         }
 
-        public void OnHousePartDestroyed(BaseHousePartObject part)
-        {
-            if (part == null) return;
-            if (part.partInfo.isPublic)
-            {
-                HH_GameManager.Instance.publicFences.Remove(part);
-                return;
-            }
-            houseGraph.RemoveHousePart(part.houseNode);
+        //public void OnHousePartDestroyed(BaseHousePartObject part)
+        //{
+        //    if (part == null) return;
+        //    if (part.partInfo.isPublic)
+        //    {
+        //        HH_GameManager.Instance.publicFences.Remove(part);
+        //        return;
+        //    }
+        //    houseGraph.RemoveHousePart(part.houseNode);
 
-        }
+        //}
 
         private void OnDestroy()
         {

@@ -11,7 +11,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
-    public float fireTimer = 60f;
+    //public float fireTimer = 60f;
     public float fireChance = 0.5f; // 50% chance to start fire
     public int maxRounds = 10;
     public Action OnRoundStart, OnRoundEnd;
@@ -32,6 +32,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField]private bool _isPlantMode;
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
+    private bool lastRoundIsFire = false;
+    //[SerializeField] private float _fireTimer = 0;
     [SerializeField] List<GameObject> houses = new();
     [SerializeField] List<GameObject> currentHousePrefabs = new(){ null, null};
     public bool IsPlantMode
@@ -74,25 +76,27 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
+        //_fireTimer = fireTimer;
         houses = ResourceManager.Instance.houses;
         isNewLevel = true;
         // don't spawn house at tutorial
         if (isTutorial) return;
         SpawnHouses();
+        fireManager.fireEndEvent.AddListener(OnFireEnd);
     }
 
     private void Update()
     {
 
-        if (!IsFireStarted) return;
-        if (fireTimer > 0)
-        {
-            fireTimer -= Time.deltaTime;
-        }
-        else
-        {
-            OnFireEnd();
-        }
+        //if (!IsFireStarted) return;
+        //if (_fireTimer > 0)
+        //{
+        //    _fireTimer -= Time.deltaTime;
+        //}
+        //else
+        //{
+        //    OnFireEnd();
+        //}
         //debug
         if (Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.Q))
         {
@@ -191,14 +195,22 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         RemoveHouse(temp.playerTag,reRoll);
         var newHouse = SpawnSingleHouse(temp.playerTag, temp.transform.parent, reRoll);
         currentPlayer = newHouse;
-
+        if (reRoll)
+        {
+            newHouse.isMoving = true;
+        }
         DOVirtual.DelayedCall(0.3f, () =>
         {
+            // repair should keep the current material and budget
+            // but move should reset everything
 
-            newHouse.Repair(upgradeDict);
-            
-            newHouse.budgetManager.currentBudget = currentBudget;
-            newHouse.budgetManager.canEarnMoreMoney = canEarnMoreMoney;
+            newHouse.Repair(upgradeDict, reRoll);
+            if (!reRoll)
+            {
+                newHouse.budgetManager.currentBudget = currentBudget;
+                newHouse.budgetManager.canEarnMoreMoney = canEarnMoreMoney;
+            }
+
             if (newHouse.playerTag == "P1")
             {
                 p1 = newHouse;
@@ -207,17 +219,22 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             {
                 p2 = newHouse;
             }
+
+
         });
     }
     void OnFireEnd()
     {
         //IsFireStarted = false;
+        fireManager.startFire = false;
         var fires = FindObjectsOfType<FF_FireController>();
         var combustibles = FindObjectsOfType<FF_BaseCombustible>();
         skyboxController.ChangeSky(false);
         foreach (var c in combustibles)
         {
             c.isOnFire = false;
+            c.heat = 50;
+            c.isOverHeated = false;
             c.StopAllCoroutines();
         }
         foreach (var f in fires)
@@ -225,12 +242,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             Destroy(f.gameObject);
         }
         uiManager.ShowEndScreen(true,p1.GetBurnedPercent(),p2.GetBurnedPercent());
+
     }
 
     void OnCompetition()
     {
         var p1Socre = p1.CalculateRating();
         var p2Socre = p2.CalculateRating();
+        lastRoundIsFire = false;
         uiManager.ShowEndScreen(false, p1Socre, p2Socre);
     }
     public void SwitchPlayer (string playerTag)
@@ -271,6 +290,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //currentPlayer.OnHouseSelected(currentPlayer);
     }
 
+    // after player tap either house
     public void StartRound(HouseManager currentPlayer)
     {
         CurrentStage = GameStage.RoundStart;
@@ -278,6 +298,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         //uiManager.OnRoundStart();
         InitPublicFences(currentPlayer);
+        uiManager.ToggleMoveAndRepairBtns(lastRoundIsFire);
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     //{
@@ -295,6 +316,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky(true);
         uiManager.ToggleEarnMoreMoneyButton(false);
+        lastRoundIsFire = true;
+        p1.CalculateTotalHousePartWeight();
+        p2.CalculateTotalHousePartWeight();
     }
 
     // player 1 and player 2 finished upgrade
@@ -307,13 +331,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         DecideNextEvent();
         p1.nameText.SetActive(false);
         p2.nameText.SetActive(false);
-        currentRoundCount++;
-        if (currentRoundCount > maxRounds)
-        {
-            Debug.Log("Game Ends");
-            CurrentStage = GameStage.GameEnd;
-            return;
-        }
+        p1.burnedPercent = 0f;
+        p2.burnedPercent = 0f;
+        uiManager.ToggleMoveAndRepairBtns(false);
+        //currentRoundCount++;
+        //if (currentRoundCount > maxRounds)
+        //{
+        //    Debug.Log("Game Ends");
+        //    CurrentStage = GameStage.GameEnd;
+        //    return;
+        //}
 
     }
 
@@ -436,7 +463,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             case GameStage.BeforeGame:
                 // Initialize the game
                 Debug.Log("Game is starting...");
-                HH_GameManager.Instance.inputManager.canClickHouse = true;
+                inputManager.canClickHouse = true;
                 uiManager.endScreenManager.HideEndScreens();
                 p1.OnHouseDeselected();
                 p1.nameText.SetActive(true);
@@ -444,7 +471,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2.nameText.SetActive(true);
                 cameraController.ResetCamera();
                 uiManager.floatingIcons.gameObject.SetActive(true);
-                isNewLevel = true;
+
                 break;
             case GameStage.RoundStart:
                 OnRoundStart?.Invoke();

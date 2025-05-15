@@ -94,7 +94,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             {
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
                 dialogFlagsMap[dialogTree.houseType] = dialogTree.flags;
-                dialogOptionsCount[dialogTree.houseType] = dialogTree.optionsCount;
+                //dialogOptionsCount[dialogTree.houseType] = dialogTree.optionsCount;
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
             Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
