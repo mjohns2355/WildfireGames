@@ -29,6 +29,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
+    public FF_Plants tree1, tree2;
     [SerializeField]private bool _isPlantMode;
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
@@ -82,6 +83,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         // don't spawn house at tutorial
         if (isTutorial) return;
         SpawnHouses();
+        InitTrees();
         fireManager.fireEndEvent.AddListener(OnFireEnd);
     }
 
@@ -120,6 +122,13 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             }
 
         }
+    }
+
+    private void InitTrees()
+    {
+        var rng = UnityEngine.Random.Range(0, 1f);
+        tree1.gameObject.SetActive(rng < 0.5f);
+        tree2.gameObject.SetActive(rng >= 0.5f);
     }
     public void SpawnHouses()
     {
