@@ -29,7 +29,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
-    public FF_Plants tree1, tree2;
+    public FF_Tree tree1, tree2;
     [SerializeField]private bool _isPlantMode;
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
