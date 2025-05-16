@@ -22,8 +22,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     //[SerializeField] private Button[] optionButtons; // Buttons for responses
     private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
-    private Dictionary<string, DialogFlags> dialogFlagsMap;
-    private Dictionary<string, int> dialogOptionsCount;
+    // item2 is if the dialog is skipped
+    public Dictionary<string, (DialogFlags,bool)> dialogFlagsMap;
     [SerializeField] private ATC_DialogTree currentDialogTree;
     [SerializeField] private DialogNode currentNode;
     //[SerializeField] private int paragraphIndex;
@@ -89,15 +89,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 }
             }
             dialogTreeMap = new Dictionary<string, ATC_DialogTree>();
-            dialogFlagsMap = new Dictionary<string, DialogFlags>();
+            dialogFlagsMap = new Dictionary<string, (DialogFlags, bool)>();
             foreach (var dialogTree in collection.dialogTrees)
             {
                 dialogTreeMap[dialogTree.houseType] = dialogTree;
-                dialogFlagsMap[dialogTree.houseType] = dialogTree.flags;
-                //dialogOptionsCount[dialogTree.houseType] = dialogTree.optionsCount;
+                dialogFlagsMap[dialogTree.houseType] = (dialogTree.flags,false);
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
-            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+            //Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
 
     }
@@ -139,6 +138,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void SkipDialogue()
     {
+        // is skipped = not sopken & choose to skip
+        var t = dialogFlagsMap[key];
+        t.Item2 = true;          // isSkipped = true
+        dialogFlagsMap[key] = t;
         EndDialog();
     }
 
@@ -151,6 +154,9 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //nextButton.onClick.RemoveAllListeners();
         if (dialogTreeMap.TryGetValue(key, out currentDialogTree))
         {
+            var t = dialogFlagsMap[key];
+            t.Item2 = false;           // isSkipped = false
+            dialogFlagsMap[key] = t;
             currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
             if (inDialogue) return;
             ClearMessages();
@@ -296,7 +302,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         var flags = dialogFlagsMap[currentDialogTree.houseType];
         foreach (var option in currentNode.options)
         {
-            if (!option.conditions.IsMet(flags)) continue;
+            if (!option.conditions.IsMet(flags.Item1)) continue;
 
             var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
             optionBubble.messageBox.onClick.AddListener(() =>
@@ -309,7 +315,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog()
     {
         StopAllCoroutines();
-        SetFlag("hasSpoken", 1);
+        if (!dialogFlagsMap[key].Item2)   // if NOT skipped
+            SetFlag("hasSpoken", 1); // set has spoken to 1
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
         //isWaitingForPlayer = true;
@@ -395,18 +402,18 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void SetFlag(string flagName, int value)
     {
-        if (!dialogFlagsMap.TryGetValue(key, out DialogFlags flags)) return;
-        if (flags == null) return;
+        if (!dialogFlagsMap.TryGetValue(key, out (DialogFlags,bool) flags)) return;
+        if (flags.Item1 == null) return;
         switch (flagName)
         {
             case "hasSpoken":
-                flags.hasSpoken = value;
+                flags.Item1.hasSpoken = value;
                 break;
             case "hasIncentives":
-                flags.hasIncentives = value;
+                flags.Item1.hasIncentives = value;
                 break;
             case "gaveIncentives":
-                flags.gaveIncentives = value;
+                flags.Item1.gaveIncentives = value;
                 break;
             default:
                 Debug.LogError($"Flag '{flagName}' not found.");
@@ -419,9 +426,9 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         foreach (var flags in dialogFlagsMap.Values)
         {
-            flags.hasIncentives = GameManager.Instance.HasIncentives == true? 1:0;
-            flags.hasSpoken = 0;
-            flags.gaveIncentives = 0;
+            flags.Item1.hasIncentives = GameManager.Instance.HasIncentives == true? 1:0;
+            flags.Item1.hasSpoken = 0;
+            flags.Item1.gaveIncentives = 0;
         }
     }
 }

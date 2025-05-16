@@ -10,29 +10,20 @@ public class ATC_DialogTree
 {
     public string houseType;
     public string rootNodeId;
-    public int optionsCount;
     public List<DialogNode> nodes;
     public DialogFlags flags;
     public DialogNode GetNodeById(string id)
     {
         var variants = nodes.Where(n => n.id == id).ToList();
-        if (variants.Count >= 2)
-        {
-            foreach (var node in variants)
-            {
-
-                Debug.Log("Node: " + node.dialogText + ", " + "Node conditions: " + node.conditions.hasSpoken + ", " + node.conditions.hasIncentives + ", " + node.conditions.gaveIncentives);
-            }
-        }
 
         foreach (var node in variants)
         {
             if (node.conditions == null || node.conditions.IsEmpty()) return node;
            
-            Debug.Log("Flags: " + flags.hasSpoken + ", " + flags.hasIncentives + ", " + flags.gaveIncentives);
+            //Debug.Log("Flags: " + flags.hasSpoken + ", " + flags.hasIncentives + ", " + flags.gaveIncentives);
 
             if (!node.conditions.IsMet(flags)) continue;
-            Debug.Log("Node conditions met: " + node.dialogText);
+            //Debug.Log("Node conditions met: " + node.dialogText);
             return node;
         }
         return null;

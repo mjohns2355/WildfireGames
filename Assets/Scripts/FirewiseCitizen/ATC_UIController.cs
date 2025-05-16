@@ -296,6 +296,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
         starScreen.gameObject.SetActive(false);
+        
         icons.Clear();
         CloseAllUI();
         //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)

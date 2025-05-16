@@ -13,20 +13,20 @@ public class HouseModel
 }
 public class StructureManager : MonoBehaviour
 {
-    public List<HouseModel> houseModels = new List<HouseModel>();
+    public List<HouseModel> houseModels = new();
     public GameObject housePrefab;
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
     public GameObject structureTilemap;
-    [SerializeField] List<HouseTypeInfo> houseInfos = new List<HouseTypeInfo>();
-    public List<ATC_StructureModel> allHouses = new List<ATC_StructureModel>();
-    public Dictionary<HouseType, HouseStructure> allMainHouses = new Dictionary<HouseType, HouseStructure>();
+    [SerializeField] List<HouseTypeInfo> houseInfos = new ();
+    public List<ATC_StructureModel> allHouses = new ();
+    public Dictionary<HouseType, HouseStructure> allMainHouses = new();
 
     // player choices
-    Dictionary<HouseType, List<HouseChoice>> playerChoices = new Dictionary<HouseType, List<HouseChoice>>();
-    Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new Dictionary<HouseType, HouseTypeInfo>();
-    Dictionary<HouseType, GameObject> houseModelsDict = new Dictionary<HouseType, GameObject>();
-    public Dictionary<HouseType, List<HouseStructure>> houseTypeDict = new Dictionary<HouseType, List<HouseStructure>>();
+    Dictionary<HouseType, List<HouseChoice>> playerChoices = new();
+    public Dictionary<HouseType, HouseTypeInfo> houseInfoDict = new();
+    Dictionary<HouseType, GameObject> houseModelsDict = new ();
+    public Dictionary<HouseType, List<HouseStructure>> houseTypeDict = new();
     public Dictionary<StructureType, ATC_StructureModel> specialStructureDict;
     private void Awake()
     {

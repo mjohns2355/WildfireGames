@@ -40,8 +40,8 @@ public class GameManager : UnitySingleton<GameManager>
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
-    public Dictionary<HouseType,string> houseResponses = new Dictionary<HouseType, string>();
-
+    public Dictionary<HouseType,string> houseResponses = new();
+    public Dictionary<HouseType, HouseChoice> finalChoices = new();
     //Quick Fix - This needs to be changed after IndieCade
     public GameObject toolBar;
     public GameObject topBanner;

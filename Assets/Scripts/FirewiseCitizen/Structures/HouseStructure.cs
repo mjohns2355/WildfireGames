@@ -280,6 +280,8 @@ public class HouseStructure : Structure
             choice.ApplyEffect(this);
             choice.ApplySpecialEffect(this);
         }
+
+        GameManager.Instance.finalChoices[houseType] = choice;
         Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
     HouseChoice GetCurrentChoice(string name)

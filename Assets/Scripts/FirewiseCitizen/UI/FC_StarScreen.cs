@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 public class FC_StarScreen : MonoBehaviour
@@ -30,6 +31,7 @@ public class FC_StarScreen : MonoBehaviour
 
         CalculateHouseProtectedScore();
         CalculateInjuriesProventedScore();
+        CalculateConvoQualityScore();
     }
 
 
@@ -39,6 +41,13 @@ public class FC_StarScreen : MonoBehaviour
         restart.onClick.RemoveAllListeners();
         nextLevel.onClick.RemoveAllListeners();
         mainMenu.onClick.RemoveAllListeners();
+
+        for (int i = 0; i<3;i++)
+        {
+            houseProtectedStars[i].sprite = emptyStar;
+            injuriesPreventedStars[i].sprite = emptyStar;
+            converstationQualityStars[i].sprite = emptyStar;
+        }
     }
 
     public int CalculateStars()
@@ -56,7 +65,9 @@ public class FC_StarScreen : MonoBehaviour
 
     float CalculateStarRating(float percent)
     {
-        return Mathf.Clamp(3f - Mathf.Floor(percent * 4f) * 0.5f, 0f, 3f);
+        Debug.Log($"Percent: {percent}");
+        Debug.Log($"Star Rating: {Mathf.Clamp(3f - Mathf.Floor(percent * 4f) * 0.5f, 0f, 3f)}");
+        return Mathf.Clamp(3f - Mathf.Ceil(percent * 4f) * 0.5f, 0f, 3f);
     }
     
     public void CalculateHouseProtectedScore()
@@ -74,6 +85,46 @@ public class FC_StarScreen : MonoBehaviour
         float percentInjured = (float)carsNotEvacuated / totalCars;
         ShowStars(CalculateStarRating(percentInjured), injuriesPreventedStars);
     }
+
+    public void CalculateConvoQualityScore()
+    {
+        int rewardStars = 0;
+        int totalStars = GameManager.Instance.availableHouseTypes.Count * 3;
+        var finalChoices = GameManager.Instance.finalChoices;
+        var dialogueFlags = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap;
+        var houseTypeInfo = GameManager.Instance.structureManager.houseInfoDict;
+        foreach (var pair in finalChoices)
+        {
+            var typeInfo = houseTypeInfo[pair.Key];
+            var key = pair.Key.ToString();
+            var flag = dialogueFlags[key];
+            var finalChoice = pair.Value;
+            var totalChoices = typeInfo.allChoicesCount;
+            var choiceIndex = typeInfo.ReturnChoiceByName(finalChoice.choiceName).index;
+            rewardStars += CalculateStars(choiceIndex, totalChoices, flag.Item2);
+        }
+
+        int CalculateStars(int choiceIndex, int totalChoicesCount, bool skipped)
+        {
+            // reversedIndex = 0 for the last (best) option, 1 for second-last, etc.
+            int reversedIndex = (totalChoicesCount - 1) - choiceIndex;
+
+            // Map reversedIndex → stars: 0→3, 1→2, 2+→1
+            int stars = Mathf.Clamp(3 - reversedIndex, 1, 3);
+
+            // Apply skip penalty
+            if (skipped)
+                stars = Mathf.Max(1, stars - 1);
+
+            return stars;
+        }
+        var percent = (float) (totalStars - rewardStars) / totalStars;
+        //Debug.Log($"Conversation Quality Score: {rewardStars}/{totalStarts} = {percent}");
+        ShowStars(CalculateStarRating(percent),converstationQualityStars);
+    }
+
+
+
     public int CalculateDamageScore()
     {
         int damage = 0;

@@ -397,6 +397,7 @@ public class ATC_dialogManager : MonoBehaviour
     {
         GenerateLocalNews();
         ATC_UIController.Instance.PushPanel(localNews);
+        localNewsPanel1.SetActive(true);
         ATC_UIController.Instance.statsPanel.gameObject.SetActive(false);
         //isLocalNewsShown = true;
     }
