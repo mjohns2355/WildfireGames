@@ -22,7 +22,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HH_CameraController cameraController;
     public QuizManager quizManager;
     public FF_skybox skyboxController;
-
+    public bool IsPaused { get; private set; }
     public bool IsGameStarted { get => _currentStage != GameStage.BeforeGame; }
     public bool IsFireStarted {  get => _currentStage == GameStage.Fire; }
     private GameObject[] fences;
@@ -35,8 +35,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     private bool mustForceCompetition = false;
     private bool lastRoundIsFire = false;
     //[SerializeField] private float _fireTimer = 0;
-    [SerializeField] List<GameObject> houses = new();
-    [SerializeField] List<GameObject> currentHousePrefabs = new(){ null, null};
+    List<GameObject> houses = new();
+    List<GameObject> currentHousePrefabs = new(){ null, null};
     public bool IsPlantMode
     {
         get => _isPlantMode;
@@ -65,6 +65,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             OnStageChanged(_currentStage);
         }
     }
+
 
 
     public override void Awake()
@@ -105,7 +106,21 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             Time.timeScale = 5.0f;
         }
     }
+    public void PauseGame()
+    {
+        if (IsPaused) return;
+        IsPaused = true;
+        Time.timeScale = 0f;            
+        AudioListener.pause = true;    
+    }
 
+    public void ResumeGame()
+    {
+        if (!IsPaused) return;
+        IsPaused = false;
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+    }
     private void InitPublicFences(HouseManager currentPlayer)
     {
         fences = GameObject.FindGameObjectsWithTag("Fence");
@@ -307,7 +322,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         //uiManager.OnRoundStart();
         InitPublicFences(currentPlayer);
-        uiManager.ToggleMoveAndRepairBtns(lastRoundIsFire);
+        if (lastRoundIsFire)
+        {
+            uiManager.ShowAftermathScreen();
+        }
+        
     }
     //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
     //{
@@ -321,6 +340,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         //IsFireStarted = true;
         CurrentStage = GameStage.Fire;
+        uiManager.ShowFireAnnouncement();
         uiManager.floatingIcons.gameObject.SetActive(false);
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky(true);
@@ -342,7 +362,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         p2.nameText.SetActive(false);
         p1.burnedPercent = 0f;
         p2.burnedPercent = 0f;
-        uiManager.ToggleMoveAndRepairBtns(false);
+        
         //currentRoundCount++;
         //if (currentRoundCount > maxRounds)
         //{
