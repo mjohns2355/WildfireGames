@@ -265,14 +265,31 @@ public class ATC_PlacementManager : MonoBehaviour
     public ATC_StructureModel GetRandomSpecialStructursOfType(StructureType structureType)
     {
         List<ATC_StructureModel> structureList = new List<ATC_StructureModel>();
+        //Debug.Log("Special Structure Count: " + placementGrid.GetAllSpecialStructure().Count);
         foreach (var p in placementGrid.GetAllSpecialStructure())
         {
+
             var structureModel = GetStructureAt(p);
-            var s = structureModel.GetComponent<Structure>();
+
+            if(!structureModel.TryGetComponent<Structure>(out var s))
+            {
+                //Debug.Log("Structure is null");
+                continue;
+            }
+            //Debug.Log($"Special Structure: {p}, type: {s.structureType}");
             if (s.structureType == structureType)
             {
+                //Debug.Log("Structure: " + s.structureType);
                 structureList.Add(structureModel);
             }
+            else
+            {
+                continue;
+            }
+        }
+        if(structureList.Count == 0)
+        {
+            return null;
         }
         var structure = structureList[UnityEngine.Random.Range(0, structureList.Count-1)];
         return structure;
