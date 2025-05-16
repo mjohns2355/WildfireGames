@@ -1,4 +1,4 @@
-using HappyHouse.HouseSystem;
+﻿using HappyHouse.HouseSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +19,14 @@ public class HH_UIManager : MonoBehaviour
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab,startText, modeToggle;
+    public GameObject pauseMenu,aftermathPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
+    public TextMeshProUGUI aftermathPlayerText;
+    [Header("Banner Timings")]
+    public float stretchDuration = 0.5f;  
+    public float displayDuration = 1f;    
+    public float fadeDuration = 0.5f;
 
+    private bool firstCompetitionAnnouncement = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,15 +77,17 @@ public class HH_UIManager : MonoBehaviour
         repairBtn.onClick.AddListener(() =>
         {
             HH_GameManager.Instance.RepairHouse();
+            aftermathPopup.SetActive(false);
         });
 
         moveBtn.onClick.AddListener(() =>
         {
             HH_GameManager.Instance.MoveHouse();
+            aftermathPopup.SetActive(false);
         });
 
         // disable move and repair
-        ToggleMoveAndRepairBtns(false);
+        //ToggleMoveAndRepairBtns(false);
     }
 
     private void OnToggleValueChanged(bool value)
@@ -90,6 +99,17 @@ public class HH_UIManager : MonoBehaviour
     {
 
     }
+
+    public void OnCloseCompetitionNotice()
+    {
+        firstCompetitionAnnouncement = false;
+        competitionNotice.SetActive(false);
+        competitionAnnouncement.SetActive(false);
+    }
+    public void TogglePauseMenu(bool state)
+    {
+        pauseMenu.SetActive(state);
+    }
     public void ShowWarningPopup()
     {
         warningPopup.gameObject.SetActive(true);
@@ -100,12 +120,16 @@ public class HH_UIManager : MonoBehaviour
         quizPopup.gameObject.SetActive(true);
         quizPopup.InitQuizPopup();
     }
-
-    public void ToggleMoveAndRepairBtns(bool state)
+    public void ShowAftermathScreen()
     {
-        moveBtn.gameObject.SetActive(state);
-        repairBtn.gameObject.SetActive(state);
+        var currentPlayer = HH_GameManager.Instance.currentPlayer;
+        aftermathPlayerText.text = currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2";
+        aftermathPopup.SetActive(true);
     }
+    //public void ToggleMoveAndRepairBtns(bool state)
+    //{
+
+    //}
     public void ShowStoreScreen(HousePartType partType, bool isPublic = false/*, PurchaseFloatingButton clickedButton = null*/)
     {
         if (isPublic)
@@ -205,16 +229,80 @@ public class HH_UIManager : MonoBehaviour
 
     public void ShowEndScreen(bool isFire, float p1Score, float p2Score)
     {
-        endScreenManager.gameObject.SetActive(true);
         if (isFire)
         {
+            endScreenManager.gameObject.SetActive(true);
             endScreenManager.ShowFireResultScreen(p1Score, p2Score);
         }
         else
         {
-            endScreenManager.ShowCompetitionResult(p1Score, p2Score);
+            ShowCompetitionAnnouncement();
+            StartCoroutine(ShowCompetitionResult(p1Score, p2Score));
         }
     }
+    
+    IEnumerator ShowCompetitionResult(float p1Score, float p2Score)
+    {
+        yield return new WaitUntil(() => !firstCompetitionAnnouncement);
+        yield return new WaitForSeconds(1f);
+        endScreenManager.gameObject.SetActive(true);
+        endScreenManager.ShowCompetitionResult(p1Score, p2Score);
+    }
 
+    public void ShowFireAnnouncement()
+    {
+        fireAnnouncement.SetActive(true);
+        var rect = fireAnnouncement.GetComponentInChildren<RectTransform>();
+        var canvasGroup = fireAnnouncement.GetComponent<CanvasGroup>();
+        rect.localScale = new Vector3(0f, 1f, 1f);
+        canvasGroup.alpha = 1f;
+        var seq = StrechAndFadeEffect(rect, canvasGroup);
+        seq.OnComplete(() => canvasGroup.gameObject.SetActive(true));
+    }
 
+    public void ShowCompetitionAnnouncement()
+    {
+        competitionAnnouncement.SetActive(true);
+        var rect = competitionBanner.GetComponent<RectTransform>();
+        var canvasGroup = competitionBanner.GetComponent<CanvasGroup>();
+        rect.localScale = new Vector3(0f, 1f, 1f);
+        canvasGroup.alpha = 1f;
+        var seq = StrechAndFadeEffect(rect, canvasGroup);
+        seq.OnComplete(() =>
+        {
+            if (firstCompetitionAnnouncement)
+            {
+                competitionNotice.SetActive(true);
+            }
+            else
+            {
+                competitionNotice.SetActive(false);
+                competitionAnnouncement.SetActive(false);
+            }
+        });
+    }
+
+    public Sequence StrechAndFadeEffect(RectTransform rect, CanvasGroup canvasGroup)
+    {
+        Sequence seq = DOTween.Sequence();
+
+        // 1) Stretch X from 0 → 1 with a nice “pop” ease
+        seq.Append(
+            rect
+                .DOScaleX(1f, stretchDuration)
+                .SetEase(Ease.OutBack)
+        );
+
+        // 2) Hold full size for displayDuration
+        seq.AppendInterval(displayDuration);
+
+        // 3) Fade the whole CanvasGroup out
+        seq.Append(
+            canvasGroup
+                .DOFade(0f, fadeDuration)
+                .SetEase(Ease.InQuad)
+        );
+
+        return seq;
+    }
 }

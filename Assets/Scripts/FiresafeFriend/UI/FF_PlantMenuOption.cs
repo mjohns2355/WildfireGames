@@ -10,7 +10,7 @@ public class FF_PlantMenuOption : MonoBehaviour
 {
     public Image icon;
     public Sprite removeIcon;
-    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText,shortDescription;
     public Button button;
     public FF_Plants ownerPlant;
     public FF_DirtMound ownerMound;
@@ -28,6 +28,15 @@ public class FF_PlantMenuOption : MonoBehaviour
         ownerMound = mound;
         icon.sprite = plant.combustibleInfo.icon;
         nameText.text = plant.combustibleInfo.partID;
+        var description = plant.combustibleInfo.materialClass switch
+        {
+            MaterialClass.A => "Fire-Resistant",
+            MaterialClass.B => "Moderately Flammable",
+            MaterialClass.C => "Flammable",
+            MaterialClass.F => "Highly Flammable",
+            _ => ""
+        };
+        shortDescription.text = description;
         //checkMark.SetActive(isBought);
     }
 
@@ -36,6 +45,7 @@ public class FF_PlantMenuOption : MonoBehaviour
         ownerMound = mound;
         isRemoveButton = true;
         nameText.text = "Remove Plant";
+        shortDescription.transform.parent.gameObject.SetActive(false);
         icon.sprite = removeIcon;
     }
     public void OnClick()
