@@ -202,6 +202,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     public void RepairHouse()
     {
+        currentPlayer.budgetManager.SpendBudget(10000);
         RespawnHouse(false);
 
     }
