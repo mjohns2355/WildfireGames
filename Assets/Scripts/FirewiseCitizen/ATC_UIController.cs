@@ -12,6 +12,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
     public ATC_HouseDialogManager houseDialogManager;
+    public FC_IncentivePage incentivesPage;
     public FC_StarScreen starScreen;
     //public GameObject toolsBar;
     public GameObject replayOverlay;
@@ -43,6 +44,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         start.onClick.AddListener(() =>
         {
+            //incentivesPage.ShowIncentivesPage();
             GameManager.Instance.StartSimulation();
             learnMore.interactable = false;
             start.interactable = false;
