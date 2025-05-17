@@ -22,53 +22,90 @@ public class NewsFetcher : MonoBehaviour
         fetchButton.onClick.AddListener(() => StartCoroutine(FetchNews(zipCodeInput.text)));
     }
 
-    IEnumerator FetchNews(string zip)
+   IEnumerator FetchNews(string zip)
+{
+    newsText.text = "Fetching location info...";
+
+    UnityWebRequest locationRequest = UnityWebRequest.Get(zipApi + zip);
+    yield return locationRequest.SendWebRequest();
+
+    if (locationRequest.result != UnityWebRequest.Result.Success)
     {
-        newsText.text = "Fetching location info...";
+        newsText.text = "Failed to get location info.";
+        yield break;
+    }
 
-        UnityWebRequest locationRequest = UnityWebRequest.Get(zipApi + zip);
-        yield return locationRequest.SendWebRequest();
+    var locationJson = JSON.Parse(locationRequest.downloadHandler.text);
+    string city = locationJson["places"][0]["place name"];
+    string state = locationJson["places"][0]["state abbreviation"];
+    string county = locationJson["places"][0]["county"] ?? ""; // Note: not all ZIP APIs include county
 
-        if (locationRequest.result != UnityWebRequest.Result.Success)
-        {
-            newsText.text = "Failed to get location info.";
-            yield break;
-        }
+    newsText.text = "Fetching news...";
 
-        var locationJson = JSON.Parse(locationRequest.downloadHandler.text);
-        string city = locationJson["places"][0]["place name"];
-        string state = locationJson["places"][0]["state abbreviation"];
-        string county = locationJson["places"][0]["county"] ?? ""; // Note: not all ZIP APIs include county
-
-        newsText.text = "Fetching news...";
-
-        string[] searchScopes = new string[]
-        {
+    string[] searchScopes = new string[]
+    {
         $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{city}\" AND \"{state}\"",
         county != "" ? $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{county}\" AND \"{state}\"" : null,
         $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{state}\"",
         "(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND United States"
-        };
+    };
 
-        bool foundNews = false;
+    bool foundNews = false;
 
-        foreach (var query in searchScopes)
+    foreach (var query in searchScopes)
+    {
+        if (query == null) continue;
+
+        string newsUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(query)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
+        UnityWebRequest newsRequest = UnityWebRequest.Get(newsUrl);
+        yield return newsRequest.SendWebRequest();
+
+        if (newsRequest.result != UnityWebRequest.Result.Success) continue;
+
+        var newsJson = JSON.Parse(newsRequest.downloadHandler.text);
+        var articles = newsJson["articles"];
+
+        if (articles.Count > 0)
         {
-            if (query == null) continue;
+            newsText.text = "";
+            foreach (var article in articles.Children)
+            {
+                string title = article["title"];
+                string url = article["url"];
+                string rawDate = article["publishedAt"];
+                string formattedDate = "";
 
-            string newsUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(query)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
-            UnityWebRequest newsRequest = UnityWebRequest.Get(newsUrl);
-            yield return newsRequest.SendWebRequest();
+                if (System.DateTime.TryParse(rawDate, out var parsedDate))
+                {
+                    formattedDate = parsedDate.ToString("MMMM yyyy");
+                }
 
-            if (newsRequest.result != UnityWebRequest.Result.Success) continue;
+                newsText.text += $"<link={url}><color=#0000EE><u>{title}</u></color></link>\n{formattedDate}\n\n";
+            }
 
-            var newsJson = JSON.Parse(newsRequest.downloadHandler.text);
-            var articles = newsJson["articles"];
+            foundNews = true;
+            break;
+        }
+    }
 
-            if (articles.Count > 0)
+    // Fallback: If no wildfire news for zip-specific queries, get wildfire news for California state
+    if (!foundNews)
+    {
+        string fallbackQuery = "(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND California";
+
+        string fallbackUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(fallbackQuery)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
+        UnityWebRequest fallbackRequest = UnityWebRequest.Get(fallbackUrl);
+        yield return fallbackRequest.SendWebRequest();
+
+        if (fallbackRequest.result == UnityWebRequest.Result.Success)
+        {
+            var fallbackJson = JSON.Parse(fallbackRequest.downloadHandler.text);
+            var fallbackArticles = fallbackJson["articles"];
+
+            if (fallbackArticles.Count > 0)
             {
                 newsText.text = "";
-                foreach (var article in articles.Children)
+                foreach (var article in fallbackArticles.Children)
                 {
                     string title = article["title"];
                     string url = article["url"];
@@ -82,16 +119,16 @@ public class NewsFetcher : MonoBehaviour
 
                     newsText.text += $"<link={url}><color=#0000EE><u>{title}</u></color></link>\n{formattedDate}\n\n";
                 }
-
                 foundNews = true;
-                break;
             }
         }
-
-        if (!foundNews)
-        {
-            newsText.text = "Unable to fetch news at this time.";
-        }
     }
+
+    if (!foundNews)
+    {
+        newsText.text = "Unable to fetch news at this time.";
+    }
+}
+
 
 }
