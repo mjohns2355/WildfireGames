@@ -44,8 +44,16 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         start.onClick.AddListener(() =>
         {
-            //incentivesPage.ShowIncentivesPage();
-            GameManager.Instance.StartSimulation();
+            if(GameManager.Instance.currentLevel > 0)
+            {
+                incentivesPage.ShowIncentivesPage();
+            }
+            else
+            {
+                popUp.SetActive(true);
+                GameManager.Instance.StartSimulation();
+            }
+
             learnMore.interactable = false;
             start.interactable = false;
         });

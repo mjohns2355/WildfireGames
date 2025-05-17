@@ -246,7 +246,7 @@ public class GameManager : UnitySingleton<GameManager>
         if (!IsFirstSim)
         {
             //Time.timeScale = GameSpeed = 1f ;
-            ATC_UIController.Instance.popUp.SetActive(true);
+            //ATC_UIController.Instance.popUp.SetActive(true);
         }
         else
         {

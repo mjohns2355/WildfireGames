@@ -13,7 +13,6 @@ public class FC_Incentiveicon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offerButton.onClick.AddListener(OnOfferButtonClicked);
     }
 
     // Update is called once per frame
@@ -28,8 +27,4 @@ public class FC_Incentiveicon : MonoBehaviour
         this.icon.sprite = icon;
     }
 
-    public void OnOfferButtonClicked()
-    {
-        
-    }
 }
