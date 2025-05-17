@@ -25,6 +25,8 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Our community includes horses, and no surprise people took them
       during the evacuation, but the added horse trailers on the road added major
       congestion.
@@ -39,6 +41,8 @@ MonoBehaviour:
     carSpeedMod: 2
     carLeaveTime: 2
     choiceDetail: Evacuate without the horses, hopefully they will be okay.
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Horse owners were devastated by the loss of their horses in
       the fire.
     isLocked: 0
@@ -53,6 +57,8 @@ MonoBehaviour:
     carLeaveTime: 0
     choiceDetail: Relocating the horses before an evacuation is ordered will help
       reduce  congestion during the evacuation, and potentially save lives!
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Horse owners were ready long before the evacuation notice, and
       they all worked together to relocate horses to stables far from the danger
       zone.
@@ -83,6 +89,8 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: 
     isLocked: 0
     isNormal: 0
@@ -90,4 +98,8 @@ MonoBehaviour:
   requiredChoicesCount: 1
   newsUISprite: {fileID: 0}
   choicePicture: {fileID: 0}
+  houseIcon: {fileID: 0}
   homeHardeningChance: 0.4
+  incentiveOptions:
+  - 1
+  - 2

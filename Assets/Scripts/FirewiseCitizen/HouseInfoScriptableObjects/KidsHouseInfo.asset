@@ -25,6 +25,8 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Families with children were unprepared for an evening evacuation,
       and there was a lot of confusion
     isLocked: 0
@@ -38,6 +40,8 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 1
     choiceDetail: Drive to the school to pick up the children before evacuating.
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Families with children rushed to the school, which added unnecessary
       congestion in that area. Families are reminded that the school is one of the
       safest places in our community.
@@ -53,6 +57,8 @@ MonoBehaviour:
     carLeaveTime: 1
     choiceDetail: 'You know the children are safter at school  and have a plan that
       they know: they will stay at school untill it is safe to pick them up.'
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Children sheltered at the school and were safe there. Thankfully
       families knew to evacuate first and wait until it was safe to go to the school
       to pick up the kids.
@@ -82,6 +88,8 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: 
     isLocked: 0
     isNormal: 0
@@ -89,4 +97,8 @@ MonoBehaviour:
   requiredChoicesCount: 1
   newsUISprite: {fileID: 21300000, guid: 4f15e0e028ff2414d93213e541898b42, type: 3}
   choicePicture: {fileID: 21300000, guid: 4e12155ced2aa45ef996c96df0f4cce5, type: 3}
+  houseIcon: {fileID: 21300000, guid: c7b80ca82965946419ffd1727c51286c, type: 3}
   homeHardeningChance: 0.4
+  incentiveOptions:
+  - 1
+  - 2
