@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Buffers;
 public class OptionButton : MonoBehaviour
 {
     //public bool isLocked = false;
@@ -39,6 +40,7 @@ public class OptionButton : MonoBehaviour
             checkMark.sprite = isMultipleChoice ? squareBlank : circleBlank;
         }
     }
+
     public string GetOptionContent()
     {
         return optionText.text;
@@ -76,6 +78,14 @@ public class OptionButton : MonoBehaviour
             //ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
             //learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);
         });
+    }
+
+    public void InitIncentiveOptions(string text, FC_IncentivePage owner)
+    {
+        optionText.text = text;
+        // Remove existing listeners and add new
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => owner.OnIncentiveOptionClicked(this));
     }
     public void SetOptionButtonText(string text)
     {

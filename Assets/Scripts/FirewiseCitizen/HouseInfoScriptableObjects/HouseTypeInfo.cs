@@ -27,8 +27,10 @@ public class HouseTypeInfo : ScriptableObject
     public int requiredChoicesCount;
     public Sprite newsUISprite;
     public Sprite choicePicture;
+    public Sprite houseIcon;
     public float homeHardeningChance = 0.4f;
-    public int allChoicesCount => choices.Count;
+    public List<string> incentiveOptions;
+public int allChoicesCount => choices.Count;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 

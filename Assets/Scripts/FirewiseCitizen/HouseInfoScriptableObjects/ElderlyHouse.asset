@@ -25,6 +25,8 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Older residents were caught off guard this time and waited for
       the evacuation notice before taking action. As a community, we need a better
       plan in place.
@@ -40,6 +42,8 @@ MonoBehaviour:
     carLeaveTime: 1
     choiceDetail: Getting help fromo a aneighbor will be a great option! This will
       make evacuating both safer as well as quicker.
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Neighbors stepped in to help, offering rides to older residents
       who may have had trouble otherwise.
     isLocked: 1
@@ -54,6 +58,8 @@ MonoBehaviour:
     carLeaveTime: 0
     choiceDetail: Evacuate early will allow for more time to get out safely. This
       is a good choice!
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: 'A community plan to notify older residents was successful:
       those needing more time were able to evacuate early before the evacuation notice
       went out.'
@@ -83,6 +89,8 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: 
     isLocked: 0
     isNormal: 0
@@ -90,3 +98,8 @@ MonoBehaviour:
   requiredChoicesCount: 1
   newsUISprite: {fileID: 21300000, guid: daeaf8bb9c1b34f299f0e17fd5e99ca8, type: 3}
   choicePicture: {fileID: 21300000, guid: 7dcc616578d9a43339c839ed2fb14fd4, type: 3}
+  houseIcon: {fileID: 21300000, guid: 800106bad9a6f40b6a74b75eb48e464d, type: 3}
+  homeHardeningChance: 0.4
+  incentiveOptions:
+  - 1
+  - 2
