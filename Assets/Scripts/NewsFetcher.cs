@@ -17,6 +17,11 @@ public class NewsFetcher : MonoBehaviour
     private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // NewsAPI key
     private const string newsApiBase = "https://newsapi.org/v2/everything";
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         fetchButton.onClick.AddListener(() => StartCoroutine(FetchNews(zipCodeInput.text)));
