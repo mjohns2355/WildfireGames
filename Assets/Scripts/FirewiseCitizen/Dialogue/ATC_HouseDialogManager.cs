@@ -7,6 +7,7 @@ using TMPro;
 using System;
 using DG.Tweening;
 using System.Linq;
+using Unity.VisualScripting;
 public class ATC_HouseDialogManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogText;
@@ -42,7 +43,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private void Start()
     {
         LoadDialogTrees("Assets/Resources/FirewiseCitizen/HouseDialogs.json");
-        skipButton.onClick.AddListener(SkipDialogue);
+        skipButton.onClick.AddListener(() => { 
+            EndDialog(true);
+            GameManager.Instance.cameraMovement.ResetCam();
+        });
         scrollRect.onValueChanged.AddListener(_ => UpdateEdgeFadeVisibility());
         topEdgeFade = topFade.GetComponent<CanvasGroup>();
     }
@@ -218,7 +222,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             isWaitingForPlayer = true;
             if (currentNode.isEndNode)
             {
-                DOVirtual.DelayedCall(2f, EndDialog).SetId(gameObject);
+                DOVirtual.DelayedCall(2f,()=> { EndDialog(); }).SetId(gameObject);
             }
         }
         else
@@ -285,7 +289,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
     IEnumerator OptionSelectedRoutine(float delay, DialogOption selectedOption)
     {
         yield return new WaitUntil(() => isWaitingForPlayer == false);
-
+        if (selectedOption.optionText == "Skip to final decision" || selectedOption.optionText == "Skip to Final Decisions")
+        {
+            SkipDialogue();
+            yield return null;
+        }
         // Find the next node
         currentNode = currentDialogTree.GetNodeById(selectedOption.GetNextNodeId());
 
@@ -295,6 +303,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             canClick = true;
             DisplayCurrentNode();
         });
+
 
     }
     private void ShowOptions()
@@ -312,7 +321,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
     }
 
-    public void EndDialog()
+    public void EndDialog(bool closed = false)
     {
         StopAllCoroutines();
         if (!dialogFlagsMap[key].Item2)   // if NOT skipped
@@ -324,10 +333,17 @@ public class ATC_HouseDialogManager : MonoBehaviour
         OnDialogueComplete?.Invoke();
         DOTween.Kill(gameObject);
 
-
+        
         if (Enum.TryParse(key, out HouseType houseType))
         {
-            ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable();
+            if(closed)
+            {
+                ATC_UIController.Instance.FindMenu(houseType).OnMenuDisable();
+            }
+            else
+            {
+                ATC_UIController.Instance.FindMenu(houseType).OnMenuEnable ();
+            }
         }
 
     }

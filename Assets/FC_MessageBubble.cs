@@ -111,7 +111,7 @@ public class FC_MessageBubble : MonoBehaviour
             var name = nameText.text;
             switch (name)
             {
-                case "Mary" or "Genaro":
+                case "Mary" or "Genaro" or "Man":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.petHomeBGShort : config.petHomeBGLong;
                     namePlateBackgrondImage.sprite = config.petHomeNamePlate;
                     break;
@@ -121,7 +121,7 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.firefighterNamePlate;
                     break;
 
-                case "Bailey":
+                case "Bailey" or "Lady":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.twoCarsHomeBGShort : config.twoCarsHomeBGLong;
                     namePlateBackgrondImage.sprite = config.twoCarsHomeNamePlate;
                     break;
@@ -136,7 +136,7 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.wuiHomeNamePlate;
                     break;
 
-                case "June":
+                case "June" or "Old Lady":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.elderlyHomeBGShort : config.elderlyHomeBGLong;
                     namePlateBackgrondImage.sprite = config.elderlyHomeNamePlate;
                     break;
