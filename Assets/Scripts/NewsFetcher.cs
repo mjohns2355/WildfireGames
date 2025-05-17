@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using SimpleJSON;
 using TMPro;
+using System;
 
 
 public class NewsFetcher : MonoBehaviour
@@ -12,9 +13,8 @@ public class NewsFetcher : MonoBehaviour
     public Button fetchButton;
     public TMP_Text newsText;
 
-
     private const string zipApi = "https://api.zippopotam.us/us/";
-    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // Our current NewsAPI key
+    private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // NewsAPI key
     private const string newsApiBase = "https://newsapi.org/v2/everything";
 
     void Start()
@@ -22,113 +22,90 @@ public class NewsFetcher : MonoBehaviour
         fetchButton.onClick.AddListener(() => StartCoroutine(FetchNews(zipCodeInput.text)));
     }
 
-   IEnumerator FetchNews(string zip)
-{
-    newsText.text = "Fetching location info...";
-
-    UnityWebRequest locationRequest = UnityWebRequest.Get(zipApi + zip);
-    yield return locationRequest.SendWebRequest();
-
-    if (locationRequest.result != UnityWebRequest.Result.Success)
+    IEnumerator FetchNews(string zip)
     {
-        newsText.text = "Failed to get location info.";
-        yield break;
+        newsText.text = "Fetching location info...";
+
+        // Get state from ZIP
+        UnityWebRequest locationRequest = UnityWebRequest.Get(zipApi + zip);
+        yield return locationRequest.SendWebRequest();
+
+        if (locationRequest.result != UnityWebRequest.Result.Success)
+        {
+            newsText.text = "Failed to get location info.";
+            yield break;
+        }
+
+        var locationJson = JSON.Parse(locationRequest.downloadHandler.text);
+        string state = locationJson["places"][0]["state abbreviation"];
+
+        // Only do state-level wildfire news
+        yield return StartCoroutine(FetchWildfireNews(state));
     }
 
-    var locationJson = JSON.Parse(locationRequest.downloadHandler.text);
-    string city = locationJson["places"][0]["place name"];
-    string state = locationJson["places"][0]["state abbreviation"];
-    string county = locationJson["places"][0]["county"] ?? ""; // Note: not all ZIP APIs include county
-
-    newsText.text = "Fetching news...";
-
-    string[] searchScopes = new string[]
+    IEnumerator FetchWildfireNews(string state)
     {
-        $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{city}\" AND \"{state}\"",
-        county != "" ? $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{county}\" AND \"{state}\"" : null,
-        $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND \"{state}\"",
-        "(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND United States"
-    };
+        string query = $"(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND {state}";
+        int randomPage = UnityEngine.Random.Range(1, 6); // Page 1 to 5
+        string newsUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(query)}&apiKey={newsApiKey}&pageSize=10&sortBy=publishedAt&page={randomPage}";
 
-    bool foundNews = false;
+        newsText.text = "Fetching wildfire news...";
 
-    foreach (var query in searchScopes)
-    {
-        if (query == null) continue;
-
-        string newsUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(query)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
         UnityWebRequest newsRequest = UnityWebRequest.Get(newsUrl);
         yield return newsRequest.SendWebRequest();
 
-        if (newsRequest.result != UnityWebRequest.Result.Success) continue;
+        if (newsRequest.result != UnityWebRequest.Result.Success)
+        {
+            newsText.text = "Failed to fetch news.";
+            yield break;
+        }
 
         var newsJson = JSON.Parse(newsRequest.downloadHandler.text);
         var articles = newsJson["articles"];
 
-        if (articles.Count > 0)
+        // Filter wildfire-related articles
+        string[] keywords = { "wildfire", "wild fire", "forest fire", "evacuation", "fire" };
+        newsText.text = "";
+        int addedCount = 0;
+
+        foreach (var article in articles.Children)
         {
-            newsText.text = "";
-            foreach (var article in articles.Children)
+            string title = article["title"].Value.ToLower();
+            string url = article["url"];
+            string dateRaw = article["publishedAt"];
+
+            if (string.IsNullOrEmpty(url) || !url.StartsWith("http"))
+                continue;
+
+            bool containsKeyword = false;
+            foreach (var keyword in keywords)
             {
-                string title = article["title"];
-                string url = article["url"];
-                string rawDate = article["publishedAt"];
-                string formattedDate = "";
-
-                if (System.DateTime.TryParse(rawDate, out var parsedDate))
+                if (title.Contains(keyword))
                 {
-                    formattedDate = parsedDate.ToString("MMMM yyyy");
+                    containsKeyword = true;
+                    break;
                 }
+            }
+            if (!containsKeyword)
+                continue;
 
-                newsText.text += $"<link={url}><color=#0000EE><u>{title}</u></color></link>\n{formattedDate}\n\n";
+            // Format date
+            string formattedDate = "";
+            if (System.DateTime.TryParse(dateRaw, out System.DateTime parsedDate))
+            {
+                formattedDate = parsedDate.ToString("MMMM yyyy");
             }
 
-            foundNews = true;
-            break;
+            // Add entry
+            newsText.text += $"<link={url}><color=#0000EE><u>{article["title"]}</u></color></link>\n{formattedDate}\n\n";
+            addedCount++;
+
+            if (addedCount >= 5) break;
         }
-    }
 
-    // Fallback: If no wildfire news for zip-specific queries, get wildfire news for California state
-    if (!foundNews)
-    {
-        string fallbackQuery = "(wildfire OR \"wild fire\" OR \"forest fire\" OR evacuation) AND California";
-
-        string fallbackUrl = $"{newsApiBase}?q={UnityWebRequest.EscapeURL(fallbackQuery)}&apiKey={newsApiKey}&pageSize=5&sortBy=publishedAt";
-        UnityWebRequest fallbackRequest = UnityWebRequest.Get(fallbackUrl);
-        yield return fallbackRequest.SendWebRequest();
-
-        if (fallbackRequest.result == UnityWebRequest.Result.Success)
+        if (addedCount == 0)
         {
-            var fallbackJson = JSON.Parse(fallbackRequest.downloadHandler.text);
-            var fallbackArticles = fallbackJson["articles"];
-
-            if (fallbackArticles.Count > 0)
-            {
-                newsText.text = "";
-                foreach (var article in fallbackArticles.Children)
-                {
-                    string title = article["title"];
-                    string url = article["url"];
-                    string rawDate = article["publishedAt"];
-                    string formattedDate = "";
-
-                    if (System.DateTime.TryParse(rawDate, out var parsedDate))
-                    {
-                        formattedDate = parsedDate.ToString("MMMM yyyy");
-                    }
-
-                    newsText.text += $"<link={url}><color=#0000EE><u>{title}</u></color></link>\n{formattedDate}\n\n";
-                }
-                foundNews = true;
-            }
+            newsText.text = "No wildfire news found for your state.";
         }
     }
-
-    if (!foundNews)
-    {
-        newsText.text = "Unable to fetch news at this time.";
-    }
-}
-
-
 }
