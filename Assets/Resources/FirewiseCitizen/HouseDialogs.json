@@ -15,7 +15,7 @@
         },
         {
           "id": "2",
-          "characterName": "Bailey",
+          "characterName": "Lady",
           "dialogText": "You the one talking about fire safety?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
@@ -27,12 +27,16 @@
               "optionText": "Nice Car",
               "messageText": "That's a pretty nice truck you got there. Same with the car.",
               "nextNodeId": "20"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
         {
           "id": "20",
-          "characterName": "Bailey",
+          "characterName": "Lady",
           "dialogText": "Appreciate it. Rebuilt both of them myself.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
         },
@@ -57,7 +61,7 @@
         },
         {
           "id": "3",
-          "characterName": "Bailey",
+          "characterName": "Lady",
           "dialogText": "Glad to see someone helping out around here. My name's Bailey.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
@@ -65,6 +69,10 @@
               "optionText": "What's the problem?",
               "messageText": "It's nice to meet you Bailey. What can I do to help?",
               "nextNodeId": "4"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -88,6 +96,10 @@
               "optionText": "Two Cars could hurt",
               "messageText": "Have you thought about how two cars might make evacuating harder?",
               "nextNodeId": "100"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -116,9 +128,18 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
+              "optionText": "Take two cars",
+              "messageText": "Having two cars could help. What's your plan if a fire gets close?",
+              "nextNodeId": "6"
+            },
+            {
               "optionText": "Relocate second car",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
               "nextNodeId": "40"
+            },
+            {
+              "optionText": "Conclude",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -143,6 +164,10 @@
               "optionText": "Relocate second car",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
               "nextNodeId": "40"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -166,6 +191,16 @@
           "characterName": "Bailey",
           "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
           "options": [
+            {
+              "optionText": "Two Cars",
+              "messageText": "Having two cars could help. What's your plan if a fire gets close?",
+              "nextNodeId": "6"
+            },
+            {
+              "optionText": "One Car",
+              "messageText": "Have you thought about how two cars might make evacuating harder?",
+              "nextNodeId": "100"
+            },
             {
               "optionText": "Conclude",
               "nextNodeId": "200"
@@ -231,6 +266,10 @@
             {
               "optionText": "Problem?",
               "messageText": "It's nice to meet you Gabe. What seems to be the problem?"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -250,6 +289,10 @@
               "optionText": "Problem?",
               "messageText": "What advice can I offer to help you?",
               "nextNodeId": "14"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -268,6 +311,10 @@
             {
               "optionText": "School Evacuation Plans?",
               "messageText": "Have you talked to the school about their wildfire evacuation plans?"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -291,6 +338,10 @@
               "optionText": "Pick up Children",
               "messageText": "Being worried about being seperated is completely understandable.",
               "nextNodeId": "21"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -324,6 +375,10 @@
               "optionText": "Reach out to School",
               "messageText": "It might ease your anxiety to reach out to the school again. They could host a conference or meeting discussing these topics.",
               "nextNodeId": "40"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -352,6 +407,10 @@
               "optionText": "Pick Up Early",
               "messageText": "Have you thought about picking them up early out of school? That might help with the traffic concerns.",
               "nextNodeId": "30"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
@@ -555,7 +614,7 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "Continue",
+              "optionText": "Wildfires are a risk!",
               "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
             },
             {
@@ -644,24 +703,7 @@
         {
           "id": "33",
           "characterName": "Player",
-          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical, and should always be done if there is threat of a fire near you.",
-          "options": [
-            {
-              "optionText": "Continue"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical, and should always be done if there is threat of a fire near you."
         },
         {
           "id": "34",
@@ -702,24 +744,7 @@
         {
           "id": "37",
           "characterName": "Player",
-          "dialogText": "Home hardening means making efforts to decrease the chance of your home catching on fire. This can include installing ember resistant vents, clearing your gutters of combustible debris, and removing flammable plants in your front yard.",
-          "options": [
-            {
-              "optionText": "Continue"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+          "dialogText": "Home hardening means making efforts to decrease the chance of your home catching on fire. This can include installing ember resistant vents, clearing your gutters of combustible debris, and removing flammable plants in your front yard."
         },
         {
           "id": "38",
@@ -728,7 +753,7 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "Continue"
+              "optionText": "Unfortunately, it can be."
             },
             {
               "optionText": "Skip to Incentives",
@@ -747,7 +772,7 @@
         {
           "id": "39",
           "characterName": "Player",
-          "dialogText": "Unfortunately, it can be. It takes some time, effort, and money to harden your home."
+          "dialogText": "It takes some time, effort, and money to harden your home."
         },
         {
           "id": "40",
@@ -774,24 +799,7 @@
           "id": "44",
           "characterName": "Sarah",
           "dialogText": "Losing money and hours that could have been spent on preparing our home for fires.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Continue"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
           "id": "45",
@@ -918,79 +926,208 @@
       "nodes": [
         {
           "id": "30",
-          "dialogText": "<i>You apprach the door and knock, after a minute or two a kind elderly woman opens the door.</i>"
+          "dialogText": "<i>You see an older woman sitting on her porch, looking out onto the street. She gives a soft wave and a smile when you approach</i>"
         },
         {
           "id": "31",
-          "characterName": "Player",
-          "dialogText": "hello Mrs.-"
-        },
-        {
-          "id": "32",
-          "characterName": "June",
-          "dialogText": "It's Mrs.June honey.",
+          "characterName": "Old Lady",
+          "dialogText": "Oh hello dear! How nice of you to come by.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
-          "id": "33",
-          "characterName": "Player",
-          "dialogText": "Hello Mrs.June,I'm going door to door asking folks in regards to fire safety. Have you given any thought to what you may do in case of a evuation notice?"
-        },
-        {
-          "id": "34",
-          "characterName": "June",
-          "dialogText": "Oh dear, usally its my husbad planning for disasters but since he's past ive grown weak and haven't had the energy to plan.",
+          "id": "32",
+          "characterName": "Old Lady",
+          "dialogText": "I hope I'm not too much of a bother, these wildfires are just making me antsy, and I could use some advice.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "Don't worry, Mrs.June. Here are some ideas."
+              "optionText": "How can I help?",
+              "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
+            },
+            {
+              "optionText": "No bother",
+              "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
         {
+          "id": "33",
+          "characterName": "June",
+          "dialogText": "Oh honey, you can call me June.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
+        },
+        {
+          "id": "34",
+          "characterName": "June",
+          "dialogText": "You see, I've been working hard to prepare all my valuables in case of a wildfire.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
+        },
+        {
           "id": "35",
-          "characterName": "Player",
-          "dialogText": "Since you find it harder to get around these days, have you through about contacting a neighbor or friend to help you evacuate?"
+          "characterName": "June",
+          "dialogText": "I've got them all packed and ready to go!",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
+          "options": [
+            {
+              "optionText": "Great to hear",
+              "messageText": "That's great to hear! It's very important to prepare a go bag before the emergency arises, so you can quickly evacuate."
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
+            }
+          ]
         },
         {
           "id": "36",
-          "characterName": "June",
-          "dialogText": "Well, I do have family not to far way that could pick me up.",
-          "portraitPath": "FirewiseCitizen/Portraits/grandma"
+          "characterName": "Player",
+          "dialogText": "It seems like you got the packing part down. Is there anything else that has been bothering you?"
         },
         {
           "id": "37",
           "characterName": "June",
-          "dialogText": "But I don't know how I feel letting the house my husband built burn down. And all my sentemental items.. I don't know.",
+          "dialogText": "Yes there is. It's not my items I'm so worried about, it's me!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
           "id": "38",
-          "characterName": "Player",
-          "dialogText": "Don't worry! You can pack those in a go back incase evacuation is an order, keeping your sentimental items with you in an emergency."
+          "characterName": "June",
+          "dialogText": "I just don't move as quickly as I used to, it's a hard truth, but the truth anyways.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
           "id": "39",
-          "characterName": "Player",
-          "dialogText": "If you're worried about the house burning, try asking your family for help fire hardening your home, with a few material changes and some weed pulling you'll decrease the chances of your house catching fire.",
+          "characterName": "June",
+          "dialogText": "Instead of worrying about moving my belongings, I need to start worrying about moving myself.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "What do you think about that?"
+              "optionText": "Early Evacuation",
+              "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?"
+            },
+            {
+              "optionText": "Ask for Help",
+              "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+              "nextNodeId": "50"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
             }
           ]
         },
         {
           "id": "40",
           "characterName": "June",
-          "dialogText": ".. That does sound promising. And I would get to keep my senemental items. At the end of the day what would you recommend?",
+          "dialogText": "I have, but it's hard to leave before anyone else. What if it's a false alarm?",
           "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
           "id": "41",
-          "dialogText": "<b>An elderly woman who has a mobility issue and does not want to leave her house.</b>"
+          "characterName": "June",
+          "dialogText": "Also, it's hard for me to walk around the block, let alone evacuate during each red flag day. That's a large toll.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
           "id": "42",
+          "characterName": "June",
+          "dialogText": "I could have relied on my kids, but they live hours away. It would be hard for them to arrive in case of emergency.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
+          "options": [
+            {
+              "optionText": "Help from Family (Evac Early",
+              "messageText": "If you give your kids ample time to arrive, they could possibly pick you up very early, but get you out safely. Have you considered asking them?"
+            },
+            {
+              "optionText": "Neighbors Help",
+              "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+              "nextNodeId": "50"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "43",
+          "characterName": "June",
+          "dialogText": "I do suppose if I asked them early into fire season, I could stay with them while everything is higher risk.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
+          "options": [
+            {
+              "optionText": "Ask for Help",
+              "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+              "nextNodeId": "50"
+            },
+            {
+              "optionText": "Conclude",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "50",
+          "characterName": "June",
+          "dialogText": "My kids live hours away, so its hard for them to help in an emergency.",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
+        },
+        {
+          "id": "51",
+          "characterName": "June",
+          "dialogText": "But I do have some kind neighbors who could help. Oh, but I hate to be a burden!",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
+          "options": [
+            {
+              "optionText": "Ask Neighbors",
+              "messageText": "It's good to have supprtive neighbors; I'm sure they won't see it as a burden at all, especially if you plan ahead.",
+              "nextNodeId": "60"
+            },
+            {
+              "optionText": "Early Evacuation",
+              "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
+              "nextNodeId": "40"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "60",
+          "characterName": "Player",
+          "dialogText": "Could you make a plan together so everyone is ready?"
+        },
+        {
+          "id": "61",
+          "characterName": "June",
+          "dialogText": "I have always brought over a tin of freshly baked cookies when I have the chance...",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma"
+        },
+        {
+          "id": "62",
+          "characterName": "June",
+          "dialogText": "I suppose I could discuss it with them over some gingersnaps. Asking for help from a neighbor might be the best course of action!",
+          "portraitPath": "FirewiseCitizen/Portraits/grandma",
+          "options": [
+            {
+              "optionText": "Early Evacuation",
+              "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
+              "nextNodeId": "40"
+            },
+            {
+              "optionText": "Conclude",
+              "nextNodeId": "200"
+            }
+          ]
+        },
+        {
+          "id": "200",
           "dialogText": "<b>What do you think?</b>",
           "isEndNode": "true"
         }
@@ -1011,13 +1148,13 @@
         },
         {
           "id": "41",
-          "characterName": "Genaro",
+          "characterName": "Man",
           "dialogText": "Pippin, Porkchop, fetch!",
           "portraitPath": "FirewiseCitizen/Portraits/dogowner"
         },
         {
           "id": "42",
-          "characterName": "Genaro",
+          "characterName": "Man",
           "dialogText": "Those dogs are tireless! I feel like I could charge a battery off of them.",
           "portraitPath": "FirewiseCitizen/Portraits/dogowner"
         },
@@ -1039,6 +1176,10 @@
               "optionText": "Compliment pets",
               "messageText": "Those are some really cute dogs. Do you have other pets?",
               "nextNodeId": "400"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "500"
             }
           ]
         },
@@ -1098,6 +1239,10 @@
               "optionText": "Evacuate Early?",
               "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
               "nextNodeId": "100"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "500"
             }
           ]
         },
@@ -1127,6 +1272,10 @@
               "optionText": "Evacuate Early?",
               "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
               "nextNodeId": "100"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "500"
             }
           ]
         },
@@ -1211,6 +1360,10 @@
               "optionText": "Friends or Family",
               "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
               "nextNodeId": "104"
+            },
+            {
+              "optionText": "Skip to final decision",
+              "nextNodeId": "500"
             }
           ]
         },
