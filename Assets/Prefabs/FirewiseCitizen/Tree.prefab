@@ -59,7 +59,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2215440846622844373}
@@ -105,10 +105,15 @@ MonoBehaviour:
   isOnfire: 0
   burntColor: {r: 0.16981131, g: 0.15939835, b: 0.15939835, a: 0}
   waitTimeBeforeCatchOnFire: 0
+  particleScale: 0.3
   OnIgnite:
     m_PersistentCalls:
       m_Calls: []
+  OnStopIgniting:
+    m_PersistentCalls:
+      m_Calls: []
   burned: 0
+  canBurn: 1
   trees: []
 --- !u!1001 &4133065174941893762
 PrefabInstance:
