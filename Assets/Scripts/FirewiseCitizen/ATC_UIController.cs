@@ -206,7 +206,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         foreach (var menu in contextMenus)
         {
-            menu.icon.gameObject.SetActive(false);
+            //menu.icon.gameObject.SetActive(false);
             if (!menu.gameObject.activeSelf) continue;
             menu.menuUI.SetActive(false);
             //if (!menu.gameObject.activeSelf) continue;
@@ -306,7 +306,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
         starScreen.gameObject.SetActive(false);
-        
+        windDirectionIndicator.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
         //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)

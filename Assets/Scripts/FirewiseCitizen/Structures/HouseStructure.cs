@@ -259,6 +259,7 @@ public class HouseStructure : Structure
             }
             else
             {
+                followedOrder = true;
                 GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
             }
             ApplyChoiceEffect(currentChoice);
@@ -281,6 +282,7 @@ public class HouseStructure : Structure
             choice.ApplySpecialEffect(this);
         }
 
+        contextMenu.icon.ToggleIconFollowedState(followedOrder);
         GameManager.Instance.finalChoices[houseType] = choice;
         Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
