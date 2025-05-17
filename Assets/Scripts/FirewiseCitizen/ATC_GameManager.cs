@@ -304,7 +304,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void ResetGame(bool restartFromTutorial = false)
     {
-
+        fireManager.wind.isStill = true;
         ATC_UIController.Instance.ShowLoadingScreen();
         //Debug.Log(currentStage);
         if (restartFromTutorial)
@@ -334,10 +334,14 @@ public class GameManager : UnitySingleton<GameManager>
         isPaused = false;
         Time.timeScale = 1f;
         ATC_UIController.Instance.ResetUI();
+        
         fireSFX.Stop();
+        ATC_AIDirector.Instance.currentCarNum = 0;
+        ATC_AIDirector.Instance.spawnedCarNum = 0;
         //ATC_UIController.Instance.houseDialogManager.ResetFlags();
         var currentLevel = "FC_Level" + this.currentLevel.ToString();
         SceneManager.LoadScene(currentLevel);
+
         //TO-DO: Multiple levels
         //SceneManager.LoadScene("FC_Level0");
 
