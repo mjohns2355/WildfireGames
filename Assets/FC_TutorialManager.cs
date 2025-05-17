@@ -58,12 +58,14 @@ public class FC_TutorialManager : MonoBehaviour
     }
     private void CheckDialogueOption(DialogOption option)
     {
-        int nextNodeId = ParseStringToInt(option.nextNodeId);
+        int nextNodeId = ParseStringToInt(option.GetNextNodeId());
+        Debug.Log("Next node id: " + nextNodeId);
         if (nextNodeId == 0) return;
         //slide out firefighter portrait
         if (nextNodeId == fireFighterEndNodeId)
         {
-            MoveSidePortrait(300f);
+            Debug.Log("Slide out firefighter");
+            MoveSidePortrait(350f);
         }
         //skip directly to outro
         else if (nextNodeId == skipTutorialNodeId)
@@ -107,7 +109,7 @@ public class FC_TutorialManager : MonoBehaviour
         if (nodeId == fireFighterStartNodeId)
         {
             // slide in portrait
-            MoveSidePortrait(-300f);
+            MoveSidePortrait(-350f);
         }
     }
 

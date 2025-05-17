@@ -243,8 +243,8 @@ public class HouseStructure : Structure
                 // wui house has vary low chance to follow order at the beginning
                 // each wui house has individual chance to follow order
                 float rng = houseType == HouseType.wui ? UnityEngine.Random.Range(0f, 1f) : otherHousesRng;
-
-                if (rng < followOrderChance)
+                Debug.Log($"House: {houseType}, RNG: {rng}, Follow Order Chance: {followOrderChance}");
+                if (rng > followOrderChance)
                 {
                     ApplyChoiceEffect(houseInfo.defaultChoice);
                     followedOrder = false;
@@ -259,6 +259,7 @@ public class HouseStructure : Structure
             }
             else
             {
+                followedOrder = true;
                 GameManager.Instance.UpdateHouseResponse(houseType, "Followed");
             }
             ApplyChoiceEffect(currentChoice);
@@ -281,6 +282,7 @@ public class HouseStructure : Structure
             choice.ApplySpecialEffect(this);
         }
 
+        contextMenu.icon.ToggleIconFollowedState(followedOrder);
         GameManager.Instance.finalChoices[houseType] = choice;
         Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
@@ -356,7 +358,12 @@ public class HouseStructure : Structure
 
     public void OnReceivedIncentives()
     {
+        Debug.Log($"{houseType} received incentives");
         followOrderChance = 1f;
+        if(houseType == HouseType.wui)
+        {
+            homeHardeningChance = 1;
+        }
     }
     void HomeHardeningBehavior(float homeHardeningMod)
     {

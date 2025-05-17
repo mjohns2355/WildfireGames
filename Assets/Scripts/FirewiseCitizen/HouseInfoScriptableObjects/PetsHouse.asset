@@ -25,6 +25,8 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: "Families with pets took a long time to get out because no one
       was prepared. Next time we need to help them get out quicker, for everyone\u2019s
       safety."
@@ -40,6 +42,8 @@ MonoBehaviour:
     carLeaveTime: 1
     choiceDetail: Before an emergency, prepare carriers, leashes, food, water, and
       medical records. Make sure all animals have collars with identification.
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Families with pets planned ahead and were able to get out as
       soon as the evacuation notice came, but maybe they could leave even earlier
       next time.
@@ -56,6 +60,8 @@ MonoBehaviour:
     choiceDetail: Having pets might make the evacuation stressful, so it is important
       to plan ahead and make sure the pets are in a room where they can be easily
       found for the evacuation.
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: "\u201CGood call for families with pets to evacuate early, they
       all got out of the path of the fire before an evacuation notice came!"
     isLocked: 1
@@ -84,6 +90,8 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
+    choiceThought: 
+    choiceThoughtSprite: {fileID: 0}
     endGameFeedback: 
     isLocked: 0
     isNormal: 0
@@ -91,3 +99,8 @@ MonoBehaviour:
   requiredChoicesCount: 1
   newsUISprite: {fileID: 21300000, guid: 1addf3e941558425780eea38ff4f5ee2, type: 3}
   choicePicture: {fileID: 21300000, guid: 099e94cb0630d461e9ba4b9cd09d179c, type: 3}
+  houseIcon: {fileID: -789902164, guid: 4323dff666698f1418f4581130c52780, type: 3}
+  homeHardeningChance: 0.4
+  incentiveOptions:
+  - $20 Gift Card
+  - $50 Gift Card

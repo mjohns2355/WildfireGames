@@ -12,6 +12,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject evacNotice;
     public ATC_dialogManager dialogManager;
     public ATC_HouseDialogManager houseDialogManager;
+    public FC_IncentivePage incentivesPage;
     public FC_StarScreen starScreen;
     //public GameObject toolsBar;
     public GameObject replayOverlay;
@@ -43,7 +44,16 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         start.onClick.AddListener(() =>
         {
-            GameManager.Instance.StartSimulation();
+            if(GameManager.Instance.currentLevel > 0)
+            {
+                incentivesPage.ShowIncentivesPage();
+            }
+            else
+            {
+                popUp.SetActive(true);
+                GameManager.Instance.StartSimulation();
+            }
+
             learnMore.interactable = false;
             start.interactable = false;
         });
@@ -196,7 +206,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         foreach (var menu in contextMenus)
         {
-            menu.icon.gameObject.SetActive(false);
+            //menu.icon.gameObject.SetActive(false);
             if (!menu.gameObject.activeSelf) continue;
             menu.menuUI.SetActive(false);
             //if (!menu.gameObject.activeSelf) continue;
@@ -296,7 +306,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         pause.interactable = !isFirstSim;
         replayOverlay.SetActive(false);
         starScreen.gameObject.SetActive(false);
-        
+        windDirectionIndicator.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
         //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
