@@ -27,6 +27,8 @@ public class HH_UIManager : MonoBehaviour
     public float fadeDuration = 0.5f;
 
     private bool firstCompetitionAnnouncement = true;
+    private bool canShow = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +107,7 @@ public class HH_UIManager : MonoBehaviour
         firstCompetitionAnnouncement = false;
         competitionNotice.SetActive(false);
         competitionAnnouncement.SetActive(false);
+        canShow = true;
     }
     public void TogglePauseMenu(bool state)
     {
@@ -157,13 +160,26 @@ public class HH_UIManager : MonoBehaviour
         storePanel.HideStorePanel();
     }
 
-    public void ShowPurchasePopup(HousePartInfo partInfo)
+    public void ShowPurchasePopup(HousePartInfo partInfo = null, bool isWarning = false, bool isPlant = false)
     {
         //Debug.Log($"Show PUBLIC purchase popup: {partInfo.isPublic}");
         purchasePopup.gameObject.SetActive(true);
-        purchasePopup.InitPurchasePopup(partInfo);
-    }
+        if (isWarning)
+        {
+            purchasePopup.ShowWarningScreen();
+            return;
+        }
+        if(partInfo != null)
+        {
+            purchasePopup.InitPurchasePopup(partInfo);
+            purchasePopup.ShowPurchaseScreen();
+        }
 
+        if (isPlant)
+        {
+            purchasePopup.ShowRemoveScreen();
+        }
+    }
     public void HidePurchasePopup(HousePartInfo partInfo)
     {
         purchasePopup.gameObject.SetActive(false);
@@ -194,6 +210,7 @@ public class HH_UIManager : MonoBehaviour
         startFireBtn.gameObject.SetActive(false);
         startText.SetActive(false);
         modeToggle.SetActive(true);
+        canShow = false;    
     }
     public void OnRoundEnd()
     {
@@ -243,8 +260,7 @@ public class HH_UIManager : MonoBehaviour
     
     IEnumerator ShowCompetitionResult(float p1Score, float p2Score)
     {
-        yield return new WaitUntil(() => !firstCompetitionAnnouncement);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => canShow);
         endScreenManager.gameObject.SetActive(true);
         endScreenManager.ShowCompetitionResult(p1Score, p2Score);
     }
@@ -278,7 +294,9 @@ public class HH_UIManager : MonoBehaviour
             {
                 competitionNotice.SetActive(false);
                 competitionAnnouncement.SetActive(false);
+                canShow = true;
             }
+            
         });
     }
 

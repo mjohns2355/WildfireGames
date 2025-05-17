@@ -202,8 +202,12 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     public void RepairHouse()
     {
-        currentPlayer.budgetManager.SpendBudget(10000);
-        RespawnHouse(false);
+        if (currentPlayer.budgetManager.SpendBudget(10000))
+        {
+            RespawnHouse(false);
+            return;
+        }
+        uiManager.ShowPurchasePopup(null,true);
 
     }
 
@@ -454,7 +458,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 return;
             }
             Debug.Log("House Mode");
-            inputManager.canClickHouse = true;
+            //inputManager.canClickHouse = true;
             if (IsGameStarted)
             {
                 if (currentPlayer)
@@ -469,6 +473,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 cameraController.ResetCamera();
             }
             TogglePublicFenceClickable(true);
+            uiManager.ToggleInventory(true);
         }
     }
 

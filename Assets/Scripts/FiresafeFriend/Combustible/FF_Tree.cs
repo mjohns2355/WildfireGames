@@ -15,6 +15,15 @@ public class FF_Tree : FF_Plants
 
     }
 
+    public override void OnCombustibleClicked(GameObject obj)
+    {
+        if (obj == gameObject && isClickable)
+        {
+            Debug.Log($"Clicked {gameObject.name}");
+            HH_GameManager.Instance.uiManager.purchasePopup.confirmRemove.onClick.AddListener(RemoveTree);
+            HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, false,true);
+        }
+    }
     private void HandleBurning()
     {
         if (burntModel && burntMesh == null)
@@ -28,5 +37,18 @@ public class FF_Tree : FF_Plants
 
             }
         }
+    }
+
+    private void RemoveTree()
+    {
+        if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(5000))
+        {
+            StartCoroutine(PlantClickedRoutine());
+        }
+        else
+        {
+            HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, true);
+        }
+        HH_GameManager.Instance.uiManager.HidePurchasePopup(null);
     }
 }

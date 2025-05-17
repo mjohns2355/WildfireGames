@@ -9,8 +9,8 @@ public class PurchasePopup : MonoBehaviour
 {
     public TextMeshProUGUI priceText, classText, itemNameText, descriptionText, moneyWarningText;
     public Image icon;
-    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney,closeBGBtn;
-    public GameObject purchaseScreen, warningScreen;
+    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney, closeBGBtn,cancelRemove,confirmRemove;
+    public GameObject purchaseScreen, warningScreen,removeTreeScreen;
     private HousePartInfo partInfo;
 
     private void Start()
@@ -20,6 +20,7 @@ public class PurchasePopup : MonoBehaviour
         purchase.onClick.AddListener(OnPurchaseClicked);
         earnMoreMoney.onClick.AddListener(OnEarnMoreMoneyClicked);
         closeBGBtn.onClick.AddListener(OnCancelClicked);
+        cancelRemove.onClick.AddListener(OnCancelClicked);
     }
 
     private void OnEnable()
@@ -56,7 +57,7 @@ public class PurchasePopup : MonoBehaviour
     {
         Debug.Log("Cancel clicked");
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
-        
+
     }
 
     public void InitPurchasePopup(HousePartInfo partInfo)
@@ -72,7 +73,23 @@ public class PurchasePopup : MonoBehaviour
     private void OnDisable()
     {
         warningScreen.SetActive(false);
-        purchaseScreen.SetActive(true );
+        purchaseScreen.SetActive(false);
+        removeTreeScreen.SetActive(false);
     }
 
+    public void ShowWarningScreen()
+    {
+        warningScreen.SetActive(true);
+    }
+
+    public void ShowPurchaseScreen()
+    {
+        purchaseScreen.SetActive(true);
+        earnMoreMoney.gameObject.SetActive(HH_GameManager.Instance.uiManager.earnMoreMoney.IsActive());
+    }
+
+    public void ShowRemoveScreen()
+    {
+        removeTreeScreen.SetActive(true);
+    }
 }
