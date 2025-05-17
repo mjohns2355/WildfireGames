@@ -14,6 +14,7 @@ public class HouseModel
 public class StructureManager : MonoBehaviour
 {
     public List<HouseModel> houseModels = new();
+    public List<GameObject> allHouseModels = new();
     public GameObject housePrefab;
     public GameObject specialPrefab;
     public ATC_PlacementManager placementManager;
@@ -147,25 +148,30 @@ public class StructureManager : MonoBehaviour
                 sameTypeHouseList.Remove(selectedHouse);
             }
         }
+
+        // spawn the models after the type is set
+        foreach (var s in allHouses)
+        {
+            var house = s.GetComponent<HouseStructure>();
+            if(house.isMainHouse) continue;
+            house.SpawnHouseModel();
+        }
     }
 
     private void InitMainHouse(HouseType houseType, HouseStructure house)
     {
         //house.outline.enabled = true;
-        house.SetOutline(true);
+
         house.isMainHouse = true;
         house.SetHouseType(houseType);
         house.houseInfo = ReturnHouseInfoFor(houseType);
         house.houseInfo.InitHouseInfo(house);
-        //Debug.Log($"Init main house: {houseType}, house info: {ReturnHouseInfoFor(houseType)}");
         allMainHouses[houseType] = house;
-        //playerChoices[houseType] = house.houseInfo.defaultChoice;
         UpdatePlayerChoicesDict(houseType, house.houseInfo.defaultChoice);
-        //playerChoices[houseType].Add(house.houseInfo.defaultChoice);
-
         // remove main house from same type house list
         houseTypeDict[houseType].Remove(house);
         house.InitMainHouse();
+
     }
 
     private void PlacePreBuiltStructures()
@@ -259,12 +265,7 @@ public class StructureManager : MonoBehaviour
 
         
 
-        // spawn the models after the type is set
-        foreach (var s in allHouses)
-        {
-            var house = s.GetComponent<HouseStructure>();
-            house.SpawnHouseModel();
-        }
+
     }
 
   

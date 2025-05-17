@@ -59,12 +59,12 @@ public class FC_TutorialManager : MonoBehaviour
     private void CheckDialogueOption(DialogOption option)
     {
         int nextNodeId = ParseStringToInt(option.GetNextNodeId());
-        Debug.Log("Next node id: " + nextNodeId);
+        //Debug.Log("Next node id: " + nextNodeId);
         if (nextNodeId == 0) return;
         //slide out firefighter portrait
         if (nextNodeId == fireFighterEndNodeId)
         {
-            Debug.Log("Slide out firefighter");
+            //Debug.Log("Slide out firefighter");
             MoveSidePortrait(350f);
         }
         //skip directly to outro

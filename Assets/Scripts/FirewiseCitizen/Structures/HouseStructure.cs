@@ -114,7 +114,16 @@ public class HouseStructure : Structure
     {
         if (mesh.childCount >= 1) return;
         //GameObject houseModel = houseModels[UnityEngine.Random.Range(0, houseModels.Length)];
-        GameObject houseModel = GameManager.Instance.structureManager.GetHouseModel(houseType);
+        GameObject houseModel;
+        if (isMainHouse)
+        {
+            houseModel = GameManager.Instance.structureManager.GetHouseModel(houseType);
+        }
+        else
+        {
+            houseModel = GameManager.Instance.structureManager.allHouseModels[UnityEngine.Random.Range(0, GameManager.Instance.structureManager.allHouseModels.Count)];
+        }
+
         if (!houseModel)
         {
             Debug.Log("House Model is null, please check the prefab in the resource manager");
@@ -157,6 +166,9 @@ public class HouseStructure : Structure
         targetShelter = shelter;
         //wui house has very low chance to follow order at the beginning
         followOrderChance = houseType == HouseType.wui ? 0.2f : followOrderChance;
+
+        SpawnHouseModel();
+        SetOutline(true);
     }
 
     public void RandomizeHouseType()
