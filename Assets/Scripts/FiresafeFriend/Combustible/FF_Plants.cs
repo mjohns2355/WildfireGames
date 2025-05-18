@@ -72,7 +72,7 @@ public class FF_Plants : FF_BaseCombustible
         }
     }
 
-    IEnumerator PlantClickedRoutine()
+    protected IEnumerator PlantClickedRoutine()
     {
         if (canClickToRemove)
         {
