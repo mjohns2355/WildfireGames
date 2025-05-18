@@ -151,7 +151,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952175566719005926}
   serializedVersion: 8
-  lengthInSec: 24
+  lengthInSec: 16
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -227,7 +227,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 4
-      minScalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -721,7 +721,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -0.3
+      scalar: -0.15
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -979,9 +979,9 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.5
-      minScalar: 10
+      minMaxState: 3
+      scalar: 0.25
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5050,7 +5050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198056694026403006, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: lengthInSec
-      value: 22
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 198056694026403006, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: scalingMode
@@ -5127,6 +5127,10 @@ PrefabInstance:
     - target: {fileID: 198056694026403006, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: InitialModule.startSizeZ.minScalar
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198056694026403006, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198056694026403006, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -5293,6 +5297,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: CollisionModule.collidesWith.m_Bits
       value: 1920
       objectReference: {fileID: 0}
@@ -5302,7 +5310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: EmissionModule.rateOverTime.minScalar
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -5310,6 +5318,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
       propertyPath: EmissionModule.rateOverTime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 198679442476388764, guid: f293a2dcc753a4a489fefe7f8f312d69, type: 3}
