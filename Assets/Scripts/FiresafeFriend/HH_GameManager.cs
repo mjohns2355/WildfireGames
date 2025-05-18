@@ -279,6 +279,19 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var p1Socre = p1.CalculateRating();
         var p2Socre = p2.CalculateRating();
         lastRoundIsFire = false;
+        if (p1Socre > p2Socre)
+        {
+            p1.budgetManager.IncreaseBudget(20000);
+        }
+        else if (p1Socre < p2Socre)
+        {
+            p2.budgetManager.IncreaseBudget(20000);
+        }
+        else
+        {
+            p1.budgetManager.IncreaseBudget(10000);
+            p2.budgetManager.IncreaseBudget(10000);
+        }
         uiManager.ShowEndScreen(false, p1Socre, p2Socre);
     }
     public void SwitchPlayer (string playerTag)
@@ -434,7 +447,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             var zoomPos = currentPlayer.playerTag == "P1" ? h1PlantCamPos : h2PlantCamPos;
             cameraController.Zoomcamera(zoomPos, true,60);
-            Debug.Log($"Zoom Position: {zoomPos}");
+            //Debug.Log($"Zoom Position: {zoomPos}");
             inputManager.canClickHouse = false;
             //hide ui
 

@@ -19,6 +19,7 @@ public class PurchasePopup : MonoBehaviour
         cancelWarning.onClick.AddListener(OnCancelClicked);
         purchase.onClick.AddListener(OnPurchaseClicked);
         earnMoreMoney.onClick.AddListener(OnEarnMoreMoneyClicked);
+        if (HH_GameManager.Instance.isTutorial) return;
         closeBGBtn.onClick.AddListener(OnCancelClicked);
         cancelRemove.onClick.AddListener(OnCancelClicked);
     }
@@ -74,7 +75,10 @@ public class PurchasePopup : MonoBehaviour
     {
         warningScreen.SetActive(false);
         purchaseScreen.SetActive(false);
+        if (HH_GameManager.Instance.isTutorial) return;
         removeTreeScreen.SetActive(false);
+        
+        
     }
 
     public void ShowWarningScreen()

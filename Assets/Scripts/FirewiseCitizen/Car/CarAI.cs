@@ -70,7 +70,7 @@ public class CarAI : MonoBehaviour
             combustible.OnIgnite.AddListener(() =>
             {
                 if (Stop) return;
-                Debug.Log("Car on fire");
+                //Debug.Log("Car on fire");
                 Stop = true;
             });
 
