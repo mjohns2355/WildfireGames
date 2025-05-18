@@ -393,6 +393,7 @@ public class HouseStructure : Structure
             model.material = metalRoofMaterial;
         }
         combustible.fireChance = 1 - homeHardeningMod;
+        GameManager.Instance.houseHasHomeHardening++;
         //Debug.Log("Fire Chance After Home Hardening: " + combustible.fireChance);
     }
 

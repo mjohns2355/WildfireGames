@@ -25,7 +25,7 @@ public class GameManager : UnitySingleton<GameManager>
     public UnityEvent SimStartsEvent;
     public UnityEvent SimEndsEvent;
     public int currentLevel = 0;
-    public int carsEvacuated, housesDestroyed, carsNotEvacuated, totalCars, totalHouses = 0;
+    public int carsEvacuated, housesDestroyed, carsNotEvacuated, totalCars, totalHouses, houseHasHomeHardening = 0;
     public float firstEvacCarTimeStamp, lastEvacCarTimeStamp = 0f;
     [Range(0,1f)]
     public float houseFollowOrderChance,spawnCarChance = 1f;
@@ -36,7 +36,7 @@ public class GameManager : UnitySingleton<GameManager>
     public bool canControlCam;
     public int levelNum = 3;
     public bool IsLastLevel { get { return currentLevel + 1 == levelNum; } }
-    public bool HasIncentives { get { return currentLevel != 0; } }
+    public bool HasIncentives { get { return currentLevel > 0; } }
     public ATC_DialogTree[] houseDialogs;
     private int previousHousesDestroyed = 0; 
     private float previousFirstEvacTime, previousLastEvacTime = 0f;
@@ -136,7 +136,7 @@ public class GameManager : UnitySingleton<GameManager>
         //debug
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
-        if(Input.GetKeyDown(KeyCode.F1)) { Time.timeScale = 6f; }
+        if(Input.GetKeyDown(KeyCode.P)) { Time.timeScale = 6f; }
 #endif
         // camera movement
         if (!canControlCam) return;
@@ -323,6 +323,9 @@ public class GameManager : UnitySingleton<GameManager>
         //Time.timeScale = GameSpeed = 2f;
         carsEvacuated = 0;
         housesDestroyed = 0;
+        houseHasHomeHardening = 0;
+        totalCars = 0;
+        totalHouses = 0;
         SimTimer = 0;
         SimIsEnd = true;
         canStartSim = false;

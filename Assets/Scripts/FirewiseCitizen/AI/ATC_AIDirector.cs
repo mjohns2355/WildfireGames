@@ -255,7 +255,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
     public void RespawnACar(ATC_StructureModel startStructure, List<ATC_StructureModel> endStructures, CarSpeed carSpeed = CarSpeed.medium, int carNum = 1)
     {
         if(startStructure == null) return;
-        Debug.Log("Respawn Car");
+        //Debug.Log("Respawn Car");
         //debug
         spawnedCarNum--;
         currentCarNum--;

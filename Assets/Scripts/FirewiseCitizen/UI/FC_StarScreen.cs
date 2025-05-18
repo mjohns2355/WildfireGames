@@ -65,8 +65,8 @@ public class FC_StarScreen : MonoBehaviour
 
     float CalculateStarRating(float percent)
     {
-        Debug.Log($"Percent: {percent}");
-        Debug.Log($"Star Rating: {Mathf.Clamp(3f - Mathf.Floor(percent * 4f) * 0.5f, 0f, 3f)}");
+        //Debug.Log($"Percent: {percent}");
+        //Debug.Log($"Star Rating: {Mathf.Clamp(3f - Mathf.Floor(percent * 4f) * 0.5f, 0f, 3f)}");
         return Mathf.Clamp(3f - Mathf.Ceil(percent * 4f) * 0.5f, 0f, 3f);
     }
     
@@ -74,15 +74,21 @@ public class FC_StarScreen : MonoBehaviour
     {
         int totalHouses = GameManager.Instance.totalHouses;
         int housesDestroyed = GameManager.Instance.housesDestroyed;
-        float percentBurned = (float)housesDestroyed / totalHouses;
+        var wuiHouseCount = GameManager.Instance.structureManager.houseTypeDict[HouseType.wui].Count + 1;
+        int houseNotHomeHardening = wuiHouseCount - GameManager.Instance.houseHasHomeHardening;
+        int effectiveDestroyed = housesDestroyed + houseNotHomeHardening;
+        effectiveDestroyed = Mathf.Min(effectiveDestroyed, totalHouses);
+        float percentBurned = (float)effectiveDestroyed / totalHouses;
+        Debug.Log($"Total House:{totalHouses}, House Destroyed: {housesDestroyed}, House Not Home Hardening: {houseNotHomeHardening}, Effective Destroyed: {effectiveDestroyed}, Percent:{percentBurned}");
         ShowStars(CalculateStarRating(percentBurned),houseProtectedStars);
     }
     
     public void CalculateInjuriesProventedScore()
     {
         int totalCars = GameManager.Instance.totalCars;
-        int carsNotEvacuated = GameManager.Instance.carsNotEvacuated;
+        int carsNotEvacuated = totalCars -  GameManager.Instance.carsEvacuated;
         float percentInjured = (float)carsNotEvacuated / totalCars;
+        Debug.Log($"Total Cars: {totalCars}, Injuries: {carsNotEvacuated}");
         ShowStars(CalculateStarRating(percentInjured), injuriesPreventedStars);
     }
 
@@ -93,6 +99,13 @@ public class FC_StarScreen : MonoBehaviour
         var finalChoices = GameManager.Instance.finalChoices;
         var dialogueFlags = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap;
         var houseTypeInfo = GameManager.Instance.structureManager.houseInfoDict;
+        var skippedAll = !ATC_UIController.Instance.contextMenus.Any(menu => menu.isSelected && menu.owner is HouseStructure);
+
+        if (skippedAll)
+        {
+            ShowStars(0, converstationQualityStars);
+            return;
+        }
         foreach (var pair in finalChoices)
         {
             var typeInfo = houseTypeInfo[pair.Key];
