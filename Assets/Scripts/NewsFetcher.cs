@@ -75,20 +75,36 @@ public class NewsFetcher : MonoBehaviour
         string[] keywords = { "wildfire", "wild fire", "forest fire", "evacuation", "fire" };
         newsText.text = "";
         int addedCount = 0;
+        string[] blockedDomains = { "breitbart.com", "forbes.com", "nbcsports.com" };
 
         foreach (var article in articles.Children)
         {
-            string title = article["title"].Value.ToLower();
+            string titleRaw = article["title"];
             string url = article["url"];
             string dateRaw = article["publishedAt"];
 
-            if (string.IsNullOrEmpty(url) || !url.StartsWith("http"))
+            if (string.IsNullOrEmpty(url) || !url.StartsWith("http") || string.IsNullOrEmpty(titleRaw))
                 continue;
 
+            // Skip articles from Breitbart
+            bool isBlocked = false;
+            foreach (var domain in blockedDomains)
+            {
+                if (url.Contains(domain))
+                {
+                    isBlocked = true;
+                    break;
+                }
+            }
+            if (isBlocked)
+                continue;
+
+
+            string titleLower = titleRaw.ToLower();
             bool containsKeyword = false;
             foreach (var keyword in keywords)
             {
-                if (title.Contains(keyword))
+                if (titleLower.Contains(keyword))
                 {
                     containsKeyword = true;
                     break;
@@ -97,28 +113,29 @@ public class NewsFetcher : MonoBehaviour
             if (!containsKeyword)
                 continue;
 
+            // Decode and clean title
+            string cleanTitle = HttpUtility.HtmlDecode(titleRaw).Trim('"');
+
+            // Skip titles with suspicious characters or formatting
+            if (cleanTitle.Contains("<") || cleanTitle.Contains(">") || cleanTitle.Contains("&") || cleanTitle.Length > 300)
+                continue;
+
             // Format date
             string formattedDate = "";
-            if (System.DateTime.TryParse(dateRaw, out System.DateTime parsedDate))
+            if (DateTime.TryParse(dateRaw, out DateTime parsedDate))
             {
                 formattedDate = parsedDate.ToString("MMMM yyyy");
             }
 
-            // Add entry
-            string rawTitle = article["title"];
-            string cleanTitle = HttpUtility.HtmlDecode(article["title"]).Trim('"');
-
-
+            // Add to display
             newsText.text += $"<link=\"{url}\"><color=#0000EE><u>{cleanTitle}</u></color></link>\n{formattedDate}\n\n";
-
             addedCount++;
 
-            if (addedCount >= 5) break;
+            if (addedCount >= 5)
+                break;
         }
 
-        if (addedCount == 0)
-        {
-            newsText.text = "No wildfire news found for your state.";
-        }
+
     }
+
 }
