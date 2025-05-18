@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44535434, g: 0.4950046, b: 0.57398474, a: 1}
+  m_IndirectSpecularColor: {r: 0.44535387, g: 0.49500376, b: 0.5739837, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1769,6 +1769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTutorial: 1
+  isNewLevel: 0
   fireManager: {fileID: 1565982224}
   h1: {fileID: 222709018}
   h2: {fileID: 831896167}
@@ -1776,7 +1777,6 @@ MonoBehaviour:
   h2CamPos: {fileID: 1752406026}
   h1PlantCamPos: {fileID: 558905938}
   h2PlantCamPos: {fileID: 2069119501}
-  fireTimer: 60
   fireChance: 0.5
   maxRounds: 10
   uiManager: {fileID: 1011932185}
@@ -1788,6 +1788,8 @@ MonoBehaviour:
   publicFences: []
   p1: {fileID: 1356811451}
   p2: {fileID: 627146728}
+  tree1: {fileID: 0}
+  tree2: {fileID: 0}
   _isPlantMode: 0
   _currentStage: 0
 --- !u!4 &139962031
@@ -3505,7 +3507,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f79cf71d1e7523843bf75ab986bf4b93, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1df4e469ddc54d6bb5b2128dcc06b9d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5867,6 +5869,7 @@ MonoBehaviour:
   available: {fileID: 1022784239}
   shopPartIcon: {fileID: 4041732022195256403, guid: 8768b4f105e60024fb614d479f811c62, type: 3}
   closeButton: {fileID: 1247378118}
+  player: {fileID: 0}
 --- !u!222 &368212349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17667,6 +17670,8 @@ MonoBehaviour:
   earnMoreMoney: {fileID: 497751638}
   startFireBtn: {fileID: 395296147}
   endRoundBtn: {fileID: 0}
+  repairBtn: {fileID: 0}
+  moveBtn: {fileID: 0}
   inventoryPanel: {fileID: 671064704}
   floatingIcons: {fileID: 2028402887}
   endScreenManager: {fileID: 0}
@@ -17676,6 +17681,16 @@ MonoBehaviour:
   bubblePrefab: {fileID: 101270976333883414, guid: a0453dc297967bb46bf76f487cc92acf, type: 3}
   startText: {fileID: 0}
   modeToggle: {fileID: 488379236}
+  pauseMenu: {fileID: 0}
+  aftermathPopup: {fileID: 0}
+  competitionAnnouncement: {fileID: 0}
+  competitionBanner: {fileID: 0}
+  competitionNotice: {fileID: 0}
+  fireAnnouncement: {fileID: 0}
+  aftermathPlayerText: {fileID: 0}
+  stretchDuration: 0.5
+  displayDuration: 1
+  fadeDuration: 0.5
 --- !u!114 &1011932186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25415,6 +25430,7 @@ MonoBehaviour:
   mainEmbersPrefab: {fileID: 553110019336058232, guid: 630f535005b26fd4c98c2b0dee6a00cc, type: 3}
   backgroundFire: {fileID: 1927677576}
   fireTimer: 35
+  _fireTimer: 0
   spawnedFires: []
   defaultFireLife: 10
   fireEndEvent:
@@ -27488,8 +27504,11 @@ MonoBehaviour:
   cancelWarning: {fileID: 376786156}
   earnMoreMoney: {fileID: 1691705019}
   closeBGBtn: {fileID: 0}
+  cancelRemove: {fileID: 0}
+  confirmRemove: {fileID: 0}
   purchaseScreen: {fileID: 1561788244}
   warningScreen: {fileID: 1350379215}
+  removeTreeScreen: {fileID: 0}
 --- !u!114 &1639508500
 MonoBehaviour:
   m_ObjectHideFlags: 0
