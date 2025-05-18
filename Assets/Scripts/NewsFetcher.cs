@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using SimpleJSON;
 using TMPro;
 using System;
+using System.Web;
+
 
 
 public class NewsFetcher : MonoBehaviour
@@ -12,6 +14,7 @@ public class NewsFetcher : MonoBehaviour
     public InputField zipCodeInput;
     public Button fetchButton;
     public TMP_Text newsText;
+
 
     private const string zipApi = "https://api.zippopotam.us/us/";
     private const string newsApiKey = "931206936dfa40109f16f10b1813c803"; // NewsAPI key
@@ -102,7 +105,12 @@ public class NewsFetcher : MonoBehaviour
             }
 
             // Add entry
-            newsText.text += $"<link={url}><color=#0000EE><u>{article["title"]}</u></color></link>\n{formattedDate}\n\n";
+            string rawTitle = article["title"];
+            string cleanTitle = HttpUtility.HtmlDecode(article["title"]).Trim('"');
+
+
+            newsText.text += $"<link=\"{url}\"><color=#0000EE><u>{cleanTitle}</u></color></link>\n{formattedDate}\n\n";
+
             addedCount++;
 
             if (addedCount >= 5) break;
