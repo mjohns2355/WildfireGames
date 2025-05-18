@@ -29,11 +29,12 @@ public class Structure : MonoBehaviour
         StartCoroutine(DelayedRoadPosition());
         
     }
-    virtual public void OnStructureClick()
+    public virtual void OnStructureClick()
     {
         //contextMenu.gameObject.SetActive(true);
         ////menu.UpdateText(structureInfoDict);
         //outline.enabled = true;
+        
     }
 
     virtual public void StopSturctureClick()

@@ -8,6 +8,7 @@ public class CameraMovement : MonoBehaviour
 {
     public Camera gameCamera;
     public float cameraMovementSpeed = 5;
+    [SerializeField] private BoxCollider movementBounds;
     [Range(0f, 10f)]
     [SerializeField] float cameraZoomSpeed,cameraZoomToHouseSpeed;
     [SerializeField] float lerpSpeed;
@@ -29,6 +30,7 @@ public class CameraMovement : MonoBehaviour
     float lastDist = 0;
     public LayerMask ignoreLayerMask;
     private Tween fovTween;
+    Bounds bounds;
     private void Start()
     {
         camStartPos = transform.position;
@@ -37,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
         camPos = gameCamera.transform.position;
-
+        bounds = movementBounds.bounds;
         //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
         //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
@@ -75,12 +77,15 @@ public class CameraMovement : MonoBehaviour
     {
         camPos += inputVector * Time.deltaTime * cameraMovementSpeed;
 
-        float clampedX = Mathf.Clamp(camPos.x, 40f, 60f);
-        float clampedZ = Mathf.Clamp(camPos.z, -35f, 5f);
+        if (movementBounds != null)
+        {
 
-        camPos = new Vector3(clampedX, camPos.y, clampedZ);
+            //Debug.Log($"Bounds: x({bounds.min.x:F1} → {bounds.max.x:F1}), z({bounds.min.z:F1} → {bounds.max.z:F1})");
+            camPos.x = Mathf.Clamp(camPos.x, bounds.min.x, bounds.max.x);
+            camPos.z = Mathf.Clamp(camPos.z, bounds.min.z, bounds.max.z);
+        }
 
-        gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, camPos, Time.deltaTime * lerpSpeed);
+        transform.position = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
     }
 
     public void ZoomCamera(float mouseAxis)

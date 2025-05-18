@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
+using System.Linq;
 public class ATC_UIController : UnitySingleton<ATC_UIController>
 {
     //public GameObject canvas;
@@ -44,7 +45,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         start.onClick.AddListener(() =>
         {
-            if(GameManager.Instance.currentLevel > 0)
+            var canShowIncentives = !contextMenus.Any(menu => !menu.isSelected && menu.owner is HouseStructure);
+            if (GameManager.Instance.currentLevel > 0 && canShowIncentives)
             {
                 incentivesPage.ShowIncentivesPage();
             }

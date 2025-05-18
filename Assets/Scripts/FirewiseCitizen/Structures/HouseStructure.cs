@@ -28,7 +28,7 @@ public class HouseStructure : Structure
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
     public float homeHardeningChance;
-    public float followOrderChance = 0.5f;
+    public float followOrderChance = 0.3f;
     //public bool HasHorseTrailers
     //{
     //    get { return houseType == HouseType.horse && horseNum != 0; }
@@ -185,14 +185,9 @@ public class HouseStructure : Structure
     }
     public override void OnStructureClick()
     {
-        if (isMainHouse && GameManager.Instance.currentStage != LevelStage.HouseDialog)
+        if (isMainHouse && GameManager.Instance.currentStage != LevelStage.HouseDialog && GameManager.Instance.SimIsEnd)
         {
             contextMenu.OnMainHouseClicked();
-            //foreach (var house in sameTypeHouses)
-            //{
-            //    house.outline.enabled = true;
-            //    ATC_UIController.Instance.AddSelectedHouse(house);
-            //}
         }
     }
 
@@ -246,6 +241,11 @@ public class HouseStructure : Structure
     void ApplyChoice()
     {
         var otherHousesRng = UnityEngine.Random.Range(0, 1f);
+        var skippedDialog = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap[houseType.ToString()].Item2;
+        if(skippedDialog)
+        {
+            followOrderChance = Mathf.Clamp(followOrderChance + 0.2f, followOrderChance, 0.8f);
+        }
         foreach (var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
             //var currentChoice = GetCurrentChoice(currentOption);
@@ -294,7 +294,14 @@ public class HouseStructure : Structure
             choice.ApplySpecialEffect(this);
         }
 
-        contextMenu.icon.ToggleIconFollowedState(followedOrder);
+        if (contextMenu.isSelected)
+        {
+            contextMenu.icon.ToggleIconFollowedState(followedOrder);
+        }
+        else
+        {
+            contextMenu.icon.gameObject.SetActive(false);
+        }
         GameManager.Instance.finalChoices[houseType] = choice;
         Debug.Log($"{houseType} decides to {choice.choiceName}");
     }
@@ -394,5 +401,9 @@ public class HouseStructure : Structure
         this.destinations = destinations;
     }
 
+    private void OnMouseDown()
+    {
+
+    }
 
 }

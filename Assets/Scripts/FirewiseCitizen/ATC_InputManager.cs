@@ -98,7 +98,7 @@ public class ATC_InputManager : MonoBehaviour
     {
         if(!checkKeyboard) return;
         isKeyboard = false;
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) && IsPointerOverUI())
         {
             lastTouchPosition = Input.mousePosition;
             isDragging = true;
@@ -110,14 +110,14 @@ public class ATC_InputManager : MonoBehaviour
             cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.unscaledDeltaTime * 5f;
             lastTouchPosition = Input.mousePosition;
         }
-        else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+        else if (Input.GetMouseButtonUp(0) && IsPointerOverUI())
         {
             isDragging = false;
         }
     }
     private void CheckDragInput()
     {
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.touchCount == 1 && IsPointerOverUI())
         {
             Touch touch = Input.GetTouch(0);
 
@@ -143,7 +143,7 @@ public class ATC_InputManager : MonoBehaviour
 
     private void CheckClickHoldEvent()
     {
-        if(Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false)
+        if(Input.GetMouseButton(0) && !IsPointerOverUI())
         {
             var position  = RaycastGround();
             if(position != null)
@@ -157,7 +157,7 @@ public class ATC_InputManager : MonoBehaviour
 
     private void CheckClickUpEvent()
     {
-        if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject() == false)
+        if (Input.GetMouseButtonUp(0) && !IsPointerOverUI())
         {
             var position = RaycastGround();
             if (position != null)
@@ -169,8 +169,8 @@ public class ATC_InputManager : MonoBehaviour
 
     private void CheckClickDownEvent()
     {
-
-        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false)
+        
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
             var position = RaycastGround();
             if (position != null)
@@ -185,7 +185,14 @@ public class ATC_InputManager : MonoBehaviour
             }
         }
     }
+    private bool IsPointerOverUI()
+    {
+        if (Input.touchCount > 0)
+            return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+        else
+            return EventSystem.current.IsPointerOverGameObject();
 
+    }
     public void OnConstructionMode(bool state)
     {
         if (state == false)

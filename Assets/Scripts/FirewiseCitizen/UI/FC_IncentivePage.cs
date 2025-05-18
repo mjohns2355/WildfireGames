@@ -87,6 +87,7 @@ public class FC_IncentivePage : MonoBehaviour
 
     public void OnIncentiveConfirmed()
     {
+        GameManager.Instance.ToggleSimStatus(true);
         GameManager.Instance.StartSimulation();
         HideConfirmationPage();
         HideIncentivesPage();
@@ -102,5 +103,6 @@ public class FC_IncentivePage : MonoBehaviour
     public void OnIncentiveCancel()
     {
         HideConfirmationPage();
+
     }
 }

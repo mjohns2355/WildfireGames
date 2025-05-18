@@ -35,7 +35,7 @@ public class FireMovementController : MonoBehaviour
             fireSize = maxSize;
             StartCoroutine(OnDestroyFireRoutine());
         }
-
+        
 
     }
     private void Update()
@@ -135,7 +135,7 @@ public class FireMovementController : MonoBehaviour
 
     IEnumerator OnDestroyFireRoutine()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(10f);
         //Debug.Log("Fire start to shrink");
         fireSize = minSize;
         yield return new WaitForSeconds(10f);
