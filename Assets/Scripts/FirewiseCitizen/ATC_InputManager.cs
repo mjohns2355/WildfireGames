@@ -98,7 +98,7 @@ public class ATC_InputManager : MonoBehaviour
     {
         if(!checkKeyboard) return;
         isKeyboard = false;
-        if (Input.GetMouseButtonDown(0) && IsPointerOverUI())
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
             lastTouchPosition = Input.mousePosition;
             isDragging = true;
@@ -110,14 +110,14 @@ public class ATC_InputManager : MonoBehaviour
             cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.unscaledDeltaTime * 5f;
             lastTouchPosition = Input.mousePosition;
         }
-        else if (Input.GetMouseButtonUp(0) && IsPointerOverUI())
+        else if (Input.GetMouseButtonUp(0) && !IsPointerOverUI())
         {
             isDragging = false;
         }
     }
     private void CheckDragInput()
     {
-        if (Input.touchCount == 1 && IsPointerOverUI())
+        if (Input.touchCount == 1 && !IsPointerOverUI())
         {
             Touch touch = Input.GetTouch(0);
 
