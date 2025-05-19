@@ -107,7 +107,8 @@ public class ATC_InputManager : MonoBehaviour
         else if (Input.GetMouseButton(0) && isDragging)
         {
             Vector3 touchDelta = Input.mousePosition - lastTouchPosition;
-            cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.unscaledDeltaTime * 5f;
+            Vector3 localMoveDirection = Camera.main.transform.TransformDirection(touchDelta);
+            cameraMovementVector = new Vector2(-localMoveDirection.x, -localMoveDirection.z) * 5f * Time.unscaledDeltaTime;
             lastTouchPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0) && !IsPointerOverUI())
@@ -130,7 +131,8 @@ public class ATC_InputManager : MonoBehaviour
             else if (touch.phase == TouchPhase.Moved && isDragging)
             {
                 Vector3 touchDelta = (Vector3)touch.position - lastTouchPosition;
-                cameraMovementVector = new Vector3(-touchDelta.x, -touchDelta.y, 0) * Time.unscaledDeltaTime * 5f;
+                Vector3 localMoveDirection = Camera.main.transform.TransformDirection(touchDelta);
+                cameraMovementVector = new Vector2(-localMoveDirection.x,-localMoveDirection.z) * 5f * Time.unscaledDeltaTime;
                 lastTouchPosition = touch.position;
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
