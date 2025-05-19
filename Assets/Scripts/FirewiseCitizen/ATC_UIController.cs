@@ -45,8 +45,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         });
         start.onClick.AddListener(() =>
         {
-            var canShowIncentives = !contextMenus.Any(menu => !menu.isSelected && menu.owner is HouseStructure);
-            if (GameManager.Instance.currentLevel > 0 && canShowIncentives)
+            //var canShowIncentives = !contextMenus.Any(menu => !menu.isSelected && menu.owner is HouseStructure);
+            if (GameManager.Instance.currentLevel > 0 )
             {
                 incentivesPage.ShowIncentivesPage();
             }
