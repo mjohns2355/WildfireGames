@@ -59,6 +59,7 @@ public class StructureContextMenu : MonoBehaviour
         {
             onOptionConfirmed.Invoke();
             isSelected = true;
+            Instantiate(Resources.Load("SelectedSFX") as GameObject);
 
             GameManager.Instance.cameraMovement.ResetCam();
             //GameManager.Instance.currentStage = LevelStage.PhaseOne;
