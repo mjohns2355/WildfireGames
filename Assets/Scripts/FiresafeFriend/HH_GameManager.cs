@@ -78,6 +78,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     private void Start()
     {
+        Time.timeScale = 1f;
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
         //_fireTimer = fireTimer;
@@ -88,6 +89,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SpawnHouses();
         InitTrees();
         fireManager.fireEndEvent.AddListener(OnFireEnd);
+        DOTween.Init();
     }
 
     private void Update()
@@ -429,7 +431,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             CurrentStage = GameStage.Competition;
         }
     }
-
+    
     public void RestartGame()
     {
         SceneManager.LoadScene("FiresafeFriendScene");
