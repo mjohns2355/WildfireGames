@@ -74,7 +74,11 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         if (!isOnFire) return;
         foreach(var mesh in meshes)
         {
-           mesh.material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
+            foreach(var material in mesh.materials)
+            {
+                material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
+            }
+          
         }
     }
     protected virtual float CalculateFireCatchChance(float flammability)
