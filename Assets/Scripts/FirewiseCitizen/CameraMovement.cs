@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
     private bool isFocusing = false;
     float FOV;
     Vector3 camPos;
-    private Vector3 camStartPos;
+    [SerializeField]private Vector3 camStartPos;
     private Quaternion camStartRotation;
     private float camStartFOV,targetFOV;
     [SerializeField] private GameObject lastHit;
