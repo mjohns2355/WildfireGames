@@ -91,10 +91,10 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
-        Debug.Log("Start Fade In");
+        //Debug.Log("Start Fade In");
         return canvasGroup.DOFade(1, 0.2f)
-                          .SetEase(Ease.InOutQuad)
-                          .OnComplete(() => Debug.Log("Fade In Complete!"));
+                          .SetEase(Ease.InOutQuad);
+                         
     }
 
     private Tween ScaleEffect(RectTransform rect)

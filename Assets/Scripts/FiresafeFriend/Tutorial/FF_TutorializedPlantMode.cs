@@ -83,8 +83,8 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     private Tween ScaleEffect(RectTransform rect)
     {
-        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
-                         .SetLoops(4, LoopType.Yoyo)
+        return rect.DOScale(Vector3.one * 1.5f, 0.3f)
+                         .SetLoops(2, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }
 
