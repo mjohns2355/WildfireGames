@@ -12,6 +12,7 @@ public class PurchasePopup : MonoBehaviour
     public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney, closeBGBtn,cancelRemove,confirmRemove;
     public GameObject purchaseScreen, warningScreen,removeTreeScreen;
     private HousePartInfo partInfo;
+    private bool shouldShowStore = true;
 
     private void Start()
     {
@@ -57,7 +58,7 @@ public class PurchasePopup : MonoBehaviour
     private void OnCancelClicked()
     {
         Debug.Log("Cancel clicked");
-        HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo);
+        HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo,shouldShowStore);
 
     }
 
@@ -73,6 +74,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnDisable()
     {
+        shouldShowStore = true;
         warningScreen.SetActive(false);
         purchaseScreen.SetActive(false);
         if (HH_GameManager.Instance.isTutorial) return;
@@ -84,16 +86,24 @@ public class PurchasePopup : MonoBehaviour
     public void ShowWarningScreen()
     {
         warningScreen.SetActive(true);
+        purchaseScreen.SetActive(false);
+        shouldShowStore = false;
+        if (removeTreeScreen) removeTreeScreen.SetActive(false);
     }
 
     public void ShowPurchaseScreen()
     {
         purchaseScreen.SetActive(true);
+        warningScreen.SetActive(false);
+        if (removeTreeScreen) removeTreeScreen.SetActive(false);
         earnMoreMoney.gameObject.SetActive(HH_GameManager.Instance.uiManager.earnMoreMoney.IsActive());
     }
 
     public void ShowRemoveScreen()
     {
+        shouldShowStore = false;
+        warningScreen.SetActive(false);
+        purchaseScreen.SetActive(false);
         removeTreeScreen.SetActive(true);
     }
 }

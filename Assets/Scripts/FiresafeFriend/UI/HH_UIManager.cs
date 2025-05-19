@@ -180,11 +180,12 @@ public class HH_UIManager : MonoBehaviour
             purchasePopup.ShowRemoveScreen();
         }
     }
-    public void HidePurchasePopup(HousePartInfo partInfo)
+    public void HidePurchasePopup(HousePartInfo partInfo, bool shouldShowStore = true)
     {
         purchasePopup.gameObject.SetActive(false);
         //HH_GameManager.Instance.currentPlayer.ToggleAllPurchaseIcons(true);
-        if (partInfo)
+
+        if (partInfo && shouldShowStore)
         {
             storePanel.gameObject.SetActive(true);
             storePanel.UpdateStorePanel();

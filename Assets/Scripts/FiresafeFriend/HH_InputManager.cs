@@ -67,15 +67,16 @@ public class HH_InputManager : MonoBehaviour
             }
         }
 
-        bool IsPointerOverUI(Vector2 screenPos)
-        {
-            PointerEventData eventData = new PointerEventData(EventSystem.current);
-            eventData.position = screenPos;
+    }
 
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
+    public bool IsPointerOverUI(Vector2 screenPos)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPos;
 
-            return results.Count > 0;
-        }
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        return results.Count > 0;
     }
 }

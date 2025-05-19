@@ -44,11 +44,12 @@ public class FF_Tree : FF_Plants
         if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(5000))
         {
             StartCoroutine(PlantClickedRoutine());
+            HH_GameManager.Instance.uiManager.HidePurchasePopup(null);
         }
         else
         {
             HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, true);
         }
-        HH_GameManager.Instance.uiManager.HidePurchasePopup(null);
+        
     }
 }

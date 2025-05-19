@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FF_DirtMound : MonoBehaviour
 {
@@ -128,7 +129,7 @@ public class FF_DirtMound : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (!HH_GameManager.Instance.IsPlantMode) return;
+        if (!HH_GameManager.Instance.IsPlantMode || EventSystem.current.IsPointerOverGameObject()) return;
         HH_GameManager.Instance.uiManager.ShowPlantsMenu(this);
     }
 
