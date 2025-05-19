@@ -62,6 +62,7 @@ public class HouseIcon : MonoBehaviour
 
     public void ToggleIconFollowedState(bool isFollowed)
     {
+        transform.localScale = new Vector3(0.8f,0.8f,0.8f);
         button.interactable = false;
         if (isFollowed)
         {
@@ -89,6 +90,7 @@ public class HouseIcon : MonoBehaviour
 
     private void OnEnable()
     {
+        transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         button.interactable = true;
     }
 }
