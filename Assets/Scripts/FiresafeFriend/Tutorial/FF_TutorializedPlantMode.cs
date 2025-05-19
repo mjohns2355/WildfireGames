@@ -104,9 +104,9 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
         canvasGroup.interactable = false;
         Sequence arrowSequence = DOTween.Sequence();
-        var text = "Now that you’re done cleaning, click on the arrow to change houses.";
+        var text = "Now that you’re done cleaning, let player 2 have a turn: click on the arrow to change to the second house.";
         FF_TutorialManager.Instance.UpdateTutorialText(text);
-        //FF_TutorialManager.Instance.tutorialText.text = "Now that you’re done cleaning, click on the arrow to change houses.";
+        //FF_TutorialManager.Instance.tutorialText.text = "Now that you’re done cleaning, let player 2 have a turn: click on the arrow to change to the second house.";
         arrowSequence.PrependInterval(1f);
         // Step 1: Fade In
         arrowSequence.Append(FadeIn(canvasGroup));
