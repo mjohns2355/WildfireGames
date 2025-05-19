@@ -31,6 +31,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager p2;
     public FF_Tree tree1, tree2;
     [SerializeField]private bool _isPlantMode;
+    [SerializeField] private const int WinReward = 3000;
+    [SerializeField] private const int TieReward = WinReward/2;
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
     private bool lastRoundIsFire = false;
@@ -276,23 +278,23 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     void OnCompetition()
     {
-        var p1Socre = p1.CalculateRating();
-        var p2Socre = p2.CalculateRating();
+        var p1Score = p1.CalculateRating();
+        var p2Score = p2.CalculateRating();
         lastRoundIsFire = false;
-        if (p1Socre > p2Socre)
-        {
-            p1.budgetManager.IncreaseBudget(20000);
-        }
-        else if (p1Socre < p2Socre)
-        {
-            p2.budgetManager.IncreaseBudget(20000);
-        }
-        else
-        {
-            p1.budgetManager.IncreaseBudget(10000);
-            p2.budgetManager.IncreaseBudget(10000);
-        }
-        uiManager.ShowEndScreen(false, p1Socre, p2Socre);
+
+        int rewardP1 = p1Score > p2Score ? WinReward
+              : p1Score < p2Score ? 0
+              : TieReward;
+
+        int rewardP2 = p2Score > p1Score ? WinReward
+                      : p2Score < p1Score ? 0
+                      : TieReward;
+
+        p1.budgetManager.IncreaseBudget(rewardP1);
+        p2.budgetManager.IncreaseBudget(rewardP2);
+
+        uiManager.ShowEndScreen(isFire: false,p1Score ,p2Score);
+
     }
     public void SwitchPlayer (string playerTag)
     {
