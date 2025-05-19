@@ -36,10 +36,12 @@ namespace HappyHouse.HouseSystem
         public float burnedWeight, totalWeight = 0f;
         public bool hasMadeDecisions;
 
+        [SerializeField]AudioSource audioSource;
         private void Start()
         {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
+            audioSource = GetComponent<AudioSource>();
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
@@ -222,6 +224,9 @@ namespace HappyHouse.HouseSystem
         {
             //  hide bubble when no purchasing possible
             int ownedPartsCount = -1;
+
+            var constructSfx = ResourceManager.Instance.RetrunRandomConstructSound();
+            audioSource.PlayOneShot(constructSfx);
             if (housePartInfo.isPublic)
             {
                 ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;

@@ -10,7 +10,8 @@ public class ResourceManager : UnitySingleton<ResourceManager>
     public Dictionary<HousePartType, GameObject> VFXs;
     public List<FF_Plants> plants;
     public List<GameObject> houses,publicFences;
-    public AudioClip chop1, chop2, fall, construct1, construct2, construct3, upgrade1, upgrade2;
+    public AudioClip chop1, chop2, fall;
+    public List<AudioClip> constructSFXs = new();
     // Start is called before the first frame update
     public override void Awake()
     {
@@ -92,4 +93,10 @@ public class ResourceManager : UnitySingleton<ResourceManager>
         }
     }
 
+    public AudioClip RetrunRandomConstructSound()
+    {
+        if (constructSFXs.Count == 0) Debug.LogError("No available construct sounds");
+        var sfx = constructSFXs[UnityEngine.Random.Range(0, constructSFXs.Count - 1)];
+        return sfx != null ? sfx : constructSFXs[0];
+    }
 }
