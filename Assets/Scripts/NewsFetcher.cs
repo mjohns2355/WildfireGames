@@ -41,7 +41,7 @@ public class NewsFetcher : MonoBehaviour
 
         if (locationRequest.result != UnityWebRequest.Result.Success)
         {
-            newsText.text = "Failed to get location info.";
+            newsText.text = "Feature coming soon!";
             yield break;
         }
 
@@ -65,7 +65,7 @@ public class NewsFetcher : MonoBehaviour
 
         if (newsRequest.result != UnityWebRequest.Result.Success)
         {
-            newsText.text = "Failed to fetch news.";
+            newsText.text = "Feature coming soon!";
             yield break;
         }
 
