@@ -20,6 +20,7 @@ public class FC_IncentivePage : MonoBehaviour
         confirmationPage.SetActive(false);
         confirm.onClick.AddListener(OnIncentiveConfirmed);
         cancel.onClick.AddListener(OnIncentiveCancel);
+        skip.onClick.AddListener(OnSkipped);
     }
 
     // Update is called once per frame
