@@ -342,7 +342,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         //uiManager.OnRoundStart();
         InitPublicFences(currentPlayer);
-        if (lastRoundIsFire)
+        if (lastRoundIsFire && !currentPlayer.hasMadeDecisions)
         {
             uiManager.ShowAftermathScreen();
         }
@@ -382,7 +382,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         p2.nameText.SetActive(false);
         p1.burnedPercent = 0f;
         p2.burnedPercent = 0f;
-        
+        p1.hasMadeDecisions = p2.hasMadeDecisions = false;
         //currentRoundCount++;
         //if (currentRoundCount > maxRounds)
         //{

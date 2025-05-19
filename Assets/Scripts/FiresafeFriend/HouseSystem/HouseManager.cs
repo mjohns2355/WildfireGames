@@ -34,6 +34,8 @@ namespace HappyHouse.HouseSystem
         public bool isMoving = false;
         public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
         public float burnedWeight, totalWeight = 0f;
+        public bool hasMadeDecisions;
+
         private void Start()
         {
             houseGraph = new HouseGraph();
@@ -113,6 +115,7 @@ namespace HappyHouse.HouseSystem
 
         public void Repair(Dictionary<HousePartType,MaterialClass> upgradeDict, bool isMoving)
         {
+            hasMadeDecisions = true;
             if (!isMoving)
             {
                 upgradeClassDictionary = upgradeDict;
