@@ -88,6 +88,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         SpawnHouses();
         InitTrees();
         fireManager.fireEndEvent.AddListener(OnFireEnd);
+        DOTween.Init();
     }
 
     private void Update()
@@ -429,7 +430,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             CurrentStage = GameStage.Competition;
         }
     }
-
+    
     public void RestartGame()
     {
         SceneManager.LoadScene("FiresafeFriendScene");

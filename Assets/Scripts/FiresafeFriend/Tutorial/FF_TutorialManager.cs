@@ -31,17 +31,18 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     public GameObject introPanel, tutorialPanel; 
     public Button startTutorialYesButton,startTutorialNoButton;
 
-    public override void Awake()
-    {
-        base.Awake();
-        // Ensure DOTween is freshly initialized
-        DOTween.KillAll();        // Kill all active tweens
-        DOTween.Clear(true);      // Clear all cached tweens and Sequences
-        DOTween.Init(true, true); // Force full reinitialization
-    }
+    //public override void Awake()
+    //{
+    //    base.Awake();
+    //    // Ensure DOTween is freshly initialized
+    //    DOTween.KillAll();        // Kill all active tweens
+    //    DOTween.Clear(true);      // Clear all cached tweens and Sequences
+    //    DOTween.Init(true, true); // Force full reinitialization
+    //}
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         cameraController = HH_GameManager.Instance.cameraController;
         nextButton.SetActive(false);
         nextButton.GetComponent<Button>().onClick.AddListener(() => ProceedToNextStep());
@@ -49,6 +50,14 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         introPanel.SetActive(true);
         startTutorialYesButton.onClick.AddListener(StartTutorial);
         startTutorialNoButton.onClick.AddListener(EndTutorial);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("FF_TutorialScene");
+        }
     }
 
     void StartTutorial()

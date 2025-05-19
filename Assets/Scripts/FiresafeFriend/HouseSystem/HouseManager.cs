@@ -71,7 +71,7 @@ namespace HappyHouse.HouseSystem
             //    InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
             //}
             var name = playerTag == "P1" ? "Player 1" : "Player 2";
-            nameText.GetComponent<TextMeshPro>().text = playerTag;
+            nameText.GetComponent<TextMeshPro>().text = name;
 
             for (int i = 0; i < transform.childCount; i++)
             {

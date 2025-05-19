@@ -60,6 +60,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
         // Create the Animation Sequence
         Sequence toggleSequence = DOTween.Sequence();
+                                         
 
         toggleSequence.PrependInterval(1.5f);
         // Step 1: Fade In
@@ -106,6 +107,6 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
     private Tween MoveToEndPosition(RectTransform rect, Vector2 endPosition)
     {
         return rect.DOAnchorPos(endPosition, 1.5f)
-                         .SetEase(Ease.InOutQuad);
+                   .SetEase(Ease.InOutQuad);
     }
 }
