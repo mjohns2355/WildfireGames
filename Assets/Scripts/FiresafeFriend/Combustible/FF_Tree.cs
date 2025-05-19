@@ -23,11 +23,13 @@ public class FF_Tree : FF_Plants
 
     }
 
+
+
     public override void OnCombustibleClicked(GameObject obj)
     {
         if (obj == gameObject && isClickable)
         {
-            Debug.Log($"Clicked {gameObject.name}");
+            //Debug.Log($"Clicked {gameObject.name}");
             HH_GameManager.Instance.uiManager.purchasePopup.confirmRemove.onClick.AddListener(RemoveTree);
             HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, false,true);
         }
@@ -38,6 +40,7 @@ public class FF_Tree : FF_Plants
         {
             foreach (var mesh in meshes)
             {
+               
                 burntMesh = Instantiate(burntModel, transform);
                 burntMesh.transform.position = mesh.transform.position;
                 burntMesh.material = mesh.material;
