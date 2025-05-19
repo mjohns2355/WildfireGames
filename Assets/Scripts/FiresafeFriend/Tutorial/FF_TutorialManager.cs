@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 [System.Serializable]
 public class FF_TutorialStep
 {
@@ -28,8 +29,16 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
     public GameObject introPanel, tutorialPanel; 
-    public Button startTutorialYesButton,startTutorialNoButton; 
-    
+    public Button startTutorialYesButton,startTutorialNoButton;
+
+    public override void Awake()
+    {
+        base.Awake();
+        // Ensure DOTween is freshly initialized
+        DOTween.KillAll();        // Kill all active tweens
+        DOTween.Clear(true);      // Clear all cached tweens and Sequences
+        DOTween.Init(true, true); // Force full reinitialization
+    }
     // Start is called before the first frame update
     void Start()
     {

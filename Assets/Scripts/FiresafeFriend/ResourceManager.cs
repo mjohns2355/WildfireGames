@@ -10,6 +10,7 @@ public class ResourceManager : UnitySingleton<ResourceManager>
     public Dictionary<HousePartType, GameObject> VFXs;
     public List<FF_Plants> plants;
     public List<GameObject> houses,publicFences;
+    public AudioClip chop1, chop2, fall, construct1, construct2, construct3, upgrade1, upgrade2;
     // Start is called before the first frame update
     public override void Awake()
     {

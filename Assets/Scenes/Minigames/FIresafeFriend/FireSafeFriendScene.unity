@@ -7612,6 +7612,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6422592266225866922, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1877745649}
     - target: {fileID: 6717460150644245251, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
       propertyPath: m_LocalPosition.x
       value: 85.9
@@ -8039,6 +8043,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6422592266225866922, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 422084289}
     - target: {fileID: 6717460150644245251, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
       propertyPath: m_LocalScale.x
       value: -2
@@ -8133,6 +8141,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 3, z: 10}
   m_Center: {x: -0.09, y: 9.56, z: 0.047729492}
+--- !u!82 &422084289 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3223149701314785949, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
+  m_PrefabInstance: {fileID: 422084284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &424691623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
@@ -12935,6 +12948,14 @@ MonoBehaviour:
   plants: []
   houses: []
   publicFences: []
+  chop1: {fileID: 8300000, guid: 00bc2f7aafde741e685b6cda5d634bbe, type: 3}
+  chop2: {fileID: 8300000, guid: df9d7e156fc4d46f2b0b40feb5ef8094, type: 3}
+  fall: {fileID: 8300000, guid: 1391d27b58d774566a4429b9481cc0b9, type: 3}
+  construct1: {fileID: 8300000, guid: 22c184771261f4b198dbefb1fcb8d957, type: 3}
+  construct2: {fileID: 8300000, guid: 5c3950165a4c34435b243c17321b97bf, type: 3}
+  construct3: {fileID: 8300000, guid: 4cb63829ad48f48be83c78bb3c2c6ae2, type: 3}
+  upgrade1: {fileID: 8300000, guid: 0b4ce49ac14d048be8d8880b93f1f406, type: 3}
+  upgrade2: {fileID: 8300000, guid: 8180e4bb3fb6e417ba7ba6fb9f5556ee, type: 3}
 --- !u!4 &663481754
 Transform:
   m_ObjectHideFlags: 0
@@ -37099,6 +37120,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 3, z: 10}
   m_Center: {x: -0.09, y: 9.56, z: 0.047729492}
+--- !u!82 &1877745649 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3223149701314785949, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
+  m_PrefabInstance: {fileID: 416649879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1884971883
 GameObject:
   m_ObjectHideFlags: 0
