@@ -52,14 +52,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         startTutorialNoButton.onClick.AddListener(EndTutorial);
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("FF_TutorialScene");
-        }
-    }
-
     void StartTutorial()
     {
         introPanel.SetActive(false);
