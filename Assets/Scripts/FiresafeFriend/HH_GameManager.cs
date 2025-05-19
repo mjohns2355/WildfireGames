@@ -78,6 +78,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     private void Start()
     {
+        Time.timeScale = 1f;
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
         //_fireTimer = fireTimer;
