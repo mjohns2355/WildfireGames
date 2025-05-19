@@ -75,17 +75,14 @@ public class GameManager : UnitySingleton<GameManager>
         if (isPaused)
         {
             Time.timeScale = 0f;
-            if (fireSFX.isPlaying)
-            {
-                fireSFX.Pause();
-            }
+            AudioListener.pause = true;
             ATC_UIController.Instance.TogglePauseMenu(true);
         }
         else
         {
             //Time.timeScale = GameSpeed;
             Time.timeScale = 1f;
-            fireSFX.UnPause();
+            AudioListener.pause = false;
             ATC_UIController.Instance.TogglePauseMenu(false);
         }
     }

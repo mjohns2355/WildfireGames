@@ -33,6 +33,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField]private bool _isPlantMode;
     [SerializeField] private const int WinReward = 3000;
     [SerializeField] private const int TieReward = WinReward/2;
+    [SerializeField] GameObject publicFencePrefab;
+    [SerializeField] List<Transform> publicFencesTransforms = new();
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
     private bool lastRoundIsFire = false;
@@ -87,6 +89,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         // don't spawn house at tutorial
         if (isTutorial) return;
         SpawnHouses();
+        SpawnPublicFences();
         InitTrees();
         fireManager.fireEndEvent.AddListener(OnFireEnd);
         DOTween.Init();
@@ -127,22 +130,33 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     private void InitPublicFences(HouseManager currentPlayer)
     {
-        fences = GameObject.FindGameObjectsWithTag("Fence");
-        foreach (var f in fences)
+        //fences = GameObject.FindGameObjectsWithTag("Fence");
+        foreach (var fence in publicFences)
         {
-            if(f.TryGetComponent<BaseHousePartObject>(out var fence))
-            {
-                fence.InitHousePartObject(currentPlayer);
-                var info = Instantiate(fence.partInfo, transform);
-                info.isPublic = true;
-                fence.partInfo = info;
-                publicFences.Add(fence);
-                currentPlayer.inventory.AddNewPartToInventory(info);
-            }
-
+            fence.InitHousePartObject(currentPlayer);
+            //var info = Instantiate(fence.partInfo, transform);
+            //info.isPublic = true;
+            fence.partInfo.isPublic = true;
+            currentPlayer.inventory.AddNewPartToInventory(fence.partInfo);
         }
     }
 
+    private void SpawnPublicFences()
+    {
+        for(int i = 0; i<publicFencesTransforms.Count;i++)
+        {
+            var t = publicFencesTransforms[i];
+            for(int j = 0; j<t.childCount; j++)
+            {
+                Destroy(transform.GetChild(j).gameObject);
+            }
+            var obj = Instantiate(publicFencePrefab, t);
+            obj.tag = "Fence";
+            var fence = obj.GetComponent<BaseHousePartObject>();
+            if (i == 1) fence.shouldDisplayBubble = true;
+            publicFences.Add(fence);
+        }
+    }
     private void InitTrees()
     {
         var rng = UnityEngine.Random.Range(0, 1f);
@@ -232,6 +246,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             newHouse.isMoving = true;
         }
+        
         DOVirtual.DelayedCall(0.3f, () =>
         {
             // repair should keep the current material and budget
@@ -253,7 +268,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2 = newHouse;
             }
 
-
+            //foreach(var f in)
+            SpawnPublicFences();
+            InitPublicFences(currentPlayer);
         });
     }
     void OnFireEnd()
@@ -385,6 +402,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         p1.burnedPercent = 0f;
         p2.burnedPercent = 0f;
         p1.hasMadeDecisions = p2.hasMadeDecisions = false;
+        publicFences.Clear();
         //currentRoundCount++;
         //if (currentRoundCount > maxRounds)
         //{
