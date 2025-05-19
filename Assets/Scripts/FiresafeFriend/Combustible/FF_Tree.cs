@@ -44,7 +44,7 @@ public class FF_Tree : FF_Plants
         if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(5000))
         {
             StartCoroutine(PlantClickedRoutine());
-            HH_GameManager.Instance.uiManager.HidePurchasePopup(null);
+            HH_GameManager.Instance.uiManager.HidePurchasePopup(null,false);
         }
         else
         {
