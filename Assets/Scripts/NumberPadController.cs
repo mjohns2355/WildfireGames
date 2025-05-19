@@ -9,11 +9,11 @@ public class NumberPadController : MonoBehaviour
 
     void Start()
     {
-        numberPadPanel.SetActive(false);
-        fetchButton.onClick.AddListener(HideNumberPad);
+        numberPadPanel.SetActive(true); // Always show number pad
+        // fetchButton.onClick.AddListener(HideNumberPad); // Remove hiding logic
     }
 
-    // Called via EventTrigger → Pointer Down on InputField
+    // These methods still exist in case you want to trigger them manually
     public void ShowNumberPad()
     {
         numberPadPanel.SetActive(true);

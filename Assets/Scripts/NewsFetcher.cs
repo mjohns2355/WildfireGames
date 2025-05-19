@@ -27,6 +27,7 @@ public class NewsFetcher : MonoBehaviour
 
     void Start()
     {
+        zipCodeInput.interactable = false;
         fetchButton.onClick.AddListener(() => StartCoroutine(FetchNews(zipCodeInput.text)));
     }
 
@@ -137,5 +138,7 @@ public class NewsFetcher : MonoBehaviour
 
 
     }
+
+
 
 }
