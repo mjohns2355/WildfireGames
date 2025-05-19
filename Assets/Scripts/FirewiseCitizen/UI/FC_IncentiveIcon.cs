@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FC_Incentiveicon : MonoBehaviour
 {
     public Image icon;
-    public Button offerButton;
+    public Button offerButton, iconButton;
 
     HouseStructure owner;
     

@@ -35,12 +35,17 @@ public class FC_IncentivePage : MonoBehaviour
         incentivePage.SetActive(true);
         foreach (var houseType in GameManager.Instance.availableHouseTypes)
         {
+            if (houseType == HouseType.pet || houseType == HouseType.kids) continue;
             var icon = GameManager.Instance.structureManager.houseInfoDict[houseType].houseIcon;
             var owner = GameManager.Instance.structureManager.allMainHouses[houseType];
             var obj = Instantiate(incentiveIconPrefab, optionsGrid);
             var incentiveIcon = obj.GetComponent<FC_Incentiveicon>();
             incentiveIcon.SetUpIcon(owner, icon);
             incentiveIcon.offerButton.onClick.AddListener(()=>
+            {
+                ShowConfirmationPage(owner);
+            });
+            incentiveIcon.iconButton.onClick.AddListener(() =>
             {
                 ShowConfirmationPage(owner);
             });
