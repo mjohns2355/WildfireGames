@@ -27,7 +27,7 @@ public class FC_StarScreen : MonoBehaviour
         restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGameFromTutorial(); });
 
         nextLevel.gameObject.SetActive(!GameManager.Instance.IsLastLevel);
-        restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
+        //restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
 
         CalculateHouseProtectedScore();
         CalculateInjuriesProventedScore();

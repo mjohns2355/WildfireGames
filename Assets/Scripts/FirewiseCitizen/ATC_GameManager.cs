@@ -54,6 +54,7 @@ public class GameManager : UnitySingleton<GameManager>
     }
     private void Start()
     {
+        Time.timeScale = 1f;
         SimIsEnd = false;
         InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -63,39 +64,9 @@ public class GameManager : UnitySingleton<GameManager>
         tutorialManager.InitTutorialManager();
         canControlCam = false;
         DOTween.Clear(true);
-        //inputManager.OnMouseClick += structureManager.ClickStructre;
-        //inputManager.OnMouseClick += HandleMouseClick;
-        //uiController.OnRoadPlacement += RoadPlacementHandler;
-        //uiController.OnHousePlacement += HousePlacementHandler;
-        //uiController.OnSpecialPlacement += SpecialPlacementHandler;
+
     }
 
-    //private void RoadPlacementHandler()
-    //{
-    //    ClearInputAction();
-    //    inputManager.OnMouseClick += roadManager.PlaceRoad;
-    //    inputManager.OnMouseHold += roadManager.PlaceRoad;
-    //    inputManager.OnMouseUp += roadManager.FinishPlacingRoad;
-    //}
-
-    //private void HousePlacementHandler()
-    //{
-
-    //    ClearInputAction();
-    //    //inputManager.OnMouseClick += structureManager.PlaceHouse;
-    //}
-    //private void SpecialPlacementHandler()
-    //{
-
-    //    ClearInputAction();
-    //    //inputManager.OnMouseClick += structureManager.PlaceSpecial;
-
-    //}
-    //private void HandleMouseClick(Vector3Int position)
-    //{
-    //    Debug.Log(position);
-    //   // roadManager.PlaceRoad(position);
-    //}
 
     public void TogglePause()
     {
@@ -116,15 +87,6 @@ public class GameManager : UnitySingleton<GameManager>
         }
     }
 
-    //public void ResumeGame()
-    //{
-    //    TogglePause()
-    //    //isPaused = false ;
-    //    //Debug.Log($"Game is Paused: {isPaused}");
-    //    ////Time.timeScale = GameSpeed;
-    //    //fireSFX.Play();
-    //    //ATC_UIController.Instance.TogglePauseMenu(false);
-    //}
     public void SkipSimulationRec()
     {
         currentStage = LevelStage.PhaseOne;
@@ -137,6 +99,7 @@ public class GameManager : UnitySingleton<GameManager>
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.P)) { Time.timeScale = 6f; }
+        if (Input.GetKeyDown(KeyCode.R)) { RestartGameFromTutorial(); }
 #endif
         // camera movement
         if (!canControlCam) return;
