@@ -51,6 +51,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     public void MoveIcon()
     {
+        
         var canvasGroup = plantModeToggle.GetComponent<CanvasGroup>();
         var toggleRect = plantModeToggle.GetComponent<RectTransform>();
 
@@ -89,8 +90,10 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
+        Debug.Log("Start Fade In");
         return canvasGroup.DOFade(1, 0.2f)
-                          .SetEase(Ease.InOutQuad);
+                          .SetEase(Ease.InOutQuad)
+                          .OnComplete(() => Debug.Log("Fade In Complete!"));
     }
 
     private Tween ScaleEffect(RectTransform rect)
