@@ -289,7 +289,7 @@ public class ATC_dialogManager : MonoBehaviour
         //}
         if (followedOrders)
         {
-            firstHalf.text = $"Miraculously, only {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city. " + res;
+            firstHalf.text = $"Miraculously, everyone survived, however {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city. " + res;
         }
         else
         {
@@ -331,7 +331,7 @@ public class ATC_dialogManager : MonoBehaviour
 
 
 
-        //debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface – the area where human development meets wild land and forest. \n\n";
+        //debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface ? the area where human development meets wild land and forest. \n\n";
 
 
         //debugResultText2.text += wuiRes + "\n\n";
