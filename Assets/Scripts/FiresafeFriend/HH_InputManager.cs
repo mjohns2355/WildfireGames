@@ -50,6 +50,7 @@ public class HH_InputManager : MonoBehaviour
                     }
                     else
                     {
+                        if (HH_GameManager.Instance.IsPlantMode) yield break;
                         if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
                         {
                             OnObjectSelected?.Invoke(hit.collider.gameObject);
