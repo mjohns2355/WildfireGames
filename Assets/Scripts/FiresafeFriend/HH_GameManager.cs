@@ -362,6 +362,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void StartFire()
     {
         //IsFireStarted = true;
+        IsPlantMode = false;
         CurrentStage = GameStage.Fire;
         uiManager.ShowFireAnnouncement();
         uiManager.floatingIcons.gameObject.SetActive(false);
