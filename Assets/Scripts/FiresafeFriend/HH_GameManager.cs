@@ -38,6 +38,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
     private bool lastRoundIsFire = false;
+    private bool publicFencesRepaired = false;
     //[SerializeField] private float _fireTimer = 0;
     List<GameObject> houses = new();
     List<GameObject> currentHousePrefabs = new(){ null, null};
@@ -97,21 +98,17 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     private void Update()
     {
-
-        //if (!IsFireStarted) return;
-        //if (_fireTimer > 0)
-        //{
-        //    _fireTimer -= Time.deltaTime;
-        //}
-        //else
-        //{
-        //    OnFireEnd();
-        //}
+#if UNITY_EDITOR
         //debug
-        if (Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Time.timeScale = 5.0f;
         }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RepairHouse();
+        }
+#endif
     }
     public void PauseGame()
     {
@@ -133,26 +130,28 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //fences = GameObject.FindGameObjectsWithTag("Fence");
         foreach (var fence in publicFences)
         {
-            fence.InitHousePartObject(currentPlayer);
-            //var info = Instantiate(fence.partInfo, transform);
-            //info.isPublic = true;
-            fence.partInfo.isPublic = true;
+            var info = Instantiate(fence.partInfo, transform);
+            info.isPublic = true;
+            fence.InitHousePartObject(currentPlayer,info);
             currentPlayer.inventory.AddNewPartToInventory(fence.partInfo);
         }
     }
 
     private void SpawnPublicFences()
     {
-        for(int i = 0; i<publicFencesTransforms.Count;i++)
+        publicFences.Clear();
+        for (int i = 0; i<publicFencesTransforms.Count;i++)
         {
             var t = publicFencesTransforms[i];
+            // Destroy old models
             for(int j = 0; j<t.childCount; j++)
             {
-                Destroy(transform.GetChild(j).gameObject);
+                Destroy(t.GetChild(j).gameObject);
             }
             var obj = Instantiate(publicFencePrefab, t);
             obj.tag = "Fence";
             var fence = obj.GetComponent<BaseHousePartObject>();
+                    
             if (i == 1) fence.shouldDisplayBubble = true;
             publicFences.Add(fence);
         }
@@ -241,6 +240,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var canEarnMoreMoney = temp.budgetManager.canEarnMoreMoney;
         RemoveHouse(temp.playerTag,reRoll);
         var newHouse = SpawnSingleHouse(temp.playerTag, temp.transform.parent, reRoll);
+        if(!publicFencesRepaired) SpawnPublicFences();
+        publicFencesRepaired = true;
         currentPlayer = newHouse;
         if (reRoll)
         {
@@ -268,8 +269,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2 = newHouse;
             }
 
-            //foreach(var f in)
-            SpawnPublicFences();
             InitPublicFences(currentPlayer);
         });
     }
@@ -292,7 +291,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             Destroy(f.gameObject);
         }
         uiManager.ShowEndScreen(true,p1.GetBurnedPercent(),p2.GetBurnedPercent());
-
+        publicFencesRepaired = false;
     }
 
     void OnCompetition()
@@ -351,7 +350,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             }
         }
         inputManager.OnHouseSelected.Invoke(currentPlayer);
-        //currentPlayer.OnHouseSelected(currentPlayer);
     }
 
     // after player tap either house
@@ -360,21 +358,17 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         CurrentStage = GameStage.RoundStart;
         this.currentPlayer = currentPlayer;
         if (isTutorial) return;
-        //uiManager.OnRoundStart();
-        InitPublicFences(currentPlayer);
+        
+        if (!lastRoundIsFire)
+        {
+            InitPublicFences(currentPlayer);
+        }
         if (lastRoundIsFire && !currentPlayer.hasMadeDecisions)
         {
             uiManager.ShowAftermathScreen();
         }
         
     }
-    //public BaseHousePartObject CreateHousePartObject(HousePartInfo partInfo, HouseManager owner)
-    //{
-    //    var obj = new GameObject(partInfo.partID);
-    //    var houseObj = obj.AddComponent<BaseHousePartObject>();
-    //    houseObj.InitHousePartObject(owner,partInfo );
-    //    return houseObj;
-    //}
 
     public void StartFire()
     {
@@ -403,14 +397,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         p1.burnedPercent = 0f;
         p2.burnedPercent = 0f;
         p1.hasMadeDecisions = p2.hasMadeDecisions = false;
-        publicFences.Clear();
-        //currentRoundCount++;
-        //if (currentRoundCount > maxRounds)
-        //{
-        //    Debug.Log("Game Ends");
-        //    CurrentStage = GameStage.GameEnd;
-        //    return;
-        //}
 
     }
 

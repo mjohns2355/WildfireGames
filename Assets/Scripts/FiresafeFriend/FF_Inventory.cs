@@ -33,25 +33,25 @@ namespace HappyHouse.HouseSystem
             return true;
         }
 
-        public bool RemovePartFromInventory(HousePartInfo partToRemove)
+        public bool RemovePartFromInventory(HousePartType partToRemove,string partID, bool isPublic = false)
         {
-            if (partToRemove == null) return false;
-            var targetDict = partToRemove.isPublic ? ownedPublicParts : ownedParts;
-            if (targetDict.ContainsKey(partToRemove.housePartType))
+            //if (partToRemove == null) return false;
+            var targetDict = isPublic ? ownedPublicParts : ownedParts;
+            if (targetDict.ContainsKey(partToRemove))
             {
-                var value = targetDict[partToRemove.housePartType];
+                var value = targetDict[partToRemove];
 
                 // Find the part with the matching ID and remove it
-                var part = value.FirstOrDefault(p => p.partID == partToRemove.partID);
+                var part = value.FirstOrDefault(p => p.partID == partID);
                 if (part != null)
                 {
                     value.Remove(part);
 
                     if (value.Count == 0)
                     {
-                        targetDict.Remove(partToRemove.housePartType);
+                        targetDict.Remove(partToRemove);
                     }
-                    //Debug.Log($"Removed {partToRemove.partID} from inventory");
+                    //Debug.Log($"Removed {partID} from inventory");
                     return true;
                 }
             }

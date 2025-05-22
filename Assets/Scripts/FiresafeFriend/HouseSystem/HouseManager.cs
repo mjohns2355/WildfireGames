@@ -68,10 +68,7 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            //foreach (var f in fences)
-            //{
-            //    InitHouseNode(nodeDictionary, f.GetComponent<BaseHousePartObject>());
-            //}
+
             var name = playerTag == "P1" ? "Player 1" : "Player 2";
             nameText.GetComponent<TextMeshPro>().text = name;
 
@@ -112,7 +109,10 @@ namespace HappyHouse.HouseSystem
             part.houseNode = node;
             nodeDictionary[part.name] = node;
             inventory.AddNewPartToInventory(part.partInfo);
-            AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
+            if (!part.partInfo.isPublic)
+            {
+                AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
+            }
             //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
@@ -241,7 +241,11 @@ namespace HappyHouse.HouseSystem
             var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
             //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
             //Debug.Log($"{oldParts.Count} pieces of {housePartInfo.housePartType} is in use");
-            AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
+            if (!housePartInfo.isPublic)
+            {
+                AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
+            }
+            
             foreach (var oldPart in oldParts)
             {
 
@@ -280,7 +284,8 @@ namespace HappyHouse.HouseSystem
 
             if (HH_GameManager.Instance.isTutorial) return;
             //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
-            HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType);
+            
+            HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType, housePartInfo.isPublic);
         }
 
         public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
@@ -404,7 +409,7 @@ namespace HappyHouse.HouseSystem
 
                         foreach (var oldPart in oldParts)
                         {
-                            inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
+                            inventory.RemovePartFromInventory(oldPart.defaultPartInfo.housePartType,oldPart.defaultPartInfo.partID);
                             //if (oldPart.houseNode != null)
                             //{
                             //    houseGraph.RemoveHousePart(oldPart.houseNode);

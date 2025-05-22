@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
         
     }
 
-    public void UpdateInventoryUI(HousePartType partType)
+    public void UpdateInventoryUI(HousePartType partType, bool isPublic = false)
     {
         // Hide icons
         foreach (var item in items)
@@ -67,8 +67,8 @@ public class InventoryUI : MonoBehaviour
             item.partInfo = null;
         }
         var player = HH_GameManager.Instance.currentPlayer;
-
-        var partDict = player.inventory.ownedParts[partType];
+        var partDict = isPublic ? player.inventory.ownedPublicParts[partType] : player.inventory.ownedParts[partType];
+        //var partDict = player.inventory.ownedParts[partType];
         for (int i = 0;i < partDict.Count; i++)
         {
             var inventoryItem = items[i];
@@ -78,15 +78,6 @@ public class InventoryUI : MonoBehaviour
             bool isInUse = player.PartIsInUse(info);
             inventoryItem.SetIsInUse(isInUse);
         }
-        //foreach (var p in player.inventory.ownedParts[partType])
-        //{
-        //    var categoryItem = Instantiate(categoryItemPrefab,categoryItemButtons).GetComponent<CategoryItem>();
-        //    categoryItem.InitCategoryItem(p);
-        //    bool isInUse = player.PartIsInUse(p);
-        //    categoryItem.SetIsInUse(isInUse);
-        //}
-
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(categoryItemButtons.GetComponent<RectTransform>());
         
     }
 
