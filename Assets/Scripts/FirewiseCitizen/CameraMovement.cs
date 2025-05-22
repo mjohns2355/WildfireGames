@@ -40,6 +40,7 @@ public class CameraMovement : MonoBehaviour
         FOV = gameCamera.fieldOfView;
         camPos = gameCamera.transform.position;
         bounds = movementBounds.bounds;
+        camStartFOV = gameCamera.fieldOfView;
         //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
         //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
@@ -152,7 +153,7 @@ public class CameraMovement : MonoBehaviour
         //Debug.Log($"Move to house {targetHouse.transform.position}");
 
         GameManager.Instance.canControlCam = false;
-        camStartFOV = gameCamera.fieldOfView;
+       
         targetFOV = 5f;
         Vector3 roadToHouse = (targetHouse.transform.position - targetHouse.roadPosition).normalized;
         targetPosition = targetHouse.roadPosition - (roadToHouse* focusDistance);
@@ -173,17 +174,26 @@ public class CameraMovement : MonoBehaviour
 
     public void ResetCam()
     {
+        
         isFocusing = false;
         if (lastHit)
         {
             lastHit.SetActive(true);
             lastHit = null;
         }
+        
         gameCamera.fieldOfView = camStartFOV;
-        targetPosition = camStartPos;
-        transform.rotation = camStartRotation;
+        FOV = camStartFOV;
 
+        camPos = camStartPos;
         transform.SetPositionAndRotation(camStartPos, camStartRotation);
+
+        if (fovTween != null && fovTween.IsActive())
+        {
+            fovTween.Kill();
+            fovTween = null;
+        }
+
         GameManager.Instance.canControlCam = true;
     }
 }

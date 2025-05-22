@@ -35,18 +35,19 @@ namespace HappyHouse.HouseSystem
         public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
         public float burnedWeight, totalWeight = 0f;
         public bool hasMadeDecisions;
-
+        BoxCollider clickBox;
         [SerializeField]AudioSource audioSource;
         private void Start()
         {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
+            clickBox = GetComponent<BoxCollider>();
             audioSource = GetComponent<AudioSource>();
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
             });
-
+            
         }
 
         public void InitHouseManager()
@@ -146,7 +147,7 @@ namespace HappyHouse.HouseSystem
 
         public void ToggleClickBox(bool toggle)
         {
-            //clickBox.enabled = toggle;
+            clickBox.enabled = toggle;
         }
         public void OnHouseSelected(HouseManager manager)
         {
@@ -154,7 +155,7 @@ namespace HappyHouse.HouseSystem
 
             HH_GameManager.Instance.StartRound(manager);
             HH_GameManager.Instance.uiManager.ToggleEarnMoreMoneyButton(budgetManager.canEarnMoreMoney);
-            //ToggleClickBox(false);
+            ToggleClickBox(false);
             arrowUI.SetActive(true);
             nameText.SetActive(false);
             ToggleHousePartClickable(true);
@@ -169,7 +170,7 @@ namespace HappyHouse.HouseSystem
             {
                 Destroy(icon.gameObject);
             }
-            //ToggleClickBox(true);
+            ToggleClickBox(true);
             ToggleHousePartClickable(false);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);

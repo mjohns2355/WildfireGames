@@ -27,6 +27,7 @@ public class FF_Props : FF_BaseCombustible
     }
     private void HandleIgnite()
     {
+
         HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform, 1f, 0.5f, true, burnTimer, 1.5f);
     }
     IEnumerator PropClickedRoutine()

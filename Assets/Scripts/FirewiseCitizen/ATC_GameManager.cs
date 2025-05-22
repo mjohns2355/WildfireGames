@@ -183,26 +183,6 @@ public class GameManager : UnitySingleton<GameManager>
         return won;
     }
 
-    //private void ClearInputAction()
-    //{
-    //    inputManager.OnMouseClick = null;
-    //    inputManager.OnMouseHold = null;
-    //    inputManager.OnMouseUp = null;
-    //}
-
-    //public void ToggleConstructionMode()
-    //{
-    //    constructionMode = !constructionMode;
-    //    if (constructionMode == false)
-    //    {
-    //        ClearInputAction();
-    //        inputManager.OnMouseClick += structureManager.ClickStructre;
-    //    }
-    //    //uiController.UpdateConstructionMode(constructionMode);
-    //    inputManager.OnConstructionMode(constructionMode);
-    //    Debug.Log(constructionMode);
-    //}
-
     public void StartSimulation()
     {
 
@@ -269,6 +249,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         fireManager.wind.isStill = true;
         ATC_UIController.Instance.ShowLoadingScreen();
+
         //Debug.Log(currentStage);
         if (restartFromTutorial)
         {
@@ -366,7 +347,11 @@ public class GameManager : UnitySingleton<GameManager>
             tutorialManager.InitTutorialManager();
 
         }
-
+        ATC_UIController.Instance.resetCamera.onClick.RemoveAllListeners();
+        ATC_UIController.Instance.resetCamera.onClick.AddListener(() =>
+        {
+            cameraMovement.ResetCam();
+        });
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

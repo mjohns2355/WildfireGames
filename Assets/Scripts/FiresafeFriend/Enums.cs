@@ -8,7 +8,7 @@ using UnityEngine;
 public enum HousePartType { Roof, Wall, Floor, Door, Gable, Fence, Window, Gutter, Vent, Drain, Ground, Stairs};
 
 public enum GameStage {BeforeGame, RoundStart, Fire, Competition, RoundEnd, GameEnd};
-public enum BurnStage { Igniting, Burning, Smoldering, BurnedOut};
+public enum BurnStage { BeforeIgniting, Igniting, Burning, Smoldering, BurnedOut};
 
 public enum MaterialClass { A, B, C, F };
 
@@ -30,7 +30,7 @@ public static class MaterialClassExtensions
     {
         return housePart switch { 
             HousePartType.Roof => 1.5f,
-            HousePartType.Wall => 1.2f,
+            HousePartType.Wall => 1.5f,
             HousePartType.Door => 0.6f,
             HousePartType.Fence => 0.3f,
             HousePartType.Window => 0.6f,

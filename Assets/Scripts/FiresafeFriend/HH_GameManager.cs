@@ -102,11 +102,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         //debug
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Time.timeScale = 5.0f;
+            Time.timeScale = 3.0f;
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
             RepairHouse();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Time.timeScale = 3.0f;
+            StartFire();
         }
 #endif
     }
@@ -529,7 +534,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 p2.nameText.SetActive(true);
                 cameraController.ResetCamera();
                 uiManager.floatingIcons.gameObject.SetActive(true);
-
+                
                 break;
             case GameStage.RoundStart:
                 OnRoundStart?.Invoke();

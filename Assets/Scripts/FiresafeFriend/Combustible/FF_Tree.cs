@@ -8,7 +8,7 @@ public class FF_Tree : FF_Plants
 {
     public MeshRenderer burntModel;
     public AudioSource audioSource;
-
+    public GameObject fireParticle;
 
     [SerializeField]private AudioClip chop1, chop2, fall;
     private MeshRenderer burntMesh;
@@ -20,7 +20,7 @@ public class FF_Tree : FF_Plants
         chop1 = ResourceManager.Instance.chop1;
         chop2 = ResourceManager.Instance.chop2;
         fall = ResourceManager.Instance.fall;
-
+        fireParticle.SetActive(false);
     }
 
 
@@ -34,6 +34,7 @@ public class FF_Tree : FF_Plants
             HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, false,true);
         }
     }
+
     private void HandleBurning()
     {
         if (burntModel && burntMesh == null)
@@ -50,6 +51,11 @@ public class FF_Tree : FF_Plants
         }
     }
 
+    protected override void HandleIgnite()
+    {
+        base.HandleIgnite();
+        fireParticle.SetActive(true);
+    }
     private void RemoveTree()
     {
         if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(5000))

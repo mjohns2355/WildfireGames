@@ -27,7 +27,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     public Action OnCombustibleDestroyed;
     public Action<BurnStage> OnBurnStageChanged;
     public Vector3 topPosition, bottomPosition;
-    protected BurnStage _burnStage;
+    protected BurnStage _burnStage = BurnStage.BeforeIgniting;
     public BurnStage BurnStage
     {
         get => _burnStage;
@@ -72,13 +72,13 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     private void Update()
     {
         if (!isOnFire) return;
-        foreach(var mesh in meshes)
+        foreach (var mesh in meshes)
         {
-            foreach(var material in mesh.materials)
+            foreach (var material in mesh.materials)
             {
                 material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
             }
-          
+
         }
     }
     protected virtual float CalculateFireCatchChance(float flammability)
@@ -124,8 +124,8 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual IEnumerator IgniteWithDelay()
     {
         if (isOnFire) yield break;
-        isOnFire = true;
         yield return new WaitForSeconds(durability / 10 + baseBurnTime);
+        isOnFire = true;
         burnTimer = durability / flammability + baseBurnTime;
         //OnIgnite?.Invoke();
         StartCoroutine(Burn());
@@ -143,7 +143,6 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual IEnumerator Burn()
     {
         BurnStage = BurnStage.Igniting;
-        ChangeBurnStage(BurnStage);
         float startBurnTimer = burnTimer;
         while (isOnFire)
         {
@@ -201,7 +200,6 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         switch (newStage)
         {
             case BurnStage.Igniting:
-                
                 OnIgnite?.Invoke();
                 break;
             case BurnStage.Burning:

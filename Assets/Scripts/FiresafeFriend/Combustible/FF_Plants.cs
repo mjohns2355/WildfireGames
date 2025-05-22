@@ -38,9 +38,8 @@ public class FF_Plants : FF_BaseCombustible
             StartCoroutine(PlantClickedRoutine());
         }
     }
-    private void HandleIgnite()
+    protected virtual void HandleIgnite()
     {
-        //Debug.Log($"{gameObject.name} is burning");
         HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform,1f, 3f, true, burnTimer, 4f);
         Vector3 center = collider.bounds.center;
         Vector3 halfExtents = collider.bounds.extents;

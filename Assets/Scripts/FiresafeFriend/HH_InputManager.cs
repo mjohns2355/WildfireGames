@@ -40,26 +40,24 @@ public class HH_InputManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(screenPos);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (/*hit.collider.CompareTag("House")*/hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
-                {
-                    if (canClickHouse)
-                    {
-                        if (hit.collider.transform.parent.CompareTag("Fence")) yield break;
-                        var house = hit.collider.transform.parent.GetComponentInParent<HouseManager>();
-                        OnHouseSelected?.Invoke(house);
-                    }
-                    else
-                    {
-                        if (HH_GameManager.Instance.IsPlantMode) yield break;
-                        if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
-                        {
-                            OnObjectSelected?.Invoke(hit.collider.gameObject);
-                        }
-                        Debug.Log($"Clicked {hit.collider.gameObject.name}");
 
-                    }
+                if (hit.collider.CompareTag("House") && canClickHouse)
+                {
+                    if (hit.collider.transform.parent.CompareTag("Fence")) yield break;
+                    var house = hit.collider.GetComponent<HouseManager>();
+                    OnHouseSelected?.Invoke(house);
                 }
 
+                if (canClickHouse) yield break;
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Structure"))
+                {
+                    if (HH_GameManager.Instance.IsPlantMode) yield break;
+                    if (HH_GameManager.Instance.IsGameStarted || HH_GameManager.Instance.isTutorial)
+                    {
+                        OnObjectSelected?.Invoke(hit.collider.gameObject);
+                    }
+                    Debug.Log($"Clicked {hit.collider.gameObject.name}");
+                }
                 else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Nature") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Combustible"))
                 {
                     //Debug.Log($"Hit {hit.collider.gameObject}");

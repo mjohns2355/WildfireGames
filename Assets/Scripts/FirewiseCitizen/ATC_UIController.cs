@@ -25,7 +25,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public TextMeshProUGUI levelText;
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
-    public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame;
+    public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera;
     public CanvasGroup loadingScreen;
     public float loadingTime;
     //public GameObject buildingMenu;
@@ -301,6 +301,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
+        resetCamera.gameObject.SetActive(GameManager.Instance.currentStage != LevelStage.Tutorial); 
+
         toolsBar.gameObject.SetActive(true);
         start.gameObject.SetActive(true);
         start.interactable = true;
