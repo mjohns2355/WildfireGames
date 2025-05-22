@@ -118,6 +118,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void ProceedToNextNode()
     {
+        if (currentNode == null || currentDialogTree == null) return;
         if (currentNode.options != null && currentNode.options.Length > 0 && currentNode.options[0].optionText != null)
         {
             ShowOptions();
@@ -170,7 +171,9 @@ public class ATC_HouseDialogManager : MonoBehaviour
             {
                 DisplayCurrentNode();
                 canClick = true;
-            }).OnComplete(() =>
+            })
+                .SetId(gameObject)
+                .OnComplete(() =>
             {
                 SetSkipButton(true);
             });
@@ -186,6 +189,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void DisplayCurrentNode()
     {
+        if (currentNode == null || !gameObject.activeInHierarchy) return;
 
         OnDialogueNodeDisplayed?.Invoke(currentNode);
 
@@ -302,7 +306,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             isWaitingForPlayer = true;
             canClick = true;
             DisplayCurrentNode();
-        });
+        }).SetId(gameObject);
 
 
     }

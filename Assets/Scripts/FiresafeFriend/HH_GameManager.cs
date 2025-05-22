@@ -297,6 +297,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     void OnCompetition()
     {
+        IsPlantMode = false;
         var p1Score = p1.CalculateRating();
         var p2Score = p2.CalculateRating();
         lastRoundIsFire = false;
@@ -378,6 +379,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void StartFire()
     {
         //IsFireStarted = true;
+        IsPlantMode = false;
         CurrentStage = GameStage.Fire;
         uiManager.ShowFireAnnouncement();
         uiManager.floatingIcons.gameObject.SetActive(false);
@@ -393,7 +395,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void EndRound()
     {
         OnRoundEnd?.Invoke();
-
         cameraController.ResetCamera();
         currentPlayer.ToggleAllPurchaseIcons(false);
         DecideNextEvent();
@@ -534,6 +535,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 // Initialize the game
                 Debug.Log("Game is starting...");
                 inputManager.canClickHouse = true;
+               
                 uiManager.endScreenManager.HideEndScreens();
                 p1.OnHouseDeselected();
                 p1.nameText.SetActive(true);

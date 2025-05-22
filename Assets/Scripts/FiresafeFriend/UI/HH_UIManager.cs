@@ -55,6 +55,7 @@ public class HH_UIManager : MonoBehaviour
         // 1. Subscribe to GameManager's OnPlantModeChanged event
         HH_GameManager.Instance.OnPlantModeChanged += (mode) =>
         {
+
             // Only update the Toggle if the value is different
             if (toggle.isOn != mode)
             {
