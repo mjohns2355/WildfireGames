@@ -273,7 +273,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             {
                 p2 = newHouse;
             }
-
+            newHouse.ToggleClickBox(false);
             InitPublicFences(currentPlayer);
         });
     }
@@ -444,6 +444,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     
     public void RestartGame()
     {
+        ResumeGame();
         SceneManager.LoadScene("FiresafeFriendScene");
     }
 
@@ -507,7 +508,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     void TogglePublicFenceClickable(bool state)
     {
-        foreach(var fence in fences)
+        foreach(var fence in publicFences)
         {
             fence.GetComponent<BaseHousePartObject>().isClickable = state;
         }
