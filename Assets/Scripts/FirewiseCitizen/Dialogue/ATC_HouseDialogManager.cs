@@ -162,6 +162,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
             var t = dialogFlagsMap[key];
             t.Item2 = false;           // isSkipped = false
             dialogFlagsMap[key] = t;
+            var val = GameManager.Instance.currentLevel > 0 ? 1 : 0;
+            SetFlag("hasIncentives", val);
             currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
             if (inDialogue) return;
             ClearMessages();
@@ -436,7 +438,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 flags.Item1.gaveIncentives = value;
                 break;
             default:
-                Debug.LogError($"Flag '{flagName}' not found.");
+                Debug.Log($"Flag '{flagName}' not found.");
                 break;
         }
     }
