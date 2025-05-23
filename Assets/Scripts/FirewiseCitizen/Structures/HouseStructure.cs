@@ -27,8 +27,8 @@ public class HouseStructure : Structure
     public int kidNum = 0;
     public CarSpeed carSpeed = CarSpeed.medium;
     public float carSpawnWaitTime = 0f;
-    public float homeHardeningChance;
-    public float followOrderChance = 0.3f;
+    public float homeHardeningChance = 0.4f;
+    public float followOrderChance;
     //public bool HasHorseTrailers
     //{
     //    get { return houseType == HouseType.horse && horseNum != 0; }
@@ -67,7 +67,7 @@ public class HouseStructure : Structure
        
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
         ModifyStructureRotation();
-
+        followOrderChance = houseType == HouseType.wui ? 0.5f : 0.8f;
         //if (!isMainHouse) return;
         //InitMainHouse();
 
@@ -240,11 +240,11 @@ public class HouseStructure : Structure
 
     void ApplyChoice()
     {
-        var otherHousesRng = UnityEngine.Random.Range(0, 1f);
+        var rng = UnityEngine.Random.Range(0, 1f);
         var skippedDialog = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap[houseType.ToString()].Item2;
         if(skippedDialog)
         {
-            followOrderChance = Mathf.Clamp(followOrderChance + 0.2f, followOrderChance, 0.8f);
+            followOrderChance = 0;
         }
         foreach (var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
@@ -254,7 +254,7 @@ public class HouseStructure : Structure
             {
                 // wui house has vary low chance to follow order at the beginning
                 // each wui house has individual chance to follow order
-                float rng = houseType == HouseType.wui ? UnityEngine.Random.Range(0f, 1f) : otherHousesRng;
+          
                 Debug.Log($"House: {houseType}, RNG: {rng}, Follow Order Chance: {followOrderChance}");
                 if (rng > followOrderChance)
                 {

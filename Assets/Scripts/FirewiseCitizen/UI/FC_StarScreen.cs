@@ -96,7 +96,7 @@ public class FC_StarScreen : MonoBehaviour
     {
         int rewardStars = 0;
         int totalStars = GameManager.Instance.availableHouseTypes.Count * 3;
-        var finalChoices = GameManager.Instance.finalChoices;
+        var playerChoices = GameManager.Instance.structureManager.GetPlayerChoicesDict();
         var dialogueFlags = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap;
         var houseTypeInfo = GameManager.Instance.structureManager.houseInfoDict;
         var skippedAll = !ATC_UIController.Instance.contextMenus.Any(menu => menu.isSelected && menu.owner is HouseStructure);
@@ -106,14 +106,15 @@ public class FC_StarScreen : MonoBehaviour
             ShowStars(0, converstationQualityStars);
             return;
         }
-        foreach (var pair in finalChoices)
+        foreach (var pair in playerChoices)
         {
             var typeInfo = houseTypeInfo[pair.Key];
             var key = pair.Key.ToString();
             var flag = dialogueFlags[key];
-            var finalChoice = pair.Value;
+            var playerChoice = pair.Value[0];
             var totalChoices = typeInfo.allChoicesCount;
-            var choiceIndex = typeInfo.ReturnChoiceByName(finalChoice.choiceName).index;
+            var choiceIndex = typeInfo.GetChoiceIndex(playerChoice);
+            Debug.Log("House Type: " + pair.Key); 
             rewardStars += CalculateStars(choiceIndex, totalChoices, flag.Item2);
         }
 
@@ -129,6 +130,7 @@ public class FC_StarScreen : MonoBehaviour
             if (skipped)
                 stars = Mathf.Max(1, stars - 1);
 
+            Debug.Log($"Selcted choice {choiceIndex} and {skipped} dialogue, get stars:{stars}");
             return stars;
         }
         var percent = (float) (totalStars - rewardStars) / totalStars;

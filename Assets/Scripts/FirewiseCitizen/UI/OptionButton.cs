@@ -102,7 +102,7 @@ public class OptionButton : MonoBehaviour
     bool IsGoodOption(string optionName)
     {
         var house = (HouseStructure)(owner.owner);
-        var choice = house.houseInfo.ReturnChoiceByName(optionName, true).choice;
+        var choice = house.houseInfo.ReturnChoiceByName(optionName).choice;
 
         return choice != null && !choice.isNormal;
     }

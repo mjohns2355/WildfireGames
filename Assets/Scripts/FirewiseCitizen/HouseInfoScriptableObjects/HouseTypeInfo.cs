@@ -28,9 +28,8 @@ public class HouseTypeInfo : ScriptableObject
     public Sprite newsUISprite;
     public Sprite choicePicture;
     public Sprite houseIcon;
-    public float homeHardeningChance = 0.4f;
     public List<string> incentiveOptions;
-public int allChoicesCount => choices.Count;
+    public int allChoicesCount => choices.Count;
     //public float carSpawnTime = 1f;
     HouseStructure owner;
 
@@ -42,7 +41,6 @@ public int allChoicesCount => choices.Count;
         owner.petNum = petNumber;
         owner.carSpeed = carSpeed;
         owner.kidNum = kidNumber;
-        owner.homeHardeningChance = homeHardeningChance;
         //owner.carSpawnWaitTime = carSpawnTime;
 
         //foreach(var choice in lockedChoices)
@@ -60,12 +58,16 @@ public int allChoicesCount => choices.Count;
         defaultChoice = choices[0];
     }
 
-    public (HouseChoice choice, int index) ReturnChoiceByName(string name, bool searchLockedChoices = false)
+    public (HouseChoice choice, int index) ReturnChoiceByName(string name)
     {
         houseChoicesDict.TryGetValue(name, out var choice);
         return choice;
     }
 
+    public int GetChoiceIndex(HouseChoice choice)
+    {
+        return choices.FindIndex(c => c.choiceName == choice.choiceName);
+    }
     public bool AllChoicesAreUnlocked()
     {
         var lockedChoicesCount = houseChoicesDict.Where(x => x.Value.choice.isLocked == true).Count();
