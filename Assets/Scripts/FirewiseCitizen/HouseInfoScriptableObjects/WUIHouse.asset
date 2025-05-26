@@ -15,7 +15,7 @@ MonoBehaviour:
   houseType: 5
   menuTitle: Near Wildland
   choices:
-  - choiceName: Evacuate Early
+  - choiceName: Inexpensive Home Hardening
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,15 +23,15 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: Houses in the Wildland Urban Interface are at higher risk. Evacuating
-      early, even when there isn't an evacuation order, is the safe choice.
+    choiceDetail: 'Houses in the Wildland Urban Interface are at higher risk. Clearing
+      brush and replacing mulch with gravel are inexpensive ways to start home hardening. '
     choiceThought: 
     choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Houses along the Wildland Urban Interface were ready and knew
       to evacuate without waiting for a notice.
     isLocked: 0
     isNormal: 1
-  - choiceName: Evacuate Early & Home Hardening
+  - choiceName: Full Home Hardening
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -39,9 +39,9 @@ MonoBehaviour:
     homeHardeningMod: 0.8
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: Home hardening can help prevent a house from catchingg fire. This
+    choiceDetail: Home hardening can help prevent a house from catching fire. This
       includes things  like replcaing the roof with nonflamable materials and clearing
-      vegetations.
+      vegetation.
     choiceThought: 
     choiceThoughtSprite: {fileID: 0}
     endGameFeedback: Households in the Wildland Urban Interface benefited from home
@@ -81,7 +81,6 @@ MonoBehaviour:
   newsUISprite: {fileID: 21300000, guid: 7cbf1a4c789c54e6baec5ee76e5cfb51, type: 3}
   choicePicture: {fileID: 21300000, guid: 7dcc616578d9a43339c839ed2fb14fd4, type: 3}
   houseIcon: {fileID: 21300000, guid: b03514ebaddc64cd6bc05c4b36163820, type: 3}
-  homeHardeningChance: 0.4
   incentiveOptions:
   - Insurance Rebate
   - Landscape Grant

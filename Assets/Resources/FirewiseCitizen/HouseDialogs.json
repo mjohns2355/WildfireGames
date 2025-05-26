@@ -14,31 +14,31 @@
           "dialogText": "<i>You approach a woman in an oil stained shirt peering into the lifted hood of a truck. Another car is parked in the driveway as well.</i>"
         },
         {
-          "id": "2",
-          "characterName": "Lady",
-          "dialogText": "You the one talking about fire safety?",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "optionText": "Yes",
-              "messageText": "Yes I am. I would love to help if I can."
-            },
-            {
-              "optionText": "Nice Car",
-              "messageText": "That's a pretty nice truck you got there. Same with the car.",
-              "nextNodeId": "20"
-            },
-            {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "200"
-            }
-          ]
+            "id": "2",
+            "characterName": "Bailey",
+            "dialogText": "You the one talking about fire safety?",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "optionText": "Yes",
+                    "messageText": "Yes I am. I would love to help if I can."
+                },
+                {
+                    "optionText": "Nice Car",
+                    "messageText": "That's a pretty nice truck you got there. Same with the car.",
+                    "nextNodeId": "20"
+                },
+                {
+                    "optionText": "Skip to final decision",
+                    "nextNodeId": "200"
+                }
+            ]
         },
         {
-          "id": "20",
-          "characterName": "Lady",
-          "dialogText": "Appreciate it. Rebuilt both of them myself.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
+            "id": "20",
+            "characterName": "Bailey",
+            "dialogText": "Appreciate it. Rebuilt both of them myself.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
         },
         {
           "id": "21",
@@ -60,21 +60,21 @@
           ]
         },
         {
-          "id": "3",
-          "characterName": "Lady",
-          "dialogText": "Glad to see someone helping out around here. My name's Bailey.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "options": [
-            {
-              "optionText": "What's the problem?",
-              "messageText": "It's nice to meet you Bailey. What can I do to help?",
-              "nextNodeId": "4"
-            },
-            {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "200"
-            }
-          ]
+            "id": "3",
+            "characterName": "Bailey",
+            "dialogText": "Glad to see someone helping out around here. My name's Bailey.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
+            "options": [
+                {
+                    "optionText": "What's the problem?",
+                    "messageText": "It's nice to meet you Bailey. What can I do to help?",
+                    "nextNodeId": "4"
+                },
+                {
+                    "optionText": "Skip to final decision",
+                    "nextNodeId": "200"
+                }
+            ]
         },
         {
           "id": "4",
@@ -124,7 +124,7 @@
         {
           "id": "103",
           "characterName": "Bailey",
-          "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
+          "dialogText": "But two cars means more options. Plus it would be hard to leave one car behind, since it's so valuable to us.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
@@ -517,7 +517,7 @@
         {
           "id": "22",
           "characterName": "Sarah",
-          "dialogText": "I do hope you can offer my husband and I some advice for the upcoming wildfire season.",
+          "dialogText": "I do hope you can offer us some advice for the upcoming wildfire season.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "conditions": {
             "hasSpoken": 0
@@ -566,7 +566,7 @@
           },
           "options": [
             {
-              "optionText": "Ask About Problem",
+              "optionText": "How can I help?",
               "messageText": "It's nice to meet you Sarah! How can I help?"
             },
             {
@@ -662,8 +662,8 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "Your main priority should be your safety",
-              "messageText": "Your number one priority should be you and your husband's safety, not the house."
+                "optionText": "Home hardening can protect your house",
+                "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation."
             },
             {
               "optionText": "Skip to Incentives",
@@ -681,51 +681,26 @@
         },
         {
           "id": "32",
-          "options": [
-            {
-              "optionText": "Explain importance of early evacuation",
-              "messageText": "In the case of a wildfire, it's critical to get out quickly. There can be a lot of stress around evacuations, but your personal health should never be risked."
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+          "characterName": "Player",
+          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical for your safety, but you can protect your house before you leave."
         },
         {
-          "id": "33",
-          "characterName": "Player",
-          "dialogText": "If you live in a Wildland Urban Interface, evacuating early is critical, and should always be done if there is threat of a fire near you."
+            "id": "33",
+            "characterName": "Sarah",
+            "dialogText": "I love our home, but I know it's important to evacuate early. I want to do what I can to ensure the house is here to come back to.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
           "id": "34",
-          "characterName": "Sarah",
-          "dialogText": "Wow, I never thought about it that way! Even though I love my home, it's better to make sure I can come back in the first place.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "35",
-          "characterName": "Sarah",
-          "dialogText": "I'll make sure we have our go bags ready, and will keep checking our fire department for evacuation information.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "36",
           "characterName": "Sarah",
           "dialogText": "Do you have other advice for us?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "Home Hardening",
-              "messageText": "There are ways to keep your house safe before you evacute; this is known as home hardening."
+                "optionText": "Home hardening steps",
+                "messageText": "There are steps you can take now to begin home hardening now.",
+
+                "nextNodeId": "37"
             },
             {
               "optionText": "Skip to Incentives",
@@ -748,63 +723,28 @@
         },
         {
           "id": "38",
-          "characterName": "Sarah",
-          "dialogText": "That sounds pretty costly.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Unfortunately, it can be."
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
-        },
-        {
-          "id": "39",
           "characterName": "Player",
           "dialogText": "It takes some time, effort, and money to harden your home."
         },
         {
-          "id": "40",
+          "id": "39",
           "characterName": "Player",
           "dialogText": "However, it's worth it if you want to keep your home safe."
         },
         {
-          "id": "41",
-          "dialogText": "<i>She looks back at her freshly painted house. You notice most of the roof, windows, and stairs are brand new.</i>"
+          "id": "40",
+          "dialogText": "<i>She looks back at her freshly painted house. You notice the roof, windows, and stairs are brand new.</i>"
         },
         {
-          "id": "42",
+          "id": "41",
           "characterName": "Sarah",
           "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "43",
+          "id": "42",
           "characterName": "Sarah",
-          "dialogText": "I'm not saying it's impossible to do both. But if we are to evacuate early, that means taking time off work.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "44",
-          "characterName": "Sarah",
-          "dialogText": "Losing money and hours that could have been spent on preparing our home for fires.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "45",
-          "characterName": "Sarah",
-          "dialogText": "I just don't see how we can afford home hardening.",
+          "dialogText": "I'm just not sure we can afford home hardening.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -816,13 +756,14 @@
               "nextNodeId": "200"
             },
             {
-              "optionText": "List cheaper home hardening options",
-              "messageText": "There are less costly options as well!"
+                "optionText": "There are less costly options",
+                "messageText": "There are less costly options as well!",
+                "nextNodeId": "46"
             },
             {
-              "optionText": "Understanding",
-              "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
-              "nextNodeId": "60"
+                "optionText": "I understand where you are coming from",
+                "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
+                "nextNodeId": "60"
             }
           ]
         },
@@ -856,27 +797,26 @@
           "options": [
             {
               "optionText": "Understanding",
-              "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
-              "nextNodeId": "60"
+              "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment."
             }
           ]
         },
         {
-          "id": "60",
+          "id": "51",
           "characterName": "Sarah",
-          "dialogText": "Me too. Whatever your recommendation is, I'll appreciate the advice.",
+          "dialogText": "Me too. Whatever your recommendation is, I appreciate the advice.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "61",
+          "id": "52",
           "characterName": "Sarah",
-          "dialogText": "But without other incentives or support, I don't see how we can do home hardening.",
+          "dialogText": "But without other incentives or support, I don't see how we can do the more expensive steps.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
-          "id": "62",
+          "id": "53",
           "characterName": "Sarah",
-          "dialogText": "I'll probably not home harden, and just evacuate early.",
+          "dialogText": "We'll do what we can.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -899,7 +839,7 @@
         {
           "id": "202",
           "characterName": "Sarah",
-          "dialogText": "Now I'm definitely interested in doing both an early evacuation and home hardening.",
+          "dialogText": "Now I'm definitely interested in doing full home hardening.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -1490,9 +1430,6 @@
             {
               "optionText": "How can I help?",
               "messageText": "How can I help with people's wildfire plans?"
-            },
-            {
-              "optionText": "Me?"
             }
           ]
         },
@@ -1528,7 +1465,7 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
-              "optionText": "What's the problem?",
+              "optionText": "What's worrying you?",
               "messageText": "What's worrying you about this fire season?"
             },
             {
