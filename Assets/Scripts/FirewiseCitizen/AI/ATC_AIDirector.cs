@@ -211,7 +211,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
                 var path = placementManager.GetPathBetween(startRoadPos, endRoadPos, true);
                 path.Reverse();
 
-                if (path.Count == 0 && path.Count > 2) return;
+                if (path.Count == 0 || path.Count < 2) return;
 
 
                 var start = placementManager.GetStructureAt(startRoadPos);

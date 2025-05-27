@@ -225,7 +225,7 @@ public class CarAI : MonoBehaviour
 
     IEnumerator CarReachStopRoutine()
     {
-        //Debug.Log("Close to stop");
+        Debug.Log("Close to stop");
         Stop = true;
         stopIndex++;
 
