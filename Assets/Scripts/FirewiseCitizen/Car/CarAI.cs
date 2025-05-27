@@ -31,7 +31,9 @@ public class CarAI : MonoBehaviour
 
     float changeDirChance = 1f;
 
+    float speedMultiplier;
 
+    private float lastDistanceToTarget = float.MaxValue;
     internal bool IsThisLastPathIndex()
     {
         return index >= path.Count-1;
@@ -55,6 +57,7 @@ public class CarAI : MonoBehaviour
 
     private void Start()
     {
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
         if (path == null || path.Count == 0)
         {
             Stop = true;
@@ -120,7 +123,7 @@ public class CarAI : MonoBehaviour
         if (collisionStop)
         {
             jamTimer += Time.deltaTime;
-            if(jamTimer > 3)
+            if(jamTimer > 3/speedMultiplier)
             {
                 var car = GetComponent<CarController>();
                 ATC_AIDirector.Instance.RespawnACar(car.start, car.ends, car.carSpeed);
@@ -160,45 +163,50 @@ public class CarAI : MonoBehaviour
         if (Stop)
         {
             OnDrive?.Invoke(Vector2.zero);
+            return;
         }
-        else
-        {
-            drivingTimer += Time.deltaTime;
-            Vector3 relativepoint = transform.InverseTransformPoint(currentTargetPosition);
-            float angle = Mathf.Atan2(relativepoint.x, relativepoint.z) * Mathf.Rad2Deg;
-            var rotateCar = 0;
-            if(angle > turningAngleOffset)
-            {
-                rotateCar = 1;
-            }else if(angle < -turningAngleOffset)
-            {
-                rotateCar = -1;
-            }
-            OnDrive?.Invoke(new Vector2(rotateCar, 1));
-        }
+
+        drivingTimer += Time.deltaTime;
+
+        Vector3 rel = transform.InverseTransformPoint(currentTargetPosition);
+        float angle = Mathf.Atan2(rel.x, rel.z) * Mathf.Rad2Deg;
+        int steer = 0;
+        if (angle > turningAngleOffset) steer = 1;
+        else if (angle < -turningAngleOffset) steer = -1;
+
+        float dist = Vector3.Distance(currentTargetPosition, transform.position);
+        
+        float throttle = Mathf.Clamp01(dist / arriveDistance);
+
+        OnDrive?.Invoke(new Vector2(steer, throttle));
     }
 
     private void CheckIfArrived()
     {
-        if(Stop == false)
+        if (Stop) return;
+
+        float distanceToCheck = (index == path.Count - 1)
+            ? lastPointArriveDistance
+            : arriveDistance;
+
+        float currentDistance = Vector3.Distance(currentTargetPosition, transform.position);
+
+        if (currentDistance < distanceToCheck
+            || currentDistance > lastDistanceToTarget)
         {
-            var distanceToCheck = arriveDistance;
-            if(index == path.Count - 1)
-            {
-                distanceToCheck = lastPointArriveDistance;
-            }
-            if(Vector3.Distance(currentTargetPosition,transform.position) < distanceToCheck)
-            {
-                SetNextTargetIndex();
-            }
-            // Avoid changing direction when car is close to destination
-            if (Vector3.Distance(path[^1],transform.position) < 3f)
-            {
-                //Debug.Log("Close to destination");
-                changeDirChance = 0;
-            }
+            SetNextTargetIndex();
+            lastDistanceToTarget = float.MaxValue;
+            return;
+        }
+
+        lastDistanceToTarget = currentDistance;
+
+        if (Vector3.Distance(path[^1], transform.position) < 3f)
+        {
+            changeDirChance = 0;
         }
     }
+
 
     private void CheckIfNearToStop()
     {
@@ -225,7 +233,7 @@ public class CarAI : MonoBehaviour
         {
             noStops = true;
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f/speedMultiplier);
         Stop = false;
     }
     private void SetNextTargetIndex()
@@ -256,7 +264,7 @@ public class CarAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Fire") && other.GetComponent<FireMovementController>().onCombustible && !sawFire && drivingTimer > 10f)
+        if (other.CompareTag("Fire") && other.GetComponent<FireMovementController>().onCombustible && !sawFire && drivingTimer > 10f/speedMultiplier)
         {
             //Debug.Log("See fire");
             if (changeDirChance <= 0.25f) return;
@@ -283,7 +291,7 @@ public class CarAI : MonoBehaviour
         //Debug.Log("Change Direction");
         // Get nearest house or road and respawn car
         var pos = Vector3Int.RoundToInt(transform.position);
-        var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).Value;
+        var roadPos = ATC_AIDirector.Instance.placementManager.GetNearestRoad(pos, 1, 1).GetValueOrDefault();
 
         var newStart = ATC_AIDirector.Instance.placementManager.GetStructureAt(roadPos);
         var car = GetComponent<CarController>();

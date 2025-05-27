@@ -334,6 +334,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
+        
         //dialogManager = FindObjectOfType<ATC_dialogManager>();
         //uiController = FindObjectOfType<ATC_UIController>();
     }

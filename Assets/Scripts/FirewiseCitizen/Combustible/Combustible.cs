@@ -19,14 +19,16 @@ public class Combustible : MonoBehaviour
     public bool burned = false;
     public bool canBurn = true;
     protected float burnTime = 0;
-
+    private float speedMultiplier;
     //private ATC_dialogManager dialog;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
-        waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
-        if(meshes.Count == 0)
+        
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
+        waitTimeBeforeCatchOnFire = Random.Range(5f,10f) / GameManager.Instance.SimulationSpeed;
+        if (meshes.Count == 0)
         {
             meshes = GetComponentsInChildren<MeshRenderer>()
             .Where(meshRenderer => meshRenderer.gameObject.layer != LayerMask.NameToLayer("Ground"))
@@ -45,12 +47,13 @@ public class Combustible : MonoBehaviour
             burnTime += Time.deltaTime;
             foreach(MeshRenderer m in meshes)
             {
-                m.material.color = Color.Lerp(m.material.color, burntColor, Time.deltaTime);
+                m.material.color = Color.Lerp(m.material.color, burntColor, Time.deltaTime * speedMultiplier);
             }
-            if(burnTime > 30 && !burned && !GameManager.Instance.SimIsEnd)
+            if(burnTime > 30/speedMultiplier && !burned && !GameManager.Instance.SimIsEnd)
             {
                 if(gameObject.layer == LayerMask.NameToLayer("Structure"))
                 {
+                    Instantiate(Resources.Load("Burned"), transform.position,transform.rotation, transform.parent);
                     GameManager.Instance.housesDestroyed++;
                 }
                 //dialog.houseDestroyed++;
@@ -63,9 +66,10 @@ public class Combustible : MonoBehaviour
     {
         if (!canBurn) return;
         if (isOnfire || burned) return;
+
         //if (fire != null && fire.isInFireSafeZone) return;
 
-        if (Random.Range(0.4f,1) > fireChance)
+        if (Random.Range(0.4f, 1) > fireChance)
         {
             fireChance += Time.deltaTime;
             return;
@@ -97,12 +101,14 @@ public class Combustible : MonoBehaviour
     
     public virtual IEnumerator CatchOnFireRoutine()
     {
+
+        //Debug.Log($"{gameObject.name}'s wait time {waitTimeBeforeCatchOnFire}");
         yield return new WaitForSeconds(waitTimeBeforeCatchOnFire);
+        
         if (!GameManager.Instance.SimIsEnd)
         {
-
             GameManager.Instance.fireManager.SpawnFire(fireSpawnPos, particleScale, true);
-            
+            //Debug.Log($"{gameObject} is on fire");
             isOnfire = true;
             fire = fireSpawnPos.GetComponentInChildren<FireMovementController>();
             OnIgnite.Invoke();

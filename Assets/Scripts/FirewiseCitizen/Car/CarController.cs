@@ -20,12 +20,20 @@ public class CarController : MonoBehaviour
 
     [SerializeField]
     private Vector2 movementVector;
+    private float speedMultiplier;
+    float scaledPower;
+    float scaledTorque;
+    float scaledMaxSpeed;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+       
     }
     private void Start()
     {
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
+        
+        float simPow = Mathf.Sqrt(speedMultiplier);
         switch (carSpeed)
         {
             case CarSpeed.slow:
@@ -35,6 +43,9 @@ public class CarController : MonoBehaviour
             case CarSpeed.fast:
                 power = 30; break;
         }
+        scaledPower = power * speedMultiplier;
+        scaledTorque = torque * speedMultiplier;
+        scaledMaxSpeed = maxSpeed * simPow;
     }
     public void Move(Vector2 movementInput)
     {
@@ -43,13 +54,25 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(rb.velocity.magnitude < maxSpeed)
+       
+        if (movementVector.sqrMagnitude < 0.001f)
         {
-            rb.AddForce(movementVector.y * transform.forward * power);
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            return;
         }
-        rb.AddTorque(movementVector.x * Vector3.up * torque * movementVector.y);
 
-        
+        if (rb.velocity.magnitude < scaledMaxSpeed)
+            rb.AddForce(movementVector.y * transform.forward * scaledPower,
+                        ForceMode.Force);
+
+        rb.AddTorque(movementVector.x * Vector3.up * scaledTorque,
+                     ForceMode.Force);
+
+        if (rb.velocity.sqrMagnitude > scaledMaxSpeed * scaledMaxSpeed)
+            rb.velocity = rb.velocity.normalized * scaledMaxSpeed;
+
+
     }
 
 }

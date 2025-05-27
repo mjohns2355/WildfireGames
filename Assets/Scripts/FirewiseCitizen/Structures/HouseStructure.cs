@@ -314,7 +314,7 @@ public class HouseStructure : Structure
         ApplyChoice();
         //outline.enabled = false;
         SetOutline(false);
-        yield return new WaitForSeconds(carSpawnWaitTime);
+        yield return new WaitForSeconds(carSpawnWaitTime/GameManager.Instance.SimulationSpeed);
 
         //Debug.Log("After " + carSpawnWaitTime + "sec(s), " + houseType + " Spawned " + carNum + " " + carSpeed + " speed car(s)");
         //make sure main house also spawn car
@@ -361,15 +361,9 @@ public class HouseStructure : Structure
     {
         foreach(var house in sameTypeHouses)
         {
-            var rng = UnityEngine.Random.Range(0f, 1f);
-            if(rng < homeHardeningChance)
-            {
-                house.HomeHardeningBehavior(homeHardeningMod);
-            }
-            else
-            {
-                Debug.Log("Home Hardening Failed");
-            }
+
+              house.HomeHardeningBehavior(homeHardeningMod);
+              
 
         }
         
@@ -402,9 +396,5 @@ public class HouseStructure : Structure
         this.destinations = destinations;
     }
 
-    private void OnMouseDown()
-    {
-
-    }
 
 }

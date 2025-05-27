@@ -152,6 +152,7 @@ public class ATC_AIDirector : UnitySingleton<ATC_AIDirector>
 
     public List<Vector3> FindPath(ATC_StructureModel startStructure, ATC_StructureModel endStructure)
     {
+        if (startStructure == null || endStructure == null) return null;
         //List<Vector3> carPath = new List<Vector3>();
         Vector3Int startRoadPos;
         if (startStructure.GetComponent<HouseStructure>() != null)

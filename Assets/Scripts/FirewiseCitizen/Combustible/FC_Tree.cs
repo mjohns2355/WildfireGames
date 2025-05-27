@@ -12,6 +12,7 @@ public class FC_Tree : MonoBehaviour
     private float startTime;
     private float scaler = 1f;
     private Quaternion rotation;
+    private float speedMultiplier;
     public bool IsBurnt
     {
         get => _isBurnt;
@@ -27,7 +28,8 @@ public class FC_Tree : MonoBehaviour
 
     public void Start()
     {
-        startTime = Random.Range(0,3f);
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
+        startTime = Random.Range(0,3f)/speedMultiplier;
         burnt.SetActive(false);
         float randomY = Random.Range(0f, 360f);
         rotation = Quaternion.Euler(0, randomY, 0);

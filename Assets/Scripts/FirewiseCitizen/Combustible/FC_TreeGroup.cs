@@ -8,9 +8,8 @@ public class FC_TreeGroup : Combustible
 
     public override void Start()
     {
-        
-        waitTimeBeforeCatchOnFire = Random.Range(3f, 10f);
         trees = GetComponentsInChildren<FC_Tree>();
+        waitTimeBeforeCatchOnFire = Random.Range(3f, 10f) / GameManager.Instance.SimulationSpeed;
         foreach (FC_Tree tree in trees)
         {
             var mesh = tree.normal.GetComponentsInChildren<MeshRenderer>();
@@ -26,8 +25,9 @@ public class FC_TreeGroup : Combustible
     public override void Update()
     {
         base.Update();
-        if (burnTime > 10 && !burned && !GameManager.Instance.SimIsEnd)
+        if (burnTime > 10/GameManager.Instance.SimulationSpeed && !burned && !GameManager.Instance.SimIsEnd)
         {
+            
             foreach (FC_Tree tree in trees)
             {
                 tree.IsBurnt = true;

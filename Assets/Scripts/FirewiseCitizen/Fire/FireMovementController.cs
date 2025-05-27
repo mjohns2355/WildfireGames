@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireMovementController : MonoBehaviour
 {
     public bool onCombustible = false;
+    public float speedMultiplier;
     public Combustible combustible;
     public float waitTime = 1f;
     public Vector3 scaler;
@@ -35,14 +36,14 @@ public class FireMovementController : MonoBehaviour
             fireSize = maxSize;
             StartCoroutine(OnDestroyFireRoutine());
         }
-        
 
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
     }
     private void Update()
     {
         if (!onCombustible)
         {
-            rb.velocity = windDirection * speed ;
+            rb.velocity = windDirection * speed;
         }
 
 
@@ -78,7 +79,7 @@ public class FireMovementController : MonoBehaviour
             Combustible obj;
             if (hit.TryGetComponent(out obj) && obj != null)
             {
-                //Debug.Log($"Fire: {gameObject.GetInstanceID()} on combustible spread fire to another combustible");
+                //Debug.Log($"{obj.name} is on fire");
                 obj.CatchOnFire();
             }
         }
@@ -109,8 +110,6 @@ public class FireMovementController : MonoBehaviour
     public void ImpactFire(float multiplier)
     {
         var emberVelocity = embers.velocityOverLifetime;
-        var fireVelocity = fire.velocityOverLifetime;
-        var mediumFlameVelocity = mediumFlame.velocityOverLifetime;
         //emberVelocity.x = windDirection.x;
         //emberVelocity.z = windDirection.z;
         emberVelocity.xMultiplier = windDirection.x * multiplier;
@@ -129,16 +128,16 @@ public class FireMovementController : MonoBehaviour
 
     IEnumerator ChangeFireSizeRoutine(float maxSize)
     {
-        yield return new WaitForSeconds(waitTime);
-        GraduallyChangeFireSize(maxSize, fireGrowthSpeed);
+        yield return new WaitForSeconds(waitTime/speedMultiplier);
+        GraduallyChangeFireSize(maxSize, fireGrowthSpeed*speedMultiplier);
     }
 
     IEnumerator OnDestroyFireRoutine()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(10f/speedMultiplier);
         //Debug.Log("Fire start to shrink");
         fireSize = minSize;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(10f/speedMultiplier);
         //Debug.Log("Destroy Fire");
         if(combustible != null && combustible.burned)
         {
@@ -146,7 +145,7 @@ public class FireMovementController : MonoBehaviour
             {
                 case 10:
                     //Debug.Log("Burned Structure");
-                    Instantiate(Resources.Load("Burned"), combustible.transform.position, combustible.transform.rotation, combustible.transform.parent);
+                    
                     Destroy(combustible.gameObject);
                     break;
                 case 9:

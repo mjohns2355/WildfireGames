@@ -17,12 +17,14 @@ public class ATC_WindZone : MonoBehaviour
 
     float windDirChangeInterval = 10f;
     float windTimer = 0f;
+    float speedMultiplier;
     Rigidbody rb;
     BoxCollider collider;
     public GameObject fireSFX;
     // Start is called before the first frame update
     void Start()
     {
+        speedMultiplier = GameManager.Instance.SimulationSpeed;
         WindDirection = transform.right;
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<BoxCollider>();
@@ -45,13 +47,13 @@ public class ATC_WindZone : MonoBehaviour
         //    }
         //}
         windTimer += Time.deltaTime;
-        if (windTimer>= windDirChangeInterval)
+        if (windTimer>= windDirChangeInterval/speedMultiplier)
         {
             //Debug.Log("Change Wind Direction");
             RandomizeWindDirection();
             windTimer = 0f;
         }
-        rb.velocity = windSpeed * WindDirection ;
+        rb.velocity = windSpeed * WindDirection * speedMultiplier ;
     
 }
 
@@ -63,7 +65,7 @@ public class ATC_WindZone : MonoBehaviour
             
             var fire = hit.GetComponent<FireMovementController>();
             fire.windDirection = WindDirection;
-            fire.speed = windSpeed;
+            fire.speed = windSpeed * speedMultiplier;
             fire.ImpactFire(windForce);
         }
     }

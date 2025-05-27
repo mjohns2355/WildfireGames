@@ -25,7 +25,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]private Vector3 camStartPos;
     private Quaternion camStartRotation;
     private float camStartFOV,targetFOV;
-    [SerializeField] private GameObject lastHit;
+    [SerializeField] private List<GameObject> hitObjects = new ();
     float touchDist = 0;
     float lastDist = 0;
     public LayerMask ignoreLayerMask;
@@ -45,7 +45,7 @@ public class CameraMovement : MonoBehaviour
         //GameManager.Instance.inputManager.OnMouseUp += ResetMousePosition;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(isFocusing)
         {
@@ -57,18 +57,30 @@ public class CameraMovement : MonoBehaviour
 
             gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, targetFOV, cameraZoomToHouseSpeed * Time.deltaTime);
 
-            RaycastHit hit;
 
-            if (Physics.Raycast(transform.position,transform.forward, out hit, Mathf.Infinity, ignoreLayerMask, QueryTriggerInteraction.Collide))
+            
+            for (int i = 0; i < hitObjects.Count; i++)
+                hitObjects[i].SetActive(true);
+            hitObjects.Clear();
+
+            Vector3 origin = transform.position;
+            Vector3 dir = (target.position - origin).normalized;
+            float distance = Vector3.Distance(origin, target.position);
+
+            int layerMask = ignoreLayerMask;
+
+            RaycastHit[] hits = Physics.RaycastAll(origin, dir, distance, layerMask,
+                                                   QueryTriggerInteraction.Collide);
+
+            
+            foreach (var hit in hits)
             {
-                Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
-                var hitObj = hit.collider.gameObject;
-                if (hitObj)
+                var go = hit.collider.gameObject;
+                if (go.activeSelf)
                 {
-                    hitObj.SetActive(false);
-                    lastHit = hitObj;
+                    go.SetActive(false);
+                    hitObjects.Add(go);
                 }
-
             }
 
         }
@@ -168,12 +180,10 @@ public class CameraMovement : MonoBehaviour
     {
         
         isFocusing = false;
-        if (lastHit)
-        {
-            lastHit.SetActive(true);
-            lastHit = null;
-        }
-        
+        for (int i = 0; i < hitObjects.Count; i++)
+            hitObjects[i].SetActive(true);
+        hitObjects.Clear();
+
         gameCamera.fieldOfView = camStartFOV;
         FOV = camStartFOV;
 
