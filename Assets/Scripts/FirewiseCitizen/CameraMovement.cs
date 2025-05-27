@@ -89,14 +89,6 @@ public class CameraMovement : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
     }
 
-    public void ZoomCamera(float mouseAxis)
-    {
-
-        FOV += mouseAxis * -1 * cameraZoomSpeed;
-        FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
-        gameCamera.fieldOfView = Mathf.Lerp(gameCamera.fieldOfView, FOV, Time.deltaTime * lerpSpeed);
-    }
-
     public void ZoomCamera()
     {    // Check for desktop input
         if (!GameManager.Instance.canControlCam) return;
@@ -137,7 +129,7 @@ public class CameraMovement : MonoBehaviour
             if (Mathf.Abs(scrollInput) > 0.01f) 
             {
                 float adjustedScrollInput = scrollInput * 100f;
-                FOV -= adjustedScrollInput * 10f * Time.unscaledDeltaTime;
+                FOV -= adjustedScrollInput * 10f * Time.deltaTime;
                 FOV = Mathf.Clamp(FOV, minFOV, maxFOV);
                 //gameCamera.fieldOfView = Mathf.SmoothDamp(gameCamera.fieldOfView, FOV, ref velocity, smoothTime);
                 //gameCamera.fieldOfView = FOV;

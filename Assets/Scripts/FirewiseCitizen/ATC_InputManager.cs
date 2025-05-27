@@ -14,8 +14,7 @@ public class ATC_InputManager : MonoBehaviour
     public float cameraZoomAxis;
     public Vector2 cameraMovementVector;
     public bool checkKeyboard;
-	[SerializeField]
-	Camera mainCamera;
+	[SerializeField] Camera mainCamera;
 
 	public LayerMask groundMask;
     public LayerMask structureMask;
@@ -25,11 +24,6 @@ public class ATC_InputManager : MonoBehaviour
     private Vector3 lastTouchPosition;
     private bool isDragging;
     public bool isKeyboard = false;
-    //   public Vector2 CameraMovementVector
-    //   {
-    //	get { return cameraMovementVector; }
-    //}
-
 
 
     private void Start()
@@ -44,11 +38,10 @@ public class ATC_InputManager : MonoBehaviour
         CheckClickHoldEvent();
         CheckClickUpEvent();
         CheckArrowInput();
-#if UNITY_EDITOR
-        SimulateTouchWithMouse();  // In the editor, simulate touch input with the mouse
-#else
-        CheckDragInput();  // On mobile devices, use real touch input
-#endif
+        if (Input.touchSupported && Input.touchCount > 0)
+            CheckDragInput();    // touch input
+        else
+            CheckMouseDrag();    // click & drag
 
 
     }
@@ -93,25 +86,24 @@ public class ATC_InputManager : MonoBehaviour
         }
 
     }
-
-    private void SimulateTouchWithMouse()
+    private void CheckMouseDrag()
     {
-        if(!checkKeyboard) return;
+        if (!checkKeyboard) return;
         isKeyboard = false;
+
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
-            lastTouchPosition = Input.mousePosition;
             isDragging = true;
             checkKeyboard = true;
         }
         else if (Input.GetMouseButton(0) && isDragging)
         {
-            Vector3 touchDelta = Input.mousePosition - lastTouchPosition;
-            Vector3 localMoveDirection = Camera.main.transform.TransformDirection(touchDelta);
-            cameraMovementVector = new Vector2(-localMoveDirection.x, -localMoveDirection.z) * 5f * Time.unscaledDeltaTime;
-            lastTouchPosition = Input.mousePosition;
+            float dx = Input.GetAxis("Mouse X");
+            float dy = Input.GetAxis("Mouse Y");
+            Vector3 localMoveDir = mainCamera.transform.TransformDirection(new Vector3(dx, 0f, dy));
+            cameraMovementVector = new Vector2(-localMoveDir.x, -localMoveDir.z) * 5f;
         }
-        else if (Input.GetMouseButtonUp(0) && !IsPointerOverUI())
+        else if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
         }
@@ -132,7 +124,7 @@ public class ATC_InputManager : MonoBehaviour
             {
                 Vector3 touchDelta = (Vector3)touch.position - lastTouchPosition;
                 Vector3 localMoveDirection = Camera.main.transform.TransformDirection(touchDelta);
-                cameraMovementVector = new Vector2(-localMoveDirection.x,-localMoveDirection.z) * 5f * Time.unscaledDeltaTime;
+                cameraMovementVector = new Vector2(-localMoveDirection.x,-localMoveDirection.z) * 5f * Time.deltaTime;
                 lastTouchPosition = touch.position;
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
