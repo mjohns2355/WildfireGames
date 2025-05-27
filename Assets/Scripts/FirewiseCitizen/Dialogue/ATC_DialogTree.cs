@@ -51,19 +51,20 @@ public class DialogNode
     public DialogOption[] options;
     public bool isEndNode;
     public DialogCondition conditions;
+    public string nextNodeId;
     public string GetNextNodeId()
     {
-        string nextNodeId;
+        string nextId;
         if (options == null)
         {
-            nextNodeId = (Convert.ToInt32(id) + 1).ToString();
+            nextId = nextNodeId?? (Convert.ToInt32(id) + 1).ToString();
         }
         else
         {
-            nextNodeId = options[0].nextNodeId ?? (Convert.ToInt32(id) + 1).ToString();
+            nextId = options[0].nextNodeId ?? (Convert.ToInt32(id) + 1).ToString();
         }
         //Debug.Log("Next node id: " + nextNodeId);
-        return nextNodeId;
+        return nextId;
     }
 }
 [System.Serializable]
