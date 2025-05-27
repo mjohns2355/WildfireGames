@@ -1,4 +1,3 @@
-using cakeslice;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -31,7 +30,13 @@ public class GameManager : UnitySingleton<GameManager>
     public float houseFollowOrderChance,spawnCarChance = 1f;
     public LevelStage currentStage;
     public float SimTimer { get; private set; }
-    public float simulationTime = 70f;
+    public float SimulationTime => currentLevel switch
+    {
+        0 => 25f,
+        1 => 50f,
+        2 => 70f,
+        _ => 25f 
+    };
     public bool SimIsEnd { get; private set; }
     public bool canControlCam;
     public int levelNum = 3;
@@ -72,6 +77,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         isPaused = !isPaused;
         Debug.Log($"Game is Paused: {isPaused}");
+        canControlCam = !isPaused;
         if (isPaused)
         {
             Time.timeScale = 0f;
@@ -108,26 +114,17 @@ public class GameManager : UnitySingleton<GameManager>
 
         // check if simulation is end
         if (!canStartSim) return;
-        if (SimTimer < simulationTime)
+        if (SimTimer < SimulationTime)
         {
             SimTimer += Time.deltaTime;
         }
         else if (!SimIsEnd)
         {
 
-            //if (!IsFirstSim)
-            //{
-            //    //check win/lose
-            //    currentStage = IsGameWon() ? LevelStage.Win : LevelStage.Lose;
-            //}
-            //else
-            //{
             if (IsFirstSim)
             {
                 currentStage = LevelStage.AfterFirstSim;
             }
-                
-            //}
             SimIsEnd = true;
             OnSimEnd();
             SimEndsEvent.Invoke();

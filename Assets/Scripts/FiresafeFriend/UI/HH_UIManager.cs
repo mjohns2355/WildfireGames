@@ -19,7 +19,7 @@ public class HH_UIManager : MonoBehaviour
     public WarningPopupPanel warningPopup;
     public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab,startText, modeToggle;
-    public GameObject pauseMenu,aftermathPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
+    public GameObject pauseMenu,aftermathPopup,joinConcilPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
     public TextMeshProUGUI aftermathPlayerText;
     [Header("Banner Timings")]
     public float stretchDuration = 0.5f;  
@@ -129,11 +129,9 @@ public class HH_UIManager : MonoBehaviour
         var currentPlayer = HH_GameManager.Instance.currentPlayer;
         aftermathPlayerText.text = currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2";
         aftermathPopup.SetActive(true);
+       
     }
-    //public void ToggleMoveAndRepairBtns(bool state)
-    //{
 
-    //}
     public void ShowStoreScreen(HousePartType partType, bool isPublic = false/*, PurchaseFloatingButton clickedButton = null*/)
     {
         if (isPublic)

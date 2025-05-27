@@ -25,7 +25,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public bool IsPaused { get; private set; }
     public bool IsGameStarted { get => _currentStage != GameStage.BeforeGame; }
     public bool IsFireStarted {  get => _currentStage == GameStage.Fire; }
-    private GameObject[] fences;
     public List<BaseHousePartObject> publicFences;
     public HouseManager p1;
     public HouseManager p2;
@@ -37,7 +36,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField] List<Transform> publicFencesTransforms = new();
     private int consecutiveCompetitionCount,currentRoundCount = 0;
     private bool mustForceCompetition = false;
-    private bool lastRoundIsFire = false;
+    private bool lastRoundIsFire,lastRoundIsCompetition = false;
+    private string competitionLoser = string.Empty;
     private bool publicFencesRepaired = false;
     //[SerializeField] private float _fireTimer = 0;
     List<GameObject> houses = new();
@@ -302,10 +302,12 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     void OnCompetition()
     {
         IsPlantMode = false;
+        lastRoundIsCompetition = true;
         var p1Score = p1.CalculateRating();
         var p2Score = p2.CalculateRating();
         lastRoundIsFire = false;
 
+        competitionLoser = p1Score > p2Score ? p2.playerTag : p1.playerTag;
         int rewardP1 = p1Score > p2Score ? WinReward
               : p1Score < p2Score ? 0
               : TieReward;
@@ -319,6 +321,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
         uiManager.ShowEndScreen(isFire: false,p1Score ,p2Score);
 
+    }
+
+    public void EarnReward()
+    {
+        currentPlayer.budgetManager.IncreaseBudget(WinReward);
     }
     public void SwitchPlayer (string playerTag)
     {
@@ -363,6 +370,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         CurrentStage = GameStage.RoundStart;
         this.currentPlayer = currentPlayer;
         if (isTutorial) return;
+        if (lastRoundIsCompetition)
+        {
+            var isLoser = competitionLoser == currentPlayer.playerTag;
+            uiManager.joinConcilPopup.SetActive(isLoser);
+        }
         
         if (!lastRoundIsFire)
         {
@@ -386,6 +398,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         skyboxController.ChangeSky(true);
         uiManager.ToggleEarnMoreMoneyButton(false);
         lastRoundIsFire = true;
+        lastRoundIsCompetition = false;
         p1.CalculateTotalHousePartWeight();
         p2.CalculateTotalHousePartWeight();
     }
