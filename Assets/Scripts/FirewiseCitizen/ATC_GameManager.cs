@@ -37,6 +37,13 @@ public class GameManager : UnitySingleton<GameManager>
         2 => 70f,
         _ => 25f 
     };
+    public float SimulationSpeed => currentLevel switch
+    {
+        0 => 3f,
+        1 => 2f,
+        2 => 1f,
+        _ => 1f
+    };
     public bool SimIsEnd { get; private set; }
     public bool canControlCam;
     public int levelNum = 3;
@@ -220,28 +227,6 @@ public class GameManager : UnitySingleton<GameManager>
 #endif
     }
 
-
-    //public void ToggleAssignMode()
-    //{
-    //    assignMode = !assignMode;
-    //    if (assignMode == false)
-    //    {
-    //        ClearInputAction();
-    //        inputManager.OnMouseClick += structureManager.ClickStructre;
-    //    }
-    //    uiController.UpdateConstructionMode(constructionMode);
-    //    inputManager.OnConstructionMode(constructionMode);
-    //    Debug.Log(assignMode);
-    //}
-
-
-    //public string[] ParseString( string str, char[] delimiterChars)
-    //{
-    //    string[] words = str.Split(delimiterChars);
-
-    //    return words;
-    //}
-
     public void ResetGame(bool restartFromTutorial = false)
     {
         fireManager.wind.isStill = true;
@@ -359,39 +344,17 @@ public class GameManager : UnitySingleton<GameManager>
         {
             availableHouseTypes.Clear();
         }
-        //availableHouseTypes = Enum.GetValues(typeof(HouseType))
-        //                             .Cast<HouseType>()
-        //                             .Where(type => type != HouseType.none)
-        //                             .ToList();
-        //if (CurrentLevel == 0)
-        //{
-        //    availableHouseTypes.Add(HouseType.twoCar);
-        //    availableHouseTypes.Add(HouseType.wui);
-        //    // test version
-        //    availableHouseTypes.Add(HouseType.kids);
-        //    availableHouseTypes.Add(HouseType.elderly);
-        //    availableHouseTypes.Add(HouseType.pet);
-        //}
-        //else
-        //{
-        //    for (int i = 1; i < Enum.GetValues(typeof(HouseType)).Length; i++)
-        //    {
-        //        var houseType = (HouseType)i;
-        //        availableHouseTypes.Add(houseType);
-        //    }
-        //}
 
         switch (currentLevel)
         {
             case 0:
                 availableHouseTypes.Add(HouseType.twoCar);
-                availableHouseTypes.Add(HouseType.wui);
+                availableHouseTypes.Add(HouseType.elderly);
                 break;
             case 1:
-                availableHouseTypes.Add(HouseType.twoCar);
                 availableHouseTypes.Add(HouseType.wui);
                 availableHouseTypes.Add(HouseType.kids);
-                availableHouseTypes.Add(HouseType.elderly);
+                availableHouseTypes.Add(HouseType.pet);
                 break;
             case 2:
                 availableHouseTypes.Add(HouseType.twoCar);

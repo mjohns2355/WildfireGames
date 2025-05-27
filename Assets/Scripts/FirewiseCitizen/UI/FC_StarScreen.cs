@@ -74,12 +74,8 @@ public class FC_StarScreen : MonoBehaviour
     {
         int totalHouses = GameManager.Instance.totalHouses;
         int housesDestroyed = GameManager.Instance.housesDestroyed;
-        var wuiHouseCount = GameManager.Instance.structureManager.houseTypeDict[HouseType.wui].Count + 1;
-        int houseNotHomeHardening = wuiHouseCount - GameManager.Instance.houseHasHomeHardening;
-        int effectiveDestroyed = housesDestroyed + houseNotHomeHardening;
-        effectiveDestroyed = Mathf.Min(effectiveDestroyed, totalHouses);
-        float percentBurned = (float)effectiveDestroyed / totalHouses;
-        Debug.Log($"Total House:{totalHouses}, House Destroyed: {housesDestroyed}, House Not Home Hardening: {houseNotHomeHardening}, Effective Destroyed: {effectiveDestroyed}, Percent:{percentBurned}");
+        float percentBurned =(float) housesDestroyed / totalHouses;
+        //Debug.Log($"Total House:{totalHouses}, House Destroyed: {housesDestroyed}, Percent:{percentBurned}");
         ShowStars(CalculateStarRating(percentBurned),houseProtectedStars);
     }
     
