@@ -20,6 +20,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
+    public TextMeshProUGUI objectiveText;
     //public GameObject endScreen;
     public GameObject learnMorePanel, restartPrompt;
     //public TextMeshProUGUI levelText;
@@ -85,22 +86,10 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
         skipSim.onClick.AddListener(GameManager.Instance.SkipSimulation);
         HideLoadingScreen();
-        //restartGame.onClick.AddListener(() =>
-        //{
-        //    GameManager.Instance.ResetGame(0);
-        //});
-
-        //restartLevel.onClick.AddListener(() =>
-        //{
-        //    GameManager.Instance.ResetGame();
-        //});
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
-        //ShowDialog();
-        //startPrompt.SetActive(true);
-
-
+        
     }
 
     private void Update()
@@ -125,6 +114,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         windDirectionIndicator.gameObject.SetActive(true);
         skipSim.gameObject.SetActive(true);
         toolsBar.SetActive(false);
+        objectiveText.transform.parent.gameObject.SetActive(true);
     }
     void OnSimEnd()
     {
@@ -142,6 +132,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         windDirectionIndicator.gameObject.SetActive(false);
         skipSim.gameObject.SetActive(false);
         toolsBar.SetActive(true);
+        
+       
         //ShowDialog();
     }
 
@@ -210,31 +202,17 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         foreach (var menu in contextMenus)
         {
-            //menu.icon.gameObject.SetActive(false);
             if (!menu.gameObject.activeSelf) continue;
             menu.menuUI.SetActive(false);
-            //if (!menu.gameObject.activeSelf) continue;
-            //menu.gameObject.SetActive(false);
 
         }
         
         evacNotice.SetActive(false);
         statsPanel.gameObject.SetActive(false);
+        houseDialogManager.talkedResidents = 0;
         ClearAllPanels();
     }
-    //public void UpdateConstructionMode(bool state)
-    //{
-    //    Text text = constructionButton.gameObject.GetComponentInChildren<Text>();
-    //    if (state == true)
-    //    {
-    //        text.text = "Construction ON";
-    //    }
-    //    else
-    //    {
-    //        text.text = "Construction OFF";
-    //    }
-    //    //buildingMenu.SetActive(state);
-    //}
+
 
     public void AddSelectedHouse(HouseStructure house)
     {
@@ -374,5 +352,12 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         loadingScreen.blocksRaycasts = false;
         GameManager.Instance.canControlCam = true;
         loadingScreen.alpha = 0;
+    }
+
+    public void UpdateObjectiveText(int talkedResidents = 0 )
+    {
+        if (!objectiveText.transform.parent.gameObject.activeSelf) objectiveText.transform.parent.gameObject.SetActive(true);
+        var totalResidents = GameManager.Instance.availableHouseTypes.Count();
+        objectiveText.text = $"Talk to Residents: {talkedResidents} / {totalResidents}";
     }
 }

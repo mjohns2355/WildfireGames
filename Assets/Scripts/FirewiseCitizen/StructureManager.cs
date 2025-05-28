@@ -58,7 +58,7 @@ public class StructureManager : MonoBehaviour
             {
                 // house is not a special structure
                 if (type == StructureType.House) continue;
-                Debug.Log($"Init special structure dict: {type}");
+                //Debug.Log($"Init special structure dict: {type}");
                 var structure = placementManager.GetRandomSpecialStructursOfType(type);
                 if(structure != null)
                 {

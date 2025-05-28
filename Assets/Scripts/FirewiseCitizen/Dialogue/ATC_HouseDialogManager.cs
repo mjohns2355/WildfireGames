@@ -39,6 +39,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public bool canShowSkipButton = false;
     private bool canClick = false;
     private CanvasGroup topEdgeFade;
+    public int talkedResidents = 0;
 
     private void Start()
     {
@@ -134,11 +135,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 DisplayCurrentNode();
             }
         }
-        //else if(currentNode.isEndNode)
-        //{
-
-        //    DOVirtual.DelayedCall(0.1f,EndDialog).SetId(gameObject);
-        //}
     }
 
     public void SkipDialogue()
@@ -233,11 +229,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         else
         {
-            //DOVirtual.DelayedCall(2f, () =>
-            //{
-            //    ShowOptions();
-            //    isWaitingForPlayer = true; // Only allow input after the node is fully ready
-            //});
             isWaitingForPlayer = true;
             canClick = true;
         }
@@ -287,9 +278,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
         float delayTime = clickCooldown + text.Length * waitTimePerCharacter;
 
         StartCoroutine(OptionSelectedRoutine(delayTime, selectedOption));
-
-        //DisplayCurrentNode();
-        //HideOptions();
     }
 
     IEnumerator OptionSelectedRoutine(float delay, DialogOption selectedOption)
@@ -330,8 +318,18 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog(bool closed = false)
     {
         StopAllCoroutines();
-        if (!dialogFlagsMap[key].Item2)   // if NOT skipped
-            SetFlag("hasSpoken", 1); // set has spoken to 1
+        if (!dialogFlagsMap[key].Item2 && dialogFlagsMap[key].Item1.hasSpoken != 1)   // if NOT skipped && has not spoken
+        {
+            //only count house type
+            if (Enum.IsDefined(typeof(HouseType), key))
+            {
+                SetFlag("hasSpoken", 1); // set has spoken to 1
+                talkedResidents++;
+                ATC_UIController.Instance.UpdateObjectiveText(talkedResidents);
+            }
+
+        }
+            
         ATC_UIController.Instance.HideDialog();
         ClearMessages();
         //isWaitingForPlayer = true;

@@ -186,19 +186,6 @@ public class GameManager : UnitySingleton<GameManager>
         previousLastEvacTime = lastEvacCarTimeStamp;
     }
 
-    bool IsGameWon()
-    {
-        bool won = false;
-        int first = Mathf.RoundToInt(firstEvacCarTimeStamp);
-        int final = Mathf.RoundToInt(lastEvacCarTimeStamp);
-        if (first < (int) previousFirstEvacTime && final < (int) previousLastEvacTime /*&& housesDestroyed < previousHousesDestroyed*/)
-        {
-            won = true;
-        }
-        Debug.Log("Game win? " + won);
-        return won;
-    }
-
     public void StartSimulation()
     {
 
@@ -234,16 +221,17 @@ public class GameManager : UnitySingleton<GameManager>
         }
         //debug
 #if UNITY_EDITOR
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(20f/SimulationSpeed);
         Debug.Log($"Total cars sapwned {ATC_AIDirector.Instance.spawnedCarNum}");
 #endif
     }
 
     public void ResetGame(bool restartFromTutorial = false)
     {
+       
         fireManager.wind.isStill = true;
         ATC_UIController.Instance.ShowLoadingScreen();
-
+        InitiAvailableHouseType();
         //Debug.Log(currentStage);
         if (restartFromTutorial)
         {
@@ -251,14 +239,13 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else
         {
+            Debug.Log("Reset Game");
             currentStage = LevelStage.PhaseOne;
+            ATC_UIController.Instance.UpdateObjectiveText();
         }
-        //else if (/*!IsFirstSim && */currentStage!= LevelStage.Tutorial) {
-        //    currentStage = LevelStage.PhaseOne;
-        //}
+
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
-        //Time.timeScale = GameSpeed = 2f;
         carsEvacuated = 0;
         housesDestroyed = 0;
         houseHasHomeHardening = 0;
@@ -267,7 +254,6 @@ public class GameManager : UnitySingleton<GameManager>
         SimTimer = 0;
         SimIsEnd = true;
         canStartSim = false;
-        InitiAvailableHouseType();
         SimStartsEvent.RemoveAllListeners();
         SimEndsEvent.RemoveAllListeners();
         StopAllCoroutines();
@@ -279,21 +265,15 @@ public class GameManager : UnitySingleton<GameManager>
         fireSFX.Stop();
         ATC_AIDirector.Instance.currentCarNum = 0;
         ATC_AIDirector.Instance.spawnedCarNum = 0;
-        //ATC_UIController.Instance.houseDialogManager.ResetFlags();
         var currentLevel = "FC_Level" + this.currentLevel.ToString();
         SceneManager.LoadScene(currentLevel);
 
-        //TO-DO: Multiple levels
-        //SceneManager.LoadScene("FC_Level0");
 
     }
 
     public void RestartGame()
     {
         currentLevel = 0;
-        //currentStage = LevelStage.BeforeFirstSim;
-        //Time.timeScale = GameSpeed = 2f;
-        //ATC_UIController.Instance.startPrompt.SetActive(true);
         ResetGame();
     }
     public void BackToMainMenu()
@@ -347,8 +327,6 @@ public class GameManager : UnitySingleton<GameManager>
             cameraMovement.ResetCam();
         });
         
-        //dialogManager = FindObjectOfType<ATC_dialogManager>();
-        //uiController = FindObjectOfType<ATC_UIController>();
     }
 
     void InitiAvailableHouseType()
