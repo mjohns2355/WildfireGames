@@ -54,7 +54,18 @@ public class FF_Tree : FF_Plants
     protected override void HandleIgnite()
     {
         base.HandleIgnite();
+        Debug.Log("Tree is ignited");
         fireParticle.SetActive(true);
+    }
+
+    protected override IEnumerator IgniteWithDelay()
+    {
+        if (isOnFire) yield break;
+        yield return new WaitForSeconds(durability / 10 + baseBurnTime);
+        isOnFire = true;
+        burnTimer = 50f;
+        //OnIgnite?.Invoke();
+        StartCoroutine(Burn());
     }
     private void RemoveTree()
     {

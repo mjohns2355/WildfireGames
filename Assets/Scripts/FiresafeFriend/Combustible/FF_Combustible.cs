@@ -124,6 +124,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual IEnumerator IgniteWithDelay()
     {
         if (isOnFire) yield break;
+        //Debug.Log($"{gameObject.name}'s durability: {durability / 10 + baseBurnTime} ");
         yield return new WaitForSeconds(durability / 10 + baseBurnTime);
         isOnFire = true;
         burnTimer = durability / flammability + baseBurnTime;

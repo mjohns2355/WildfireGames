@@ -86,7 +86,7 @@ public class FF_Plants : FF_BaseCombustible
         }
         else
         {
-            Debug.Log("Invoke onPlantClicked");
+            //Debug.Log("Invoke onPlantClicked");
             onPlantClicked?.Invoke();
         }
 
