@@ -111,7 +111,10 @@ public class StorePanel : MonoBehaviour
             currentMoney = newMoney;
             return;
         }
-
+        //play sfx
+        var audioSource = HH_GameManager.Instance.audioSource;
+        audioSource.PlayDelayed(1f);
+        audioSource.PlayOneShot(ResourceManager.Instance.cashier, 0.8f);
         // simple animation
         budgetText.transform.DOPunchScale(Vector3.one * 0.2f, 0.2f, 5, 1);
         if(newMoney > oldMoney)
@@ -122,12 +125,19 @@ public class StorePanel : MonoBehaviour
         {
             budgetText.DOColor(Color.red, 0.3f).OnComplete(() => budgetText.DOColor(Color.white, 0.3f));
         }
+
+        budgetText.transform.DOScale(1.2f, 0.15f)
+        .SetEase(Ease.OutBack)
+        .OnComplete(() => budgetText.transform.DOScale(1f, 0.15f).SetEase(Ease.InBack));
+
         DOTween.To(() => currentMoney, x =>
         {
             currentMoney = x;
             budgetText.text = $"$ {(int)currentMoney:N0}";
+            budgetText.fontStyle = FontStyles.Bold;
         }, newMoney, 0.5f)
-        .SetEase(Ease.OutQuad);
+        .SetEase(Ease.OutQuad)
+        .OnComplete(() => budgetText.fontStyle = FontStyles.Normal);
     }
 
     

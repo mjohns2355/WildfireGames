@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public bool isTutorial, isNewLevel;
+    public AudioSource audioSource;
     //public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
@@ -75,6 +76,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public override void Awake()
     {
         shouldNotDestroyOnLoad = false;
+        audioSource = GetComponent<AudioSource>();
 
         base.Awake();
     }
