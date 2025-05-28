@@ -207,10 +207,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         SpawnFire();        
         StartCoroutine(SpreadFireToNeighbour());
-        //UpdateMaterial(BurnStage);
-        //var newColor = Color.grey;
-        //burnMaterial.SetColor("_Color", newColor);
-        //ReplaceMeshMaterial(burnMaterial);
     }
 
     private void HandleBurnedOut()

@@ -30,12 +30,12 @@ public class HouseChoice
 
     public void ApplySpecialEffect(HouseStructure owner)
     {
-        if(choiceName.Contains("Home Hardening"))
-        {
-            owner.ApplyHomeHardeningToAllHouses(homeHardeningMod);
-            return;
+        //if(choiceName.Contains("Home Hardening"))
+        //{
+        //    owner.ApplyHomeHardeningToAllHouses(homeHardeningMod);
+        //    return;
 
-        }
+        //}
         switch (choiceName)
         {
             case "Relocate 2nd Car":
@@ -47,8 +47,10 @@ public class HouseChoice
                 Debug.Log("Relocated Horse to Stable");
                 owner.RelocateHorses();
                 break ;
-
-        }
+            case "Full Home Hardening":
+                owner.ApplyHomeHardeningToAllHouses(homeHardeningMod);
+                break;
+        }       
     }
     public void ApplyEffect(HouseStructure owner)
     {
