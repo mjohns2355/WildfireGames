@@ -39,7 +39,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public bool canShowSkipButton = false;
     private bool canClick = false;
     private CanvasGroup topEdgeFade;
-    public int talkedResidents = 0;
 
     private void Start()
     {
@@ -324,8 +323,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
             if (Enum.IsDefined(typeof(HouseType), key))
             {
                 SetFlag("hasSpoken", 1); // set has spoken to 1
-                talkedResidents++;
-                ATC_UIController.Instance.UpdateObjectiveText(talkedResidents);
             }
 
         }

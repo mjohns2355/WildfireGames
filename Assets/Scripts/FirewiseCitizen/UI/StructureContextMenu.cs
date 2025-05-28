@@ -12,10 +12,7 @@ using UnityEngine.UI;
 
 public class StructureContextMenu : MonoBehaviour
 {
-    //public Action<OptionButton> onOptionSelected;
     public Action onOptionConfirmed;
-    //public OptionButton changeResponseButton;
-    //public OptionButton confirmButton;
     public Button confirm, restart;
     public TextMeshProUGUI explaination;
     public GameObject menuUI;//ui
@@ -23,53 +20,44 @@ public class StructureContextMenu : MonoBehaviour
     public TextMeshProUGUI title;
     [SerializeField] Transform options;
     public GameObject optionButtonPrefab;
-    //public Button closeButton;
-    //public Button assignButton;
     public Structure owner;
-    //bool optionsAreLocked = true;
-    //[SerializeField] RectTransform canvasTransform;
     [SerializeField] RectTransform menuTransform;
     [SerializeField] float menuOffset = 120f;
     Camera cam;
     public OptionButton CurrentOption { get; private set; }
-    //OptionButton previousOption = null;
     public bool allowMultipleChoices;
     public List<OptionButton> selectedOptions = new List<OptionButton>();
     public bool isSelected = false;
     public ATC_LearnMorePopup learnMorePopup;
     public Image choicePicture;
     private GameObject schoolText;
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        //assignButton.gameObject.SetActive(false);
 
-    }
     private void Start()
     {
         schoolText = GameObject.FindGameObjectWithTag("marker");
         cam = Camera.main;
         HouseStructure house = (HouseStructure)owner;
 
-        //changeResponseButton.button.onClick.AddListener(() =>
-        //{
-        //    ToggleChangeResponsePanel(false);
-        //});
         confirm.onClick.AddListener(() =>
         {
             onOptionConfirmed.Invoke();
-            isSelected = true;
+            if (!isSelected)
+            {
+                isSelected = true;
+                ATC_UIController.Instance.talkedResidentsCount++;
+                ATC_UIController.Instance.UpdateObjectiveText();
+            }
+            
             Instantiate(Resources.Load("SelectedSFX") as GameObject);
 
             GameManager.Instance.cameraMovement.ResetCam();
-            //GameManager.Instance.currentStage = LevelStage.PhaseOne;
+            
             OnMenuDisable();
         });
 
         restart.onClick.AddListener(() =>
         {
             ClearChoice();
-            //GameManager.Instance.cameraMovement.ResetCam();
             OnMenuDisable();
             ShowDialog();
         });
@@ -99,26 +87,16 @@ public class StructureContextMenu : MonoBehaviour
 
     void ShowDialog()
     {
-        
-            ATC_UIController.Instance.ShowDialog();
-
-            //ATC_UIController.Instance.houseDialogManager.StartHouseDialog(icon.iconHouseType,icon.houseDialog);
-            GameManager.Instance.currentStage = LevelStage.HouseDialog;
-            ATC_UIController.Instance.houseDialogManager.StartDialogue(icon.iconHouseType.ToString());
-        
-
-
+        ATC_UIController.Instance.ShowDialog();
+        GameManager.Instance.currentStage = LevelStage.HouseDialog;
+        ATC_UIController.Instance.houseDialogManager.StartDialogue(icon.iconHouseType.ToString());
     }
     public void OnMenuEnable()
     {
         if(owner == null) return;
         //menuUI.SetActive(true);
         HouseStructure house = (HouseStructure)owner;
-        //Debug.Log($"{house.HouseType} is selected: {isSelected}");
-        //if (CurrentOption != null)
-        //{
-        //    Debug.Log($"Current option is {CurrentOption.GetOptionContent()}. ");
-        //}
+
         choicePicture.sprite = house.houseInfo.choicePicture;
         confirm.interactable = isSelected;
         if (!house.isMainHouse) return;
@@ -132,7 +110,6 @@ public class StructureContextMenu : MonoBehaviour
         {
             if (menu == this) continue;
             if (!menu.gameObject.activeSelf) continue;
-            //menu.menu.SetActive(false);
             menu.icon.gameObject.SetActive(false);
         }
 
@@ -148,23 +125,15 @@ public class StructureContextMenu : MonoBehaviour
             menu.icon.gameObject.SetActive(true);
         }
         owner.StopSturctureClick();
-        //ToggleChangeResponsePanel(false);
-        //confirm.interactable = false;
+
         ClearOptionButtons();
         ClearChoice();
         ATC_UIController.Instance.ClearAllPanels();
-        //ATC_UIController.Instance.toolsBar.SetActive(true);
-        //ATC_UIController.Instance.ToggleHouseIcons(true);
+
         icon.ToggleIconState(!isSelected);
         //school text
         owner.SetOutline(true);
         schoolText.SetActive(true);
-        //GameManager.Instance.cameraMovement.ResetCam();
-        //GameManager.Instance.canControlCam = true;
-        //StartCoroutine(house.SpawnCarRoutine());
-
-        //changeResponseButton.onClick.RemoveAllListeners();
-        //selectedBehavior = true;
 
     }
 
@@ -181,24 +150,17 @@ public class StructureContextMenu : MonoBehaviour
     void Update()
     {
         icon.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
-        //menuUI.transform.position = cam.WorldToScreenPoint(owner.menuSpawnPos.position);
-
-        //ATC_UIController.Instance.ClampToWindow(menuTransform, menuOffset);
     }
 
     public void ClearChoice()
     {
-        //previousOption = null;
-        //CurrentOption = null;
-        //if (allowMultipleChoices)
-        //{
+
         foreach (var option in selectedOptions)
         {
             option.ToggleOptionSelectState(false);
         }
         selectedOptions.Clear();
-        //icon.ToggleIconState(true);
-        //}
+
     }
 
     public void UpdateMenuForHouse(HouseStructure house, bool isTutorial = false)
@@ -225,11 +187,6 @@ public class StructureContextMenu : MonoBehaviour
             }
         }
         
-        //foreach(var choice in houseInfo.lockedChoices)
-        //{
-        //    var isLocked = choice.isLocked;
-        //    SpawnOptionButtons(choice.choiceName,isLocked);
-        //}
     }
 
     private void SpawnOptionButtons(string text/*, bool isLocked = false*/)
@@ -239,12 +196,7 @@ public class StructureContextMenu : MonoBehaviour
         var optionButton = button.GetComponent<OptionButton>();
 
         optionButton.InitOptionButton(this, text);
-        //if (isLocked)
-        //{
-        //    //Debug.Log("Locked Option: " + text);
-        //    optionButton.isLocked = true;
 
-        //}
         if(!isSelected) return;
         HouseStructure house = (HouseStructure)owner;
         var selectedChoice = GameManager.Instance.structureManager.GetPlayerChoicesDict()[house.houseType];
@@ -254,37 +206,9 @@ public class StructureContextMenu : MonoBehaviour
             if (c.choiceName == text)
             {
                 optionButton.ToggleOptionSelectState(true);
-                //if (allowMultipleChoices)
-                //{
                     selectedOptions.Add(optionButton);
-                //}
-                //else
-                //{
-                //    CurrentOption = optionButton;
-                //}
             }
         }
-        //if(selectedChoice.choiceName == text)
-        //{
-        //    optionButton.ToggleOptionSelectState(true);
-        //}
-        //if (!allowMultipleChoices && CurrentOption != null && text == CurrentOption.GetOptionContent())
-        //{
-        //    Debug.Log($"Selected Option: {CurrentOption.GetOptionContent()}");
-        //    optionButton.ToggleOptionSelectState(true);
-        //}
-        //else if (allowMultipleChoices && selectedOptions.Contains(optionButton))
-        //{
-        //    optionButton.ToggleOptionSelectState(true);
-        //}
-        //if (CurrentOption == null) return;
-        //if (previousOption.GetOptionContent() == "Home Hardening" && text == "Home Hardening")
-        //{
-        //    optionButton.ToggleOptionSelectState(true);
-        //}
-        //else { 
-        //    optionButton.ToggleOptionSelectState(text == CurrentOption.GetOptionContent());
-        //}
     }
     public void OnOptionButtonClicked(OptionButton option)
     {
@@ -322,11 +246,7 @@ public class StructureContextMenu : MonoBehaviour
             option.ToggleOptionSelectState(true);
             selectedOptions.Add(option);
         }
-        //Debug.Log($"Selected {selectedOptions.Count} choices");
         confirm.interactable = selectedOptions.Count != 0;
-        //confirm.interactable = selectedOptions.Count == house.houseInfo.requiredChoicesCount;
-        //onOptionSelected.Invoke();
-        // }
     }
     public void ApplyBehavior()
     {

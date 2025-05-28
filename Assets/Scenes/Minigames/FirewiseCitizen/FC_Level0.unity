@@ -49817,10 +49817,8 @@ GameObject:
   - component: {fileID: 431751212}
   - component: {fileID: 431751211}
   - component: {fileID: 431751210}
-  - component: {fileID: 431751209}
-  - component: {fileID: 431751208}
   m_Layer: 5
-  m_Name: StatsPanel (1)
+  m_Name: ObjectiveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49835,45 +49833,17 @@ RectTransform:
   m_GameObject: {fileID: 431751206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99975705, y: 0.99975705, z: 0.99975705}
+  m_LocalScale: {x: 0.9997571, y: 0.9997571, z: 0.9997571}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1662742779}
-  m_Father: {fileID: 681313533}
+  m_Father: {fileID: 1373575329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -78, y: -102}
+  m_AnchoredPosition: {x: -78, y: -58}
   m_SizeDelta: {x: 211.1, y: 95.18}
   m_Pivot: {x: 0.86234236, y: 0.66989744}
---- !u!114 &431751208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431751206}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: 2}
-  m_UseGraphicAlpha: 1
---- !u!114 &431751209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431751206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4437ba4056ab0ba47b54a3d908ba6576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statsText: {fileID: 1662742782}
 --- !u!114 &431751210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56378,6 +56348,7 @@ MonoBehaviour:
   skipButton: {fileID: 250865099}
   isWaitingForPlayer: 1
   canShowSkipButton: 0
+  talkedResidents: 0
 --- !u!1001 &574240285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62268,7 +62239,6 @@ RectTransform:
   - {fileID: 1907075367}
   - {fileID: 487733603}
   - {fileID: 1732523818}
-  - {fileID: 431751207}
   - {fileID: 216462553}
   - {fileID: 550506440}
   - {fileID: 1424791858}
@@ -62306,6 +62276,7 @@ MonoBehaviour:
   toolsBar: {fileID: 1373575328}
   statsPanel: {fileID: 1732523824}
   pauseMenu: {fileID: 216462554}
+  objectiveText: {fileID: 1662742782}
   learnMorePanel: {fileID: 1639527190}
   restartPrompt: {fileID: 602700947}
   startPrompt: {fileID: 1780378947}
@@ -122020,6 +121991,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1309744757}
+  - {fileID: 431751207}
   m_Father: {fileID: 681313533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -146566,11 +146538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Real-time Stats
-
-    Timer: 0:00
-
-    Cars Evacuated: xx'
+  m_text: 'Talk to Residents: 0 / 2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 88f786322c87c7e4fa9f9fe66f8b259f, type: 2}
