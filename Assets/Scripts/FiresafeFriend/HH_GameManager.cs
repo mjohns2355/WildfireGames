@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public bool isTutorial, isNewLevel;
-    public bool IsFirstRound { get => currentRoundCount == 0; }
+    //public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
     //public float fireTimer = 60f;
@@ -34,8 +34,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     [SerializeField] private const int TieReward = WinReward/2;
     [SerializeField] GameObject publicFencePrefab;
     [SerializeField] List<Transform> publicFencesTransforms = new();
-    private int consecutiveCompetitionCount,currentRoundCount = 0;
-    private bool mustForceCompetition = false;
+    private bool mustForceCompetition = true;
     private bool lastRoundIsFire,lastRoundIsCompetition = false;
     private string competitionLoser = string.Empty;
     private bool publicFencesRepaired = false;
@@ -302,10 +301,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     void OnCompetition()
     {
         IsPlantMode = false;
-        lastRoundIsCompetition = true;
         var p1Score = p1.CalculateRating();
         var p2Score = p2.CalculateRating();
-        lastRoundIsFire = false;
 
         competitionLoser = p1Score > p2Score ? p2.playerTag : p1.playerTag;
         int rewardP1 = p1Score > p2Score ? WinReward
@@ -397,8 +394,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         fireManager.StartFireSimulation();
         skyboxController.ChangeSky(true);
         uiManager.ToggleEarnMoreMoneyButton(false);
-        lastRoundIsFire = true;
-        lastRoundIsCompetition = false;
         p1.CalculateTotalHousePartWeight();
         p2.CalculateTotalHousePartWeight();
     }
@@ -421,37 +416,23 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     // fire or competition
     void DecideNextEvent()
     {
-        if (mustForceCompetition)
+        if (mustForceCompetition || lastRoundIsFire)
         {
-            Debug.Log("Force Competition After Fire");
-            consecutiveCompetitionCount++;
+            //Debug.Log("Force Competition After Fire");
+            lastRoundIsCompetition = true;
+            lastRoundIsFire = false;
             mustForceCompetition = false;
             CurrentStage = GameStage.Competition;
             return;
         }
 
-        if(consecutiveCompetitionCount >= 2)
+        if (lastRoundIsCompetition)
         {
-            Debug.Log("Force Fire After Two Consecutive Competitions");
+            //Debug.Log("Random Roll -> Fire.");
+            lastRoundIsFire = true;
+            lastRoundIsCompetition = false;
             mustForceCompetition = true;
-            consecutiveCompetitionCount = 0;
             CurrentStage = GameStage.Fire;
-            return;
-        }
-
-        float roll = UnityEngine.Random.value;
-        if (roll < fireChance)
-        {
-            Debug.Log("Random Roll -> Fire.");
-            mustForceCompetition = true;
-            consecutiveCompetitionCount = 0;
-            CurrentStage = GameStage.Fire;
-        }
-        else
-        {
-            Debug.Log("Random Roll -> Competition.");
-            consecutiveCompetitionCount++;
-            CurrentStage = GameStage.Competition;
         }
     }
     
