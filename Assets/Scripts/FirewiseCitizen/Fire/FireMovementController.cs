@@ -38,6 +38,8 @@ public class FireMovementController : MonoBehaviour
         }
 
         speedMultiplier = GameManager.Instance.SimulationSpeed;
+        // hide particle when skipping
+        ToggleParticleStatus(!(GameManager.Instance.currentStage == LevelStage.Skipping));
     }
     private void Update()
     {
@@ -157,5 +159,10 @@ public class FireMovementController : MonoBehaviour
             
         }
         Destroy(gameObject);
+    }
+
+    public void ToggleParticleStatus(bool shouldShow)
+    {
+        particleParent.SetActive(shouldShow);
     }
 }

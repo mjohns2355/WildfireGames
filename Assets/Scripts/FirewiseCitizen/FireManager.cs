@@ -45,12 +45,6 @@ public class FireManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator StartFireRoutine()
     {
         yield return new WaitForSeconds(fireWaitTimeBeforeStart);
@@ -85,11 +79,15 @@ public class FireManager : MonoBehaviour
         foreach (GameObject f in fires)
         {
             Destroy(f);
-            //ParticleSystem[] ps = f.GetComponentsInChildren<ParticleSystem>();
-            //foreach (ParticleSystem p in ps)
-            //{
-            //    p.Stop();
-            //}
+        }
+    }
+
+    public void HideFireParticle()
+    {
+        GameObject[] fires = GameObject.FindGameObjectsWithTag("Fire");
+        foreach (GameObject f in fires)
+        {
+            f.GetComponent<FireMovementController>().ToggleParticleStatus(false);
         }
     }
 }

@@ -32,10 +32,10 @@ public class GameManager : UnitySingleton<GameManager>
     public float SimTimer { get; private set; }
     public float SimulationTime => currentLevel switch
     {
-        0 => 25f,
-        1 => 50f,
+        0 => 30f,
+        1 => 45f,
         2 => 70f,
-        _ => 25f 
+        _ => 30f 
     };
     public float SimulationSpeed => currentLevel switch
     {
@@ -99,7 +99,14 @@ public class GameManager : UnitySingleton<GameManager>
             ATC_UIController.Instance.TogglePauseMenu(false);
         }
     }
+    public void SkipSimulation()
+    {
+        Time.timeScale = 6f;
+        currentStage = LevelStage.Skipping;
+        fireManager.HideFireParticle();
+        ATC_UIController.Instance.skippingOverlay.SetActive(true);
 
+    }
     public void SkipSimulationRec()
     {
         currentStage = LevelStage.PhaseOne;
@@ -151,6 +158,11 @@ public class GameManager : UnitySingleton<GameManager>
     void OnSimEnd()
     {
         // clear all remaining cars
+        if(currentStage == LevelStage.Skipping)
+        {
+            currentStage = LevelStage.PhaseOne;
+            ATC_UIController.Instance.skippingOverlay.SetActive(false);
+        }
         var remainingCars = GameObject.FindGameObjectsWithTag("Car");
         foreach (var car in remainingCars)
         {

@@ -16,16 +16,16 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public FC_IncentivePage incentivesPage;
     public FC_StarScreen starScreen;
     //public GameObject toolsBar;
-    public GameObject replayOverlay;
+    public GameObject replayOverlay,skippingOverlay;
     public GameObject toolsBar;
     public ATC_StatsPanel statsPanel;
     public ATC_PauseMenu pauseMenu;
     //public GameObject endScreen;
     public GameObject learnMorePanel, restartPrompt;
-    public TextMeshProUGUI levelText;
+    //public TextMeshProUGUI levelText;
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
-    public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera;
+    public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera,skipSim;
     public CanvasGroup loadingScreen;
     public float loadingTime;
     //public GameObject buildingMenu;
@@ -36,8 +36,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     Stack<GameObject> panelStack = new Stack<GameObject> ();
     private void Start()
     {
-        //buildingMenu.SetActive(false);
-        levelText.text = $"Level {GameManager.Instance.currentLevel + 1}";
         pause.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePause();
@@ -84,6 +82,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             start.interactable = true;
             learnMore.interactable = true;
         });
+
+        skipSim.onClick.AddListener(GameManager.Instance.SkipSimulation);
         HideLoadingScreen();
         //restartGame.onClick.AddListener(() =>
         //{
@@ -119,10 +119,11 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         CloseAllUI();
         evacNotice.SetActive(true);
         statsPanel.gameObject.SetActive(true);
-        start.interactable = false;
+        //start.interactable = false;
         learnMore.interactable = false;
         pause.interactable = true;
         windDirectionIndicator.gameObject.SetActive(true);
+        skipSim.gameObject.SetActive(true);
         toolsBar.SetActive(false);
     }
     void OnSimEnd()
@@ -139,6 +140,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             dialogManager.ShowLocalNews();
         }
         windDirectionIndicator.gameObject.SetActive(false);
+        skipSim.gameObject.SetActive(false);
         toolsBar.SetActive(true);
         //ShowDialog();
     }
@@ -313,19 +315,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         windDirectionIndicator.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
-        //if(GameManager.Instance.currentStage == LevelStage.BeforeFirstSim)
-        //{
-        //    levelText.text = "Instruction";
-        //}
-        //else
-        //{
-        //    levelText.text = $"Level 1";
-        //}
-        //levelText.text = $"Level {GameManager.Instance.CurrentLevel + 1}";
-        //if (!dialogManager.isInstructionShown)
-        //{
-        //    ShowDialog();
-        //}
         HideDialog();
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
@@ -360,11 +349,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             icon.gameObject.SetActive(state);
         }
     }
-    //public void ShowEndDialog()
-    //{
-    //    PushPanel(dialogManager.gameObject);
-    //    //dialogManager.EndDialog();
-    //}
+
 
     public void ShowStarScreen()
     {
