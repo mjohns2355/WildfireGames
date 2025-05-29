@@ -31,6 +31,7 @@ public class mainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
         if (Screen.width < Screen.height)
         {
             land = false;
@@ -62,12 +63,12 @@ public class mainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnRectTransformDimensionsChange()
     {
-        if(Screen.width < Screen.height)
+        if (Screen.width < Screen.height)
         {
             land = false;
             houseGame.landscape = false;
@@ -79,38 +80,40 @@ public class mainMenu : MonoBehaviour
         }
         if (!land)
         {
-            if(panelBottom != null)
+            if (panelBottom != null)
                 panelBottom.SetActive(true);
-            if(panelRight != null)
+            if (panelRight != null)
                 panelRight.SetActive(false);
             //onscreendebug.text = "portrait";
             if (cam1 != null)
                 cam1.SetActive(false);
             if (cam2 != null)
                 cam2.SetActive(true);
-        } else
+        }
+        else
         {
             if (panelBottom != null)
                 panelBottom.SetActive(false);
             if (panelRight != null)
                 panelRight.SetActive(true);
             //onscreendebug.text = "lanscape";
-            if(cam1 != null)
+            if (cam1 != null)
                 cam1.SetActive(true);
-            if(cam2 != null)
+            if (cam2 != null)
                 cam2.SetActive(false);
         }
-        
+
     }
 
     public void ModeSelect(int m)
     {
 
-        if(m == 1)
+        if (m == 1)
         {
             mode = "Hosted";
             hostedMode = true;
-        } else
+        }
+        else
         {
             mode = "Story";
             hostedMode = false;
@@ -131,6 +134,7 @@ public class mainMenu : MonoBehaviour
 
     public void ExitToMain()
     {
+        Time.timeScale = 1f;
         loadingScreen.SetActive(true);
         SceneManager.LoadScene(0);
         /*
@@ -158,13 +162,13 @@ public class mainMenu : MonoBehaviour
     {
         if (!hostedMode)
         {
-            if(currentGame >= 0)
+            if (currentGame >= 0)
             {
 
                 minigames[currentGame].SetActive(false);
             }
             currentGame++;
-            if(currentGame >= minigames.Length)
+            if (currentGame >= minigames.Length)
             {
                 ExitToMain();
             }
@@ -178,7 +182,7 @@ public class mainMenu : MonoBehaviour
         {
             ExitToMain();
             //minigames[currentGame].SetActive(false);
-           // minigameMenu.SetActive(true);
+            // minigameMenu.SetActive(true);
         }
     }
 }

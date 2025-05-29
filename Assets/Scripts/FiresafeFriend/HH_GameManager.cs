@@ -512,6 +512,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void MainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
