@@ -9,12 +9,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 {
     public bool isTutorial, isNewLevel;
     public AudioSource audioSource;
-    //public bool IsFirstRound { get => currentRoundCount == 0; }
     public HappyHouse.FireSystem.FireManager fireManager;
     public Transform h1, h2, h1CamPos,h2CamPos,h1PlantCamPos,h2PlantCamPos;
-    //public float fireTimer = 60f;
-    public float fireChance = 0.5f; // 50% chance to start fire
-    public int maxRounds = 10;
     public Action OnRoundStart, OnRoundEnd;
     public Action<bool> OnPlantModeChanged;
     public HH_UIManager uiManager;
@@ -30,7 +26,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager p1;
     public HouseManager p2;
     public FF_Tree tree1, tree2;
-    [SerializeField]private bool _isPlantMode;
+    private bool _isPlantMode;
     [SerializeField] private const int WinReward = 3000;
     [SerializeField] private const int TieReward = WinReward/2;
     [SerializeField] GameObject publicFencePrefab;
@@ -39,7 +35,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     private bool lastRoundIsFire,lastRoundIsCompetition = false;
     private string competitionLoser = string.Empty;
     private bool publicFencesRepaired = false;
-    //[SerializeField] private float _fireTimer = 0;
     List<GameObject> houses = new();
     List<GameObject> currentHousePrefabs = new(){ null, null};
     public bool IsPlantMode
@@ -85,7 +80,6 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         Time.timeScale = 1f;
         CurrentStage = GameStage.BeforeGame;
         _isPlantMode = false;
-        //_fireTimer = fireTimer;
         houses = ResourceManager.Instance.houses;
         isNewLevel = true;
         // don't spawn house at tutorial
@@ -225,7 +219,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     public void RepairHouse()
     {
-        if (currentPlayer.budgetManager.SpendBudget(10000))
+        //dynamic repair cost
+        var repairCost = currentPlayer.GetRepairCost();
+        if (currentPlayer.budgetManager.SpendBudget(repairCost))
         {
             RespawnHouse(false);
             return;
@@ -447,6 +443,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void NextRound()
     {
         CurrentStage = GameStage.BeforeGame;
+        if (!lastRoundIsFire) return;
         p1.InitHouseManager();
         p2.InitHouseManager();
     }

@@ -14,7 +14,7 @@ public class HouseGround : BaseHousePartObject
 
         foreach (var p in plants)
         {
-            p.DecreaseFlammabilty(flammabilityMod);
+            p.DecreaseFlammability(flammabilityMod);
         }
     }
 

@@ -35,7 +35,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         OnIgnite += HandleIgnite;
         OnCombustibleDestroyed += HandleDestroy;
         OnBurning += HandleBurning;
-        OnBurnedOut += HandleBurnedOut;
         if (notInteractable) return;
 
 
@@ -47,11 +46,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         {
             partInfo = (HousePartInfo)combustibleInfo;
         }
-
-        //if (isTesting)
-        //{
-        //    InitHousePartObject(HH_GameManager.Instance.currentPlayer);
-        //}
     }
 
     private void Update()
@@ -79,8 +73,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         var part = housePart == null ? partInfo : housePart;
         HousePartType = part.housePartType;
-        durability = part.durability;
-        flammability = part.flammability;
         partInfo = part;
         combustibleInfo = partInfo;
         Owner = owner;
@@ -96,6 +88,12 @@ public class BaseHousePartObject : FF_BaseCombustible
         }
 
         defaultPartInfo = part;
+
+        baseDurability = part.durability;
+        durability = baseDurability;
+        baseFlammability = part.flammability;
+        flammability = baseFlammability;
+
     }
 
     
@@ -139,11 +137,6 @@ public class BaseHousePartObject : FF_BaseCombustible
         return neighbours;
     }
 
-   
-    private void UpdateMaterial(BurnStage burnStage)
-    {
-        //throw new NotImplementedException();
-    }
 
     private IEnumerator SpreadFireToNeighbour()
     {
@@ -207,12 +200,6 @@ public class BaseHousePartObject : FF_BaseCombustible
     {
         SpawnFire();        
         StartCoroutine(SpreadFireToNeighbour());
-    }
-
-    private void HandleBurnedOut()
-    {
-        //Debug.Log("Burnt");
-
     }
 
     private void HandleDestroy()
