@@ -209,7 +209,7 @@ namespace HappyHouse.HouseSystem
         {
             foreach (var node in houseGraph.nodes)
             {
-                if (node.housePart.partInfo.partID == partInfo.partID && node.housePart.HousePartType == partInfo.housePartType)
+                if (node.housePart.partInfo.partID == partInfo.partID && node.housePart.HousePartType == partInfo.housePartType && node.housePart.partInfo.materialClass == partInfo.materialClass)
                 {
                     //Debug.Log($"{partInfo.partID} is in use by {node.housePart.name}");
                     return true;
@@ -246,9 +246,7 @@ namespace HappyHouse.HouseSystem
                 ApplyStoredModifiers();
             }
 
-            if (HH_GameManager.Instance.isTutorial)
-                return;
-
+            // update inventory
             HH_GameManager.Instance.uiManager
                 .inventoryPanel
                 .UpdateInventoryUI(newInfo.housePartType, newInfo.isPublic);

@@ -17,8 +17,8 @@ public class InventoryUI : MonoBehaviour
     public Action<BaseHousePartObject> onCategoryItemButtonClicked;
     public Button inventoryButton;
     public GameObject inventoryUI;
-    public List<CategoryButton> categories = new List<CategoryButton>();
-    List<InventoryItem> items = new List<InventoryItem>();
+    public List<CategoryButton> categories = new();
+    public List<InventoryItem> items = new();
     CategoryButton defaultCategory;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,15 @@ public class InventoryUI : MonoBehaviour
         {
             var item = categoryItemButtons.GetChild(i).GetComponent<InventoryItem>();
             items.Add(item);
+        }
+
+        if (HH_GameManager.Instance.isTutorial)
+        {
+            var categoryButton = Instantiate(categoryButtonPrefab, categoryButtons).GetComponent<CategoryButton>();
+            categoryButton.InitCategoryButton(this,HousePartType.Roof);
+            categories.Add(categoryButton);
+            defaultCategory = categories[0];
+            return;
         }
 
         // Spawn Category Buttons (roof,wall,etc)

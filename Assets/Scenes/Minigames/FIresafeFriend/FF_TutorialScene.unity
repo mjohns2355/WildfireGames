@@ -1740,8 +1740,6 @@ MonoBehaviour:
   h2CamPos: {fileID: 1752406026}
   h1PlantCamPos: {fileID: 558905938}
   h2PlantCamPos: {fileID: 2069119501}
-  fireChance: 0.5
-  maxRounds: 10
   uiManager: {fileID: 1011932185}
   currentPlayer: {fileID: 1356811451}
   inputManager: {fileID: 1940618262}
@@ -1753,7 +1751,6 @@ MonoBehaviour:
   p2: {fileID: 627146728}
   tree1: {fileID: 0}
   tree2: {fileID: 0}
-  _isPlantMode: 0
   publicFencePrefab: {fileID: 0}
   publicFencesTransforms: []
   _currentStage: 0
@@ -8958,7 +8955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &671064704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8980,6 +8977,7 @@ MonoBehaviour:
   inventoryButton: {fileID: 1565303349}
   inventoryUI: {fileID: 1331870231}
   categories: []
+  items: []
 --- !u!224 &671064705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17572,7 +17570,6 @@ RectTransform:
   m_Children:
   - {fileID: 368212350}
   - {fileID: 1651265723}
-  - {fileID: 2028402887}
   - {fileID: 631624573}
   - {fileID: 1633575007}
   - {fileID: 671064705}
@@ -17584,6 +17581,7 @@ RectTransform:
   - {fileID: 410677807}
   - {fileID: 488379239}
   - {fileID: 1617083642}
+  - {fileID: 2028402887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17629,6 +17627,7 @@ MonoBehaviour:
   competitionNotice: {fileID: 0}
   fireAnnouncement: {fileID: 0}
   aftermathPlayerText: {fileID: 0}
+  repairDescText: {fileID: 0}
   stretchDuration: 0.5
   displayDuration: 1
   fadeDuration: 0.5
@@ -20626,7 +20625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1331870232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23688,7 +23687,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next
+  m_text: Start Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23718,7 +23717,7 @@ MonoBehaviour:
   m_fontSize: 50
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -25087,7 +25086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565303349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25113,7 +25112,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

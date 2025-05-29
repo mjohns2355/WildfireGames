@@ -35,6 +35,7 @@ public class CategoryButton : MonoBehaviour
 
     void OnButtonSelected()
     {
+        if (HH_GameManager.Instance.isTutorial) return;
         owner.UpdateInventoryUI(category);
 
         foreach (var btn in owner.categories)
