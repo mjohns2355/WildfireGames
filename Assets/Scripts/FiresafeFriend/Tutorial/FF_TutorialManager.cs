@@ -31,15 +31,6 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     public GameObject introPanel, tutorialPanel; 
     public Button startTutorialYesButton,startTutorialNoButton;
 
-    //public override void Awake()
-    //{
-    //    base.Awake();
-    //    // Ensure DOTween is freshly initialized
-    //    DOTween.KillAll();        // Kill all active tweens
-    //    DOTween.Clear(true);      // Clear all cached tweens and Sequences
-    //    DOTween.Init(true, true); // Force full reinitialization
-    //}
-    // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1;
@@ -61,7 +52,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
     void StartStep(int stepIndex)
     {
-        Debug.Log($"Starting tutorial step {stepIndex + 1}");
+        //Debug.Log($"Starting tutorial step {stepIndex + 1}");
         if (stepIndex >= tutorialSteps.Count)
         {
             Debug.LogError("Step index out of range.");
