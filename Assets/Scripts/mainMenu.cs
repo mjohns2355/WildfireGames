@@ -31,6 +31,7 @@ public class mainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
         if (Screen.width < Screen.height)
         {
             land = false;
@@ -131,6 +132,7 @@ public class mainMenu : MonoBehaviour
 
     public void ExitToMain()
     {
+        Time.timeScale = 1f;
         loadingScreen.SetActive(true);
         SceneManager.LoadScene(0);
         /*
