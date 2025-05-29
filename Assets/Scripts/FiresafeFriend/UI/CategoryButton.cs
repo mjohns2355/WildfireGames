@@ -13,7 +13,6 @@ public class CategoryButton : MonoBehaviour
     [SerializeField]Button button;
     public Image bg;
 
-    private CategoryButton selectedCategoryButton = null;
     // Start is called before the first frame update
 
     void Start()

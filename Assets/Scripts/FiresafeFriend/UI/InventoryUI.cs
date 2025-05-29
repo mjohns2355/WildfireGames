@@ -41,6 +41,7 @@ public class InventoryUI : MonoBehaviour
         // Spawn Category Buttons (roof,wall,etc)
         foreach (var type in resourceManager.allAvailableParts.Keys)
         {
+            
             var categoryButton = Instantiate(categoryButtonPrefab, categoryButtons).GetComponent<CategoryButton>();
             categoryButton.InitCategoryButton(this, type);
             categories.Add(categoryButton);
