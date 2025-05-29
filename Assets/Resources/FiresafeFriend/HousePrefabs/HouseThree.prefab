@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5020881204238801572}
   m_Layer: 0
   m_Name: HouseThree
-  m_TagString: Undefined
+  m_TagString: House
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -997,6 +997,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3304160677795389601}
     m_Modifications:
+    - target: {fileID: 1842808643638148265, guid: 9c0ebf8009b674d41a8afba06cbc8282, type: 3}
+      propertyPath: combustibleInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
     - target: {fileID: 3746914592248536231, guid: 9c0ebf8009b674d41a8afba06cbc8282, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3116,12 +3120,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 3304160677795389601}
     m_Modifications:
     - target: {fileID: 1860525536464046981, guid: 2c095302b9df3404c8d7fd4ee90a5ff4, type: 3}
+      propertyPath: combustibleInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
+    - target: {fileID: 1860525536464046981, guid: 2c095302b9df3404c8d7fd4ee90a5ff4, type: 3}
       propertyPath: shouldDisplayBubble
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3376850221017950038, guid: 2c095302b9df3404c8d7fd4ee90a5ff4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 3376850221017950038, guid: 2c095302b9df3404c8d7fd4ee90a5ff4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4139,6 +4147,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5021682148729206637, guid: b370803cb1a87f24da0b59a1e4d93f45, type: 3}
+      propertyPath: combustibleInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ff65e220c4e51f49ab16006005d6718, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

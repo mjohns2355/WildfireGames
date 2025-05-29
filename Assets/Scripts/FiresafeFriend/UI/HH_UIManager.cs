@@ -20,7 +20,7 @@ public class HH_UIManager : MonoBehaviour
     public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab,startText, modeToggle;
     public GameObject pauseMenu,aftermathPopup,joinConcilPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
-    public TextMeshProUGUI aftermathPlayerText;
+    public TextMeshProUGUI aftermathPlayerText, repairDescText;
     [Header("Banner Timings")]
     public float stretchDuration = 0.5f;  
     public float displayDuration = 1f;    
@@ -89,18 +89,11 @@ public class HH_UIManager : MonoBehaviour
             aftermathPopup.SetActive(false);
         });
 
-        // disable move and repair
-        //ToggleMoveAndRepairBtns(false);
     }
 
     private void OnToggleValueChanged(bool value)
     {
         HH_GameManager.Instance.ChangeGameMode(value);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OnCloseCompetitionNotice()
@@ -128,6 +121,8 @@ public class HH_UIManager : MonoBehaviour
     {
         var currentPlayer = HH_GameManager.Instance.currentPlayer;
         aftermathPlayerText.text = currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2";
+        var repairCost = currentPlayer.GetRepairCost();
+        repairDescText.text = $"You will have to pay ${repairCost} to fix your house";
         aftermathPopup.SetActive(true);
        
     }
@@ -220,6 +215,7 @@ public class HH_UIManager : MonoBehaviour
         rightArrow.gameObject.SetActive(false);
         modeToggle.SetActive(false);
         endRoundBtn.gameObject.SetActive(false);
+        ToggleEarnMoreMoneyButton(false);
         HidePlantsMenu();
     }
 

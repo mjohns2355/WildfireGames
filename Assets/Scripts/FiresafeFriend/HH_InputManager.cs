@@ -43,6 +43,7 @@ public class HH_InputManager : MonoBehaviour
 
                 if (hit.collider.CompareTag("House") && canClickHouse)
                 {
+                    //Debug.Log("Clicked on house");
                     if (hit.collider.transform.parent.CompareTag("Fence")) yield break;
                     var house = hit.collider.GetComponent<HouseManager>();
                     OnHouseSelected?.Invoke(house);

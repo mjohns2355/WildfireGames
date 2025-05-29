@@ -63,7 +63,7 @@ public class FF_Tree : FF_Plants
         if (isOnFire) yield break;
         yield return new WaitForSeconds(durability / 10 + baseBurnTime);
         isOnFire = true;
-        burnTimer = 50f;
+        burnTimer = 30f;
         //OnIgnite?.Invoke();
         StartCoroutine(Burn());
     }

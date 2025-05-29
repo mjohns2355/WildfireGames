@@ -13,7 +13,6 @@ public class CategoryButton : MonoBehaviour
     [SerializeField]Button button;
     public Image bg;
 
-    private CategoryButton selectedCategoryButton = null;
     // Start is called before the first frame update
 
     void Start()
@@ -48,4 +47,8 @@ public class CategoryButton : MonoBehaviour
         bg.enabled = true;
     }
 
+    private void OnDisable()
+    {
+        bg.enabled = false;
+    }
 }

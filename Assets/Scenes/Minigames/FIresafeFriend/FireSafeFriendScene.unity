@@ -11992,7 +11992,7 @@ PrefabInstance:
       objectReference: {fileID: 1877745649}
     - target: {fileID: 6422592266225866922, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
       propertyPath: mustDestroy
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6422592266225866922, guid: c893a3b3b85f808468d0951451f6c996, type: 3}
       propertyPath: fireParticle
@@ -25651,6 +25651,7 @@ MonoBehaviour:
   competitionNotice: {fileID: 1412114215}
   fireAnnouncement: {fileID: 2019161082}
   aftermathPlayerText: {fileID: 1969632750}
+  repairDescText: {fileID: 586185354}
   stretchDuration: 0.5
   displayDuration: 1
   fadeDuration: 0.5
@@ -45590,8 +45591,6 @@ MonoBehaviour:
   h2CamPos: {fileID: 1972183036}
   h1PlantCamPos: {fileID: 1224234722}
   h2PlantCamPos: {fileID: 1241578667}
-  fireChance: 0.5
-  maxRounds: 10
   uiManager: {fileID: 1087839861}
   currentPlayer: {fileID: 0}
   inputManager: {fileID: 1179019946}
@@ -45603,7 +45602,6 @@ MonoBehaviour:
   p2: {fileID: 0}
   tree1: {fileID: 1877745645}
   tree2: {fileID: 282569359}
-  _isPlantMode: 0
   publicFencePrefab: {fileID: 7556445686579386757, guid: 83fce5e394fed4847bea61b1a13fda44, type: 3}
   publicFencesTransforms:
   - {fileID: 1351351624}

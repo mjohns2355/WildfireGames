@@ -10,9 +10,7 @@ namespace HappyHouse.HouseSystem
 {
     public class HouseManager : MonoBehaviour
     {
-        //public HouseBlueprint houseBlueprint;
         public float burnedPercent;
-        //public Transform camTransform;
         public HouseGraph houseGraph;
         public FF_Inventory inventory;
         // player budget
@@ -26,7 +24,7 @@ namespace HappyHouse.HouseSystem
         [SerializeField] private float brickWallChance, stuccoWallChance, compositeRoofChance, otherPartUpgradeChance;
         private int upgradeCount = 0;
         private List<PurchaseFloatingButton> purchaseFloatingButtons = new ();
-        [SerializeField] private List<BaseHousePartObject> fences;
+        public List<BaseHousePartObject> fences;
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new () { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
@@ -36,6 +34,7 @@ namespace HappyHouse.HouseSystem
         public float burnedWeight, totalWeight = 0f;
         public bool hasMadeDecisions;
         BoxCollider clickBox;
+        float flammabilityMod, durabilityMod;
         [SerializeField]AudioSource audioSource;
         private void Start()
         {
@@ -52,6 +51,7 @@ namespace HappyHouse.HouseSystem
 
         public void InitHouseManager()
         {
+            flammabilityMod = durabilityMod = 0f;
             houseGraph.nodes.Clear();
             fences = HH_GameManager.Instance.publicFences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
@@ -92,7 +92,7 @@ namespace HappyHouse.HouseSystem
                 }
             }
             // don't roll start condition when it is tutorial or first round
-            if (!HH_GameManager.Instance.isTutorial && /*!HH_GameManager.Instance.IsFirstRound &&*/ HH_GameManager.Instance.isNewLevel || isMoving)
+            if (!HH_GameManager.Instance.isTutorial && HH_GameManager.Instance.isNewLevel || isMoving)
             {
                 StartCoroutine(RandomizeStartingCondition());
             }
@@ -105,7 +105,6 @@ namespace HappyHouse.HouseSystem
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
         {
             part.InitHousePartObject(this);
-            //part.InitHousePartObject(this, allInfos[index]);
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
@@ -114,7 +113,6 @@ namespace HappyHouse.HouseSystem
             {
                 AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
             }
-            //inventory.AddNewPartToInventory(allInfos[index]);
         }
 
         public void Repair(Dictionary<HousePartType,MaterialClass> upgradeDict, bool isMoving)
@@ -129,11 +127,6 @@ namespace HappyHouse.HouseSystem
                     var newPart = ResourceManager.Instance.allAvailableParts[pair.Key].Find(x => x.materialClass == pair.Value);
                     foreach (var oldPart in oldParts)
                     {
-                        //inventory.RemovePartFromInventory(oldPart.defaultPartInfo);
-                        //if (oldPart.houseNode != null)
-                        //{
-                        //    houseGraph.RemoveHousePart(oldPart.houseNode);
-                        //}
                         oldPart.InitHousePartObject(this, newPart);
                     }
                     inventory.AddNewPartToInventory(newPart);
@@ -145,10 +138,15 @@ namespace HappyHouse.HouseSystem
 
         }
 
+        public float GetRepairCost()
+        {
+            return burnedPercent <= 0.5f ? 5000f : 10000f;
+        }
         public void ToggleClickBox(bool toggle)
         {
             clickBox.enabled = toggle;
         }
+
         public void OnHouseSelected(HouseManager manager)
         {
             if (manager != this) return;
@@ -165,7 +163,6 @@ namespace HappyHouse.HouseSystem
 
         public void OnHouseDeselected()
         {
-            //HH_GameManager.Instance.inputManager.canClickHouse = true;
             foreach (var icon in purchaseFloatingButtons)
             {
                 Destroy(icon.gameObject);
@@ -221,73 +218,234 @@ namespace HappyHouse.HouseSystem
             return false;
         }
 
-        public void ReplaceHousePartObject(/*BaseHousePartObject newPart*/ HousePartInfo housePartInfo)
+        public void ReplaceHousePartObject(HousePartInfo newInfo)
         {
-            //  hide bubble when no purchasing possible
-            int ownedPartsCount = -1;
+            PlayConstructSound();
+            bool hideBubble = ShouldHideBubble(newInfo);
 
-            var constructSfx = ResourceManager.Instance.RetrunRandomConstructSound();
-            audioSource.PlayOneShot(constructSfx);
-            if (housePartInfo.isPublic)
+            var oldParts = GetAllHousePartObjectsOf(newInfo.housePartType, newInfo.isPublic);
+
+            // Capture old material class from the first part (assumes uniform class across parts)
+            var oldMaterial = oldParts.FirstOrDefault()?.partInfo.materialClass ?? MaterialClass.B;
+
+            if (!newInfo.isPublic)
+                AddMaterialToDictionary(newInfo.housePartType, newInfo.materialClass);
+
+            foreach (var part in oldParts)
             {
-                ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;
+                ToggleBubble(part, !hideBubble);
+                ReplaceNode(part, newInfo);
+            }
+
+            if (newInfo.housePartType is HousePartType.Vent or HousePartType.Ground)
+            {
+                HandleGlobalModifiers(oldMaterial, newInfo.materialClass);
             }
             else
             {
-                ownedPartsCount = inventory.ownedParts[housePartInfo.housePartType].Count;
+                ApplyStoredModifiers();
             }
 
-            bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == ownedPartsCount;
+            if (HH_GameManager.Instance.isTutorial)
+                return;
 
-            var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
-            //var oldParts = GetAllHousePartObjects(newPart.HousePartType);
-            //Debug.Log($"{oldParts.Count} pieces of {housePartInfo.housePartType} is in use");
-            if (!housePartInfo.isPublic)
-            {
-                AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
-            }
-            
-            foreach (var oldPart in oldParts)
-            {
-
-                if (oldPart.houseNode != null)
-                {
-                    if (oldPart.shouldDisplayBubble)
-                    {
-                        oldPart.bubble.isActive = !shouldHideBubble;
-                        oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
-                        oldPart.shouldDisplayBubble = !shouldHideBubble;
-                    }
-
-                    var oldNeighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
-                    houseGraph.RemoveHousePart(oldPart.houseNode);  // Remove old node
-
-                    oldPart.InitHousePartObject(this, housePartInfo);
-                    var newNode = houseGraph.AddHousePart(oldPart);
-                    oldPart.houseNode = newNode;
-
-                    // Reconnect previous neighbors
-                    foreach (var neighbor in oldNeighbors)
-                    {
-                        houseGraph.ConnectParts(newNode, neighbor);
-                    }
-                }
-                else if (housePartInfo.isPublic)
-                {
-                    if (oldPart.shouldDisplayBubble)
-                    {
-                        oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
-                        oldPart.shouldDisplayBubble = !shouldHideBubble;
-                    }
-                    oldPart.InitHousePartObject(this, housePartInfo);
-                }
-            }
-
-            if (HH_GameManager.Instance.isTutorial) return;
-            //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
-            
-            HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType, housePartInfo.isPublic);
+            HH_GameManager.Instance.uiManager
+                .inventoryPanel
+                .UpdateInventoryUI(newInfo.housePartType, newInfo.isPublic);
         }
+
+        // Helpers
+        private void PlayConstructSound()
+        {
+            var clip = ResourceManager.Instance.RetrunRandomConstructSound();
+            audioSource.PlayOneShot(clip);
+        }
+
+        private bool ShouldHideBubble(HousePartInfo info)
+        {
+            int ownedCount = info.isPublic
+                ? inventory.ownedPublicParts[info.housePartType].Count
+                : inventory.ownedParts[info.housePartType].Count;
+
+            int totalAvailable = ResourceManager.Instance.allAvailableParts[info.housePartType].Count;
+            return ownedCount >= totalAvailable;
+        }
+
+        private void ToggleBubble(BaseHousePartObject part, bool visible)
+        {
+            if (!part.shouldDisplayBubble) return;
+            part.bubble.isActive = visible;
+            part.bubble.gameObject.SetActive(visible);
+            part.shouldDisplayBubble = visible;
+        }
+
+        private void ReplaceNode(BaseHousePartObject part, HousePartInfo info)
+        {
+            if (part.houseNode == null && info.isPublic)
+            {
+                part.InitHousePartObject(this, info);
+                return;
+            }
+
+            // Store neighbors, remove node, re-init, re-add node, reconnect
+            var neighbors = part.houseNode.neighbourNodes.ToList();
+            houseGraph.RemoveHousePart(part.houseNode);
+
+            part.InitHousePartObject(this, info);
+            var newNode = houseGraph.AddHousePart(part);
+            part.houseNode = newNode;
+
+            foreach (var n in neighbors)
+                houseGraph.ConnectParts(newNode, n);
+        }
+
+        private void HandleGlobalModifiers(MaterialClass oldClass, MaterialClass newClass)
+        {
+            // Revert old A-class buffs
+            if (oldClass == MaterialClass.A)
+            {
+                flammabilityMod -= 0.1f;
+                durabilityMod -= 0.1f;
+                ApplyModifiersToAll(-0.1f, +0.1f, revert: true);
+            }
+
+            // Apply new A-class buffs
+            if (newClass == MaterialClass.A)
+            {
+                flammabilityMod += 0.1f;
+                durabilityMod += 0.1f;
+                ApplyModifiersToAll(+0.1f, -0.1f);
+            }
+        }
+
+        private void ApplyStoredModifiers()
+        {
+            ApplyModifiersToAll(durabilityMod, -flammabilityMod);
+        }
+
+        private void ApplyModifiersToAll(float durPercent, float flamPercent, bool revert = false)
+        {
+            foreach (var node in houseGraph.nodes)
+            {
+                var part = node.housePart;
+                if (revert)
+                {
+                    part.DecreaseDurability(durPercent);
+                    part.IncreaseFlammability(flamPercent);
+                }
+                else
+                {
+                    part.IncreaseDurability(durPercent);
+                    part.DecreaseFlammability(flamPercent);
+                }
+            }
+        }
+
+        //public void ReplaceHousePartObject(HousePartInfo housePartInfo)
+        //{
+        //    //sfx
+        //    var constructSfx = ResourceManager.Instance.RetrunRandomConstructSound();
+        //    audioSource.PlayOneShot(constructSfx);
+
+        //    //  hide bubble when no purchasing possible
+        //    int ownedPartsCount = -1;
+        //    if (housePartInfo.isPublic)
+        //    {
+        //        ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;
+        //    }
+        //    else
+        //    {
+        //        ownedPartsCount = inventory.ownedParts[housePartInfo.housePartType].Count;
+        //    }
+
+        //    bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == ownedPartsCount;
+
+        //    // replace all old parts with new parts
+        //    var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
+
+        //    if (!housePartInfo.isPublic)
+        //    {
+        //        AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
+        //    }
+
+        //    MaterialClass oldMaterialClass = MaterialClass.B;
+        //    foreach (var oldPart in oldParts)
+        //    {
+
+        //        if (oldPart.houseNode != null)
+        //        {
+        //            if (oldPart.shouldDisplayBubble)
+        //            {
+        //                oldPart.bubble.isActive = !shouldHideBubble;
+        //                oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+        //                oldPart.shouldDisplayBubble = !shouldHideBubble;
+        //            }
+
+        //            var oldNeighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
+        //            oldMaterialClass = oldPart.partInfo.materialClass;
+        //            houseGraph.RemoveHousePart(oldPart.houseNode);  // Remove old node
+
+        //            oldPart.InitHousePartObject(this, housePartInfo);
+        //            var newNode = houseGraph.AddHousePart(oldPart);
+        //            oldPart.houseNode = newNode;
+
+        //            // Reconnect previous neighbors
+        //            foreach (var neighbor in oldNeighbors)
+        //            {
+        //                houseGraph.ConnectParts(newNode, neighbor);
+        //            }
+        //        }
+        //        else if (housePartInfo.isPublic)
+        //        {
+        //            if (oldPart.shouldDisplayBubble)
+        //            {
+        //                oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
+        //                oldPart.shouldDisplayBubble = !shouldHideBubble;
+        //            }
+        //            oldPart.InitHousePartObject(this, housePartInfo);
+        //        }
+        //    }
+
+        //    if(housePartInfo.housePartType is HousePartType.Vent or HousePartType.Ground)
+        //    {
+
+        //        if (oldMaterialClass == MaterialClass.A)
+        //        {
+        //            flammabilityMod -= 0.1f;
+        //            durabilityMod -= 0.1f;
+        //            foreach (var node in houseGraph.nodes)
+        //            {
+        //                var part = node.housePart;
+        //                part.DecreaseDurability(0.1f);
+        //                part.IncreaseFlammabilty(0.1f);
+
+        //            }
+        //        }
+        //        if (housePartInfo.materialClass != MaterialClass.A) return;
+        //        flammabilityMod += 0.1f;
+        //        durabilityMod += 0.1f;
+        //        foreach (var node in houseGraph.nodes)
+        //        {
+        //            var part = node.housePart;
+        //            part.IncreaseDurability(0.1f);
+        //            part.DecreaseFlammabilty(0.1f);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (var node in houseGraph.nodes)
+        //        {
+        //            var part = node.housePart;
+        //            part.IncreaseDurability(durabilityMod);
+        //            part.DecreaseFlammabilty(flammabilityMod);
+        //        }
+        //    }
+            
+        //    if (HH_GameManager.Instance.isTutorial) return;
+        //    //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
+            
+        //    HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType, housePartInfo.isPublic);
+        //}
 
         public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
         {
@@ -407,15 +565,22 @@ namespace HappyHouse.HouseSystem
                     if (res != null)
                     {
 
-
                         foreach (var oldPart in oldParts)
                         {
                             inventory.RemovePartFromInventory(oldPart.defaultPartInfo.housePartType,oldPart.defaultPartInfo.partID);
-                            //if (oldPart.houseNode != null)
-                            //{
-                            //    houseGraph.RemoveHousePart(oldPart.houseNode);
-                            //}
                             oldPart.InitHousePartObject(this, res);
+                        }
+
+                        if (res.housePartType == HousePartType.Vent || res.housePartType == HousePartType.Ground)
+                        {
+                            if (res.materialClass != MaterialClass.A) return;
+                            flammabilityMod = durabilityMod = 0.1f;
+                            foreach (var node in houseGraph.nodes)
+                            {
+                                var part = node.housePart;
+                                part.IncreaseDurability(0.1f);
+                                part.DecreaseFlammability(0.1f);
+                            }
                         }
                         inventory.AddNewPartToInventory(res);
                         AddMaterialToDictionary(res.housePartType, res.materialClass);
@@ -498,6 +663,7 @@ namespace HappyHouse.HouseSystem
                 return 0;
 
             float rawPercent = (burnedWeight / totalWeight) * 100f;
+            burnedPercent = Mathf.CeilToInt(rawPercent) / 100f;
             return Mathf.CeilToInt(rawPercent);
         }
 
@@ -545,17 +711,6 @@ namespace HappyHouse.HouseSystem
             //Debug.Log($"Added {type} with class {materialClass.GetMaterialScore()} to dictionary");
         }
 
-        //public void OnHousePartDestroyed(BaseHousePartObject part)
-        //{
-        //    if (part == null) return;
-        //    if (part.partInfo.isPublic)
-        //    {
-        //        HH_GameManager.Instance.publicFences.Remove(part);
-        //        return;
-        //    }
-        //    houseGraph.RemoveHousePart(part.houseNode);
-
-        //}
 
         private void OnDestroy()
         {

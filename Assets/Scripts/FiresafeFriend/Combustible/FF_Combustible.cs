@@ -41,8 +41,9 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         }
     }
     public bool isOverHeated = false;
-    protected float durability;
-    protected float flammability;
+    [SerializeField]protected float durability;
+    [SerializeField]protected float flammability;
+    protected float baseFlammability, baseDurability;
     public float baseBurnTime = 10f;
     protected float burnTimer;
     protected Collider collider;
@@ -59,9 +60,10 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void Start()
     {
         if (notInteractable) return;
-        durability = combustibleInfo.durability;
-        //Debug.Log(combustibleInfo.durability);
-        flammability = combustibleInfo.flammability;
+        baseDurability = combustibleInfo.durability;
+        durability = baseDurability;
+        baseFlammability = combustibleInfo.flammability;
+        flammability = baseFlammability;
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnCombustibleClicked;
         OnBurnStageChanged += ChangeBurnStage;
         meshes = GetComponentsInChildren<MeshRenderer>()
@@ -132,9 +134,26 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         StartCoroutine(Burn());
     }
 
-    public virtual void DecreaseFlammabilty(float precentage)
+    public virtual void DecreaseFlammability(float percentage)
     {
-        flammability *= 1- precentage;
+        flammability = Mathf.Clamp( flammability - baseFlammability * percentage, 0f, 100f);
+    }
+
+    public virtual void IncreaseDurability(float percentage)
+    {
+        var mod = Mathf.Max(10f, baseDurability * percentage);
+        durability += mod;
+    }
+
+    public virtual void IncreaseFlammability(float percentage)
+    {
+        flammability = Mathf.Clamp(flammability + baseFlammability * percentage, 0f, 100f);
+    }
+
+    public virtual void DecreaseDurability(float percentage)
+    {
+        var mod = Mathf.Max(10f, baseDurability * percentage);
+        durability = Mathf.Clamp(durability - mod,0f,float.MaxValue);
     }
 
     public virtual void OnCombustibleClicked(GameObject obj)
