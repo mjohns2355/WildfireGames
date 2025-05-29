@@ -11,7 +11,7 @@ public class InventoryItem : MonoBehaviour
     public HousePartType housePartType;
     bool isInUse;
     public HousePartInfo partInfo;
-    [SerializeField] Button button;
+    public Button button;
 
     private void Start()
     {
@@ -25,16 +25,6 @@ public class InventoryItem : MonoBehaviour
         icon.gameObject.SetActive(true);
         BG.sprite = partInfo != null ? inUseBG : emptyBG;
     }
-
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    OnButtonClick();
-    //    //var newHouseObject = HH_GameManager.Instance.CreateHousePartObject(partInfo, player);
-    //    //player.ReplaceHousePartObject(newHouseObject);
-        
-    //    //Debug.Log($"new part object {newHouseObject.houseNode.housePart}");
-    //    //HH_GameManager.Instance.UIManager.inventoryUI.onCategoryItemButtonClicked.Invoke(newHouseObject);
-    //}
 
     public void SetIsInUse(bool isInUse)
     {
@@ -58,7 +48,7 @@ public class InventoryItem : MonoBehaviour
             HH_GameManager.Instance.uiManager.ShowStoreScreen(housePartType);
             return ;
         }
-        
+
         var player = HH_GameManager.Instance.currentPlayer;
         player.ReplaceHousePartObject(partInfo);
     }

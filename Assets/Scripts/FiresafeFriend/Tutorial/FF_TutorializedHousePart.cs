@@ -15,9 +15,11 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     PurchaseFloatingButton bubble;
     HouseManager houseManager;
     List<BaseHousePartObject> partObjects;
+    InventoryUI inventory;
+    InventoryItem oldItem, newItem;
     public override void OnTutorialStepStart()
     {
-
+        inventory = HH_GameManager.Instance.uiManager.inventoryPanel;
         plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((vlaue) =>
         {
             SwitchToHouseMode();
@@ -31,17 +33,56 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
                 part.isClickable = false;
             }
             HH_GameManager.Instance.inputManager.OnObjectSelected -= OnPartTapped;
-            Destroy(bubble.gameObject);
-            OnTutorialStepComplete();
+            bubble.gameObject.SetActive(false);
+            //Destroy(bubble.gameObject);
+            ShowInventoryButton();
+            //OnTutorialStepComplete();
         });
-        //DOVirtual.DelayedCall(8f, () =>
-        //{
-        //    ShowToggle();
-        //});
-
         onClick.AddListener(ShowToggle);
     }
+    public void ShowInventoryButton()
+    {
+        FF_TutorialManager.Instance.tutorialText.text = "You can always see your owned material in inventory. Try tapping on the button to open the inventory";
+        inventory.gameObject.SetActive(true);
+        var inventoryBtn = inventory.inventoryButton;
+        inventoryBtn.onClick.AddListener(OnInventoryOpened);
+        inventoryBtn.gameObject.SetActive(true);
+        inventoryBtn.interactable = false;
+        Sequence sq = DOTween.Sequence();
+        sq.Append(ScaleEffect(inventoryBtn.GetComponent<RectTransform>()));
+        sq.onComplete += () =>
+        {
+            inventoryBtn.interactable = true;
+        };
+    }
 
+    void OnInventoryOpened()
+    {
+        FF_TutorialManager.Instance.tutorialText.text = "You can always tap on the item to replace the material. Try tapping on the wood";
+
+        oldItem = inventory.items[0];
+        newItem = inventory.items[1];
+        newItem.button.interactable = false;
+        ScaleEffect(oldItem.GetComponent<RectTransform>());
+        oldItem.button.onClick.AddListener(OnClickedOldItem);
+        newItem.button.onClick.AddListener(OnClickedNewItem);
+    }
+
+    void OnClickedNewItem()
+    {
+        FF_TutorialManager.Instance.tutorialText.text = "Now you roof is using shingle, don't forget to use the inventory anytime you want to apply other materials to your house!";
+        inventory.gameObject.SetActive(false);
+        Destroy(bubble.gameObject);
+        onClick.AddListener(OnTutorialStepComplete);
+    }
+
+    void OnClickedOldItem()
+    {
+        newItem.button.interactable = true;
+        FF_TutorialManager.Instance.tutorialText.text = "Great job! Now try tapping on the shingle again";
+        oldItem.button.interactable = false;
+        ScaleEffect(newItem.GetComponent<RectTransform>());
+    }
     public void ShowToggle()
     {
         plantModeToggle.SetActive(true);
@@ -87,15 +128,12 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     }
     public void ShowUpgradeHousePart()
     {
-        //Debug.Log("Step 5 behaviour");
         HH_GameManager.Instance.inputManager.OnObjectSelected += OnPartTapped;
         bubble.button.enabled = true;
         bubble.button.onClick.AddListener(() =>
         {
             OnPartTapped(gameObject);
         });
-        //enable house part clickingß
-        //HH_GameManager.Instance.SetGameStart(true);
         highlightMesh.HighlightMeshes();
         DOVirtual.DelayedCall(1f, () =>
         {
@@ -114,8 +152,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnPartTapped(GameObject obj)
     {
-        //if (!FF_TutorialManager.Instance.tutorialPanel.activeInHierarchy) return;
-        //FF_TutorialManager.Instance.tutorialPanel.SetActive(false);     
+ 
         var part = obj.GetComponentInParent<BaseHousePartObject>();
         if (part)
         {         
@@ -126,5 +163,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         }
 
     }
+
+
 
 }
