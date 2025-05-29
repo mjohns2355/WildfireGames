@@ -57,12 +57,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
                     onClick.AddListener(() =>
                     {
                         OnTutorialStepComplete();
-                        //FF_TutorialManager.Instance.tutorialText.text = "Great job! Let’s move on to home hardening.";
-                        //DOVirtual.DelayedCall(2f, () => OnTutorialStepComplete());
                     });
-                    //dirtMounds.Clear();
-                    //FF_TutorialManager.Instance.tutorialText.text = "Great job! Let’s move on to home hardening.";
-                    //DOVirtual.DelayedCall(2f, () => OnTutorialStepComplete());
                     
                 }
             };

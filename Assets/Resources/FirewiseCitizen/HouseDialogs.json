@@ -1552,70 +1552,89 @@
       ]
     },
     {
-      "houseType": "outro",
-      "rootNodeId": "66",
-      "nodes": [
-        {
-          "id": "66",
-          "characterName": "Firefighter",
-          "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"pet_unlocked\">. Great work! Now, you can see all the other homes that <b>need your help.</b>",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
-        },
-        {
-          "id": "67",
-          "characterName": "Firefighter",
-          "dialogText": "Once you have <b>spoken to everyone</b>, press on that <sprite name=\"play\"> icon. Then we will see what happened, and the <b>impact you made!</b>",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "options": [
+        "houseType": "outro",
+        "rootNodeId": "66",
+        "nodes": [
             {
-              "optionText": "Sounds good!",
-              "messageText": "Sounds good! I think I'm ready now."
-            }
-          ]
-        },
-        {
-          "id": "68",
-          "characterName": "Firefighter",
-          "dialogText": "Great! Oh, one last thing.",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
-        },
-        {
-          "id": "69",
-          "characterName": "Firefighter",
-          "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be for a bunch of different reasons, but it’s <b>important</b> to keep in mind that their <b>actions might not reflect what you told them.</b>",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
-        },
-        {
-          "id": "70",
-          "characterName": "Firefighter",
-          "dialogText": "Just listen to each situation, and do what you think is best! During the simulation, an icon over their house will let you know if they took your advice. Are you ready to begin?",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "isEndNode": true,
-          "options": [
-            {
-              "optionText": "Yes (Begin Game)",
-              "messageText": "Yes"
+                "id": "66",
+                "characterName": "Firefighter",
+                "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"pet_unlocked\">. Great work! Now, you can see all the other homes that <b>need your help.</b>",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
             },
             {
-              "optionText": "No (Review Tutorial)",
-              "messageText": "I wanna review the tutorial.",
-              "nextNodeId": "50"
-            }
-          ]
-        },
-        {
-          "id": "71",
-          "characterName": "Firefighter",
-          "dialogText": "Great! The get out here, and <b>help our citizens become fire wise!</b>",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "isEndNode": "true",
-          "options": [
+                "id": "67",
+                "characterName": "Firefighter",
+                "dialogText": "Once you have <b>spoken to everyone</b>, press on that <sprite name=\"play\"> icon. Then we will see what happened, and the <b>impact you made!</b>",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "options": [
+                    {
+                        "optionText": "Sounds good!",
+                        "messageText": "Sounds good! I think I'm ready now."
+                    }
+                ]
+            },
             {
-              "optionText": "Start Game"
+                "id": "68",
+                "characterName": "Firefighter",
+                "dialogText": "Great! Oh, one last thing.",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            },
+            {
+                "id": "69",
+                "characterName": "Firefighter",
+                "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be for a bunch of different reasons, but it’s <b>important</b> to keep in mind that their <b>actions might not reflect what you told them.</b>",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            },
+            {
+                "id": "70",
+                "characterName": "Firefighter",
+                "dialogText": "Just listen to each situation, and do what you think is best! During the simulation, an icon over their house will let you know if they took your advice. Are you ready to begin?",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "isEndNode": true,
+                "options": [
+                    {
+                        "optionText": "Yes (Begin Game)",
+                        "messageText": "Yes"
+                    },
+                    {
+                        "optionText": "No (Review Tutorial)",
+                        "messageText": "I wanna review the tutorial.",
+                        "nextNodeId": "50"
+                    }
+                ]
+            },
+            {
+                "id": "71",
+                "characterName": "Firefighter",
+                "dialogText": "Great! The get out here, and <b>help our citizens become fire wise!</b>",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "isEndNode": "true",
+                "options": [
+                    {
+                        "optionText": "Start Game"
+                    }
+                ]
             }
-          ]
-        }
-      ]
+        ]
+    },
+    {
+        "houseType": "incentives",
+        "rootNodeId": "1",
+        "nodes": [
+            {
+                "id": "1",
+                "characterName": "Firefighter",
+                "dialogText": "Introduce incentives",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            },
+            {
+                "id": "2",
+                "characterName": "Firefighter",
+                "dialogText": "End introduction",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "isEndNode": "true"
+            }
+        ]
     }
   ]
 }
