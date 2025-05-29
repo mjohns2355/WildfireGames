@@ -48,4 +48,8 @@ public class CategoryButton : MonoBehaviour
         bg.enabled = true;
     }
 
+    private void OnDisable()
+    {
+        bg.enabled = false;
+    }
 }

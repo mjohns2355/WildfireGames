@@ -218,7 +218,6 @@ namespace HappyHouse.HouseSystem
             return false;
         }
 
-        // Refactored ReplaceHousePartObject with extracted helpers and clearer flow
         public void ReplaceHousePartObject(HousePartInfo newInfo)
         {
             PlayConstructSound();

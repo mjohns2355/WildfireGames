@@ -49,11 +49,6 @@ public class InventoryUI : MonoBehaviour
         defaultCategory = categories[0];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdateInventoryUI(HousePartType partType, bool isPublic = false)
     {
