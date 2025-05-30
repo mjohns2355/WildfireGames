@@ -303,7 +303,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var p2Score = p2.CalculateRating();
         competitionLoser = p1Score > p2Score ? p2.playerTag
                            : p2Score < p1Score ? p1.playerTag
-                           : null;
+                           : string.Empty;
         int rewardP1 = p1Score > p2Score ? WinReward
               : p1Score < p2Score ? 0
               : TieReward;
@@ -324,10 +324,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     }
 
-    //public void EarnReward()
-    //{
-    //    currentPlayer.budgetManager.IncreaseBudget(WinReward);
-    //}
+    public void EarnReward()
+    {
+        currentPlayer.budgetManager.IncreaseBudget(WinReward);
+    }
     public void SwitchPlayer (string playerTag)
     {
         uiManager.ToggleInventory(false);
@@ -374,7 +374,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         if (lastRoundIsCompetition)
         {
-            var isLoser = competitionLoser != null && competitionLoser == currentPlayer.playerTag;
+            var isLoser = competitionLoser != string.Empty && competitionLoser == currentPlayer.playerTag;
             uiManager.joinConcilPopup.SetActive(isLoser);
         }
         
