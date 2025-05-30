@@ -21,6 +21,7 @@ public class HH_UIManager : MonoBehaviour
     public GameObject bubblePrefab,startText, modeToggle;
     public GameObject pauseMenu,aftermathPopup,joinConcilPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
     public TextMeshProUGUI aftermathPlayerText, repairDescText;
+    public Action OnCompetitionResultEnabled;
     [Header("Banner Timings")]
     public float stretchDuration = 0.5f;  
     public float displayDuration = 1f;    
@@ -259,6 +260,7 @@ public class HH_UIManager : MonoBehaviour
         yield return new WaitUntil(() => canShow);
         endScreenManager.gameObject.SetActive(true);
         endScreenManager.ShowCompetitionResult(p1Score, p2Score);
+        OnCompetitionResultEnabled.Invoke();
     }
 
     public void ShowFireAnnouncement()
