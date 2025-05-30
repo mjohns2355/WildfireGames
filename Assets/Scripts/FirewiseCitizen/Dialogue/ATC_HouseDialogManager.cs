@@ -34,7 +34,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public Action OnDialogueComplete;
     public Action<DialogNode> OnDialogueNodeDisplayed;
     public Action<DialogOption> OnDialogueOptionSelected;
-    //[SerializeField] GameObject nameTag;
     public bool isWaitingForPlayer = true;
     public bool canShowSkipButton = false;
     private bool canClick = false;

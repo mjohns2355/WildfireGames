@@ -341,7 +341,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         loadingScreen.blocksRaycasts = true;
         loadingScreen.alpha = 1;
         GameManager.Instance.canControlCam = false;
-        DOVirtual.DelayedCall(loadingTime, () =>
+        DOVirtual.DelayedCall(GameManager.Instance.loadingTime, () =>
         {
             loadingScreen.DOFade(0, 0.5f).SetEase(Ease.InOutQuad).OnComplete(HideLoadingScreen);
         });

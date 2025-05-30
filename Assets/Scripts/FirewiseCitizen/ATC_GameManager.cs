@@ -59,6 +59,8 @@ public class GameManager : UnitySingleton<GameManager>
     public GameObject topBanner;
     
     private bool isPaused = false;
+    public float loadingTime = 1f;
+
     public override void Awake()
     {
         base.Awake();
@@ -300,11 +302,12 @@ public class GameManager : UnitySingleton<GameManager>
         previousHousesDestroyed = 0;
         //currentStage = LevelStage.BeforeFirstSim;
         //SkipSimulationRec();
-
-        ResetGame();
         
+        ResetGame();
+        StartCoroutine(ShowIncentiveIntroduction());
         //previousHousesDestroyed = previousCarsEvacuated = 0;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //DOTween.Clear(true);
@@ -326,7 +329,17 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
-        
+
+    }
+
+    IEnumerator ShowIncentiveIntroduction()
+    {
+        yield return new WaitForSeconds(loadingTime + 0.5f);
+        if (currentLevel == 1)
+        {
+            ATC_UIController.Instance.ShowDialog();
+            ATC_UIController.Instance.houseDialogManager.StartDialogue("incentives");
+        }
     }
 
     void InitiAvailableHouseType()
