@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
         gameCamera = GetComponent<Camera>();
         gameCamera.fieldOfView = defaultFOV;
         FOV = gameCamera.fieldOfView;
-        camPos = gameCamera.transform.position;
+        camPos = transform.position;
         bounds = movementBounds.bounds;
         camStartFOV = gameCamera.fieldOfView;
         //GameManager.Instance.inputManager.OnMouseHold += DragToMoveCamera;
@@ -92,13 +92,28 @@ public class CameraMovement : MonoBehaviour
 
         if (movementBounds != null)
         {
+            float mapY = movementBounds.bounds.min.y;
+            float H = transform.position.y - mapY;
+            float pitchRad = transform.eulerAngles.x * Mathf.Deg2Rad;
+            Vector3 flatFwd = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
+            float d = H / Mathf.Tan(pitchRad);
+            Vector3 centerOffset = flatFwd * d;
 
-            //Debug.Log($"Bounds: x({bounds.min.x:F1} → {bounds.max.x:F1}), z({bounds.min.z:F1} → {bounds.max.z:F1})");
-            camPos.x = Mathf.Clamp(camPos.x, bounds.min.x, bounds.max.x);
-            camPos.z = Mathf.Clamp(camPos.z, bounds.min.z, bounds.max.z);
+            var b = movementBounds.bounds;
+
+            float minX = b.min.x - centerOffset.x;
+            float maxX = b.max.x - centerOffset.x;
+            float minZ = b.min.z - centerOffset.z;
+            float maxZ = b.max.z - centerOffset.z;
+
+            camPos.x = Mathf.Clamp(camPos.x, minX, maxX);
+            camPos.z = Mathf.Clamp(camPos.z, minZ, maxZ);
         }
 
-        transform.position = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
+        Vector3 smoothed = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
+        transform.position = smoothed;
+
+        //transform.position = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
     }
 
     public void ZoomCamera()
