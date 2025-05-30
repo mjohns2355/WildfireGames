@@ -9,10 +9,25 @@ public class MainMenu1 : MonoBehaviour
 {
     private string selectedScene = "";
 
+    [SerializeField] private Button playButton;
+
+    private void Start()
+    {
+        if(playButton != null)
+        {
+            playButton.gameObject.SetActive(false);
+        }
+    }
+
     public void SelectScene(string sceneName)
     {
         selectedScene = sceneName;
         Debug.Log("Scene selected: " + sceneName);
+
+        if (playButton != null)
+        {
+            playButton.gameObject.SetActive(true);
+        }
     }
 
     public void PlaySelectedScene()
