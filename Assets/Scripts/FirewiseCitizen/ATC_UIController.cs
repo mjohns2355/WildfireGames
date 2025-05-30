@@ -287,7 +287,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
-        resetCamera.gameObject.SetActive(GameManager.Instance.currentStage != LevelStage.Tutorial); 
+        //resetCamera.gameObject.SetActive(GameManager.Instance.currentStage != LevelStage.Tutorial); 
 
         toolsBar.gameObject.SetActive(true);
         start.gameObject.SetActive(true);

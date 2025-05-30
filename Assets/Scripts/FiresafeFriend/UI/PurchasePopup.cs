@@ -64,7 +64,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnCancelClicked()
     {
-        Debug.Log("Cancel clicked");
+        //Debug.Log("Cancel clicked");
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo,shouldShowStore);
 
     }
