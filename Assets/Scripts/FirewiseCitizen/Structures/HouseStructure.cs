@@ -69,28 +69,9 @@ public class HouseStructure : Structure
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
         ModifyStructureRotation();
         followOrderChance = houseType == HouseType.wui ? 0.5f : 0.8f;
-        //if (!isMainHouse) return;
-        //InitMainHouse();
-
-
-
-
 
     }
 
-    //private void OnEnable()
-    //{
-    //    SpawnHouseModel();
-    //}
-
-    private void Update()
-    {
-        //if(Input.GetKeyDown(KeyCode.F) && testHouse)
-        //{
-        //    TestSpawnCar();
-        //}
-        
-    }
 
     void CheckNeighbourRoad()
     {
@@ -104,13 +85,6 @@ public class HouseStructure : Structure
         }
 
     }
-    //void TestSpawnCar()
-    //{
-    //    var targetShelter = GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.Shelter);
-    //    var targetSchool= GameManager.Instance.structureManager.placementManager.GetRandomSpecialStructursOfType(StructureType.School);
-    //    //ATC_AIDirector.Instance.SpawnCarWithMultipleStops(GetComponent<ATC_StructureModel>(), new List<ATC_StructureModel> { targetSchool, targetShelter }, CarSpeed.fast, 1);
-    //    ATC_AIDirector.Instance.SpawnACar(GetComponent<ATC_StructureModel>(), targetShelter, CarSpeed.fast, 1);
-    //}
     public void SpawnHouseModel()
     {
         if (mesh.childCount >= 1) return;
@@ -159,8 +133,6 @@ public class HouseStructure : Structure
         currentOption = houseInfo.defaultChoice.choiceName;
         contextMenu.onOptionConfirmed += OnOptionConfirmed;
         ATC_UIController.Instance.icons.Add(contextMenu.icon);
-        //choices = GameManager.Instance.structureManager.GetPlayerChoicesDict()[HouseType];
-        //InitSpecialStructDict();
         //default destination
         var shelter = GameManager.Instance.structureManager.specialStructureDict[StructureType.Shelter];
         SetDestination(new List<ATC_StructureModel> { shelter });
