@@ -196,7 +196,7 @@ public class BaseHousePartObject : FF_BaseCombustible
 
         
     }
-    private void HandleIgnite()
+    protected virtual void HandleIgnite()
     {
         SpawnFire();        
         StartCoroutine(SpreadFireToNeighbour());

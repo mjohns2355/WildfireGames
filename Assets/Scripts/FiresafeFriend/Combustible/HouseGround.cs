@@ -6,6 +6,7 @@ using UnityEngine;
 public class HouseGround : BaseHousePartObject
 {
     [SerializeField]private float flammabilityMod;
+    [SerializeField] private GameObject fireParticle;
 
     private void ApplyFlammabilityMod()
     {
@@ -48,6 +49,19 @@ public class HouseGround : BaseHousePartObject
         return neighbours;
     }
 
+    private void Update()
+    {
+        if (!isOnFire) return;
+        foreach (var mesh in meshes)
+        {
+            foreach (var material in mesh.materials)
+            {
+                material.color = Color.Lerp(mesh.material.color, burntColor, Time.deltaTime);
+            }
+
+        }
+    }
+
     public override void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         base.InitHousePartObject(owner, housePart);
@@ -55,5 +69,13 @@ public class HouseGround : BaseHousePartObject
         flammabilityMod = ((GroundCombustibleInfo)combustibleInfo).flammabilityMod;
         //flammabilityMod = ((GroundCombustibleInfo)partInfo).flammabilityMod;
         ApplyFlammabilityMod();
+    }
+
+    protected override void HandleIgnite()
+    {
+        base.HandleIgnite();
+        Debug.Log("Ground is ignited");
+        fireParticle.SetActive(true);
+        
     }
 }
