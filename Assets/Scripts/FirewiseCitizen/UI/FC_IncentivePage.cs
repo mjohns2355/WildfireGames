@@ -8,7 +8,7 @@ public class FC_IncentivePage : MonoBehaviour
 {
     public Transform optionsGrid;
     public GameObject incentiveIconPrefab;
-    public GameObject incentivePage, confirmationPage;
+    public GameObject incentivePage, confirmationPage,note;
     public OptionButton incentiveOne, incentiveTwo;
     public Button confirm, cancel,skip;
     List<FC_Incentiveicon> incentiveIcons = new();
@@ -23,12 +23,6 @@ public class FC_IncentivePage : MonoBehaviour
         skip.onClick.AddListener(OnSkipped);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
     public void ShowIncentivesPage()
     {
@@ -36,6 +30,7 @@ public class FC_IncentivePage : MonoBehaviour
         foreach (var houseType in GameManager.Instance.availableHouseTypes)
         {
             if (houseType == HouseType.pet || houseType == HouseType.kids) continue;
+            if (!ATC_UIController.Instance.FindMenu(houseType).isSelected) continue;
             var icon = GameManager.Instance.structureManager.houseInfoDict[houseType].houseIcon;
             var owner = GameManager.Instance.structureManager.allMainHouses[houseType];
             var obj = Instantiate(incentiveIconPrefab, optionsGrid);
@@ -52,6 +47,8 @@ public class FC_IncentivePage : MonoBehaviour
             incentiveIcons.Add(incentiveIcon);
 
         }
+        // show note when no icons are available
+        note.SetActive(incentiveIcons.Count == 0);
     }
 
     public void HideIncentivesPage()

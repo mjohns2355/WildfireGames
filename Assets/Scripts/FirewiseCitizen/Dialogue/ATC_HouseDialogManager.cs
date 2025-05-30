@@ -332,7 +332,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         characterPortrait.gameObject.SetActive(false);
         OnDialogueComplete?.Invoke();
         DOTween.Kill(gameObject);
-
+        GameManager.Instance.canControlCam = false;
         
         if (Enum.TryParse(key, out HouseType houseType))
         {
