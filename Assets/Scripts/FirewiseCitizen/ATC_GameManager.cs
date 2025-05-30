@@ -304,7 +304,12 @@ public class GameManager : UnitySingleton<GameManager>
         //SkipSimulationRec();
         
         ResetGame();
-        StartCoroutine(ShowIncentiveIntroduction());
+        if (currentLevel == 1)
+        {
+            ATC_UIController.Instance.ShowDialog();
+            ATC_UIController.Instance.houseDialogManager.StartDialogue("incentives");
+        }
+        //StartCoroutine(ShowIncentiveIntroduction());
         //previousHousesDestroyed = previousCarsEvacuated = 0;
     }
 
@@ -329,17 +334,8 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
+        ATC_UIController.Instance.HideLoadingScreen();
 
-    }
-
-    IEnumerator ShowIncentiveIntroduction()
-    {
-        yield return new WaitForSeconds(loadingTime + 0.5f);
-        if (currentLevel == 1)
-        {
-            ATC_UIController.Instance.ShowDialog();
-            ATC_UIController.Instance.houseDialogManager.StartDialogue("incentives");
-        }
     }
 
     void InitiAvailableHouseType()
