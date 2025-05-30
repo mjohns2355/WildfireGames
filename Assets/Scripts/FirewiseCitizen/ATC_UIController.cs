@@ -315,11 +315,12 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         toolsBar.SetActive(false);
     }
 
-    public void HideDialog()
+    public void HideDialog(bool isHouseDialog = false)
     {
         dialoguePanel.SetActive(false);
-        GameManager.Instance.canControlCam = true;
-        toolsBar.SetActive(true);
+        GameManager.Instance.canControlCam = !isHouseDialog;
+
+        toolsBar.SetActive(!isHouseDialog);
         //dialogManager.HideDialogBox();
 
     }

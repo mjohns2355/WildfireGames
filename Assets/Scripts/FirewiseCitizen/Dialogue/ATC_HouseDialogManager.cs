@@ -326,17 +326,17 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         }
             
-        ATC_UIController.Instance.HideDialog();
+        
         ClearMessages();
         //isWaitingForPlayer = true;
         characterPortrait.gameObject.SetActive(false);
         OnDialogueComplete?.Invoke();
         DOTween.Kill(gameObject);
-        GameManager.Instance.canControlCam = false;
-        
-        if (Enum.TryParse(key, out HouseType houseType))
+        var isHouseDialog = Enum.TryParse(key, out HouseType houseType);
+        ATC_UIController.Instance.HideDialog(isHouseDialog);
+        if (isHouseDialog)
         {
-            if(closed)
+            if (closed)
             {
                 ATC_UIController.Instance.FindMenu(houseType).OnMenuDisable();
             }
