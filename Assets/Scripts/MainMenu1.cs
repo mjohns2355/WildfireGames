@@ -50,4 +50,13 @@ public class MainMenu1 : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void Freeze()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void KillFreeze()
+    {
+        Time.timeScale = 1f;
+    }
 }
