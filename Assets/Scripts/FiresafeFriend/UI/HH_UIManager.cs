@@ -199,6 +199,7 @@ public class HH_UIManager : MonoBehaviour
         inventoryPanel.inventoryUI.SetActive(false);
     }
 
+    
     public void OnRoundStart()
     {
         ToggleInventory(true);

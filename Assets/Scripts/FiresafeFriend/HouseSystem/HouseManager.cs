@@ -172,7 +172,6 @@ namespace HappyHouse.HouseSystem
             ToggleHousePartClickable(false);
             purchaseFloatingButtons.Clear();
             arrowUI.SetActive(false);
-
         }
 
         public void CalculateTotalHousePartWeight()

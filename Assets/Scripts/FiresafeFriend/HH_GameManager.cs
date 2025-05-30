@@ -35,6 +35,20 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     private bool lastRoundIsFire,lastRoundIsCompetition = false;
     private string competitionLoser = string.Empty;
     private bool publicFencesRepaired = false;
+    private int _housesMadeDecisionsCount;
+    public int HousesMadeDecisionsCount
+    {
+        get => _housesMadeDecisionsCount;
+        private set
+        {
+            _housesMadeDecisionsCount = value;
+            if (_housesMadeDecisionsCount == 2)
+            {
+                uiManager.endRoundBtn.gameObject.SetActive(true);
+            }
+                
+        }
+    }
     List<GameObject> houses = new();
     List<GameObject> currentHousePrefabs = new(){ null, null};
     public bool IsPlantMode
@@ -220,6 +234,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public void RepairHouse()
     {
         //dynamic repair cost
+        HousesMadeDecisionsCount++;
         var repairCost = currentPlayer.GetRepairCost();
         if (currentPlayer.budgetManager.SpendBudget(repairCost))
         {
@@ -232,6 +247,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     public void MoveHouse()
     {
+        HousesMadeDecisionsCount++;
         RespawnHouse(true);
     }
     public void RespawnHouse(bool reRoll)
@@ -249,7 +265,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             newHouse.isMoving = true;
         }
-        
+        newHouse.nameText.SetActive(false);
         DOVirtual.DelayedCall(0.3f, () =>
         {
             // repair should keep the current material and budget
@@ -272,11 +288,11 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             }
             newHouse.ToggleClickBox(false);
             InitPublicFences(currentPlayer);
+            
         });
     }
     void OnFireEnd()
     {
-        //IsFireStarted = false;
         fireManager.startFire = false;
         var fires = FindObjectsOfType<FF_FireController>();
         var combustibles = FindObjectsOfType<FF_BaseCombustible>();
@@ -298,6 +314,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     void OnCompetition()
     {
+        HousesMadeDecisionsCount = 0;
         IsPlantMode = false;
         var p1Score = p1.CalculateRating();
         var p2Score = p2.CalculateRating();
@@ -330,7 +347,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     }
     public void SwitchPlayer (string playerTag)
     {
-        uiManager.ToggleInventory(false);
+        uiManager.ToggleInventory(true);
         currentPlayer.OnHouseDeselected();
         List<HousePartInfo> ownedPublicFences = new List<HousePartInfo>();
 
@@ -385,6 +402,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (lastRoundIsFire && !currentPlayer.hasMadeDecisions)
         {
             uiManager.ShowAftermathScreen();
+            uiManager.endRoundBtn.gameObject.SetActive(false);
         }
         
     }
