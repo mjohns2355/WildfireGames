@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class ATC_PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject buttonParent;
-    [SerializeField] Button restart, clear, instructions, resume, mainMenu;
+    [SerializeField] Button restart, clear, instructions, resume, mainMenu, backResume;
     [SerializeField] GameObject note;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,7 @@ public class ATC_PauseMenu : MonoBehaviour
         instructions.onClick.AddListener(OpenInstructions);
         resume.onClick.AddListener(ResumeGame);
         mainMenu.onClick.AddListener(MainMenu);
+        backResume.onClick.AddListener(ResumeGame);
     }
 
 
