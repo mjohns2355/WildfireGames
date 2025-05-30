@@ -312,17 +312,22 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                       : p2Score < p1Score ? 0
                       : TieReward;
 
-        p1.budgetManager.IncreaseBudget(rewardP1);
-        p2.budgetManager.IncreaseBudget(rewardP2);
+        uiManager.OnCompetitionResultEnabled = null;
+
+        uiManager.OnCompetitionResultEnabled += () =>
+        {
+            p1.budgetManager.IncreaseBudget(rewardP1);
+            p2.budgetManager.IncreaseBudget(rewardP2);
+        };
 
         uiManager.ShowEndScreen(isFire: false,p1Score ,p2Score);
 
     }
 
-    public void EarnReward()
-    {
-        currentPlayer.budgetManager.IncreaseBudget(WinReward);
-    }
+    //public void EarnReward()
+    //{
+    //    currentPlayer.budgetManager.IncreaseBudget(WinReward);
+    //}
     public void SwitchPlayer (string playerTag)
     {
         uiManager.ToggleInventory(false);
