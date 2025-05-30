@@ -8,12 +8,12 @@ using System;
 public class PurchasePopup : MonoBehaviour
 {
     public TextMeshProUGUI priceText, classText, itemNameText, descriptionText, moneyWarningText;
-    public Image icon;
+    public Image icon, arrowIndicator;
     public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney, closeBGBtn,cancelRemove,confirmRemove;
     public GameObject purchaseScreen, warningScreen,removeTreeScreen;
     private HousePartInfo partInfo;
     private bool shouldShowStore = true;
-
+    [SerializeField] Sprite upArrow, downArrow;
     private void Start()
     {
         cancelPurchase.onClick.AddListener(OnCancelClicked);
@@ -35,6 +35,13 @@ public class PurchasePopup : MonoBehaviour
         HH_GameManager.Instance.uiManager.ShowQuizPopup();
     }
 
+    private void CompareMaterialWithCurrentMaterial()
+    {
+        var currentMaterial = HH_GameManager.Instance.currentPlayer.upgradeClassDictionary[partInfo.housePartType];
+        var thisMaterial = partInfo.materialClass;
+        if (thisMaterial.Equals(currentMaterial)) return;
+        arrowIndicator.sprite = currentMaterial.CompareTo(thisMaterial) < 0 ? downArrow : upArrow;
+    }
     private void OnPurchaseClicked()
     {
         // insufficient money
@@ -93,6 +100,7 @@ public class PurchasePopup : MonoBehaviour
 
     public void ShowPurchaseScreen()
     {
+        CompareMaterialWithCurrentMaterial();
         purchaseScreen.SetActive(true);
         warningScreen.SetActive(false);
         if (removeTreeScreen) removeTreeScreen.SetActive(false);
