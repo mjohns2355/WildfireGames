@@ -172,6 +172,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6102447822431049168, guid: 3b9d06b3179a374449b1f64b0e9195e0, type: 3}
       insertIndex: 0
       addedObject: {fileID: 5982043120103239590}
+    - targetCorrespondingSourceObject: {fileID: 6102447822431049168, guid: 3b9d06b3179a374449b1f64b0e9195e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8073360651049854303}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4730972424979486724, guid: 3b9d06b3179a374449b1f64b0e9195e0, type: 3}
       insertIndex: -1
@@ -208,7 +211,7 @@ MonoBehaviour:
   combustibleInfo: {fileID: 11400000, guid: ede9d08099f7cff48b10ce32adbf5a85, type: 2}
   isClickable: 0
   isOnFire: 0
-  burntColor: {r: 0, g: 0, b: 0, a: 0}
+  burntColor: {r: 0, g: 0, b: 0, a: 1}
   heat: 0
   heatThreshold: 100
   mustDestroy: 0
@@ -218,6 +221,8 @@ MonoBehaviour:
   topPosition: {x: 0, y: 0, z: 0}
   bottomPosition: {x: 0, y: 0, z: 0}
   isOverHeated: 0
+  durability: 0
+  flammability: 0
   baseBurnTime: 10
   burntModel: {fileID: 0}
   bubblePos: {fileID: 2262340472061181335}
@@ -228,3 +233,91 @@ MonoBehaviour:
   burnMaterial: {fileID: 0}
   neighbours: []
   flammabilityMod: 0
+  fireParticle: {fileID: 8071464079564376943}
+--- !u!1001 &3348789635119429316
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5215733441372300306}
+    m_Modifications:
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807986603664817579, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_Name
+      value: MulchFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807986603664817579, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+--- !u!1 &8071464079564376943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6807986603664817579, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+  m_PrefabInstance: {fileID: 3348789635119429316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8073360651049854303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6805815153942909851, guid: 9b603dd72f49d4765a7d508f69a8d0e3, type: 3}
+  m_PrefabInstance: {fileID: 3348789635119429316}
+  m_PrefabAsset: {fileID: 0}
