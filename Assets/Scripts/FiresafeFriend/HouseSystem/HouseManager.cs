@@ -52,6 +52,7 @@ namespace HappyHouse.HouseSystem
         public void InitHouseManager()
         {
             flammabilityMod = durabilityMod = 0f;
+            initBudget = 35000;
             houseGraph.nodes.Clear();
             fences = HH_GameManager.Instance.publicFences;
             Dictionary<string, HouseNode> nodeDictionary = new Dictionary<string, HouseNode>();
