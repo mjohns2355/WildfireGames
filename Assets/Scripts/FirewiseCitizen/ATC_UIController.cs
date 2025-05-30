@@ -319,6 +319,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         dialoguePanel.SetActive(false);
         GameManager.Instance.canControlCam = true;
+        toolsBar.SetActive(true);
         //dialogManager.HideDialogBox();
 
     }
