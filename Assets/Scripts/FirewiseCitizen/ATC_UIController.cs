@@ -36,6 +36,9 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public RectTransform windDirectionIndicator;
     public List<HouseIcon> icons = new List<HouseIcon>();
     Stack<GameObject> panelStack = new Stack<GameObject> ();
+    public RectTransform compass;
+
+
     private void Start()
     {
         pause.onClick.AddListener(() =>
@@ -113,6 +116,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         learnMore.interactable = false;
         pause.interactable = true;
         windDirectionIndicator.gameObject.SetActive(true);
+        compass.gameObject.SetActive(true);
         skipSim.gameObject.SetActive(true);
         toolsBar.SetActive(false);
         objectiveText.transform.parent.gameObject.SetActive(true);
@@ -131,6 +135,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             dialogManager.ShowLocalNews();
         }
         windDirectionIndicator.gameObject.SetActive(false);
+        compass.gameObject.SetActive(false);
         skipSim.gameObject.SetActive(false);
         toolsBar.SetActive(true);
         
