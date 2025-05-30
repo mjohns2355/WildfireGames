@@ -53,6 +53,7 @@ public class HouseStructure : Structure
     List<ATC_StructureModel> destinations;
 
     bool followedOrder = false;
+    bool hadIncentives = false;
 
     private void Awake()
     {
@@ -223,13 +224,6 @@ public class HouseStructure : Structure
             currentOption = option.GetOptionContent();
             Debug.Log($"Player selected {currentOption}");
             var currentChoice = GetCurrentChoice(currentOption);
-            // home hardening should apply immediately
-            //if(currentChoice.choiceName == "Evacuate Early & Home Hardening")
-            //{
-            //    currentChoice.ApplyHomeHardening(this);
-            //    ApplyHomeHardeningToAllHouses(currentChoice.homeHardeningMod);
-            //}
-
             if (currentChoice != null)
             {
                 GameManager.Instance.structureManager.UpdatePlayerChoicesDict(houseType, currentChoice);
@@ -242,7 +236,7 @@ public class HouseStructure : Structure
     {
         var rng = UnityEngine.Random.Range(0, 1f);
         var skippedDialog = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap[houseType.ToString()].Item2;
-        if(skippedDialog)
+        if(skippedDialog && !hadIncentives)
         {
             followOrderChance = 0;
         }
@@ -373,6 +367,7 @@ public class HouseStructure : Structure
     {
         Debug.Log($"{houseType} received incentives");
         followOrderChance = 1f;
+        hadIncentives = true;
         if(houseType == HouseType.wui)
         {
             homeHardeningChance = 1;
