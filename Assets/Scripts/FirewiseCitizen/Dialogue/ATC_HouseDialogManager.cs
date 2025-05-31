@@ -357,7 +357,9 @@ public class ATC_HouseDialogManager : MonoBehaviour
             AnimateMessageBubble(optionBubble.GetComponent<CanvasGroup>());
             // pop in effect
             optionBubble.transform.localScale = Vector3.zero;
-            optionBubble.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+            optionBubble.transform.DOScale(Vector3.one, 0.3f)
+                                  .SetEase(Ease.OutBack)
+                                  .OnComplete(() => { optionBubble.messageBox.interactable = true; });
 
             return optionBubble;
         }

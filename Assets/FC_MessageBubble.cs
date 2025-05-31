@@ -26,7 +26,7 @@ public class FC_MessageBubble : MonoBehaviour
 
     public void SetupMessage(string message, string name, bool isSentByUser)
     {
-
+        messageBox.interactable = false;
         this.isSentByUser = isSentByUser;
         isOption = false; // Reset option flag
         bool hasNamePlate = !string.IsNullOrEmpty(name);
@@ -76,7 +76,6 @@ public class FC_MessageBubble : MonoBehaviour
         tailHeight = 0; // No tail for option bubbles
         messageText.text = optionText;
         layoutGroup.childAlignment = TextAnchor.MiddleRight;
-        messageBox.interactable = true;
         namePlate.SetActive(false);
         sendButton.SetActive(true);
 
