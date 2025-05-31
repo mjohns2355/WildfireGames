@@ -842,13 +842,13 @@
         },
         {
           "id": "31",
-          "characterName": "Old Lady",
+          "characterName": "June",
           "dialogText": "Oh hello dear! How nice of you to come by.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
           "id": "32",
-          "characterName": "Old Lady",
+          "characterName": "June",
           "dialogText": "I hope I'm not too much of a bother, these wildfires are just making me antsy, and I could use some advice.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
@@ -857,7 +857,7 @@
               "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
             },
             {
-              "optionText": "No bother",
+              "optionText": "What's worrying you?",
               "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
             },
             {
@@ -918,11 +918,11 @@
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "Early Evacuation",
-              "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?"
+              "optionText": "Early evacuation planning could be a good start.",
+              "messageText": "Planning for an early evacuation is important. <b>Red Flag</b> days are says with particularly high fire risk. Have you thought about leaving early when there is a Red Flag warning?"
             },
             {
-              "optionText": "Ask for Help",
+              "optionText": "Is there anyone you can ask for help?",
               "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
               "nextNodeId": "50"
             },
@@ -941,7 +941,7 @@
         {
           "id": "41",
           "characterName": "June",
-          "dialogText": "Also, it's hard for me to walk around the block, let alone evacuate during each red flag day. That's a large toll.",
+          "dialogText": "Also, it's hard for me to walk around the block, let alone evacuate on every Red Flag day.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma"
         },
         {
@@ -951,13 +951,13 @@
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "Help from Family (Evac Early",
-              "messageText": "If you give your kids ample time to arrive, they could possibly pick you up very early, but get you out safely. Have you considered asking them?"
+                "optionText": "Could your family help you evacuate early?",
+                "messageText": "If plan to leave early you'd give your kids time to arrive. <b>Red Flag</b> days are says with particularly high fire risk. Have you considered asking them to help on <b>Red Flag</b> days?"
             },
             {
-              "optionText": "Neighbors Help",
-              "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
-              "nextNodeId": "50"
+              "optionText": "Could your neighbors help?",
+              "messageText": "What about your neighbors, could they help?",
+              "nextNodeId": "51"
             },
             {
               "optionText": "Skip to final decision",
@@ -972,9 +972,9 @@
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "Ask for Help",
-              "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
-              "nextNodeId": "50"
+                "optionText": "Could your neighbors help?",
+                "messageText": "What about your neighbors, could they help if there's an emergency?",
+                "nextNodeId": "51"
             },
             {
               "optionText": "Conclude",
@@ -991,16 +991,16 @@
         {
           "id": "51",
           "characterName": "June",
-          "dialogText": "But I do have some kind neighbors who could help. Oh, but I hate to be a burden!",
+          "dialogText": "I do have some kind neighbors who could help. Oh, but I hate to be a burden!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "options": [
             {
-              "optionText": "Ask Neighbors",
-              "messageText": "It's good to have supprtive neighbors; I'm sure they won't see it as a burden at all, especially if you plan ahead.",
+              "optionText": "Ask  the neighbors",
+              "messageText": "It's good to have supprtive neighbors! I'm sure they won't see it as a burden at all, especially if you plan ahead.",
               "nextNodeId": "60"
             },
             {
-              "optionText": "Early Evacuation",
+              "optionText": "Plan for early evacuation",
               "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
               "nextNodeId": "40"
             },
@@ -1026,17 +1026,7 @@
           "characterName": "June",
           "dialogText": "I suppose I could discuss it with them over some gingersnaps. Asking for help from a neighbor might be the best course of action!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "options": [
-            {
-              "optionText": "Early Evacuation",
-              "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
-              "nextNodeId": "40"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "200"
-            }
-          ]
+          "nextNodeId": "200"
         },
         {
           "id": "200",
