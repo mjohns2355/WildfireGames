@@ -473,64 +473,64 @@
           "id": "21",
           "characterName": "Sarah",
           "dialogText": "Hey there! I'm Sarah, it's nice to meet you. ",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
           "conditions": {
             "hasSpoken": 0
           }
         },
         {
-          "id": "21",
-          "characterName": "Sarah",
-          "dialogText": "Hey there, good to see you again! ",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 1
-          }
-        },
-        {
-          "id": "22",
-          "characterName": "Sarah",
-          "dialogText": "I do hope you can offer us some advice for the upcoming wildfire season.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 0
-          }
-        },
-        {
-          "id": "22",
-          "characterName": "Sarah",
-          "dialogText": "I hope you can help us out again this fire season.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 1
-          }
-        },
-        {
-          "id": "23",
-          "characterName": "Sarah",
-          "dialogText": "Not too much has changed around here. We're still working hard, and money is still tight.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 1
-          },
-          "options": [
-            {
-              "optionText": "Ask About Problem",
-              "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
+            "id": "21",
+            "characterName": "Sarah",
+            "dialogText": "Hey there, good to see you again! ",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 1
             }
-          ]
+        },
+        {
+            "id": "22",
+            "characterName": "Sarah",
+            "dialogText": "I do hope you can offer us some advice for the upcoming wildfire season.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 0
+            }
+        },
+        {
+            "id": "22",
+            "characterName": "Sarah",
+            "dialogText": "I hope you can help us out again this fire season.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 1
+            }
+        },
+        {
+            "id": "23",
+            "characterName": "Sarah",
+            "dialogText": "Not too much has changed around here. We're still working hard, and money is still tight.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 1
+            },
+            "options": [
+                {
+                    "optionText": "How can I help?",
+                    "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?"
+                },
+                {
+                    "optionText": "Skip to Incentives",
+                    "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "conditions": {
+                        "hasIncentives": 1
+                    },
+                    "nextNodeId": "200"
+                },
+                {
+                    "optionText": "Skip to Final Decisions",
+                    "nextNodeId": "100"
+                }
+            ]
         },
         {
           "id": "23",
@@ -557,100 +557,100 @@
           ]
         },
         {
-          "id": "24",
-          "characterName": "Sarah",
-          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 0
-          }
-        },
-        {
-          "id": "24",
-          "characterName": "Sarah",
-          "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "conditions": {
-            "hasSpoken": 1
-          }
-        },
-        {
-          "id": "25",
-          "characterName": "Sarah",
-          "dialogText": "I love being so close to the forest and nature. Plus, housing is a lot cheaper here! Especially compared to more developed communities.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "26",
-          "characterName": "Sarah",
-          "dialogText": "However, wildfires are always a risk.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Wildfires are a risk!",
-              "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
+            "id": "24",
+            "characterName": "Sarah",
+            "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 0
             }
-          ]
         },
         {
-          "id": "27",
-          "characterName": "Sarah",
-          "dialogText": "Which is why we need your help.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "28",
-          "characterName": "Sarah",
-          "dialogText": "We have invested so much into our new home. Time, money, and a lot of love.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "29",
-          "characterName": "Sarah",
-          "dialogText": "If we lose our home, we lose almost everything. Our funds are empty.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "30",
-          "characterName": "Sarah",
-          "dialogText": "With wildfire season right around the corner, I can't stop thinking about the worst case scenario.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
-        },
-        {
-          "id": "31",
-          "characterName": "Sarah",
-          "dialogText": "In case of a fire, my house is my number one priority.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-                "optionText": "Home hardening can protect your house",
-                "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation."
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
+            "id": "24",
+            "characterName": "Sarah",
+            "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "conditions": {
+                "hasSpoken": 1
             }
-          ]
+        },
+        {
+            "id": "25",
+            "characterName": "Sarah",
+            "dialogText": "I love being so close to the forest and nature. Plus, housing is a lot cheaper here! Especially compared to more developed communities.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
+        },
+        {
+            "id": "26",
+            "characterName": "Sarah",
+            "dialogText": "However, wildfires are always a risk.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Wildfires are indeed a risk!",
+                    "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
+                },
+                {
+                    "optionText": "Skip to Incentives",
+                    "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "conditions": {
+                        "hasIncentives": 1
+                    },
+                    "nextNodeId": "200"
+                },
+                {
+                    "optionText": "Skip to Final Decisions",
+                    "nextNodeId": "100"
+                }
+            ]
+        },
+        {
+            "id": "27",
+            "characterName": "Sarah",
+            "dialogText": "Which is why we need your help.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
+        },
+        {
+            "id": "28",
+            "characterName": "Sarah",
+            "dialogText": "We have invested so much into our new home. Time, money, and a lot of love.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
+        },
+        {
+            "id": "29",
+            "characterName": "Sarah",
+            "dialogText": "If we lose our home, we lose almost everything. Our funds are empty.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
+        },
+        {
+            "id": "30",
+            "characterName": "Sarah",
+            "dialogText": "With wildfire season right around the corner, I can't stop thinking about the worst case scenario.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
+        },
+        {
+            "id": "31",
+            "characterName": "Sarah",
+            "dialogText": "In case of a fire, my house is my number one priority.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Home hardening can protect your house",
+                    "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation."
+                },
+                {
+                    "optionText": "Skip to Incentives",
+                    "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "conditions": {
+                        "hasIncentives": 1
+                    },
+                    "nextNodeId": "200"
+                },
+                {
+                    "optionText": "Skip to Final Decisions",
+                    "nextNodeId": "100"
+                }
+            ]
         },
         {
           "id": "32",
@@ -661,32 +661,32 @@
             "id": "33",
             "characterName": "Sarah",
             "dialogText": "I love our home, but I know it's important to evacuate early. I want to do what I can to ensure the house is here to come back to.",
-            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "34",
-          "characterName": "Sarah",
-          "dialogText": "Do you have other advice for us?",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-                "optionText": "Home hardening steps",
-                "messageText": "There are steps you can take now to begin home hardening now.",
-                "nextNodeId": "37"
-            },
-            {
-              "optionText": "Skip to Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Skip to Final Decisions",
-              "nextNodeId": "100"
-            }
-          ]
+            "id": "34",
+            "characterName": "Sarah",
+            "dialogText": "Do you have other advice for us?",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Home hardening steps",
+                    "messageText": "There are steps you can take now to begin home hardening now.",
+                    "nextNodeId": "37"
+                },
+                {
+                    "optionText": "Skip to Incentives",
+                    "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "conditions": {
+                        "hasIncentives": 1
+                    },
+                    "nextNodeId": "200"
+                },
+                {
+                    "optionText": "Skip to Final Decisions",
+                    "nextNodeId": "100"
+                }
+            ]
         },
         {
           "id": "37",
@@ -708,36 +708,36 @@
           "dialogText": "<i>She looks back at her freshly painted house. You notice the roof, windows, and stairs are brand new.</i>"
         },
         {
-          "id": "41",
-          "characterName": "Sarah",
-          "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "41",
+            "characterName": "Sarah",
+            "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "42",
-          "characterName": "Sarah",
-          "dialogText": "I'm just not sure we can afford home hardening.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Offer Incentives",
-              "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
-              "conditions": {
-                "hasIncentives": 1
-              },
-              "nextNodeId": "200"
-            },
-            {
-                "optionText": "There are less costly options",
-                "messageText": "There are less costly options as well!",
-                "nextNodeId": "46"
-            },
-            {
-                "optionText": "I understand where you are coming from",
-                "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
-                "nextNodeId": "60"
-            }
-          ]
+            "id": "42",
+            "characterName": "Sarah",
+            "dialogText": "I'm just not sure we can afford home hardening.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Offer Incentives",
+                    "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "conditions": {
+                        "hasIncentives": 1
+                    },
+                    "nextNodeId": "200"
+                },
+                {
+                    "optionText": "There are less costly options",
+                    "messageText": "There are less costly options as well!",
+                    "nextNodeId": "46"
+                },
+                {
+                    "optionText": "I understand where you are coming from",
+                    "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
+                    "nextNodeId": "60"
+                }
+            ]
         },
         {
           "id": "46",
@@ -750,52 +750,52 @@
           "dialogText": "While it is still important to replace household parts, hopefully these are cheaper options you can do in the meantime to home harden."
         },
         {
-          "id": "48",
-          "characterName": "Sarah",
-          "dialogText": "Wow, I didn't realize those also counted as home hardening.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "48",
+            "characterName": "Sarah",
+            "dialogText": "Wow, I didn't realize those also counted as home hardening.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "49",
-          "characterName": "Sarah",
-          "dialogText": "I feel a lot more confident in our ability to do those. Thank you for letting me know!",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "49",
+            "characterName": "Sarah",
+            "dialogText": "I feel a lot more confident in our ability to do those. Thank you for letting me know!",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "50",
-          "characterName": "Sarah",
-          "dialogText": "That being said, I just don't know how we would be able to afford more expensive home hardening.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Understanding",
-              "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment."
-            }
-          ]
+            "id": "50",
+            "characterName": "Sarah",
+            "dialogText": "That being said, I just don't know how we would be able to afford more expensive home hardening.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Understanding",
+                    "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment."
+                }
+            ]
         },
         {
-          "id": "51",
-          "characterName": "Sarah",
-          "dialogText": "Me too. Whatever your recommendation is, I appreciate the advice.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "51",
+            "characterName": "Sarah",
+            "dialogText": "Me too. Whatever your recommendation is, I appreciate the advice.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "52",
-          "characterName": "Sarah",
-          "dialogText": "But without other incentives or support, I don't see how we can do the more expensive steps.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "52",
+            "characterName": "Sarah",
+            "dialogText": "But without other incentives or support, I don't see how we can do the more expensive steps.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "53",
-          "characterName": "Sarah",
-          "dialogText": "We'll do what we can.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Make final decision",
-              "nextNodeId": "100"
-            }
-          ]
+            "id": "53",
+            "characterName": "Sarah",
+            "dialogText": "We'll do what we can.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Make final decision",
+                    "nextNodeId": "100"
+                }
+            ]
         },
         {
           "id": "200",
@@ -803,22 +803,22 @@
           "dialogText": "There is a community grant available that can pay for a large part of the materials you might need. I'll get you in contact with the right people, so that we can help keep your house safe from wildfires."
         },
         {
-          "id": "201",
-          "characterName": "Sarah",
-          "dialogText": "Wow, that is amazing! Community support is everything, especially in times like these.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
+            "id": "201",
+            "characterName": "Sarah",
+            "dialogText": "Wow, that is amazing! Community support is everything, especially in times like these.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner"
         },
         {
-          "id": "202",
-          "characterName": "Sarah",
-          "dialogText": "Now I'm definitely interested in doing full home hardening.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "optionText": "Make final decision",
-              "nextNodeId": "100"
-            }
-          ]
+            "id": "202",
+            "characterName": "Sarah",
+            "dialogText": "Now I'm definitely interested in doing full home hardening.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
+            "options": [
+                {
+                    "optionText": "Make final decision",
+                    "nextNodeId": "100"
+                }
+            ]
         },
         {
           "id": "100",
@@ -1043,300 +1043,286 @@
         "hasIncentives": 0,
         "gaveIncentives": 0
       },
-      "nodes": [
-        {
-          "id": "40",
-          "dialogText": "<i>You see a person playing fetch with two large dogs. As you approach, the two dogs bound over, dropping a slobbery ball at your feet. Their owner jogs over, and waves hello, before picking up the ball and tossing it, the dogs not far behind.</i>"
-        },
-        {
-          "id": "41",
-          "characterName": "Man",
-          "dialogText": "Pippin, Porkchop, fetch!",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "42",
-          "characterName": "Man",
-          "dialogText": "Those dogs are tireless! I feel like I could charge a battery off of them.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "43",
-          "dialogText": "<i>They wipe slobber off their pants before extending for a handshake.</i>"
-        },
-        {
-          "id": "44",
-          "characterName": "Genaro",
-          "dialogText": "My name's Genaro. I appreciate you stopping by!",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
+        "nodes": [
             {
-              "optionText": "How can I help?",
-              "messageText": "Pleasure to meet you Genaro. How can I help?"
+                "id": "40",
+                "dialogText": "<i>You see a person playing fetch with two large dogs. As you approach, the two dogs bound over, dropping a slobbery ball at your feet. Their owner jogs over, and waves hello.</i>"
             },
             {
-              "optionText": "Compliment pets",
-              "messageText": "Those are some really cute dogs. Do you have other pets?",
-              "nextNodeId": "400"
+                "id": "41",
+                "characterName": "Genaro",
+                "dialogText": "Pippin, Porkchop, fetch!",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
             },
             {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "500"
+                "id": "42",
+                "characterName": "Genaro",
+                "dialogText": "Those dogs are tireless! I feel like I could charge a battery off of them.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "43",
+                "characterName": "Genaro",
+                "dialogText": "My name's Genaro. I appreciate you stopping by!",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "How can I help?",
+                        "messageText": "Pleasure to meet you Genaro. How can I help?",
+                        "nextNodeId": "45"
+                    },
+                    {
+                        "optionText": "Cute dogs!",
+                        "messageText": "Those are some really cute dogs. Do you have other pets?",
+                        "nextNodeId": "400"
+                    },
+                    {
+                        "optionText": "Skip to final decision",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "400",
+                "characterName": "Genaro",
+                "dialogText": "Yeah I do! I'm the proud parent of two dogs, a cat, and two rabbits.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "401",
+                "characterName": "Genaro",
+                "dialogText": "I'm a notorious foster failure. Sometimes they're just too cute! I can't help it, they would leave a pet sized hole in my heart if I let them go.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "402",
+                "characterName": "Genaro",
+                "dialogText": "They're actually the reason I called you here.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "How can I help?",
+                        "nextNodeId": "45"
+                    }
+                ]
+            },
+            {
+                "id": "45",
+                "characterName": "Genaro",
+                "dialogText": "Wildfire season stresses me out. Like really stresses me out.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "46",
+                "characterName": "Genaro",
+                "dialogText": "But not because of me. Because of my pets!",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "47",
+                "characterName": "Genaro",
+                "dialogText": "I love my pets with my entire heart.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "48",
+                "characterName": "Genaro",
+                "dialogText": "If the fire gets close, I need a plan to get everyone to safety.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "An evacuation plan could help.",
+                        "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave."
+                    },
+                    {
+                        "optionText": "Could you evacuate early?",
+                        "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
+                        "nextNodeId": "100"
+                    },
+                    {
+                        "optionText": "Skip to final decision",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "49",
+                "characterName": "Genaro",
+                "dialogText": "I've got crates and carriers for all of them, but getting them out quickly is tough.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "50",
+                "characterName": "Genaro",
+                "dialogText": "Rabbits are incredibly skittish - if they hide, it would take forever to try and find them fast!",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "Practice evacuation",
+                        "messageText": "Doing a practice run might help you prepare before an actual emergency.",
+                        "nextNodeId": "200"
+                    },
+                    {
+                        "optionText": "Prep a Go-Bag",
+                        "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+                        "nextNodeId": "300"
+                    },
+                    {
+                        "optionText": "Could you evacuate early?",
+                        "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
+                        "nextNodeId": "100"
+                    },
+                    {
+                        "optionText": "Skip to final decision",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "300",
+                "characterName": "Genaro",
+                "dialogText": "Definetly. I've been trying to get a Go-Bag ready.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "301",
+                "characterName": "Genaro",
+                "dialogText": "The only issue is that some items expire after a period of time. It's costly to upkeep a go bag.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "You can use items from the Go-Bag",
+                        "messageText": "Even when items are in the Go-Bag you can still use them, so they can be gathered together but not go to waste."
+                    }
+                ]
+            },
+            {
+                "id": "302",
+                "characterName": "Genaro",
+                "dialogText": "That's a good point, I hadn't considered it.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "nextNodeId": "500"
+            },
+            {
+                "id": "200",
+                "characterName": "Player",
+                "dialogText": "It would be a great way to catch things you might have previously overlooked."
+            },
+            {
+                "id": "201",
+                "characterName": "Genaro",
+                "dialogText": "Oh you're so right! There are probably some things I have overlooked, it wouldn't hurt at all to practice.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "202",
+                "characterName": "Genaro",
+                "dialogText": "It might also help with my bunny wrangling skills.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "Prep a Go-Bag",
+                        "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+                        "nextNodeId": "300"
+                    },
+                    {
+                        "optionText": "Conclude",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "100",
+                "characterName": "Genaro",
+                "dialogText": "I've thought about it, but it feels extreme to leave before an order.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "101",
+                "characterName": "Genaro",
+                "dialogText": "Plus, where would we go? Finding a pet-friendly place is tough.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "There are pet-friendly shelters.",
+                        "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic."
+                    },
+                    {
+                        "optionText": "Could you stay with friends or family?",
+                        "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+                        "nextNodeId": "104"
+                    },
+                    {
+                        "optionText": "Skip to final decision",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "102",
+                "characterName": "Genaro",
+                "dialogText": "That isn't a bad idea. I would have to do a lot of research.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "103",
+                "characterName": "Genaro",
+                "dialogText": "I worry that a lot of those places will fill up quick. What would I do then if they were full?",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "Could you stay with friends or family?",
+                        "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+                        "nextNodeId": "104"
+                    },
+                    {
+                        "optionText": "Conclude",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "104",
+                "characterName": "Genaro",
+                "dialogText": "That's not a bad idea. I would just hate to be a burden though.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "105",
+                "characterName": "Genaro",
+                "dialogText": "I'm used to taking care of this many animals, but I understand why a lot of others wouldn't.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner"
+            },
+            {
+                "id": "106",
+                "characterName": "Genaro",
+                "dialogText": "I also know it would stress my pets out a lot! I don't want to overwhelm them by evacuating too much.",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "options": [
+                    {
+                        "optionText": "Going through it could help them get used to it.",
+                        "messageText": "Once they go through it a few times they might start to get more comfortable with it.",
+                        "nextNodeId": "107"
+                    },
+                    {
+                        "optionText": "Conclude",
+                        "nextNodeId": "500"
+                    }
+                ]
+            },
+            {
+                "id": "107",
+                "characterName": "Genaro",
+                "dialogText": "Actually, that's probably true!",
+                "portraitPath": "FirewiseCitizen/Portraits/dogowner",
+                "nextNodeId": "500"
+            },
+            {
+                "id": "500",
+                "dialogText": "<b>What is best for Genaro?</b>",
+                "isEndNode": "true"
             }
-          ]
-        },
-        {
-          "id": "400",
-          "characterName": "Genaro",
-          "dialogText": "Yeah I do! I'm the proud parent of two dogs, a cat, and two rabbits.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "401",
-          "characterName": "Genaro",
-          "dialogText": "I'm a notorious foster failure. Sometimes they're just too cute! I can't help it they would leave a pet sized hole in my heart if I let them go.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "402",
-          "characterName": "Genaro",
-          "dialogText": "They're actually the reason I called you here.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "How can I help?",
-              "nextNodeId": "45"
-            }
-          ]
-        },
-        {
-          "id": "45",
-          "characterName": "Genaro",
-          "dialogText": "Wildfire season stresses me out. Like really stresses me out.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "46",
-          "characterName": "Genaro",
-          "dialogText": "But not because of me. Because of my pets!",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "47",
-          "characterName": "Genaro",
-          "dialogText": "I've got two dogs, a cat, and two rabbits, all of whom I love with my entire heart.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "48",
-          "characterName": "Genaro",
-          "dialogText": "If the fire gets close, I need a plan to get everyone to safety.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Evacuation Plan?",
-              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave."
-            },
-            {
-              "optionText": "Evacuate Early?",
-              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
-              "nextNodeId": "100"
-            },
-            {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "49",
-          "characterName": "Genaro",
-          "dialogText": "I've got crates and carriers for all of them, but getting them out quickly is tough.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "50",
-          "characterName": "Genaro",
-          "dialogText": "Rabbits are incredibly skittish - if they hide, it would take forever to try and find them fast!",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Practice Evacuation",
-              "messageText": "Doing a practice run might help you prepare before an actual emergency.",
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Prep a go bag",
-              "messageText": "Having a go-bag ready for each pet - food, water, medicine - makes a huge difference in a rush.",
-              "nextNodeId": "300"
-            },
-            {
-              "optionText": "Evacuate Early?",
-              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
-              "nextNodeId": "100"
-            },
-            {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "300",
-          "characterName": "Genaro",
-          "dialogText": "Definetly. I've been trying to keep a go bag ready.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "301",
-          "characterName": "Genaro",
-          "dialogText": "The only issue is that some items expire after a period of time. It's costly to upkeep a go bag.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Practice Evacuation",
-              "messageText": "Doing a practice run might help you prepare before an actual emergency.",
-              "nextNodeId": "200"
-            },
-            {
-              "optionText": "Evacuate Early?",
-              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
-              "nextNodeId": "100"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "200",
-          "characterName": "Player",
-          "dialogText": "It would be a great way to catch things you might have previously overlooked."
-        },
-        {
-          "id": "201",
-          "characterName": "Genaro",
-          "dialogText": "Oh you're so right! There are absolutely some things I have overlooked, it wouldn't hurt at all to practice.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "202",
-          "characterName": "Genaro",
-          "dialogText": "It might also help with my bunny wrangling skills.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Prep a go bag",
-              "messageText": "Having a go-bag ready for each pet - food, water, medicine - makes a huge difference in a rush.",
-              "nextNodeId": "300"
-            },
-            {
-              "optionText": "Evacuate Early?",
-              "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on red flag days could help?",
-              "nextNodeId": "100"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "100",
-          "characterName": "Genaro",
-          "dialogText": "I've thought about it, but it feels extreme to leave before an order.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "101",
-          "characterName": "Genaro",
-          "dialogText": "Plus, where would we go? Finding a pet-friendly place is tough.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Find Pet Friendly Spots",
-              "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic."
-            },
-            {
-              "optionText": "Friends or Family",
-              "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
-              "nextNodeId": "104"
-            },
-            {
-              "optionText": "Skip to final decision",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "102",
-          "characterName": "Genaro",
-          "dialogText": "That isn't a bad idea. I would have to do a lot of research.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "103",
-          "characterName": "Genaro",
-          "dialogText": "I worry that a lot of those places will fill up quick. What would I do then if they were full?",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Friends or Family",
-              "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
-              "nextNodeId": "104"
-            },
-            {
-              "optionText": "Evacuation Plan?",
-              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
-              "nextNodeId": "49"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "104",
-          "characterName": "Genaro",
-          "dialogText": "That's not a bad idea. I would just hate to be a burden though.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "105",
-          "characterName": "Genaro",
-          "dialogText": "I'm used to taking care of this many animals, but I understand why a lot of others wouldn't.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner"
-        },
-        {
-          "id": "106",
-          "characterName": "Genaro",
-          "dialogText": "I also know it would stress my pets out a lot! I don't want to overwhelm them by evacuating too much.",
-          "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-          "options": [
-            {
-              "optionText": "Find Pet Friendly Spots",
-              "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
-              "nextNodeId": "102"
-            },
-            {
-              "optionText": "Evacuation Plan?",
-              "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
-              "nextNodeId": "49"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "500"
-            }
-          ]
-        },
-        {
-          "id": "500",
-          "dialogText": "<b>What is best for Genaro?</b>",
-          "isEndNode": "true"
-        }
-      ]
+        ]
     },
     {
       "houseType": "intro",
