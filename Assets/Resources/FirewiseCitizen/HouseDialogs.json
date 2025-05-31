@@ -11,7 +11,7 @@
       "nodes": [
         {
           "id": "1",
-          "dialogText": "<i>You approach a woman in an oil stained shirt peering into the lifted hood of a truck. Another car is parked in the driveway as well.</i>"
+          "dialogText": "<i>You approach a woman in an oil stained shirt working on a truck. A second car is parked in the driveway.</i>"
         },
         {
             "id": "2",
@@ -24,8 +24,8 @@
                     "messageText": "Yes I am. I would love to help if I can."
                 },
                 {
-                    "optionText": "Nice Car",
-                    "messageText": "That's a pretty nice truck you got there. Same with the car.",
+                    "optionText": "Nice Truck",
+                    "messageText": "That's a pretty nice truck you got there.",
                     "nextNodeId": "20"
                 },
                 {
@@ -37,7 +37,7 @@
         {
             "id": "20",
             "characterName": "Bailey",
-            "dialogText": "Appreciate it. Rebuilt both of them myself.",
+            "dialogText": "Appreciate it. Rebuilt it myself.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
         },
         {
@@ -49,11 +49,11 @@
         {
           "id": "22",
           "characterName": "Bailey",
-          "dialogText": "So, think you can advise me, or what?",
+          "dialogText": "So, think you can give me advice?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
-              "optionText": "What's the problem?",
+              "optionText": "What's worrying you?",
               "messageText": "It's nice to meet you Bailey. What can I do to help?",
               "nextNodeId": "4"
             }
@@ -66,7 +66,7 @@
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
             "options": [
                 {
-                    "optionText": "What's the problem?",
+                    "optionText": "How can I help?",
                     "messageText": "It's nice to meet you Bailey. What can I do to help?",
                     "nextNodeId": "4"
                 },
@@ -79,13 +79,13 @@
         {
           "id": "4",
           "characterName": "Bailey",
-          "dialogText": "Well, everyone's been buzzing about wildfire safety. So my partner and I've been thinking about it too.",
+          "dialogText": "Well, everyone's been buzzing about wildfire safety. So my partner and I have been thinking about it too.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
         },
         {
           "id": "5",
           "characterName": "Bailey",
-          "dialogText": "We got two jobs and these two cars, so making a plan is tricky.",
+          "dialogText": "We've got two jobs and these two cars, so making a plan is tricky.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
@@ -128,11 +128,6 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
-              "optionText": "Take two cars",
-              "messageText": "Having two cars could help. What's your plan if a fire gets close?",
-              "nextNodeId": "6"
-            },
-            {
               "optionText": "Relocate second car",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
               "nextNodeId": "40"
@@ -146,13 +141,13 @@
         {
           "id": "6",
           "characterName": "Bailey",
-          "dialogText": "We was thinking about driving both, so we could pack more and save both vehicles.",
+          "dialogText": "We were thinking about driving both, so we could pack more and save both vehicles.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01"
         },
         {
           "id": "7",
           "characterName": "Bailey",
-          "dialogText": "But, traffic is what concerns me. I don't want one us getting caught up.",
+          "dialogText": "But, traffic concerns me. I don't want one of us getting stuck.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "options": [
             {
@@ -189,17 +184,12 @@
         {
           "id": "33",
           "characterName": "Bailey",
-          "dialogText": "But two cars means more options. Plus. I'd be hard to leave one car behind, since it's so valuable to us.",
+          "dialogText": "But two cars means more options. Plus, it'd be hard to leave one car behind, since it's so valuable to us.",
           "options": [
             {
-              "optionText": "Two Cars",
-              "messageText": "Having two cars could help. What's your plan if a fire gets close?",
-              "nextNodeId": "6"
-            },
-            {
-              "optionText": "One Car",
-              "messageText": "Have you thought about how two cars might make evacuating harder?",
-              "nextNodeId": "100"
+                "optionText": "Have you thought about how two cars might make evacuating harder?",
+                "messageText": "Have you thought about how two cars might make evacuating harder? And if everyone took two cars the traffic could be really bad.",
+                "nextNodeId": "100"
             },
             {
               "optionText": "Conclude",
@@ -215,7 +205,7 @@
         {
           "id": "41",
           "characterName": "Bailey",
-          "dialogText": "It would take some planning ahead though, which could be timely.",
+          "dialogText": "It would take some planning ahead though.",
           "options": [
             {
               "nextNodeId": "200"
@@ -240,32 +230,29 @@
       "nodes": [
         {
           "id": "10",
-          "dialogText": "<i>You see a man attempting to gather a mountain of childrens toys in his arms. Upon seeing you, he unsuccessfully piles the toys in the front yard, with several balls escaping and rolling into the grass.</i>"
+          "dialogText": "<i>You see a man attempting to gather a mountain of childrens toys in his arms. He spots you and sets the toys down. Several balls escape and roll away.</i>"
         },
         {
           "id": "11",
-          "dialogText": "<i>One soccer ball bumps past you as he approaches to give you a handshake.</i>"
-        },
-        {
-          "id": "12",
           "characterName": "Gabe",
           "dialogText": "Hey there friend! My name's Gabe. It's great to chat with ya.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03"
         },
         {
-          "id": "13",
+          "id": "12",
           "characterName": "Gabe",
-          "dialogText": "You actually caught me at a pretty good time. The kids are at after school soccer practice, so I don't have to wrangle them in right now.",
+          "dialogText": "You caught me at a pretty good time. The kids are at soccer practice right now.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Kids",
-              "messageText": "It's nice to meet you Gabe. Seems like you got some pretty sporty kids!",
+              "optionText": "Sounds like sporty kids!",
+              "messageText": "It's nice to meet you Gabe. Seems like you've got some sporty kids!",
               "nextNodeId": "100"
             },
             {
-              "optionText": "Problem?",
-              "messageText": "It's nice to meet you Gabe. What seems to be the problem?"
+                "optionText": "Anything you're worried about?",
+                "messageText": "It's nice to meet you Gabe. Anything worrying you?",
+                "nextNodeId": "14"
             },
             {
               "optionText": "Skip to final decision",
@@ -276,7 +263,7 @@
         {
           "id": "100",
           "characterName": "Gabe",
-          "dialogText": "You're tellin me! My partner Sam and I have had turn our garage basically into a sporting goods store just to store all their team equipment!",
+          "dialogText": "You're tellin me! My partner Sam and I had turn our garage basically into a sporting goods store to keep all their equipment!",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03"
         },
         {
@@ -286,8 +273,8 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Problem?",
-              "messageText": "What advice can I offer to help you?",
+              "optionText": "Need advice for fire season?",
+              "messageText": "What advice can I offer to help you prepare for fire season?",
               "nextNodeId": "14"
             },
             {
@@ -305,7 +292,7 @@
         {
           "id": "15",
           "characterName": "Gabe",
-          "dialogText": "We've got two young kids, elementary school age. We're not sure what to do if a fire hits while they're at school.",
+          "dialogText": "With two young kids, we're not sure what to do if a fire hits while they're at school.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
@@ -327,17 +314,17 @@
         {
           "id": "17",
           "characterName": "Gabe",
-          "dialogText": "Being apart from your kids during an evacuation is scary - I would much prefer it if we were together.",
+          "dialogText": "Being apart from the kids during an evacuation is scary. I would prefer if we were together.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Safer at School",
+              "optionText": "Schools are safe places.",
               "messageText": "Being worried about being seperated is completely understandable."
             },
             {
-              "optionText": "Pick up Children",
-              "messageText": "Being worried about being seperated is completely understandable.",
-              "nextNodeId": "21"
+                "optionText": "Are you considering picking them up?",
+                "messageText": "Being worried about being seperated is completely understandable.",
+                "nextNodeId": "21"
             },
             {
               "optionText": "Skip to final decision",
@@ -348,12 +335,12 @@
         {
           "id": "18",
           "characterName": "Player",
-          "dialogText": "Schools are safer during a wildfire - it might help to trust the school's plan so you can focus on your own evacuation."
+          "dialogText": "Schools are generally safe during a wildfire...it might help to trust the school's plan so you can focus on your own evacuation."
         },
         {
           "id": "19",
           "characterName": "Player",
-          "dialogText": "That way you're ready to go get your kids the second you are contacted to!"
+          "dialogText": "That way you're ready to go get your kids as soon as the school contacts you!"
         },
         {
           "id": "19",
@@ -368,12 +355,8 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Pick up Children",
-              "messageText": "Being worried about being seperated is completely understandable."
-            },
-            {
-              "optionText": "Reach out to School",
-              "messageText": "It might ease your anxiety to reach out to the school again. They could host a conference or meeting discussing these topics.",
+              "optionText": "You could reach out to the school.",
+              "messageText": "It might ease your anxiety to reach out to the school again. They could host a meeting discussing these topics.",
               "nextNodeId": "40"
             },
             {
@@ -385,7 +368,7 @@
         {
           "id": "21",
           "characterName": "Player",
-          "dialogText": "Are you considering picking them up to be safe?"
+          "dialogText": "Are you considering picking them up?"
         },
         {
           "id": "22",
@@ -396,7 +379,7 @@
         {
           "id": "23",
           "characterName": "Gabe",
-          "dialogText": "I want to pick them up, but the roads could be jammed.",
+          "dialogText": "I want to pick them up, but the roads could be jammed, especially around the school.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
@@ -405,7 +388,7 @@
             },
             {
               "optionText": "Pick Up Early",
-              "messageText": "Have you thought about picking them up early out of school? That might help with the traffic concerns.",
+              "messageText": "Have you thought about picking them up early? That might help with the traffic concerns.",
               "nextNodeId": "30"
             },
             {
@@ -427,8 +410,8 @@
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "options": [
             {
-              "optionText": "Safer at School",
-              "messageText": "Being worried about being seperated is completely understandable.",
+              "optionText": "Schools are safe places.",
+              "messageText": "It makes sense to be worried.",
               "nextNodeId": "18"
             },
             {
@@ -445,7 +428,7 @@
           "options": [
             {
               "optionText": "Safer at School",
-              "messageText": "Being worried about being seperated is completely understandable.",
+              "messageText": "Your concerns are completely understandable.",
               "nextNodeId": "18"
             },
             {
@@ -460,21 +443,11 @@
           "dialogText": "That would be the perfect place to present your concerns, and make sure they are addressed!"
         },
         {
-          "id": "41",
-          "characterName": "Gabe",
-          "dialogText": "That isn't a bad idea at all. If I had a better understanding of their plan, I know Sam and I would feel a lot safer about our kids.",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "options": [
-            {
-              "optionText": "Pick up Children",
-              "messageText": "Being worried about being seperated is completely understandable.",
-              "nextNodeId": "21"
-            },
-            {
-              "optionText": "Conclude",
-              "nextNodeId": "200"
-            }
-          ]
+            "id": "41",
+            "characterName": "Gabe",
+            "dialogText": "That isn't a bad idea at all. If I had a better understanding of their plan, I know Sam and I would feel a lot safer about our kids.",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
+            "nextNodeId": "200"
         },
         {
           "id": "200",
