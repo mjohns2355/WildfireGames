@@ -241,7 +241,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
         else
         {
-            Debug.Log("Reset Game");
+            //Debug.Log("Reset Game");
             currentStage = LevelStage.PhaseOne;
             ATC_UIController.Instance.UpdateObjectiveText();
         }

@@ -52,8 +52,7 @@ public class HouseStructure : Structure
     ATC_StructureModel targetShelter;
     List<ATC_StructureModel> destinations;
 
-    bool followedOrder = false;
-    bool hadIncentives = false;
+    bool followedOrder,hadIncentives = false;
 
     private void Awake()
     {
@@ -68,7 +67,7 @@ public class HouseStructure : Structure
        
         combustible.OnIgnite.AddListener(CheckNeighbourRoad);
         ModifyStructureRotation();
-        followOrderChance = houseType == HouseType.wui ? 0.5f : 0.8f;
+        //followOrderChance = houseType == HouseType.wui ? 0.5f : 0.8f;
 
     }
 
@@ -138,7 +137,7 @@ public class HouseStructure : Structure
         SetDestination(new List<ATC_StructureModel> { shelter });
         targetShelter = shelter;
         //wui house has very low chance to follow order at the beginning
-        followOrderChance = houseType == HouseType.wui ? 0.2f : followOrderChance;
+        //followOrderChance = houseType == HouseType.wui ? 0.2f : followOrderChance;
 
         SpawnHouseModel();
         SetOutline(true);
@@ -207,21 +206,36 @@ public class HouseStructure : Structure
     void ApplyChoice()
     {
         var rng = UnityEngine.Random.Range(0, 1f);
-        var skippedDialog = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap[houseType.ToString()].Item2;
-        if(skippedDialog && !hadIncentives)
+        //var skippedDialog = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap[houseType.ToString()].Item2;
+
+        if(ATC_UIController.Instance.houseDialogManager.houseDialogCompletePercent.TryGetValue(houseType.ToString(), out var dialogCompletePercent) && !hadIncentives)
         {
-            followOrderChance = 0;
+            if (houseType == HouseType.wui)
+            {
+                followOrderChance = dialogCompletePercent > 95 ? 0.8f : Mathf.Clamp((dialogCompletePercent - 20f) / 100f, 0.01f, 0.79f);
+            }
+            else
+            {
+                if(dialogCompletePercent > 90f)
+                {
+                    followOrderChance = 1;
+                }
+                else
+                {
+                    followOrderChance = dialogCompletePercent == 0 ? 0 : dialogCompletePercent / 100f;
+                }
+            }
         }
+
+        
         foreach (var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
             //var currentChoice = GetCurrentChoice(currentOption);
      
             if (!currentChoice.isNormal)
             {
-                // wui house has vary low chance to follow order at the beginning
-                // each wui house has individual chance to follow order
-          
                 Debug.Log($"House: {houseType}, RNG: {rng}, Follow Order Chance: {followOrderChance}");
+
                 if (rng > followOrderChance)
                 {
                     ApplyChoiceEffect(houseInfo.defaultChoice);
@@ -348,7 +362,7 @@ public class HouseStructure : Structure
     void HomeHardeningBehavior(float homeHardeningMod)
     {
         if (currentHouseModels.Count == 0) { Debug.Log("No house Model"); return; }
-        Debug.Log("Apply Home Hardening");
+        //Debug.Log("Apply Home Hardening");
         foreach(var model in currentHouseModels)
         {
             model.material = metalRoofMaterial;

@@ -15,9 +15,6 @@ public class HouseChoice
     [TextArea(5, 10)]
     public string choiceDetail;
     [TextArea(5, 10)]
-    public string choiceThought;
-    public Sprite choiceThoughtSprite;
-    [TextArea(5, 10)]
     public string endGameFeedback;
     public bool isLocked = false;
     public bool isNormal;

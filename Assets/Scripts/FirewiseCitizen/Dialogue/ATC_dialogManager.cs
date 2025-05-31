@@ -116,7 +116,9 @@ public class ATC_dialogManager : MonoBehaviour
         foreach (var entry in endQuoteData.quotes)
         {
             //if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
-            if (entry.houseType == houseType && entry.choice == choice && entry.response == response)
+            if (string.Equals(entry.houseType,houseType, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(entry.choice, choice, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(entry.response, response, StringComparison.OrdinalIgnoreCase))
             {
                 return entry.quote;
             }
@@ -177,34 +179,8 @@ public class ATC_dialogManager : MonoBehaviour
         if (dialogIndex < currentDialog.messages.Length)
         {
 
-            //if (stage == LevelStage.Win || stage == LevelStage.Lose)
-            //{
-            //    if (dialogIndex == 2 && !isLocalNewsShown)
-            //    {
-            //        ShowLocalNews();
-            //    }
-            //}
-            //if(stage == LevelStage.BeforeFirstSim)
-            //{
-            //    if (dialogIndex == 1)
-            //    {
-            //        ATC_UIController.Instance.toolsBar.transform.SetAsLastSibling();
-            //        isToolBarBroughtToFront = true;
-            //        arrow.SetActive(false);
-            //        arrow2.SetActive(true);
-            //    }
-            //}
 
             dialogText.text = currentDialog.messages[dialogIndex];
-            //Debug.Log($"Current Message: {currentDialog.messages[dialogIndex]}");
-            //Debug.Log(dialogText.text);
-            //if (currentDialog.images != null && dialogIndex < currentDialog.images.Length)
-            //{
-            //    foreach (var img in currentDialog.images)
-            //        img.SetActive(false); 
-
-            //    currentDialog.images[dialogIndex].SetActive(true);
-            //}
 
             dialogIndex++;
 
@@ -248,8 +224,8 @@ public class ATC_dialogManager : MonoBehaviour
         }
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
-        var houseType = availableHouseTypes[rng];
-        
+        //var houseType = availableHouseTypes[rng];
+        var houseType = HouseType.pet;
         Debug.Log("Chose Quote: " + houseType.ToString());
 
         foreach (var c in dict[houseType])
@@ -258,35 +234,10 @@ public class ATC_dialogManager : MonoBehaviour
             var choice = c.choiceName;
             var response = GameManager.Instance.houseResponses[houseType];
             //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
+            //Debug.Log($"{houseType}'s {choice} and {response}");
             allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
         }
-        //for (int i = 0; i < availableHouseTypes.Count; i++)
-        //{
 
-        //    var type = availableHouseTypes[i];
-        //    foreach (var c in dict[type])
-        //    {
-        //        //var choice = dict[type].choiceName;
-        //        var choice = c.choiceName;
-        //        var response = GameManager.Instance.houseResponses[type.ToString()];
-        //        //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
-        //        allQuotes.Add(GetEndQuote(type.ToString(), choice, response));
-        //        //if (dict[type].isNormal) continue;
-        //        if (c.isNormal) continue;
-        //        validCount++;
-        //        // Add and before the last choice
-        //        if (validCount == totalValidCount)
-        //        {
-        //            res += $"and {choice}.";
-        //        }
-        //        else
-        //        {
-        //            res += $"{choice}, ";
-        //        }
-        //    }
-
-
-        //}
         if (followedOrders)
         {
             firstHalf.text = $"Miraculously, everyone survived, however {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city. " + res;

@@ -37,8 +37,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public bool isWaitingForPlayer = true;
     public bool canShowSkipButton = false;
     private bool canClick = false;
+    private int optionsShown = 0;
     private CanvasGroup topEdgeFade;
+    [SerializeField]private List<string> currentPathIds = new();
+    private int currentPathIndex = 0;
+    private int finalPathLength = 1;
 
+    public Dictionary<string, float> houseDialogCompletePercent = new();
     private void Start()
     {
         LoadDialogTrees("Assets/Resources/FirewiseCitizen/HouseDialogs.json");
@@ -50,6 +55,24 @@ public class ATC_HouseDialogManager : MonoBehaviour
         topEdgeFade = topFade.GetComponent<CanvasGroup>();
     }
 
+    private int CountNodesFrom(string nodeId)
+    {
+        DialogNode node = currentDialogTree.GetNodeById(nodeId);
+        if (node == null)
+        {
+            Debug.LogWarning($"CountNodesFrom: node '{nodeId}' not found!");
+            return 0;
+        }
+
+        if (node.isEndNode || node.options == null || node.options.Length == 0 || node.options[0].optionText == null)
+        {
+            return 1;
+        }
+
+        string nextId = node.GetNextNodeId();
+
+        return 1 + CountNodesFrom(nextId);
+    }
     private void UpdateEdgeFadeVisibility()
     {
         if (scrollRect == null || topFade == null || bottomFade == null) return;
@@ -99,7 +122,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 dialogFlagsMap[dialogTree.houseType] = (dialogTree.flags,false);
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
-            //Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
 
     }
@@ -126,9 +149,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             string nextId = currentNode.GetNextNodeId();
             DialogNode nextNode = currentDialogTree.GetNodeById(nextId);
+   
 
             if (nextNode != null)
             {
+                currentPathIds.Add(nextId);
+                int remainingCount = CountNodesFrom(nextId);
+                finalPathLength = currentPathIds.Count + remainingCount;
+                currentPathIndex = currentPathIds.Count - 1;
                 currentNode = nextNode;
                 DisplayCurrentNode();
             }
@@ -137,10 +165,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     public void SkipDialogue()
     {
-        // is skipped = not sopken & choose to skip
-        var t = dialogFlagsMap[key];
-        t.Item2 = true;          // isSkipped = true
-        dialogFlagsMap[key] = t;
+        // only choose to skip at the beginning of the dialog marked as skipped the whole dialog
+        if(optionsShown == 1)
+        {
+            // is skipped = not sopken & choose to skip
+            var t = dialogFlagsMap[key];
+            t.Item2 = true;          // isSkipped = true
+            dialogFlagsMap[key] = t;
+        }
+
         EndDialog();
     }
 
@@ -149,6 +182,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
 
         topEdgeFade.alpha = 0;
+        optionsShown = 0;
         this.key = key;
         //nextButton.onClick.RemoveAllListeners();
         if (dialogTreeMap.TryGetValue(key, out currentDialogTree))
@@ -158,7 +192,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
             dialogFlagsMap[key] = t;
             var val = GameManager.Instance.currentLevel > 0 ? 1 : 0;
             SetFlag("hasIncentives", val);
+            // reset current path
+            currentPathIds.Clear();
+            currentPathIndex = 0;
+            finalPathLength = 1;
+
             currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
+            currentPathIds.Add(currentNode.id);
+
             if (inDialogue) return;
             ClearMessages();
             isWaitingForPlayer = false;
@@ -230,10 +271,6 @@ public class ATC_HouseDialogManager : MonoBehaviour
             isWaitingForPlayer = true;
             canClick = true;
         }
-
-
-
-        //StartCoroutine(DisplayNodeWithDelay());
     }
 
 
@@ -287,7 +324,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
             yield return null;
         }
         // Find the next node
-        currentNode = currentDialogTree.GetNodeById(selectedOption.GetNextNodeId());
+
+        string nextId = selectedOption.GetNextNodeId();
+        currentPathIds.Add(nextId);
+        currentPathIndex = currentPathIds.Count - 1;
+        currentNode = currentDialogTree.GetNodeById(nextId);
+        int remainingCount = CountNodesFrom(nextId);
+        finalPathLength = currentPathIds.Count + remainingCount;
 
         DOVirtual.DelayedCall(1f, () =>
         {
@@ -298,8 +341,38 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
 
     }
+
+    public void GetPathCompletionPercent()
+    {
+        float percent;
+        if (finalPathLength > 1)
+        {
+            percent = (currentPathIndex / (float)(finalPathLength - 1)) * 100f;
+        }
+        else
+        {
+            percent = 0f;
+        }
+        if(optionsShown == 1)
+        {
+            percent = 0f;
+        }
+        if(houseDialogCompletePercent.TryGetValue(key,out var previousPercent))
+        {
+            houseDialogCompletePercent[key] = previousPercent >= percent ? previousPercent : percent;
+            Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
+        }
+        else
+        {
+            houseDialogCompletePercent.Add(key, percent);
+            Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
+        }
+        Debug.Log($"Dialog is {percent:F1}% complete on this path.");
+    }
+
     private void ShowOptions()
     {
+        optionsShown++;
         var flags = dialogFlagsMap[currentDialogTree.houseType];
         foreach (var option in currentNode.options)
         {
@@ -325,8 +398,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
 
         }
-            
-        
+        GetPathCompletionPercent();
+
         ClearMessages();
         //isWaitingForPlayer = true;
         characterPortrait.gameObject.SetActive(false);

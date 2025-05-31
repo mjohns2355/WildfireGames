@@ -9,9 +9,7 @@ public class FC_StarScreen : MonoBehaviour
     public GameObject starsContainer, buttonsContainer;
     public Sprite emptyStar, halfStar, fullStar;
     public Button restart, nextLevel, mainMenu,restartFromBeginning;
-
-    const int HOUSE_PENALTY = 50;
-    const int CAR_PENALTY = 50;
+    private int skippedHouseCount = 0;
 
     [SerializeField] List<Image> houseProtectedStars = new List<Image>();
     [SerializeField] List<Image> injuriesPreventedStars = new List<Image>();
@@ -48,20 +46,21 @@ public class FC_StarScreen : MonoBehaviour
             injuriesPreventedStars[i].sprite = emptyStar;
             converstationQualityStars[i].sprite = emptyStar;
         }
+        skippedHouseCount = 0;
     }
 
-    public int CalculateStars()
-    {
-        int maxPenalty = CalculateMaxPenalty();
-        int damage = CalculateDamageScore();
+    //public int CalculateStars()
+    //{
+    //    int maxPenalty = CalculateMaxPenalty();
+    //    int damage = CalculateDamageScore();
 
-        float ratio = 1f - Mathf.Clamp01((float)damage / maxPenalty);
-        Debug.Log("Damage: " + damage + " ,Max Penalty: " + maxPenalty + " ,Ratio: " + ratio);
-        if (ratio >= 0.8f) return 3;
-        if (ratio >= 0.6f) return 2;
-        if (ratio >= 0.4f) return 1;
-        return 0;
-    }
+    //    float ratio = 1f - Mathf.Clamp01((float)damage / maxPenalty);
+    //    Debug.Log("Damage: " + damage + " ,Max Penalty: " + maxPenalty + " ,Ratio: " + ratio);
+    //    if (ratio >= 0.8f) return 3;
+    //    if (ratio >= 0.6f) return 2;
+    //    if (ratio >= 0.4f) return 1;
+    //    return 0;
+    //}
 
     float CalculateStarRating(float percent)
     {
@@ -96,10 +95,27 @@ public class FC_StarScreen : MonoBehaviour
         var dialogueFlags = ATC_UIController.Instance.houseDialogManager.dialogFlagsMap;
         var houseTypeInfo = GameManager.Instance.structureManager.houseInfoDict;
         var skippedAll = !ATC_UIController.Instance.contextMenus.Any(menu => menu.isSelected && menu.owner is HouseStructure);
-
+        foreach (var pair in playerChoices)
+        {
+            //var menu = ATC_UIController.Instance.FindMenu(pair.Key);
+            if (!ATC_UIController.Instance.houseDialogManager.houseDialogCompletePercent.TryGetValue(pair.Key.ToString(), out float dialogCompletePercent))
+            {
+                dialogCompletePercent = 0;
+            }
+            if (dialogCompletePercent == 0)
+            {
+                skippedHouseCount++;
+            }
+        }
         if (skippedAll)
         {
             ShowStars(0, converstationQualityStars);
+            return;
+        }
+
+        if(skippedHouseCount == GameManager.Instance.availableHouseTypes.Count)
+        {
+            ShowStars(0.5f, converstationQualityStars);
             return;
         }
         foreach (var pair in playerChoices)
@@ -114,6 +130,7 @@ public class FC_StarScreen : MonoBehaviour
             rewardStars += CalculateStars(choiceIndex, totalChoices, flag.Item2);
         }
 
+        rewardStars -= (int)(skippedHouseCount * 0.5f);
         int CalculateStars(int choiceIndex, int totalChoicesCount, bool skipped)
         {
             // reversedIndex = 0 for the last (best) option, 1 for second-last, etc.
@@ -126,7 +143,7 @@ public class FC_StarScreen : MonoBehaviour
             if (skipped)
                 stars = Mathf.Max(1, stars - 1);
 
-            Debug.Log($"Selcted choice {choiceIndex} and {skipped} dialogue, get stars:{stars}");
+            //Debug.Log($"Selcted choice {choiceIndex} and {skipped} dialogue, get stars:{stars}");
             return stars;
         }
         var percent = (float) (totalStars - rewardStars) / totalStars;
@@ -136,21 +153,21 @@ public class FC_StarScreen : MonoBehaviour
 
 
 
-    public int CalculateDamageScore()
-    {
-        int damage = 0;
-        damage += GameManager.Instance.housesDestroyed * HOUSE_PENALTY;
-        damage += GameManager.Instance.carsNotEvacuated * CAR_PENALTY;
-        return damage;
-    }
+    //public int CalculateDamageScore()
+    //{
+    //    int damage = 0;
+    //    damage += GameManager.Instance.housesDestroyed * HOUSE_PENALTY;
+    //    damage += GameManager.Instance.carsNotEvacuated * CAR_PENALTY;
+    //    return damage;
+    //}
 
-    public int CalculateMaxPenalty()
-    {
-        int penalty = 0;
-        penalty += GameManager.Instance.totalHouses * HOUSE_PENALTY;
-        penalty += GameManager.Instance.totalCars * CAR_PENALTY;
-        return penalty;
-    }
+    //public int CalculateMaxPenalty()
+    //{
+    //    int penalty = 0;
+    //    penalty += GameManager.Instance.totalHouses * HOUSE_PENALTY;
+    //    penalty += GameManager.Instance.totalCars * CAR_PENALTY;
+    //    return penalty;
+    //}
     public void ShowStars(float stars, List<Image> starImages)
     {
         int fullStars = Mathf.FloorToInt(stars);
