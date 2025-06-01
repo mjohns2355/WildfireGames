@@ -48,6 +48,7 @@ public class FC_TutorialManager : MonoBehaviour
 
         fireStationIcon.onClick.AddListener(OnFirestationIconClicked);
         // TO-DO: should have a tutorial house type instead of using existing pet
+        GameManager.Instance.availableHouseTypes.Clear();
         GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
         // only hide the skip button when player first time playing the tutorial
         if (!isFirstTimeTutorial) return;

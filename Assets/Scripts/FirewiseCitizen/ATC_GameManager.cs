@@ -70,7 +70,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         Time.timeScale = 1f;
         SimIsEnd = false;
-        InitiAvailableHouseType();
+        //InitiAvailableHouseType();
         SceneManager.sceneLoaded += OnSceneLoaded;
         SimTimer = 0f;
         //Time.timeScale = GameSpeed = 2f;
@@ -109,12 +109,12 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.skippingOverlay.SetActive(true);
 
     }
-    public void SkipSimulationRec()
-    {
-        currentStage = LevelStage.PhaseOne;
-        ResetGame();
-        Time.timeScale = 1f;
-    }
+    //public void SkipSimulationRec()
+    //{
+    //    currentStage = LevelStage.PhaseOne;
+    //    ResetGame();
+    //    Time.timeScale = 1f;
+    //}
     private void Update()
     {
         //debug
@@ -344,6 +344,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             availableHouseTypes.Clear();
         }
+
 
         switch (currentLevel)
         {

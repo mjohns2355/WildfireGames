@@ -318,6 +318,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public void HideDialog(bool isHouseDialog = false)
     {
         dialoguePanel.SetActive(false);
+        // don't reset camera if it is house dialog (house dialog has an extra menu)
         GameManager.Instance.canControlCam = !isHouseDialog;
 
         toolsBar.SetActive(!isHouseDialog);

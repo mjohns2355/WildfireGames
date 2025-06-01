@@ -413,7 +413,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         characterPortrait.gameObject.SetActive(false);
         OnDialogueComplete?.Invoke();
         DOTween.Kill(gameObject);
-        var isHouseDialog = Enum.TryParse(key, out HouseType houseType);
+        var isHouseDialog = Enum.TryParse(key, out HouseType houseType) || key == "tutorial";
         ATC_UIController.Instance.HideDialog(isHouseDialog);
         if (isHouseDialog)
         {
