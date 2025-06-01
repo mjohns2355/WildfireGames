@@ -212,21 +212,19 @@ public class HouseStructure : Structure
         {
             if (houseType == HouseType.wui)
             {
-                followOrderChance = dialogCompletePercent > 95 ? 0.8f : Mathf.Clamp((dialogCompletePercent - 20f) / 100f, 0.01f, 0.79f);
+
+                followOrderChance = dialogCompletePercent == 100 ? 0.8f :
+                                    dialogCompletePercent == 0 ? 0 :
+                                    Mathf.Clamp((dialogCompletePercent - 20f) / 100f, 0.01f, 0.79f);
             }
             else
             {
-                if(dialogCompletePercent > 90f)
-                {
-                    followOrderChance = 1;
-                }
-                else
-                {
-                    followOrderChance = dialogCompletePercent == 0 ? 0 : dialogCompletePercent / 100f;
-                }
+                followOrderChance = dialogCompletePercent == 100 ? 1 :
+                                    dialogCompletePercent == 0 ? 0 :
+                                    Mathf.Clamp(dialogCompletePercent / 100f, 0.01f, 0.99f);
             }
         }
-
+        
         
         foreach (var currentChoice in GameManager.Instance.structureManager.GetPlayerChoicesDict()[houseType])
         {
