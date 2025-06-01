@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-[System.Serializable]
+[Serializable]
 public class FF_TutorialStep
 {
     public int stepNumber;

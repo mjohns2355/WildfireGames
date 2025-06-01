@@ -33,18 +33,14 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
             //FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
             plantModeToggle.GetComponent<Toggle>().interactable = false;
 
-            // make sure player have enough time to read before they click through the dialogue
-            //DOVirtual.DelayedCall(3f, () =>
-            //{
- 
+            DOVirtual.DelayedCall(criticalZoneHighlight.flashDuration * criticalZoneHighlight.flashCount, () => {
+                onClick.AddListener(() =>
+                {
+                    Destroy(criticalZoneHighlight);
+                    OnTutorialStepComplete();
+                    plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
+                });
 
-            //});
-
-            onClick.AddListener(() =>
-            {
-                Destroy(criticalZoneHighlight);
-                OnTutorialStepComplete();
-                plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
             });
         });
     }
@@ -61,7 +57,6 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         // Create the Animation Sequence
         Sequence toggleSequence = DOTween.Sequence();
                                          
-
         toggleSequence.PrependInterval(1.5f);
         // Step 1: Fade In
         toggleSequence.Append(FadeIn(canvasGroup));

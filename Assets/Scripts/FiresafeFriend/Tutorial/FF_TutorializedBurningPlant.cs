@@ -10,19 +10,13 @@ public class FF_TutorializedBurningPlant : FF_TutorializedObject
 
     public void StartBurningPlant()
     {
-        //DOVirtual.DelayedCall(3f, () =>
-        //{
-        //    onClick.AddListener(() =>
-        //    {
-        //        OnTutorialStepComplete();
-        //        Destroy(normalPlant);
-        //        Destroy(burningPlant);
-        //        Destroy(gameObject);
-        //        animator.enabled = false;
-        //    });
+        animator.enabled = true;
+        animator.Play("PlantBurningAnim");
+        plant.isOnFire = true;
+    }
 
-        //});
-
+    public void OnAnimFinished()
+    {
         onClick.AddListener(() =>
         {
             OnTutorialStepComplete();
@@ -31,18 +25,6 @@ public class FF_TutorializedBurningPlant : FF_TutorializedObject
             Destroy(gameObject);
             animator.enabled = false;
         });
-        animator.enabled = true;
-        animator.Play("PlantBurningAnim");
-        plant.isOnFire = true;
+
     }
-
-    //public void OnAnimFinished()
-    //{
-    //    //plant.gameObject.SetActive(false);
-    //    OnTutorialStepComplete();
-    //    Destroy(normalPlant);
-    //    Destroy(burningPlant);
-    //    Destroy(gameObject);
-
-    //}
 }

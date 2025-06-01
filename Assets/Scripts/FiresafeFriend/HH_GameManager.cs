@@ -26,7 +26,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager p1;
     public HouseManager p2;
     public FF_Tree tree1, tree2;
-    private bool _isPlantMode;
+    [SerializeField] private bool _isPlantMode;
     [SerializeField] private const int WinReward = 3000;
     [SerializeField] private const int TieReward = WinReward/2;
     [SerializeField] GameObject publicFencePrefab;
