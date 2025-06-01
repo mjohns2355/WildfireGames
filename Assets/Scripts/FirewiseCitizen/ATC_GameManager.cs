@@ -334,7 +334,10 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
-        ATC_UIController.Instance.HideLoadingScreen();
+        if (currentLevel == 1)
+        {
+            ATC_UIController.Instance.HideLoadingScreen();
+        }
 
     }
 
