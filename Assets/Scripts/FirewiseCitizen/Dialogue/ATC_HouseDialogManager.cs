@@ -39,10 +39,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private bool canClick = false;
     private int optionsShown = 0;
     private CanvasGroup topEdgeFade;
-    [SerializeField]private List<string> currentPathIds = new();
-    private int currentPathIndex = 0;
-    private int finalPathLength = 1;
-
+    //[SerializeField]private List<string> currentPathIds = new();
+    //private int currentPathIndex = 0;
+    //private int finalPathLength = 1;
+    private int choicesSelectedCount = 0;
+    private int totalChoices = 4;//fixed choice count for complete percent calculation
     public Dictionary<string, float> houseDialogCompletePercent = new();
     private void Start()
     {
@@ -55,24 +56,24 @@ public class ATC_HouseDialogManager : MonoBehaviour
         topEdgeFade = topFade.GetComponent<CanvasGroup>();
     }
 
-    private int CountNodesFrom(string nodeId)
-    {
-        DialogNode node = currentDialogTree.GetNodeById(nodeId);
-        if (node == null)
-        {
-            Debug.LogWarning($"CountNodesFrom: node '{nodeId}' not found!");
-            return 0;
-        }
+    //private int CountNodesFrom(string nodeId)
+    //{
+    //    DialogNode node = currentDialogTree.GetNodeById(nodeId);
+    //    if (node == null)
+    //    {
+    //        Debug.LogWarning($"CountNodesFrom: node '{nodeId}' not found!");
+    //        return 0;
+    //    }
 
-        if (node.isEndNode || node.options == null || node.options.Length == 0 || node.options[0].optionText == null)
-        {
-            return 1;
-        }
+    //    if (node.isEndNode || node.options == null || node.options.Length == 0 || node.options[0].optionText == null)
+    //    {
+    //        return 1;
+    //    }
 
-        string nextId = node.GetNextNodeId();
+    //    string nextId = node.GetNextNodeId();
 
-        return 1 + CountNodesFrom(nextId);
-    }
+    //    return 1 + CountNodesFrom(nextId);
+    //}
     private void UpdateEdgeFadeVisibility()
     {
         if (scrollRect == null || topFade == null || bottomFade == null) return;
@@ -153,10 +154,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             if (nextNode != null)
             {
-                currentPathIds.Add(nextId);
-                int remainingCount = CountNodesFrom(nextId);
-                finalPathLength = currentPathIds.Count + remainingCount;
-                currentPathIndex = currentPathIds.Count - 1;
+                //currentPathIds.Add(nextId);
+                //int remainingCount = CountNodesFrom(nextId);
+                //finalPathLength = currentPathIds.Count + remainingCount;
+                //currentPathIndex = currentPathIds.Count - 1;
                 currentNode = nextNode;
                 DisplayCurrentNode();
             }
@@ -192,13 +193,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
             dialogFlagsMap[key] = t;
             var val = GameManager.Instance.currentLevel > 0 ? 1 : 0;
             SetFlag("hasIncentives", val);
+            choicesSelectedCount = 0;
             // reset current path
-            currentPathIds.Clear();
-            currentPathIndex = 0;
-            finalPathLength = 1;
+            //currentPathIds.Clear();
+            //currentPathIndex = 0;
+            //finalPathLength = 1;
 
             currentNode = currentDialogTree.GetNodeById(currentDialogTree.rootNodeId);
-            currentPathIds.Add(currentNode.id);
+            //currentPathIds.Add(currentNode.id);
 
             if (inDialogue) return;
             ClearMessages();
@@ -323,14 +325,19 @@ public class ATC_HouseDialogManager : MonoBehaviour
             SkipDialogue();
             yield return null;
         }
+
+        if (!(selectedOption.optionText == "Skip to Incentives"))
+        {
+            choicesSelectedCount++;
+        }
         // Find the next node
 
         string nextId = selectedOption.GetNextNodeId();
-        currentPathIds.Add(nextId);
-        currentPathIndex = currentPathIds.Count - 1;
+        //currentPathIds.Add(nextId);
+        //currentPathIndex = currentPathIds.Count - 1;
         currentNode = currentDialogTree.GetNodeById(nextId);
-        int remainingCount = CountNodesFrom(nextId);
-        finalPathLength = currentPathIds.Count + remainingCount;
+        //int remainingCount = CountNodesFrom(nextId);
+        //finalPathLength = currentPathIds.Count + remainingCount;
 
         DOVirtual.DelayedCall(1f, () =>
         {
@@ -345,14 +352,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void GetPathCompletionPercent()
     {
         float percent;
-        if (finalPathLength > 1)
-        {
-            percent = (currentPathIndex / (float)(finalPathLength - 1)) * 100f;
-        }
-        else
-        {
-            percent = 0f;
-        }
+        percent = ((float)choicesSelectedCount / 4) * 100f;
+        //if (finalPathLength > 1)
+        //{
+        //    percent = (currentPathIndex / (float)(finalPathLength - 1)) * 100f;
+        //}
+        //else
+        //{
+        //    percent = 0f;
+        //}
         if(optionsShown == 1)
         {
             percent = 0f;
