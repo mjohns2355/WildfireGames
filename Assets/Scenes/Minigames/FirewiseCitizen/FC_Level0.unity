@@ -6163,7 +6163,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71686351}
-  - component: {fileID: 71686350}
   - component: {fileID: 71686352}
   m_Layer: 0
   m_Name: NewsManager
@@ -6172,21 +6171,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &71686350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71686349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6611f6767d8795b4fa0986b3d22c4cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zipCodeInput: {fileID: 1316007098}
-  fetchButton: {fileID: 560248228}
-  newsText: {fileID: 896097329}
 --- !u!4 &71686351
 Transform:
   m_ObjectHideFlags: 0
@@ -56752,7 +56736,6 @@ MonoBehaviour:
   skipButton: {fileID: 250865099}
   isWaitingForPlayer: 1
   canShowSkipButton: 0
-  currentPathIds: []
 --- !u!1001 &574240285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125012,7 +124995,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1434949271}
-  - component: {fileID: 1434949270}
   - component: {fileID: 1434949272}
   m_Layer: 0
   m_Name: 'Resources NewsManager '
@@ -125021,21 +125003,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1434949270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434949269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6611f6767d8795b4fa0986b3d22c4cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zipCodeInput: {fileID: 194471508}
-  fetchButton: {fileID: 2057437907}
-  newsText: {fileID: 1585604376}
 --- !u!4 &1434949271
 Transform:
   m_ObjectHideFlags: 0
