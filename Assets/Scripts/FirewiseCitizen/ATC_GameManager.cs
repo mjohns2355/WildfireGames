@@ -317,7 +317,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         //DOTween.Clear(true);
         if (scene.name == "MainMenu") return;
-        
+        if (scene.name.Contains("FF")) return;
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();
@@ -334,10 +334,8 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
-        if (currentLevel == 1)
-        {
-            ATC_UIController.Instance.HideLoadingScreen();
-        }
+        ATC_UIController.Instance.HideLoadingScreen();
+
 
     }
 
