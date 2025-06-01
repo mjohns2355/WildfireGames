@@ -8,9 +8,9 @@ public class FF_Tree : FF_Plants
 {
     public MeshRenderer burntModel;
     public AudioSource audioSource;
-    public GameObject fireParticle;
+    public GameObject fireParticle, scruffyTree,normalTree;
 
-    [SerializeField]private AudioClip chop1, chop2, fall;
+    private AudioClip chop1, chop2, fall;
     private MeshRenderer burntMesh;
     protected override void Start()
     {
@@ -29,8 +29,11 @@ public class FF_Tree : FF_Plants
     {
         if (obj == gameObject && isClickable)
         {
+            HH_GameManager.Instance.uiManager.purchasePopup.confirmRemove.onClick.RemoveAllListeners();
+            HH_GameManager.Instance.uiManager.purchasePopup.trimBtn.onClick.RemoveAllListeners();
             //Debug.Log($"Clicked {gameObject.name}");
             HH_GameManager.Instance.uiManager.purchasePopup.confirmRemove.onClick.AddListener(RemoveTree);
+            HH_GameManager.Instance.uiManager.purchasePopup.trimBtn.onClick.AddListener(TrimTree);
             HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, false,true);
         }
     }
@@ -39,15 +42,10 @@ public class FF_Tree : FF_Plants
     {
         if (burntModel && burntMesh == null)
         {
-            foreach (var mesh in meshes)
-            {
-               
-                burntMesh = Instantiate(burntModel, transform);
-                burntMesh.transform.position = mesh.transform.position;
-                burntMesh.material = mesh.material;
-                mesh.gameObject.SetActive(false);
-
-            }
+            burntMesh = Instantiate(burntModel, transform);
+            burntMesh.transform.position = scruffyTree.transform.position;
+            
+            scruffyTree.SetActive(false);
         }
     }
 
@@ -83,6 +81,20 @@ public class FF_Tree : FF_Plants
         
     }
 
+    public void TrimTree()
+    {
+        if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(2000))
+        {
+            scruffyTree.SetActive(false);
+            normalTree.SetActive(true);
+            durability = 100;
+            flammability = 0;
+            HH_GameManager.Instance.uiManager.HidePurchasePopup(null, false);
+            return;
+        }
+        HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, true);
+
+    }
     public void PlaySFXSequence()
     {
         Sequence sfxSequence = DOTween.Sequence().SetLink(gameObject);

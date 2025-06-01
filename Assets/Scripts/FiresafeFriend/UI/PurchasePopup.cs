@@ -9,7 +9,7 @@ public class PurchasePopup : MonoBehaviour
 {
     public TextMeshProUGUI priceText, classText, itemNameText, descriptionText, moneyWarningText;
     public Image icon, arrowIndicator;
-    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney, closeBGBtn,cancelRemove,confirmRemove;
+    public Button cancelPurchase, purchase, cancelWarning, earnMoreMoney, closeBGBtn,cancelRemove,confirmRemove,trimBtn;
     public GameObject purchaseScreen, warningScreen,removeTreeScreen;
     private HousePartInfo partInfo;
     private bool shouldShowStore = true;
