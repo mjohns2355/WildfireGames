@@ -6,16 +6,23 @@ public class parkTheCarsHere : MonoBehaviour
 {
 
     public Transform[] parkingSpots;
+    int availableSpots;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        availableSpots = parkingSpots.Length;
     }
-
-    // Update is called once per frame
-    void Update()
+    public bool ParkCar(GameObject car)
     {
-        
+        if(availableSpots > 0)
+        {
+            Debug.Log("park car");
+            var parkingSpot = parkingSpots[availableSpots - 1];
+            car.transform.position = parkingSpot.position;
+            car.transform.rotation = Quaternion.Euler(Vector3.zero);
+            availableSpots--;
+            return true;
+        }
+        return false;
     }
 }

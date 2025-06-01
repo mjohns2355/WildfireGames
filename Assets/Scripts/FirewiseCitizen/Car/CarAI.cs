@@ -254,6 +254,15 @@ public class CarAI : MonoBehaviour
             {
                 GameManager.Instance.lastEvacCarTimeStamp = GameManager.Instance.SimTimer;
             }
+            if (FindObjectOfType<parkTheCarsHere>().ParkCar(gameObject))
+            {
+                GetComponent<Rigidbody>().isKinematic = true;
+                GetComponent<BoxCollider>().enabled = false;
+                gameObject.layer = 2;
+                GetComponent<CarController>().enabled = false;
+                enabled = false;
+                return;
+            }
             Destroy(gameObject);
         }
         else

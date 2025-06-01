@@ -224,8 +224,8 @@ public class ATC_dialogManager : MonoBehaviour
         }
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
-        //var houseType = availableHouseTypes[rng];
-        var houseType = HouseType.pet;
+        var houseType = availableHouseTypes[rng];
+        //var houseType = HouseType.pet;
         Debug.Log("Chose Quote: " + houseType.ToString());
 
         foreach (var c in dict[houseType])
