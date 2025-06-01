@@ -48406,13 +48406,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -50563,6 +50565,63 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1001 &1867902411
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -148.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 146.33813
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834517550768287543, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5587852424675259413, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+      propertyPath: m_Name
+      value: FireTruck
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86d8739de686b45bdbd4168001932326, type: 3}
 --- !u!1001 &1869387683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58122,6 +58181,7 @@ SceneRoots:
   - {fileID: 1624729081}
   - {fileID: 936676360}
   - {fileID: 1152322097}
+  - {fileID: 1867902411}
   - {fileID: 865054027}
   - {fileID: 1423487505}
   - {fileID: 853016041}
