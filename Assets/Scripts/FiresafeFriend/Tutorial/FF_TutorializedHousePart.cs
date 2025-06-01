@@ -42,7 +42,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     }
     public void ShowInventoryButton()
     {
-        FF_TutorialManager.Instance.tutorialText.text = "You can always see your owned material in inventory. Try tapping on the button to open the inventory";
+        FF_TutorialManager.Instance.tutorialText.text = "You can view your Owned Materials in the Inventory. Try tapping on the Inventory button to open the Inventory";
         inventory.gameObject.SetActive(true);
         var inventoryBtn = inventory.inventoryButton;
         inventoryBtn.onClick.AddListener(OnInventoryOpened);
@@ -58,7 +58,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnInventoryOpened()
     {
-        FF_TutorialManager.Instance.tutorialText.text = "You can always tap on the item to replace the material. Try tapping on the wood";
+        FF_TutorialManager.Instance.tutorialText.text = "You can always tap on the item to replace the material. Try tapping on the Wood";
 
         oldItem = inventory.items[0];
         newItem = inventory.items[1];
@@ -70,7 +70,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnClickedNewItem()
     {
-        FF_TutorialManager.Instance.tutorialText.text = "Now you roof is using shingle, don't forget to use the inventory anytime you want to apply other materials to your house!";
+        FF_TutorialManager.Instance.tutorialText.text = "Now your roof is using Metal. You can use the inventory anytime you want to apply other materials to your house!";
         inventory.gameObject.SetActive(false);
         Destroy(bubble.gameObject);
         onClick.AddListener(OnTutorialStepComplete);
@@ -79,7 +79,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     void OnClickedOldItem()
     {
         newItem.button.interactable = true;
-        FF_TutorialManager.Instance.tutorialText.text = "Great job! Now try tapping on the shingle again";
+        FF_TutorialManager.Instance.tutorialText.text = "Great job! Now try tapping on the Metal again";
         oldItem.button.interactable = false;
         ScaleEffect(newItem.GetComponent<RectTransform>());
     }
