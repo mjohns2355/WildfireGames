@@ -16,7 +16,7 @@ public class parkTheCarsHere : MonoBehaviour
     {
         if(availableSpots > 0)
         {
-            Debug.Log("park car");
+            //Debug.Log("park car");
             var parkingSpot = parkingSpots[availableSpots - 1];
             car.transform.position = parkingSpot.position;
             car.transform.rotation = Quaternion.Euler(Vector3.zero);

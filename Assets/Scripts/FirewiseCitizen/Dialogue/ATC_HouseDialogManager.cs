@@ -352,7 +352,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void GetPathCompletionPercent()
     {
         float percent;
-        percent = ((float)choicesSelectedCount / 4) * 100f;
+        percent = ((float)choicesSelectedCount / totalChoices) * 100f;
         //if (finalPathLength > 1)
         //{
         //    percent = (currentPathIndex / (float)(finalPathLength - 1)) * 100f;
@@ -365,6 +365,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             percent = 0f;
         }
+
+        percent = Mathf.Clamp(percent, 0, 100);
         if(houseDialogCompletePercent.TryGetValue(key,out var previousPercent))
         {
             houseDialogCompletePercent[key] = previousPercent >= percent ? previousPercent : percent;

@@ -317,7 +317,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         //DOTween.Clear(true);
         if (scene.name == "MainMenu") return;
-        if (scene.name.Contains("FF")) return;
+        if (!scene.name.Contains("FC")) return;
         structureManager = FindObjectOfType<StructureManager>();
         roadManager = FindObjectOfType<ATC_RoadManager>();
         inputManager = FindObjectOfType<ATC_InputManager>();
