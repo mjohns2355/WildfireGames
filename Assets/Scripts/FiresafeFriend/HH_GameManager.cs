@@ -360,8 +360,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     {
         HousesMadeDecisionsCount = 0;
         IsPlantMode = false;
-        var p1Score = p1.CalculateRating();
-        var p2Score = p2.CalculateRating();
+        var p1Score = (int)(p1.CalculateRating() *10f);
+        var p2Score = (int)(p2.CalculateRating() * 10f);
+  
         competitionLoser = p1Score > p2Score ? p2.playerTag
                            : p1Score < p2Score ? p1.playerTag
                            : string.Empty;

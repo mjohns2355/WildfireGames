@@ -61,7 +61,7 @@ public class HighlightMesh : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("On destroy");
+        //Debug.Log("On destroy");
         Debug.Log($"Active tweens: {activeTweens.Count}");
         StopHighlight();
         foreach (var meshRender in meshRenders)

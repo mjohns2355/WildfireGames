@@ -15,6 +15,7 @@ public class FF_Props : FF_BaseCombustible
     }
     private void HandleBurnedOut()
     {
+
         gameObject.SetActive(false);
     }
     public override void OnCombustibleClicked(GameObject obj)

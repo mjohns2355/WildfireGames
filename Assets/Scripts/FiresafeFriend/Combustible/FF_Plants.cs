@@ -21,13 +21,17 @@ public class FF_Plants : FF_BaseCombustible
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPlantSelected;
     }
 
+
     private void HandleBurnedOut()
     {
         gameObject.SetActive(false);
+
     }
 
     private void OnDestroy()
     {
+        //Debug.Log($"On {gameObject.name} destroyed");
+
         onPlantClicked = null;
         OnCombustibleDestroyed = null;
         OnIgnite = null;
@@ -35,7 +39,7 @@ public class FF_Plants : FF_BaseCombustible
 
     public override void OnCombustibleClicked(GameObject obj)
     {
-        //if (obj.transform.parent == transform)
+        if (this == null || gameObject == null) return;
         if (obj == gameObject && isClickable)
         {
             //Debug.Log($"Clicked {gameObject.name}");
@@ -78,6 +82,7 @@ public class FF_Plants : FF_BaseCombustible
 
     protected IEnumerator PlantClickedRoutine()
     {
+        if (this == null || gameObject == null) yield break;
         if (canClickToRemove)
         {
             transform.GetChild(0).gameObject.SetActive(false);
