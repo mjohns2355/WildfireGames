@@ -59,6 +59,8 @@ public class StructureContextMenu : MonoBehaviour
         {
             ClearChoice();
             OnMenuDisable();
+            owner.SetOutline(false);
+            schoolText.SetActive(false);
             ShowDialog();
         });
         icon.InitIcon(house.houseType);
