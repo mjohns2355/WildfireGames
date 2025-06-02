@@ -28,7 +28,9 @@ namespace HappyHouse.HouseSystem
         //[SerializeField] BoxCollider clickBox;
         [SerializeField] private List<HousePartType> upgradeList = new () { HousePartType.Wall, HousePartType.Roof, HousePartType.Gutter, HousePartType.Vent, HousePartType.Drain, HousePartType.Window, HousePartType.Door };
         public int totalPartsCount, burnedPartsCount = 0;
-        public List<FF_Plants> ownedPlants;
+        public HashSet<FF_Plants> ownedPlants = new();
+        //public List<FF_Plants> deadBushes = new();
+        //public List<FF_Props> props = new();
         public bool isMoving = false;
         public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
         public float burnedWeight, totalWeight = 0f;
@@ -42,12 +44,36 @@ namespace HappyHouse.HouseSystem
             budgetManager = new FF_BudgetManager(this, initBudget);
             clickBox = GetComponent<BoxCollider>();
             audioSource = GetComponent<AudioSource>();
+
+            //foreach(var bush in deadBushes)
+            //{
+            //    bush.OnCombustibleDestroyed += OnDeadBushRemoved;
+            //}
+
+            //foreach(var prop in props)
+            //{
+            //    prop.OnCombustibleDestroyed += OnPropsMoved;
+            //}
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
             });
             
         }
+
+        //void OnDeadBushRemoved(FF_BaseCombustible bush)
+        //{
+        //    var bushToRemove = (FF_Plants)bush;
+        //    //if (!deadBushes.Contains(bushToRemove) ) return;
+        //    deadBushes.Remove(bushToRemove);
+        //}
+
+        //void OnPropsMoved(FF_BaseCombustible prop)
+        //{
+        //    var propToRmove = (FF_Props)prop;
+        //    //if (!props.Contains(propToRmove)) return;
+        //    props.Remove(propToRmove);
+        //}
 
         public void InitHouseManager()
         {
@@ -69,7 +95,6 @@ namespace HappyHouse.HouseSystem
                     
                 }
             }
-
 
             var name = playerTag == "P1" ? "Player 1" : "Player 2";
             nameText.GetComponent<TextMeshPro>().text = name;
@@ -338,112 +363,6 @@ namespace HappyHouse.HouseSystem
                 }
             }
         }
-
-        //public void ReplaceHousePartObject(HousePartInfo housePartInfo)
-        //{
-        //    //sfx
-        //    var constructSfx = ResourceManager.Instance.RetrunRandomConstructSound();
-        //    audioSource.PlayOneShot(constructSfx);
-
-        //    //  hide bubble when no purchasing possible
-        //    int ownedPartsCount = -1;
-        //    if (housePartInfo.isPublic)
-        //    {
-        //        ownedPartsCount = inventory.ownedPublicParts[housePartInfo.housePartType].Count;
-        //    }
-        //    else
-        //    {
-        //        ownedPartsCount = inventory.ownedParts[housePartInfo.housePartType].Count;
-        //    }
-
-        //    bool shouldHideBubble = ResourceManager.Instance.allAvailableParts[housePartInfo.housePartType].Count == ownedPartsCount;
-
-        //    // replace all old parts with new parts
-        //    var oldParts = GetAllHousePartObjectsOf(housePartInfo.housePartType, housePartInfo.isPublic);
-
-        //    if (!housePartInfo.isPublic)
-        //    {
-        //        AddMaterialToDictionary(housePartInfo.housePartType, housePartInfo.materialClass);
-        //    }
-
-        //    MaterialClass oldMaterialClass = MaterialClass.B;
-        //    foreach (var oldPart in oldParts)
-        //    {
-
-        //        if (oldPart.houseNode != null)
-        //        {
-        //            if (oldPart.shouldDisplayBubble)
-        //            {
-        //                oldPart.bubble.isActive = !shouldHideBubble;
-        //                oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
-        //                oldPart.shouldDisplayBubble = !shouldHideBubble;
-        //            }
-
-        //            var oldNeighbors = new List<HouseNode>(oldPart.houseNode.neighbourNodes);
-        //            oldMaterialClass = oldPart.partInfo.materialClass;
-        //            houseGraph.RemoveHousePart(oldPart.houseNode);  // Remove old node
-
-        //            oldPart.InitHousePartObject(this, housePartInfo);
-        //            var newNode = houseGraph.AddHousePart(oldPart);
-        //            oldPart.houseNode = newNode;
-
-        //            // Reconnect previous neighbors
-        //            foreach (var neighbor in oldNeighbors)
-        //            {
-        //                houseGraph.ConnectParts(newNode, neighbor);
-        //            }
-        //        }
-        //        else if (housePartInfo.isPublic)
-        //        {
-        //            if (oldPart.shouldDisplayBubble)
-        //            {
-        //                oldPart.bubble.gameObject.SetActive(!shouldHideBubble);
-        //                oldPart.shouldDisplayBubble = !shouldHideBubble;
-        //            }
-        //            oldPart.InitHousePartObject(this, housePartInfo);
-        //        }
-        //    }
-
-        //    if(housePartInfo.housePartType is HousePartType.Vent or HousePartType.Ground)
-        //    {
-
-        //        if (oldMaterialClass == MaterialClass.A)
-        //        {
-        //            flammabilityMod -= 0.1f;
-        //            durabilityMod -= 0.1f;
-        //            foreach (var node in houseGraph.nodes)
-        //            {
-        //                var part = node.housePart;
-        //                part.DecreaseDurability(0.1f);
-        //                part.IncreaseFlammabilty(0.1f);
-
-        //            }
-        //        }
-        //        if (housePartInfo.materialClass != MaterialClass.A) return;
-        //        flammabilityMod += 0.1f;
-        //        durabilityMod += 0.1f;
-        //        foreach (var node in houseGraph.nodes)
-        //        {
-        //            var part = node.housePart;
-        //            part.IncreaseDurability(0.1f);
-        //            part.DecreaseFlammabilty(0.1f);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var node in houseGraph.nodes)
-        //        {
-        //            var part = node.housePart;
-        //            part.IncreaseDurability(durabilityMod);
-        //            part.DecreaseFlammabilty(flammabilityMod);
-        //        }
-        //    }
-            
-        //    if (HH_GameManager.Instance.isTutorial) return;
-        //    //HH_GameManager.Instance.UIManager.inventoryUI.UpdateOwnedParts(newPart.HousePartType);
-            
-        //    HH_GameManager.Instance.uiManager.inventoryPanel.UpdateInventoryUI(housePartInfo.housePartType, housePartInfo.isPublic);
-        //}
 
         public BaseHousePartObject GetCurrentInUseHousePartObjectOf(HousePartType type)
         {

@@ -10,12 +10,12 @@ public class FF_Props : FF_BaseCombustible
     {
         base.Start();
         OnIgnite += HandleIgnite;
-        OnCombustibleDestroyed += HandleBurnedOut;
+        OnCombustibleDestroyed += _=> HandleBurnedOut();
         //HH_GameManager.Instance.inputManager.OnObjectSelected += OnPropSelected;
     }
     private void HandleBurnedOut()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public override void OnCombustibleClicked(GameObject obj)
     {
@@ -36,7 +36,9 @@ public class FF_Props : FF_BaseCombustible
         
         yield return new WaitForSeconds(1f);
 
-        Destroy(gameObject);
-
+        //Destroy(gameObject);
+        transform.GetChild(0).gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
+
 }

@@ -243,7 +243,7 @@ public class GameManager : UnitySingleton<GameManager>
         {
             //Debug.Log("Reset Game");
             currentStage = LevelStage.PhaseOne;
-            ATC_UIController.Instance.UpdateObjectiveText();
+            //ATC_UIController.Instance.UpdateObjectiveText();
         }
 
         firstEvacCarTimeStamp = 0f;

@@ -33,7 +33,7 @@ public class BaseHousePartObject : FF_BaseCombustible
         base.Start();
         isClickable = true;
         OnIgnite += HandleIgnite;
-        OnCombustibleDestroyed += HandleDestroy;
+        OnCombustibleDestroyed += _=> HandleDestroy();
         OnBurning += HandleBurning;
         if (notInteractable) return;
 

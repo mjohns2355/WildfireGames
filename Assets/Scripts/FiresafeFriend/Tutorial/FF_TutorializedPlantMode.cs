@@ -25,7 +25,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
         foreach (var bush in bushes)
         {
 
-            bush.OnCombustibleDestroyed += () =>
+            bush.OnCombustibleDestroyed += _ =>
             {
                 bushesNeededToRemove--;
                 if (bushesNeededToRemove <= 0)
@@ -47,7 +47,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
         foreach (var mound in dirtMounds)
         {
             mound.SetBubbleState(true);
-            mound.OnPlanted += () =>
+            mound.OnPlanted += _ =>
             {
                 dirtMoundsNeededToFill--;
                 if (dirtMoundsNeededToFill <= 0)

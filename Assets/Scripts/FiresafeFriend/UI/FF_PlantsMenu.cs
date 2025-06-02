@@ -56,7 +56,7 @@ public class FF_PlantsMenu : MonoBehaviour
         ClearOptions();
         currentOwner = owner;
         pos = owner.bubblePos.position;
-        currentOwner.OnPlanted += OnPlanted;
+        currentOwner.OnPlanted += _ => OnPlanted();
         PopulateOptions();
     }
 
@@ -64,7 +64,7 @@ public class FF_PlantsMenu : MonoBehaviour
     {
         if(currentOwner != null)
         {
-            currentOwner.OnPlanted -= OnPlanted;
+            currentOwner.OnPlanted -= _ => OnPlanted();
             currentOwner = null;
         }
 

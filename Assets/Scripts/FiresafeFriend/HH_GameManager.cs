@@ -26,6 +26,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public HouseManager p1;
     public HouseManager p2;
     public FF_Tree tree1, tree2;
+    public List<FF_Plants> p1Bushes, p2Bushes = new();
+    public List<FF_Props> p1Props, p2Props = new();
+    public List<FF_DirtMound> p1Mounds, p2Mounds;
+    //public Transform BushesAndPropsContainer;
     [SerializeField] private bool _isPlantMode;
     [SerializeField] private const int WinReward = 3000;
     [SerializeField] private const int TieReward = WinReward/2;
@@ -216,6 +220,17 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             instance.transform.localScale = new Vector3(instance.transform.localScale.x * -1, 1, 1);
             house.nameText.transform.localScale = new Vector3(house.nameText.transform.localScale.x * -1, 1, 1);
         }
+
+        var dirtMounds = playerTag == "P1" ? p1Mounds : p2Mounds;
+        //var props = playerTag == "P1" ? p1Props : p2Props;
+        //var bushes = playerTag == "P1" ? p1Bushes : p2Bushes;
+        //Debug.Log($"PROPS: {props.Count}");
+        foreach (var mound in dirtMounds)
+        {
+            mound.owner = house;
+        }
+        //house.props = props;
+        //house.deadBushes = bushes;
         return house;
     }
 
@@ -256,6 +271,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var upgradeDict = temp.upgradeClassDictionary;
         var currentBudget = temp.budgetManager.currentBudget;
         var canEarnMoreMoney = temp.budgetManager.canEarnMoreMoney;
+        var ownedPlants = temp.ownedPlants;
+        var ownedBushes = currentPlayer.playerTag == "P1" ? p1Bushes : p2Bushes;
+        var ownedProps = currentPlayer.playerTag == "P1" ? p1Props: p2Props;
         RemoveHouse(temp.playerTag,reRoll);
         var newHouse = SpawnSingleHouse(temp.playerTag, temp.transform.parent, reRoll);
         if(!publicFencesRepaired) SpawnPublicFences();
@@ -264,18 +282,44 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (reRoll)
         {
             newHouse.isMoving = true;
+            foreach (var plant in ownedPlants)
+            {
+                Destroy(plant.gameObject);
+            }
+
+            foreach (var bush in ownedBushes)
+            {
+                bush.gameObject.SetActive(true);
+                bush.ResetCombustible();
+            }
+            //foreach (var prop in ownedProps)
+            //{
+            //    prop.gameObject.SetActive(true);
+            //    prop.ResetCombustible();
+            //}
+        }
+        else
+        {
+            foreach(var plant in ownedPlants)
+            {
+                plant.gameObject.SetActive(true);
+                plant.ResetCombustible();
+            }
         }
         newHouse.nameText.SetActive(false);
         DOVirtual.DelayedCall(0.3f, () =>
         {
             // repair should keep the current material and budget
             // but move should reset everything
-
+            var newPlayerTag = newHouse.playerTag;
             newHouse.Repair(upgradeDict, reRoll);
             if (!reRoll)
             {
                 newHouse.budgetManager.currentBudget = currentBudget;
                 newHouse.budgetManager.canEarnMoreMoney = canEarnMoreMoney;
+                newHouse.ownedPlants = ownedPlants;
+                //newHouse.deadBushes = ownedBushes;
+                //newHouse.props = ownedProps;
             }
 
             if (newHouse.playerTag == "P1")
@@ -319,7 +363,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         var p1Score = p1.CalculateRating();
         var p2Score = p2.CalculateRating();
         competitionLoser = p1Score > p2Score ? p2.playerTag
-                           : p2Score < p1Score ? p1.playerTag
+                           : p1Score < p2Score ? p1.playerTag
                            : string.Empty;
         int rewardP1 = p1Score > p2Score ? WinReward
               : p1Score < p2Score ? 0
@@ -391,6 +435,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         if (lastRoundIsCompetition)
         {
+            Debug.Log("Loser is " + competitionLoser);
             var isLoser = competitionLoser != string.Empty && competitionLoser == currentPlayer.playerTag;
             uiManager.joinConcilPopup.SetActive(isLoser);
         }

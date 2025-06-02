@@ -24,7 +24,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     public Action OnIgnite;
     public Action OnBurning;
     public Action OnBurnedOut;
-    public Action OnCombustibleDestroyed;
+    public Action<FF_BaseCombustible> OnCombustibleDestroyed;
     public Action<BurnStage> OnBurnStageChanged;
     public Vector3 topPosition, bottomPosition;
     protected BurnStage _burnStage = BurnStage.BeforeIgniting;
@@ -202,7 +202,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     protected virtual void BurnOut()
     {
         isOnFire = false;
-        OnCombustibleDestroyed?.Invoke();
+        OnCombustibleDestroyed?.Invoke(this);
     }
 
 
@@ -231,6 +231,21 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         }
     }
 
+    public void ResetCombustible()
+    {
+        durability = baseDurability;
+        flammability = baseFlammability;
+        isOnFire = false;
+        heat = 0;
+        foreach (var mesh in meshes)
+        {
+            foreach (var material in mesh.materials)
+            {
+                material.color = Color.white;
+            }
+
+        }
+    }
 }
 
 
