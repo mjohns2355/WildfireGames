@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using TMPro;
 using System;
 using DG.Tweening;
@@ -20,14 +19,12 @@ public class ATC_HouseDialogManager : MonoBehaviour
     [Range(0f, 5f)]
     public float clickCooldown = 1f;
     public ScrollRect scrollRect;
-    //[SerializeField] private Button[] optionButtons; // Buttons for responses
-    private List<FC_MessageBubble> optionMessageBubbles = new List<FC_MessageBubble>();
+    private List<FC_MessageBubble> optionMessageBubbles = new();
     private Dictionary<string, ATC_DialogTree> dialogTreeMap;
     // item2 is if the dialog is skipped
     public Dictionary<string, (DialogFlags,bool)> dialogFlagsMap;
     [SerializeField] private ATC_DialogTree currentDialogTree;
     [SerializeField] private DialogNode currentNode;
-    //[SerializeField] private int paragraphIndex;
     private string key;
     public Button skipButton;
 
@@ -43,7 +40,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     //private int currentPathIndex = 0;
     //private int finalPathLength = 1;
     private int choicesSelectedCount = 0;
-    private int totalChoices = 4;//fixed choice count for complete percent calculation
+    private const int totalChoices = 4;//fixed choice count for complete percent calculation
     public Dictionary<string, float> houseDialogCompletePercent = new();
     private void Start()
     {

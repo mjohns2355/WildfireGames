@@ -44,8 +44,8 @@ public class StructureContextMenu : MonoBehaviour
             if (!isSelected)
             {
                 isSelected = true;
-                ATC_UIController.Instance.talkedResidentsCount++;
-                ATC_UIController.Instance.UpdateObjectiveText();
+                ATC_UIController.Instance.TalkedResidentsCount++;
+                //ATC_UIController.Instance.UpdateObjectiveText();
             }
             
             Instantiate(Resources.Load("SelectedSFX") as GameObject);

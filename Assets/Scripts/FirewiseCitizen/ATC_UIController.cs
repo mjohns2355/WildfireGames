@@ -29,7 +29,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera,skipSim;
     public CanvasGroup loadingScreen;
     public float loadingTime;
-    public int talkedResidentsCount;
+    private int _talkedResidentsCount;
+    public int TalkedResidentsCount
+    {
+        get => _talkedResidentsCount;
+        set { _talkedResidentsCount = value;
+            UpdateObjectiveText(); }
+
+}
     //public GameObject buildingMenu;
     public List<HouseStructure> selectedHouses = new List<HouseStructure> ();
     public List<StructureContextMenu> contextMenus = new List<StructureContextMenu>();
@@ -215,7 +222,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         
         evacNotice.SetActive(false);
         statsPanel.gameObject.SetActive(false);
-        talkedResidentsCount = 0;
+        TalkedResidentsCount = 0;
         ClearAllPanels();
     }
 
@@ -369,6 +376,6 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     {
         if (!objectiveText.transform.parent.gameObject.activeSelf) objectiveText.transform.parent.gameObject.SetActive(true);
         var totalResidents = GameManager.Instance.availableHouseTypes.Count();
-        objectiveText.text = $"Talk to Residents: {talkedResidentsCount} / {totalResidents}";
+        objectiveText.text = $"Talk to Residents: {TalkedResidentsCount} / {totalResidents}";
     }
 }
