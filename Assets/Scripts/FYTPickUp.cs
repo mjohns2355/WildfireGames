@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FYTPickUp : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class FYTPickUp : MonoBehaviour
     public GameObject RadioBtn;
     private bool closePopup = false;
     private float timer = 0.12f;
+    public Image panel;
 
     private void Update()
     {
@@ -22,6 +24,7 @@ public class FYTPickUp : MonoBehaviour
             if(timer <= 0)
             {
                 popup.SetActive(false);
+                panel.enabled = false;
                 timer = 0.12f;
                 closePopup = false;
             }
@@ -33,6 +36,7 @@ public class FYTPickUp : MonoBehaviour
         if (!popup.activeInHierarchy)
         {
             popup.SetActive(true);
+            panel.enabled = true;
             selected = g;
             itemText.text = selected.name;
             if (g.GetComponent<FYT_collectable>().isKey)
