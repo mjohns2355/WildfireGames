@@ -770,17 +770,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1614020141}
   m_SourcePrefab: {fileID: 100100000, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
---- !u!114 &72538923 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3919804476620267364, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
-  m_PrefabInstance: {fileID: 113699049797661738}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &75097677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
@@ -7533,17 +7522,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &945318829 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 879401867914399117, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
-  m_PrefabInstance: {fileID: 113699049797661738}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &950888969 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -344004081357383697, guid: cf4200dcaae6abe4f8d62cd1cb1f995f, type: 3}
@@ -10400,10 +10378,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1271675197}
-  - component: {fileID: 1271675198}
   - component: {fileID: 1271675199}
   m_Layer: 0
-  m_Name: NewsManager
+  m_Name: ResourceWebsite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10424,21 +10401,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 594504488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1271675198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271675196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6611f6767d8795b4fa0986b3d22c4cc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zipCodeInput: {fileID: 1281051025}
-  fetchButton: {fileID: 72538923}
-  newsText: {fileID: 945318829}
 --- !u!114 &1271675199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10477,17 +10439,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1281051025 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3912496159673200374, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
-  m_PrefabInstance: {fileID: 113699049797661738}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1281497728 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6613128620428802808, guid: 29464ad42ed6fb74091baaaf0bc185b7, type: 3}
