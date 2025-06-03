@@ -60,21 +60,26 @@ public class FYT_Bag : MonoBehaviour
 
     public void AddItem(string item)
     {
-        count++;
-        if (count <= 23)
+        if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
         {
-            list += "\n" + item;
-            bagList.text = "Packed:" + list;
-        } else if(count <= 46)
-        {
+            count++;
+            if (count <= 18)
+            {
+                list += "\n" + item;
+                bagList.text = "Packed:" + list;
+            }
+            else if (count <= 36)
+            {
 
-            list2 += "\n" + item;
-            bagList2.text = list2;
-        } else
-        {
+                list2 += "\n" + item;
+                bagList2.text = list2;
+            }
+            else
+            {
 
-            list3 += "\n" + item;
-            bagList3.text = list3;
+                list3 += "\n" + item;
+                bagList3.text = list3;
+            }
         }
     }
 }
