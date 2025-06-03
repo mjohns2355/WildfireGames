@@ -13,7 +13,9 @@ public class MainMenu1 : MonoBehaviour
 
     private void Start()
     {
-        if(playButton != null)
+        AudioListener.pause = false;
+        AudioListener.volume = 1.0f;
+        if (playButton != null)
         {
             playButton.gameObject.SetActive(false);
         }
