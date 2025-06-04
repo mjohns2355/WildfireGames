@@ -28,6 +28,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera,skipSim;
     public CanvasGroup loadingScreen;
+    public GameObject loadingCloud;
     public float loadingTime;
     private int _talkedResidentsCount;
     public int TalkedResidentsCount
@@ -355,21 +356,24 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void ShowLoadingScreen()
     {
-        loadingScreen.blocksRaycasts = true;
-        loadingScreen.alpha = 1;
-        GameManager.Instance.canControlCam = false;
-        DOVirtual.DelayedCall(GameManager.Instance.loadingTime, () =>
-        {
-            loadingScreen.DOFade(0, 0.5f).SetEase(Ease.InOutQuad).OnComplete(HideLoadingScreen);
-        });
-        
+        loadingCloud.SetActive(true);
+  
+        //    loadingScreen.blocksRaycasts = true;
+        //    loadingScreen.alpha = 1;
+        //    GameManager.Instance.canControlCam = false;
+        //    DOVirtual.DelayedCall(GameManager.Instance.loadingTime, () =>
+        //    {
+        //        loadingScreen.DOFade(0, 0.5f).SetEase(Ease.InOutQuad).OnComplete(HideLoadingScreen);
+        //    });
+
     }
 
     public void HideLoadingScreen()
     {
-        loadingScreen.blocksRaycasts = false;
-        GameManager.Instance.canControlCam = true;
-        loadingScreen.alpha = 0;
+        loadingCloud.SetActive(false);
+        //loadingScreen.blocksRaycasts = false;
+        //GameManager.Instance.canControlCam = true;
+        //loadingScreen.alpha = 0;
     }
 
     public void UpdateObjectiveText()

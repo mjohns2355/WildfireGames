@@ -336,8 +336,11 @@ public class GameManager : UnitySingleton<GameManager>
         {
             cameraMovement.ResetCam();
         });
-        ATC_UIController.Instance.HideLoadingScreen();
-
+        //ATC_UIController.Instance.HideLoadingScreen();
+        DOVirtual.DelayedCall(loadingTime, () =>
+        {
+            ATC_UIController.Instance.HideLoadingScreen();
+        });
 
     }
 
