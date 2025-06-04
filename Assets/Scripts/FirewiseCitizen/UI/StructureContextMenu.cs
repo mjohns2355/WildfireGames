@@ -181,6 +181,7 @@ public class StructureContextMenu : MonoBehaviour
                 if(choice.choiceName == "Plan Ahead")
                 {
                     SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+                    choicePicture.sprite = GameManager.Instance.tutorialManager.tutorialChoiceSprite;
                     break;
                 }
             }

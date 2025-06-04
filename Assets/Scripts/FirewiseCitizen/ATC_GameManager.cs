@@ -64,7 +64,7 @@ public class GameManager : UnitySingleton<GameManager>
     public override void Awake()
     {
         base.Awake();
-        currentStage = LevelStage.BeforeFirstSim;
+        currentStage = LevelStage.Tutorial;
     }
     private void Start()
     {
@@ -75,8 +75,16 @@ public class GameManager : UnitySingleton<GameManager>
         SimTimer = 0f;
         //Time.timeScale = GameSpeed = 2f;
         currentLevel = 0;
-        tutorialManager.InitTutorialManager();
-        canControlCam = false;
+        if (currentStage == LevelStage.Tutorial)
+        {
+            tutorialManager.InitTutorialManager();
+            canControlCam = false;
+        }
+        else
+        {
+            InitiAvailableHouseType();
+            canControlCam = true;
+        }
         DOTween.Clear(true);
 
     }
@@ -121,7 +129,7 @@ public class GameManager : UnitySingleton<GameManager>
 #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.Space)) { NextLevel(); }
         if(Input.GetKeyDown(KeyCode.P)) { Time.timeScale = 6f; }
-        if (Input.GetKeyDown(KeyCode.R)) { RestartGameFromTutorial(); }
+        if (Input.GetKeyDown(KeyCode.R)) { ResetGame(); };
 #endif
         // camera movement
         if (!canControlCam) return;
@@ -239,12 +247,6 @@ public class GameManager : UnitySingleton<GameManager>
         {
             currentStage = LevelStage.Tutorial;
         }
-        else
-        {
-            //Debug.Log("Reset Game");
-            currentStage = LevelStage.PhaseOne;
-            //ATC_UIController.Instance.UpdateObjectiveText();
-        }
 
         firstEvacCarTimeStamp = 0f;
         lastEvacCarTimeStamp = 0f;
@@ -341,6 +343,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     void InitiAvailableHouseType()
     {
+        Debug.Log("Init Available House");
         if (availableHouseTypes.Count > 0)
         {
             availableHouseTypes.Clear();

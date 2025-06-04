@@ -15,7 +15,7 @@ public class FC_TutorialManager : MonoBehaviour
     //public StructureManager structureManager;
     public HouseStructure tutorialHouse;
     public Structure fireStation;
-
+    public Sprite tutorialChoiceSprite;
     public int fireFighterStartNodeId, fireFighterEndNodeId, skipTutorialNodeId, reviewTutorialNodeId;
     RectTransform uiIcon;
     bool isTutorialStarted = false;
@@ -166,6 +166,7 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueComplete = null;
         houseDialogManager.OnDialogueNodeDisplayed -= CheckDialogueNode;
         houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
+        GameManager.Instance.currentStage = LevelStage.PhaseOne;
         GameManager.Instance.ResetGame();
 
 

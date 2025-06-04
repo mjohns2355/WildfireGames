@@ -120,7 +120,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 dialogFlagsMap[dialogTree.houseType] = (dialogTree.flags,false);
                 //Debug.Log($"Loaded dialog tree for houseType: {dialogTree.houseType}");
             }
-            Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
+            //Debug.Log($"Number of dialog trees loaded: {dialogTreeMap.Values.Count}");
         }
 
     }
@@ -367,14 +367,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if(houseDialogCompletePercent.TryGetValue(key,out var previousPercent))
         {
             houseDialogCompletePercent[key] = previousPercent >= percent ? previousPercent : percent;
-            Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
+            //Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
         }
         else
         {
             houseDialogCompletePercent.Add(key, percent);
-            Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
+            //Debug.Log($"{key}'s percent is {houseDialogCompletePercent[key]}");
         }
-        Debug.Log($"Dialog is {percent:F1}% complete on this path.");
+        //Debug.Log($"Dialog is {percent:F1}% complete on this path.");
     }
 
     private void ShowOptions()
