@@ -386,8 +386,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
 
     }
 
-    public void EarnReward()
+    public void JoinCouncil()
     {
+        currentPlayer.hasJoinedCouncil = true;
         currentPlayer.budgetManager.IncreaseBudget(WinReward);
     }
     public void SwitchPlayer (string playerTag)
@@ -436,9 +437,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         if (isTutorial) return;
         if (lastRoundIsCompetition)
         {
+            
             Debug.Log("Loser is " + competitionLoser);
-            var isLoser = competitionLoser != string.Empty && competitionLoser == currentPlayer.playerTag;
-            uiManager.joinConcilPopup.SetActive(isLoser);
+            var canShow = competitionLoser != string.Empty && competitionLoser == currentPlayer.playerTag && !currentPlayer.hasJoinedCouncil;
+            uiManager.joinConcilPopup.SetActive(canShow);
         }
         
         if (!lastRoundIsFire)
@@ -479,6 +481,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         p1.burnedPercent = 0f;
         p2.burnedPercent = 0f;
         p1.hasMadeDecisions = p2.hasMadeDecisions = false;
+        p1.hasJoinedCouncil = p2.hasJoinedCouncil = false;
 
     }
 

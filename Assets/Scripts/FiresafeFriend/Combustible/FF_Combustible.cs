@@ -206,7 +206,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     }
 
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         StopAllCoroutines();
         HH_GameManager.Instance.inputManager.OnObjectSelected -= OnCombustibleClicked;
@@ -237,6 +237,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
         flammability = baseFlammability;
         isOnFire = false;
         heat = 0;
+        collider.enabled = true;
         foreach (var mesh in meshes)
         {
             foreach (var material in mesh.materials)

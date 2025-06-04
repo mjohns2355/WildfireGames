@@ -34,7 +34,7 @@ namespace HappyHouse.HouseSystem
         public bool isMoving = false;
         public Dictionary<HousePartType, MaterialClass> upgradeClassDictionary = new ();
         public float burnedWeight, totalWeight = 0f;
-        public bool hasMadeDecisions;
+        public bool hasMadeDecisions,hasJoinedCouncil;
         BoxCollider clickBox;
         float flammabilityMod, durabilityMod;
         [SerializeField]AudioSource audioSource;

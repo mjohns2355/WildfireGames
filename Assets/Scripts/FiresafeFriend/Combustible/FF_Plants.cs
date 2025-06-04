@@ -28,10 +28,10 @@ public class FF_Plants : FF_BaseCombustible
 
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         //Debug.Log($"On {gameObject.name} destroyed");
-
+        base.OnDestroy();
         onPlantClicked = null;
         OnCombustibleDestroyed = null;
         OnIgnite = null;
