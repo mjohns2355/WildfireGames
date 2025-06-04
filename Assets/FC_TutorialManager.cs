@@ -206,9 +206,18 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueComplete += OnIntroDialogueComplete;
         isTutorialStarted = true;
         UpdateBottomDialog("Welcome to Firewise Residents! Tap on the Fire Station to Begin");
+        fireStationIcon.interactable = false;
         fireStationIcon.gameObject.SetActive(true);
+        ScaleEffect(uiIcon).OnComplete(() => fireStationIcon.interactable = true);
         fireStation = structureManager.specialStructureDict[StructureType.FireStation].GetComponent<Structure>();
         SetUpTutorialHouse();
+    }
+
+    private Tween ScaleEffect(RectTransform rect)
+    {
+        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
+                         .SetLoops(4, LoopType.Yoyo)
+                         .SetEase(Ease.InOutQuad);
     }
     void UpdateBottomDialog(string text)
     {
