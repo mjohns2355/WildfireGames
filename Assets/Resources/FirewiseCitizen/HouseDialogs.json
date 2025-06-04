@@ -1331,7 +1331,7 @@
         {
           "id": "50",
           "characterName": "Firefighter",
-          "dialogText": "Hey there! Thank you for coming into town to help our community learn about <b>fire awareness</b>. You can <b>Click</b> or <b>Tap</b> to read the next message.",
+          "dialogText": "Hey there! Thank you for helping our community prepare for <b>wildfire</b>. You can <b>Click</b> or <b>Tap</b> to read the next message.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
         },
         {
@@ -1354,51 +1354,51 @@
         {
           "id": "52",
           "characterName": "Firefighter",
-          "dialogText": "Fantastic! Let's get started. As a <b>firefighter</b>, my job is to <b>help our neighbors be fire safe</b>.",
+          "dialogText": "Fantastic! Let's get started. As a <b>firefighter</b>, my job is to help our neighbors be <b>fire safe</b> and I'd like your help reaching them.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
         },
         {
-          "id": "53",
-          "characterName": "Firefighter",
-          "dialogText": "Not just when fires start, but <b>beforehand</b> as well.",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            "id": "53",
+            "characterName": "Firefighter",
+            "dialogText": "Not just when fires start, but <b>before</b> a fire as well. When people prepare ahead of time for <b>wildfires</b>, they can keep their homes and families much <b>safer</b>.",
+            "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
         },
         {
           "id": "54",
           "characterName": "Firefighter",
-          "dialogText": "When people prepare ahead of time for <b>wildfires</b>, they can keep their homes and families much <b>safer</b>. They have a lot more time to make <b>important decisions</b>, such as <b>home hardening</b>, <b>what to pack</b>, and <b>evacuation procedures</b>.",
+          "dialogText": "They have more time to make <b>important decisions</b>, such as <b>Home Hardening</b> to reduce the chance their home burns, preparing a <b>Go-Bag</b> with essential items, and creating an <b>Evacuation Plan</b> and preparing to evacuate early.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
         },
         {
           "id": "55",
           "characterName": "Firefighter",
-          "dialogText": "Unfortunately, a lot of people <b>struggle</b> to create a plan. It’s hard to know what’s best for your situation... <br>...which is where <b>you come in</b>!",
+          "dialogText": "Unfortunately, a lot of people <b>struggle</b> with these steps. It’s hard to know what’s best for your situation... <br>...which is where <b>you</b> come in!",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
           "options": [
             {
               "optionText": "How can I help?",
-              "messageText": "How can I help with people's wildfire plans?"
+              "messageText": "How can I help with people's wildfire preparations?"
             }
           ]
         },
         {
-          "id": "56",
-          "characterName": "Firefighter",
-          "dialogText": "You will be speaking to <b>members of our community</b>, and <b>helping them make their plan</b>!",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            "id": "56",
+            "characterName": "Firefighter",
+            "dialogText": "You will be speaking to members of our <b>community</b>, and helping them make their <b>plan</b>!",
+            "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
         },
         {
-          "id": "57",
-          "characterName": "Firefighter",
-          "dialogText": "Earlier, I got a call from <b>Mary</b>, a neighbor of ours. Let's go speak to her, and see if <b>we can help</b>!",
-          "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "isEndNode": "true",
-          "options": [
-            {
-              "optionText": "Let's go! (End Conversation)",
-              "messageText": "Let's go!"
-            }
-          ]
+            "id": "57",
+            "characterName": "Firefighter",
+            "dialogText": "Earlier, I got a call from <b>Mary</b>, a neighbor of ours. Let's go speak to her, and see if we can <b>help</b>!",
+            "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+            "isEndNode": "true",
+            "options": [
+                {
+                    "optionText": "Let's go! (End Conversation)",
+                    "messageText": "Let's go!"
+                }
+            ]
         }
       ]
     },
@@ -1409,7 +1409,7 @@
         {
           "id": "58",
           "characterName": "Mary",
-          "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is <b>close</b>, and I’m a little <b>worried</b>.",
+          "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is coming, and I’m a little <b>worried</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -1425,7 +1425,7 @@
         {
           "id": "59",
           "characterName": "Mary",
-          "dialogText": "Well, I’ve recently started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
+          "dialogText": "Well, I’ve started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -1440,43 +1440,43 @@
           ]
         },
         {
-          "id": "60",
-          "characterName": "Mary",
-          "dialogText": "Thank you! But now I start to worry about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "nextNodeId": "62"
-            }
-          ]
+            "id": "60",
+            "characterName": "Mary",
+            "dialogText": "Thank you! But now I start to worry about <b>what to do</b> if there's a <b>wildfire</b>. There’s so many supplies for them, and I’m afraid I’ll be panicking!",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "nextNodeId": "62"
+                }
+            ]
         },
         {
-          "id": "61",
-          "characterName": "Mary",
-          "dialogText": "Exactly. I’m worried about <b>what to do if a fire starts.</b> There’s so many supplies for them, and I’m afraid I’ll be panicking and scrambled!",
-          "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "options": [
-            {
-              "nextNodeId": "62"
-            }
-          ]
+            "id": "61",
+            "characterName": "Mary",
+            "dialogText": "Exactly. I’m worried about <b>what to do</b> if there's a <b>wildfire</b>. There’s so many supplies for them, and I’m afraid I’ll be panicking!",
+            "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
+            "options": [
+                {
+                    "nextNodeId": "62"
+                }
+            ]
         },
         {
           "id": "62",
           "characterName": "Firefighter",
-          "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to listen, and <b>respond accordingly!</b>",
+          "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to <b>listen</b>, and respond accordingly!",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
           "id": "63",
           "characterName": "Firefighter",
-          "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>go bag.</b>",
+          "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>Go-Bag.</b>",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02"
         },
         {
           "id": "64",
           "characterName": "Firefighter",
-          "dialogText": "How about you <b>tell Mary</b>, then we’ll <b>head out.</b>",
+          "dialogText": "How about you <b>tell Mary</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "options": [
             {
@@ -1488,7 +1488,7 @@
         {
           "id": "65",
           "characterName": "Mary",
-          "dialogText": "That’s a great idea, I’ll try to get that <b>done!</b> It’s hard to stay on top of things, but I know it will be <b>helpful in the long run.</b>",
+          "dialogText": "That’s a great idea, I’ll try to get that done! It’s hard to stay on top of things, but I will feel better knowing we are <b>prepared</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "isEndNode": "true",
           "options": [
@@ -1507,13 +1507,13 @@
             {
                 "id": "66",
                 "characterName": "Firefighter",
-                "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"pet_unlocked\">. Great work! Now, you can see all the other homes that <b>need your help.</b>",
+                "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"pet_unlocked\">. Great work! Next, you'll see other residents who <b>need your help.</b> Check in with each of them.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
             },
             {
                 "id": "67",
                 "characterName": "Firefighter",
-                "dialogText": "Once you have <b>spoken to everyone</b>, press on that <sprite name=\"play\"> icon. Then we will see what happened, and the <b>impact you made!</b>",
+                "dialogText": "Once you have <b>spoken to everyone</b>, press on that Play <sprite name=\"play\"> icon to watch the evacuation and see the <b>impact you made!</b>",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
                 "options": [
                     {
