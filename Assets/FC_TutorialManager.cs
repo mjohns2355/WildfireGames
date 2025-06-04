@@ -205,7 +205,7 @@ public class FC_TutorialManager : MonoBehaviour
         //dialogManager.canShowSkipButton = false;
         houseDialogManager.OnDialogueComplete += OnIntroDialogueComplete;
         isTutorialStarted = true;
-        UpdateBottomDialog("Welcome to Firewise Citizens! Tap on the Fire Station to Begin");
+        UpdateBottomDialog("Welcome to Firewise Residents! Tap on the Fire Station to Begin");
         fireStationIcon.gameObject.SetActive(true);
         fireStation = structureManager.specialStructureDict[StructureType.FireStation].GetComponent<Structure>();
         SetUpTutorialHouse();
