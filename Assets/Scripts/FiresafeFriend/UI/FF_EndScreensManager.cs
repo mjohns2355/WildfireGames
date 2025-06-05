@@ -11,8 +11,11 @@ public class FF_EndScreensManager : MonoBehaviour
 
     public void ShowFireResultScreen(float p1Score, float p2Score)
     {
-        p1BurnPercentText.text = $"{p1Score}%";
-        p2BurnPercentText.text = $"{p2Score}%";
+        Debug.Log($"P1: {p1Score}, P2: {p2Score}");
+        var p1 = p1Score < 1 ? p1Score : Mathf.Round(p1Score);
+        var p2 = p2Score < 1 ? p2Score : Mathf.Round(p2Score); ;
+        p1BurnPercentText.text = $"{p1}%";
+        p2BurnPercentText.text = $"{p2}%";
         fireResultScreen.SetActive(true);
     }
 

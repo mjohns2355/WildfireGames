@@ -13,6 +13,7 @@ public class PurchasePopup : MonoBehaviour
     public GameObject purchaseScreen, warningScreen,removeTreeScreen;
     private HousePartInfo partInfo;
     private bool shouldShowStore = true;
+    private bool isWarning = false;
     [SerializeField] Sprite upArrow, downArrow;
     private void Start()
     {
@@ -65,6 +66,10 @@ public class PurchasePopup : MonoBehaviour
     private void OnCancelClicked()
     {
         //Debug.Log("Cancel clicked");
+        if (isWarning)
+        {
+            HH_GameManager.Instance.uiManager.ShowAftermathScreen();
+        }
         HH_GameManager.Instance.uiManager.HidePurchasePopup(partInfo,shouldShowStore);
 
     }
@@ -81,6 +86,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnDisable()
     {
+        isWarning = false;
         shouldShowStore = true;
         warningScreen.SetActive(false);
         purchaseScreen.SetActive(false);
@@ -92,6 +98,7 @@ public class PurchasePopup : MonoBehaviour
 
     public void ShowWarningScreen()
     {
+        isWarning = true;
         warningScreen.SetActive(true);
         purchaseScreen.SetActive(false);
         shouldShowStore = false;

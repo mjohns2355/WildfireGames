@@ -352,7 +352,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             Destroy(f.gameObject);
         }
-        uiManager.ShowEndScreen(true,p1.GetBurnedPercent(),p2.GetBurnedPercent());
+        uiManager.ShowEndScreen(true, p1.GetBurnedPercent(), p2.GetBurnedPercent());
         publicFencesRepaired = false;
     }
 

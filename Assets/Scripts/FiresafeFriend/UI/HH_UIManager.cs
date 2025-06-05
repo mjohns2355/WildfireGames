@@ -242,7 +242,7 @@ public class HH_UIManager : MonoBehaviour
         }
     }
 
-    public void ShowEndScreen(bool isFire, int p1Score, int p2Score)
+    public void ShowEndScreen(bool isFire, float p1Score, float p2Score)
     {
         if (isFire)
         {
@@ -256,11 +256,11 @@ public class HH_UIManager : MonoBehaviour
         }
     }
     
-    IEnumerator ShowCompetitionResult(int p1Score, int p2Score)
+    IEnumerator ShowCompetitionResult(float p1Score, float p2Score)
     {
         yield return new WaitUntil(() => canShow);
         endScreenManager.gameObject.SetActive(true);
-        endScreenManager.ShowCompetitionResult(p1Score, p2Score);
+        endScreenManager.ShowCompetitionResult((int)p1Score, (int)p2Score);
         OnCompetitionResultEnabled.Invoke();
     }
 

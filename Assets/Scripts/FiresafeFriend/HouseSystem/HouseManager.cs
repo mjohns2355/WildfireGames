@@ -574,14 +574,14 @@ namespace HappyHouse.HouseSystem
             }
         }
 
-        public int GetBurnedPercent()
+        public float GetBurnedPercent()
         {
             if (totalWeight <= 0f)
                 return 0;
 
             float rawPercent = (burnedWeight / totalWeight) * 100f;
-            burnedPercent = Mathf.CeilToInt(rawPercent) / 100f;
-            return Mathf.CeilToInt(rawPercent);
+            burnedPercent = rawPercent / 100f;
+            return rawPercent;
         }
 
         public float CalculateRating()
