@@ -33,23 +33,37 @@ public class CategoryButton : MonoBehaviour
         });
     }
 
+    public void SetBG(bool state)
+    {
+        bg.enabled = state;
+    }
+
     void OnButtonSelected()
     {
         if (HH_GameManager.Instance.isTutorial) return;
+        if (owner.currentCategory == this) return;
         owner.UpdateInventoryUI(category);
-
-        foreach (var btn in owner.categories)
-        {
-            if(btn != this)
-            {
-                btn.bg.enabled = false;
-            }
-        }
-        bg.enabled = true;
+        //UpdateCtegoryButton();
+        //foreach (var btn in owner.categories)
+        //{
+        //    if(btn != this)
+        //    {
+        //        btn.bg.enabled = false;
+        //    }
+        //}
     }
 
     private void OnDisable()
     {
         bg.enabled = false;
+    }
+
+    public void UpdateCtegoryButton()
+    {
+        var temp = owner.currentCategory;
+        owner.currentCategory = this;
+        owner.previousCategory = temp;
+        owner.previousCategory.SetBG(false);
+        SetBG(true);
     }
 }

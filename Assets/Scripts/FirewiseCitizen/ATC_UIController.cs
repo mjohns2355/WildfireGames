@@ -295,9 +295,9 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         selectedHouses.Clear();
         contextMenus.Clear();
         var isFirstSim = GameManager.Instance.IsFirstSim;
+        objectiveText.transform.parent.gameObject.SetActive(GameManager.Instance.currentStage != LevelStage.Tutorial);
         //resetCamera.gameObject.SetActive(GameManager.Instance.currentStage != LevelStage.Tutorial); 
-
-        toolsBar.gameObject.SetActive(true);
+        toolsBar.SetActive(true);
         start.gameObject.SetActive(true);
         start.interactable = true;
         learnMore.interactable = !isFirstSim;
@@ -378,6 +378,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
 
     public void UpdateObjectiveText()
     {
+        if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
         if (!objectiveText.transform.parent.gameObject.activeSelf) objectiveText.transform.parent.gameObject.SetActive(true);
         var totalResidents = GameManager.Instance.availableHouseTypes.Count();
         objectiveText.text = $"Talk to Residents: {TalkedResidentsCount} / {totalResidents}";

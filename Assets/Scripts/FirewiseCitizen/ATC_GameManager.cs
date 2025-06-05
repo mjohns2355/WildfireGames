@@ -245,6 +245,7 @@ public class GameManager : UnitySingleton<GameManager>
         //Debug.Log(currentStage);
         if (restartFromTutorial)
         {
+            Debug.Log(" Restart game from tutorial");
             currentStage = LevelStage.Tutorial;
         }
 
@@ -278,6 +279,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void RestartGame()
     {
         currentLevel = 0;
+       
         ResetGame();
     }
     public void BackToMainMenu()
@@ -330,6 +332,10 @@ public class GameManager : UnitySingleton<GameManager>
         {
             tutorialManager.InitTutorialManager();
 
+        }
+        else
+        {
+            InitiAvailableHouseType();
         }
         ATC_UIController.Instance.resetCamera.onClick.RemoveAllListeners();
         ATC_UIController.Instance.resetCamera.onClick.AddListener(() =>

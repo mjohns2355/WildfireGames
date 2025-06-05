@@ -26,6 +26,14 @@ public class InventoryItem : MonoBehaviour
         BG.sprite = partInfo != null ? inUseBG : emptyBG;
     }
 
+    public void ResetItem()
+    {
+        icon.sprite = null;
+        icon.gameObject.SetActive(false);
+        BG.sprite = emptyBG;
+        SetIsInUse(false);
+        partInfo = null;
+    }
     public void SetIsInUse(bool isInUse)
     {
         this.isInUse = isInUse;

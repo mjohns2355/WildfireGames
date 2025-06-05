@@ -17,8 +17,9 @@ public class InventoryUI : MonoBehaviour
     public Action<BaseHousePartObject> onCategoryItemButtonClicked;
     public Button inventoryButton;
     public GameObject inventoryUI;
-    public List<CategoryButton> categories = new();
+    public Dictionary<HousePartType, CategoryButton> categories = new();
     public List<InventoryItem> items = new();
+    public CategoryButton currentCategory,previousCategory;
     CategoryButton defaultCategory;
     // Start is called before the first frame update
     void Start()
@@ -42,34 +43,31 @@ public class InventoryUI : MonoBehaviour
         {
             var categoryButton = Instantiate(categoryButtonPrefab, categoryButtons).GetComponent<CategoryButton>();
             categoryButton.InitCategoryButton(this,HousePartType.Roof);
-            categories.Add(categoryButton);
-            defaultCategory = categories[0];
+            categories.Add(HousePartType.Roof,categoryButton);
+            defaultCategory = categories[HousePartType.Roof];
             return;
         }
 
         // Spawn Category Buttons (roof,wall,etc)
         foreach (var type in resourceManager.allAvailableParts.Keys)
         {
-            
             var categoryButton = Instantiate(categoryButtonPrefab, categoryButtons).GetComponent<CategoryButton>();
             categoryButton.InitCategoryButton(this, type);
-            categories.Add(categoryButton);
+            categories.Add(type,categoryButton);
         }
 
-        defaultCategory = categories[0];
+        defaultCategory = categories[HousePartType.Door];
+        currentCategory = defaultCategory;
     }
 
 
     public void UpdateInventoryUI(HousePartType partType, bool isPublic = false)
     {
-        // Hide icons
         foreach (var item in items)
         {
-            item.icon.sprite = null;
-            item.icon.gameObject.SetActive(false);
-            item.SetIsInUse(false);
+            item.ResetItem();
+            //set new part type to the item buttons
             item.housePartType = partType;
-            item.partInfo = null;
         }
         var player = HH_GameManager.Instance.currentPlayer;
         var partDict = isPublic ? player.inventory.ownedPublicParts[partType] : player.inventory.ownedParts[partType];
@@ -83,6 +81,14 @@ public class InventoryUI : MonoBehaviour
             bool isInUse = player.PartIsInUse(info);
             inventoryItem.SetIsInUse(isInUse);
         }
+
+        if (HH_GameManager.Instance.isTutorial) return;
+        if(currentCategory == categories[partType]) return;
+        var temp = currentCategory;
+        currentCategory = categories[partType];
+        previousCategory = temp;
+        previousCategory.SetBG(false);
+        currentCategory.SetBG(true);
         
     }
 
