@@ -85,6 +85,9 @@ public class BaseHousePartObject : FF_BaseCombustible
             case HousePartType.Window:
                 VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
                 break;
+            case HousePartType.Fence:
+                VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
+                break;
         }
 
         defaultPartInfo = part;
