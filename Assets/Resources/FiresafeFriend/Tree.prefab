@@ -5326,7 +5326,7 @@ MonoBehaviour:
   isOnFire: 0
   burntColor: {r: 0, g: 0, b: 0, a: 0}
   heat: 0
-  heatThreshold: 100
+  heatThreshold: 50
   mustDestroy: 1
   notInteractable: 0
   bubble: {fileID: 0}
@@ -5339,6 +5339,7 @@ MonoBehaviour:
   baseBurnTime: 0
   debris: 0
   canClickToRemove: 1
+  canSpawnFire: 1
   burntModel: {fileID: 8150060760579126302, guid: f935f7df8a9e92b42982ca77d9aacdd0, type: 3}
   audioSource: {fileID: 3223149701314785949}
   fireParticle: {fileID: 4060569442548836583}

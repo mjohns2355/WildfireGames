@@ -15,7 +15,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
     //public BurnStage burnStage = BurnStage.Igniting;
     [SerializeField] protected Color burntColor;
     public float heat = 0;
-    [SerializeField] protected float heatThreshold = 100f;
+    [SerializeField] protected float heatThreshold = 50f;
     public bool mustDestroy = false;
     public bool notInteractable;
     public PurchaseFloatingButton bubble;
