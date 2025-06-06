@@ -12,6 +12,7 @@ public class FF_Tree : FF_Plants
 
     private AudioClip chop1, chop2, fall;
     private MeshRenderer burntMesh;
+
     protected override void Start()
     {
         base.Start();
@@ -21,6 +22,7 @@ public class FF_Tree : FF_Plants
         chop2 = ResourceManager.Instance.chop2;
         fall = ResourceManager.Instance.fall;
         fireParticle.SetActive(false);
+        canSpawnFire = false;
     }
 
 

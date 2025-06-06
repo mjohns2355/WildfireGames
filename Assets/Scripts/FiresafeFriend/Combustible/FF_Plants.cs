@@ -8,6 +8,7 @@ public class FF_Plants : FF_BaseCombustible
     public int debris;
 
     public bool canClickToRemove = false;
+    public bool canSpawnFire = true;
     public Action onPlantClicked;
     protected override void Start()
     {
@@ -48,7 +49,11 @@ public class FF_Plants : FF_BaseCombustible
     }
     protected virtual void HandleIgnite()
     {
-        HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform,1f, 3f, true, burnTimer, 4f);
+        if (canSpawnFire)
+        {
+            HH_GameManager.Instance.fireManager.SpawnFire(transform.position, transform, 1f, 3f, true, burnTimer, 4f);
+        }
+
         Vector3 center = collider.bounds.center;
         Vector3 halfExtents = collider.bounds.extents;
         LayerMask layerMask = LayerMask.GetMask("Structure");
