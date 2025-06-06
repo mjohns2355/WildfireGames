@@ -189,7 +189,7 @@ public abstract class FF_BaseCombustible : MonoBehaviour
                 }
                 else
                 {
-                    // Reset burn timer if part survives
+                   
                     isOnFire = false;
                     yield break;
                 }

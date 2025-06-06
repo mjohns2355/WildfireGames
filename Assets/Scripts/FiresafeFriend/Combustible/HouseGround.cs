@@ -8,6 +8,15 @@ public class HouseGround : BaseHousePartObject
     [SerializeField]private float flammabilityMod;
     [SerializeField] private GameObject fireParticle;
 
+    protected override void Start()
+    {
+        base.Start();
+        OnBurnedOut += () =>
+        {
+            Debug.Log("Ground Burned Out");
+            fireParticle.SetActive(false);
+        };
+    }
     private void ApplyFlammabilityMod()
     {
         //Debug.Log("Apply Flammability Mod: " +  flammabilityMod);
