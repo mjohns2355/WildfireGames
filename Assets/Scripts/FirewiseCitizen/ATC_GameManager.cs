@@ -93,7 +93,7 @@ public class GameManager : UnitySingleton<GameManager>
     public void TogglePause()
     {
         isPaused = !isPaused;
-        Debug.Log($"Game is Paused: {isPaused}");
+        //Debug.Log($"Game is Paused: {isPaused}");
         canControlCam = !isPaused;
         if (isPaused)
         {

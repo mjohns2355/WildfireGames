@@ -216,8 +216,8 @@ public class FC_TutorialManager : MonoBehaviour
 
     private Tween ScaleEffect(RectTransform rect)
     {
-        return rect.DOScale(Vector3.one * 1.5f, 0.5f)
-                         .SetLoops(4, LoopType.Yoyo)
+        return rect.DOScale(Vector3.one * 1.5f, 0.2f)
+                         .SetLoops(2, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }
     void UpdateBottomDialog(string text)
