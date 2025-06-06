@@ -45,6 +45,15 @@ public class HouseChoice
     }
     public void ApplyEffect(HouseStructure owner)
     {
+        //no car spawn when elderly choose "Help from neighbor" option
+        if (choiceName is "Help From Neighbor")
+        {
+            GameManager.Instance.totalCars -= 1;
+        }
+        if(choiceName is "Relocate 2nd Car")
+        {
+            GameManager.Instance.totalCars -= 1;
+        }
 
         //CheckChocieBehavior(owner.currentOption);
         if (carSpeedMod != CarSpeed.none)
