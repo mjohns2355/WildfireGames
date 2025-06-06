@@ -7436,6 +7436,8 @@ MonoBehaviour:
   hasCat: 0
   hasDocs: 0
   hasMask: 0
+  siren: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!114 &264010467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18429,6 +18431,8 @@ MonoBehaviour:
   hasCat: 0
   hasDocs: 0
   hasMask: 0
+  siren: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!114 &647567502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54631,13 +54635,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -56845,6 +56851,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+--- !u!1 &1867902412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5587852424675259413, guid: 86d8739de686b45bdbd4168001932326, type: 3}
+  m_PrefabInstance: {fileID: 1867902411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1869387683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61290,6 +61301,8 @@ MonoBehaviour:
   hasCat: 0
   hasDocs: 0
   hasMask: 0
+  siren: {fileID: 1867902412}
+  timer: {fileID: 666017852}
 --- !u!114 &1990817202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64214,6 +64227,8 @@ MonoBehaviour:
   hasCat: 0
   hasDocs: 0
   hasMask: 0
+  siren: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!114 &2092812164
 MonoBehaviour:
   m_ObjectHideFlags: 0

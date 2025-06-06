@@ -18,6 +18,8 @@ public class FYT_Bag : MonoBehaviour
     public bool hasCat = false;
     public bool hasDocs = false;
     public bool hasMask = false;
+    public GameObject siren;
+    public GameObject timer;
 
     public void OpenBag()
     {
@@ -26,6 +28,8 @@ public class FYT_Bag : MonoBehaviour
 
     public void Evac()
     {
+        Destroy(siren);
+        Destroy(timer);
         /*
         bagList2.text = "";
         bagList.text = "Good job evacuating quickly!";
