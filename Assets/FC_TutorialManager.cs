@@ -175,7 +175,7 @@ public class FC_TutorialManager : MonoBehaviour
     private void OnIntroDialogueComplete()
     {
         GameManager.Instance.canControlCam = true;
-        var text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"pet\">. ";
+        var text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"Pets\">. ";
         var controlText = string.Empty;
         var text2 = "and <b>select Mary's Home.</b>";
         //string message = text1 + "<b>Use W A S D to move</b> OR <b>Press and hold on the map to scroll </b>" + text2;

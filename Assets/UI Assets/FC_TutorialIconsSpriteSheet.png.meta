@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4323dff666698f1418f4581130c52780
+guid: a63d466b6acf04c2995ce657a14a595d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,33 +81,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -132,17 +106,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pet
+      name: Pets
       rect:
         serializedVersion: 2
         x: 9
-        y: 13
-        width: 90
-        height: 90
+        y: 15
+        width: 129
+        height: 128
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0947a6383157aa84db3f1029e35eb651
-      internalID: -789902164
+      spriteID: 04ec8b479a3f245b1baf5ade57ffa379
+      internalID: 2069127649
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: setting
+      name: Pets_unlocked
       rect:
         serializedVersion: 2
-        x: 291
+        x: 184
         y: 13
-        width: 90
-        height: 90
+        width: 131
+        height: 130
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ba674078dce14f4eb445e0f2fd3a156
-      internalID: -360153207
+      spriteID: d17751a3823624bcb81863397ea2bb01
+      internalID: -515672199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: menu
+      name: Play
       rect:
         serializedVersion: 2
-        x: 385
-        y: 13
-        width: 90
-        height: 90
+        x: 349
+        y: 20
+        width: 114
+        height: 114
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24c4638dbf2f898479c3fde42fad1307
-      internalID: 704999424
+      spriteID: e2167bb9bfa3740b6933607abe63c990
+      internalID: -1912233928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_unlocked
+      name: Settings
       rect:
         serializedVersion: 2
-        x: 103
-        y: 13
-        width: 90
-        height: 90
+        x: 505
+        y: 20
+        width: 114
+        height: 114
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +213,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1872c0730e3f70b46917e83e590e2774
-      internalID: -1755879802
+      spriteID: 06c9597a3c4744e6d827a09e280c255e
+      internalID: 1370407360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: play
+      name: LearnMore
       rect:
         serializedVersion: 2
-        x: 197
-        y: 13
-        width: 90
-        height: 90
+        x: 647
+        y: 18
+        width: 114
+        height: 114
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,8 +234,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ec110bcbcb4ec54aa12e8c269cde4ad
-      internalID: -1070014761
+      spriteID: c05ba0bb7c51e4251befffa27226816b
+      internalID: 1049853169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Check
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 17
+        width: 131
+        height: 118
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18cbfd2f6fa2e4d1887b50420d604c23
+      internalID: -1718632165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cross
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 16
+        width: 132
+        height: 118
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7628887fba1854c2296cb774f379701f
+      internalID: -606719131
       vertices: []
       indices: 
       edges: []
@@ -243,7 +285,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: ec7359af7366d46b5af3af0d6b1dc5fe
     internalID: 0
     vertices: []
     indices: 
@@ -251,11 +293,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      menu: 704999424
-      pet: -789902164
-      pet_unlocked: -1755879802
-      play: -1070014761
-      setting: -360153207
+      Check: -1718632165
+      Cross: -606719131
+      LearnMore: 1049853169
+      Pets: 2069127649
+      Pets_unlocked: -515672199
+      Play: -1912233928
+      Settings: 1370407360
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
