@@ -33,18 +33,10 @@ public struct Dialog
 public class ATC_dialogManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI dialogText;
-    [SerializeField] TextMeshProUGUI debugResultText;
-    [SerializeField] TextMeshProUGUI debugResultText2;
-    [SerializeField] TextMeshProUGUI result, endQuote, firstHalf;
+    [SerializeField] TextMeshProUGUI endQuote, firstHalf;
     [SerializeField] GameObject localNewsPanel1, localNewsPanel2;
-    [SerializeField] Dialog beforefirstSimDialog;
-    [SerializeField] Dialog afterfirstSimDialog;
-    [SerializeField] Dialog phaseOneDialog;
-    [SerializeField] Dialog winDialog;
-    [SerializeField] Dialog loseDialog;
     [SerializeField] Button dialogButton;
     [SerializeField] Button nextButton;
-    [SerializeField] Button localNewsCloseButton;
     [SerializeField] GameObject localNews;
     [SerializeField] Button dialogBoxButton;
     [SerializeField] GameObject dialogBox;
@@ -54,27 +46,15 @@ public class ATC_dialogManager : MonoBehaviour
     private int dialogIndex = 0;
     //private bool isLocalNewsShown = false;
     private Dialog currentDialog;
-    //private bool isToolBarBroughtToFront = false;
     public bool isInstructionShown = false;
     public int endQuotesNum;
-    //public Button proceedButton;
-    //public GameObject arrow;
-    //public GameObject arrow2;
 
     private void Awake()
     {
-        dialogData = new Dictionary<LevelStage, Dialog>
-        {
-            { LevelStage.BeforeFirstSim, beforefirstSimDialog },
-            { LevelStage.AfterFirstSim, afterfirstSimDialog },
-            { LevelStage.PhaseOne, phaseOneDialog },
-            { LevelStage.Win, winDialog },
-            { LevelStage.Lose, loseDialog }
-        };
     }
     private void Start()
     {
-        localNewsCloseButton.onClick.AddListener(HideLocalNews);
+        //localNewsCloseButton.onClick.AddListener(HideLocalNews);
         LoadQuotes("Assets/Resources/FirewiseCitizen/EndQuotes.json");
     }
     private void LoadQuotes(string filePath)
@@ -127,20 +107,6 @@ public class ATC_dialogManager : MonoBehaviour
         return "No quote available for this scenario.";
     }
 
-    public void ShowDialogBox()
-    {
-        //dialogBox.SetActive(true);
-        //dialogIndex = 0;
-        //dialogIndex = isLocalNewsShown ? 2 : 0;
-        //DisplayNextMessage();
-        //arrow.SetActive(true);
-        //if (isToolBarBroughtToFront)
-        //{
-        //    //ATC_UIController.Instance.toolsBar.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
-        //    isToolBarBroughtToFront = false;
-        //}
-    }
-
     public void HideDialogBox()
     {
         dialogBox.SetActive(false);
@@ -149,24 +115,10 @@ public class ATC_dialogManager : MonoBehaviour
 
     public void GenerateResult()
     {
-
         var first = Mathf.RoundToInt(GameManager.Instance.firstEvacCarTimeStamp);
         var last = Mathf.RoundToInt(GameManager.Instance.lastEvacCarTimeStamp);
         var result = $"The first car reached the shelter after {first} minutes and the final car reached the shelter after {last} minutes.";
-        this.result.text = result;
-        var stage = GameManager.Instance.currentStage;
-        switch (stage)
-        {
-            case LevelStage.AfterFirstSim:
-                dialogData[stage].messages[0] = result + " Can you do better?";
-                break;
-            //case LevelStage.Win:
-            //    dialogData[stage].messages[0] = result;
-            //    break;
-            //case LevelStage.Lose:
-            //    dialogData[stage].messages[0] = result;
-            //    break;
-        }
+        //this.result.text = result;
     }
 
     public void DisplayNextMessage()
@@ -194,7 +146,6 @@ public class ATC_dialogManager : MonoBehaviour
 
     private void GenerateLocalNews()
     {
-        Debug.Log("Generate Local News");
         List<string> allQuotes = new List<string>();
         //var currentLevel = GameManager.Instance.CurrentLevel;
         var availableHouseTypes = GameManager.Instance.availableHouseTypes;
@@ -202,7 +153,6 @@ public class ATC_dialogManager : MonoBehaviour
         var totalValidCount = 0;
         var res = "";
         var dict = GameManager.Instance.structureManager.GetPlayerChoicesDict();
-        //var quote = "";
         bool followedOrders = GameManager.Instance.CountFollowedInstructions() >= 2;
         foreach (var type in availableHouseTypes)
         {
@@ -210,7 +160,6 @@ public class ATC_dialogManager : MonoBehaviour
             {
                 if(!c.isNormal) totalValidCount++;
             }
-            //if (!dict[type].isNormal) totalValidCount++;
         }
 
         if (followedOrders && validCount != 0)
@@ -225,16 +174,11 @@ public class ATC_dialogManager : MonoBehaviour
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
         var houseType = availableHouseTypes[rng];
-        //var houseType = HouseType.pet;
-        Debug.Log("Chose Quote: " + houseType.ToString());
 
         foreach (var c in dict[houseType])
         {
-            //var choice = dict[type].choiceName;
             var choice = c.choiceName;
             var response = GameManager.Instance.houseResponses[houseType];
-            //quote += $"{GetEndQuote(type.ToString(), choice, response)}" + "\n";
-            //Debug.Log($"{houseType}'s {choice} and {response}");
             allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
         }
 
@@ -252,46 +196,6 @@ public class ATC_dialogManager : MonoBehaviour
         newsImage.sprite = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType).newsUISprite;
         var quote = string.Join("\n\n", randomQuotes);
         endQuote.text = quote;
-
-        //string twoCarRes = dict[HouseType.twoCar].endGameFeedback;
-        //string wuiRes = dict[HouseType.wui].endGameFeedback;
-        //debugResultText.text = "The fire's cause is not certain but likely from a downed powerline at the west edge of the town where our community meets the forest.\n\n";
-
-        //debugResultText.text += twoCarRes + "\n\n";
-
-        //if (currentLevel != 0)
-        //{
-        //    debugResultText.text += "Wildfire is always dangerous, but there are things we can all do to have a safer evacuation.\n\n";
-
-        //    string petRes = dict[HouseType.pet].endGameFeedback;
-        //    //string horseRes = dict[HouseType.horse].endGameFeedback;
-        //    debugResultText.text += petRes + "\n\n";
-        //    //debugResultText.text += horseRes + "\n\n";
-        //}
-
-
-        //if (currentLevel != 0)
-        //{
-        //    debugResultText2.text = "We know some residents need more time and help getting out during an evacuation.\n\n";
-
-        //    string kidsRes = dict[HouseType.kids].endGameFeedback;
-        //    string elderRes = dict[HouseType.elderly].endGameFeedback;
-        //    debugResultText2.text += elderRes + "\n\n";
-        //    debugResultText2.text += kidsRes + "\n\n";
-        //}
-
-
-
-        //debugResultText2.text += "Houses most at risk are the ones closest to the Wildland Urban Interface ? the area where human development meets wild land and forest. \n\n";
-
-
-        //debugResultText2.text += wuiRes + "\n\n";
-
-
-        //debugResultText2.text += "Our community is grateful to the firefighters and emergency responders who made sure everyone got out alive. There is much to rebuild, and we will do it together. ";
-
-
-
     }
     public void SetStage(LevelStage stage)
     {
@@ -356,16 +260,9 @@ public class ATC_dialogManager : MonoBehaviour
     private void HideLocalNews()
     {
         ATC_UIController.Instance.PopPanel();
-        //debugResultText.text = string.Empty;
-        //debugResultText2.text  = string.Empty;
         localNewsPanel1.SetActive(true);
         localNewsPanel2.SetActive(false) ;
-        //isLocalNewsShown = false;
-        //ATC_UIController.Instance.statsPanel.gameObject.SetActive(true);
-        //if (GameManager.Instance.IsLastLevel && GameManager.Instance.currentStage == LevelStage.Win)
-        //{
-        //    ATC_UIController.Instance.ShowEndScreen();
-        //}
+
     }
 
 
