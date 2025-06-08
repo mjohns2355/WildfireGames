@@ -19,14 +19,14 @@ public class FC_StarScreen : MonoBehaviour
     void OnEnable()
     {
         //restartFromBeginning.gameObject.SetActive(false);
-        restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
+        //restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
         restart.onClick.AddListener(() => { GameManager.Instance.ResetGame(); });
         nextLevel.onClick.AddListener(() => { GameManager.Instance.NextLevel(); });
         mainMenu.onClick.AddListener(() => { GameManager.Instance.BackToMainMenu(); });
-        //restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGameFromTutorial(); });
+        restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGameFromTutorial(); });
 
         nextLevel.gameObject.SetActive(!GameManager.Instance.IsLastLevel);
-        //restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
+        restartFromBeginning.gameObject.SetActive(GameManager.Instance.IsLastLevel);
 
         CalculateHouseProtectedScore();
         CalculateInjuriesProventedScore();
@@ -40,7 +40,7 @@ public class FC_StarScreen : MonoBehaviour
         restart.onClick.RemoveAllListeners();
         nextLevel.onClick.RemoveAllListeners();
         mainMenu.onClick.RemoveAllListeners();
-
+        restartFromBeginning.onClick.RemoveAllListeners();
         for (int i = 0; i<3;i++)
         {
             houseProtectedStars[i].sprite = emptyStar;
