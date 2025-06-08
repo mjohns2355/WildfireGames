@@ -46,7 +46,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         LoadDialogTrees("Assets/Resources/FirewiseCitizen/HouseDialogs.json");
         skipButton.onClick.AddListener(() => { 
-            EndDialog(true);
+            if(GameManager.Instance.currentStage != LevelStage.Tutorial)
+            {
+                EndDialog(true);
+            }
+
             GameManager.Instance.cameraMovement.ResetCam();
         });
         scrollRect.onValueChanged.AddListener(_ => UpdateEdgeFadeVisibility());

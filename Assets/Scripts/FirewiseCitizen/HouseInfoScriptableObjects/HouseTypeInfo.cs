@@ -11,7 +11,7 @@ public class HouseTypeInfo : ScriptableObject
     //public List<HouseChoice> lockedChoices = new List<HouseChoice>();
     public Dictionary<string, (HouseChoice choice, int index)> houseChoicesDict;
     public string longerTitle;
-    [TextArea(15, 20)]
+    [TextArea(5,10)]
     //public string description;
     public string[] descriptions;
     //[TextArea(5, 10)]

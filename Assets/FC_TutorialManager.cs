@@ -43,6 +43,7 @@ public class FC_TutorialManager : MonoBehaviour
             StartTutorial();
         });
 
+        
         houseDialogManager.OnDialogueNodeDisplayed += CheckDialogueNode;
         houseDialogManager.OnDialogueOptionSelected += CheckDialogueOption;
 
@@ -54,7 +55,12 @@ public class FC_TutorialManager : MonoBehaviour
         if (!isFirstTimeTutorial) return;
         houseDialogManager.SetSkipButton(false);
         houseDialogManager.canShowSkipButton = false;
-        //add pet to available house types for tutorial
+        houseDialogManager.skipButton.onClick.AddListener(() =>
+        {
+            if (!isTutorialStarted) return;
+            OnOutroDialogueComplete();
+        });
+
 
     }
     private void CheckDialogueOption(DialogOption option)
@@ -168,7 +174,6 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
         GameManager.Instance.currentStage = LevelStage.PhaseOne;
         GameManager.Instance.ResetGame();
-
 
     }
 
