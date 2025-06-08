@@ -18,7 +18,8 @@ public class FC_StarScreen : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        restartFromBeginning.gameObject.SetActive(false);
+        //restartFromBeginning.gameObject.SetActive(false);
+        restartFromBeginning.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
         restart.onClick.AddListener(() => { GameManager.Instance.ResetGame(); });
         nextLevel.onClick.AddListener(() => { GameManager.Instance.NextLevel(); });
         mainMenu.onClick.AddListener(() => { GameManager.Instance.BackToMainMenu(); });
