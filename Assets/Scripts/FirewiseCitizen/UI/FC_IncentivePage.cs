@@ -10,7 +10,7 @@ public class FC_IncentivePage : MonoBehaviour
     public GameObject incentiveIconPrefab;
     public GameObject incentivePage, confirmationPage,note;
     public OptionButton incentiveOne, incentiveTwo;
-    public Button confirm, cancel,skip;
+    public Button confirm, cancel,skip,back;
     List<FC_Incentiveicon> incentiveIcons = new();
     OptionButton currentSelected;
     HouseStructure owner;
@@ -21,6 +21,7 @@ public class FC_IncentivePage : MonoBehaviour
         confirm.onClick.AddListener(OnIncentiveConfirmed);
         cancel.onClick.AddListener(OnIncentiveCancel);
         skip.onClick.AddListener(OnSkipped);
+        back.onClick.AddListener(OnCancelled);
     }
 
 
@@ -50,6 +51,7 @@ public class FC_IncentivePage : MonoBehaviour
         // show note when no icons are available
         note.SetActive(incentiveIcons.Count == 0);
     }
+
 
     public void HideIncentivesPage()
     {
@@ -95,6 +97,12 @@ public class FC_IncentivePage : MonoBehaviour
         HideConfirmationPage();
         HideIncentivesPage();
         owner.OnReceivedIncentives();
+    }
+
+    public void OnCancelled()
+    {
+        ATC_UIController.Instance.start.interactable = true;
+        HideIncentivesPage();
     }
     public void OnSkipped()
     {
