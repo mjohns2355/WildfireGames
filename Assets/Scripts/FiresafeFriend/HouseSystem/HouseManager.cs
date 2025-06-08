@@ -296,7 +296,7 @@ namespace HappyHouse.HouseSystem
 
         private void ToggleBubble(BaseHousePartObject part, bool visible)
         {
-            if (!part.shouldDisplayBubble) return;
+            if (!part.shouldDisplayBubble || HH_GameManager.Instance.isTutorial) return;
             part.bubble.isActive = visible;
             part.bubble.gameObject.SetActive(visible);
             part.shouldDisplayBubble = visible;
