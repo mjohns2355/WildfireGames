@@ -416,8 +416,11 @@ namespace HappyHouse.HouseSystem
 
         IEnumerator UpdateHouseUI()
         {
+            HH_GameManager.Instance.uiManager.SetModeToggleState(false);
             yield return new WaitForSeconds(1f);
+
             //HashSet<HousePartType> displayedPartTypes = new HashSet<HousePartType>();
+            HH_GameManager.Instance.uiManager.SetModeToggleState(true);
 
             foreach (var node in houseGraph.nodes)
             {

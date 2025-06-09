@@ -90,6 +90,12 @@ public class HH_UIManager : MonoBehaviour
             aftermathPopup.SetActive(false);
         });
 
+        //toggle.interactable = false;
+    }
+
+    public void SetModeToggleState(bool state)
+    {
+        modeToggle.GetComponent<Toggle>().interactable = state;
     }
 
     private void OnToggleValueChanged(bool value)
