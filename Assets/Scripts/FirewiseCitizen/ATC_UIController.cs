@@ -305,6 +305,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         replayOverlay.SetActive(false);
         starScreen.gameObject.SetActive(false);
         windDirectionIndicator.gameObject.SetActive(false);
+        compass.gameObject.SetActive(false);
         icons.Clear();
         CloseAllUI();
         HideDialog();
