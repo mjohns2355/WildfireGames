@@ -157,6 +157,7 @@ namespace HappyHouse.HouseSystem
                     }
                     inventory.AddNewPartToInventory(newPart);
                 }
+
             }
             burnedWeight = 0f;
             ToggleHousePartClickable(true);
@@ -296,10 +297,14 @@ namespace HappyHouse.HouseSystem
 
         private void ToggleBubble(BaseHousePartObject part, bool visible)
         {
-            if (!part.shouldDisplayBubble || HH_GameManager.Instance.isTutorial) return;
-            part.bubble.isActive = visible;
-            part.bubble.gameObject.SetActive(visible);
-            part.shouldDisplayBubble = visible;
+            if (HH_GameManager.Instance.isTutorial) return;
+            if (part.shouldDisplayBubble )
+            {
+                part.bubble.isActive = visible;
+                part.bubble.gameObject.SetActive(visible);
+                part.shouldDisplayBubble = visible;
+            }
+
         }
 
         private void ReplaceNode(BaseHousePartObject part, HousePartInfo info)
@@ -413,7 +418,7 @@ namespace HappyHouse.HouseSystem
             foreach (var node in houseGraph.nodes)
             {
                 //Debug.Log($"Init Bubble for {node.housePart}");
-                if (!node.housePart.shouldDisplayBubble) continue;
+                if (!node.housePart.shouldDisplayBubble || ShouldHideBubble(node.housePart.partInfo)) continue;
                 node.housePart.bubble = InitBubble(node.housePart);
 
             }
@@ -421,7 +426,7 @@ namespace HappyHouse.HouseSystem
             foreach (var fence in fences)
             {
                 //Debug.Log("Init Bubble for Fences");
-                if (!fence.shouldDisplayBubble || fence == null) continue;
+                if (!fence.shouldDisplayBubble || fence == null || ShouldHideBubble(fence.partInfo)) continue;
                 fence.bubble = InitBubble(fence);
             }
         }

@@ -16044,6 +16044,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1924717314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2127868806917142903, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
+  m_PrefabInstance: {fileID: 113699049797661738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1925828535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17605,6 +17616,7 @@ MonoBehaviour:
   - {fileID: 1281497728}
   - {fileID: 815371870}
   _isPlantMode: 0
+  WinReward: 0
   publicFencePrefab: {fileID: 7556445686579386757, guid: 83fce5e394fed4847bea61b1a13fda44, type: 3}
   publicFencesTransforms:
   - {fileID: 1351351624}
@@ -18853,6 +18865,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 234.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2378722059189869980, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
+      propertyPath: joinConcilReward
+      value: 
+      objectReference: {fileID: 1924717314}
     - target: {fileID: 2614610353146618593, guid: b0de363e8561c4085806ab3979f6277e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 406.1205
