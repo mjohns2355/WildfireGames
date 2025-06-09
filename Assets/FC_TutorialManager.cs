@@ -31,8 +31,8 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager = ATC_UIController.Instance.houseDialogManager;
         //clean up old listeners
         titleCard.onClick.RemoveAllListeners();
-        houseDialogManager.OnDialogueNodeDisplayed = null;
-        houseDialogManager.OnDialogueOptionSelected = null;
+        houseDialogManager.OnDialogueNodeDisplayed -= CheckDialogueNode;
+        houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
         fireStationIcon.onClick.RemoveAllListeners();
 
         uiIcon = fireStationIcon.GetComponent<RectTransform>();
@@ -51,10 +51,21 @@ public class FC_TutorialManager : MonoBehaviour
         // TO-DO: should have a tutorial house type instead of using existing pet
         GameManager.Instance.availableHouseTypes.Clear();
         GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
+        houseDialogManager.skipButton.onClick.RemoveListener(() =>
+        {
+            if (isTutorialStarted)
+            {
+                OnOutroDialogueComplete();
+            }
+        });
+
         houseDialogManager.skipButton.onClick.AddListener(() =>
         {
-            if (!isTutorialStarted) return;
-            OnOutroDialogueComplete();
+            if (isTutorialStarted)
+            {
+                OnOutroDialogueComplete();
+            }
+            
         });
         // only hide the skip button when player first time playing the tutorial
         if (!isFirstTimeTutorial) return;
@@ -175,7 +186,7 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
         GameManager.Instance.currentStage = LevelStage.PhaseOne;
         GameManager.Instance.ResetGame();
-
+        //gameObject.SetActive(false);
     }
 
     private void OnIntroDialogueComplete()

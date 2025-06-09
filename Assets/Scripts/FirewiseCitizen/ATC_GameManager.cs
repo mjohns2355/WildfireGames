@@ -327,7 +327,7 @@ public class GameManager : UnitySingleton<GameManager>
         inputManager = FindObjectOfType<ATC_InputManager>();
         fireManager = FindObjectOfType<FireManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
-        tutorialManager = FindObjectOfType<FC_TutorialManager>();
+        
         if (tutorialManager && currentStage == LevelStage.Tutorial)
         {
             tutorialManager.InitTutorialManager();
