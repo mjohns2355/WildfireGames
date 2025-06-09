@@ -14,7 +14,7 @@ public class HouseGround : BaseHousePartObject
         OnBurnedOut += () =>
         {
             Debug.Log("Ground Burned Out");
-            fireParticle.SetActive(false);
+            //fireParticle.SetActive(false);
         };
     }
     private void ApplyFlammabilityMod()
