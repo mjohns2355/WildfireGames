@@ -51,15 +51,16 @@ public class FC_TutorialManager : MonoBehaviour
         // TO-DO: should have a tutorial house type instead of using existing pet
         GameManager.Instance.availableHouseTypes.Clear();
         GameManager.Instance.availableHouseTypes.Add(HouseType.pet);
-        // only hide the skip button when player first time playing the tutorial
-        if (!isFirstTimeTutorial) return;
-        houseDialogManager.SetSkipButton(false);
-        houseDialogManager.canShowSkipButton = false;
         houseDialogManager.skipButton.onClick.AddListener(() =>
         {
             if (!isTutorialStarted) return;
             OnOutroDialogueComplete();
         });
+        // only hide the skip button when player first time playing the tutorial
+        if (!isFirstTimeTutorial) return;
+        houseDialogManager.SetSkipButton(false);
+        houseDialogManager.canShowSkipButton = false;
+
 
 
     }
