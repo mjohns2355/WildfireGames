@@ -30,8 +30,8 @@ public class FF_EndScreensManager : MonoBehaviour
     private void UpdateRewards(int p1Score, int p2Score)
     {
         
-        int rewardP1 = p1Score > p2Score ? 3000 : (p1Score == p2Score ? 1500 : 0);
-        int rewardP2 = p2Score > p1Score ? 3000 : (p1Score == p2Score ? 1500 : 0);
+        int rewardP1 = p1Score > p2Score ? HH_GameManager.Instance.WinReward : (p1Score == p2Score ? HH_GameManager.Instance.WinReward/2 : 0);
+        int rewardP2 = p2Score > p1Score ? HH_GameManager.Instance.WinReward : (p1Score == p2Score ? HH_GameManager.Instance.WinReward/2 : 0);
 
         
         ApplyRewardUI(p1Reward, rewardP1);

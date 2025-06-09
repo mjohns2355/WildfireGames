@@ -31,14 +31,15 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     public List<FF_DirtMound> p1Mounds, p2Mounds;
     //public Transform BushesAndPropsContainer;
     [SerializeField] private bool _isPlantMode;
-    [SerializeField] private const int WinReward = 3000;
-    [SerializeField] private const int TieReward = WinReward/2;
+    public int WinReward;
+    //[SerializeField] private int TieReward = WinReward/2;
     [SerializeField] GameObject publicFencePrefab;
     [SerializeField] List<Transform> publicFencesTransforms = new();
     private bool mustForceCompetition = true;
     private bool lastRoundIsFire,lastRoundIsCompetition = false;
     private string competitionLoser = string.Empty;
     private bool publicFencesRepaired = false;
+    private int competitionCount = 0;
     private int _housesMadeDecisionsCount;
     public int HousesMadeDecisionsCount
     {
@@ -359,6 +360,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     void OnCompetition()
     {
         HousesMadeDecisionsCount = 0;
+        competitionCount++;
+        WinReward = competitionCount == 1 ? 8000 : 12000;
         IsPlantMode = false;
         var p1Score = (int)(p1.CalculateRating() *10f);
         var p2Score = (int)(p2.CalculateRating() * 10f);
@@ -366,14 +369,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         competitionLoser = p1Score > p2Score ? p2.playerTag
                            : p1Score < p2Score ? p1.playerTag
                            : string.Empty;
+       
         int rewardP1 = p1Score > p2Score ? WinReward
               : p1Score < p2Score ? 0
-              : TieReward;
+              : WinReward/2;
 
         int rewardP2 = p2Score > p1Score ? WinReward
                       : p2Score < p1Score ? 0
-                      : TieReward;
+                      : WinReward/2;
 
+       // Debug.Log($"win reward: {WinReward},reward p1: {rewardP1}, reward p2: {rewardP2}");
         uiManager.OnCompetitionResultEnabled = null;
 
         uiManager.OnCompetitionResultEnabled += () =>
@@ -440,7 +445,9 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             
             Debug.Log("Loser is " + competitionLoser);
             var canShow = competitionLoser != string.Empty && competitionLoser == currentPlayer.playerTag && !currentPlayer.hasJoinedCouncil;
-            uiManager.joinConcilPopup.SetActive(canShow);
+            //uiManager.joinConcilPopup.SetActive(canShow);
+            uiManager.ToggleJoinConcilPopup(canShow, WinReward);
+
         }
         
         if (!lastRoundIsFire)

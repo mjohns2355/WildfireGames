@@ -20,7 +20,7 @@ public class HH_UIManager : MonoBehaviour
     public FF_PlantsMenu plantsMenu;
     public GameObject bubblePrefab,startText, modeToggle;
     public GameObject pauseMenu,aftermathPopup,joinConcilPopup,competitionAnnouncement,competitionBanner,competitionNotice,fireAnnouncement;
-    public TextMeshProUGUI aftermathPlayerText, repairDescText;
+    public TextMeshProUGUI aftermathPlayerText, repairDescText,joinConcilReward;
     public Action OnCompetitionResultEnabled;
     [Header("Banner Timings")]
     public float stretchDuration = 0.5f;  
@@ -139,6 +139,11 @@ public class HH_UIManager : MonoBehaviour
         storePanel.ShowStorePanel(partType, isPublic);
     }
 
+    public void ToggleJoinConcilPopup(bool state,int reward)
+    {
+        joinConcilPopup.SetActive(state);
+        joinConcilReward.text = $"Earn ${reward}";
+    }
     public void ShowPlantsMenu(FF_DirtMound owner)
     {
         //if (plantsMenu.gameObject.activeSelf) HidePlantsMenu();
