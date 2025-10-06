@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class FF_Tree : FF_Plants
 {
@@ -12,6 +13,9 @@ public class FF_Tree : FF_Plants
 
     private AudioClip chop1, chop2, fall;
     private MeshRenderer burntMesh;
+    
+    public Button trimButton;
+    private bool alreadyTrimmed = false;
 
     protected override void Start()
     {
@@ -85,6 +89,10 @@ public class FF_Tree : FF_Plants
 
     public void TrimTree()
     {
+        if(alreadyTrimmed){
+            return;
+        }
+
         if (HH_GameManager.Instance.currentPlayer.budgetManager.SpendBudget(2000))
         {
             scruffyTree.SetActive(false);
@@ -92,11 +100,18 @@ public class FF_Tree : FF_Plants
             durability = 100;
             flammability = 0;
             HH_GameManager.Instance.uiManager.HidePurchasePopup(null, false);
-            return;
-        }
+            alreadyTrimmed = true;
+
+            if(trimButton != null){
+                trimButton.interactable = false;
+            }
+            //return;
+        }else{
         HH_GameManager.Instance.uiManager.ShowPurchasePopup(null, true);
+        }
 
     }
+
     public void PlaySFXSequence()
     {
         Sequence sfxSequence = DOTween.Sequence().SetLink(gameObject);

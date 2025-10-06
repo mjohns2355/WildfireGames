@@ -5,8 +5,8 @@ using TMPro;
 
 public class FYTtimer : MonoBehaviour
 {
-
-    private float timer = 360;
+    //360 is original number
+    private float timer = 5;
     private int mins;
     private int sec;
     public GameObject timerDisp;
@@ -15,6 +15,7 @@ public class FYTtimer : MonoBehaviour
     public GameObject warning;
     public GameObject startScreen;
     private bool paused = false;
+    public GameObject loseScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class FYTtimer : MonoBehaviour
             if (timer < 0)
             {
                 timerText.text = "Game Over";
+                loseScreen.SetActive(true);
             }
         }
 
