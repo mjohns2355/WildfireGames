@@ -6,7 +6,7 @@ using TMPro;
 public class FYTtimer : MonoBehaviour
 {
     //360 is original number
-    private float timer = 5;
+    private float timer = 360;
     private int mins;
     private int sec;
     public GameObject timerDisp;
