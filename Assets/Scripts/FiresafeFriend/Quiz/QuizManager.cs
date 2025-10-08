@@ -21,31 +21,49 @@ public class QuestionList
 }
 public class QuizManager : MonoBehaviour
 {
-    public string sheetURL = "https://script.google.com/macros/s/AKfycbwIkFFWK7Y5yg5JcYjyqOVRdR4Nkslo6VUO6JE1oqjAbe30xcGHK5_fFmPvTnpOk3Y8/exec";
+    //public string sheetURL = "https://script.google.com/macros/s/AKfycbwIkFFWK7Y5yg5JcYjyqOVRdR4Nkslo6VUO6JE1oqjAbe30xcGHK5_fFmPvTnpOk3Y8/exec";
     public List<Question> questions;
 
     private string jsonFilePath;
     private List<int> unusedQuestionIndices;
+
     // Start is called before the first frame update
     void Start()
     {
-        jsonFilePath = Path.Combine(Application.persistentDataPath, "QuizQuestions.json");
+        LoadQuestionsFromFile();
+        InitializeUnusedIndices();
+
+        //Original condition where if JSON file not found, get it from the Google sheet
+        /*jsonFilePath = Path.Combine(Application.persistentDataPath, "QuizQuestions.json");
         if (File.Exists(jsonFilePath))
         {
             LoadQuestionsFromFile();
             return;
         }
-        StartCoroutine(LoadQuestionsFromWeb());
+        StartCoroutine(LoadQuestionsFromWeb());*/
     }
 
     private void LoadQuestionsFromFile()
     {
+       jsonFilePath = Path.Combine(Application.dataPath, "Question Repo/QuizQuestions.json");
+
+        if (!File.Exists(jsonFilePath))
+        {
+            Debug.LogError("There's no resource file");
+            return;
+        }
+
         string json = File.ReadAllText(jsonFilePath);
+        questions = JsonUtility.FromJson<QuestionList>(json).questions;
+        Debug.Log($"Loaded {questions.Count} questions from local JSON file.");
+
+        /*string json = File.ReadAllText(jsonFilePath);
         questions = JsonUtility.FromJson<QuestionList>(WrapJsonArray(json)).questions;
-        Debug.Log($"Loaded {questions.Count} questions from local cache.");
+        Debug.Log($"Loaded {questions.Count} questions from local cache.");*/
     }
 
-    IEnumerator LoadQuestionsFromWeb()
+    //Google Sheet into Unity method
+    /*IEnumerator LoadQuestionsFromWeb()
     {
         UnityWebRequest request = UnityWebRequest.Get(sheetURL);
 
@@ -65,7 +83,7 @@ public class QuizManager : MonoBehaviour
             Debug.LogError($"Failed to load questions: {request.error}");
         }
         InitializeUnusedIndices();
-    }
+    }*/
 
     private void InitializeUnusedIndices()
     {
@@ -74,6 +92,7 @@ public class QuizManager : MonoBehaviour
             unusedQuestionIndices.Add(i);
         }
     }
+    
     private string WrapJsonArray(string json)
     {
         return $"{{\"questions\": {json}}}";
