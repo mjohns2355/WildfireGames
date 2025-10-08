@@ -6,51 +6,51 @@ public class ResourceWebsite : MonoBehaviour
 
     public void ActionPlan()
     {
-        Application.OpenURL("https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/calfire-website/about/communications/before-during-and-after.pdf?rev=a7a4e48e07d049b186f9f281a252bdea&hash=22A288EBAB74F59EBD844E129ACC225A");        
+        Application.OpenURL("https://wildfiregames.short.gy/FF-ActionPlan");        
     }
 
     public void Vegetation()
     {
-        Application.OpenURL("https://www.fire.ca.gov/what-we-do/natural-resource-management/vegetation-management-program");        
+        Application.OpenURL("https://wildfiregames.short.gy/FF-Veg");        
     }
 
     public void DefensibleSpace()
     {
-        Application.OpenURL("https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/calfire-website/about/communications/defensible-space-flyer.pdf?rev=1d253e5a73f64b5daead022b176b0660&hash=01A3A362B30B8B56051317E4EAED31BC");        
+        Application.OpenURL("https://wildfiregames.short.gy/FF-Defensible");        
     }
 
     //FR
 
     public void Pet()
     {
-        Application.OpenURL("https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/calfire-website/about/communications/wildland-fire-safety-for-your-livestock-and-pets.pdf?rev=d6ca645c17644811aa6e371d9a258306&hash=D66622EFE80EB060D3E8A6D2612D5B5E");        
+        Application.OpenURL("https://wildfiregames.short.gy/FR-PetEvac");        
     }
 
     public void Early()
     {
-        Application.OpenURL("https://www.fire.ca.gov/prepare/get-ready-to-go");        
+        Application.OpenURL("https://wildfiregames.short.gy/FR-EarlyEvac");        
     }
 
     public void WildfirePreventionGrant()
     {
-        Application.OpenURL("https://www.fire.ca.gov/what-we-do/grants/wildfire-prevention-grants");        
+        Application.OpenURL("https://wildfiregames.short.gy/FR-Grants");        
     }
 
     //FYT
 
     public void Evacuation()
     {
-        Application.OpenURL("https://www.fire.ca.gov/prepare/get-set");        
+        Application.OpenURL("https://wildfiregames.short.gy/FYT-Evac");        
     }
 
     public void GetAlerts()
     {
-        Application.OpenURL("https://plan.readyforwildfire.org/en");        
+        Application.OpenURL("https://wildfiregames.short.gy/FYT-Alerts");        
     }
 
     public void GoBag()
     {
-        Application.OpenURL("https://readyforwildfire.org/prepare-for-wildfire/emergency-supply-kit/");        
+        Application.OpenURL("https://wildfiregames.short.gy/FYT-GoBag");        
     }
 
 }
