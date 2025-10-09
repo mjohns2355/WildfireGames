@@ -45,21 +45,38 @@ public class QuizManager : MonoBehaviour
 
     private void LoadQuestionsFromFile()
     {
-       jsonFilePath = Path.Combine(Application.dataPath, "Question Repo/QuizQuestions.json");
+        string path = Path.Combine(Application.streamingAssetsPath, "QuizQuestions.json");
+        Debug.Log($"Loading quiz questions from: {path}");
 
-        if (!File.Exists(jsonFilePath))
+        if (path.Contains("://") || path.Contains(":///"))
         {
-            Debug.LogError("There's no resource file");
-            return;
+            StartCoroutine(LoadFromStreamingAssets(path));
         }
+        else
+        {
+            string json = File.ReadAllText(path);
+            questions = JsonUtility.FromJson<QuestionList>(json).questions;
+            Debug.Log($"Loaded {questions.Count} questions from StreamingAssets folder.");
+            InitializeUnusedIndices();
+        }
+    }
 
-        string json = File.ReadAllText(jsonFilePath);
-        questions = JsonUtility.FromJson<QuestionList>(json).questions;
-        Debug.Log($"Loaded {questions.Count} questions from local JSON file.");
+    private IEnumerator LoadFromStreamingAssets(string path)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(path);
+        yield return request.SendWebRequest();
 
-        /*string json = File.ReadAllText(jsonFilePath);
-        questions = JsonUtility.FromJson<QuestionList>(WrapJsonArray(json)).questions;
-        Debug.Log($"Loaded {questions.Count} questions from local cache.");*/
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string json = request.downloadHandler.text;
+            questions = JsonUtility.FromJson<QuestionList>(json).questions;
+            Debug.Log($"Loaded {questions.Count} questions from StreamingAssets.");
+            InitializeUnusedIndices();
+        }
+        else
+        {
+            Debug.LogError($"Failed to load quiz JSON: {request.error}");
+        }
     }
 
     //Google Sheet into Unity method
