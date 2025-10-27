@@ -26,29 +26,35 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     public void InitQuizPopup()
     {
-
         question = HH_GameManager.Instance.quizManager.ReturnRandomQuestion();
-        questionText.text = question.questionText;
-        // make index starts from 0
+        questionText.text = question.GetLocalizedQuestion(LocalizationManager.CurrentLanguage);
+
+        string[] localizedOptions = question.GetLocalizedOptions(LocalizationManager.CurrentLanguage);
+
         correctAnswerIndex = question.correctAnswerIndex - 1;
-        for (int i = 0; i < question.options.Length; i++)
+
+        for (int i = 0; i < localizedOptions.Length; i++)
         {
             var obj = Instantiate(quizOptionButtonPrefab, buttonsParent);
             var button = obj.GetComponent<Button>();
-            button.GetComponentInChildren<TextMeshProUGUI>().text = question.options[i];
-            //button.onClick.RemoveAllListeners();
+            button.GetComponentInChildren<TextMeshProUGUI>().text = localizedOptions[i];
+
+            int capturedIndex = i;
             button.onClick.AddListener(() =>
             {
                 StartCoroutine(OnOptionButtonClickedRoutine(button));
             });
-            optionDict.Add(button, i);
 
+            optionDict.Add(button, capturedIndex);
         }
+
         quizPanel.SetActive(true);
         if (HH_GameManager.Instance.isTutorial)
         {
             ScriptedTutorialExample();
         }
+
+        Debug.Log($"Correct index: {correctAnswerIndex}, Option: {localizedOptions[correctAnswerIndex]}");
     }
 
     void OnOptionButtonClicked(Button button)

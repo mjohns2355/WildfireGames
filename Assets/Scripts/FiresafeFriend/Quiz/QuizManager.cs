@@ -9,9 +9,21 @@ using System.Linq;
 [System.Serializable]
 public class Question
 {
-    public string questionText;
-    public string[] options;
+    public string questionText_en;
+    public string questionText_es;
+    public string[] options_en;
+    public string[] options_es;
     public int correctAnswerIndex;
+
+    public string GetLocalizedQuestion(string lang)
+    {
+        return lang == "es" ? questionText_es : questionText_en;
+    }
+
+    public string[] GetLocalizedOptions(string lang)
+    {
+        return lang == "es" ? options_es : options_en;
+    }
     //public bool isAnswered;
 }
 [System.Serializable]
