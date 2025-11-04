@@ -47,6 +47,7 @@ public class DialogNode
     public string dialogText;
     public string characterName;
     public string portraitPath;
+    public string audioPath;
     //public string[] messages;
     public DialogOption[] options;
     public bool isEndNode;
