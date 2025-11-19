@@ -14,6 +14,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public Image characterPortrait;
     public GameObject messageBubblePrefab, topFade, bottomFade;
     public Transform messagebBubblesContainer;
+    private AudioSource audioSource;
     [Range(0.01f, 0.05f)]
     public float waitTimePerCharacter = 0.01f;
     [Range(0f, 5f)]
@@ -45,6 +46,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private void Start()
     {
         LoadDialogTrees("Assets/Resources/FirewiseCitizen/HouseDialogs.json");
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         skipButton.onClick.AddListener(() => { 
             if(GameManager.Instance.currentStage != LevelStage.Tutorial)
             {
@@ -231,7 +239,28 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         if (currentNode == null || !gameObject.activeInHierarchy) return;
 
+        // cuts off audio playback if dialogue is skipped
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         OnDialogueNodeDisplayed?.Invoke(currentNode);
+
+        // audio playback after node check
+        if (!string.IsNullOrEmpty(currentNode.audioPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(currentNode.audioPath);
+            if (clip != null && audioSource != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Audio clip not found: {currentNode.audioPath}");
+            }
+        }
 
         if(string.IsNullOrEmpty(currentNode.characterName) && string.IsNullOrEmpty(currentNode.dialogText)&& string.IsNullOrEmpty(currentNode.portraitPath))
         {
@@ -400,6 +429,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog(bool closed = false)
     {
         StopAllCoroutines();
+
+        // stop audio when dialogue conversation ends
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+
         if (!dialogFlagsMap[key].Item2 && dialogFlagsMap[key].Item1.hasSpoken != 1)   // if NOT skipped && has not spoken
         {
             //only count house type
