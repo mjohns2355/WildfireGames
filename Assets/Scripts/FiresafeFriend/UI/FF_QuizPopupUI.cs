@@ -11,14 +11,13 @@ public class FF_QuizPopupUI : MonoBehaviour
     public Button close;
     public TextMeshProUGUI questionText;
     public Transform buttonsParent;
-    public GameObject quizOptionButtonPrefab,quizPanel;
+    public GameObject quizOptionButtonPrefab, quizPanel;
     public Color normalColor, correctColor, wrongColor;
     public Action OnCorrectAnswer;
     private int correctAnswerIndex;
     private Question question;
     bool answeredCorrectly = false;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -26,25 +25,28 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     public void InitQuizPopup()
     {
+        question = HH_GameManager.Instance.quizManager.GetRandomQuestion();
 
-        question = HH_GameManager.Instance.quizManager.ReturnRandomQuestion();
         questionText.text = question.questionText;
-        // make index starts from 0
+
         correctAnswerIndex = question.correctAnswerIndex - 1;
+
         for (int i = 0; i < question.options.Length; i++)
         {
             var obj = Instantiate(quizOptionButtonPrefab, buttonsParent);
             var button = obj.GetComponent<Button>();
             button.GetComponentInChildren<TextMeshProUGUI>().text = question.options[i];
-            //button.onClick.RemoveAllListeners();
+
             button.onClick.AddListener(() =>
             {
                 StartCoroutine(OnOptionButtonClickedRoutine(button));
             });
-            optionDict.Add(button, i);
 
+            optionDict.Add(button, i);
         }
+
         quizPanel.SetActive(true);
+
         if (HH_GameManager.Instance.isTutorial)
         {
             ScriptedTutorialExample();
@@ -53,56 +55,54 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     void OnOptionButtonClicked(Button button)
     {
-
         int index = -1;
         optionDict.TryGetValue(button, out index);
 
         if (index == correctAnswerIndex)
         {
-            //Debug.Log("Correct Answer");
             button.GetComponent<Image>().color = Color.green;
-            //ChangeButtonColor(button, correctColor);
-            //var budgetManager = HH_GameManager.Instance.currentPlayer.budgetManager;
-            //budgetManager.IncreaseBudget(budgetManager.CalculateRewardBudget());
-            //OnCorrectAnswer.Invoke();
             answeredCorrectly = true;
         }
         else
         {
             button.GetComponent<Image>().color = Color.red;
-
         }
     }
-
 
     IEnumerator OnOptionButtonClickedRoutine(Button button)
     {
         OnOptionButtonClicked(button);
+
         foreach (var btn in optionDict.Keys)
         {
             btn.interactable = false;
         }
+
         yield return new WaitForSeconds(1f);
 
         quizPanel.SetActive(false);
+
         //hide earn more button
         HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(false);
+
         if (answeredCorrectly)
         {
             yield return new WaitForSeconds(0.5f);
             OnCorrectAnswer?.Invoke();
         }
-        gameObject.SetActive(false);
 
+        gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
         HH_GameManager.Instance.currentPlayer.budgetManager.canEarnMoreMoney = false;
+
         for (int i = 0; i < buttonsParent.childCount; i++)
         {
             Destroy(buttonsParent.GetChild(i).gameObject);
         }
+
         optionDict.Clear();
         StopAllCoroutines();
     }
@@ -110,6 +110,7 @@ public class FF_QuizPopupUI : MonoBehaviour
     public void ScriptedTutorialExample()
     {
         Debug.Log("This is a scripted tutorial example");
+
         foreach (var btn in optionDict.Keys)
         {
             if (optionDict[btn] != correctAnswerIndex)
