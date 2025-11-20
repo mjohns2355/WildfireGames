@@ -27,6 +27,13 @@ public class FF_QuizPopupUI : MonoBehaviour
     {
         question = HH_GameManager.Instance.quizManager.GetRandomQuestion();
 
+        if (question == null)
+        {
+            Debug.LogError("Failed to get quiz question. Quiz questions may not be loaded.");
+            quizPanel.SetActive(false);
+            return;
+        }
+
         questionText.text = question.questionText;
 
         correctAnswerIndex = question.correctAnswerIndex - 1;
