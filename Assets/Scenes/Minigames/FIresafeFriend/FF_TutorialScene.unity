@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.57215524, g: 0.78635603, b: 0.9099014, a: 1}
+  m_IndirectSpecularColor: {r: 0.5726981, g: 0.7864652, b: 0.9092831, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1546,6 +1546,7 @@ MonoBehaviour:
   p1Mounds: []
   p2Mounds: []
   _isPlantMode: 0
+  WinReward: 0
   publicFencePrefab: {fileID: 0}
   publicFencesTransforms: []
   _currentStage: 0
@@ -2172,6 +2173,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4613042563525560428, guid: 26caf121208557b45a4791ec9d0970ab, type: 3}
   m_PrefabInstance: {fileID: 1236738191}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &215731424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215731425}
+  - component: {fileID: 215731426}
+  m_Layer: 0
+  m_Name: LocalizationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &215731425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215731424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 499.14883, y: 19.17791, z: 0.20837434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &215731426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215731424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49983275a8b743ea907114c2c92090c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &221794243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7431,7 +7476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4081b2f211ac6a54a878870bb0d727fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheetURL: https://script.google.com/macros/s/AKfycbwIkFFWK7Y5yg5JcYjyqOVRdR4Nkslo6VUO6JE1oqjAbe30xcGHK5_fFmPvTnpOk3Y8/exec
   questions: []
 --- !u!1 &530251450
 GameObject:
@@ -8308,8 +8352,9 @@ MonoBehaviour:
   itemNameText: {fileID: 1019502524}
   inventoryButton: {fileID: 1565303349}
   inventoryUI: {fileID: 1331870231}
-  categories: []
   items: []
+  currentCategory: {fileID: 0}
+  previousCategory: {fileID: 0}
 --- !u!224 &671064705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8565,15 +8610,13 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0.35, z: 0}
   m_Flip: {x: 0.5, y: 0, z: 0}
+  m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_UseCustomVertexStreams: 1
   m_VertexStreams: 0003040508
-  m_UseCustomTrailVertexStreams: 0
-  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -16826,6 +16869,7 @@ MonoBehaviour:
   fireAnnouncement: {fileID: 0}
   aftermathPlayerText: {fileID: 0}
   repairDescText: {fileID: 0}
+  joinConcilReward: {fileID: 0}
   stretchDuration: 0.5
   displayDuration: 1
   fadeDuration: 0.5
@@ -30780,6 +30824,30 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[0].descriptionKey
+      value: tutText
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[1].descriptionKey
+      value: tutText3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[2].descriptionKey
+      value: tutText4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[3].descriptionKey
+      value: tutText8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[4].descriptionKey
+      value: tutText15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
+      propertyPath: tutorialSteps.Array.data[5].descriptionKey
+      value: tutText16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545278699108705537, guid: dc726475a69571547a0f80636e4370b0, type: 3}
       propertyPath: tutorialSteps.Array.data[0].onStepStart.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -31789,3 +31857,4 @@ SceneRoots:
   - {fileID: 2069119501}
   - {fileID: 558905938}
   - {fileID: 1782847348}
+  - {fileID: 215731425}

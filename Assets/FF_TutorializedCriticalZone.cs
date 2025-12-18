@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+
 public class FF_TutorializedCriticalZone : FF_TutorializedObject
 {
     Vector2 toggleEndPos, toggleStartPos;
+
     public GameObject plantModeToggle;
     public RectTransform parentRect;
     public HighlightMesh criticalZoneHighlight;
     public float waitTime;
+
+    [Header("Localization Keys")]
+    public string criticalZoneInfoKey = "tutText2";
 
     public override void Start()
     {
@@ -17,37 +22,36 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         toggleEndPos = plantModeToggle.GetComponent<RectTransform>().anchoredPosition;
 
         // move the plant mode toggle to the center of the screen
-        //RectTransform parentRect = plantModeToggle.transform.parent.GetComponent<RectTransform>();
         float centerX = parentRect.rect.width / 2;
-
         float centerY = -parentRect.rect.height / 2;
-
         toggleStartPos = new Vector2(centerX, centerY);
 
         plantModeToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
         {
-            
             criticalZoneHighlight.HighlightMeshes();
-            var text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection."; ;
-            FF_TutorialManager.Instance.UpdateTutorialText(text);
-            //FF_TutorialManager.Instance.tutorialText.text = "The critical zone is the <b>5 feet</b> around your house, and it's important to clear dead plants, minimize furniture, and use fire-resistant fences and gates for protection.";
+
+            FF_TutorialManager.Instance.UpdateTutorialText(
+                StringManager.Instance.GetText(criticalZoneInfoKey)
+            );
+
             plantModeToggle.GetComponent<Toggle>().interactable = false;
 
-            DOVirtual.DelayedCall(criticalZoneHighlight.flashDuration * criticalZoneHighlight.flashCount, () => {
-                onClick.AddListener(() =>
+            DOVirtual.DelayedCall(
+                criticalZoneHighlight.flashDuration * criticalZoneHighlight.flashCount,
+                () =>
                 {
-                    Destroy(criticalZoneHighlight);
-                    OnTutorialStepComplete();
-                    plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
+                    onClick.AddListener(() =>
+                    {
+                        Destroy(criticalZoneHighlight);
+                        OnTutorialStepComplete();
+                        plantModeToggle.GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
+                    });
                 });
-
-            });
         });
     }
 
     public void MoveIcon()
     {
-        
         var canvasGroup = plantModeToggle.GetComponent<CanvasGroup>();
         var toggleRect = plantModeToggle.GetComponent<RectTransform>();
 
@@ -56,8 +60,9 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
         // Create the Animation Sequence
         Sequence toggleSequence = DOTween.Sequence();
-                                         
+
         toggleSequence.PrependInterval(1.5f);
+
         // Step 1: Fade In
         toggleSequence.Append(FadeIn(canvasGroup));
 
@@ -67,12 +72,11 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         // Step 3: Move to End Position
         toggleSequence.Append(MoveToEndPosition(toggleRect, toggleEndPos));
 
-        //after the animation is done, show the tutorial panel
+        // After animation is done, show the tutorial panel
         toggleSequence.OnComplete(() =>
         {
             canvasGroup.interactable = true;
             FF_TutorialManager.Instance.tutorialPanel.SetActive(true);
-
         });
     }
 
@@ -86,10 +90,8 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
-        //Debug.Log("Start Fade In");
         return canvasGroup.DOFade(1, 0.2f)
                           .SetEase(Ease.InOutQuad);
-                         
     }
 
     private Tween ScaleEffect(RectTransform rect)

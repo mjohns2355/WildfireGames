@@ -7,12 +7,17 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+
 [Serializable]
 public class FF_TutorialStep
 {
     public int stepNumber;
-    [TextArea (1,20)]
-    public string description;
+
+    [TextArea(1, 3)]
+    public string descriptionKey;
+
+    [NonSerialized] public string localizedDescription;
+
     //public List<GameObject> animationObjects = new List<GameObject>();
     public bool zoomToObject;
     public Transform zoomPosition;
@@ -21,26 +26,56 @@ public class FF_TutorialStep
     public UnityEvent onStepComplete;
     public bool autoProceed;
 }
+
 public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 {
     public List<FF_TutorialStep> tutorialSteps;
-    [SerializeField]private int currentStepIndex = 0;
+
+    [SerializeField] private int currentStepIndex = 0;
+
     private HH_CameraController cameraController;
+
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
-    public GameObject introPanel, tutorialPanel; 
-    public Button startTutorialYesButton,startTutorialNoButton;
+    public GameObject introPanel, tutorialPanel;
+    public Button startTutorialYesButton, startTutorialNoButton;
 
     void Start()
     {
         Time.timeScale = 1;
+
         cameraController = HH_GameManager.Instance.cameraController;
+
+        if (StringManager.Instance != null)
+        {
+            StringManager.Instance.OnStringsLoadedEvent += ResolveTutorialText;
+        }
+
+        ResolveTutorialText();
+
         nextButton.SetActive(false);
         nextButton.GetComponent<Button>().onClick.AddListener(() => ProceedToNextStep());
-        // Start the tutorial with the intro panel
+
         introPanel.SetActive(true);
         startTutorialYesButton.onClick.AddListener(StartTutorial);
         startTutorialNoButton.onClick.AddListener(EndTutorial);
+    }
+
+    void ResolveTutorialText()
+    {
+        if (StringManager.Instance == null) return;
+
+        foreach (var step in tutorialSteps)
+        {
+            step.localizedDescription =
+                StringManager.Instance.GetText(step.descriptionKey);
+        }
+
+        // Refresh current step text if tutorial is already running
+        if (tutorialPanel.activeSelf && currentStepIndex < tutorialSteps.Count)
+        {
+            tutorialText.text = tutorialSteps[currentStepIndex].localizedDescription;
+        }
     }
 
     void StartTutorial()
@@ -52,14 +87,15 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
     void StartStep(int stepIndex)
     {
-        //Debug.Log($"Starting tutorial step {stepIndex + 1}");
         if (stepIndex >= tutorialSteps.Count)
         {
             Debug.LogError("Step index out of range.");
             return;
         }
+
         var step = tutorialSteps[stepIndex];
-        tutorialText.text = step.description;
+
+        tutorialText.text = step.localizedDescription;
         tutorialPanel.SetActive(true);
 
         if (step.zoomToObject)
@@ -69,10 +105,8 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
         step.onStepStart?.Invoke();
 
-
         if (step.autoProceed)
         {
-            Debug.Log("Step is auto-proceeding");
             step.onStepComplete.AddListener(() => ProceedToNextStep());
             nextButton.SetActive(false);
         }
@@ -86,19 +120,17 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     {
         if (currentStepIndex < tutorialSteps.Count)
         {
-            
             FF_TutorialStep step = tutorialSteps[currentStepIndex];
             step.onStepComplete.RemoveAllListeners();
 
             currentStepIndex++;
+
             if (currentStepIndex < tutorialSteps.Count)
             {
-                Debug.Log($"Proceeding to tutorial step {currentStepIndex+1}");
                 StartStep(currentStepIndex);
             }
             else
             {
-                Debug.Log($"End Tutorial");
                 EndTutorial();
             }
         }
@@ -106,16 +138,18 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
     void EndTutorial()
     {
-        //tutorialText.text = "Tutorial Complete!";
         nextButton.SetActive(false);
-        // Load the game scene 
         SceneManager.LoadScene("FireSafeFriendScene");
     }
-
 
     public void UpdateTutorialText(string text)
     {
         tutorialText.text = text;
     }
 
+    private void OnDestroy()
+    {
+        if (StringManager.Instance != null)
+            StringManager.Instance.OnStringsLoadedEvent -= ResolveTutorialText;
+    }
 }

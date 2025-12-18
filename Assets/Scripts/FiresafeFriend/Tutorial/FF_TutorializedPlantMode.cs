@@ -3,36 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
 public class FF_TutorializedPlantMode : FF_TutorializedObject
 {
     public List<FF_Plants> bushes;
     public List<FF_DirtMound> dirtMounds;
-    public GameObject leftArrow,rightArrow,dirtMoundsParent,bushesParent;
+
+    public GameObject leftArrow, rightArrow, dirtMoundsParent, bushesParent;
     public Transform plantModeCamH2;
+
     int bushesNeededToRemove;
     int dirtMoundsNeededToFill;
+
+    [Header("Localization Keys")]
+    public string removeBushesKey = "tutText4";
+    public string plantModeIntroKey = "tutText6";
+    public string plantModeCompleteKey = "tutText7";
+    public string switchHouseKey = "tutText5";
 
     public override void Start()
     {
         bushesNeededToRemove = bushes.Count;
         dirtMoundsNeededToFill = dirtMounds.Count;
-
     }
 
     public void ShowBushes()
-    {     
-        //FF_TutorialManager.Instance.tutorialText.text = "Tap to remove the dead bushes in the critical zone.";
+    {
+        FF_TutorialManager.Instance.UpdateTutorialText(
+            StringManager.Instance.GetText(removeBushesKey)
+        );
+
         foreach (var bush in bushes)
         {
-
             bush.OnCombustibleDestroyed += _ =>
             {
                 bushesNeededToRemove--;
+
                 if (bushesNeededToRemove <= 0)
                 {
                     bushes.Clear();
                     MoveToHouseTwo();
-                    //OnTutorialStepComplete();
                 }
             };
         }
@@ -40,25 +50,28 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     public void ShowDirtMound()
     {
-        var text = "To decorate the yard, we can use fire-resistant plants. Click on the bubble to choose your plants.";
-        FF_TutorialManager.Instance.UpdateTutorialText(text);
-        //FF_TutorialManager.Instance.tutorialText.text = "To decorate the yard, we can use fire-resistant plants. Click on the bubble to choose your plants.";
-        //HH_GameManager.Instance.SwitchPlayer("P2");
+        FF_TutorialManager.Instance.UpdateTutorialText(
+            StringManager.Instance.GetText(plantModeIntroKey)
+        );
+
         foreach (var mound in dirtMounds)
         {
             mound.SetBubbleState(true);
+
             mound.OnPlanted += _ =>
             {
                 dirtMoundsNeededToFill--;
+
                 if (dirtMoundsNeededToFill <= 0)
                 {
-                    var text = "Great job! Let’s move on to home hardening.";
-                    FF_TutorialManager.Instance.UpdateTutorialText(text);
+                    FF_TutorialManager.Instance.UpdateTutorialText(
+                        StringManager.Instance.GetText(plantModeCompleteKey)
+                    );
+
                     onClick.AddListener(() =>
                     {
                         OnTutorialStepComplete();
                     });
-                    
                 }
             };
 
@@ -68,7 +81,6 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
             };
         }
     }
-
 
     private Tween FadeIn(CanvasGroup canvasGroup)
     {
@@ -83,39 +95,40 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
                          .SetEase(Ease.InOutQuad);
     }
 
-
-
-
     private void MoveToHouseTwo()
     {
         HH_GameManager.Instance.cameraController.OnCameraZoomComplete += () =>
         {
-            //FF_TutorialManager.Instance.tutorialText.text = "Let's switch to plant mode first";
             rightArrow.SetActive(false);
             HH_GameManager.Instance.cameraController.OnCameraZoomComplete = null;
         };
+
         var canvasGroup = rightArrow.GetComponent<CanvasGroup>();
         var rect = rightArrow.GetComponent<RectTransform>();
 
         canvasGroup.interactable = false;
-        Sequence arrowSequence = DOTween.Sequence();
-        var text = "Now that you’re done cleaning, let player 2 have a turn: click on the arrow to change to the second house.";
-        FF_TutorialManager.Instance.UpdateTutorialText(text);
-        //FF_TutorialManager.Instance.tutorialText.text = "Now that you’re done cleaning, let player 2 have a turn: click on the arrow to change to the second house.";
-        arrowSequence.PrependInterval(1f);
-        // Step 1: Fade In
-        arrowSequence.Append(FadeIn(canvasGroup));
 
-        // Step 2: Pulse Animation
+        Sequence arrowSequence = DOTween.Sequence();
+
+        FF_TutorialManager.Instance.UpdateTutorialText(
+            StringManager.Instance.GetText(switchHouseKey)
+        );
+
+        arrowSequence.PrependInterval(1f);
+        arrowSequence.Append(FadeIn(canvasGroup));
         arrowSequence.Append(ScaleEffect(rect));
 
         arrowSequence.onComplete += () =>
         {
             canvasGroup.interactable = true;
+
             rightArrow.GetComponent<Button>().onClick.RemoveAllListeners();
             rightArrow.GetComponent<Button>().onClick.AddListener(() =>
             {
-                HH_GameManager.Instance.cameraController.Zoomcamera(plantModeCamH2, true, 60);
+                HH_GameManager.Instance.cameraController.Zoomcamera(
+                    plantModeCamH2, true, 60
+                );
+
                 ShowDirtMound();
             });
         };
