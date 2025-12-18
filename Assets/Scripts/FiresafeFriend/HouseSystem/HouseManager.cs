@@ -17,6 +17,8 @@ namespace HappyHouse.HouseSystem
         public FF_BudgetManager budgetManager;
         public int initBudget;
         public string playerTag;
+        public string player1NameKey = "player1Text";
+        public string player2NameKey = "player2Text";
         public Vector3 positionOffset;
         public float scaleMultiplier;
         public GameObject /*craftIcon, */arrowUI, nameText;
@@ -96,7 +98,8 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            var name = playerTag == "P1" ? "Player 1" : "Player 2";
+            var nameKey = playerTag == "P1" ? player1NameKey : player2NameKey;
+            var name = StringManager.Instance.GetText(nameKey);
             nameText.GetComponent<TextMeshPro>().text = name;
 
             for (int i = 0; i < transform.childCount; i++)
