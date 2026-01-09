@@ -6,14 +6,12 @@ public class StringManager : MonoBehaviour
 {
     public static StringManager Instance { get; private set; }
 
-    // Stores all loaded strings for fast lookup
     private Dictionary<string, LocalizedString> localizedStrings = new Dictionary<string, LocalizedString>();
 
     public event Action OnStringsLoadedEvent;
 
     private void Awake()
     {
-        // Singleton setup
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
