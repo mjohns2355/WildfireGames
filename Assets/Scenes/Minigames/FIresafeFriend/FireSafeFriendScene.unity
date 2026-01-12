@@ -19746,26 +19746,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2142561545}
-  - component: {fileID: 2142561544}
+  - component: {fileID: 2142561546}
   m_Layer: 0
-  m_Name: LocalizationManager
+  m_Name: LocalizedSceneChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2142561544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142561543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49983275a8b743ea907114c2c92090c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2142561545
 Transform:
   m_ObjectHideFlags: 0
@@ -19781,6 +19769,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2142561546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142561543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a2918133dd347d898aa2eaa5b43d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneJsonFileName: TextStrings.json
 --- !u!1001 &113699049797661738
 PrefabInstance:
   m_ObjectHideFlags: 0
