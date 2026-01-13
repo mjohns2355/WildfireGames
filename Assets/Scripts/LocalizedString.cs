@@ -9,6 +9,10 @@ public class LocalizedString
 
     public string GetText(string lang)
     {
-        return lang == "es" ? text_es : text_en;
+        if (lang == "es")
+        {
+            return text_es;
+        }
+        return text_en;
     }
 }

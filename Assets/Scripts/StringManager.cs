@@ -5,13 +5,10 @@ using System;
 public class StringManager : MonoBehaviour
 {
     public static StringManager Instance { get; private set; }
-
     private Dictionary<string, LocalizedString> localizedStrings = new Dictionary<string, LocalizedString>();
-    
     public event Action OnStringsLoadedEvent;
 
     private string currentFileName;
-    public bool IsReady { get; private set; }
 
     private void Awake()
     {
@@ -25,8 +22,7 @@ public class StringManager : MonoBehaviour
     }
 
     public void LoadSceneStrings(string fileName)
-    {
-        IsReady = false;
+    {        
         currentFileName = fileName;
         LocalizedFileLoader.Load<StringCollection>(fileName, OnStringsLoaded);
     }
@@ -39,7 +35,11 @@ public class StringManager : MonoBehaviour
 
     private void OnStringsLoaded(StringCollection collection)
     {
-        if (collection == null) return;
+        if (collection == null || collection.strings == null)
+        {
+            Debug.LogError($"[StringManager] Failed to load {currentFileName} or file is empty!");
+            return;
+        }
 
         localizedStrings.Clear();
         foreach (var item in collection.strings)
@@ -47,17 +47,17 @@ public class StringManager : MonoBehaviour
             if (!localizedStrings.ContainsKey(item.key))
                 localizedStrings.Add(item.key, item);
         }
-
-        IsReady = true;
-        Debug.Log($"[StringManager] {currentFileName} is ready.");
+        
         OnStringsLoadedEvent?.Invoke();
     }
 
     public string GetText(string key)
     {
-        if (!IsReady || !localizedStrings.ContainsKey(key))
+        if (localizedStrings.Count == 0) return null;
+
+        if (!localizedStrings.ContainsKey(key))
         {
-            return null;
+            return $"[Missing: {key}]";
         }
 
         return localizedStrings[key].GetText(LocalizationManager.CurrentLanguage);
