@@ -13578,6 +13578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ada742c94545f4084fa59506f2e3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogKeys: []
   phaseOneDialog:
   - Time to go! You have 3 minutes to find your keys and get to the truck to leave.
   endDialog: []
@@ -42518,6 +42519,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ada742c94545f4084fa59506f2e3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogKeys:
+  - tutorial1Text
+  - tutorial2Text
+  - tutorial3Text
+  - tutorial4Text
+  - tutorial5Text
+  - tutorial6Text
+  - tutorial7Text
+  - tutorial8Text
+  - tutorial9Text
   phaseOneDialog:
   - 'Today you are pet-sitting for a friend while they are out of town. '
   - 'But you just heard on the news that a fire has started in your area. '
@@ -54145,6 +54156,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1430310165164803399, guid: c9a248fbb4209cc4f9ea331c061d279b, type: 3}
   m_PrefabInstance: {fileID: 1760590627}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1761881602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1761881604}
+  - component: {fileID: 1761881603}
+  m_Layer: 0
+  m_Name: LocalizedSceneChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1761881603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761881602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a2918133dd347d898aa2eaa5b43d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneJsonFileName: FYTStrings.json
+--- !u!4 &1761881604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761881602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 441.35986, y: 118.727264, z: 19.200434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1764548145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72478,3 +72534,4 @@ SceneRoots:
   - {fileID: 1179437773}
   - {fileID: 1901873787}
   - {fileID: 22539698}
+  - {fileID: 1761881604}

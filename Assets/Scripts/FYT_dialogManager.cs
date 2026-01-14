@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class FYT_dialogManager : MonoBehaviour
 {
+    public string[] dialogKeys;
     public string[] phaseOneDialog;
     public string[] endDialog;
 
@@ -26,7 +27,40 @@ public class FYT_dialogManager : MonoBehaviour
 
     private void Start()
     {
-        StepTextForward();
+        //StepTextForward();
+        if (StringManager.Instance != null)
+        {
+            StringManager.Instance.OnStringsLoadedEvent += RefreshLocalization;
+            RefreshLocalization();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (StringManager.Instance != null)
+        {
+            StringManager.Instance.OnStringsLoadedEvent -= RefreshLocalization;
+        }
+    }
+
+    public void RefreshLocalization()
+    {
+        if (dialogKeys == null || dialogKeys.Length == 0) return;
+
+        phaseOneDialog = new string[dialogKeys.Length];
+        for (int i = 0; i < dialogKeys.Length; i++)
+        {
+            phaseOneDialog[i] = StringManager.Instance.GetText(dialogKeys[i]);
+        }
+
+        if (!done && counter > 0 && counter <= phaseOneDialog.Length)
+        {
+            dialog.text = phaseOneDialog[counter - 1];
+        }
+        else if (counter == 0 && !done)
+        {
+            StepTextForward();
+        }
     }
 
     public void EndDialog()
