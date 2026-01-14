@@ -79,9 +79,19 @@ public class PurchasePopup : MonoBehaviour
         this.partInfo = partInfo;
         priceText.text = $"Purchase: ${partInfo.price:N0}";
         classText.text = $"Class {partInfo.materialClass}";
+        //descriptionText.text = partInfo.description;
+        if (StringManager.Instance != null){
+        descriptionText.text = StringManager.Instance.GetText(partInfo.description);
+        } else {
         descriptionText.text = partInfo.description;
+        }
         icon.sprite = partInfo.icon;
+        //itemNameText.text = partInfo.partID;
+        if (StringManager.Instance != null){
+        itemNameText.text = StringManager.Instance.GetText(partInfo.partID);
+        } else{
         itemNameText.text = partInfo.partID;
+        }
     }
 
     private void OnDisable()
