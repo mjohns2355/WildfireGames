@@ -34,7 +34,9 @@ public class FF_Props : FF_BaseCombustible
     IEnumerator PropClickedRoutine()
     {
         transform.GetChild(0).gameObject.SetActive(false);
-        
+
+        var vfx = Instantiate(Resources.Load("chairsFX"), transform.position, transform.rotation);
+
         yield return new WaitForSeconds(1f);
 
         //Destroy(gameObject);
