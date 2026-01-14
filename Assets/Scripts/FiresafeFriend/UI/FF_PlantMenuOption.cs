@@ -34,7 +34,15 @@ public class FF_PlantMenuOption : MonoBehaviour
         icon.sprite = plant.combustibleInfo.icon;
 
         // Assuming partID is already localized OR is an ID you want as-is
-        nameText.text = plant.combustibleInfo.partID;
+        //nameText.text = plant.combustibleInfo.partID;
+        if (StringManager.Instance != null)
+        {
+            nameText.text = StringManager.Instance.GetText(plant.combustibleInfo.partID);
+        }
+        else
+        {
+            nameText.text = plant.combustibleInfo.partID;
+        }
 
         string descriptionKey = plant.combustibleInfo.materialClass switch
         {
