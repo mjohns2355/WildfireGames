@@ -255,7 +255,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
             selectedAudioPath = currentNode.audioPathES;
         }
 
-        if (!string.IsNullOrEmpty(selectedAudioPath) && TTSManager.IsEnabled)
+        // if (!string.IsNullOrEmpty(selectedAudioPath) && TTSManager.IsEnabled)
+        if (!string.IsNullOrEmpty(selectedAudioPath))
         {
             AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
             if (clip != null && audioSource != null)
