@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class FYT_Bag : MonoBehaviour
 {
     public GameObject bagPanel;
+    public TextMeshProUGUI packText;
     public TextMeshProUGUI bagList;
     public TextMeshProUGUI bagList2;
     public TextMeshProUGUI bagList3;
@@ -24,6 +25,19 @@ public class FYT_Bag : MonoBehaviour
     public void OpenBag()
     {
         bagPanel.SetActive(true);
+        string packedHeader = "Packed:";
+
+        if (StringManager.Instance != null)
+        {
+            string foundText = StringManager.Instance.GetText("packedText");
+            
+            if (!string.IsNullOrEmpty(foundText) && !foundText.Contains("[Missing"))
+            {
+                packedHeader = foundText;
+            }
+        }
+
+        packText.text = packedHeader;
     }
 
     public void Evac()
@@ -67,21 +81,25 @@ public class FYT_Bag : MonoBehaviour
         if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
         {
             count++;
+
+            string translatedItem = (StringManager.Instance != null) ? StringManager.Instance.GetText(item) : item;
+            //packedText
+            
             if (count <= 18)
             {
-                list += "\n" + item;
-                bagList.text = "Packed:" + list;
+                list += "\n" + translatedItem;
+                bagList.text = list;
             }
             else if (count <= 36)
             {
 
-                list2 += "\n" + item;
+                list2 += "\n" + translatedItem;
                 bagList2.text = list2;
             }
             else
             {
 
-                list3 += "\n" + item;
+                list3 += "\n" + translatedItem;
                 bagList3.text = list3;
             }
         }
