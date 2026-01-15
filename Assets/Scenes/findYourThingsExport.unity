@@ -3433,7 +3433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2136982186920549292, guid: 66120e87bffcf8540b4c0cb56158faf9, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 2136982186920549292, guid: 66120e87bffcf8540b4c0cb56158faf9, type: 3}
       propertyPath: m_TagString
@@ -6675,7 +6675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5856425632164162754, guid: 8b2d9eff405ae4aca8ca3f23e0e3c5af, type: 3}
       propertyPath: m_Name
-      value: Soccer Ball
+      value: soccerText
       objectReference: {fileID: 0}
     - target: {fileID: 5856425632164162754, guid: 8b2d9eff405ae4aca8ca3f23e0e3c5af, type: 3}
       propertyPath: m_TagString
@@ -8303,7 +8303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -9536,7 +9536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -10116,7 +10116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2033132854874076346, guid: 6fe2e023753682f4d8e891785a877d4c, type: 3}
       propertyPath: m_Name
-      value: Oranges
+      value: orangesText
       objectReference: {fileID: 0}
     - target: {fileID: 2033132854874076346, guid: 6fe2e023753682f4d8e891785a877d4c, type: 3}
       propertyPath: m_TagString
@@ -10363,7 +10363,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4258445915251160258, guid: 06d98bc93ae0c8543b58cc14e7161a43, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 4258445915251160258, guid: 06d98bc93ae0c8543b58cc14e7161a43, type: 3}
       propertyPath: m_TagString
@@ -10895,7 +10895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -11753,6 +11753,7 @@ GameObject:
   - component: {fileID: 400455049}
   - component: {fileID: 400455051}
   - component: {fileID: 400455050}
+  - component: {fileID: 400455052}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -11876,6 +11877,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400455048}
   m_CullTransparentMesh: 1
+--- !u!114 &400455052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400455048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: needKeysText
 --- !u!1001 &410955594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12040,7 +12054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -12615,7 +12629,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2404851589643585096, guid: 145b29618c0fb41069cd3b474308cf41, type: 3}
       propertyPath: m_Name
-      value: Soda
+      value: sodaText
       objectReference: {fileID: 0}
     - target: {fileID: 2404851589643585096, guid: 145b29618c0fb41069cd3b474308cf41, type: 3}
       propertyPath: m_TagString
@@ -14318,7 +14332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4512103527634769707, guid: c653bf025defb4892bd8bfe2533df7a6, type: 3}
       propertyPath: m_Name
-      value: Football
+      value: footballText
       objectReference: {fileID: 0}
     - target: {fileID: 4512103527634769707, guid: c653bf025defb4892bd8bfe2533df7a6, type: 3}
       propertyPath: m_TagString
@@ -14599,7 +14613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_Name
-      value: Photo Frame
+      value: photoFText
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_TagString
@@ -14692,6 +14706,7 @@ GameObject:
   - component: {fileID: 489633548}
   - component: {fileID: 489633550}
   - component: {fileID: 489633549}
+  - component: {fileID: 489633551}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -14815,6 +14830,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489633547}
   m_CullTransparentMesh: 1
+--- !u!114 &489633551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489633547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: playAgainText
 --- !u!1001 &493851166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15203,7 +15231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -15360,7 +15388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4662305135347519631, guid: 37a41acdd29ded54c9ffe5fba16fba90, type: 3}
       propertyPath: m_Name
-      value: Hand Soap
+      value: handSoapText
       objectReference: {fileID: 0}
     - target: {fileID: 4662305135347519631, guid: 37a41acdd29ded54c9ffe5fba16fba90, type: 3}
       propertyPath: m_TagString
@@ -16344,6 +16372,7 @@ GameObject:
   - component: {fileID: 549606465}
   - component: {fileID: 549606467}
   - component: {fileID: 549606466}
+  - component: {fileID: 549606468}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -16467,6 +16496,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549606464}
   m_CullTransparentMesh: 1
+--- !u!114 &549606468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549606464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resourcesText
 --- !u!1 &551713959
 GameObject:
   m_ObjectHideFlags: 0
@@ -17730,7 +17772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -18139,7 +18181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -21428,7 +21470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -22896,7 +22938,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3839490645742502785, guid: c18fb023d36ad4746ae8c3b81f5bfcba, type: 3}
       propertyPath: m_Name
-      value: Headphones
+      value: headphonesText
       objectReference: {fileID: 0}
     - target: {fileID: 3839490645742502785, guid: c18fb023d36ad4746ae8c3b81f5bfcba, type: 3}
       propertyPath: m_TagString
@@ -23313,7 +23355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548135141855306968, guid: f1f0ef0b2c59c46aca363056f5dc847d, type: 3}
       propertyPath: m_Name
-      value: Laptop Bag
+      value: laptopBagText
       objectReference: {fileID: 0}
     - target: {fileID: 7548135141855306968, guid: f1f0ef0b2c59c46aca363056f5dc847d, type: 3}
       propertyPath: m_TagString
@@ -23714,7 +23756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -24796,7 +24838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -25800,7 +25842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -27552,7 +27594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -28606,7 +28648,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4924957001156066361, guid: 250fd3fea4feae340be2ca5f47206ade, type: 3}
       propertyPath: m_Name
-      value: Microvawe
+      value: microwaveText
       objectReference: {fileID: 0}
     - target: {fileID: 4924957001156066361, guid: 250fd3fea4feae340be2ca5f47206ade, type: 3}
       propertyPath: m_TagString
@@ -28744,6 +28786,7 @@ GameObject:
   - component: {fileID: 941097253}
   - component: {fileID: 941097255}
   - component: {fileID: 941097254}
+  - component: {fileID: 941097256}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -28867,6 +28910,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941097252}
   m_CullTransparentMesh: 1
+--- !u!114 &941097256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941097252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: evacuate2Text
 --- !u!1001 &945300297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29654,6 +29710,7 @@ GameObject:
   - component: {fileID: 957964512}
   - component: {fileID: 957964514}
   - component: {fileID: 957964513}
+  - component: {fileID: 957964515}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -29777,6 +29834,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957964511}
   m_CullTransparentMesh: 1
+--- !u!114 &957964515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957964511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: mainMenuText
 --- !u!1 &958778173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9075875476408048157, guid: 163c293da4705a440ade13620f7f016b, type: 3}
@@ -29946,7 +30016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -30561,7 +30631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1590801518179779970, guid: 6ee13483b1908dd468db4d357ce64cc6, type: 3}
       propertyPath: m_Name
-      value: Mouse
+      value: mouseText
       objectReference: {fileID: 0}
     - target: {fileID: 1590801518179779970, guid: 6ee13483b1908dd468db4d357ce64cc6, type: 3}
       propertyPath: m_TagString
@@ -31308,7 +31378,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3845076938127013564, guid: 415e95d0a1511492088edf42670f6143, type: 3}
       propertyPath: m_Name
-      value: Graphic Tablet
+      value: graphicTText
       objectReference: {fileID: 0}
     - target: {fileID: 3845076938127013564, guid: 415e95d0a1511492088edf42670f6143, type: 3}
       propertyPath: m_TagString
@@ -31547,7 +31617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -32965,7 +33035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -33429,7 +33499,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3300813250436546168, guid: d8c436b59b09f4ba886864b54caf30d9, type: 3}
       propertyPath: m_Name
-      value: Toilet Paper
+      value: toiletPaperText
       objectReference: {fileID: 0}
     - target: {fileID: 3300813250436546168, guid: d8c436b59b09f4ba886864b54caf30d9, type: 3}
       propertyPath: m_TagString
@@ -33653,7 +33723,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2211156493945025585, guid: 7c9d34b3cbdaa4e8bbdf3512a363dbfa, type: 3}
       propertyPath: m_Name
-      value: Mouth Wash
+      value: mouthWashText
       objectReference: {fileID: 0}
     - target: {fileID: 2211156493945025585, guid: 7c9d34b3cbdaa4e8bbdf3512a363dbfa, type: 3}
       propertyPath: m_TagString
@@ -34474,6 +34544,7 @@ GameObject:
   - component: {fileID: 1100960894}
   - component: {fileID: 1100960896}
   - component: {fileID: 1100960895}
+  - component: {fileID: 1100960897}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -34597,6 +34668,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100960893}
   m_CullTransparentMesh: 1
+--- !u!114 &1100960897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100960893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: okayText
 --- !u!1 &1106013794
 GameObject:
   m_ObjectHideFlags: 0
@@ -35576,7 +35660,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1902797922235580251, guid: 9be592e0d0c1e4294a64b7a8024e7202, type: 3}
       propertyPath: m_Name
-      value: Plant
+      value: plantText
       objectReference: {fileID: 0}
     - target: {fileID: 1902797922235580251, guid: 9be592e0d0c1e4294a64b7a8024e7202, type: 3}
       propertyPath: m_TagString
@@ -36689,7 +36773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -37601,6 +37685,7 @@ GameObject:
   - component: {fileID: 1196371214}
   - component: {fileID: 1196371216}
   - component: {fileID: 1196371215}
+  - component: {fileID: 1196371217}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -37724,6 +37809,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196371213}
   m_CullTransparentMesh: 1
+--- !u!114 &1196371217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196371213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: playAgainText
 --- !u!1 &1197864648
 GameObject:
   m_ObjectHideFlags: 0
@@ -38141,6 +38239,7 @@ GameObject:
   - component: {fileID: 1213821107}
   - component: {fileID: 1213821109}
   - component: {fileID: 1213821108}
+  - component: {fileID: 1213821110}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -38264,6 +38363,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213821106}
   m_CullTransparentMesh: 1
+--- !u!114 &1213821110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213821106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: noTimeText
 --- !u!1 &1215834023
 GameObject:
   m_ObjectHideFlags: 0
@@ -38773,7 +38885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -39938,6 +40050,7 @@ GameObject:
   - component: {fileID: 1274945126}
   - component: {fileID: 1274945128}
   - component: {fileID: 1274945127}
+  - component: {fileID: 1274945129}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -40061,6 +40174,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274945125}
   m_CullTransparentMesh: 1
+--- !u!114 &1274945129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274945125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resourcesText
 --- !u!1 &1281792121 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 241c0351028c15540adbd2f95fd66c8b, type: 3}
@@ -41532,7 +41658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -43090,7 +43216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1370801427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43799,7 +43925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -44326,7 +44452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5124087660151075766, guid: ef1b9caa5da009f4ea8744101fff05de, type: 3}
       propertyPath: m_Name
-      value: Cup
+      value: cupText
       objectReference: {fileID: 0}
     - target: {fileID: 5124087660151075766, guid: ef1b9caa5da009f4ea8744101fff05de, type: 3}
       propertyPath: m_TagString
@@ -44682,6 +44808,7 @@ GameObject:
   - component: {fileID: 1428149696}
   - component: {fileID: 1428149698}
   - component: {fileID: 1428149697}
+  - component: {fileID: 1428149699}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -44805,6 +44932,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428149695}
   m_CullTransparentMesh: 1
+--- !u!114 &1428149699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428149695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: mainMenuText
 --- !u!1 &1428206780
 GameObject:
   m_ObjectHideFlags: 0
@@ -44934,7 +45074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1534560902712794354, guid: b5e044afc18c26740abf07b4433951a3, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 1534560902712794354, guid: b5e044afc18c26740abf07b4433951a3, type: 3}
       propertyPath: m_TagString
@@ -45146,7 +45286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4310217627081762419, guid: 344c1bf0b62e0400db4659a60544f166, type: 3}
       propertyPath: m_Name
-      value: Tooth Paste
+      value: toothPText
       objectReference: {fileID: 0}
     - target: {fileID: 4310217627081762419, guid: 344c1bf0b62e0400db4659a60544f166, type: 3}
       propertyPath: m_TagString
@@ -46038,7 +46178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5972516754178755841, guid: 52f0bcabe356d475696b34813b4de102, type: 3}
       propertyPath: m_Name
-      value: Tool Box
+      value: toolBoxText
       objectReference: {fileID: 0}
     - target: {fileID: 5972516754178755841, guid: 52f0bcabe356d475696b34813b4de102, type: 3}
       propertyPath: m_TagString
@@ -48495,7 +48635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_Name
-      value: Notepad
+      value: notepadText
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_TagString
@@ -49065,7 +49205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -49863,7 +50003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -50640,7 +50780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_Name
-      value: Music Book
+      value: notebookText
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_TagString
@@ -51159,7 +51299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_Name
-      value: Photo Frame
+      value: photoFText
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_TagString
@@ -51619,7 +51759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -51868,7 +52008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -53005,7 +53145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_Name
-      value: Cable
+      value: cableText
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_TagString
@@ -54275,7 +54415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -55419,7 +55559,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1107460659136945135, guid: 5655ac2f7ec504d3d950f1b52673dc5f, type: 3}
       propertyPath: m_Name
-      value: Salem's Vet Records
+      value: catVetText
       objectReference: {fileID: 0}
     - target: {fileID: 1107460659136945135, guid: 5655ac2f7ec504d3d950f1b52673dc5f, type: 3}
       propertyPath: m_TagString
@@ -62078,7 +62218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4521992781170032737, guid: 981e7683138dc4196a6cd63c89842e27, type: 3}
       propertyPath: m_Name
-      value: Tooth Brush
+      value: toothBText
       objectReference: {fileID: 0}
     - target: {fileID: 4521992781170032737, guid: 981e7683138dc4196a6cd63c89842e27, type: 3}
       propertyPath: m_TagString
@@ -63438,7 +63578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_Name
-      value: Notepad
+      value: notepadText
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_TagString
@@ -65441,7 +65581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153340745177819601, guid: ce311dac002a24a93b56a66ef66b2874, type: 3}
       propertyPath: m_Name
-      value: Frisbee
+      value: frisbeeText
       objectReference: {fileID: 0}
     - target: {fileID: 8153340745177819601, guid: ce311dac002a24a93b56a66ef66b2874, type: 3}
       propertyPath: m_TagString
@@ -69271,7 +69411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_Name
-      value: NoteBook
+      value: notebookText
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_TagString
@@ -70120,7 +70260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097807675274833806, guid: 1d6b0040636ddd543b487ed8dbf1caeb, type: 3}
       propertyPath: m_Name
-      value: Potted Plant
+      value: pottedPlantText
       objectReference: {fileID: 0}
     - target: {fileID: 9097807675274833806, guid: 1d6b0040636ddd543b487ed8dbf1caeb, type: 3}
       propertyPath: m_TagString
@@ -72198,7 +72338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
