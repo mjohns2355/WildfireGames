@@ -45,6 +45,7 @@ public class DialogNode
     public string id;
     //public string variantGroup;
     public string dialogText;
+    public string dialogTextES;
     public string characterName;
     public string portraitPath;
     public string audioPath;

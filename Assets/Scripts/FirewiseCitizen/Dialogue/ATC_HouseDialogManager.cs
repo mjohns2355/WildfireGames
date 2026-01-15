@@ -269,7 +269,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
         }
 
-        if(string.IsNullOrEmpty(currentNode.characterName) && string.IsNullOrEmpty(currentNode.dialogText)&& string.IsNullOrEmpty(currentNode.portraitPath))
+        // Select dialogue text based on language
+        string selectedDialogText = currentNode.dialogText; // default to English
+
+        if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(currentNode.dialogTextES))
+        {
+            selectedDialogText = currentNode.dialogTextES;
+        }
+
+        if(string.IsNullOrEmpty(currentNode.characterName) && string.IsNullOrEmpty(selectedDialogText) && string.IsNullOrEmpty(currentNode.portraitPath))
         {
             isWaitingForPlayer = true;
             canClick = true;
@@ -277,15 +285,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         if (string.IsNullOrEmpty(currentNode.characterName))
         {
-            SpawnAMessageBubble(currentNode.dialogText, null, false, false, true);
+            SpawnAMessageBubble(selectedDialogText, null, false, false, true);
         }
         else if (currentNode.characterName == "Player")
         {
-            SpawnAMessageBubble(currentNode.dialogText, null, true, false, false);
+            SpawnAMessageBubble(selectedDialogText, null, true, false, false);
         }
         else
         {
-            SpawnAMessageBubble(currentNode.dialogText, currentNode.characterName, false, false, false);
+            SpawnAMessageBubble(selectedDialogText, currentNode.characterName, false, false, false);
         }
 
         if (!string.IsNullOrEmpty(currentNode.portraitPath))
