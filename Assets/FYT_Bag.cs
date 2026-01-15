@@ -67,21 +67,26 @@ public class FYT_Bag : MonoBehaviour
         if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
         {
             count++;
+
+            string translatedItem = (StringManager.Instance != null) ? StringManager.Instance.GetText(item) : item;
+            //packedText
+            
+
             if (count <= 18)
             {
-                list += "\n" + item;
+                list += "\n" + translatedItem;
                 bagList.text = "Packed:" + list;
             }
             else if (count <= 36)
             {
 
-                list2 += "\n" + item;
+                list2 += "\n" + translatedItem;
                 bagList2.text = list2;
             }
             else
             {
 
-                list3 += "\n" + item;
+                list3 += "\n" + translatedItem;
                 bagList3.text = list3;
             }
         }
