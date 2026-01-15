@@ -103,6 +103,9 @@ public class DialogOption
     public string optionText;
     // text actually sent in message
     public string messageText;
+    public string messageTextES;
+    public string audioPath;
+    public string audioPathES;
     public string nextNodeId;
     public DialogCondition conditions;
     public string GetNextNodeId()
