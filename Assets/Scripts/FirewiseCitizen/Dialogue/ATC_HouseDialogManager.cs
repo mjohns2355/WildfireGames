@@ -247,10 +247,17 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         OnDialogueNodeDisplayed?.Invoke(currentNode);
 
-        // audio playback after node check
-        if (!string.IsNullOrEmpty(currentNode.audioPath))
+        // audio playback after node check - select path based on language
+        string selectedAudioPath = currentNode.audioPath; // default to English
+
+        if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(currentNode.audioPathES))
         {
-            AudioClip clip = Resources.Load<AudioClip>(currentNode.audioPath);
+            selectedAudioPath = currentNode.audioPathES;
+        }
+
+        if (!string.IsNullOrEmpty(selectedAudioPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
             if (clip != null && audioSource != null)
             {
                 audioSource.clip = clip;
@@ -258,7 +265,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Audio clip not found: {currentNode.audioPath}");
+                Debug.LogWarning($"Audio clip not found: {selectedAudioPath}");
             }
         }
 
