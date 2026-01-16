@@ -38,7 +38,15 @@ public class FYTPickUp : MonoBehaviour
             popup.SetActive(true);
             panel.enabled = true;
             selected = g;
-            itemText.text = selected.name;
+            //itemText.text = selected.name;
+            if (StringManager.Instance != null)
+            {
+                itemText.text = StringManager.Instance.GetText(selected.name);
+            }
+            else
+            {
+                itemText.text = selected.name;
+            }
             if (g.GetComponent<FYT_collectable>().isKey)
             {
                 car.hasKey = true;

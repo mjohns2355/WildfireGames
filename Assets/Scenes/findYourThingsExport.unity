@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 48491284}
   - component: {fileID: 48491286}
   - component: {fileID: 48491285}
+  - component: {fileID: 48491287}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1054,6 +1055,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48491283}
   m_CullTransparentMesh: 1
+--- !u!114 &48491287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48491283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: leaveItText
 --- !u!1001 &49050325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1135,7 +1149,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4844384501662101541, guid: 0a96069081771de46913a2815964c13b, type: 3}
       propertyPath: m_Name
-      value: Scratching Post
+      value: scratchingPText
       objectReference: {fileID: 0}
     - target: {fileID: 4844384501662101541, guid: 0a96069081771de46913a2815964c13b, type: 3}
       propertyPath: m_TagString
@@ -1404,7 +1418,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729715779209677144, guid: db7e95837d0a04d87a8c366ee53420d3, type: 3}
       propertyPath: m_Name
-      value: Flowers
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 729715779209677144, guid: db7e95837d0a04d87a8c366ee53420d3, type: 3}
       propertyPath: m_TagString
@@ -1567,6 +1581,8 @@ RectTransform:
   - {fileID: 1074659590}
   - {fileID: 1658542128}
   - {fileID: 1574786459}
+  - {fileID: 1391419845}
+  - {fileID: 699666034}
   m_Father: {fileID: 1338722737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1622,7 +1638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8214893257865816999, guid: 4a79c1480ff1948a697302404d1b95d6, type: 3}
       propertyPath: m_Name
-      value: Game Controller
+      value: gameControllerText
       objectReference: {fileID: 0}
     - target: {fileID: 8214893257865816999, guid: 4a79c1480ff1948a697302404d1b95d6, type: 3}
       propertyPath: m_TagString
@@ -1737,7 +1753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8341255337186939984, guid: 55631b7bb862a4d928eaf84c9f939de0, type: 3}
       propertyPath: m_Name
-      value: Head Set
+      value: headSetText
       objectReference: {fileID: 0}
     - target: {fileID: 8341255337186939984, guid: 55631b7bb862a4d928eaf84c9f939de0, type: 3}
       propertyPath: m_TagString
@@ -1847,7 +1863,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 7622c70069b12d14db7cf67113339a27, type: 3}
       propertyPath: m_Name
-      value: Canned Water
+      value: cannedWaterText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7622c70069b12d14db7cf67113339a27, type: 3}
       propertyPath: m_TagString
@@ -2571,7 +2587,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1622818300524583950, guid: fee25509423d2e3469a1a049ec5529df, type: 3}
       propertyPath: m_Name
-      value: Trophy
+      value: trophyText
       objectReference: {fileID: 0}
     - target: {fileID: 1622818300524583950, guid: fee25509423d2e3469a1a049ec5529df, type: 3}
       propertyPath: m_TagString
@@ -3433,7 +3449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2136982186920549292, guid: 66120e87bffcf8540b4c0cb56158faf9, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 2136982186920549292, guid: 66120e87bffcf8540b4c0cb56158faf9, type: 3}
       propertyPath: m_TagString
@@ -4322,7 +4338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6299328208591831595, guid: 7dbc3b1a798ba4ab0a4170b2d0d702d3, type: 3}
       propertyPath: m_Name
-      value: Important Documents
+      value: importantDText
       objectReference: {fileID: 0}
     - target: {fileID: 6299328208591831595, guid: 7dbc3b1a798ba4ab0a4170b2d0d702d3, type: 3}
       propertyPath: m_TagString
@@ -5241,7 +5257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -5352,7 +5368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3657263620994225537, guid: f8d30a5e3473e4a3792cf6be9a7c972f, type: 3}
       propertyPath: m_Name
-      value: Puzzle
+      value: puzzleText
       objectReference: {fileID: 0}
     - target: {fileID: 3657263620994225537, guid: f8d30a5e3473e4a3792cf6be9a7c972f, type: 3}
       propertyPath: m_TagString
@@ -5803,7 +5819,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1966338054755502094, guid: 9de3aba81cba9479a89aec84448b5dbc, type: 3}
       propertyPath: m_Name
-      value: Laptop
+      value: laptopText
       objectReference: {fileID: 0}
     - target: {fileID: 1966338054755502094, guid: 9de3aba81cba9479a89aec84448b5dbc, type: 3}
       propertyPath: m_TagString
@@ -6545,7 +6561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8237462429155381272, guid: 13702aca58f0641e5a37765039a571b1, type: 3}
       propertyPath: m_Name
-      value: Prescription Bottle
+      value: pBottleText
       objectReference: {fileID: 0}
     - target: {fileID: 8237462429155381272, guid: 13702aca58f0641e5a37765039a571b1, type: 3}
       propertyPath: m_TagString
@@ -6675,7 +6691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5856425632164162754, guid: 8b2d9eff405ae4aca8ca3f23e0e3c5af, type: 3}
       propertyPath: m_Name
-      value: Soccer Ball
+      value: soccerText
       objectReference: {fileID: 0}
     - target: {fileID: 5856425632164162754, guid: 8b2d9eff405ae4aca8ca3f23e0e3c5af, type: 3}
       propertyPath: m_TagString
@@ -6785,7 +6801,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9e1443ce2853f9d4ea4dc7bf65ef95d4, type: 3}
       propertyPath: m_Name
-      value: Canned Food
+      value: cannedFoodText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9e1443ce2853f9d4ea4dc7bf65ef95d4, type: 3}
       propertyPath: m_TagString
@@ -7920,6 +7936,7 @@ GameObject:
   - component: {fileID: 262756625}
   - component: {fileID: 262756627}
   - component: {fileID: 262756626}
+  - component: {fileID: 262756628}
   m_Layer: 5
   m_Name: Resources Title
   m_TagString: Untagged
@@ -8043,6 +8060,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262756624}
   m_CullTransparentMesh: 1
+--- !u!114 &262756628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262756624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resourcesText
 --- !u!1 &264010464
 GameObject:
   m_ObjectHideFlags: 0
@@ -8097,6 +8127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagPanel: {fileID: 0}
+  packText: {fileID: 0}
   bagList: {fileID: 0}
   bagList2: {fileID: 0}
   bagList3: {fileID: 0}
@@ -8214,6 +8245,156 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264010464}
   m_CullTransparentMesh: 1
+--- !u!1 &266846400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266846401}
+  - component: {fileID: 266846404}
+  - component: {fileID: 266846403}
+  - component: {fileID: 266846402}
+  m_Layer: 5
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &266846401
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266846400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1642059800}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038147, y: 21}
+  m_SizeDelta: {x: 616.37, y: 174.2077}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &266846402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266846400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc2Text
+--- !u!114 &266846403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266846400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'If you live in an area that has some fire risk, like in a Wildland-Urban
+    Interface, you may have a local Fire Safe Council or Firewise Community that
+    has information specific to your area. '
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &266846404
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266846400}
+  m_CullTransparentMesh: 1
 --- !u!1 &267474166
 GameObject:
   m_ObjectHideFlags: 0
@@ -8303,7 +8484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -8385,6 +8566,154 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5501463826058925403, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
   m_PrefabInstance: {fileID: 274143152}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &274190713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274190714}
+  - component: {fileID: 274190717}
+  - component: {fileID: 274190716}
+  - component: {fileID: 274190715}
+  m_Layer: 5
+  m_Name: Text (TMP) (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &274190714
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274190713}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1642059800}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038147, y: -59}
+  m_SizeDelta: {x: 616.37, y: 174.2077}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &274190715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274190713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc3Text
+--- !u!114 &274190716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274190713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Here are some resources to help you get started.
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &274190717
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274190713}
+  m_CullTransparentMesh: 1
 --- !u!1 &274716922
 GameObject:
   m_ObjectHideFlags: 0
@@ -9073,7 +9402,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 603962165929857309, guid: 2ea233ab9edb141dd86bf6372378506f, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 603962165929857309, guid: 2ea233ab9edb141dd86bf6372378506f, type: 3}
       propertyPath: m_TagString
@@ -9396,7 +9725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8565728724565546091, guid: 1326029d30d2e477aa1a0de95b7eda2a, type: 3}
       propertyPath: m_Name
-      value: Clothes
+      value: clothesText
       objectReference: {fileID: 0}
     - target: {fileID: 8565728724565546091, guid: 1326029d30d2e477aa1a0de95b7eda2a, type: 3}
       propertyPath: m_TagString
@@ -9536,7 +9865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -9629,7 +9958,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 160950, guid: 0cd521b316bb8504cb8701bfa66bdcf6, type: 3}
       propertyPath: m_Name
-      value: Flashlight
+      value: flashlightText
       objectReference: {fileID: 0}
     - target: {fileID: 160950, guid: 0cd521b316bb8504cb8701bfa66bdcf6, type: 3}
       propertyPath: m_TagString
@@ -9891,7 +10220,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_Name
-      value: VHS Tape
+      value: vhsText
       objectReference: {fileID: 0}
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_TagString
@@ -10081,7 +10410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5273536977875889141, guid: df48f5374e4fb47e588c4d09d63e5dc3, type: 3}
       propertyPath: m_Name
-      value: Clock
+      value: clockText
       objectReference: {fileID: 0}
     - target: {fileID: 5273536977875889141, guid: df48f5374e4fb47e588c4d09d63e5dc3, type: 3}
       propertyPath: m_TagString
@@ -10116,7 +10445,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2033132854874076346, guid: 6fe2e023753682f4d8e891785a877d4c, type: 3}
       propertyPath: m_Name
-      value: Oranges
+      value: orangesText
       objectReference: {fileID: 0}
     - target: {fileID: 2033132854874076346, guid: 6fe2e023753682f4d8e891785a877d4c, type: 3}
       propertyPath: m_TagString
@@ -10363,7 +10692,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4258445915251160258, guid: 06d98bc93ae0c8543b58cc14e7161a43, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 4258445915251160258, guid: 06d98bc93ae0c8543b58cc14e7161a43, type: 3}
       propertyPath: m_TagString
@@ -10895,7 +11224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -11753,6 +12082,7 @@ GameObject:
   - component: {fileID: 400455049}
   - component: {fileID: 400455051}
   - component: {fileID: 400455050}
+  - component: {fileID: 400455052}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -11876,6 +12206,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400455048}
   m_CullTransparentMesh: 1
+--- !u!114 &400455052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400455048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: needKeysText
 --- !u!1001 &410955594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12001,7 +12344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8ba93d204ee7ee54795cfd311b963d03, type: 3}
       propertyPath: m_Name
-      value: Pillow
+      value: pillowText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8ba93d204ee7ee54795cfd311b963d03, type: 3}
       propertyPath: m_TagString
@@ -12040,7 +12383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -12187,7 +12530,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ea7fcce5c1946d14e99bef6ba60ca9c5, type: 3}
       propertyPath: m_Name
-      value: Battery
+      value: batteryText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ea7fcce5c1946d14e99bef6ba60ca9c5, type: 3}
       propertyPath: m_TagString
@@ -12615,7 +12958,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2404851589643585096, guid: 145b29618c0fb41069cd3b474308cf41, type: 3}
       propertyPath: m_Name
-      value: Soda
+      value: sodaText
       objectReference: {fileID: 0}
     - target: {fileID: 2404851589643585096, guid: 145b29618c0fb41069cd3b474308cf41, type: 3}
       propertyPath: m_TagString
@@ -13865,7 +14208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4466612965432197194, guid: 59a1def76b0d0af4bad26f011fb285dd, type: 3}
       propertyPath: m_Name
-      value: Pet Food
+      value: petFoodText
       objectReference: {fileID: 0}
     - target: {fileID: 4466612965432197194, guid: 59a1def76b0d0af4bad26f011fb285dd, type: 3}
       propertyPath: m_TagString
@@ -14318,7 +14661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4512103527634769707, guid: c653bf025defb4892bd8bfe2533df7a6, type: 3}
       propertyPath: m_Name
-      value: Football
+      value: footballText
       objectReference: {fileID: 0}
     - target: {fileID: 4512103527634769707, guid: c653bf025defb4892bd8bfe2533df7a6, type: 3}
       propertyPath: m_TagString
@@ -14429,7 +14772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 696765545835964437, guid: a48ff92ff50862f4fb34fb3842d498c6, type: 3}
       propertyPath: m_Name
-      value: Litter Box
+      value: litterBoxText
       objectReference: {fileID: 0}
     - target: {fileID: 696765545835964437, guid: a48ff92ff50862f4fb34fb3842d498c6, type: 3}
       propertyPath: m_TagString
@@ -14599,7 +14942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_Name
-      value: Photo Frame
+      value: photoFText
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_TagString
@@ -14692,6 +15035,7 @@ GameObject:
   - component: {fileID: 489633548}
   - component: {fileID: 489633550}
   - component: {fileID: 489633549}
+  - component: {fileID: 489633551}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -14815,6 +15159,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489633547}
   m_CullTransparentMesh: 1
+--- !u!114 &489633551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489633547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: playAgainText
 --- !u!1001 &493851166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15203,7 +15560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -15360,7 +15717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4662305135347519631, guid: 37a41acdd29ded54c9ffe5fba16fba90, type: 3}
       propertyPath: m_Name
-      value: Hand Soap
+      value: handSoapText
       objectReference: {fileID: 0}
     - target: {fileID: 4662305135347519631, guid: 37a41acdd29ded54c9ffe5fba16fba90, type: 3}
       propertyPath: m_TagString
@@ -15867,6 +16224,142 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: entranceText
+--- !u!1 &532049001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532049004}
+  - component: {fileID: 532049003}
+  - component: {fileID: 532049002}
+  m_Layer: 0
+  m_Name: Packed Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &532049002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532049001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Packed:
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &532049003
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532049001}
+  m_CullTransparentMesh: 1
+--- !u!224 &532049004
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532049001}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1291302350}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 5, y: 27.5}
+  m_SizeDelta: {x: -30, y: 35}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &537436409
 GameObject:
   m_ObjectHideFlags: 0
@@ -15901,8 +16394,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5, y: 27.5}
-  m_SizeDelta: {x: -30, y: 35}
+  m_AnchoredPosition: {x: 39.919106, y: 22.8441}
+  m_SizeDelta: {x: -99.8382, y: 25.6883}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537436411
 MonoBehaviour:
@@ -15924,9 +16417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Packed:
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16065,7 +16556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1255030728248775268, guid: fd19eb04a826c43d59415b31ad471b6d, type: 3}
       propertyPath: m_Name
-      value: Radio
+      value: radioText
       objectReference: {fileID: 0}
     - target: {fileID: 1255030728248775268, guid: fd19eb04a826c43d59415b31ad471b6d, type: 3}
       propertyPath: m_TagString
@@ -16344,6 +16835,7 @@ GameObject:
   - component: {fileID: 549606465}
   - component: {fileID: 549606467}
   - component: {fileID: 549606466}
+  - component: {fileID: 549606468}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -16467,6 +16959,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549606464}
   m_CullTransparentMesh: 1
+--- !u!114 &549606468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549606464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resourcesText
 --- !u!1 &551713959
 GameObject:
   m_ObjectHideFlags: 0
@@ -17106,6 +17611,7 @@ GameObject:
   - component: {fileID: 572103051}
   - component: {fileID: 572103053}
   - component: {fileID: 572103052}
+  - component: {fileID: 572103054}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -17229,6 +17735,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572103050}
   m_CullTransparentMesh: 1
+--- !u!114 &572103054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572103050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: evacuationText
 --- !u!1001 &574859776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17312,7 +17831,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4888895786560471266, guid: 519e557e286354bed9bcf0a68144c77f, type: 3}
       propertyPath: m_Name
-      value: Flash Drives
+      value: flashDText
       objectReference: {fileID: 0}
     - target: {fileID: 4888895786560471266, guid: 519e557e286354bed9bcf0a68144c77f, type: 3}
       propertyPath: m_TagString
@@ -17531,6 +18050,7 @@ GameObject:
   - component: {fileID: 586810406}
   - component: {fileID: 586810408}
   - component: {fileID: 586810407}
+  - component: {fileID: 586810409}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -17654,6 +18174,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586810405}
   m_CullTransparentMesh: 1
+--- !u!114 &586810409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586810405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: evacuationText
 --- !u!1001 &595406435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17730,7 +18263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -18139,7 +18672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -18880,7 +19413,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6122399953062065492, guid: 0e848978efb694bc094f381d9e07372b, type: 3}
       propertyPath: m_Name
-      value: Inhaler
+      value: inhalerText
       objectReference: {fileID: 0}
     - target: {fileID: 6122399953062065492, guid: 0e848978efb694bc094f381d9e07372b, type: 3}
       propertyPath: m_TagString
@@ -20350,6 +20883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagPanel: {fileID: 0}
+  packText: {fileID: 0}
   bagList: {fileID: 0}
   bagList2: {fileID: 0}
   bagList3: {fileID: 0}
@@ -21428,7 +21962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -21623,7 +22157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1836100960789307630, guid: 2cbae267cfc3565439c56fa5c58368bd, type: 3}
       propertyPath: m_Name
-      value: Bucket
+      value: bucketText
       objectReference: {fileID: 0}
     - target: {fileID: 1836100960789307630, guid: 2cbae267cfc3565439c56fa5c58368bd, type: 3}
       propertyPath: m_TagString
@@ -21792,6 +22326,154 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695592316}
   m_CullTransparentMesh: 1
+--- !u!1 &699666033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 699666034}
+  - component: {fileID: 699666036}
+  - component: {fileID: 699666035}
+  - component: {fileID: 699666037}
+  m_Layer: 5
+  m_Name: Text (TMP) (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &699666034
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699666033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83135197}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038147, y: -62}
+  m_SizeDelta: {x: 616.37, y: 174.2077}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &699666035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699666033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Here are some resources to help you get started.
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &699666036
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699666033}
+  m_CullTransparentMesh: 1
+--- !u!114 &699666037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699666033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc3Text
 --- !u!1 &705280102
 GameObject:
   m_ObjectHideFlags: 0
@@ -22222,7 +22904,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1308534199443360998, guid: dcdd8920a65bd42d392b2bb9facfa1e4, type: 3}
       propertyPath: m_Name
-      value: Car Key
+      value: carKeyText
       objectReference: {fileID: 0}
     - target: {fileID: 1308534199443360998, guid: dcdd8920a65bd42d392b2bb9facfa1e4, type: 3}
       propertyPath: m_TagString
@@ -22896,7 +23578,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3839490645742502785, guid: c18fb023d36ad4746ae8c3b81f5bfcba, type: 3}
       propertyPath: m_Name
-      value: Headphones
+      value: headphonesText
       objectReference: {fileID: 0}
     - target: {fileID: 3839490645742502785, guid: c18fb023d36ad4746ae8c3b81f5bfcba, type: 3}
       propertyPath: m_TagString
@@ -23313,7 +23995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548135141855306968, guid: f1f0ef0b2c59c46aca363056f5dc847d, type: 3}
       propertyPath: m_Name
-      value: Laptop Bag
+      value: laptopBagText
       objectReference: {fileID: 0}
     - target: {fileID: 7548135141855306968, guid: f1f0ef0b2c59c46aca363056f5dc847d, type: 3}
       propertyPath: m_TagString
@@ -23714,7 +24396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -23924,7 +24606,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: bb5fd6d1f4114b549a57ad4924dbd9c4, type: 2}
     - target: {fileID: 5266817232134011015, guid: 6b60a3cb120eb409895838f46e4f7a8f, type: 3}
       propertyPath: m_Name
-      value: Water Jug
+      value: waterJugText
       objectReference: {fileID: 0}
     - target: {fileID: 5266817232134011015, guid: 6b60a3cb120eb409895838f46e4f7a8f, type: 3}
       propertyPath: m_TagString
@@ -24140,7 +24822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5acb5a36d949ab94989f636e4bf7e71b, type: 3}
       propertyPath: m_Name
-      value: Crocodile Toy
+      value: cToyText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5acb5a36d949ab94989f636e4bf7e71b, type: 3}
       propertyPath: m_TagString
@@ -24796,7 +25478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -25306,7 +25988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 241c0351028c15540adbd2f95fd66c8b, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 241c0351028c15540adbd2f95fd66c8b, type: 3}
       propertyPath: m_TagString
@@ -25800,7 +26482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -27552,7 +28234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -27993,6 +28675,7 @@ GameObject:
   - component: {fileID: 923478514}
   - component: {fileID: 923478516}
   - component: {fileID: 923478515}
+  - component: {fileID: 923478517}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -28116,6 +28799,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923478513}
   m_CullTransparentMesh: 1
+--- !u!114 &923478517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923478513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: takeItText
 --- !u!1001 &931584350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28178,7 +28874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9100ba101df6fbb49bf4d30283869427, type: 3}
       propertyPath: m_Name
-      value: Trophy
+      value: trophyText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9100ba101df6fbb49bf4d30283869427, type: 3}
       propertyPath: m_TagString
@@ -28606,7 +29302,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4924957001156066361, guid: 250fd3fea4feae340be2ca5f47206ade, type: 3}
       propertyPath: m_Name
-      value: Microvawe
+      value: microwaveText
       objectReference: {fileID: 0}
     - target: {fileID: 4924957001156066361, guid: 250fd3fea4feae340be2ca5f47206ade, type: 3}
       propertyPath: m_TagString
@@ -28744,6 +29440,7 @@ GameObject:
   - component: {fileID: 941097253}
   - component: {fileID: 941097255}
   - component: {fileID: 941097254}
+  - component: {fileID: 941097256}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -28867,6 +29564,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941097252}
   m_CullTransparentMesh: 1
+--- !u!114 &941097256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941097252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: evacuate2Text
 --- !u!1001 &945300297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29058,7 +29768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888048691572462388, guid: 0cbe41236ab03774fb11ecd58b642611, type: 3}
       propertyPath: m_Name
-      value: Towel
+      value: towelText
       objectReference: {fileID: 0}
     - target: {fileID: 6888048691572462388, guid: 0cbe41236ab03774fb11ecd58b642611, type: 3}
       propertyPath: m_TagString
@@ -29165,6 +29875,7 @@ GameObject:
   - component: {fileID: 952847291}
   - component: {fileID: 952847293}
   - component: {fileID: 952847292}
+  - component: {fileID: 952847294}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -29288,6 +29999,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952847290}
   m_CullTransparentMesh: 1
+--- !u!114 &952847294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952847290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: goBagText
 --- !u!1001 &954045468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29346,7 +30070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5169120299889223852, guid: aeb89e94da9a84aab8d09b5c5f6c7312, type: 3}
       propertyPath: m_Name
-      value: DVDs
+      value: dvdText
       objectReference: {fileID: 0}
     - target: {fileID: 5169120299889223852, guid: aeb89e94da9a84aab8d09b5c5f6c7312, type: 3}
       propertyPath: m_TagString
@@ -29654,6 +30378,7 @@ GameObject:
   - component: {fileID: 957964512}
   - component: {fileID: 957964514}
   - component: {fileID: 957964513}
+  - component: {fileID: 957964515}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -29777,6 +30502,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957964511}
   m_CullTransparentMesh: 1
+--- !u!114 &957964515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957964511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: mainMenuText
 --- !u!1 &958778173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9075875476408048157, guid: 163c293da4705a440ade13620f7f016b, type: 3}
@@ -29946,7 +30684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -30561,7 +31299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1590801518179779970, guid: 6ee13483b1908dd468db4d357ce64cc6, type: 3}
       propertyPath: m_Name
-      value: Mouse
+      value: mouseText
       objectReference: {fileID: 0}
     - target: {fileID: 1590801518179779970, guid: 6ee13483b1908dd468db4d357ce64cc6, type: 3}
       propertyPath: m_TagString
@@ -30851,7 +31589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8761136708897276753, guid: 449973445cf5f4a14be77c337e030dfc, type: 3}
       propertyPath: m_Name
-      value: Pills
+      value: pillsText
       objectReference: {fileID: 0}
     - target: {fileID: 8761136708897276753, guid: 449973445cf5f4a14be77c337e030dfc, type: 3}
       propertyPath: m_TagString
@@ -31308,7 +32046,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3845076938127013564, guid: 415e95d0a1511492088edf42670f6143, type: 3}
       propertyPath: m_Name
-      value: Graphic Tablet
+      value: graphicTText
       objectReference: {fileID: 0}
     - target: {fileID: 3845076938127013564, guid: 415e95d0a1511492088edf42670f6143, type: 3}
       propertyPath: m_TagString
@@ -31547,7 +32285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -32309,7 +33047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13285168c1687f2488373d7f5a6ac53e, type: 3}
       propertyPath: m_Name
-      value: Blanket
+      value: blanketText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13285168c1687f2488373d7f5a6ac53e, type: 3}
       propertyPath: m_TagString
@@ -32965,7 +33703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -33429,7 +34167,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3300813250436546168, guid: d8c436b59b09f4ba886864b54caf30d9, type: 3}
       propertyPath: m_Name
-      value: Toilet Paper
+      value: toiletPaperText
       objectReference: {fileID: 0}
     - target: {fileID: 3300813250436546168, guid: d8c436b59b09f4ba886864b54caf30d9, type: 3}
       propertyPath: m_TagString
@@ -33653,7 +34391,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2211156493945025585, guid: 7c9d34b3cbdaa4e8bbdf3512a363dbfa, type: 3}
       propertyPath: m_Name
-      value: Mouth Wash
+      value: mouthWashText
       objectReference: {fileID: 0}
     - target: {fileID: 2211156493945025585, guid: 7c9d34b3cbdaa4e8bbdf3512a363dbfa, type: 3}
       propertyPath: m_TagString
@@ -34474,6 +35212,7 @@ GameObject:
   - component: {fileID: 1100960894}
   - component: {fileID: 1100960896}
   - component: {fileID: 1100960895}
+  - component: {fileID: 1100960897}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -34597,6 +35336,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100960893}
   m_CullTransparentMesh: 1
+--- !u!114 &1100960897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100960893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: okayText
 --- !u!1 &1106013794
 GameObject:
   m_ObjectHideFlags: 0
@@ -35288,7 +36040,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5653038159197913342, guid: 76cfdc2f6ecc74ca38e61a1f26191521, type: 3}
       propertyPath: m_Name
-      value: Computer Screen
+      value: computerScreenText
       objectReference: {fileID: 0}
     - target: {fileID: 5653038159197913342, guid: 76cfdc2f6ecc74ca38e61a1f26191521, type: 3}
       propertyPath: m_TagString
@@ -35576,7 +36328,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1902797922235580251, guid: 9be592e0d0c1e4294a64b7a8024e7202, type: 3}
       propertyPath: m_Name
-      value: Plant
+      value: plantText
       objectReference: {fileID: 0}
     - target: {fileID: 1902797922235580251, guid: 9be592e0d0c1e4294a64b7a8024e7202, type: 3}
       propertyPath: m_TagString
@@ -35982,7 +36734,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6625034895895218904, guid: c995cdd6997b34119b76162b71e0bfb1, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 6625034895895218904, guid: c995cdd6997b34119b76162b71e0bfb1, type: 3}
       propertyPath: m_TagString
@@ -36546,7 +37298,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4981740150382868506, guid: b5719168256cd4803a4628c91882788f, type: 3}
       propertyPath: m_Name
-      value: Game Console
+      value: gameConsoleText
       objectReference: {fileID: 0}
     - target: {fileID: 4981740150382868506, guid: b5719168256cd4803a4628c91882788f, type: 3}
       propertyPath: m_TagString
@@ -36689,7 +37441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -37230,7 +37982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5169120299889223852, guid: aeb89e94da9a84aab8d09b5c5f6c7312, type: 3}
       propertyPath: m_Name
-      value: DVDs
+      value: dvdText
       objectReference: {fileID: 0}
     - target: {fileID: 5169120299889223852, guid: aeb89e94da9a84aab8d09b5c5f6c7312, type: 3}
       propertyPath: m_TagString
@@ -37601,6 +38353,7 @@ GameObject:
   - component: {fileID: 1196371214}
   - component: {fileID: 1196371216}
   - component: {fileID: 1196371215}
+  - component: {fileID: 1196371217}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -37724,6 +38477,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196371213}
   m_CullTransparentMesh: 1
+--- !u!114 &1196371217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196371213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: playAgainText
 --- !u!1 &1197864648
 GameObject:
   m_ObjectHideFlags: 0
@@ -38141,6 +38907,7 @@ GameObject:
   - component: {fileID: 1213821107}
   - component: {fileID: 1213821109}
   - component: {fileID: 1213821108}
+  - component: {fileID: 1213821110}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -38264,6 +39031,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213821106}
   m_CullTransparentMesh: 1
+--- !u!114 &1213821110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213821106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: noTimeText
 --- !u!1 &1215834023
 GameObject:
   m_ObjectHideFlags: 0
@@ -38773,7 +39553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -39033,7 +39813,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d897d5a59a980534b83402380e1e4457, type: 3}
       propertyPath: m_Name
-      value: Handheld Radio
+      value: handheldRadioText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d897d5a59a980534b83402380e1e4457, type: 3}
       propertyPath: m_TagString
@@ -39170,7 +39950,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_Name
-      value: VHS Tape
+      value: vhsText
       objectReference: {fileID: 0}
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_TagString
@@ -39938,6 +40718,7 @@ GameObject:
   - component: {fileID: 1274945126}
   - component: {fileID: 1274945128}
   - component: {fileID: 1274945127}
+  - component: {fileID: 1274945129}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -40061,6 +40842,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274945125}
   m_CullTransparentMesh: 1
+--- !u!114 &1274945129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274945125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: resourcesText
 --- !u!1 &1281792121 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 241c0351028c15540adbd2f95fd66c8b, type: 3}
@@ -40180,7 +40974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9262ec3927a4a90439e4d0a80f5e44f8, type: 3}
       propertyPath: m_Name
-      value: Boots
+      value: bootsText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9262ec3927a4a90439e4d0a80f5e44f8, type: 3}
       propertyPath: m_TagString
@@ -40295,6 +41089,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 532049004}
   - {fileID: 537436410}
   - {fileID: 754391145}
   - {fileID: 1182252058}
@@ -40690,7 +41485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: baac9b290c52a7f4e82e15e5f05adac6, type: 3}
       propertyPath: m_Name
-      value: Shoes
+      value: shoesText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: baac9b290c52a7f4e82e15e5f05adac6, type: 3}
       propertyPath: m_TagString
@@ -41303,7 +42098,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5183444513237237187, guid: 3e9fe371ae9f6c14395120311c9a19e9, type: 3}
       propertyPath: m_Name
-      value: Pet Food
+      value: petFoodText
       objectReference: {fileID: 0}
     - target: {fileID: 5183444513237237187, guid: 3e9fe371ae9f6c14395120311c9a19e9, type: 3}
       propertyPath: m_TagString
@@ -41532,7 +42327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -41782,7 +42577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6299328208591831595, guid: 7dbc3b1a798ba4ab0a4170b2d0d702d3, type: 3}
       propertyPath: m_Name
-      value: Important Documents
+      value: importantDText
       objectReference: {fileID: 0}
     - target: {fileID: 6299328208591831595, guid: 7dbc3b1a798ba4ab0a4170b2d0d702d3, type: 3}
       propertyPath: m_TagString
@@ -42441,7 +43236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d2684401b3b91f4baa8b3cc76f66109, type: 3}
       propertyPath: m_Name
-      value: Plant
+      value: plantText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d2684401b3b91f4baa8b3cc76f66109, type: 3}
       propertyPath: m_TagString
@@ -42688,7 +43483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: edc0f64415ca5d249996b220834afee3, type: 3}
       propertyPath: m_Name
-      value: Blanket
+      value: blanketText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: edc0f64415ca5d249996b220834afee3, type: 3}
       propertyPath: m_TagString
@@ -42864,7 +43659,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3251266912682044776, guid: a1436e75552bd4629878713d6b00ee53, type: 3}
       propertyPath: m_Name
-      value: Keyboard
+      value: keyboardText
       objectReference: {fileID: 0}
     - target: {fileID: 3251266912682044776, guid: a1436e75552bd4629878713d6b00ee53, type: 3}
       propertyPath: m_TagString
@@ -43090,7 +43885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1370801427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43411,7 +44206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed6e426d8c165444dbe9a79e5a729be9, type: 3}
       propertyPath: m_Name
-      value: Lobster Toy
+      value: lobsterTText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed6e426d8c165444dbe9a79e5a729be9, type: 3}
       propertyPath: m_TagString
@@ -43729,6 +44524,156 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4111823549340719880, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
   m_PrefabInstance: {fileID: 1389310138}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1391419844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1391419845}
+  - component: {fileID: 1391419847}
+  - component: {fileID: 1391419846}
+  - component: {fileID: 1391419848}
+  m_Layer: 5
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1391419845
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391419844}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83135197}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038147, y: 20}
+  m_SizeDelta: {x: 616.37, y: 174.2077}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1391419846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391419844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'If you live in an area that has some fire risk, like in a Wildland-Urban
+    Interface, you may have a local Fire Safe Council or Firewise Community that
+    has information specific to your area. '
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1391419847
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391419844}
+  m_CullTransparentMesh: 1
+--- !u!114 &1391419848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391419844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc2Text
 --- !u!1001 &1395190606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43799,7 +44744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -44326,7 +45271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5124087660151075766, guid: ef1b9caa5da009f4ea8744101fff05de, type: 3}
       propertyPath: m_Name
-      value: Cup
+      value: cupText
       objectReference: {fileID: 0}
     - target: {fileID: 5124087660151075766, guid: ef1b9caa5da009f4ea8744101fff05de, type: 3}
       propertyPath: m_TagString
@@ -44682,6 +45627,7 @@ GameObject:
   - component: {fileID: 1428149696}
   - component: {fileID: 1428149698}
   - component: {fileID: 1428149697}
+  - component: {fileID: 1428149699}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -44805,6 +45751,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428149695}
   m_CullTransparentMesh: 1
+--- !u!114 &1428149699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428149695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: mainMenuText
 --- !u!1 &1428206780
 GameObject:
   m_ObjectHideFlags: 0
@@ -44934,7 +45893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1534560902712794354, guid: b5e044afc18c26740abf07b4433951a3, type: 3}
       propertyPath: m_Name
-      value: Flower
+      value: flowersText
       objectReference: {fileID: 0}
     - target: {fileID: 1534560902712794354, guid: b5e044afc18c26740abf07b4433951a3, type: 3}
       propertyPath: m_TagString
@@ -45014,7 +45973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8565728724565546091, guid: 1326029d30d2e477aa1a0de95b7eda2a, type: 3}
       propertyPath: m_Name
-      value: Clothes
+      value: clothesText
       objectReference: {fileID: 0}
     - target: {fileID: 8565728724565546091, guid: 1326029d30d2e477aa1a0de95b7eda2a, type: 3}
       propertyPath: m_TagString
@@ -45146,7 +46105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4310217627081762419, guid: 344c1bf0b62e0400db4659a60544f166, type: 3}
       propertyPath: m_Name
-      value: Tooth Paste
+      value: toothPText
       objectReference: {fileID: 0}
     - target: {fileID: 4310217627081762419, guid: 344c1bf0b62e0400db4659a60544f166, type: 3}
       propertyPath: m_TagString
@@ -46038,7 +46997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5972516754178755841, guid: 52f0bcabe356d475696b34813b4de102, type: 3}
       propertyPath: m_Name
-      value: Tool Box
+      value: toolBoxText
       objectReference: {fileID: 0}
     - target: {fileID: 5972516754178755841, guid: 52f0bcabe356d475696b34813b4de102, type: 3}
       propertyPath: m_TagString
@@ -47255,7 +48214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 77d8e687d8b602b498ec4ba3ea53530e, type: 3}
       propertyPath: m_Name
-      value: Blanket
+      value: blanketText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 77d8e687d8b602b498ec4ba3ea53530e, type: 3}
       propertyPath: m_TagString
@@ -47671,7 +48630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5afde087f6d406e438bc00d86c5e0504, type: 3}
       propertyPath: m_Name
-      value: N95 Mask
+      value: maskText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5afde087f6d406e438bc00d86c5e0504, type: 3}
       propertyPath: m_TagString
@@ -47966,7 +48925,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7484542934430021361, guid: 307204108cb0c4d37aedc9815fa4e40e, type: 3}
       propertyPath: m_Name
-      value: PC Tower
+      value: pcText
       objectReference: {fileID: 0}
     - target: {fileID: 7484542934430021361, guid: 307204108cb0c4d37aedc9815fa4e40e, type: 3}
       propertyPath: m_TagString
@@ -48059,7 +49018,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5495384538827137192, guid: e993021a3535848e2bbcaa5c8b172113, type: 3}
       propertyPath: m_Name
-      value: Note Pad
+      value: notepadText
       objectReference: {fileID: 0}
     - target: {fileID: 5495384538827137192, guid: e993021a3535848e2bbcaa5c8b172113, type: 3}
       propertyPath: m_TagString
@@ -48495,7 +49454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_Name
-      value: Notepad
+      value: notepadText
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_TagString
@@ -49065,7 +50024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 327900445668506925, guid: 33a8c28b4f33d61478a68178b96b46b8, type: 3}
       propertyPath: m_TagString
@@ -49242,7 +50201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5266817232134011015, guid: 6b60a3cb120eb409895838f46e4f7a8f, type: 3}
       propertyPath: m_Name
-      value: Milk
+      value: milkText
       objectReference: {fileID: 0}
     - target: {fileID: 5266817232134011015, guid: 6b60a3cb120eb409895838f46e4f7a8f, type: 3}
       propertyPath: m_TagString
@@ -49336,6 +50295,7 @@ GameObject:
   - component: {fileID: 1574786459}
   - component: {fileID: 1574786461}
   - component: {fileID: 1574786460}
+  - component: {fileID: 1574786462}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -49382,10 +50342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Want to learn more about preparing for wildfire?\n\nIf you live in an
-    area that has some fire risk, like in a Wildland-Urban Interface, you may have
-    a local Fire Safe Council or Firewise Community that has information specific
-    to your area. \n\nHere are some resources to help you get started."
+  m_text: Want to learn more about preparing for wildfire?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -49462,6 +50419,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574786458}
   m_CullTransparentMesh: 1
+--- !u!114 &1574786462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574786458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc1Text
 --- !u!1 &1577407280
 GameObject:
   m_ObjectHideFlags: 0
@@ -49473,6 +50443,7 @@ GameObject:
   - component: {fileID: 1577407281}
   - component: {fileID: 1577407283}
   - component: {fileID: 1577407282}
+  - component: {fileID: 1577407284}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -49596,6 +50567,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577407280}
   m_CullTransparentMesh: 1
+--- !u!114 &1577407284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577407280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: goBagText
 --- !u!1 &1577633953
 GameObject:
   m_ObjectHideFlags: 0
@@ -49863,7 +50847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Books
+      value: book2Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -50640,7 +51624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_Name
-      value: Music Book
+      value: notebookText
       objectReference: {fileID: 0}
     - target: {fileID: 1213239533679310037, guid: 183306c85a8b83f4abbab704f8e8983a, type: 3}
       propertyPath: m_TagString
@@ -50784,7 +51768,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 99123debe759b874d874cb8d317756be, type: 3}
       propertyPath: m_Name
-      value: Canned Food
+      value: cannedFoodText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 99123debe759b874d874cb8d317756be, type: 3}
       propertyPath: m_TagString
@@ -51159,7 +52143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_Name
-      value: Photo Frame
+      value: photoFText
       objectReference: {fileID: 0}
     - target: {fileID: 5833242065726298115, guid: 5566f40006009174baf91ddd4a5289b8, type: 3}
       propertyPath: m_TagString
@@ -51619,7 +52603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -51742,6 +52726,8 @@ RectTransform:
   - {fileID: 1450298536}
   - {fileID: 705280103}
   - {fileID: 1925421747}
+  - {fileID: 266846401}
+  - {fileID: 274190714}
   m_Father: {fileID: 1291302350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -51868,7 +52854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
@@ -52359,6 +53345,7 @@ GameObject:
   - component: {fileID: 1670311789}
   - component: {fileID: 1670311791}
   - component: {fileID: 1670311790}
+  - component: {fileID: 1670311792}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -52482,6 +53469,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670311788}
   m_CullTransparentMesh: 1
+--- !u!114 &1670311792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670311788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: getAlertsText
 --- !u!1001 &1673181151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52920,7 +53920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5672021632357346744, guid: d091373c8b5c1a2499defd51ecfcef5b, type: 3}
       propertyPath: m_Name
-      value: Pet Carrier
+      value: petCarrierText
       objectReference: {fileID: 0}
     - target: {fileID: 5672021632357346744, guid: d091373c8b5c1a2499defd51ecfcef5b, type: 3}
       propertyPath: m_TagString
@@ -53005,7 +54005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_Name
-      value: Cable
+      value: cableText
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_TagString
@@ -53746,7 +54746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 55e6ce0128814774f949387021a4fe60, type: 3}
       propertyPath: m_Name
-      value: Blanket
+      value: blanketText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 55e6ce0128814774f949387021a4fe60, type: 3}
       propertyPath: m_TagString
@@ -54275,7 +55275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 4111823549340944168, guid: a7581c422d68c894b8e1f79d4a93ec06, type: 3}
       propertyPath: m_TagString
@@ -54478,7 +55478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 68c98478b4b1f354c89d262ad3649796, type: 3}
       propertyPath: m_Name
-      value: Glasses
+      value: glassesText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 68c98478b4b1f354c89d262ad3649796, type: 3}
       propertyPath: m_TagString
@@ -54749,7 +55749,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3906879843716495183, guid: a7315c2149bff4efa972e3b04ec3113d, type: 3}
       propertyPath: m_Name
-      value: Phone
+      value: phoneText
       objectReference: {fileID: 0}
     - target: {fileID: 3906879843716495183, guid: a7315c2149bff4efa972e3b04ec3113d, type: 3}
       propertyPath: m_TagString
@@ -55419,7 +56419,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1107460659136945135, guid: 5655ac2f7ec504d3d950f1b52673dc5f, type: 3}
       propertyPath: m_Name
-      value: Salem's Vet Records
+      value: catVetText
       objectReference: {fileID: 0}
     - target: {fileID: 1107460659136945135, guid: 5655ac2f7ec504d3d950f1b52673dc5f, type: 3}
       propertyPath: m_TagString
@@ -55828,7 +56828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4269607540665029070, guid: b204ca11d33e4401f9d781a7558f3938, type: 3}
       propertyPath: m_Name
-      value: Cord
+      value: cordText
       objectReference: {fileID: 0}
     - target: {fileID: 4269607540665029070, guid: b204ca11d33e4401f9d781a7558f3938, type: 3}
       propertyPath: m_TagString
@@ -61787,7 +62787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d51eb8a3e1719924fbfd2c6cbbca9c98, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d51eb8a3e1719924fbfd2c6cbbca9c98, type: 3}
       propertyPath: m_TagString
@@ -62005,7 +63005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48367b371fbbdf841ba365ec59da8bbc, type: 3}
       propertyPath: m_Name
-      value: Photo Album
+      value: photoAlbumText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48367b371fbbdf841ba365ec59da8bbc, type: 3}
       propertyPath: m_TagString
@@ -62078,7 +63078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4521992781170032737, guid: 981e7683138dc4196a6cd63c89842e27, type: 3}
       propertyPath: m_Name
-      value: Tooth Brush
+      value: toothBText
       objectReference: {fileID: 0}
     - target: {fileID: 4521992781170032737, guid: 981e7683138dc4196a6cd63c89842e27, type: 3}
       propertyPath: m_TagString
@@ -62538,7 +63538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416090142961372461, guid: f800cefc764b540e299d6c46352cbdad, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 7416090142961372461, guid: f800cefc764b540e299d6c46352cbdad, type: 3}
       propertyPath: m_TagString
@@ -63012,7 +64012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4962498327967386721, guid: 721f7e8c6e02149b6abfc60d1463c9ec, type: 3}
       propertyPath: m_Name
-      value: Game Console
+      value: gameConsoleText
       objectReference: {fileID: 0}
     - target: {fileID: 4962498327967386721, guid: 721f7e8c6e02149b6abfc60d1463c9ec, type: 3}
       propertyPath: m_TagString
@@ -63236,7 +64236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 092fdb3d0f68224449148798e91461d4, type: 3}
       propertyPath: m_Name
-      value: Brush
+      value: brushText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 092fdb3d0f68224449148798e91461d4, type: 3}
       propertyPath: m_TagString
@@ -63368,7 +64368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b595e73e24b0f1f4586b5b9901eb990a, type: 3}
       propertyPath: m_Name
-      value: Globe
+      value: globeText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b595e73e24b0f1f4586b5b9901eb990a, type: 3}
       propertyPath: m_TagString
@@ -63438,7 +64438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_Name
-      value: Notepad
+      value: notepadText
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_TagString
@@ -63685,7 +64685,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3720696037639978469, guid: f0aa9983fcbe84bb2a0891a30d88b717, type: 3}
       propertyPath: m_Name
-      value: ID Card
+      value: idText
       objectReference: {fileID: 0}
     - target: {fileID: 3720696037639978469, guid: f0aa9983fcbe84bb2a0891a30d88b717, type: 3}
       propertyPath: m_TagString
@@ -63905,7 +64905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5584610782595078726, guid: 5cd4b821e7ea24ddc9cc8aa03c3b8397, type: 3}
       propertyPath: m_Name
-      value: Pens
+      value: pensText
       objectReference: {fileID: 0}
     - target: {fileID: 5584610782595078726, guid: 5cd4b821e7ea24ddc9cc8aa03c3b8397, type: 3}
       propertyPath: m_TagString
@@ -64143,7 +65143,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3078459413956864345, guid: de5b49b3226c54c0cae02aa258d4a148, type: 3}
       propertyPath: m_Name
-      value: Juice
+      value: juiceText
       objectReference: {fileID: 0}
     - target: {fileID: 3078459413956864345, guid: de5b49b3226c54c0cae02aa258d4a148, type: 3}
       propertyPath: m_TagString
@@ -65028,7 +66028,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d897d5a59a980534b83402380e1e4457, type: 3}
       propertyPath: m_Name
-      value: Handheld Radio
+      value: handheldRadioText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d897d5a59a980534b83402380e1e4457, type: 3}
       propertyPath: m_TagString
@@ -65441,7 +66441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153340745177819601, guid: ce311dac002a24a93b56a66ef66b2874, type: 3}
       propertyPath: m_Name
-      value: Frisbee
+      value: frisbeeText
       objectReference: {fileID: 0}
     - target: {fileID: 8153340745177819601, guid: ce311dac002a24a93b56a66ef66b2874, type: 3}
       propertyPath: m_TagString
@@ -65680,6 +66680,7 @@ GameObject:
   - component: {fileID: 1925421747}
   - component: {fileID: 1925421749}
   - component: {fileID: 1925421748}
+  - component: {fileID: 1925421750}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -65726,10 +66727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Want to learn more about preparing for wildfire?\n\nIf you live in an
-    area that has some fire risk, like in a Wildland-Urban Interface, you may have
-    a local Fire Safe Council or Firewise Community that has information specific
-    to your area. \n\nHere are some resources to help you get started."
+  m_text: Want to learn more about preparing for wildfire?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -65806,6 +66804,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925421746}
   m_CullTransparentMesh: 1
+--- !u!114 &1925421750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925421746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: learnMoreDesc1Text
 --- !u!1 &1927782304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3669658876341348320, guid: 5f3a38d534e5b9a4fa9cd3b3ec81dfb2, type: 3}
@@ -66253,7 +67264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_Name
-      value: Cable
+      value: cableText
       objectReference: {fileID: 0}
     - target: {fileID: 4846468442728258049, guid: dc2df4bd58aa74efa8337ad9eefc742b, type: 3}
       propertyPath: m_TagString
@@ -67002,7 +68013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 95fa148199452e44ba4dbe634dec2baa, type: 3}
       propertyPath: m_Name
-      value: Blanket
+      value: blanketText
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 95fa148199452e44ba4dbe634dec2baa, type: 3}
       propertyPath: m_TagString
@@ -68349,7 +69360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 362271778948495978, guid: fcee60bf92be97f45bcd757fe68c58e9, type: 3}
       propertyPath: m_TagString
@@ -68569,7 +69580,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_Name
-      value: Family Video
+      value: familyVidText
       objectReference: {fileID: 0}
     - target: {fileID: 6320065199404775559, guid: 03afb720991ed4978bd59f153ddf70b8, type: 3}
       propertyPath: m_TagString
@@ -68874,6 +69885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagPanel: {fileID: 1291302349}
+  packText: {fileID: 532049002}
   bagList: {fileID: 537436411}
   bagList2: {fileID: 754391146}
   bagList3: {fileID: 1182252059}
@@ -69271,7 +70283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_Name
-      value: NoteBook
+      value: notebookText
       objectReference: {fileID: 0}
     - target: {fileID: 5587437515491066338, guid: 2ddf1684d4a2993469e6e913e0979768, type: 3}
       propertyPath: m_TagString
@@ -69457,6 +70469,7 @@ GameObject:
   - component: {fileID: 2009656292}
   - component: {fileID: 2009656294}
   - component: {fileID: 2009656293}
+  - component: {fileID: 2009656295}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -69580,6 +70593,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009656291}
   m_CullTransparentMesh: 1
+--- !u!114 &2009656295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009656291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: getAlertsText
 --- !u!1001 &2012577532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69590,7 +70616,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4974846421732262880, guid: 78c7288fb34a2074394dc45f9d13c068, type: 3}
       propertyPath: m_Name
-      value: Pet Food
+      value: petFoodText
       objectReference: {fileID: 0}
     - target: {fileID: 4974846421732262880, guid: 78c7288fb34a2074394dc45f9d13c068, type: 3}
       propertyPath: m_TagString
@@ -69817,7 +70843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9179391432253936439, guid: 9eb4833cca22b4d0788a26c8a687cb72, type: 3}
       propertyPath: m_Name
-      value: Plant
+      value: plantText
       objectReference: {fileID: 0}
     - target: {fileID: 9179391432253936439, guid: 9eb4833cca22b4d0788a26c8a687cb72, type: 3}
       propertyPath: m_TagString
@@ -70120,7 +71146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097807675274833806, guid: 1d6b0040636ddd543b487ed8dbf1caeb, type: 3}
       propertyPath: m_Name
-      value: Potted Plant
+      value: pottedPlantText
       objectReference: {fileID: 0}
     - target: {fileID: 9097807675274833806, guid: 1d6b0040636ddd543b487ed8dbf1caeb, type: 3}
       propertyPath: m_TagString
@@ -70369,7 +71395,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: ef7961d30acd2394daecafe571143dd9, type: 3}
       propertyPath: m_Name
-      value: Thermos
+      value: thermosText
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ef7961d30acd2394daecafe571143dd9, type: 3}
       propertyPath: m_TagString
@@ -71152,7 +72178,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2312366830186882917, guid: 4b7e4013a16f1ce49a61d5e561b4a841, type: 3}
       propertyPath: m_Name
-      value: Med Kit
+      value: medKitText
       objectReference: {fileID: 0}
     - target: {fileID: 2312366830186882917, guid: 4b7e4013a16f1ce49a61d5e561b4a841, type: 3}
       propertyPath: m_TagString
@@ -71264,7 +72290,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100048, guid: 42bb7bcc3c47f43418c9ccb3b8dde8ef, type: 3}
       propertyPath: m_Name
-      value: Salem the Cat
+      value: catText
       objectReference: {fileID: 0}
     - target: {fileID: 100048, guid: 42bb7bcc3c47f43418c9ccb3b8dde8ef, type: 3}
       propertyPath: m_TagString
@@ -72067,6 +73093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagPanel: {fileID: 0}
+  packText: {fileID: 0}
   bagList: {fileID: 0}
   bagList2: {fileID: 0}
   bagList3: {fileID: 0}
@@ -72198,7 +73225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_Name
-      value: Book
+      value: book1Text
       objectReference: {fileID: 0}
     - target: {fileID: 5501463826058496379, guid: a13d069b2efd7874bb438cec39d00001, type: 3}
       propertyPath: m_TagString
