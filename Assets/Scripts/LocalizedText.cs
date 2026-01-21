@@ -22,14 +22,38 @@ public class LocalizedText : MonoBehaviour
 
     private IEnumerator InitializeLocalization()
     {
-        while (StringManager.Instance == null)
+        while (StringManager.Instance == null) yield return null;
+
+        SetTextAlpha(0); 
+
+        StringManager.Instance.OnStringsLoadedEvent += UpdateText;
+
+        while (!StringManager.Instance.IsReady)
+        {
+            yield return null;
+        }
+
+        UpdateText();
+        SetTextAlpha(1);
+        /*while (StringManager.Instance == null)
         {
             yield return null;
         }
 
         StringManager.Instance.OnStringsLoadedEvent += UpdateText;
 
-        UpdateText();
+        UpdateText();*/
+    }
+
+    private void SetTextAlpha(float alpha)
+    {
+        if (tmpText != null) tmpText.alpha = alpha;
+        else if (uiText != null)
+        {
+            Color c = uiText.color;
+            c.a = alpha;
+            uiText.color = c;
+        }
     }
 
     private void OnDisable()

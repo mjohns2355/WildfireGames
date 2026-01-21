@@ -7,6 +7,7 @@ public class StringManager : MonoBehaviour
     public static StringManager Instance { get; private set; }
     private Dictionary<string, LocalizedString> localizedStrings = new Dictionary<string, LocalizedString>();
     public event Action OnStringsLoadedEvent;
+    public bool IsReady { get; private set; } = false;
 
     private string currentFileName;
 
@@ -22,9 +23,12 @@ public class StringManager : MonoBehaviour
     }
 
     public void LoadSceneStrings(string fileName)
-    {        
+    {
+        IsReady = false;
         currentFileName = fileName;
-        LocalizedFileLoader.Load<StringCollection>(fileName, OnStringsLoaded);
+        LocalizedFileLoader.Load<StringCollection>(fileName, OnStringsLoaded);        
+        //currentFileName = fileName;
+        //LocalizedFileLoader.Load<StringCollection>(fileName, OnStringsLoaded);
     }
 
     public void RefreshCurrentLanguage()
@@ -48,6 +52,7 @@ public class StringManager : MonoBehaviour
                 localizedStrings.Add(item.key, item);
         }
         
+        IsReady = true;
         OnStringsLoadedEvent?.Invoke();
     }
 
