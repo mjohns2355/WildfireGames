@@ -57356,8 +57356,11 @@ MonoBehaviour:
   currentNode:
     id: 
     dialogText: 
+    dialogTextES: 
     characterName: 
     portraitPath: 
+    audioPath: 
+    audioPathES: 
     options: []
     isEndNode: 0
     conditions:
@@ -58344,6 +58347,7 @@ GameObject:
   - component: {fileID: 624901809}
   - component: {fileID: 624901811}
   - component: {fileID: 624901810}
+  - component: {fileID: 624901812}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -58467,6 +58471,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624901808}
   m_CullTransparentMesh: 1
+--- !u!114 &624901812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624901808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: beginningText
 --- !u!1001 &629303944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123593,6 +123610,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309744756}
   m_CullTransparentMesh: 1
+--- !u!1 &1310402119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310402121}
+  - component: {fileID: 1310402120}
+  m_Layer: 0
+  m_Name: LocalizedSceneChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1310402120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310402119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a2918133dd347d898aa2eaa5b43d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneJsonFileName: FRStrings.json
+--- !u!4 &1310402121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310402119}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 441.35986, y: 118.727264, z: 19.200434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1312575054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124832,6 +124894,7 @@ GameObject:
   - component: {fileID: 1361503178}
   - component: {fileID: 1361503180}
   - component: {fileID: 1361503179}
+  - component: {fileID: 1361503181}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -124955,6 +125018,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361503177}
   m_CullTransparentMesh: 1
+--- !u!114 &1361503181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361503177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: titleText
 --- !u!1 &1373575328
 GameObject:
   m_ObjectHideFlags: 0
@@ -197332,3 +197408,4 @@ SceneRoots:
   - {fileID: 918863432}
   - {fileID: 1759662861}
   - {fileID: 576013193}
+  - {fileID: 1310402121}
