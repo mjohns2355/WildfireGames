@@ -127,8 +127,8 @@ public class HH_UIManager : MonoBehaviour
     public void ShowAftermathScreen()
     {
         var currentPlayer = HH_GameManager.Instance.currentPlayer;
-        //Tristyn Look Over Here to Fix
-        aftermathPlayerText.text = currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2";
+        aftermathPlayerText.text = StringManager.Instance != null ? StringManager.Instance.GetText(currentPlayer.playerTag == "P1" ? "player1Text" : "player2Text") : (currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2");
+        //aftermathPlayerText.text = currentPlayer.playerTag == "P1" ? "Player 1" : "Player 2";
         var repairCost = currentPlayer.GetRepairCost();
         repairDescText.text = $"You will have to pay ${repairCost} to fix your house";
         aftermathPopup.SetActive(true);
