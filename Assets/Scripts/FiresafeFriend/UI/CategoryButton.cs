@@ -26,7 +26,15 @@ public class CategoryButton : MonoBehaviour
     {
         this.owner = owner;
         category = type;
-        categoryText.text = type.ToString();
+        if (StringManager.Instance != null)
+        {
+            categoryText.text = StringManager.Instance.GetText(type.ToString());
+        }
+        else
+        {
+            categoryText.text = type.ToString();
+        }
+        //categoryText.text = type.ToString();
         button.onClick.AddListener(() => { 
             
             OnButtonSelected();

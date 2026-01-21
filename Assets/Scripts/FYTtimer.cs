@@ -13,20 +13,66 @@ public class FYTtimer : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     public GameObject warning;
+    private FYT_dialogManager warningDialogManager;
     public GameObject startScreen;
     private bool paused = false;
     public GameObject loseScreen;
 
+    private bool warningChecker = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (warning != null)
+        {
+            warningDialogManager = warning.GetComponent<FYT_dialogManager>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!warning.activeInHierarchy && !startScreen.activeInHierarchy)
+        //Debug.Log(timer);
+        if (!startScreen.activeInHierarchy && !paused)
+        {
+            timer -= Time.deltaTime;
+            mins = (int)timer / 60;
+            sec = (int)(timer - mins * 60);
+
+            if(sec < 10)
+            {
+                timerText.text = mins.ToString() + ":0" + sec.ToString();
+            } 
+            else
+            {
+                timerText.text = mins.ToString() + ":" + sec.ToString();
+            }
+
+            //Test condition to change the game to be faster
+            //if (timer < 355 && !warningChecker)
+            if (timer < 180 && !warningChecker)
+            {
+                string key = "alertText"; 
+                string translatedWarning = (StringManager.Instance != null) ? StringManager.Instance.GetText(key) : "Warning!";
+
+                if (warningDialogManager != null)
+                {
+                    warningDialogManager.RefreshLocalization();
+                }
+                warningChecker = true; 
+                startScreen.SetActive(false);
+                timerDisp.SetActive(true);
+                warning.SetActive(true);
+            }
+
+            if (timer < 0)
+            {
+                timerText.text = "Game Over";
+                loseScreen.SetActive(true);
+            }
+        }
+        //Original Yiyang Code
+        /*if (!warning.activeInHierarchy && !startScreen.activeInHierarchy)
         {
             timer -= Time.deltaTime;
             mins = (int)timer / 60;
@@ -53,7 +99,7 @@ public class FYTtimer : MonoBehaviour
                 timerText.text = "Game Over";
                 loseScreen.SetActive(true);
             }
-        }
+        }*/
 
     }
 

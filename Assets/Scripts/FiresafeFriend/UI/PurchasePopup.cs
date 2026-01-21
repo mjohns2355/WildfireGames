@@ -77,12 +77,19 @@ public class PurchasePopup : MonoBehaviour
     public void InitPurchasePopup(HousePartInfo partInfo)
     {
         this.partInfo = partInfo;
-        priceText.text = $"Purchase: ${partInfo.price:N0}";
-        classText.text = $"Class {partInfo.materialClass}";
+        //priceText.text = $"Purchase: ${partInfo.price:N0}";
+        //classText.text = $"Class {partInfo.materialClass}";
+        string priceFormat = StringManager.Instance.GetText("purchaseText");
+        priceText.text = string.Format(priceFormat, partInfo.price);
+        string classFormat = StringManager.Instance.GetText("classText");
+        classText.text = string.Format(classFormat, partInfo.materialClass);
         //descriptionText.text = partInfo.description;
         if (StringManager.Instance != null){
         descriptionText.text = StringManager.Instance.GetText(partInfo.description);
         } else {
+        priceText.text = $"Purchase: ${partInfo.price:N0}";
+        classText.text = $"Class {partInfo.materialClass}";
+        itemNameText.text = partInfo.partID;
         descriptionText.text = partInfo.description;
         }
         icon.sprite = partInfo.icon;
