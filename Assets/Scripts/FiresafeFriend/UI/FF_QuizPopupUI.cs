@@ -26,6 +26,14 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     public void InitQuizPopup()
     {
+        answeredCorrectly = false;
+
+        foreach (Transform child in buttonsParent)
+        {
+            Destroy(child.gameObject);
+        }
+        optionDict.Clear();
+
         question = HH_GameManager.Instance.quizManager.ReturnRandomQuestion();
         questionText.text = question.GetLocalizedQuestion(LocalizationManager.CurrentLanguage);
 
@@ -40,6 +48,8 @@ public class FF_QuizPopupUI : MonoBehaviour
             button.GetComponentInChildren<TextMeshProUGUI>().text = localizedOptions[i];
 
             int capturedIndex = i;
+            
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
                 StartCoroutine(OnOptionButtonClickedRoutine(button));
@@ -53,11 +63,11 @@ public class FF_QuizPopupUI : MonoBehaviour
         {
             ScriptedTutorialExample();
         }
-
+        
         Debug.Log($"Correct index: {correctAnswerIndex}, Option: {localizedOptions[correctAnswerIndex]}");
     }
 
-    void OnOptionButtonClicked(Button button)
+    bool OnOptionButtonClicked(Button button)
     {
 
         int index = -1;
@@ -71,11 +81,14 @@ public class FF_QuizPopupUI : MonoBehaviour
             //var budgetManager = HH_GameManager.Instance.currentPlayer.budgetManager;
             //budgetManager.IncreaseBudget(budgetManager.CalculateRewardBudget());
             //OnCorrectAnswer.Invoke();
-            answeredCorrectly = true;
+
+            //answeredCorrectly = true;
+            return true;
         }
         else
         {
             button.GetComponent<Image>().color = Color.red;
+            return false;
 
         }
     }
@@ -83,7 +96,28 @@ public class FF_QuizPopupUI : MonoBehaviour
 
     IEnumerator OnOptionButtonClickedRoutine(Button button)
     {
-        OnOptionButtonClicked(button);
+        foreach (var btn in optionDict.Keys)
+        {
+            btn.interactable = false;
+        }
+
+        bool isCorrect = OnOptionButtonClicked(button);
+        
+        yield return new WaitForSeconds(1f);
+
+        quizPanel.SetActive(false);
+
+        HH_GameManager.Instance.uiManager.earnMoreMoney.gameObject.SetActive(false);
+
+        if (isCorrect) 
+        {
+            yield return new WaitForSeconds(0.5f);
+            OnCorrectAnswer?.Invoke();
+        }
+
+        gameObject.SetActive(false);
+        //For reference
+        /*OnOptionButtonClicked(button);
         foreach (var btn in optionDict.Keys)
         {
             btn.interactable = false;
@@ -99,6 +133,7 @@ public class FF_QuizPopupUI : MonoBehaviour
             OnCorrectAnswer?.Invoke();
         }
         gameObject.SetActive(false);
+        */
 
     }
 
