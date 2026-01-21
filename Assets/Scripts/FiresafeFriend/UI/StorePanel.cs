@@ -40,7 +40,15 @@ public class StorePanel : MonoBehaviour
         this.isPublic = isPublic;
         player = HH_GameManager.Instance.currentPlayer;
         targetCategory = type;
-        typeCategoryText.text = type.ToString();
+        //typeCategoryText.text = type.ToString();
+        if (StringManager.Instance != null)
+        {
+            typeCategoryText.text = StringManager.Instance.GetText(type.ToString());
+        }
+        else
+        {
+            typeCategoryText.text = type.ToString();
+        }
         UpdateBudgetText(player.budgetManager.currentBudget);
 
         PopulateIconsInStore();
