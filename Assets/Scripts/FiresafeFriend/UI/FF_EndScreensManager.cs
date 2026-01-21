@@ -22,7 +22,16 @@ public class FF_EndScreensManager : MonoBehaviour
     public void ShowCompetitionResult(int p1, int p2) { 
         p1CompetitionScore.text = $"{p1} pts";
         p2CompetitionScore.text = $"{p2} pts";
-        winnerText.text = p1 > p2 ? "Player 1 Wins!" : p1 < p2 ? "Player 2 Wins!" : "It's a Tie!";
+        string resultKey = p1 > p2 ? "player1WinText" : (p1 < p2 ? "player2WinText" : "tieText");
+        if (StringManager.Instance != null)
+        {
+            winnerText.text = StringManager.Instance.GetText(resultKey);
+        }
+        else
+        {
+            winnerText.text = p1 > p2 ? "Player 1 Wins!" : p1 < p2 ? "Player 2 Wins!" : "It's a Tie!";
+        }
+        //winnerText.text = p1 > p2 ? "Player 1 Wins!" : p1 < p2 ? "Player 2 Wins!" : "It's a Tie!";
         UpdateRewards(p1, p2);
         competitionResultScreen.SetActive(true);
     }
