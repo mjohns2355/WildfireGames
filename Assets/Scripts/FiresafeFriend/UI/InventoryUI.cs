@@ -94,8 +94,20 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateItemDetails(MaterialClass itemClass , string itemName)
     {
-        classText.text = $"Class {itemClass}";
-        itemNameText.text = itemName;
+        if (StringManager.Instance != null)
+        {
+            string classTemplate = StringManager.Instance.GetText("classText");
+            classText.text = string.Format(classTemplate, itemClass.ToString());
+
+            itemNameText.text = StringManager.Instance.GetText(itemName);
+        }
+        else
+        {
+            classText.text = $"Class {itemClass}";
+            itemNameText.text = itemName;
+        }
+        //classText.text = $"Class {itemClass}";
+        //itemNameText.text = itemName;
     }
     
     public void ToggleInventory(bool state)
