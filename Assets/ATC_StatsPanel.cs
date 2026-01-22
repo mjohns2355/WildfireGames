@@ -25,11 +25,26 @@ public class ATC_StatsPanel : MonoBehaviour
     {
         if(GameManager.Instance.SimIsEnd) return;
         float timer = GameManager.Instance.SimTimer;
-        statsText.text = "Real-time Stats" + "\n"
-            //+ "Timer:" + ConvertTimeToClockFormat(timer) + "\n"
-            + "Timer: " + (int)timer + " minutes" + "\n"
-            + "Cars Evacuated: " + GameManager.Instance.carsEvacuated + "\n"
-            + "Houses Destroyed: " + GameManager.Instance.housesDestroyed;
+
+        if (StringManager.Instance != null)
+        {
+            string titleLabel = StringManager.Instance.GetText("statsText");
+            string timerLabel = StringManager.Instance.GetText("timerText");
+            string carsLabel = StringManager.Instance.GetText("carsEvacuatedText");
+            string housesLabel = StringManager.Instance.GetText("hoursDestroyedText");
+
+            statsText.text = titleLabel + "\n"
+                + timerLabel + (int)timer + " minutes" + "\n"
+                + carsLabel + GameManager.Instance.carsEvacuated + "\n"
+                + housesLabel + GameManager.Instance.housesDestroyed;
+        }
+        else
+        {
+            statsText.text = "Real-time Stats" + "\n"
+                + "Timer: " + (int)timer + " minutes" + "\n"
+                + "Cars Evacuated: " + GameManager.Instance.carsEvacuated + "\n"
+                + "Houses Destroyed: " + GameManager.Instance.housesDestroyed;
+        }
     }
 
     public void ShowResultText()
