@@ -382,6 +382,14 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         if (GameManager.Instance.currentStage == LevelStage.Tutorial) return;
         if (!objectiveText.transform.parent.gameObject.activeSelf) objectiveText.transform.parent.gameObject.SetActive(true);
         var totalResidents = GameManager.Instance.availableHouseTypes.Count();
-        objectiveText.text = $"Talk to Residents: {TalkedResidentsCount} / {totalResidents}";
+        if (StringManager.Instance != null)
+        {
+            string label = StringManager.Instance.GetText("talkResidentsText");
+            objectiveText.text = $"{label} {TalkedResidentsCount} / {totalResidents}";
+        }
+        else
+        {
+            objectiveText.text = $"Talk to Residents: {TalkedResidentsCount} / {totalResidents}";
+        }
     }
 }
