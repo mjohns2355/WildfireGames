@@ -48,7 +48,7 @@ public class FYTtimer : MonoBehaviour
                 timerText.text = mins.ToString() + ":" + sec.ToString();
             }
 
-            //Test condition to change the game to be faster
+            //Test condition to change the warning notif to be faster
             //if (timer < 355 && !warningChecker)
             if (timer < 180 && !warningChecker)
             {
@@ -67,7 +67,15 @@ public class FYTtimer : MonoBehaviour
 
             if (timer < 0)
             {
-                timerText.text = "Game Over";
+                if (StringManager.Instance != null)
+                {
+                    timerText.text = StringManager.Instance.GetText("gameOverText");
+                }
+                else
+                {
+                    timerText.text = "Game Over";
+                }
+                //timerText.text = "Game Over";
                 loseScreen.SetActive(true);
             }
         }
