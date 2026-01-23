@@ -35,6 +35,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public bool isWaitingForPlayer = true;
     public bool canShowSkipButton = false;
     private bool canClick = false;
+    private bool waitingForPlayerAudio = false;
+    private Coroutine optionAudioCoroutine;
     private int optionsShown = 0;
     private CanvasGroup topEdgeFade;
     //[SerializeField]private List<string> currentPathIds = new();
@@ -138,6 +140,16 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void Update()
     {
+        // click to skip player audio (stops audio, NPC audio will proceed)
+        if (waitingForPlayerAudio && Input.GetMouseButtonDown(0))
+        {
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            return;
+        }
+
         // click through dialogue
         if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
         {
@@ -323,6 +335,17 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void OnOptionSelected(int optionIndex)
     {
+        // Stop option audio sequence if still running
+        if (optionAudioCoroutine != null)
+        {
+            StopCoroutine(optionAudioCoroutine);
+            optionAudioCoroutine = null;
+        }
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         // destroy all option message bubbles
         foreach (var option in optionMessageBubbles)
         {
@@ -334,6 +357,25 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //instantiate new message bubble (use message text if option text and message text is different)
         string text = string.Empty;
         var selectedOption = currentNode.options[optionIndex];
+
+        // Play selected option's audio
+        if (TTSManager.IsEnabled)
+        {
+            string selectedAudioPath = selectedOption.audioPath;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.audioPathES))
+            {
+                selectedAudioPath = selectedOption.audioPathES;
+            }
+            if (!string.IsNullOrEmpty(selectedAudioPath))
+            {
+                AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
+                if (clip != null && audioSource != null)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+                }
+            }
+        }
 
         if (!string.IsNullOrEmpty(selectedOption.messageText))
         {
@@ -384,12 +426,20 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //int remainingCount = CountNodesFrom(nextId);
         //finalPathLength = currentPathIds.Count + remainingCount;
 
-        DOVirtual.DelayedCall(1f, () =>
+        // Wait for player's audio to finish before showing next node
+        // Player can click to skip (handled in Update)
+        if (audioSource != null && audioSource.isPlaying)
         {
-            isWaitingForPlayer = true;
-            canClick = true;
-            DisplayCurrentNode();
-        }).SetId(gameObject);
+            waitingForPlayerAudio = true;
+            yield return new WaitWhile(() => audioSource.isPlaying);
+            waitingForPlayerAudio = false;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        isWaitingForPlayer = true;
+        canClick = true;
+        DisplayCurrentNode();
 
 
     }
@@ -439,6 +489,45 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 OnOptionSelected(currentNode.options.ToList().IndexOf(option));
             });
         }
+
+        // Start playing through each option's audio
+        optionAudioCoroutine = StartCoroutine(PlayOptionAudios());
+    }
+
+    private IEnumerator PlayOptionAudios()
+    {
+        if (!TTSManager.IsEnabled) yield break;
+
+        var flags = dialogFlagsMap[currentDialogTree.houseType];
+        foreach (var option in currentNode.options)
+        {
+            if (!option.conditions.IsMet(flags.Item1)) continue;
+
+            // Select audio path based on language
+            string audioPath = option.audioPath;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.audioPathES))
+            {
+                audioPath = option.audioPathES;
+            }
+
+            if (!string.IsNullOrEmpty(audioPath))
+            {
+                AudioClip clip = Resources.Load<AudioClip>(audioPath);
+                if (clip != null && audioSource != null)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+
+                    // Wait until audio finishes
+                    yield return new WaitWhile(() => audioSource.isPlaying);
+                }
+            }
+
+            // 0.5 second delay between options
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        optionAudioCoroutine = null;
     }
 
     public void EndDialog(bool closed = false)
