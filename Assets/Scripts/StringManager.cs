@@ -67,5 +67,17 @@ public class StringManager : MonoBehaviour
 
         return localizedStrings[key].GetText(LocalizationManager.CurrentLanguage);
     }
+
+    public string GetAudioPath(string key)
+    {
+        if (localizedStrings.Count == 0) return null;
+
+        if (!localizedStrings.ContainsKey(key))
+        {
+            return null;
+        }
+
+        return localizedStrings[key].GetAudioPath(LocalizationManager.CurrentLanguage);
+    }
 }
 

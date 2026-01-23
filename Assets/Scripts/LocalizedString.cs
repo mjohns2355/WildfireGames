@@ -5,7 +5,9 @@ public class LocalizedString
 {
     public string key;
     public string text_en;
-    public string text_es; 
+    public string text_es;
+    public string audioPath;
+    public string audioPathES;
 
     public string GetText(string lang)
     {
@@ -14,5 +16,14 @@ public class LocalizedString
             return text_es;
         }
         return text_en;
+    }
+
+    public string GetAudioPath(string lang)
+    {
+        if (lang == "es" && !string.IsNullOrEmpty(audioPathES))
+        {
+            return audioPathES;
+        }
+        return audioPath;
     }
 }
