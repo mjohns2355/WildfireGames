@@ -34,6 +34,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     [SerializeField] private int currentStepIndex = 0;
 
     private HH_CameraController cameraController;
+    private AudioSource audioSource;
 
     public TextMeshProUGUI tutorialText;
     public GameObject nextButton;
@@ -45,6 +46,12 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         Time.timeScale = 1;
 
         cameraController = HH_GameManager.Instance.cameraController;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
         if (StringManager.Instance != null)
         {
@@ -87,6 +94,11 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
     void StartStep(int stepIndex)
     {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         if (stepIndex >= tutorialSteps.Count)
         {
             Debug.LogError("Step index out of range.");
@@ -97,6 +109,8 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
         tutorialText.text = step.localizedDescription;
         tutorialPanel.SetActive(true);
+
+        PlayAudioForKey(step.descriptionKey);
 
         if (step.zoomToObject)
         {
@@ -145,6 +159,26 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
     public void UpdateTutorialText(string text)
     {
         tutorialText.text = text;
+    }
+
+    private void PlayAudioForKey(string key)
+    {
+        if (!TTSManager.IsEnabled || StringManager.Instance == null) return;
+
+        string audioPath = StringManager.Instance.GetAudioPath(key);
+        if (!string.IsNullOrEmpty(audioPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(audioPath);
+            if (clip != null && audioSource != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Audio clip not found: {audioPath}");
+            }
+        }
     }
 
     private void OnDestroy()
