@@ -22,6 +22,7 @@ public class FC_TutorialManager : MonoBehaviour
     [SerializeField] bool isFirstTimeTutorial = true;
     [SerializeField] StructureManager structureManager;
     [SerializeField] ATC_HouseDialogManager houseDialogManager;
+    public GameObject voiceOverToggle;
 
     public void InitTutorialManager()
     {
@@ -40,6 +41,7 @@ public class FC_TutorialManager : MonoBehaviour
         titleCard.onClick.AddListener(() =>
         {
             titleCard.gameObject.SetActive(false);
+            voiceOverToggle.SetActive(false);
             StartTutorial();
         });
 
