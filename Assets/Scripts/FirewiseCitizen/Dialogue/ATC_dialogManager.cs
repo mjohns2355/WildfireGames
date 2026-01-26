@@ -15,7 +15,8 @@ public class QuoteEntry
     public string houseType;
     public string choice;   
     public string response;
-    public string quote;    
+    public string quote;  
+    public string quoteES;  
 }
 
 [Serializable]
@@ -92,6 +93,7 @@ public class ATC_dialogManager : MonoBehaviour
     
     public string GetEndQuote(string houseType, string choice, string response)
     {
+        bool isSpanish = LocalizationManager.CurrentLanguage == "es";
         //Debug.Log($"Get end qupte for house: {houseType}, Selected Choice: {choice}, Response: {response}");
         foreach (var entry in endQuoteData.quotes)
         {
@@ -100,11 +102,17 @@ public class ATC_dialogManager : MonoBehaviour
                 && string.Equals(entry.choice, choice, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(entry.response, response, StringComparison.OrdinalIgnoreCase))
             {
+                if (isSpanish && !string.IsNullOrEmpty(entry.quoteES))
+                {
+                    return entry.quoteES;
+                }
                 return entry.quote;
             }
         }
 
-        return "No quote available for this scenario.";
+        return isSpanish ? "No hay comentario disponible." : "No quote available for this scenario.";
+
+        
     }
 
     public void HideDialogBox()
@@ -164,12 +172,11 @@ public class ATC_dialogManager : MonoBehaviour
 
         if (followedOrders && validCount != 0)
         {
-            res = "We credit this to the effort citizens took to ";
-           
+            res = StringManager.Instance.GetText("newsQuote1Text");
         }
         else
         {
-            res = "Despite warnings, many residents did not follow evacuation orders for a variety of personal circumstances. We need to come together as a community to prepare better for the next time.";
+            res = StringManager.Instance.GetText("newsQuote2Text");
         }
 
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
@@ -184,19 +191,22 @@ public class ATC_dialogManager : MonoBehaviour
 
         if (followedOrders)
         {
-            firstHalf.text = $"Miraculously, everyone survived, however {GameManager.Instance.housesDestroyed} homes were damaged during the major fire that spread through the city. " + res;
+            string survivalIntro = StringManager.Instance.GetText("newsQuote3Text");
+            string formattedIntro = string.Format(survivalIntro, GameManager.Instance.housesDestroyed);
+            
+            firstHalf.text = formattedIntro + " " + res;
         }
         else
         {
             firstHalf.text = res;
         }
-
         var i = new System.Random();
         List<string> randomQuotes = allQuotes.OrderBy(x => i.Next()).Take(1).ToList();
         newsImage.sprite = GameManager.Instance.structureManager.ReturnHouseInfoFor(houseType).newsUISprite;
         var quote = string.Join("\n\n", randomQuotes);
         endQuote.text = quote;
     }
+
     public void SetStage(LevelStage stage)
     {
         GameManager.Instance.currentStage = stage;
