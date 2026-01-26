@@ -10,9 +10,11 @@ public class MainMenu1 : MonoBehaviour
     private string selectedScene = "";
 
     [SerializeField] private Button playButton;
+    [SerializeField] public GameObject chooseMiniGame;
 
     private void Start()
     {
+        chooseMiniGame.SetActive(true);
         AudioListener.pause = false;
         AudioListener.volume = 1.0f;
         if (playButton != null)
@@ -29,6 +31,7 @@ public class MainMenu1 : MonoBehaviour
         if (playButton != null)
         {
             playButton.gameObject.SetActive(true);
+            chooseMiniGame.SetActive(false);
         }
     }
 

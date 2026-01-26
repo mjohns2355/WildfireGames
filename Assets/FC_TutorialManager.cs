@@ -22,6 +22,7 @@ public class FC_TutorialManager : MonoBehaviour
     [SerializeField] bool isFirstTimeTutorial = true;
     [SerializeField] StructureManager structureManager;
     [SerializeField] ATC_HouseDialogManager houseDialogManager;
+    public GameObject voiceOverToggle;
 
     public void InitTutorialManager()
     {
@@ -40,6 +41,7 @@ public class FC_TutorialManager : MonoBehaviour
         titleCard.onClick.AddListener(() =>
         {
             titleCard.gameObject.SetActive(false);
+            voiceOverToggle.SetActive(false);
             StartTutorial();
         });
 
@@ -192,11 +194,23 @@ public class FC_TutorialManager : MonoBehaviour
     private void OnIntroDialogueComplete()
     {
         GameManager.Instance.canControlCam = true;
-        var text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"Pets\">. ";
-        var controlText = string.Empty;
-        var text2 = "and <b>select Mary's Home.</b>";
-        //string message = text1 + "<b>Use W A S D to move</b> OR <b>Press and hold on the map to scroll </b>" + text2;
-        string message = text1 + "<b>Touch and drag to move </b>" + text2;
+        string text1, text2, message;
+
+        if (StringManager.Instance != null)
+        {
+            text1 = StringManager.Instance.GetText("tut1Text");
+            text2 = StringManager.Instance.GetText("tut2Text");
+            string movementInstructions = StringManager.Instance.GetText("tut3Text");
+            
+            message = text1 + movementInstructions + text2;
+        }
+        else
+        {
+            text1 = "Mary hasn't been spoken to yet, so her home is <b>marked</b> with a <sprite name=\"Pets\">. ";
+            text2 = "and <b>select Mary's Home.</b>";
+            //string message = text1 + "<b>Use W A S D to move</b> OR <b>Press and hold on the map to scroll </b>" + text2;
+            message = text1 + "<b>Touch and drag to move </b>" + text2;
+        }
         UpdateBottomDialog(message);
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
