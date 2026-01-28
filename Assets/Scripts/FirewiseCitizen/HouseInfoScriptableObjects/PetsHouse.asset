@@ -25,9 +25,6 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
-    endGameFeedback: "Families with pets took a long time to get out because no one
-      was prepared. Next time we need to help them get out quicker, for everyone\u2019s
-      safety."
     isLocked: 0
     isNormal: 1
   - choiceName: Plan Ahead
@@ -40,9 +37,6 @@ MonoBehaviour:
     carLeaveTime: 1
     choiceDetail: Before an emergency, prepare carriers, leashes, food, water, and
       medical records. Make sure all animals have collars with identification.
-    endGameFeedback: Families with pets planned ahead and were able to get out as
-      soon as the evacuation notice came, but maybe they could leave even earlier
-      next time.
     isLocked: 1
     isNormal: 0
   - choiceName: Evacuate Early
@@ -56,19 +50,12 @@ MonoBehaviour:
     choiceDetail: Having pets might make the evacuation stressful, so it is important
       to plan ahead and make sure the pets are in a room where they can be easily
       found for the evacuation.
-    endGameFeedback: "\u201CGood call for families with pets to evacuate early, they
-      all got out of the path of the fire before an evacuation notice came!"
     isLocked: 1
     isNormal: 0
-  longerTitle: Pets
+  longerTitle: petsText
   descriptions:
-  - Having pets can increase the time needed to evacuate safely. It is very important
-    to make plans in advance and consider multiple scenarios and consequences of
-    choices.
-  - ' Be sure you have a carrier or leash readily available and that the pets are
-    in an easily accessible space on red flag days (ie. keep them inside and in a
-    room where you can find/catch them easily). It may be a good idea to evacuate
-    early and have a plan to stay in a pet-friendly shelter or with friends. '
+  - pets1Text
+  - pets2Text
   carNumber: 1
   horseNumber: 0
   petNumber: 1
@@ -84,7 +71,6 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
-    endGameFeedback: 
     isLocked: 0
     isNormal: 0
   allowMultipleChoices: 0
@@ -93,5 +79,5 @@ MonoBehaviour:
   choicePicture: {fileID: 21300000, guid: 099e94cb0630d461e9ba4b9cd09d179c, type: 3}
   houseIcon: {fileID: -789902164, guid: 4323dff666698f1418f4581130c52780, type: 3}
   incentiveOptions:
-  - $20 Gift Card
-  - $50 Gift Card
+  - incentiveOptions1Text
+  - incentiveOptions2Text

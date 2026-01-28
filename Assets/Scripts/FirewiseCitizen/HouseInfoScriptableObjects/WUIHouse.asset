@@ -25,10 +25,6 @@ MonoBehaviour:
     carLeaveTime: 0
     choiceDetail: 'Houses in the Wildland Urban Interface are at higher risk. Clearing
       brush and replacing mulch with gravel are inexpensive ways to start home hardening. '
-    choiceThought: 
-    choiceThoughtSprite: {fileID: 0}
-    endGameFeedback: Houses along the Wildland Urban Interface were ready and knew
-      to evacuate without waiting for a notice.
     isLocked: 0
     isNormal: 1
   - choiceName: Full Home Hardening
@@ -42,20 +38,12 @@ MonoBehaviour:
     choiceDetail: Home hardening can help prevent a house from catching fire. This
       includes things  like replcaing the roof with nonflamable materials and clearing
       vegetation.
-    choiceThought: 
-    choiceThoughtSprite: {fileID: 0}
-    endGameFeedback: Households in the Wildland Urban Interface benefited from home
-      hardening awareness, and many of those houses were unburned.
     isLocked: 1
     isNormal: 0
-  longerTitle: Near Wildland
+  longerTitle: nearWildlandText
   descriptions:
-  - 'Living at the Wildland Urban Interface comes with risks and challenges. It is
-    very important to take action early and to consider multiple scenarios and consequences
-    of choices. '
-  - 'Long before fire season, consider hardening your home and creating a defensible
-    space. Be sure you have a Go Bag and a plan for your belongings. Consider evacuating
-    early before an evacuation notice to protect yourself and reduce risk. '
+  - nearWildland1Text
+  - nearWildland2Text
   carNumber: 1
   horseNumber: 0
   petNumber: 0
@@ -71,9 +59,6 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
-    choiceThought: 
-    choiceThoughtSprite: {fileID: 0}
-    endGameFeedback: 
     isLocked: 0
     isNormal: 0
   allowMultipleChoices: 0
@@ -82,5 +67,5 @@ MonoBehaviour:
   choicePicture: {fileID: 21300000, guid: 7dcc616578d9a43339c839ed2fb14fd4, type: 3}
   houseIcon: {fileID: 21300000, guid: b03514ebaddc64cd6bc05c4b36163820, type: 3}
   incentiveOptions:
-  - Insurance Rebate
-  - Landscape Grant
+  - incentiveOptions3Text
+  - incentiveOptions4Text
