@@ -68,8 +68,14 @@ public class FC_IncentivePage : MonoBehaviour
         this.owner = owner;
         confirm.interactable = currentSelected != null;
         confirmationPage.SetActive(true);
-        incentiveOne.InitIncentiveOptions(owner.houseInfo.incentiveOptions[0], this);
-        incentiveTwo.InitIncentiveOptions(owner.houseInfo.incentiveOptions[1], this);
+
+        string keyOne = owner.houseInfo.incentiveOptions[0];
+        string keyTwo = owner.houseInfo.incentiveOptions[1];
+
+        incentiveOne.InitIncentiveOptions(StringManager.Instance.GetText(keyOne), this);
+        incentiveTwo.InitIncentiveOptions(StringManager.Instance.GetText(keyTwo), this);
+        //incentiveOne.InitIncentiveOptions(owner.houseInfo.incentiveOptions[0], this);
+        //incentiveTwo.InitIncentiveOptions(owner.houseInfo.incentiveOptions[1], this);
     }
 
     public void HideConfirmationPage()
