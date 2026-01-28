@@ -25,9 +25,6 @@ MonoBehaviour:
     carLeaveTime: 2
     choiceDetail: 'No city-wide plan requests. Let residents make a decision when
       the evacuation notice goes out. '
-    endGameFeedback: Older residents were caught off guard this time and waited for
-      the evacuation notice before taking action. As a community, we need a better
-      plan in place.
     isLocked: 0
     isNormal: 1
   - choiceName: Evacuate Early
@@ -40,9 +37,6 @@ MonoBehaviour:
     carLeaveTime: 0
     choiceDetail: Evacuate early will allow for more time to get out safely. This
       is a good choice!
-    endGameFeedback: 'A community plan to notify older residents was successful:
-      those needing more time were able to evacuate early before the evacuation notice
-      went out.'
     isLocked: 1
     isNormal: 0
   - choiceName: Help From Neighbor
@@ -55,19 +49,12 @@ MonoBehaviour:
     carLeaveTime: 1
     choiceDetail: Getting help from a neighbor will be a great option! This will
       make evacuating both safer as well as quicker.
-    endGameFeedback: Neighbors stepped in to help, offering rides to older residents
-      who may have had trouble otherwise.
     isLocked: 1
     isNormal: 0
-  longerTitle: Elderly Resident
+  longerTitle: elderlyResText
   descriptions:
-  - 'Older residents may need additional time and support to evacuate safely. It
-    is very important to make plans in advance and consider multiple scenarios and
-    consequences of choices. '
-  - Some adult children and grand children choose to drive a great distance to pick
-    up their elderly relative, but this can cause delays and additional congestion.
-    Consider making a plan with a neighbor who can help them evacuate, or arranging
-    to evacuate them early before there is an evacuation notice.
+  - elderlyRes1Text
+  - elderlyRes2Text
   carNumber: 1
   horseNumber: 0
   petNumber: 0
@@ -83,7 +70,6 @@ MonoBehaviour:
     carSpeedMod: 0
     carLeaveTime: 0
     choiceDetail: 
-    endGameFeedback: 
     isLocked: 0
     isNormal: 0
   allowMultipleChoices: 0

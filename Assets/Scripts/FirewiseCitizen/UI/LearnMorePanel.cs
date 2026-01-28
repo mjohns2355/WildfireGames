@@ -51,8 +51,10 @@ public class LearnMorePanel : MonoBehaviour
         detailPage.SetActive(true);
         homePage.SetActive(false); 
         //unlockedBtns.gameObject.SetActive(true);
-        title.text = "Learn More: " + targetHouseInfo.longerTitle;
-
+        //title.text = "Learn More: " + targetHouseInfo.longerTitle;
+        string prefix = StringManager.Instance.GetText("learnMorePanelText");
+        string translatedTitle = StringManager.Instance.GetText(targetHouseInfo.longerTitle); 
+        title.text = prefix + " " + translatedTitle;
         //detailPageDescription.text = targetHouseInfo.description;
         bool isAllUnlocked = targetHouseInfo.AllChoicesAreUnlocked();
         if(choiceName != null)
@@ -189,7 +191,8 @@ public class LearnMorePanel : MonoBehaviour
             string descritption = string.Empty;
             foreach( var desc in descriptions )
             {
-                descritption += desc;
+                //descritption += desc;
+                descritption += StringManager.Instance.GetText(desc) + "\n\n";
             }
 
             detailPageDescription.text = descritption;
@@ -199,7 +202,9 @@ public class LearnMorePanel : MonoBehaviour
             return;
         }
 
-        detailPageDescription.text = descriptions[currentDescriptionIndex];
+        string currentKey = descriptions[currentDescriptionIndex];
+        detailPageDescription.text = StringManager.Instance.GetText(currentKey);
+        //detailPageDescription.text = descriptions[currentDescriptionIndex];
         if(currentDescriptionIndex >= descriptions.Length - 1 )
         {
             nextButton.gameObject.SetActive(false);
