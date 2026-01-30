@@ -25,6 +25,7 @@
             "options": [
                 {
                     "optionText": "Yes",
+                    "optionTextES": "Sí",
                     "messageText": "Yes I am. I would love to help if I can.",
                     "messageTextES": "Sí, lo soy. Me encantaría ayudar si puedo.",
                     "audioPath": "FirewiseCitizen/Audio/Player/twoCar_opt_yes",
@@ -32,11 +33,13 @@
                 },
                 {
                     "optionText": "Nice Truck",
+                    "optionTextES": "Buena camioneta",
                     "messageText": "That's a pretty nice truck you got there.",
                     "nextNodeId": "20"
                 },
                 {
                     "optionText": "Skip to final decision",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "200"
                 }
             ]
@@ -70,6 +73,7 @@
           "options": [
             {
               "optionText": "What's worrying you?",
+              "optionTextES": "¿Qué es lo que más le preocupa?",
               "messageText": "It's nice to meet you Bailey. What can I do to help?",
               "nextNodeId": "4"
             }
@@ -86,11 +90,13 @@
             "options": [
                 {
                     "optionText": "How can I help?",
+                    "optionTextES": "¿Cómo puedo ayudar?",
                     "messageText": "It's nice to meet you Bailey. What can I do to help?",
                     "nextNodeId": "4"
                 },
                 {
                     "optionText": "Skip to final decision",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "200"
                 }
             ]
@@ -115,15 +121,18 @@
           "options": [
             {
               "optionText": "Taking two cars could help.",
+              "optionTextES": "Llevar ambos autos podría ayudar.",
               "messageText": "Having two cars could help you pack more stuff. What's your plan if a fire gets close?"
             },
             {
               "optionText": "Taking two cars could cause congestion.",
+              "optionTextES": "Llevar dos autos podría causar congestión.",
               "messageText": "Have you thought about how taking two cars might make evacuating harder for others?",
               "nextNodeId": "100"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -166,11 +175,13 @@
           "options": [
             {
               "optionText": "Relocate second car",
+              "optionTextES": "Reubicar el segundo auto",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
               "nextNodeId": "40"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -195,16 +206,19 @@
           "options": [
             {
               "optionText": "Take one car",
+              "optionTextES": "Llevar un solo auto",
               "messageText": "It makes sense to not want to be seperated, or risk someone getting hurt because they were stuck in traffic.",
               "nextNodeId": "30"
             },
             {
               "optionText": "Relocate second car",
+              "optionTextES": "Reubicar el segundo auto",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -240,11 +254,13 @@
           "options": [
             {
                 "optionText": "Have you thought about how two cars might make evacuating harder?",
+                "optionTextES": "¿Ha pensado en cómo dos autos podrían dificultar la evacuación?",
                 "messageText": "Have you thought about how two cars might make evacuating harder? And if everyone took two cars the traffic could be really bad.",
                 "nextNodeId": "100"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -273,6 +289,7 @@
         {
           "id": "200",
           "dialogText": "<b>What is best for Bailey?</b>",
+          "dialogTextES": "<b>¿Qué es mejor para Bailey?</b>",
           "isEndNode": "true"
         }
       ]
@@ -312,16 +329,19 @@
           "options": [
             {
               "optionText": "Sounds like sporty kids!",
+              "optionTextES": "¡Parece que tienes hijos deportistas!",
               "messageText": "It's nice to meet you Gabe. Seems like you've got some sporty kids!",
               "nextNodeId": "100"
             },
             {
                 "optionText": "Anything you're worried about?",
+                "optionTextES": "¿Hay algo que le preocupe?",
                 "messageText": "It's nice to meet you Gabe. Anything worrying you?",
                 "nextNodeId": "14"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -346,11 +366,13 @@
           "options": [
             {
               "optionText": "Need advice for fire season?",
+              "optionTextES": "¿Necesita algún consejo para la temporada de incendios?",
               "messageText": "What advice can I offer to help you prepare for fire season?",
               "nextNodeId": "14"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -375,10 +397,12 @@
           "options": [
             {
               "optionText": "School Evacuation Plans?",
+              "optionTextES": "¿Tienen planes de evacuación escolar?",
               "messageText": "Have you talked to the school about their wildfire evacuation plans?"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -403,15 +427,18 @@
           "options": [
             {
               "optionText": "Schools are safe places.",
+              "optionTextES": "Las escuelas son lugares seguros.",
               "messageText": "Being worried about being seperated is completely understandable."
             },
             {
                 "optionText": "Are you considering picking them up?",
+                "optionTextES": "¿Está pensando en ir a recogerlos?",
                 "messageText": "Being worried about being seperated is completely understandable.",
                 "nextNodeId": "21"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -446,11 +473,13 @@
           "options": [
             {
               "optionText": "You could reach out to the school.",
+              "optionTextES": "Podría ponerse en contacto con la escuela.",
               "messageText": "It might ease your anxiety to reach out to the school again. They could host a meeting discussing these topics.",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -480,15 +509,18 @@
           "options": [
             {
               "optionText": "Coordinate with Parents",
+              "optionTextES": "Coordinar con otros padres",
               "messageText": "Maybe you could coordinate with other parents to carpool, or ensure everyone is safe?"
             },
             {
               "optionText": "Pick Up Early",
+              "optionTextES": "Recogerlos temprano",
               "messageText": "Have you thought about picking them up early? That might help with the traffic concerns.",
               "nextNodeId": "30"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -513,11 +545,13 @@
           "options": [
             {
               "optionText": "Schools are safe places.",
+              "optionTextES": "Las escuelas son lugares seguros.",
               "messageText": "It makes sense to be worried.",
               "nextNodeId": "18"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -533,11 +567,13 @@
           "options": [
             {
               "optionText": "Safer at School",
+              "optionTextES": "Más seguros en la escuela",
               "messageText": "Your concerns are completely understandable.",
               "nextNodeId": "18"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -560,6 +596,7 @@
         {
           "id": "200",
           "dialogText": "<b>What is best for Gabe and Sam?</b>",
+          "dialogTextES": "<b>¿Qué es mejor para Gabe y Sam?</b>",
           "isEndNode": "true"
         }
       ]
@@ -640,10 +677,12 @@
             "options": [
                 {
                     "optionText": "How can I help?",
+                    "optionTextES": "¿Cómo puedo ayudar?",
                     "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
                     "conditions": {
                         "hasIncentives": 1
@@ -652,6 +691,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -664,10 +704,12 @@
           "options": [
             {
               "optionText": "How can I help?",
+              "optionTextES": "¿Cómo puedo ayudar?",
               "messageText": "It's nice to meet you Sarah! How can I help?"
             },
             {
               "optionText": "Skip to Incentives",
+              "optionTextES": "Saltar a incentivos",
               "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
               "conditions": {
                 "hasIncentives": 1
@@ -676,6 +718,7 @@
             },
             {
               "optionText": "Skip to Final Decisions",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "100"
             }
           ]
@@ -724,10 +767,12 @@
             "options": [
                 {
                     "optionText": "Wildfires are indeed a risk!",
+                    "optionTextES": "¡Los incendios forestales son un riesgo real!",
                     "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
                     "conditions": {
                         "hasIncentives": 1
@@ -736,6 +781,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -787,10 +833,12 @@
             "options": [
                 {
                     "optionText": "Home hardening can protect your house",
+                    "optionTextES": "El refuerzo de la vivienda puede proteger su casa.",
                     "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation."
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
                     "conditions": {
                         "hasIncentives": 1
@@ -799,6 +847,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -828,11 +877,13 @@
             "options": [
                 {
                     "optionText": "Home hardening steps",
+                    "optionTextES": "Pasos para el refuerzo de la vivienda",
                     "messageText": "There are steps you can take now to begin home hardening now.",
                     "nextNodeId": "37"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
                     "conditions": {
                         "hasIncentives": 1
@@ -841,6 +892,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -885,6 +937,7 @@
             "options": [
                 {
                     "optionText": "Offer Incentives",
+                    "optionTextES": "Ofrecer incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
                     "conditions": {
                         "hasIncentives": 1
@@ -893,11 +946,13 @@
                 },
                 {
                     "optionText": "There are less costly options",
+                    "optionTextES": "Hay opciones menos costosas.",
                     "messageText": "There are less costly options as well!",
                     "nextNodeId": "46"
                 },
                 {
                     "optionText": "I understand where you are coming from",
+                    "optionTextES": "Entiendo perfectamente su situación.",
                     "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
                     "nextNodeId": "60"
                 }
@@ -942,6 +997,7 @@
             "options": [
                 {
                     "optionText": "Understanding",
+                    "optionTextES": "Comprensión",
                     "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment."
                 }
             ]
@@ -975,6 +1031,7 @@
             "options": [
                 {
                     "optionText": "Make final decision",
+                    "optionTextES": "Tomar decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -1004,6 +1061,7 @@
             "options": [
                 {
                     "optionText": "Make final decision",
+                    "optionTextES": "Tomar decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -1049,14 +1107,17 @@
           "options": [
             {
               "optionText": "How can I help?",
+              "optionTextES": "¿Cómo puedo ayudar?",
               "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
             },
             {
               "optionText": "What's worrying you?",
+              "optionTextES": "¿Qué le preocupa?",
               "messageText": "It's very nice to meet you ma'am. What's worrying you about the wildfires?"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1090,10 +1151,12 @@
           "options": [
             {
               "optionText": "Great to hear",
+              "optionTextES": "Me alegra mucho escucharlo",
               "messageText": "That's great to hear! It's very important to prepare a go bag before the emergency arises, so you can quickly evacuate."
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1132,15 +1195,18 @@
           "options": [
             {
               "optionText": "Early evacuation planning could be a good start.",
+              "optionTextES": "Planear la evacuación con tiempo sería un buen comienzo.",
               "messageText": "Planning for an early evacuation is important. <b>Red Flag</b> days are days with particularly high fire risk. Have you thought about leaving early when there is a Red Flag warning?"
             },
             {
               "optionText": "Is there anyone you can ask for help?",
+              "optionTextES": "¿Hay alguien a quien pueda pedir ayuda?",
               "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
               "nextNodeId": "50"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1174,15 +1240,18 @@
           "options": [
             {
                 "optionText": "Could your family help you evacuate early?",
+                "optionTextES": "¿Podría su familia ayudarle a evacuar con tiempo?",
                 "messageText": "If plan to leave early you'd give your kids time to arrive. <b>Red Flag</b> days are days with particularly high fire risk. Have you considered asking them to help on <b>Red Flag</b> days?"
             },
             {
               "optionText": "Could your neighbors help?",
+              "optionTextES": "¿Podrían ayudarle sus vecinos?",
               "messageText": "What about your neighbors, could they help?",
               "nextNodeId": "51"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1198,11 +1267,13 @@
           "options": [
             {
                 "optionText": "Could your neighbors help?",
+                "optionTextES": "¿Podrían ayudarle sus vecinos?",
                 "messageText": "What about your neighbors, could they help if there's an emergency?",
                 "nextNodeId": "51"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -1227,16 +1298,19 @@
           "options": [
             {
               "optionText": "Ask the neighbors",
+              "optionTextES": "Preguntar a los vecinos",
               "messageText": "It's good to have supportive neighbors! I'm sure they won't see it as a burden at all, especially if you plan ahead.",
               "nextNodeId": "60"
             },
             {
               "optionText": "Plan for early evacuation",
+              "optionTextES": "Planear evacuación anticipada",
               "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1315,16 +1389,19 @@
                 "options": [
                     {
                         "optionText": "How can I help?",
+                        "optionTextES": "¿Cómo puedo ayudar?",
                         "messageText": "Pleasure to meet you Genaro. How can I help?",
                         "nextNodeId": "45"
                     },
                     {
                         "optionText": "Cute dogs!",
+                        "optionTextES": "¡Qué perros más lindos!",
                         "messageText": "Those are some really cute dogs. Do you have other pets?",
                         "nextNodeId": "400"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1357,6 +1434,7 @@
                 "options": [
                     {
                         "optionText": "How can I help?",
+                        "optionTextES": "¿Cómo puedo ayudar?",
                         "nextNodeId": "45"
                     }
                 ]
@@ -1399,15 +1477,18 @@
                 "options": [
                     {
                         "optionText": "An evacuation plan could help.",
+                        "optionTextES": "Un plan de evacuación podría ayudar.",
                         "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave."
                     },
                     {
                         "optionText": "Could you evacuate early?",
+                        "optionTextES": "¿Podría evacuar con tiempo?",
                         "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
                         "nextNodeId": "100"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1432,21 +1513,25 @@
                 "options": [
                     {
                         "optionText": "Practice evacuation",
+                        "optionTextES": "Practicar la evacuación",
                         "messageText": "Doing a practice run might help you prepare before an actual emergency.",
                         "nextNodeId": "200"
                     },
                     {
                         "optionText": "Prep a Go-Bag",
+                        "optionTextES": "Preparar una mochila de emergencia",
                         "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
                         "nextNodeId": "300"
                     },
                     {
                         "optionText": "Could you evacuate early?",
+                        "optionTextES": "¿Podría evacuar con tiempo?",
                         "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
                         "nextNodeId": "100"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1471,6 +1556,7 @@
                 "options": [
                     {
                         "optionText": "You can use items from the Go-Bag",
+                        "optionTextES": "Puede usar los artículos de la mochila de emergencia.",
                         "messageText": "Even when items are in the Go-Bag you can still use them, so they can be gathered together but not go to waste."
                     }
                 ]
@@ -1510,11 +1596,13 @@
                 "options": [
                     {
                         "optionText": "Prep a Go-Bag",
+                         "optionTextES": "Preparar una mochila de emergencia",
                         "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
                         "nextNodeId": "300"
                     },
                     {
                         "optionText": "Conclude",
+                         "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1539,15 +1627,18 @@
                 "options": [
                     {
                         "optionText": "There are pet-friendly shelters.",
+                        "optionTextES": "Hay refugios que aceptan mascotas.",
                         "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic."
                     },
                     {
                         "optionText": "Could you stay with friends or family?",
+                        "optionTextES": "¿Podría quedarse con amigos o familiares?",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
                         "nextNodeId": "104"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1572,11 +1663,13 @@
                 "options": [
                     {
                         "optionText": "Could you stay with friends or family?",
+                        "optionTextES": "¿Podría quedarse con amigos o familiares?",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
                         "nextNodeId": "104"
                     },
                     {
                         "optionText": "Conclude",
+                        "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1610,11 +1703,13 @@
                 "options": [
                     {
                         "optionText": "Going through it could help them get used to it.",
+                        "optionTextES": "Practicar el proceso podría ayudarles a acostumbrarse.",
                         "messageText": "Once they go through it a few times they might start to get more comfortable with it.",
                         "nextNodeId": "107"
                     },
                     {
                         "optionText": "Conclude",
+                        "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1632,6 +1727,7 @@
             {
                 "id": "500",
                 "dialogText": "<b>What is best for Genaro?</b>",
+                "dialogTextES": "<b>¿Qué es mejor para Genaro?</b>",
                 "isEndNode": "true"
             }
         ]
@@ -1660,10 +1756,12 @@
           "options": [
             {
               "optionText": "Review job (Play Tutorial)",
+              "optionTextES": "Revisar trabajo (Jugar tutorial)",
               "messageText": "I think a review of my tasks would be great!"
             },
             {
               "optionText": "Get started (Skip Tutorial)",
+              "optionTextES": "Empezar (Omitir tutorial)",
               "messageText": "I think I'm ready now.",
               "nextNodeId": "71"
             }
@@ -1707,6 +1805,7 @@
           "options": [
             {
               "optionText": "How can I help?",
+              "optionTextES": "¿Cómo puedo ayudar?",
               "messageText": "How can I help with people's wildfire preparations?"
             }
           ]
@@ -1732,6 +1831,7 @@
             "options": [
                 {
                     "optionText": "Let's go! (End Conversation)",
+                    "optionTextES": "¡Vamos! (Terminar conversación)",
                     "messageText": "Let's go!"
                 }
             ]
@@ -1753,10 +1853,12 @@
           "options": [
             {
               "optionText": "What's worrying you?",
+              "optionTextES": "¿Qué le preocupa?",
               "messageText": "What's worrying you this fire season?"
             },
             {
               "optionText": "Happy to help!",
+              "optionTextES": "¡Feliz de ayudar!",
               "messageText": "Hi Mary, I'm happy to help you."
             }
           ]
@@ -1772,10 +1874,12 @@
           "options": [
             {
               "optionText": "That's amazing!",
+              "optionTextES": "¡Eso es increíble!",
               "nextNodeId": "60"
             },
             {
               "optionText": "Pet evacuation?",
+              "optionTextES": "¿Evacuación de mascotas?",
               "messageText": "Are you concerned about keeping your pets safe?",
               "nextNodeId": "61"
             }
@@ -1838,6 +1942,7 @@
           "options": [
             {
               "optionText": "Got it! (Tell Mary)",
+              "optionTextES": "¡Entendido! (Avisar a Mary)",
               "messageText": "You should prepare your pets' supplies as you would with your own! Creating a <b>Go-Bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moment's notice!"
             }
           ]
@@ -1854,6 +1959,7 @@
           "options": [
             {
               "optionText": "Happy to help! (End Conversation)",
+              "optionTextES": "¡Feliz de ayudar! (Terminar conversación)",
               "messageText": "Happy to help!"
             }
           ]
@@ -1884,6 +1990,7 @@
                 "options": [
                     {
                         "optionText": "Sounds good!",
+                        "optionTextES": "¡Me parece bien!",
                         "messageText": "Sounds good! I think I'm ready now."
                     }
                 ]
@@ -1918,10 +2025,12 @@
                 "options": [
                     {
                         "optionText": "Yes (Begin Game)",
+                        "optionTextES": "Sí (Comenzar juego)",
                         "messageText": "Yes"
                     },
                     {
                         "optionText": "No (Review Tutorial)",
+                        "optionTextES": "No (Revisar tutorial)",
                         "messageText": "I wanna review the tutorial.",
                         "nextNodeId": "50"
                     }
@@ -1938,7 +2047,8 @@
                 "isEndNode": "true",
                 "options": [
                     {
-                        "optionText": "Start Game"
+                        "optionText": "Start Game",
+                        "optionTextES": "Comenzar juego"
                     }
                 ]
             }

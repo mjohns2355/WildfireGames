@@ -101,6 +101,7 @@ public class DialogOption
     public string option;
     // text on option button
     public string optionText;
+    public string optionTextES;
     // text actually sent in message
     public string messageText;
     public string messageTextES;

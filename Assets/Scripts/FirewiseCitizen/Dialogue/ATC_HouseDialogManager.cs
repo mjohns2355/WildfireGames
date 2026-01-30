@@ -382,7 +382,22 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
         }
 
-        if (!string.IsNullOrEmpty(selectedOption.messageText))
+        if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.messageTextES))
+        {
+            text = selectedOption.messageTextES;
+        }
+        else if (!string.IsNullOrEmpty(selectedOption.messageText))
+        {
+            text = selectedOption.messageText;
+        }
+        else
+        {
+            text = (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.optionTextES)) 
+                ? selectedOption.optionTextES : selectedOption.optionText;
+        }
+
+        SpawnAMessageBubble(text, null, true, false, false);
+        /*if (!string.IsNullOrEmpty(selectedOption.messageText))
         {
             text = selectedOption.messageText;
         }
@@ -391,7 +406,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             text = selectedOption.optionText;
         }
 
-        SpawnAMessageBubble(text, null, true, false, false);
+        SpawnAMessageBubble(text, null, true, false, false);*/
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
         //jump to end if it node is an end node
@@ -488,7 +503,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             if (!option.conditions.IsMet(flags.Item1)) continue;
 
-            var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
+            string buttonLabel = option.optionText;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.optionTextES))
+            {
+                buttonLabel = option.optionTextES;
+            }
+            
+            var optionBubble = SpawnAMessageBubble(buttonLabel, null, false, true, false);
+            //var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
             optionBubble.messageBox.onClick.AddListener(() =>
             {
                 OnOptionSelected(currentNode.options.ToList().IndexOf(option));
