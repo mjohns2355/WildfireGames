@@ -76,8 +76,26 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnInventoryOpened()
     {
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(inventoryReplaceKey);
+        StartCoroutine(WaitAndInitializeInventory());
+    }
+
+    IEnumerator WaitAndInitializeInventory()
+    {
+        while (StringManager.Instance == null || !StringManager.Instance.IsReady)
+        {
+            yield return null;
+        }
+
+        FF_TutorialManager.Instance.tutorialText.text = StringManager.Instance.GetText(inventoryReplaceKey);
+
+        CategoryButton[] allCategoryButtons = inventory.GetComponentsInChildren<CategoryButton>(true);
+        foreach (var btn in allCategoryButtons)
+        {
+            if (btn.category == HousePartType.Roof)
+            {
+                btn.categoryText.text = StringManager.Instance.GetText("Roof");
+            }
+        }
 
         oldItem = inventory.items[0];
         newItem = inventory.items[1];

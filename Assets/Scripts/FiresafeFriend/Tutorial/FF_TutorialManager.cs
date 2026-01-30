@@ -74,8 +74,7 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
 
         foreach (var step in tutorialSteps)
         {
-            step.localizedDescription =
-                StringManager.Instance.GetText(step.descriptionKey);
+            step.localizedDescription = StringManager.Instance.GetText(step.descriptionKey);
         }
 
         // Refresh current step text if tutorial is already running

@@ -110,9 +110,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
         Sequence arrowSequence = DOTween.Sequence();
 
-        FF_TutorialManager.Instance.UpdateTutorialText(
-            StringManager.Instance.GetText(switchHouseKey)
-        );
+        FF_TutorialManager.Instance.UpdateTutorialText(StringManager.Instance.GetText(switchHouseKey));
 
         arrowSequence.PrependInterval(1f);
         arrowSequence.Append(FadeIn(canvasGroup));
