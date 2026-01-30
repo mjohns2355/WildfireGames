@@ -38,6 +38,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private bool waitingForPlayerAudio = false;
     private Coroutine optionAudioCoroutine;
     private int optionsShown = 0;
+    [Header("Option Highlight")]
+    [SerializeField] private Color optionHighlightColor = new Color(1f, 1f, 0.7f, 1f); // light yellow tint
+    [SerializeField] private Color outlineColor = new Color(1f, 0.725f, 0.22f, 1f); // #FFB938
+    [SerializeField] private Vector2 outlineDistance = new Vector2(3f, 3f);
+    [SerializeField] private float highlightFadeDuration = 0.3f;
     private CanvasGroup topEdgeFade;
     //[SerializeField]private List<string> currentPathIds = new();
     //private int currentPathIndex = 0;
@@ -499,9 +504,25 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (!TTSManager.IsEnabled) yield break;
 
         var flags = dialogFlagsMap[currentDialogTree.houseType];
+        int bubbleIndex = 0;
+
         foreach (var option in currentNode.options)
         {
             if (!option.conditions.IsMet(flags.Item1)) continue;
+
+            // Fade in highlight on current option bubble
+            UnityEngine.UI.Outline outline = null;
+            if (bubbleIndex < optionMessageBubbles.Count)
+            {
+                var bubble = optionMessageBubbles[bubbleIndex];
+                bubble.backgroundImage.DOColor(optionHighlightColor, highlightFadeDuration);
+
+                // Add outline and fade it in
+                outline = bubble.backgroundImage.gameObject.AddComponent<UnityEngine.UI.Outline>();
+                outline.effectDistance = outlineDistance;
+                outline.effectColor = new Color(outlineColor.r, outlineColor.g, outlineColor.b, 0f);
+                DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 1f, highlightFadeDuration);
+            }
 
             // Select audio path based on language
             string audioPath = option.audioPath;
@@ -522,6 +543,22 @@ public class ATC_HouseDialogManager : MonoBehaviour
                     yield return new WaitWhile(() => audioSource.isPlaying);
                 }
             }
+
+            // Fade out highlight (runs during the delay)
+            if (bubbleIndex < optionMessageBubbles.Count)
+            {
+                var bubble = optionMessageBubbles[bubbleIndex];
+                bubble.backgroundImage.DOColor(Color.white, highlightFadeDuration);
+
+                // Fade out and destroy outline
+                if (outline != null)
+                {
+                    DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 0f, highlightFadeDuration)
+                        .OnComplete(() => { if (outline != null) Destroy(outline); });
+                }
+            }
+
+            bubbleIndex++;
 
             // 0.5 second delay between options
             yield return new WaitForSeconds(0.5f);
