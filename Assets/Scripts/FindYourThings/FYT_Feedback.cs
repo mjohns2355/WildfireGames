@@ -30,6 +30,7 @@ public class FYT_Feedback : MonoBehaviour
         {
             queueList();
         }
+        FYT_ScoreCalculator.Calculate(finalItemNames);
         queueFeedback();
     }
 
