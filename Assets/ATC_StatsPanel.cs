@@ -30,11 +30,12 @@ public class ATC_StatsPanel : MonoBehaviour
         {
             string titleLabel = StringManager.Instance.GetText("statsText");
             string timerLabel = StringManager.Instance.GetText("timerText");
+            string minutesLabel = StringManager.Instance.GetText("minutesText");
             string carsLabel = StringManager.Instance.GetText("carsEvacuatedText");
             string housesLabel = StringManager.Instance.GetText("hoursDestroyedText");
 
             statsText.text = titleLabel + "\n"
-                + timerLabel + (int)timer + " minutes" + "\n"
+                + timerLabel + (int)timer + minutesLabel + "\n"
                 + carsLabel + GameManager.Instance.carsEvacuated + "\n"
                 + housesLabel + GameManager.Instance.housesDestroyed;
         }
