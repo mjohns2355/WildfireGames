@@ -191,7 +191,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         if (shouldShow)
         {
             PushPanel(pauseMenu.gameObject);
-            start.gameObject.SetActive(false);
+            start.gameObject.SetActive(true);
             
             if (dialoguePanel.activeSelf) {
                 dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
