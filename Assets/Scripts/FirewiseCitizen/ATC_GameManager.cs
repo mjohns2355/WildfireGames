@@ -373,9 +373,10 @@ public class GameManager : UnitySingleton<GameManager>
         switch (currentLevel)
         {
             case 0:
-                availableHouseTypes.Add(HouseType.twoCar);
-                availableHouseTypes.Add(HouseType.elderly);
-                break;
+                goto case 2;
+                //availableHouseTypes.Add(HouseType.twoCar);
+                //availableHouseTypes.Add(HouseType.elderly);
+                //break;
             case 1:
                 availableHouseTypes.Add(HouseType.wui);
                 availableHouseTypes.Add(HouseType.kids);
