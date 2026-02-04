@@ -26,7 +26,11 @@ public class FC_TutorialManager : MonoBehaviour
 
     public void InitTutorialManager()
     {
-
+        ATC_UIController.Instance.pause.gameObject.SetActive(false);
+        if (ATC_UIController.Instance.toolBarBtns != null)
+        {
+            ATC_UIController.Instance.toolBarBtns.SetActive(false);
+        }
         // reassign variables
         structureManager = GameManager.Instance.structureManager;
         houseDialogManager = ATC_UIController.Instance.houseDialogManager;
@@ -40,6 +44,7 @@ public class FC_TutorialManager : MonoBehaviour
         // add listeners
         titleCard.onClick.AddListener(() =>
         {
+            if (GameManager.Instance.IsPaused) return;
             titleCard.gameObject.SetActive(false);
             voiceOverToggle.SetActive(false);
             StartTutorial();
@@ -198,6 +203,7 @@ public class FC_TutorialManager : MonoBehaviour
 
         if (StringManager.Instance != null)
         {
+            ATC_UIController.Instance.toolBarBtns.SetActive(false);
             text1 = StringManager.Instance.GetText("tut1Text");
             text2 = StringManager.Instance.GetText("tut2Text");
             string movementInstructions = StringManager.Instance.GetText("tut3Text");
@@ -223,10 +229,16 @@ public class FC_TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.IsPaused || ATC_UIController.Instance.GetCurrentPanel() != null)
+        {
+            return;
+        }
+
         if (!isTutorialStarted || !fireStationIcon.gameObject.activeSelf || fireStation == null) return;
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(fireStation.transform.position);
-        uiIcon.position = screenPosition + new Vector3(0,100f,0f);
+        uiIcon.position = screenPosition + new Vector3(0, 100f, 0);
     }
+    
     public void StartTutorial()
     {
         GameManager.Instance.currentStage = LevelStage.Tutorial;
@@ -285,7 +297,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     private void OnClickTutorialHouse()
     {
-
+        ATC_UIController.Instance.toolBarBtns.SetActive(true);
         GameManager.Instance.cameraMovement.MoveToHouse(tutorialHouse);
         bottomDialogBox.SetActive(false);
         ATC_UIController.Instance.ShowDialog();
@@ -297,6 +309,12 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.ClearMessages();
         GameManager.Instance.cameraMovement.MoveToHouse(fireStation);
         bottomDialogBox.SetActive(false);
+        ATC_UIController.Instance.pause.gameObject.SetActive(true);
+        ATC_UIController.Instance.pause.interactable = true;
+        if (ATC_UIController.Instance.toolBarBtns != null)
+        {
+            ATC_UIController.Instance.toolBarBtns.SetActive(true);
+        }
         ATC_UIController.Instance.ShowDialog();
         fireStationIcon.gameObject.SetActive(false);
         houseDialogManager.StartDialogue("intro");
@@ -306,6 +324,7 @@ public class FC_TutorialManager : MonoBehaviour
     {
 
         titleCard.gameObject.SetActive(true);
+        ATC_UIController.Instance.toolBarBtns.SetActive(false);
 
     }
 }

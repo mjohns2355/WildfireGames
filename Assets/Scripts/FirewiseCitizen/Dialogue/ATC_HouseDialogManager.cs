@@ -7,6 +7,8 @@ using System;
 using DG.Tweening;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
+
 public class ATC_HouseDialogManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogText;
@@ -145,24 +147,50 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void Update()
     {
-        // click to skip player audio (stops audio, NPC audio will proceed)
-        if (waitingForPlayerAudio && Input.GetMouseButtonDown(0))
+        if (GameManager.Instance.IsPaused) 
         {
-            if (audioSource != null && audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
             return;
         }
 
-        // click through dialogue
-        if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
+        if (ATC_UIController.Instance.GetCurrentPanel() != null)
         {
-            canClick = false;
-            DOVirtual.DelayedCall(clickCooldown, () => canClick = true); //cooldown
+            return;
+        }
 
-            isWaitingForPlayer = false;
-            ProceedToNextNode();
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                GameObject hitObject = EventSystem.current.currentSelectedGameObject;
+
+                if (hitObject == null)
+                {
+                    var pointerData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+                    var results = new List<RaycastResult>();
+                    EventSystem.current.RaycastAll(pointerData, results);
+                    
+                    if (results.Count > 0) hitObject = results[0].gameObject;
+                }
+
+                if (hitObject != null && hitObject == ATC_UIController.Instance.pause.gameObject)
+                {
+                    return; 
+                }
+            }
+
+            if (waitingForPlayerAudio)
+            {
+                if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+                return;
+            }
+
+            if (isWaitingForPlayer && canClick)
+            {
+                canClick = false;
+                DOVirtual.DelayedCall(clickCooldown, () => canClick = true);
+                isWaitingForPlayer = false;
+                ProceedToNextNode();
+            }
         }
     }
     private void ProceedToNextNode()

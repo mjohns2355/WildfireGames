@@ -25137,7 +25137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: -0.0000038147}
+  m_AnchoredPosition: {x: 6, y: -0}
   m_SizeDelta: {x: 397.3226, y: 428.654}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216462554
@@ -57621,6 +57621,10 @@ MonoBehaviour:
   skipButton: {fileID: 250865099}
   isWaitingForPlayer: 1
   canShowSkipButton: 0
+  optionHighlightColor: {r: 1, g: 1, b: 0.7, a: 1}
+  outlineColor: {r: 1, g: 0.725, b: 0.22, a: 1}
+  outlineDistance: {x: 3, y: 3}
+  highlightFadeDuration: 0.3
 --- !u!1001 &574240285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59393,7 +59397,7 @@ GameObject:
   - component: {fileID: 650143206}
   m_Layer: 5
   m_Name: Pause
-  m_TagString: Untagged
+  m_TagString: Pause
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63209,7 +63213,6 @@ RectTransform:
   m_Children:
   - {fileID: 897188103}
   - {fileID: 1424791858}
-  - {fileID: 1214201160}
   - {fileID: 2142436649}
   - {fileID: 1887877979}
   - {fileID: 963688265}
@@ -63220,10 +63223,11 @@ RectTransform:
   - {fileID: 1907075367}
   - {fileID: 487733603}
   - {fileID: 1732523818}
-  - {fileID: 216462553}
   - {fileID: 550506440}
   - {fileID: 570783353}
+  - {fileID: 1214201160}
   - {fileID: 201190806}
+  - {fileID: 216462553}
   - {fileID: 1913832354}
   - {fileID: 769562718}
   - {fileID: 283173781}
@@ -63275,6 +63279,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1913832357}
   loadingCloud: {fileID: 769562717}
   loadingTime: 1
+  toolBarBtns: {fileID: 1214201159}
   selectedHouses: []
   contextMenus: []
   windDirectionIndicator: {fileID: 1424791858}
@@ -153034,6 +153039,7 @@ GameObject:
   - component: {fileID: 1741150770}
   - component: {fileID: 1741150772}
   - component: {fileID: 1741150771}
+  - component: {fileID: 1741150773}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -153103,6 +153109,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741150769}
   m_CullTransparentMesh: 1
+--- !u!225 &1741150773
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741150769}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1741676748
 GameObject:
   m_ObjectHideFlags: 0

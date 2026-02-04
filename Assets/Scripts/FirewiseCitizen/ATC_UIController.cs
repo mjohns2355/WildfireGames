@@ -31,6 +31,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject loadingCloud;
     public float loadingTime;
     private int _talkedResidentsCount;
+    public GameObject toolBarBtns;
     public int TalkedResidentsCount
     {
         get => _talkedResidentsCount;
@@ -52,6 +53,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         pause.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePause();
+            TogglePauseMenu(true);
             
         });
         start.onClick.AddListener(() =>
@@ -190,11 +192,31 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         {
             PushPanel(pauseMenu.gameObject);
             start.gameObject.SetActive(false);
+            
+            if (dialoguePanel.activeSelf) {
+                dialoguePanel.GetComponent<CanvasGroup>().interactable = false;
+                dialoguePanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            }
         }
         else
         {
             PopPanel();
-            start.gameObject.SetActive(true);
+        
+            if (dialoguePanel.activeSelf)
+            {
+                GameManager.Instance.canControlCam = false; 
+            }
+            else
+            {
+                GameManager.Instance.canControlCam = true;
+            }
+
+            CanvasGroup bgGroup = dialoguePanel.GetComponentInChildren<CanvasGroup>();
+            if (bgGroup != null)
+            {
+                bgGroup.interactable = true;
+                bgGroup.blocksRaycasts = true;
+            }
         }
     }
 
