@@ -26,6 +26,8 @@ public class FYT_dialogManager : MonoBehaviour
     public GameObject localNews;
     public GameObject timer;
 
+    public GameObject voiceOn;
+
 
     private void Start()
     {
@@ -123,6 +125,7 @@ public class FYT_dialogManager : MonoBehaviour
                 {
                     timer.SetActive(true);
                 }
+                voiceOn.SetActive(false);
                 gameObject.SetActive(false);
             }
             else
