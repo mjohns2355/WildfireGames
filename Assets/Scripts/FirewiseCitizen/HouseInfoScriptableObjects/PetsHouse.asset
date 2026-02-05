@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PetsHouse
   m_EditorClassIdentifier: 
   houseType: 4
-  menuTitle: Pets
+  menuTitle: petsText
   choices:
-  - choiceName: Wait for Notice
+  - choiceName: waitForNoticeText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,11 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 0
     carLeaveTime: 2
-    choiceDetail: 'No city-wide plan requests. Let residents make a decision when
-      the evacuation notice goes out. '
+    choiceDetail: waitForNoticeDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Plan Ahead
+  - choiceName: planAheadText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -35,11 +34,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 1
-    choiceDetail: Before an emergency, prepare carriers, leashes, food, water, and
-      medical records. Make sure all animals have collars with identification.
+    choiceDetail: planAheadDetailText
     isLocked: 1
     isNormal: 0
-  - choiceName: Evacuate Early
+  - choiceName: evacuateEarlyText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -47,9 +45,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: Having pets might make the evacuation stressful, so it is important
-      to plan ahead and make sure the pets are in a room where they can be easily
-      found for the evacuation.
+    choiceDetail: petEvacuateEarlyDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: petsText

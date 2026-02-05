@@ -79,6 +79,7 @@ public class FYTPickUp : MonoBehaviour
         {
             RadioBtn.SetActive(true);
         }
+        Instantiate(Resources.Load("pickupFX"),selected.transform.position,Quaternion.identity);
         Destroy(selected);
         closePopup = true;
     }

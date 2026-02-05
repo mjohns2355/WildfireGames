@@ -15,9 +15,20 @@ public class ATC_LearnMorePopup : MonoBehaviour
     }
     public void ShowLearnMorePopup(HouseTypeInfo info, string optionText)
     {
-
-        title.text = optionText;
-        detail.text = info.ReturnChoiceByName(optionText).choice.choiceDetail;
+        title.text = StringManager.Instance.GetText(optionText);
+        var result = info.ReturnChoiceByName(optionText);
+        
+        if (result.choice != null)
+        {
+            if (optionText == "planAheadText")
+            {
+                detail.text = StringManager.Instance.GetText("planAheadDetailText");
+            }
+            else
+            {
+                detail.text = StringManager.Instance.GetText(result.choice.choiceDetail);
+            }
+        }
 
     }
 

@@ -70,12 +70,9 @@ public class ATC_PauseMenu : MonoBehaviour
 
     void ResumeGame()
     {
-        Debug.Log("Resume Game");
-        //buttonParent.SetActive(false);
-        //note.SetActive(false);
-        //GameManager.Instance.ResumeGame();
-        GameManager.Instance.TogglePause();
 
+        GameManager.Instance.TogglePause();
+        ATC_UIController.Instance.TogglePauseMenu(false);
     }
 
 }

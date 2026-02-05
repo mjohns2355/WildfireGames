@@ -52,6 +52,7 @@ public class FYTtimer : MonoBehaviour
             //if (timer < 355 && !warningChecker)
             if (timer < 180 && !warningChecker)
             {
+                paused = true;
                 string key = "alertText"; 
                 string translatedWarning = (StringManager.Instance != null) ? StringManager.Instance.GetText(key) : "Warning!";
 

@@ -59,6 +59,7 @@ public class GameManager : UnitySingleton<GameManager>
     public GameObject topBanner;
     
     private bool isPaused = false;
+    public bool IsPaused => isPaused;
     public float loadingTime = 1f;
 
     public override void Awake()
@@ -93,22 +94,32 @@ public class GameManager : UnitySingleton<GameManager>
     public void TogglePause()
     {
         isPaused = !isPaused;
-        //Debug.Log($"Game is Paused: {isPaused}");
-        canControlCam = !isPaused;
+    
         if (isPaused)
         {
+            canControlCam = false; 
             Time.timeScale = 0f;
             AudioListener.pause = true;
             ATC_UIController.Instance.TogglePauseMenu(true);
         }
         else
         {
-            //Time.timeScale = GameSpeed;
             Time.timeScale = 1f;
             AudioListener.pause = false;
+            
+            if (ATC_UIController.Instance.dialoguePanel.activeSelf)
+            {
+                canControlCam = false; 
+            }
+            else
+            {
+                canControlCam = true;
+            }
+            
             ATC_UIController.Instance.TogglePauseMenu(false);
         }
     }
+
     public void SkipSimulation()
     {
         Time.timeScale = 6f;
@@ -362,9 +373,10 @@ public class GameManager : UnitySingleton<GameManager>
         switch (currentLevel)
         {
             case 0:
-                availableHouseTypes.Add(HouseType.twoCar);
-                availableHouseTypes.Add(HouseType.elderly);
-                break;
+                goto case 2;
+                //availableHouseTypes.Add(HouseType.twoCar);
+                //availableHouseTypes.Add(HouseType.elderly);
+                //break;
             case 1:
                 availableHouseTypes.Add(HouseType.wui);
                 availableHouseTypes.Add(HouseType.kids);

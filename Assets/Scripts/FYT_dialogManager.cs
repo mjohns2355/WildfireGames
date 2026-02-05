@@ -13,6 +13,7 @@ public class FYT_dialogManager : MonoBehaviour
     public TextMeshProUGUI dialog;
 
     private int counter = 0;
+    private AudioSource audioSource;
 
     public int houseDestroyed;
     public int acresDestroyed;
@@ -20,14 +21,23 @@ public class FYT_dialogManager : MonoBehaviour
     public bool done;
 
     public GameObject[] images;
+    public GameObject mapText;
 
     public GameObject localNews;
     public GameObject timer;
+
+    public GameObject voiceOn;
 
 
     private void Start()
     {
         //StepTextForward();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         if (StringManager.Instance != null)
         {
             StringManager.Instance.OnStringsLoadedEvent += RefreshLocalization;
@@ -89,6 +99,12 @@ public class FYT_dialogManager : MonoBehaviour
 
     public void StepTextForward()
     {
+        // Stop any currently playing audio
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         if (done)
         {
             counter++;
@@ -108,7 +124,9 @@ public class FYT_dialogManager : MonoBehaviour
                 if(timer != null)
                 {
                     timer.SetActive(true);
+                    timer.GetComponent<FYTtimer>().UnPause();
                 }
+                voiceOn.SetActive(false);
                 gameObject.SetActive(false);
             }
             else
@@ -125,9 +143,14 @@ public class FYT_dialogManager : MonoBehaviour
 
                         images[counter].SetActive(true);
                     }
+                    if (counter == images.Length - 1)
+                    {
+                        mapText.SetActive(true);
+                    }
 
                 }
                 dialog.text = phaseOneDialog[counter];
+                PlayAudioForKey(dialogKeys[counter]);
                 counter++;
                 if (counter >= phaseOneDialog.Length)
                 {
@@ -136,8 +159,28 @@ public class FYT_dialogManager : MonoBehaviour
 
             }
         }
-        
-       
+
+
+    }
+
+    private void PlayAudioForKey(string key)
+    {
+        if (!TTSManager.IsEnabled || StringManager.Instance == null) return;
+
+        string audioPath = StringManager.Instance.GetAudioPath(key);
+        if (!string.IsNullOrEmpty(audioPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(audioPath);
+            if (clip != null && audioSource != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Audio clip not found: {audioPath}");
+            }
+        }
     }
 
 }

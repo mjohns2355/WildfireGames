@@ -60,7 +60,13 @@ public class HouseTypeInfo : ScriptableObject
 
     public (HouseChoice choice, int index) ReturnChoiceByName(string name)
     {
-        houseChoicesDict.TryGetValue(name, out var choice);
+        if (houseChoicesDict.TryGetValue(name, out var choice)) return choice;
+
+        if (name == "planAheadText")
+        {
+            return houseChoicesDict.Values.FirstOrDefault(x => x.choice.choiceName == "Plan Ahead");
+        }
+
         return choice;
     }
 

@@ -11,7 +11,8 @@
       "nodes": [
         {
           "id": "1",
-          "dialogText": "<i>You approach a woman in an oil stained shirt working on a truck. A second car is parked in the driveway.</i>"
+          "dialogText": "<i>You approach a woman in an oil stained shirt working on a truck. A second car is parked in the driveway.</i>",
+          "dialogTextES": "<i>Te acercas a una mujer con una camisa manchada de aceite que trabaja en una camioneta. Un segundo auto está estacionado en la entrada.</i>"
         },
         {
             "id": "2",
@@ -24,6 +25,7 @@
             "options": [
                 {
                     "optionText": "Yes",
+                    "optionTextES": "Sí",
                     "messageText": "Yes I am. I would love to help if I can.",
                     "messageTextES": "Sí, lo soy. Me encantaría ayudar si puedo.",
                     "audioPath": "FirewiseCitizen/Audio/Player/twoCar_opt_yes",
@@ -31,11 +33,16 @@
                 },
                 {
                     "optionText": "Nice Truck",
+                    "optionTextES": "Buena camioneta",
                     "messageText": "That's a pretty nice truck you got there.",
+                    "messageTextES": "Ese es un camión muy bonito el que tienes.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/twoCar_opt_Nice",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/twoCar_opt_Nice",
                     "nextNodeId": "20"
                 },
                 {
                     "optionText": "Skip to final decision",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "200"
                 }
             ]
@@ -44,26 +51,36 @@
             "id": "20",
             "characterName": "Bailey",
             "dialogText": "Appreciate it. Rebuilt it myself.",
+            "dialogTextES": "Gracias. La arreglé yo solo.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-            "audioPath": "FirewiseCitizen/Audio/twoCar_id_20"
+            "audioPath": "FirewiseCitizen/Audio/twoCar_id_20",
+            "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_20"
         },
         {
           "id": "21",
           "characterName": "Bailey",
           "dialogText": "The name's Bailey, by the way.",
+          "dialogTextES": "Por cierto, me llamo Bailey.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_21"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_21",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_21"
         },
         {
           "id": "22",
           "characterName": "Bailey",
           "dialogText": "So, think you can give me advice?",
+          "dialogTextES": "Entonces, ¿crees que me puedes dar algún consejo?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_22",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_22",
           "options": [
             {
               "optionText": "What's worrying you?",
+              "optionTextES": "¿Qué es lo que más le preocupa?",
               "messageText": "It's nice to meet you Bailey. What can I do to help?",
+              "messageTextES": "Mucho gusto, Bailey. ¿Cómo puedo ayudarte?",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_What",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_What",
               "nextNodeId": "4"
             }
           ]
@@ -72,16 +89,23 @@
             "id": "3",
             "characterName": "Bailey",
             "dialogText": "Glad to see someone helping out around here. My name's Bailey.",
+            "dialogTextES": "Me alegra ver que alguien está ayudando por aquí. Me llamo Bailey.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
             "audioPath": "FirewiseCitizen/Audio/twoCar_id_3",
+            "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_3",
             "options": [
                 {
                     "optionText": "How can I help?",
+                    "optionTextES": "¿Cómo puedo ayudar?",
                     "messageText": "It's nice to meet you Bailey. What can I do to help?",
+                    "messageTextES": "Mucho gusto en conocerte, Bailey. ¿Qué puedo hacer para ayudar?,",
+                    "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_How",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_How",
                     "nextNodeId": "4"
                 },
                 {
                     "optionText": "Skip to final decision",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "200"
                 }
             ]
@@ -90,27 +114,40 @@
           "id": "4",
           "characterName": "Bailey",
           "dialogText": "Well, everyone's been buzzing about wildfire safety. So my partner and I have been thinking about it too.",
+          "dialogTextES": "Bueno, todos han estado hablando sobre la seguridad contra incendios forestales. Así que mi pareja y yo también hemos estado pensando en ello.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_4"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_4",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_4"
         },
         {
           "id": "5",
           "characterName": "Bailey",
           "dialogText": "We've got two jobs and these two cars, so making a plan is tricky.",
+          "dialogTextES": "Tenemos dos trabajos y estos dos carros, así que planear todo es un poco difícil.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_5",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_5",
           "options": [
             {
               "optionText": "Taking two cars could help.",
-              "messageText": "Having two cars could help you pack more stuff. What's your plan if a fire gets close?"
+              "optionTextES": "Llevar ambos autos podría ayudar.",
+              "messageText": "Having two cars could help you pack more stuff. What's your plan if a fire gets close?",
+              "messageTextES": "Tener dos autos podría ayudarte a llevar más cosas. ¿Cuál es tu plan si un incendio se acerca?",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Taking",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Taking"
             },
             {
               "optionText": "Taking two cars could cause congestion.",
+              "optionTextES": "Llevar dos autos podría causar congestión.",
               "messageText": "Have you thought about how taking two cars might make evacuating harder for others?",
+              "messageTextES": "Tener dos autos podría ayudar a llevar más cosas. ¿Cuál es tu plan si un incendio se acerca?",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Takingtwo",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Takingtwo",
               "nextNodeId": "100"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -119,37 +156,50 @@
           "id": "100",
           "characterName": "Bailey",
           "dialogText": "Yeah, we've been debating that.",
+          "dialogTextES": "Sí, hemos estado hablando de eso.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_100"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_100",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_100"
         },
         {
           "id": "101",
           "characterName": "Bailey",
           "dialogText": "Having one car is simpler, and faster.",
+          "dialogTextES": "Usar un solo carro es más fácil y rápido.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_101"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_101",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_101"
         },
         {
           "id": "102",
           "characterName": "Bailey",
           "dialogText": "It would reduce the traffic on the road, which would help everyone.",
+          "dialogTextES": "Reduciría el tráfico en la carretera, lo que ayudaría a todos.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_102"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_102",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_102"
         },
         {
           "id": "103",
           "characterName": "Bailey",
           "dialogText": "But two cars means more options. Plus it would be hard to leave one car behind, since it's so valuable to us.",
+          "dialogTextES": "Pero usar dos carros da más opciones. Además, sería difícil dejar uno atrás, ya que es muy valioso para nosotros.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_103",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_103",
           "options": [
             {
               "optionText": "Relocate second car",
+              "optionTextES": "Reubicar el segundo auto",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
+              "messageTextES": "¿Has considerado mover el segundo auto a un lugar más seguro con anticipación?",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Relocate",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Relocate",
               "nextNodeId": "40"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -158,28 +208,41 @@
           "id": "6",
           "characterName": "Bailey",
           "dialogText": "We were thinking about driving both, so we could pack more and save both vehicles.",
+          "dialogTextES": "Pensábamos manejar los dos carros para llevar más cosas y salvar los dos autos.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_6"
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_6",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_6"
         },
         {
           "id": "7",
           "characterName": "Bailey",
           "dialogText": "But, traffic concerns me. I don't want one of us getting stuck.",
+          "dialogTextES": "Pero el tráfico me preocupa. No quiero que uno de nosotros se quede atrapado.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_01",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_7",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_7",
           "options": [
             {
               "optionText": "Take one car",
+              "optionTextES": "Llevar un solo auto",
               "messageText": "It makes sense to not want to be seperated, or risk someone getting hurt because they were stuck in traffic.",
+              "messageTextES": "Tiene sentido no querer separarse o arriesgar que alguien salga lastimado por quedar atrapado en el tráfico.",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Take",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Take",
               "nextNodeId": "30"
             },
             {
               "optionText": "Relocate second car",
+              "optionTextES": "Reubicar el segundo auto",
               "messageText": "Have you considered relocating the second car to somewhere safer beforehand?",
+              "messageTextES": "¿Has considerado mover el segundo auto a un lugar más seguro con anticipación?",
+              "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Relocate2",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Relocate2",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -193,27 +256,38 @@
           "id": "31",
           "characterName": "Bailey",
           "dialogText": "Yeah, we've thought about that too.",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_31"
+          "dialogTextES": "Sí, también hemos pensado en eso.",
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_31",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_31"
         },
         {
           "id": "32",
           "characterName": "Bailey",
           "dialogText": "Having one car is simpler, and faster.",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_32"
+          "dialogTextES": "Tusar un solo carro es más fácil y rápido.",
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_32",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_32"
         },
         {
           "id": "33",
           "characterName": "Bailey",
           "dialogText": "But two cars means more options. Plus, it'd be hard to leave one car behind, since it's so valuable to us.",
+          "dialogTextES": "Pero usar dos carros da más opciones. Además, sería difícil dejar un auto atrás, porque es muy importante para nosotros",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_33",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_33",
           "options": [
             {
                 "optionText": "Have you thought about how two cars might make evacuating harder?",
+                "optionTextES": "¿Ha pensado en cómo dos autos podrían dificultar la evacuación?",
                 "messageText": "Have you thought about how two cars might make evacuating harder? And if everyone took two cars the traffic could be really bad.",
+                "messageTextES": "¿Has pensado en cómo usar dos autos podría dificultar la evacuación? Si todos usaran dos autos, el tráfico podría ser muy grave.",
+                "audioPath": "FirewiseCitizen/Audio/Player/twocar_opt_Have",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/twocar_opt_Have",
                 "nextNodeId": "100"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -222,13 +296,17 @@
           "id": "40",
           "characterName": "Bailey",
           "dialogText": "Hm, I think that could work. I know a garage we could stash one of the cars at.",
-          "audioPath": "FirewiseCitizen/Audio/twoCar_id_40"
+          "dialogTextES": "Hmm, creo que eso podría funcionar. Conozco un garaje donde podríamos guardar uno de los carros.",
+          "audioPath": "FirewiseCitizen/Audio/twoCar_id_40",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_40"
         },
         {
           "id": "41",
           "characterName": "Bailey",
           "dialogText": "It would take some planning ahead though.",
+          "dialogTextES": "Pero sí requeriría un poco de planificación.",
           "audioPath": "FirewiseCitizen/Audio/twoCar_id_41",
+          "audioPathES": "FirewiseCitizen/Audio/ES/twoCar_id_41",
           "options": [
             {
               "nextNodeId": "200"
@@ -238,6 +316,7 @@
         {
           "id": "200",
           "dialogText": "<b>What is best for Bailey?</b>",
+          "dialogTextES": "<b>¿Qué es mejor para Bailey?</b>",
           "isEndNode": "true"
         }
       ]
@@ -253,34 +332,49 @@
       "nodes": [
         {
           "id": "10",
-          "dialogText": "<i>You see a man attempting to gather a mountain of childrens toys in his arms. He spots you and sets the toys down. Several balls escape and roll away.</i>"
+          "dialogText": "<i>You see a man attempting to gather a mountain of childrens toys in his arms. He spots you and sets the toys down. Several balls escape and roll away.</i>",
+          "dialogTextES": "<i>Ves a un hombre intentando recoger una montaña de juguetes de niños en sus brazos. Él te ve y deja los juguetes en el suelo. Varias pelotas se escapan y ruedan por el lugar.</i>"
+
         },
         {
           "id": "11",
           "characterName": "Gabe",
           "dialogText": "Hey there friend! My name's Gabe. It's great to chat with ya.",
+          "dialogTextES": "Hola, amigo! Me llamo Gabe. Es un gusto hablar contigo",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_11"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_11",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_11"
         },
         {
           "id": "12",
           "characterName": "Gabe",
           "dialogText": "You caught me at a pretty good time. The kids are at soccer practice right now.",
+          "dialogTextES": "Llegaste en buen momento. Los niños están en práctica de fútbol ahora.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_12",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_12",
           "options": [
             {
               "optionText": "Sounds like sporty kids!",
+              "optionTextES": "¡Parece que tienes hijos deportistas!",
               "messageText": "It's nice to meet you Gabe. Seems like you've got some sporty kids!",
+              "messageTextES": "Mucho gusto en conocerte, Gabe. ¡Parece que tienes niños muy activos!",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_Sounds",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_Sounds",
               "nextNodeId": "100"
             },
             {
                 "optionText": "Anything you're worried about?",
+                "optionTextES": "¿Hay algo que le preocupe?",
                 "messageText": "It's nice to meet you Gabe. Anything worrying you?",
+                "messageTextES": "Mucho gusto en conocerte, Gabe. ¿Hay algo que te preocupe?",
+                "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_Anything",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_Anything",
                 "nextNodeId": "14"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -289,23 +383,32 @@
           "id": "100",
           "characterName": "Gabe",
           "dialogText": "You're tellin me! My partner Sam and I had turn our garage basically into a sporting goods store to keep all their equipment!",
+          "dialogTextES": "¡Ni me digas! Mi pareja Sam y yo tuvimos que convertir el garaje casi en una tienda de artículos deportivos para guardar todo su equipo.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_100"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_100",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_100"
         },
         {
           "id": "101",
           "characterName": "Gabe",
           "dialogText": "My two kiddos are elementary age, so they play pretty much every sport you can think of. We're always on the road for another game.",
+          "dialogTextES": "Mis dos niños están en la primaria, así que practican casi todos los deportes. Siempre estamos en la carretera para otro partido.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_101",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_101",
           "options": [
             {
               "optionText": "Need advice for fire season?",
+              "optionTextES": "¿Necesita algún consejo para la temporada de incendios?",
               "messageText": "What advice can I offer to help you prepare for fire season?",
+              "messageTextES": "¿Qué consejo puedo ofrecerte para ayudarte a prepararte para la temporada de incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_Need",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_Need",
               "nextNodeId": "14"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -314,22 +417,31 @@
           "id": "14",
           "characterName": "Gabe",
           "dialogText": "Well, with wildfire season coming up, my partner Sam and I have been trying to plan in case of emergency.",
+          "dialogTextES": "Bueno, como se acerca la temporada de incendios, mi pareja Sam y yo hemos estado planeando por si pasa una emergencia.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_14"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_14",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_14"
         },
         {
           "id": "15",
           "characterName": "Gabe",
           "dialogText": "With two young kids, we're not sure what to do if a fire hits while they're at school.",
+          "dialogTextES": "Con dos niños pequeños, no sabemos qué hacer si ocurre un incendio cuando están en la escuela.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_15",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_15",
           "options": [
             {
               "optionText": "School Evacuation Plans?",
-              "messageText": "Have you talked to the school about their wildfire evacuation plans?"
+              "optionTextES": "¿Tienen planes de evacuación escolar?",
+              "messageText": "Have you talked to the school about their wildfire evacuation plans?",
+              "messageTextES": "¿Has hablado con la escuela sobre sus planes de evacuación en caso de incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_School",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_School"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -338,27 +450,40 @@
           "id": "16",
           "characterName": "Gabe",
           "dialogText": "The school has a plan, but I can't help but feel uneasy.",
+          "dialogTextES": "La escuela tiene un plan, pero igual me siento preocupado.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_16"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_16",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_16"
         },
         {
           "id": "17",
           "characterName": "Gabe",
           "dialogText": "Being apart from the kids during an evacuation is scary. I would prefer if we were together.",
+          "dialogTextES": "Estar lejos de los niños durante una evacuación es aterrador. Preferiría que estuviéramos juntos.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_17",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_17",
           "options": [
             {
               "optionText": "Schools are safe places.",
-              "messageText": "Being worried about being seperated is completely understandable."
+              "optionTextES": "Las escuelas son lugares seguros.",
+              "messageText": "Being worried about being separated is completely understandable.",
+              "messageTextES": "Estar preocupado por separarse es completamente comprensible.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_Schools",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_Schools"
             },
             {
                 "optionText": "Are you considering picking them up?",
-                "messageText": "Being worried about being seperated is completely understandable.",
+                "optionTextES": "¿Está pensando en ir a recogerlos?",
+                "messageText": "Being worried about being separated is completely understandable.",
+                "messageTextES": "Estar preocupado por separarse es completamente comprensible.",
+                "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_AreYou",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_AreYou",
                 "nextNodeId": "21"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -377,23 +502,32 @@
           "id": "19",
           "characterName": "Gabe",
           "dialogText": "That's true, I do trust the school to have a solid plan in case of emergency.",
+          "dialogTextES": "Es verdad, confío en que la escuela tiene un plan sólido si hay una emergencia.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_19"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_19",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_19"
         },
         {
           "id": "20",
           "characterName": "Gabe",
           "dialogText": "As a parent, it's just so tough to leave them",
+          "dialogTextES": "Como padre, es muy difícil dejarlos.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_20",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_20",
           "options": [
             {
               "optionText": "You could reach out to the school.",
+              "optionTextES": "Podría ponerse en contacto con la escuela.",
               "messageText": "It might ease your anxiety to reach out to the school again. They could host a meeting discussing these topics.",
+              "messageTextES": "Podría ayudarte a sentirte más tranquilo contactar a la escuela nuevamente. Podrían organizar una reunión para hablar de estos temas.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_YouCould",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_YouCould",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -407,27 +541,40 @@
           "id": "22",
           "characterName": "Gabe",
           "dialogText": "We have been thinking about it, but another concern is traffic.",
+          "dialogTextES": "Lo hemos pensado, pero otra cosa que nos preocupa es el tráfico.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_22"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_22",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_22"
         },
         {
           "id": "23",
           "characterName": "Gabe",
           "dialogText": "I want to pick them up, but the roads could be jammed, especially around the school.",
+          "dialogTextES": "Quiero ir a recogerlos, pero las calles podrían estar muy congestionadas del tráfico, especialmente cerca de la escuela.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_23",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_23",
           "options": [
             {
               "optionText": "Coordinate with Parents",
-              "messageText": "Maybe you could coordinate with other parents to carpool, or ensure everyone is safe?"
+              "optionTextES": "Coordinar con otros padres",
+              "messageText": "Maybe you could coordinate with other parents to carpool, or ensure everyone is safe?",
+              "messageTextES": "Tal vez podrías coordinarte con otros padres para compartir el auto o asegurarse de que todos estén a salvo.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_Coordinate",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_Coordinate"
             },
             {
               "optionText": "Pick Up Early",
+              "optionTextES": "Recogerlos temprano",
               "messageText": "Have you thought about picking them up early? That might help with the traffic concerns.",
+              "messageTextES": "¿Has pensado en recogerlos más temprano? Eso podría ayudar con las preocupaciones sobre el tráfico.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_PickUp",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_PickUp",
               "nextNodeId": "30"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -436,23 +583,32 @@
           "id": "24",
           "characterName": "Gabe",
           "dialogText": "That isn't a bad idea at all. It would take some planning, but that way we at least know our children are alright.",
+          "dialogTextES": "No es una mala idea. Requeriría un poco de planificación, pero así al menos sabríamos que nuestros hijos están bien.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
-          "audioPath": "FirewiseCitizen/Audio/kids_id_24"
+          "audioPath": "FirewiseCitizen/Audio/kids_id_24",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_24"
         },
         {
           "id": "25",
           "characterName": "Gabe",
           "dialogText": "There still is always the issue of traffic, even with a carpool.",
+          "dialogTextES": "De todos modos, el tráfico sigue siendo un problema, incluso si vamos juntos en un carro.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_25",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_25",
           "options": [
             {
               "optionText": "Schools are safe places.",
+              "optionTextES": "Las escuelas son lugares seguros.",
               "messageText": "It makes sense to be worried.",
+              "messageTextES": "Tiene sentido estar preocupado.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_SchoolsAreSafe",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_SchoolsAreSafe",
               "nextNodeId": "18"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -461,16 +617,23 @@
           "id": "30",
           "characterName": "Gabe",
           "dialogText": "We have, and it isn't a bad idea. That might get us ahead of most of the traffic, but we also need to consider our commute from our jobs to the school.",
+          "dialogTextES": "Sí, lo hemos pensado y no es una mala idea. Eso podría ayudarnos a evitar mucho tráfico, pero también tenemos que considerar el camino desde nuestros trabajos hasta la escuela.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
           "audioPath": "FirewiseCitizen/Audio/kids_id_30",
+          "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_30",
           "options": [
             {
               "optionText": "Safer at School",
+              "optionTextES": "Más seguros en la escuela",
               "messageText": "Your concerns are completely understandable.",
+              "messageTextES": "Tus preocupaciones son completamente comprensibles.",
+              "audioPath": "FirewiseCitizen/Audio/Player/kids_opt_SaferAt",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/kids_opt_SaferAt",
               "nextNodeId": "18"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -484,13 +647,16 @@
             "id": "41",
             "characterName": "Gabe",
             "dialogText": "That isn't a bad idea at all. If I had a better understanding of their plan, I know Sam and I would feel a lot safer about our kids.",
+            "dialogTextES": "No es una mala idea en absoluto. Si entendiera mejor su plan, sé que Sam y yo nos sentiríamos mucho más tranquilos con nuestros hijos.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_03",
             "audioPath": "FirewiseCitizen/Audio/kids_id_41",
+            "audioPathES": "FirewiseCitizen/Audio/ES/kids_id_41",
             "nextNodeId": "200"
         },
         {
           "id": "200",
           "dialogText": "<b>What is best for Gabe and Sam?</b>",
+          "dialogTextES": "<b>¿Qué es mejor para Gabe y Sam?</b>",
           "isEndNode": "true"
         }
       ]
@@ -506,14 +672,17 @@
       "nodes": [
         {
           "id": "20",
-            "dialogText": "<i>A woman is turned away from you on a stepladder, painting the side of her home. She looks in your direction, and waves. She climbs down the ladder and approaches you, wiping sweat off her brow.</i>"
+            "dialogText": "<i>A woman is turned away from you on a stepladder, painting the side of her home. She looks in your direction, and waves. She climbs down the ladder and approaches you, wiping sweat off her brow.</i>",
+            "dialogTextES": "<i>Una mujer está de espaldas a ti sobre una escalera de mano, pintando el costado de su casa. Ella mira en tu dirección y te saluda con la mano. Baja de la escalera y se acerca a ti, secándose el sudor de la frente.</i>"
         },
         {
           "id": "21",
           "characterName": "Sarah",
           "dialogText": "Hey there! I'm Sarah, it's nice to meet you. ",
+          "dialogTextES": "¡Hola! Me llamo Sarah, mucho gusto.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
           "audioPath": "FirewiseCitizen/Audio/wui_id_21",
+          "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_21",  
           "conditions": {
             "hasSpoken": 0
           }
@@ -522,8 +691,10 @@
             "id": "21",
             "characterName": "Sarah",
             "dialogText": "Hey there, good to see you again! ",
+            "dialogTextES": "¡Hola, qué bueno verte de nuevo!",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_21.2",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_21.2",
             "conditions": {
                 "hasSpoken": 1
             }
@@ -532,8 +703,10 @@
             "id": "22",
             "characterName": "Sarah",
             "dialogText": "I do hope you can offer us some advice for the upcoming wildfire season.",
+            "dialogTextES": "Espero que puedas ayudarnos nuevamente esta temporada de incendios.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_22",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_22",
             "conditions": {
                 "hasSpoken": 0
             }
@@ -542,8 +715,10 @@
             "id": "22",
             "characterName": "Sarah",
             "dialogText": "I hope you can help us out again this fire season.",
+            "dialogTextES": "Espero que puedas ayudarnos otra vez en esta temporada de incendios.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_22.2",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_22.2",
             "conditions": {
                 "hasSpoken": 1
             }
@@ -552,19 +727,29 @@
             "id": "23",
             "characterName": "Sarah",
             "dialogText": "Not too much has changed around here. We're still working hard, and money is still tight.",
+            "dialogTextES": "No ha cambiado mucho por aquí. Seguimos trabajando mucho y el dinero sigue justo.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_23",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_23",
             "conditions": {
                 "hasSpoken": 1
             },
             "options": [
                 {
                     "optionText": "How can I help?",
-                    "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?"
+                    "optionTextES": "¿Cómo puedo ayudar?",
+                    "messageText": "Hey there Sarah, glad to see you're doing well! How can I help?",
+                    "messageTextES": "Hola Sarah, ¡me alegra verte bien! ¿Cómo puedo ayudar?",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_HowCan",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_HowCan"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_Skipto",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_Skipto",
                     "conditions": {
                         "hasIncentives": 1
                     },
@@ -572,6 +757,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -584,11 +770,19 @@
           "options": [
             {
               "optionText": "How can I help?",
-              "messageText": "It's nice to meet you Sarah! How can I help?"
+              "optionTextES": "¿Cómo puedo ayudar?",
+              "messageText": "It's nice to meet you Sarah! How can I help?",
+              "messageTextES": "¡Mucho gusto en conocerte, Sarah! ¿Cómo puedo ayudar?",
+              "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_HowCanIHelp",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_HowCanIHelp"
             },
             {
               "optionText": "Skip to Incentives",
+              "optionTextES": "Saltar a incentivos",
               "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+              "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+              "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_SkipToInc",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_SkipToInc",
               "conditions": {
                 "hasIncentives": 1
               },
@@ -596,6 +790,7 @@
             },
             {
               "optionText": "Skip to Final Decisions",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "100"
             }
           ]
@@ -604,8 +799,10 @@
             "id": "24",
             "characterName": "Sarah",
             "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+            "dialogTextES": "Tener una casa en la zona de contacto entre la ciudad y el bosque puede ser algo increíble.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_24",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_24",
             "conditions": {
                 "hasSpoken": 0
             }
@@ -614,8 +811,10 @@
             "id": "24",
             "characterName": "Sarah",
             "dialogText": "Owning a home in a Wildland Urban Interface can be pretty amazing.",
+            "dialogTextES": "Tener una casa en la zona de contacto entre la ciudad y el bosque puede ser algo increíble.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_24.2",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_24.2",
             "conditions": {
                 "hasSpoken": 1
             }
@@ -624,23 +823,35 @@
             "id": "25",
             "characterName": "Sarah",
             "dialogText": "I love being so close to the forest and nature. Plus, housing is a lot cheaper here! Especially compared to more developed communities.",
+            "dialogTextES": "Me encanta estar tan cerca del bosque y la naturaleza. ¡Además, la vivienda aquí es mucho más barata! Especialmente comparada con comunidades más desarrolladas.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_25"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_25",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_25"
         },
         {
             "id": "26",
             "characterName": "Sarah",
             "dialogText": "However, wildfires are always a risk.",
+            "dialogTextES": "Sin embargo, los incendios forestales siempre son un riesgo.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_26",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_26",
             "options": [
                 {
                     "optionText": "Wildfires are indeed a risk!",
-                    "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!"
+                    "optionTextES": "¡Los incendios forestales son un riesgo real!",
+                    "messageText": "No doubt about it. WUIs can be the most at risk communities for fires!",
+                    "messageTextES": "Sin duda. Las comunidades en la interfaz urbano-forestal pueden ser las más vulnerables a los incendios.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_Wildfires",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_Wildfires"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_SkiptoIncentiv",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_SkiptoIncentiv",
                     "conditions": {
                         "hasIncentives": 1
                     },
@@ -648,6 +859,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -656,44 +868,62 @@
             "id": "27",
             "characterName": "Sarah",
             "dialogText": "Which is why we need your help.",
+            "dialogTextES": "Por eso necesitamos tu ayuda.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_27"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_27",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_27"
         },
         {
             "id": "28",
             "characterName": "Sarah",
             "dialogText": "We have invested so much into our new home. Time, money, and a lot of love.",
+            "dialogTextES": "Hemos invertido muchísimo en nuestro nuevo hogar: tiempo, dinero y mucho cariño.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_28"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_28",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_28"
         },
         {
             "id": "29",
             "characterName": "Sarah",
             "dialogText": "If we lose our home, we lose almost everything. Our funds are empty.",
+            "dialogTextES": "Si perdemos nuestra casa, lo perdemos casi todo. Nuestros ahorros están vacíos.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_29"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_29",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_29"
         },
         {
             "id": "30",
             "characterName": "Sarah",
             "dialogText": "With wildfire season right around the corner, I can't stop thinking about the worst case scenario.",
+            "dialogTextES": "Con la temporada de incendios tan cerca, no puedo dejar de pensar en el peor escenario posible.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_30"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_30",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_30"
         },
         {
             "id": "31",
             "characterName": "Sarah",
             "dialogText": "In case of a fire, my house is my number one priority.",
+            "dialogTextES": "En caso de incendio, mi casa es mi prioridad número uno.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_31",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_31",
             "options": [
                 {
                     "optionText": "Home hardening can protect your house",
-                    "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation."
-                },
+                    "optionTextES": "El refuerzo de la vivienda puede proteger su casa.",
+                    "messageText": "Home hardening, the process of upgrading your house to be fire resilient, can protect your home if you need to leave during an evacuation.",
+                    "messageTextES": "El refuerzo del hogar, que consiste en hacer mejoras para que tu casa sea más resistente al fuego, puede protegerla si necesitas evacuar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_HomeHardening",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_HomeHardening"
+                  },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_SkiptoInc2",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_SkiptoInc2",
                     "conditions": {
                         "hasIncentives": 1
                     },
@@ -701,6 +931,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -714,24 +945,36 @@
             "id": "33",
             "characterName": "Sarah",
             "dialogText": "I love our home, but I know it's important to evacuate early. I want to do what I can to ensure the house is here to come back to.",
+            "dialogTextES": "Amo nuestro hogar, pero sé que es importante evacuar a tiempo. Quiero hacer todo lo posible para que la casa siga aquí cuando regresemos.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_33"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_33",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_33"
         },
         {
             "id": "34",
             "characterName": "Sarah",
             "dialogText": "Do you have other advice for us?",
+            "dialogTextES": "¿Tienes algún otro consejo para nosotros?",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_34",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_34",
             "options": [
                 {
                     "optionText": "Home hardening steps",
+                    "optionTextES": "Pasos para el refuerzo de la vivienda",
                     "messageText": "There are steps you can take now to begin home hardening now.",
+                    "messageTextES": "Hay pasos que puedes tomar desde ahora para comenzar a reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_HomeHarden",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_HomeHarden",
                     "nextNodeId": "37"
                 },
                 {
                     "optionText": "Skip to Incentives",
+                    "optionTextES": "Saltar a incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_SkipptoInccs",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_SkipptoInccs",
                     "conditions": {
                         "hasIncentives": 1
                     },
@@ -739,6 +982,7 @@
                 },
                 {
                     "optionText": "Skip to Final Decisions",
+                    "optionTextES": "Saltar a la decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -760,25 +1004,34 @@
         },
         {
           "id": "40",
-          "dialogText": "<i>She looks back at her freshly painted house. You notice the roof, windows, and stairs are brand new.</i>"
+          "dialogText": "<i>She looks back at her freshly painted house. You notice the roof, windows, and stairs are brand new.</i>",
+          "dialogTextES": "<i>Ella vuelve a mirar su casa recién pintada. Notas que el techo, las ventanas y las escaleras son totalmente nuevos.</i>"
         },
         {
             "id": "41",
             "characterName": "Sarah",
             "dialogText": "We've already used our funds simply putting a roof over our heads. Now I need to spend even more?",
+            "dialogTextES": "Ya usamos todo nuestro dinero solo para tener un techo. ¿Ahora tengo que gastar todavía más?",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_41"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_41",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_41"
         },
         {
             "id": "42",
             "characterName": "Sarah",
             "dialogText": "I'm just not sure we can afford home hardening.",
+            "dialogTextES": "No estoy segura de que podamos pagar el refuerzo de la vivienda.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_42",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_42",
             "options": [
                 {
                     "optionText": "Offer Incentives",
+                    "optionTextES": "Ofrecer incentivos",
                     "messageText": "Actually, there is a way the city can help with the costs of home hardening!",
+                    "messageTextES": "De hecho, hay una forma en que la ciudad puede ayudar con los costos de reforzar tu hogar.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_Offer",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_Offer",
                     "conditions": {
                         "hasIncentives": 1
                     },
@@ -786,12 +1039,20 @@
                 },
                 {
                     "optionText": "There are less costly options",
+                    "optionTextES": "Hay opciones menos costosas.",
                     "messageText": "There are less costly options as well!",
+                    "messageTextES": "¡También hay opciones menos costosas!",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_There",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_There",
                     "nextNodeId": "46"
                 },
                 {
                     "optionText": "I understand where you are coming from",
+                    "optionTextES": "Entiendo perfectamente su situación.",
                     "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
+                    "messageTextES": "Entiendo tu punto de vista. Ojalá pudiera ofrecerte más para convencerte de que reforzar tu hogar vale la inversión.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_I",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_I",
                     "nextNodeId": "60"
                 }
             ]
@@ -810,26 +1071,36 @@
             "id": "48",
             "characterName": "Sarah",
             "dialogText": "Wow, I didn't realize those also counted as home hardening.",
+            "dialogTextES": "¡Vaya! No sabía que eso también contaba como refuerzo de la vivienda.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_48"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_48",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_48"
         },
         {
             "id": "49",
             "characterName": "Sarah",
             "dialogText": "I feel a lot more confident in our ability to do those. Thank you for letting me know!",
+            "dialogTextES": " Ahora me siento mucho más segura de que podemos hacer esas cosas. ¡Gracias por decírmelo!",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_49"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_49",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_49"
         },
         {
             "id": "50",
             "characterName": "Sarah",
             "dialogText": "That being said, I just don't know how we would be able to afford more expensive home hardening.",
+            "dialogTextES": "Aun así, no sé cómo podríamos pagar las medidas de refuerzo más costosas.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_50",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_50",
             "options": [
                 {
                     "optionText": "Understanding",
-                    "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment."
+                    "optionTextES": "Comprensión",
+                    "messageText": "I understand where you are coming from. I wish there was more I could offer to convince you that home hardening is worth the investment.",
+                    "messageTextES": "Entiendo tu punto de vista. Ojalá pudiera ofrecerte más para convencerte de que reforzar tu hogar vale la inversión.",
+                    "audioPath": "FirewiseCitizen/Audio/Player/wui_opt_Understand",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/wui_opt_Understand"
                 }
             ]
         },
@@ -837,25 +1108,32 @@
             "id": "51",
             "characterName": "Sarah",
             "dialogText": "Me too. Whatever your recommendation is, I appreciate the advice.",
+            "dialogTextES": "Yo también. Sea cual sea tu recomendación, agradezco mucho el consejo.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_51"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_51",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_51"
         },
         {
             "id": "52",
             "characterName": "Sarah",
             "dialogText": "But without other incentives or support, I don't see how we can do the more expensive steps.",
+            "dialogTextES": "Pero sin otros apoyos o incentivos, no veo cómo podríamos hacer los pasos más caros.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_52"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_52",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_52"
         },
         {
             "id": "53",
             "characterName": "Sarah",
             "dialogText": "We'll do what we can.",
+            "dialogTextES": "Haremos lo que podamos.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_53",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_53",
             "options": [
                 {
                     "optionText": "Make final decision",
+                    "optionTextES": "Tomar decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -869,18 +1147,23 @@
             "id": "201",
             "characterName": "Sarah",
             "dialogText": "Wow, that is amazing! Community support is everything, especially in times like these.",
+            "dialogTextES": "¡Guau, eso es increíble! El apoyo de la comunidad lo es todo, especialmente en momentos como estos.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
-            "audioPath": "FirewiseCitizen/Audio/wui_id_201"
+            "audioPath": "FirewiseCitizen/Audio/wui_id_201",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_201"
         },
         {
             "id": "202",
             "characterName": "Sarah",
             "dialogText": "Now I'm definitely interested in doing full home hardening.",
+            "dialogTextES": "Ahora sí estoy totalmente interesada en hacer un refuerzo completo de la vivienda.",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_homeowner",
             "audioPath": "FirewiseCitizen/Audio/wui_id_202",
+            "audioPathES": "FirewiseCitizen/Audio/ES/wui_id_202",
             "options": [
                 {
                     "optionText": "Make final decision",
+                    "optionTextES": "Tomar decisión final",
                     "nextNodeId": "100"
                 }
             ]
@@ -903,32 +1186,46 @@
       "nodes": [
         {
           "id": "30",
-          "dialogText": "<i>You see an older woman sitting on her porch, looking out onto the street. She gives a soft wave and a smile when you approach</i>"
+          "dialogText": "<i>You see an older woman sitting on her porch, looking out onto the street. She gives a soft wave and a smile when you approach</i>",
+          "dialogTextES": "<i>Ves a una mujer mayor sentada en su porche, mirando hacia la calle. Ella te saluda suavemente con la mano y te sonríe cuando te acercas.</i>"
         },
         {
           "id": "31",
           "characterName": "June",
           "dialogText": "Oh hello dear! How nice of you to come by.",
+          "dialogTextES": "¡Oh, hola, cariño! Qué gusto que hayas venido.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_31"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_31",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_31"
         },
         {
           "id": "32",
           "characterName": "June",
           "dialogText": "I hope I'm not too much of a bother, these wildfires are just making me antsy, and I could use some advice.",
+          "dialogTextES": "Espero no ser una molestia. Estos incendios forestales me tienen muy nerviosa y me vendría bien un poco de consejo.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_32",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_32",
           "options": [
             {
               "optionText": "How can I help?",
-              "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?"
+              "optionTextES": "¿Cómo puedo ayudar?",
+              "messageText": "It's very nice to meet you ma'am. How can I help with the wildfires?",
+              "messageTextES": "Mucho gusto en conocerla, señora. ¿Cómo puedo ayudar con los incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_How",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_How"
             },
             {
               "optionText": "What's worrying you?",
-              "messageText": "It's very nice to meet you ma'am. What's worrying you about the wildfires?"
+              "optionTextES": "¿Qué le preocupa?",
+              "messageText": "It's very nice to meet you ma'am. What's worrying you about the wildfires?",
+              "messageTextES": "Mucho gusto en conocerla, señora. ¿Qué le preocupa sobre los incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_Whatss",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_Whatss"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -937,29 +1234,40 @@
           "id": "33",
           "characterName": "June",
           "dialogText": "Oh honey, you can call me June.",
+          "dialogTextES": "Ay, cariño, puedes llamarme June.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_33"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_33",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_33"
         },
         {
           "id": "34",
           "characterName": "June",
           "dialogText": "You see, I've been working hard to prepare all my valuables in case of a wildfire.",
+          "dialogTextES": "Verás, he estado trabajando mucho para preparar todas mis cosas valiosas por si ocurre un incendio forestal.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_34"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_34",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_34"
         },
         {
           "id": "35",
           "characterName": "June",
           "dialogText": "I've got them all packed and ready to go!",
+          "dialogTextES": "¡Ya tengo todo empacado y listo para salir!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_35",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_35",
           "options": [
             {
               "optionText": "Great to hear",
-              "messageText": "That's great to hear! It's very important to prepare a go bag before the emergency arises, so you can quickly evacuate."
+              "optionTextES": "Me alegra mucho escucharlo",
+              "messageText": "That's great to hear! It's very important to prepare a go bag before the emergency arises, so you can quickly evacuate.",
+              "messageTextES": "¡Qué bueno escuchar eso! Es muy importante preparar una bolsa de emergencia antes de que ocurra una emergencia, para poder evacuar rápidamente.",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_Great",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_Great"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -973,34 +1281,49 @@
           "id": "37",
           "characterName": "June",
           "dialogText": "Yes there is. It's not my items I'm so worried about, it's me!",
+          "dialogTextES": "Sí, lo hay. No es por mis cosas por lo que me preocupo… ¡es por mí!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_37"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_37",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_37"
         },
         {
           "id": "38",
           "characterName": "June",
           "dialogText": "I just don't move as quickly as I used to, it's a hard truth, but the truth anyways.",
+          "dialogTextES": "Ya no me muevo tan rápido como antes. Es una verdad difícil, pero sigue siendo la verdad.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_38"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_38",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_38"
         },
         {
           "id": "39",
           "characterName": "June",
           "dialogText": "Instead of worrying about moving my belongings, I need to start worrying about moving myself.",
+          "dialogTextES": "En lugar de preocuparme por mover mis pertenencias, tengo que empezar a preocuparme por moverme yo.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_39",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_39",
           "options": [
             {
               "optionText": "Early evacuation planning could be a good start.",
-              "messageText": "Planning for an early evacuation is important. <b>Red Flag</b> days are days with particularly high fire risk. Have you thought about leaving early when there is a Red Flag warning?"
+              "optionTextES": "Planear la evacuación con tiempo sería un buen comienzo.",
+              "messageText": "Planning for an early evacuation is important. <b>Red Flag</b> days are days with particularly high fire risk. Have you thought about leaving early when there is a Red Flag warning?",
+              "messageTextES": "Planear una evacuación temprana es importante. Los días de bandera roja tienen un riesgo de incendio especialmente alto. ¿Has pensado en salir temprano cuando hay una advertencia de bandera roja?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_Early",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_Early"
             },
             {
               "optionText": "Is there anyone you can ask for help?",
+              "optionTextES": "¿Hay alguien a quien pueda pedir ayuda?",
               "messageText": "Do you have neighbors or family who can help you if you need to evacuate quickly?",
+              "messageTextES": "¿Tienes vecinos o familiares que puedan ayudarte si necesitas evacuar rápidamente?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_IsThere",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_IsThere",
               "nextNodeId": "50"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1009,34 +1332,49 @@
           "id": "40",
           "characterName": "June",
           "dialogText": "I have, but it's hard to leave before anyone else. What if it's a false alarm?",
+          "dialogTextES": "Sí, lo he pensado, pero es difícil irse antes que los demás. ¿Y si es una falsa alarma?",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_40"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_40",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_40"
         },
         {
           "id": "41",
           "characterName": "June",
           "dialogText": "Also, it's hard for me to walk around the block, let alone evacuate on every Red Flag day.",
+          "dialogTextES": "Además, me cuesta incluso caminar alrededor de la cuadra, mucho menos evacuar en cada día de alerta roja.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_41"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_41",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_41"
         },
         {
           "id": "42",
           "characterName": "June",
           "dialogText": "I could have relied on my kids, but they live hours away. It would be hard for them to arrive in case of emergency.",
+          "dialogTextES": "Además, me cuesta incluso caminar alrededor de la cuadra, mucho menos evacuar en cada día de alerta roja.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_42",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_42",
           "options": [
             {
                 "optionText": "Could your family help you evacuate early?",
-                "messageText": "If plan to leave early you'd give your kids time to arrive. <b>Red Flag</b> days are days with particularly high fire risk. Have you considered asking them to help on <b>Red Flag</b> days?"
+                "optionTextES": "¿Podría su familia ayudarle a evacuar con tiempo?",
+                "messageText": "If you plan to leave early you'd give your kids time to arrive. <b>Red Flag</b> days are days with particularly high fire risk. Have you considered asking them to help on <b>Red Flag</b> days?",
+                "messageTextES": "Planear una evacuación temprana es importante. Los días de bandera roja tienen un riesgo de incendio especialmente alto. ¿Has pensado en salir temprano cuando hay una advertencia de bandera roja?",
+                "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_CouldYou",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_CouldYou"
             },
             {
               "optionText": "Could your neighbors help?",
+              "optionTextES": "¿Podrían ayudarle sus vecinos?",
               "messageText": "What about your neighbors, could they help?",
+              "messageTextES": "¿Y tus vecinos? ¿Podrían ayudarte?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_CouldYour",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_CouldYour",
               "nextNodeId": "51"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1045,16 +1383,23 @@
           "id": "43",
           "characterName": "June",
           "dialogText": "I do suppose if I asked them early into fire season, I could stay with them while everything is higher risk.",
+          "dialogTextES": "Supongo que si les avisara desde el inicio de la temporada de incendios, podría quedarme con ellos mientras el riesgo es mayor.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_43",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_43",
           "options": [
             {
                 "optionText": "Could your neighbors help?",
+                "optionTextES": "¿Podrían ayudarle sus vecinos?",
                 "messageText": "What about your neighbors, could they help if there's an emergency?",
+                "messageTextES": "¿Tienes vecinos o familiares que puedan ayudarte si necesitas evacuar rápidamente?",
+                "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_CouldYourNeighbors",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_CouldYourNeighbors",
                 "nextNodeId": "51"
             },
             {
               "optionText": "Conclude",
+              "optionTextES": "Concluir",
               "nextNodeId": "200"
             }
           ]
@@ -1063,28 +1408,41 @@
           "id": "50",
           "characterName": "June",
           "dialogText": "My kids live hours away, so its hard for them to help in an emergency.",
+          "dialogTextES": "Mis hijos viven a varias horas, así que les resulta difícil ayudar en una emergencia.",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_50"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_50",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_50"
         },
         {
           "id": "51",
           "characterName": "June",
           "dialogText": "I do have some kind neighbors who could help. Oh, but I hate to be a burden!",
+          "dialogTextES": "Sí tengo algunos vecinos muy amables que podrían ayudarme. Ay… ¡pero odio ser una carga!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_51",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_51",
           "options": [
             {
               "optionText": "Ask the neighbors",
+              "optionTextES": "Preguntar a los vecinos",
               "messageText": "It's good to have supportive neighbors! I'm sure they won't see it as a burden at all, especially if you plan ahead.",
+              "messageTextES": "¡Es bueno tener vecinos solidarios! Estoy seguro de que no lo verán como una carga, especialmente si se planea con anticipación.",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_AskThe",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_AskThe",
               "nextNodeId": "60"
             },
             {
               "optionText": "Plan for early evacuation",
+              "optionTextES": "Planear evacuación anticipada",
               "messageText": "Planning for an early evacuation is important. Have you thought about leaving early when there is a red flag warning?",
+              "messageTextES": "Planear una evacuación temprana es importante. ¿Has pensado en salir con anticipación cuando hay una advertencia de bandera roja?",
+              "audioPath": "FirewiseCitizen/Audio/Player/elderly_opt_PlanFor",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/elderly_opt_PlanFor",
               "nextNodeId": "40"
             },
             {
               "optionText": "Skip to final decision",
+              "optionTextES": "Saltar a la decisión final",
               "nextNodeId": "200"
             }
           ]
@@ -1098,15 +1456,19 @@
           "id": "61",
           "characterName": "June",
           "dialogText": "I have always brought over a tin of freshly baked cookies when I have the chance...",
+          "dialogTextES": "Siempre les llevo una lata de galletas recién horneadas cuando tengo la oportunidad…",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
-          "audioPath": "FirewiseCitizen/Audio/elderly_id_61"
+          "audioPath": "FirewiseCitizen/Audio/elderly_id_61",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_61"
         },
         {
           "id": "62",
           "characterName": "June",
           "dialogText": "I suppose I could discuss it with them over some gingersnaps. Asking for help from a neighbor might be the best course of action!",
+          "dialogTextES": "Supongo que podría hablarlo con ellos mientras compartimos unas galletas de jengibre. ¡Pedir ayuda a un vecino quizá sea la mejor opción!",
           "portraitPath": "FirewiseCitizen/Portraits/grandma",
           "audioPath": "FirewiseCitizen/Audio/elderly_id_62",
+          "audioPathES": "FirewiseCitizen/Audio/ES/elderly_id_62",
           "nextNodeId": "200"
         },
         {
@@ -1127,41 +1489,57 @@
         "nodes": [
             {
                 "id": "40",
-                "dialogText": "<i>You see a person playing fetch with two large dogs. As you approach, the two dogs bound over, dropping a slobbery ball at your feet. Their owner jogs over, and waves hello.</i>"
+                "dialogText": "<i>You see a person playing fetch with two large dogs. As you approach, the two dogs bound over, dropping a slobbery ball at your feet. Their owner jogs over, and waves hello.</i>",
+                "dialogTextES": "<i>Ves a una persona jugando a lanzar la pelota con dos perros grandes. Al acercarte, los dos perros corren hacia ti y sueltan una pelota llena de baba a tus pies. Su dueño llega trotando y te saluda con la mano.</i>"
             },
             {
                 "id": "41",
                 "characterName": "Genaro",
                 "dialogText": "Pippin, Porkchop, fetch!",
+                "dialogTextES": "¡Pippin, Porkchop, traigan eso!",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_41"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_41",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_41"
             },
             {
                 "id": "42",
                 "characterName": "Genaro",
                 "dialogText": "Those dogs are tireless! I feel like I could charge a battery off of them.",
+                "dialogTextES": "¡Esos perros no se cansan nunca! Siento que podría cargar una batería con toda su energía.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_42"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_42",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_42"
             },
             {
                 "id": "43",
                 "characterName": "Genaro",
                 "dialogText": "My name's Genaro. I appreciate you stopping by!",
+                "dialogTextES": "Me llamo Genaro. ¡Gracias por pasar a verme!",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_43",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_43",
                 "options": [
                     {
                         "optionText": "How can I help?",
+                        "optionTextES": "¿Cómo puedo ayudar?",
                         "messageText": "Pleasure to meet you Genaro. How can I help?",
+                        "messageTextES": "Mucho gusto en conocerte, Genaro. ¿Cómo puedo ayudar?",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_How",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_How",
                         "nextNodeId": "45"
                     },
                     {
                         "optionText": "Cute dogs!",
+                        "optionTextES": "¡Qué perros más lindos!",
                         "messageText": "Those are some really cute dogs. Do you have other pets?",
+                        "messageTextES": "Esos perros son muy lindos. ¿Tienes otras mascotas?",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Cute",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_Cute",
                         "nextNodeId": "400"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1170,25 +1548,31 @@
                 "id": "400",
                 "characterName": "Genaro",
                 "dialogText": "Yeah I do! I'm the proud parent of two dogs, a cat, and two rabbits.",
+                "dialogTextES": "¡Sí! Soy el orgulloso papá de dos perros, un gato y dos conejos.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_400"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_400",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_400"
             },
             {
                 "id": "401",
                 "characterName": "Genaro",
                 "dialogText": "I'm a notorious foster failure. Sometimes they're just too cute! I can't help it, they would leave a pet sized hole in my heart if I let them go.",
+                "dialogTextES": "Soy un famoso “fracaso adoptivo”. ¡A veces son demasiado tiernos! No puedo evitarlo… si los dejara ir, me dejarían un hueco enorme en el corazón.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_401"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_401",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_401"
             },
             {
                 "id": "402",
                 "characterName": "Genaro",
                 "dialogText": "They're actually the reason I called you here.",
+                "dialogTextES": "De hecho, ellos son la razón por la que te llamé.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_402",
                 "options": [
                     {
                         "optionText": "How can I help?",
+                        "optionTextES": "¿Cómo puedo ayudar?",
                         "nextNodeId": "45"
                     }
                 ]
@@ -1197,41 +1581,58 @@
                 "id": "45",
                 "characterName": "Genaro",
                 "dialogText": "Wildfire season stresses me out. Like really stresses me out.",
+                "dialogTextES": "La temporada de incendios forestales me estresa muchísimo. Pero muchísimo.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_45"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_45",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_45"
             },
             {
                 "id": "46",
                 "characterName": "Genaro",
                 "dialogText": "But not because of me. Because of my pets!",
+                "dialogTextES": "Pero no por mí… ¡por mis mascotas!",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_46"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_46",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_46"
             },
             {
                 "id": "47",
                 "characterName": "Genaro",
                 "dialogText": "I love my pets with my entire heart.",
+                "dialogTextES": "Amo a mis mascotas con todo mi corazón.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_47"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_47",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_47"
             },
             {
                 "id": "48",
                 "characterName": "Genaro",
                 "dialogText": "If the fire gets close, I need a plan to get everyone to safety.",
+                "dialogTextES": "Si el fuego se acerca, necesito un plan para ponerlos a todos a salvo.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_48",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_48",
                 "options": [
                     {
                         "optionText": "An evacuation plan could help.",
-                        "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave."
+                        "optionTextES": "Un plan de evacuación podría ayudar.",
+                        "messageText": "A detailed evacuation plan, with supplies and transport ready, can help when it's time to leave.",
+                        "messageTextES": "Un plan de evacuación detallado, con suministros y transporte listos, puede ayudar cuando llegue el momento de salir.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_An",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_An"
                     },
                     {
                         "optionText": "Could you evacuate early?",
+                        "optionTextES": "¿Podría evacuar con tiempo?",
                         "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
+                        "messageTextES": "Evacuar con mascotas puede ser complicado. Tal vez evacuar con anticipación en días de bandera roja podría ayudar.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Could",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_Could",
                         "nextNodeId": "100"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1240,33 +1641,50 @@
                 "id": "49",
                 "characterName": "Genaro",
                 "dialogText": "I've got crates and carriers for all of them, but getting them out quickly is tough.",
+                "dialogTextES": "Tengo jaulas y transportadoras para todos, pero sacarlos rápido es complicado.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_49"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_49",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_49"
             },
             {
                 "id": "50",
                 "characterName": "Genaro",
                 "dialogText": "Rabbits are incredibly skittish - if they hide, it would take forever to try and find them fast!",
+                "dialogTextES": " Los conejos son muy asustadizos. Si se esconden, ¡tomaría muchísimo tiempo encontrarlos rápido!",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_50",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_50",
                 "options": [
                     {
                         "optionText": "Practice evacuation",
+                        "optionTextES": "Practicar la evacuación",
                         "messageText": "Doing a practice run might help you prepare before an actual emergency.",
+                        "messageTextES": "Hacer un simulacro podría ayudarte a prepararte antes de una emergencia real.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Practice",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_Practice",
                         "nextNodeId": "200"
                     },
                     {
                         "optionText": "Prep a Go-Bag",
+                        "optionTextES": "Preparar una mochila de emergencia",
                         "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+                        "messageTextES": "Tener una bolsa de emergencia lista para cada mascota hace una gran diferencia cuando hay prisa.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Prep",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_Prep",
                         "nextNodeId": "300"
                     },
                     {
                         "optionText": "Could you evacuate early?",
+                        "optionTextES": "¿Podría evacuar con tiempo?",
                         "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
+                        "messageTextES": "Evacuar con mascotas puede ser complicado. Tal vez evacuar con anticipación en días de bandera roja podría ayudar.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYouEvac",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_CouldyouEvac",
                         "nextNodeId": "100"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1275,19 +1693,27 @@
                 "id": "300",
                 "characterName": "Genaro",
                 "dialogText": "Definetly. I've been trying to get a Go-Bag ready.",
+                "dialogTextES": "Definitivamente. He estado tratando de preparar una mochila de emergencia.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_300"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_300",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_300"
             },
             {
                 "id": "301",
                 "characterName": "Genaro",
                 "dialogText": "The only issue is that some items expire after a period of time. It's costly to upkeep a go bag.",
+                "dialogTextES": "El único problema es que algunos artículos vencen con el tiempo. Mantener una mochila de emergencia puede ser costoso.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_301",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_301",
                 "options": [
                     {
                         "optionText": "You can use items from the Go-Bag",
-                        "messageText": "Even when items are in the Go-Bag you can still use them, so they can be gathered together but not go to waste."
+                        "optionTextES": "Puede usar los artículos de la mochila de emergencia.",
+                        "messageText": "Even when items are in the Go-Bag you can still use them, so they can be gathered together but not go to waste.",
+                        "messageTextES": "Aunque los artículos estén en la bolsa de emergencia, aún se pueden usar, así pueden mantenerse juntos sin desperdiciarse.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_YouCanUse",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_YouCanUse"
                     }
                 ]
             },
@@ -1295,8 +1721,10 @@
                 "id": "302",
                 "characterName": "Genaro",
                 "dialogText": "That's a good point, I hadn't considered it.",
+                "dialogTextES": "Ese es un buen punto, no lo había pensado.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_302",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_302",
                 "nextNodeId": "500"
             },
             {
@@ -1308,23 +1736,32 @@
                 "id": "201",
                 "characterName": "Genaro",
                 "dialogText": "Oh you're so right! There are probably some things I have overlooked, it wouldn't hurt at all to practice.",
+                "dialogTextES": "¡Tienes toda la razón! Seguro hay cosas que se me han pasado, y practicar no haría ningún daño.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_201"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_201",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_201"
             },
             {
                 "id": "202",
                 "characterName": "Genaro",
                 "dialogText": "It might also help with my bunny wrangling skills.",
+                "dialogTextES": "Además, podría ayudarme a mejorar mis habilidades para atrapar conejos.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_202",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_202",
                 "options": [
                     {
                         "optionText": "Prep a Go-Bag",
+                         "optionTextES": "Preparar una mochila de emergencia",
                         "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
+                        "messageTextES": "Tener una bolsa de emergencia lista para cada mascota hace una gran diferencia cuando hay prisa",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_PrepaGo",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_PrepaGo",
                         "nextNodeId": "300"
                     },
                     {
                         "optionText": "Conclude",
+                         "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1333,27 +1770,40 @@
                 "id": "100",
                 "characterName": "Genaro",
                 "dialogText": "I've thought about it, but it feels extreme to leave before an order.",
+                "dialogTextES": " Lo he pensado, pero se siente un poco extremo irse antes de que den la orden.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_100"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_100",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_100"
             },
             {
                 "id": "101",
                 "characterName": "Genaro",
                 "dialogText": "Plus, where would we go? Finding a pet-friendly place is tough.",
+                "dialogTextES": "Además, ¿a dónde iríamos? Encontrar un lugar que acepte mascotas es difícil.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_101",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_101",
                 "options": [
                     {
                         "optionText": "There are pet-friendly shelters.",
-                        "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic."
+                        "optionTextES": "Hay refugios que aceptan mascotas.",
+                        "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
+                        "messageTextES": "Algunos refugios u hoteles permiten mascotas, y salir temprano puede ayudarte a evitar el pánico de último momento.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_ThereAre",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_ThereAre"
                     },
                     {
                         "optionText": "Could you stay with friends or family?",
+                        "optionTextES": "¿Podría quedarse con amigos o familiares?",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+                        "messageTextES": "Si tienes familiares o amigos en una zona más segura, ¿tal vez podrías quedarte con ellos cuando haya riesgo?",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYou",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_CouldYou",
                         "nextNodeId": "104"
                     },
                     {
                         "optionText": "Skip to final decision",
+                        "optionTextES": "Saltar a la decisión final",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1362,23 +1812,32 @@
                 "id": "102",
                 "characterName": "Genaro",
                 "dialogText": "That isn't a bad idea. I would have to do a lot of research.",
+                "dialogTextES": "No es una mala idea. Tendría que investigar bastante.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_102"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_102",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_102"
             },
             {
                 "id": "103",
                 "characterName": "Genaro",
                 "dialogText": "I worry that a lot of those places will fill up quick. What would I do then if they were full?",
+                "dialogTextES": "Me preocupa que muchos de esos lugares se llenen rápido. ¿Qué haría si ya estuvieran llenos?",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_103",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_103",
                 "options": [
                     {
                         "optionText": "Could you stay with friends or family?",
+                        "optionTextES": "¿Podría quedarse con amigos o familiares?",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
+                        "messageTextES": "Si tienes familiares o amigos en una zona más segura, ¿tal vez podrías quedarte con ellos cuando haya riesgo?",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYouStay",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_CouldYouStay",
                         "nextNodeId": "104"
                     },
                     {
                         "optionText": "Conclude",
+                        "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1387,30 +1846,41 @@
                 "id": "104",
                 "characterName": "Genaro",
                 "dialogText": "That's not a bad idea. I would just hate to be a burden though.",
+                "dialogTextES": "No es una mala idea… pero odiaría ser una carga.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_104"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_104",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_104"
             },
             {
                 "id": "105",
                 "characterName": "Genaro",
                 "dialogText": "I'm used to taking care of this many animals, but I understand why a lot of others wouldn't.",
+                "dialogTextES": "Estoy acostumbrado a cuidar tantos animales, pero entiendo por qué muchas otras personas no lo harían.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
-                "audioPath": "FirewiseCitizen/Audio/pet_id_105"
+                "audioPath": "FirewiseCitizen/Audio/pet_id_105",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_105"
             },
             {
                 "id": "106",
                 "characterName": "Genaro",
                 "dialogText": "I also know it would stress my pets out a lot! I don't want to overwhelm them by evacuating too much.",
+                "dialogTextES": "También sé que eso estresaría mucho a mis mascotas. No quiero abrumarlas evacuando demasiadas veces.",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_106",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_106",
                 "options": [
                     {
                         "optionText": "Going through it could help them get used to it.",
+                        "optionTextES": "Practicar el proceso podría ayudarles a acostumbrarse.",
                         "messageText": "Once they go through it a few times they might start to get more comfortable with it.",
+                        "messageTextES": "Después de pasar por esto algunas veces, es posible que empiecen a sentirse más cómodos.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Going",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_Going",
                         "nextNodeId": "107"
                     },
                     {
                         "optionText": "Conclude",
+                        "optionTextES": "Concluir",
                         "nextNodeId": "500"
                     }
                 ]
@@ -1419,13 +1889,16 @@
                 "id": "107",
                 "characterName": "Genaro",
                 "dialogText": "Actually, that's probably true!",
+                "dialogTextES": "¡La verdad… eso probablemente sea cierto!",
                 "portraitPath": "FirewiseCitizen/Portraits/dogowner",
                 "audioPath": "FirewiseCitizen/Audio/pet_id_107",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_id_107",
                 "nextNodeId": "500"
             },
             {
                 "id": "500",
                 "dialogText": "<b>What is best for Genaro?</b>",
+                "dialogTextES": "<b>¿Qué es mejor para Genaro?</b>",
                 "isEndNode": "true"
             }
         ]
@@ -1438,23 +1911,35 @@
           "id": "50",
           "characterName": "Firefighter",
           "dialogText": "Hey there! Thank you for helping our community prepare for <b>wildfire</b>. You can <b>Click</b> or <b>Tap</b> to read the next message.",
+          "dialogTextES": "¡Hola! Gracias por ayudar a nuestra comunidad a prepararse para los incendios forestales. Puedes hacer clic o tocar para leer el siguiente mensaje.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "audioPath": "FirewiseCitizen/Audio/intro_id_50"
+          "audioPath": "FirewiseCitizen/Audio/intro_id_50",
+          "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_50"
         },
         {
           "id": "51",
           "characterName": "Firefighter",
           "dialogText": "Before we start, would you like to <b>review your job</b>? Or are you ready to <b>get started</b>?",
+          "dialogTextES": "Antes de empezar, ¿te gustaría repasar tu misión? ¿O ya estás listo para comenzar?",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
           "audioPath": "FirewiseCitizen/Audio/intro_id_51",
+          "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_51",
           "options": [
             {
               "optionText": "Review job (Play Tutorial)",
-              "messageText": "I think a review of my tasks would be great!"
+              "optionTextES": "Revisar trabajo (Jugar tutorial)",
+              "messageText": "I think a review of my tasks would be great!",
+              "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_Review",
+              "messageTextES": "Creo que revisar mis tareas sería genial.",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt_Review"
             },
             {
               "optionText": "Get started (Skip Tutorial)",
+              "optionTextES": "Empezar (Omitir tutorial)",
               "messageText": "I think I'm ready now.",
+              "messageTextES": "Creo que ya estoy listo.",
+              "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_Get",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt_Get",
               "nextNodeId": "71"
             }
           ]
@@ -1463,33 +1948,45 @@
           "id": "52",
           "characterName": "Firefighter",
           "dialogText": "Fantastic! Let's get started. As a <b>firefighter</b>, my job is to help our neighbors be <b>fire safe</b> and I'd like your help reaching them.",
+          "dialogTextES": "¡Fantástico! Empecemos. Como <b>bombero</b>, mi trabajo es ayudar a nuestros vecinos a estar <b>protegidos contra el fuego</b>, y me gustaría contar con tu ayuda para llegar a ellos.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "audioPath": "FirewiseCitizen/Audio/intro_id_52"
+          "audioPath": "FirewiseCitizen/Audio/intro_id_52",
+          "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_52"
         },
         {
             "id": "53",
             "characterName": "Firefighter",
             "dialogText": "Not just when fires start, but <b>before</b> a fire as well. When people prepare ahead of time for <b>wildfires</b>, they can keep their homes and families much <b>safer</b>.",
+            "dialogTextES": "No solo cuando comienzan los incendios, sino también <b>antes</b>. Cuando las personas se preparan con anticipación para los <b>incendios forestales</b>, pueden mantener a sus hogares y familias mucho más <b>seguros</b>.",
             "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-            "audioPath": "FirewiseCitizen/Audio/intro_id_53"
+            "audioPath": "FirewiseCitizen/Audio/intro_id_53",
+            "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_53"
         },
         {
           "id": "54",
           "characterName": "Firefighter",
           "dialogText": "They have more time to make <b>important decisions</b>, such as <b>Home Hardening</b> to reduce the chance their home burns, preparing a <b>Go-Bag</b> with essential items, and creating an <b>Evacuation Plan</b> and preparing to evacuate early.",
+          "dialogTextES": "Tienen más tiempo para tomar <b>decisiones importantes</b>, como el <b>refuerzo de la vivienda</b> para reducir la posibilidad de que su casa se queme, preparar una <b>mochila de emergencia</b> con artículos esenciales y crear un <b>plan de evacuación</b>, además de prepararse para evacuar temprano.",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-          "audioPath": "FirewiseCitizen/Audio/intro_id_54"
+          "audioPath": "FirewiseCitizen/Audio/intro_id_54",
+          "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_54"
         },
         {
           "id": "55",
           "characterName": "Firefighter",
           "dialogText": "Unfortunately, a lot of people <b>struggle</b> with these steps. It’s hard to know what’s best for your situation... <br>...which is where <b>you</b> come in!",
+          "dialogTextES": "Lamentablemente, muchas personas <b>tienen dificultades</b> con estos pasos. A veces es difícil saber qué es lo mejor para cada situación… <br>…¡y ahí es donde entras <b>tú</b>!",
           "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
           "audioPath": "FirewiseCitizen/Audio/intro_id_55",
+          "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_55",
           "options": [
             {
               "optionText": "How can I help?",
-              "messageText": "How can I help with people's wildfire preparations?"
+              "optionTextES": "¿Cómo puedo ayudar?",
+              "messageText": "How can I help with people's wildfire preparations?",
+              "messageTextES": "¿Cómo puedo ayudar con la preparación de las personas ante incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_HowCan",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt_HowCan"
             }
           ]
         },
@@ -1497,20 +1994,28 @@
             "id": "56",
             "characterName": "Firefighter",
             "dialogText": "You will be speaking to members of our <b>community</b>, and helping them make their <b>plan</b>!",
+            "dialogTextES": "¡Hablarás con miembros de nuestra <b>comunidad</b> y los ayudarás a hacer su <b>plan</b>!",
             "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-            "audioPath": "FirewiseCitizen/Audio/intro_id_56"
+            "audioPath": "FirewiseCitizen/Audio/intro_id_56",
+            "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_56"
         },
         {
             "id": "57",
             "characterName": "Firefighter",
             "dialogText": "Earlier, I got a call from <b>Mary</b>, a neighbor of ours. Let's go speak to her, and see if we can <b>help</b>!",
+            "dialogTextES": "Antes recibí una llamada de <b>Mary</b>, una de nuestras vecinas. ¡Vamos a hablar con ella y ver si podemos <b>ayudarla</b>!",
             "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
             "audioPath": "FirewiseCitizen/Audio/intro_id_57",
+            "audioPathES": "FirewiseCitizen/Audio/ES/intro_id_57",
             "isEndNode": "true",
             "options": [
                 {
                     "optionText": "Let's go! (End Conversation)",
-                    "messageText": "Let's go!"
+                    "optionTextES": "¡Vamos! (Terminar conversación)",
+                    "messageText": "Let's go!",
+                    "messageTextES": "¡Vamos!",
+                    "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_LetsGo",
+                    "audioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt_LetsGo"
                 }
             ]
         }
@@ -1524,16 +2029,26 @@
           "id": "58",
           "characterName": "Mary",
           "dialogText": "Oh good! Thank you so much for coming. <b>Fire season</b> is coming, and I’m a little <b>worried</b>.",
+          "dialogTextES": "¡Ay, qué bueno! Muchas gracias por venir. Se acerca la <b>temporada de incendios</b> y estoy un poco <b>preocupada</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "audioPath": "FirewiseCitizen/Audio/tutorial_id_58",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_58",
           "options": [
             {
               "optionText": "What's worrying you?",
-              "messageText": "What's worrying you this fire season?"
+              "optionTextES": "¿Qué le preocupa?",
+              "messageText": "What's worrying you this fire season?",
+              "messageTextES": "¿Qué te preocupa esta temporada de incendios?",
+              "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Whats",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_opt_Whats"
             },
             {
               "optionText": "Happy to help!",
-              "messageText": "Hi Mary, I'm happy to help you."
+              "optionTextES": "¡Feliz de ayudar!",
+              "messageText": "Hi Mary, I'm happy to help you.",
+              "messageTextES": "Hola Mary, con gusto te ayudo.",
+              "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Happy",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_opt_Happy"
             }
           ]
         },
@@ -1541,16 +2056,23 @@
           "id": "59",
           "characterName": "Mary",
           "dialogText": "Well, I’ve started <b>fostering animals!</b> I have two dogs, and the cutest litter of kittens!",
+          "dialogTextES": "Bueno, ¡he empezado a <b>cuidar animales temporalmente</b>! Tengo dos perros y la camada de gatitos más tierna.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "audioPath": "FirewiseCitizen/Audio/tutorial_id_59",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_59",
           "options": [
             {
               "optionText": "That's amazing!",
+              "optionTextES": "¡Eso es increíble!",
               "nextNodeId": "60"
             },
             {
               "optionText": "Pet evacuation?",
+              "optionTextES": "¿Evacuación de mascotas?",
               "messageText": "Are you concerned about keeping your pets safe?",
+              "messageTextES": "¿Te preocupa mantener a tus mascotas a salvo?",
+              "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Pet",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_opt_Pet",
               "nextNodeId": "61"
             }
           ]
@@ -1559,8 +2081,10 @@
             "id": "60",
             "characterName": "Mary",
             "dialogText": "Thank you! But now I start to worry about <b>what to do</b> if there's a <b>wildfire</b>. There’s so many supplies for them, and I’m afraid I’ll be panicking!",
+            "dialogTextES": "¡Gracias! Pero ahora empiezo a preocuparme por <b>qué hacer</b> si hay un <b>incendio forestal</b>. Son muchas cosas para ellos, ¡y me da miedo entrar en pánico!",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
             "audioPath": "FirewiseCitizen/Audio/tutorial_id_60",
+            "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_60",
             "options": [
                 {
                     "nextNodeId": "62"
@@ -1571,8 +2095,10 @@
             "id": "61",
             "characterName": "Mary",
             "dialogText": "Exactly. I’m worried about <b>what to do</b> if there's a <b>wildfire</b>. There’s so many supplies for them, and I’m afraid I’ll be panicking!",
+            "dialogTextES": "Exactamente. Me preocupa <b>qué hacer</b> si hay un <b>incendio forestal</b>. Hay muchos suministros, ¡y temo ponerme muy nerviosa!",
             "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
             "audioPath": "FirewiseCitizen/Audio/tutorial_id_61",
+            "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_61",
             "options": [
                 {
                     "nextNodeId": "62"
@@ -1583,26 +2109,36 @@
           "id": "62",
           "characterName": "Firefighter",
           "dialogText": "Everyone will have a <b>different situation</b>, and <b>different concerns.</b> It’s important to <b>listen</b>, and respond accordingly!",
+          "dialogTextES": "Cada persona tendrá una <b>situación diferente</b> y <b>preocupaciones distintas</b>. ¡Es importante <b>escuchar</b> y responder de acuerdo a eso!",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "audioPath": "FirewiseCitizen/Audio/tutorial_id_62"
+          "audioPath": "FirewiseCitizen/Audio/tutorial_id_62",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_62"
         },
         {
           "id": "63",
           "characterName": "Firefighter",
           "dialogText": "In this case, the best way to keep pets safe is to include them in the family plan. A great step is to keep extra pet <b>supplies</b> packed in a <b>Go-Bag.</b>",
+          "dialogTextES": "En este caso, la mejor manera de mantener a las mascotas seguras es incluirlas en el plan familiar. Un gran paso es guardar <b>suministros</b> extra para ellas en una <b>mochila de emergencia</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
-          "audioPath": "FirewiseCitizen/Audio/tutorial_id_63"
+          "audioPath": "FirewiseCitizen/Audio/tutorial_id_63",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_63"
         },
         {
           "id": "64",
           "characterName": "Firefighter",
           "dialogText": "How about you <b>tell Mary</b>.",
+          "dialogTextES": "¿Qué tal si se lo <b>dices a Mary</b>?",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "audioPath": "FirewiseCitizen/Audio/tutorial_id_64",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_64",
           "options": [
             {
               "optionText": "Got it! (Tell Mary)",
-              "messageText": "You should prepare your pets' supplies as you would with your own! Creating a <b>Go-Bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moment's notice!"
+              "optionTextES": "¡Entendido! (Avisar a Mary)",
+              "messageText": "You should prepare your pets' supplies as you would with your own! Creating a <b>Go-Bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moment's notice!",
+              "messageTextES": "¡Debes preparar los suministros de tus mascotas igual que los tuyos! Crear una <b>bolsa de emergencia</b> con todo lo que necesitan, junto con transportadoras para animales, es una excelente manera de <b>mantenerse preparado</b> y asegurar que tú y tus mascotas puedan salir en cualquier momento.",
+              "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_GotIt",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_opt_GotIt"
             }
           ]
         },
@@ -1610,13 +2146,19 @@
           "id": "65",
           "characterName": "Mary",
           "dialogText": "That’s a great idea, I’ll try to get that done! It’s hard to stay on top of things, but I will feel better knowing we are <b>prepared</b>.",
+          "dialogTextES": "Esa es una gran idea, ¡trataré de hacerlo! Es difícil mantenerse al día con todo, pero me sentiré mejor sabiendo que estamos <b>preparados</b>.",
           "portraitPath": "FirewiseCitizen/Portraits/AtC_Char_02",
           "audioPath": "FirewiseCitizen/Audio/tutorial_id_65",
+          "audioPathES": "FirewiseCitizen/Audio/ES/tutorial_id_65",
           "isEndNode": "true",
           "options": [
             {
               "optionText": "Happy to help! (End Conversation)",
-              "messageText": "Happy to help!"
+              "optionTextES": "¡Feliz de ayudar! (Terminar conversación)",
+              "messageText": "Happy to help!",
+              "messageTextES": "¡Con gusto ayudo!",
+              "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_HappyToHelp",
+              "audioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_opt_HappyToHelp"
             }
           ]
         }
@@ -1630,19 +2172,27 @@
                 "id": "66",
                 "characterName": "Firefighter",
                 "dialogText": "You can see you spoke to <b>Mary</b> from the <sprite name=\"Pets_unlocked\">. Great work! Next, you'll see other residents who <b>need your help.</b> Check in with each of them.",
+                "dialogTextES": "Puedes ver que hablaste con Mary gracias al icono de reproducción. ¡Buen trabajo! A continuación, verás a otros residentes que <b>necesitan tu ayuda</b>. Ponte en contacto con cada uno de ellos.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/outro_id_66"
+                "audioPath": "FirewiseCitizen/Audio/outro_id_66",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_66"
             },
             {
                 "id": "67",
                 "characterName": "Firefighter",
                 "dialogText": "Once you have <b>spoken to everyone</b>, press on that Play <sprite name=\"Play\"> icon to watch the evacuation and see the <b>impact you made!</b>",
+                "dialogTextES": "Cuando hayas <b>hablado con todos</b>, presiona el ícono de Play <sprite name=\"Play\"> para ver la evacuación y el <b>impacto que lograste</b>.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
                 "audioPath": "FirewiseCitizen/Audio/outro_id_67",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_67",
                 "options": [
                     {
                         "optionText": "Sounds good!",
-                        "messageText": "Sounds good! I think I'm ready now."
+                        "optionTextES": "¡Me parece bien!",
+                        "messageText": "Sounds good! I think I'm ready now.",
+                        "messageTextES": "¡Suena bien! Creo que ya estoy listo.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_Sounds",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/outro_opt_Sounds"
                     }
                 ]
             },
@@ -1650,31 +2200,90 @@
                 "id": "68",
                 "characterName": "Firefighter",
                 "dialogText": "Great! Oh, one last thing.",
+                "dialogTextES": "¡Genial! Oh, una última cosa.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/outro_id_68"
+                "audioPath": "FirewiseCitizen/Audio/outro_id_68",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_68"
             },
             {
                 "id": "69",
                 "characterName": "Firefighter",
                 "dialogText": "Sometimes, even with advice, people <b>might not listen.</b> This could be for a bunch of different reasons, but it’s <b>important</b> to keep in mind that their <b>actions might not reflect what you told them.</b>",
+                "dialogTextES": "A veces, incluso con buenos consejos, las personas <b>pueden no escuchar</b>. Esto puede pasar por muchas razones, pero es <b>importante</b> recordar que sus <b>acciones no siempre reflejan lo que tú les dijiste</b>.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/outro_id_69"
+                "audioPath": "FirewiseCitizen/Audio/outro_id_69",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_69",
+                "nextNodeId": "72"
             },
             {
-                "id": "70",
+                "id": "72",
+                "characterName": "Firefighter",
+                "dialogText": "But every now and then you will be able to give residents <b>Incentives</b>.",
+                "dialogTextES": "Pero, de vez en cuando, podrás dar <b>Incentivos</b> a los residentes.",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            },
+            {
+                "id": "73",
+                "characterName": "Player",
+                "dialogText": "What’s that?",
+                "dialogTextES": "¿Qué son los Incentivos?"
+            },
+            {
+                "id": "74",
+                "characterName": "Firefighter",
+                "dialogText": "You can think of them like <b>gifts</b> and you can <b>offer one to just one residence</b> before the fire season hits.",
+                "dialogTextES": "Puedes pensar en ellos como <b>regalos</b>, y puedes <b>ofrecer uno a solo una vivienda</b> antes de que comience la temporada de incendios.",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "audioPath": "FirewiseCitizen/Audio/incentives_id_3",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_3"
+            },
+            {
+                "id": "75",
+                "characterName": "Player",
+                "dialogText": "Why would I do that?",
+                "dialogTextES": "¿Por qué hacerlo?"
+            },
+            {
+                "id": "76",
+                "characterName": "Firefighter",
+                "dialogText": "Well some folks only listen when there’s something in it for them. An incentive can <b>help get them on board with your advice</b>. You can <b>offer one or skip it</b>. But it’s up to you.",
+                "dialogTextES": "Algunas personas solo escuchan cuando hay algo para ellas. Un incentivo puede <b>ayudar a que acepten tu consejo</b>. Puedes <b>ofrecerlo o no hacerlo</b>. La decisión es tuya.",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
+                "audioPath": "FirewiseCitizen/Audio/incentives_id_5",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_5"
+            },
+            {
+                "id": "77",
+                "characterName": "Firefighter",
+                "dialogText": "But keep in mind that there can be a small chance they still might not listen even if they’re given an incentive.",
+                "dialogTextES": "Pero ten en cuenta que existe una pequeña posibilidad de que no te escuchen, incluso si les das un incentivo.",
+                "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried"
+            },
+            {
+                "id": "78",
                 "characterName": "Firefighter",
                 "dialogText": "Just listen to each situation, and do what you think is best! During the simulation, an icon over their house will let you know if they took your advice <sprite name=\"Check\"> or decided to do something else <sprite name=\"Cross\"> instead. Are you ready to begin?",
+                "dialogTextES": "¡Solo escucha cada situación y haz lo que creas que es mejor! Durante la simulación, un ícono sobre su casa te indicará si siguieron tu consejo <sprite name=\"Check\"> o si decidieron hacer algo diferente <sprite name=\"Cross\">. ¿Estás listo para comenzar?",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
                 "audioPath": "FirewiseCitizen/Audio/outro_id_70",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_70",
                 "isEndNode": true,
                 "options": [
                     {
                         "optionText": "Yes (Begin Game)",
-                        "messageText": "Yes"
+                        "optionTextES": "Sí (Comenzar juego)",
+                        "messageText": "Yes",
+                        "messageTextES": "Si",
+                        "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_Yes",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/outro_opt_Yes"
                     },
                     {
                         "optionText": "No (Review Tutorial)",
+                        "optionTextES": "No (Revisar tutorial)",
                         "messageText": "I wanna review the tutorial.",
+                        "messageTextES": "Quiero revisar el tutorial.",
+                        "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_No",
+                        "audioPathES": "FirewiseCitizen/Audio/ES/Player/outro_opt_No",
                         "nextNodeId": "50"
                     }
                 ]
@@ -1683,12 +2292,15 @@
                 "id": "71",
                 "characterName": "Firefighter",
                 "dialogText": "Great! Then get out here, and <b>help our residents become fire wise!</b>",
+                "dialogTextES": "¡Perfecto! Entonces sal ahí fuera y <b>ayuda a nuestros residentes a ser más conscientes del fuego</b>.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
                 "audioPath": "FirewiseCitizen/Audio/outro_id_71",
+                "audioPathES": "FirewiseCitizen/Audio/ES/outro_id_71",
                 "isEndNode": "true",
                 "options": [
                     {
-                        "optionText": "Start Game"
+                        "optionText": "Start Game",
+                        "optionTextES": "Comenzar juego"
                     }
                 ]
             }
@@ -1702,8 +2314,10 @@
                 "id": "1",
                 "characterName": "Firefighter",
                 "dialogText": "Alright, listen up! You now have a new ability: <b>Incentives</b>.",
+                "dialogTextES": "¡Muy bien, atención! Ahora tienes una nueva habilidad: <b>Incentivos</b>.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/incentives_id_1"
+                "audioPath": "FirewiseCitizen/Audio/incentives_id_1",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_1"
             },
             {
                 "id": "2",
@@ -1714,8 +2328,10 @@
                 "id": "3",
                 "characterName": "Firefighter",
                 "dialogText": "You can think of them like <b>gifts</b> and you can <b>offer one to just one residence</b> before the fire season hits.",
+                "dialogTextES": "Puedes pensar en ellos como <b>regalos</b>, y puedes <b>ofrecer uno a solo una vivienda</b> antes de que comience la temporada de incendios.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/incentives_id_3"
+                "audioPath": "FirewiseCitizen/Audio/incentives_id_3",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_3"
             },
             {
                 "id": "4",
@@ -1726,8 +2342,10 @@
                 "id": "5",
                 "characterName": "Firefighter",
                 "dialogText": "Well some folks only listen when there’s something in it for them. An incentive can <b>help get them on board with your advice</b>. You can <b>offer one or skip it</b>. But it’s up to you. ",
+                "dialogTextES": "Algunas personas solo escuchan cuando hay algo para ellas. Un incentivo puede <b>ayudar a que acepten tu consejo</b>. Puedes <b>ofrecerlo o no hacerlo</b>. La decisión es tuya.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
-                "audioPath": "FirewiseCitizen/Audio/incentives_id_5"
+                "audioPath": "FirewiseCitizen/Audio/incentives_id_5",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_5"
             },
             {
                 "id": "6",
@@ -1738,8 +2356,10 @@
                 "id": "7",
                 "characterName": "Firefighter",
                 "dialogText": "Make it count.",
+                "dialogTextES": "Haz que valga la pena.",
                 "portraitPath": "FirewiseCitizen/Portraits/firefighterWorried",
                 "audioPath": "FirewiseCitizen/Audio/incentives_id_7",
+                "audioPathES": "FirewiseCitizen/Audio/ES/incentives_id_7",
                 "isEndNode": "true"
             }
         ]

@@ -355,6 +355,8 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         }
         uiManager.ShowEndScreen(true, p1.GetBurnedPercent(), p2.GetBurnedPercent());
         publicFencesRepaired = false;
+
+        CurrentStage = GameStage.GameEnd;
     }
 
     void OnCompetition()
@@ -495,7 +497,10 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
     // fire or competition
     void DecideNextEvent()
     {
-        if (mustForceCompetition || lastRoundIsFire)
+        lastRoundIsFire = true;
+        CurrentStage = GameStage.Fire;
+        //Previous conditions for deciding whether fire or competition
+        /*if (mustForceCompetition || lastRoundIsFire)
         {
             //Debug.Log("Force Competition After Fire");
             lastRoundIsCompetition = true;
@@ -512,7 +517,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             lastRoundIsCompetition = false;
             mustForceCompetition = true;
             CurrentStage = GameStage.Fire;
-        }
+        }*/
     }
     
     public void RestartGame()
@@ -622,16 +627,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 StartFire();
                 break;
 
-            case GameStage.Competition:
+            /*case GameStage.Competition:
                 OnCompetition();
-                break;
+                break;*/
 
             case GameStage.RoundEnd:
                 EndRound();
                 break;
 
             case GameStage.GameEnd:
-                RestartGame();
+                //RestartGame();
                 break;
         }
     }

@@ -170,17 +170,21 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         //var houseInfo = house.info;
         var houseInfo = house.houseInfo;
-        title.text = houseInfo.menuTitle;
+        //title.text = houseInfo.menuTitle;
+        title.text = StringManager.Instance.GetText(houseInfo.menuTitle);
 
+        confirm.GetComponentInChildren<TextMeshProUGUI>().text = StringManager.Instance.GetText("confirmText");
+        restart.GetComponentInChildren<TextMeshProUGUI>().text = StringManager.Instance.GetText("restartConvoText");
 
         foreach (var entry in houseInfo.houseChoicesDict)
         {
             var choice = entry.Value.choice;
             if (isTutorial)
             {
-                if(choice.choiceName == "Plan Ahead")
+                if(choice.choiceName == "planAheadText") 
                 {
-                    SpawnOptionButtons(choice.choiceName/*,choice.isLocked*/);
+                    SpawnOptionButtons(choice.choiceName);
+                    
                     choicePicture.sprite = GameManager.Instance.tutorialManager.tutorialChoiceSprite;
                     break;
                 }
@@ -198,7 +202,9 @@ public class StructureContextMenu : MonoBehaviour
         GameObject button = Instantiate(optionButtonPrefab,options);
         var optionButton = button.GetComponent<OptionButton>();
 
-        optionButton.InitOptionButton(this, text);
+        //optionButton.InitOptionButton(this, text);
+        string translatedText = StringManager.Instance.GetText(text);
+        optionButton.InitOptionButton(this, text, translatedText);
 
         if(!isSelected) return;
         HouseStructure house = (HouseStructure)owner;

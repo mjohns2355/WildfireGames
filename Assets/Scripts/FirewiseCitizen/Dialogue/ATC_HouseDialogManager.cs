@@ -7,6 +7,8 @@ using System;
 using DG.Tweening;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
+
 public class ATC_HouseDialogManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogText;
@@ -35,7 +37,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public bool isWaitingForPlayer = true;
     public bool canShowSkipButton = false;
     private bool canClick = false;
+    private bool waitingForPlayerAudio = false;
+    private Coroutine optionAudioCoroutine;
     private int optionsShown = 0;
+    [Header("Option Highlight")]
+    [SerializeField] private Color optionHighlightColor = new Color(1f, 1f, 0.7f, 1f); // light yellow tint
+    [SerializeField] private Color outlineColor = new Color(1f, 0.725f, 0.22f, 1f); // #FFB938
+    [SerializeField] private Vector2 outlineDistance = new Vector2(3f, 3f);
+    [SerializeField] private float highlightFadeDuration = 0.3f;
     private CanvasGroup topEdgeFade;
     //[SerializeField]private List<string> currentPathIds = new();
     //private int currentPathIndex = 0;
@@ -138,14 +147,50 @@ public class ATC_HouseDialogManager : MonoBehaviour
     }
     private void Update()
     {
-        // click through dialogue
-        if (isWaitingForPlayer && canClick && Input.GetMouseButtonDown(0))
+        if (GameManager.Instance.IsPaused) 
         {
-            canClick = false;
-            DOVirtual.DelayedCall(clickCooldown, () => canClick = true); //cooldown
+            return;
+        }
 
-            isWaitingForPlayer = false;
-            ProceedToNextNode();
+        if (ATC_UIController.Instance.GetCurrentPanel() != null)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                GameObject hitObject = EventSystem.current.currentSelectedGameObject;
+
+                if (hitObject == null)
+                {
+                    var pointerData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+                    var results = new List<RaycastResult>();
+                    EventSystem.current.RaycastAll(pointerData, results);
+                    
+                    if (results.Count > 0) hitObject = results[0].gameObject;
+                }
+
+                if (hitObject != null && hitObject == ATC_UIController.Instance.pause.gameObject)
+                {
+                    return; 
+                }
+            }
+
+            if (waitingForPlayerAudio)
+            {
+                if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+                return;
+            }
+
+            if (isWaitingForPlayer && canClick)
+            {
+                canClick = false;
+                DOVirtual.DelayedCall(clickCooldown, () => canClick = true);
+                isWaitingForPlayer = false;
+                ProceedToNextNode();
+            }
         }
     }
     private void ProceedToNextNode()
@@ -323,6 +368,17 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void OnOptionSelected(int optionIndex)
     {
+        // Stop option audio sequence if still running
+        if (optionAudioCoroutine != null)
+        {
+            StopCoroutine(optionAudioCoroutine);
+            optionAudioCoroutine = null;
+        }
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         // destroy all option message bubbles
         foreach (var option in optionMessageBubbles)
         {
@@ -335,7 +391,41 @@ public class ATC_HouseDialogManager : MonoBehaviour
         string text = string.Empty;
         var selectedOption = currentNode.options[optionIndex];
 
-        if (!string.IsNullOrEmpty(selectedOption.messageText))
+        // Play selected option's audio
+        if (TTSManager.IsEnabled)
+        {
+            string selectedAudioPath = selectedOption.audioPath;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.audioPathES))
+            {
+                selectedAudioPath = selectedOption.audioPathES;
+            }
+            if (!string.IsNullOrEmpty(selectedAudioPath))
+            {
+                AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
+                if (clip != null && audioSource != null)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+                }
+            }
+        }
+
+        if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.messageTextES))
+        {
+            text = selectedOption.messageTextES;
+        }
+        else if (!string.IsNullOrEmpty(selectedOption.messageText))
+        {
+            text = selectedOption.messageText;
+        }
+        else
+        {
+            text = (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(selectedOption.optionTextES)) 
+                ? selectedOption.optionTextES : selectedOption.optionText;
+        }
+
+        SpawnAMessageBubble(text, null, true, false, false);
+        /*if (!string.IsNullOrEmpty(selectedOption.messageText))
         {
             text = selectedOption.messageText;
         }
@@ -344,7 +434,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             text = selectedOption.optionText;
         }
 
-        SpawnAMessageBubble(text, null, true, false, false);
+        SpawnAMessageBubble(text, null, true, false, false);*/
         OnDialogueOptionSelected?.Invoke(selectedOption);
 
         //jump to end if it node is an end node
@@ -384,12 +474,20 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //int remainingCount = CountNodesFrom(nextId);
         //finalPathLength = currentPathIds.Count + remainingCount;
 
-        DOVirtual.DelayedCall(1f, () =>
+        // Wait for player's audio to finish before showing next node
+        // Player can click to skip (handled in Update)
+        if (audioSource != null && audioSource.isPlaying)
         {
-            isWaitingForPlayer = true;
-            canClick = true;
-            DisplayCurrentNode();
-        }).SetId(gameObject);
+            waitingForPlayerAudio = true;
+            yield return new WaitWhile(() => audioSource.isPlaying);
+            waitingForPlayerAudio = false;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        isWaitingForPlayer = true;
+        canClick = true;
+        DisplayCurrentNode();
 
 
     }
@@ -433,12 +531,90 @@ public class ATC_HouseDialogManager : MonoBehaviour
         {
             if (!option.conditions.IsMet(flags.Item1)) continue;
 
-            var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
+            string buttonLabel = option.optionText;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.optionTextES))
+            {
+                buttonLabel = option.optionTextES;
+            }
+            
+            var optionBubble = SpawnAMessageBubble(buttonLabel, null, false, true, false);
+            //var optionBubble = SpawnAMessageBubble(option.optionText, null, false, true, false);
             optionBubble.messageBox.onClick.AddListener(() =>
             {
                 OnOptionSelected(currentNode.options.ToList().IndexOf(option));
             });
         }
+
+        // Start playing through each option's audio
+        optionAudioCoroutine = StartCoroutine(PlayOptionAudios());
+    }
+
+    private IEnumerator PlayOptionAudios()
+    {
+        if (!TTSManager.IsEnabled) yield break;
+
+        var flags = dialogFlagsMap[currentDialogTree.houseType];
+        int bubbleIndex = 0;
+
+        foreach (var option in currentNode.options)
+        {
+            if (!option.conditions.IsMet(flags.Item1)) continue;
+
+            // Fade in highlight on current option bubble
+            UnityEngine.UI.Outline outline = null;
+            if (bubbleIndex < optionMessageBubbles.Count)
+            {
+                var bubble = optionMessageBubbles[bubbleIndex];
+                bubble.backgroundImage.DOColor(optionHighlightColor, highlightFadeDuration);
+
+                // Add outline and fade it in
+                outline = bubble.backgroundImage.gameObject.AddComponent<UnityEngine.UI.Outline>();
+                outline.effectDistance = outlineDistance;
+                outline.effectColor = new Color(outlineColor.r, outlineColor.g, outlineColor.b, 0f);
+                DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 1f, highlightFadeDuration);
+            }
+
+            // Select audio path based on language
+            string audioPath = option.audioPath;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.audioPathES))
+            {
+                audioPath = option.audioPathES;
+            }
+
+            if (!string.IsNullOrEmpty(audioPath))
+            {
+                AudioClip clip = Resources.Load<AudioClip>(audioPath);
+                if (clip != null && audioSource != null)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+
+                    // Wait until audio finishes
+                    yield return new WaitWhile(() => audioSource.isPlaying);
+                }
+            }
+
+            // Fade out highlight (runs during the delay)
+            if (bubbleIndex < optionMessageBubbles.Count)
+            {
+                var bubble = optionMessageBubbles[bubbleIndex];
+                bubble.backgroundImage.DOColor(Color.white, highlightFadeDuration);
+
+                // Fade out and destroy outline
+                if (outline != null)
+                {
+                    DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 0f, highlightFadeDuration)
+                        .OnComplete(() => { if (outline != null) Destroy(outline); });
+                }
+            }
+
+            bubbleIndex++;
+
+            // 0.5 second delay between options
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        optionAudioCoroutine = null;
     }
 
     public void EndDialog(bool closed = false)

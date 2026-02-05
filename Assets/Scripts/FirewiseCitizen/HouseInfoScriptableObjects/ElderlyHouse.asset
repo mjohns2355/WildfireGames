@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ElderlyHouse
   m_EditorClassIdentifier: 
   houseType: 1
-  menuTitle: Older Resident
+  menuTitle: elderlyMenuText
   choices:
-  - choiceName: Wait for Notice
+  - choiceName: waitForNoticeText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,11 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 0
     carLeaveTime: 2
-    choiceDetail: 'No city-wide plan requests. Let residents make a decision when
-      the evacuation notice goes out. '
+    choiceDetail: waitForNoticeDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Evacuate Early
+  - choiceName: evacuateEarlyText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -35,11 +34,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 0
-    choiceDetail: Evacuate early will allow for more time to get out safely. This
-      is a good choice!
+    choiceDetail: evacuateEarlyDetailText
     isLocked: 1
     isNormal: 0
-  - choiceName: Help From Neighbor
+  - choiceName: helpFromNeighborText
     carNumberMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
@@ -47,8 +45,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 1
-    choiceDetail: Getting help from a neighbor will be a great option! This will
-      make evacuating both safer as well as quicker.
+    choiceDetail: helpFromNeighborDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: elderlyResText
