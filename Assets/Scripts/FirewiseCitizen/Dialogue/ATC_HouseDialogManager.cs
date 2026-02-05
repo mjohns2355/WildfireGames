@@ -39,6 +39,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     private bool canClick = false;
     private bool waitingForPlayerAudio = false;
     private Coroutine optionAudioCoroutine;
+    private Coroutine optionSelectedCoroutine;
     private int optionsShown = 0;
     [Header("Option Highlight")]
     [SerializeField] private Color optionHighlightColor = new Color(1f, 1f, 0.7f, 1f); // light yellow tint
@@ -92,6 +93,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     //    return 1 + CountNodesFrom(nextId);
     //}
+    private void StopAndClearAudio()
+    {
+        if (audioSource == null) return;
+        audioSource.Stop();
+        audioSource.clip = null;
+    }
+
     private void UpdateEdgeFadeVisibility()
     {
         if (scrollRect == null || topFade == null || bottomFade == null) return;
@@ -180,7 +188,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             if (waitingForPlayerAudio)
             {
-                if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+                StopAndClearAudio();
                 return;
             }
 
@@ -285,10 +293,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         if (currentNode == null || !gameObject.activeInHierarchy) return;
 
         // cuts off audio playback if dialogue is skipped
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        StopAndClearAudio();
 
         OnDialogueNodeDisplayed?.Invoke(currentNode);
 
@@ -368,16 +373,20 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
     private void OnOptionSelected(int optionIndex)
     {
+        // Stop any previous option-selected routine still running
+        if (optionSelectedCoroutine != null)
+        {
+            StopCoroutine(optionSelectedCoroutine);
+            optionSelectedCoroutine = null;
+        }
         // Stop option audio sequence if still running
         if (optionAudioCoroutine != null)
         {
             StopCoroutine(optionAudioCoroutine);
             optionAudioCoroutine = null;
         }
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        waitingForPlayerAudio = false;
+        StopAndClearAudio();
 
         // destroy all option message bubbles
         foreach (var option in optionMessageBubbles)
@@ -449,7 +458,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         }
         float delayTime = clickCooldown + text.Length * waitTimePerCharacter;
 
-        StartCoroutine(OptionSelectedRoutine(delayTime, selectedOption));
+        optionSelectedCoroutine = StartCoroutine(OptionSelectedRoutine(delayTime, selectedOption));
     }
 
     IEnumerator OptionSelectedRoutine(float delay, DialogOption selectedOption)
@@ -476,10 +485,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         // Wait for player's audio to finish before showing next node
         // Player can click to skip (handled in Update)
-        if (audioSource != null && audioSource.isPlaying)
+        if (audioSource != null && audioSource.clip != null && audioSource.isPlaying)
         {
             waitingForPlayerAudio = true;
-            yield return new WaitWhile(() => audioSource.isPlaying);
+            yield return new WaitWhile(() => audioSource != null && audioSource.clip != null && audioSource.isPlaying);
             waitingForPlayerAudio = false;
         }
 
@@ -489,7 +498,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
         canClick = true;
         DisplayCurrentNode();
 
-
+        optionSelectedCoroutine = null;
     }
 
     public void GetPathCompletionPercent()
@@ -586,11 +595,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 AudioClip clip = Resources.Load<AudioClip>(audioPath);
                 if (clip != null && audioSource != null)
                 {
+                    StopAndClearAudio();
+                    yield return null; // wait one frame for WebGL audio cleanup
                     audioSource.clip = clip;
                     audioSource.Play();
 
                     // Wait until audio finishes
-                    yield return new WaitWhile(() => audioSource.isPlaying);
+                    yield return new WaitWhile(() => audioSource != null && audioSource.clip != null && audioSource.isPlaying);
                 }
             }
 
@@ -620,12 +631,12 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void EndDialog(bool closed = false)
     {
         StopAllCoroutines();
+        optionAudioCoroutine = null;
+        optionSelectedCoroutine = null;
+        waitingForPlayerAudio = false;
 
         // stop audio when dialogue conversation ends
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        StopAndClearAudio();
 
 
         if (!dialogFlagsMap[key].Item2 && dialogFlagsMap[key].Item1.hasSpoken != 1)   // if NOT skipped && has not spoken
