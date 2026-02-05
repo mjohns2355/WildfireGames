@@ -45,12 +45,19 @@ public class StringManager : MonoBehaviour
             return;
         }
 
-        localizedStrings.Clear();
+        var newStrings = new Dictionary<string, LocalizedString>();
+        foreach (var item in collection.strings)
+        {
+            if (!newStrings.ContainsKey(item.key))
+                newStrings.Add(item.key, item);
+        }
+        localizedStrings = newStrings;
+        /*localizedStrings.Clear();
         foreach (var item in collection.strings)
         {
             if (!localizedStrings.ContainsKey(item.key))
                 localizedStrings.Add(item.key, item);
-        }
+        }*/
         
         IsReady = true;
         OnStringsLoadedEvent?.Invoke();
@@ -58,7 +65,8 @@ public class StringManager : MonoBehaviour
 
     public string GetText(string key)
     {
-        if (localizedStrings.Count == 0) return null;
+        if (!IsReady || localizedStrings.Count == 0) return "";
+        //if (localizedStrings.Count == 0) return null;
 
         if (!localizedStrings.ContainsKey(key))
         {
