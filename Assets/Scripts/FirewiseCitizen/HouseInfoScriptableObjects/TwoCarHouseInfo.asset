@@ -15,7 +15,7 @@ MonoBehaviour:
   houseType: 2
   menuTitle: twoCarText
   choices:
-  - choiceName: Take both Cars
+  - choiceName: takeBothCarsText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,10 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 2
-    choiceDetail: Split up and take both cars during the evacuation.
+    choiceDetail: takeBothCarsDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Leave one Car
+  - choiceName: leaveOneCarText
     carNumberMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
@@ -34,10 +34,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 1
     carLeaveTime: 1
-    choiceDetail: Evacuate in one car, leaving the other car behind.
+    choiceDetail: leaveOneCarDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Relocate 2nd Car
+  - choiceName: relocateCarText
     carNumberMod: -1
     horseNumberMod: 0
     kidNumberMod: 0
@@ -45,8 +45,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: You know too many cars on the road cause traffic congestion, so
-      you relocate your second car  on high risk days.
+    choiceDetail: relocateCarDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: multiCarText

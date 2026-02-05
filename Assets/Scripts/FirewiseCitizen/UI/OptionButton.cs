@@ -17,6 +17,8 @@ public class OptionButton : MonoBehaviour
     [SerializeField] Image checkMark;
     [SerializeField] Sprite circleCheck, circleBlank, squareCheck, squareBlank;
     bool isMultipleChoice = false;
+    private string internalKey;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -43,12 +45,15 @@ public class OptionButton : MonoBehaviour
 
     public string GetOptionContent()
     {
-        return optionText.text;
+        return internalKey;
+        //return optionText.text;
     }
-    public void InitOptionButton(StructureContextMenu owner, string buttonText)
+    public void InitOptionButton(StructureContextMenu owner, string buttonText, string translatedText)
     {
         this.owner = owner;
-        optionText.text = buttonText;
+        this.internalKey = buttonText;
+        optionText.text = translatedText;
+        //optionText.text = buttonText;
         //needConfirmation = IsGoodOption(buttonText);
         var house = (HouseStructure)(owner.owner);
         isMultipleChoice = house.houseInfo.allowMultipleChoices;
@@ -73,7 +78,7 @@ public class OptionButton : MonoBehaviour
 
             //Debug.Log("Open Learn More Panel");
             owner.learnMorePopup.gameObject.SetActive(true);
-            owner.learnMorePopup.ShowLearnMorePopup(house.houseInfo, buttonText);
+            owner.learnMorePopup.ShowLearnMorePopup(house.houseInfo, internalKey);
             //LearnMorePanel learnMorePanel = ATC_UIController.Instance.learnMorePanel.GetComponent<LearnMorePanel>();
             //ATC_UIController.Instance.PushPanel(learnMorePanel.gameObject);
             //learnMorePanel.OnDetailedPageEnable(house.HouseType, buttonText);

@@ -15,7 +15,7 @@ MonoBehaviour:
   houseType: 0
   menuTitle: horseOwnerText
   choices:
-  - choiceName: Wait for Notice
+  - choiceName: waitForNoticeText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,11 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 0
     carLeaveTime: 2
-    choiceDetail: 'No city-wide plan requests. Let residents make a decision when
-      the evacuation notice goes out. '
+    choiceDetail: waitForNoticeDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Leave the Horses
+  - choiceName: leaveHorsesText
     carNumberMod: 0
     horseNumberMod: -1
     kidNumberMod: 0
@@ -35,10 +34,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 2
-    choiceDetail: Evacuate without the horses, hopefully they will be okay.
+    choiceDetail: leaveHorsesDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Relocate Horses
+  - choiceName: relocateHorsesText
     carNumberMod: 0
     horseNumberMod: -1
     kidNumberMod: 0
@@ -46,8 +45,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: Relocating the horses before an evacuation is ordered will help
-      reduce  congestion during the evacuation, and potentially save lives!
+    choiceDetail: relocateHorsesDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: largeAnimalsText

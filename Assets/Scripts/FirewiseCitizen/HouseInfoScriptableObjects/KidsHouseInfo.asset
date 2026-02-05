@@ -15,7 +15,7 @@ MonoBehaviour:
   houseType: 3
   menuTitle: schoolAgeText
   choices:
-  - choiceName: Wait for Notice
+  - choiceName: waitForNoticeText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,11 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 2
-    choiceDetail: 'No city-wide plan requests. Let residents make a decision when
-      the evacuation notice goes out. '
+    choiceDetail: waitForNoticeDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Pick up children
+  - choiceName: pickUpChildrenText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 2
@@ -35,10 +34,10 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 0
     carLeaveTime: 1
-    choiceDetail: Drive to the school to pick up the children before evacuating.
+    choiceDetail: pickUpChildrenDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Safer at school
+  - choiceName: saferSchoolText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -46,8 +45,7 @@ MonoBehaviour:
     homeHardeningMod: 0
     carSpeedMod: 2
     carLeaveTime: 1
-    choiceDetail: 'You know the children are safter at school  and have a plan that
-      they know: they will stay at school untill it is safe to pick them up.'
+    choiceDetail: saferSchoolDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: schoolAgeChildrenText

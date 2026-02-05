@@ -15,7 +15,7 @@ MonoBehaviour:
   houseType: 5
   menuTitle: nearWildlandText
   choices:
-  - choiceName: Inexpensive Home Hardening
+  - choiceName: inexpensiveHHText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -23,11 +23,10 @@ MonoBehaviour:
     homeHardeningMod: 0.5
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: 'Houses in the Wildland Urban Interface are at higher risk. Clearing
-      brush and replacing mulch with gravel are inexpensive ways to start home hardening. '
+    choiceDetail: inexpensiveHHDetailText
     isLocked: 0
     isNormal: 1
-  - choiceName: Full Home Hardening
+  - choiceName: fullHHText
     carNumberMod: 0
     horseNumberMod: 0
     kidNumberMod: 0
@@ -35,9 +34,7 @@ MonoBehaviour:
     homeHardeningMod: 0.8
     carSpeedMod: 2
     carLeaveTime: 0
-    choiceDetail: Home hardening can help prevent a house from catching fire. This
-      includes things  like replcaing the roof with nonflamable materials and clearing
-      vegetation.
+    choiceDetail: fullHHDetailText
     isLocked: 1
     isNormal: 0
   longerTitle: nearWildlandText
