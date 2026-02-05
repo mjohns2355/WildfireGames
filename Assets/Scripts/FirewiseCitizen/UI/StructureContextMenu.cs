@@ -170,8 +170,11 @@ public class StructureContextMenu : MonoBehaviour
         ClearOptionButtons();
         //var houseInfo = house.info;
         var houseInfo = house.houseInfo;
-        title.text = houseInfo.menuTitle;
+        //title.text = houseInfo.menuTitle;
+        title.text = StringManager.Instance.GetText(houseInfo.menuTitle);
 
+        confirm.GetComponentInChildren<TextMeshProUGUI>().text = StringManager.Instance.GetText("confirmText");
+        restart.GetComponentInChildren<TextMeshProUGUI>().text = StringManager.Instance.GetText("restartConvoText");
 
         foreach (var entry in houseInfo.houseChoicesDict)
         {
