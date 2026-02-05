@@ -124,6 +124,7 @@ public class FYT_dialogManager : MonoBehaviour
                 if(timer != null)
                 {
                     timer.SetActive(true);
+                    timer.GetComponent<FYTtimer>().UnPause();
                 }
                 voiceOn.SetActive(false);
                 gameObject.SetActive(false);
