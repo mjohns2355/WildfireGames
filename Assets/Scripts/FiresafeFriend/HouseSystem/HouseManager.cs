@@ -40,13 +40,16 @@ namespace HappyHouse.HouseSystem
         BoxCollider clickBox;
         float flammabilityMod, durabilityMod;
         [SerializeField]AudioSource audioSource;
-        private void Start()
+        private IEnumerator Start()
         {
             houseGraph = new HouseGraph();
             budgetManager = new FF_BudgetManager(this, initBudget);
             clickBox = GetComponent<BoxCollider>();
             audioSource = GetComponent<AudioSource>();
 
+            while (StringManager.Instance == null) yield return null;
+            while (!StringManager.Instance.IsReady) yield return null;
+            InitHouseManager();
             //foreach(var bush in deadBushes)
             //{
             //    bush.OnCombustibleDestroyed += OnDeadBushRemoved;
@@ -56,10 +59,10 @@ namespace HappyHouse.HouseSystem
             //{
             //    prop.OnCombustibleDestroyed += OnPropsMoved;
             //}
-            DOVirtual.DelayedCall(0.2f, () =>
+            /*DOVirtual.DelayedCall(0.2f, () =>
             {
                 InitHouseManager();
-            });
+            });*/
             
         }
 
@@ -98,9 +101,13 @@ namespace HappyHouse.HouseSystem
                 }
             }
 
-            var nameKey = playerTag == "P1" ? player1NameKey : player2NameKey;
-            var name = StringManager.Instance.GetText(nameKey);
-            nameText.GetComponent<TextMeshPro>().text = name;
+            StringManager.Instance.OnStringsLoadedEvent -= UpdatePlayerName;
+            StringManager.Instance.OnStringsLoadedEvent += UpdatePlayerName;
+
+            UpdatePlayerName();
+            //var nameKey = playerTag == "P1" ? player1NameKey : player2NameKey;
+            //var name = StringManager.Instance.GetText(nameKey);
+            //nameText.GetComponent<TextMeshPro>().text = name;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -120,7 +127,6 @@ namespace HappyHouse.HouseSystem
                     }
                 }
             }
-            // don't roll start condition when it is tutorial or first round
             if (!HH_GameManager.Instance.isTutorial && HH_GameManager.Instance.isNewLevel || isMoving)
             {
                 StartCoroutine(RandomizeStartingCondition());
@@ -130,6 +136,14 @@ namespace HappyHouse.HouseSystem
             HH_GameManager.Instance.inputManager.OnHouseSelected += OnHouseSelected;
             //houseGraph.PrintGraph();
             ToggleHousePartClickable(false);
+        }
+
+        private void UpdatePlayerName()
+        {
+            var nameKey = playerTag == "P1" ? player1NameKey : player2NameKey;
+            var name = StringManager.Instance.GetText(nameKey);
+            if(nameText != null)
+                nameText.GetComponent<TextMeshPro>().text = name;
         }
         private void InitHouseNode(Dictionary<string, HouseNode> nodeDictionary, BaseHousePartObject part)
         {

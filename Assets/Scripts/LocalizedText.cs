@@ -68,6 +68,11 @@ public class LocalizedText : MonoBehaviour
 
         string localized = StringManager.Instance.GetText(key);
 
+        if (localized.Contains("[Missing:") && !StringManager.Instance.IsReady) 
+        {
+            return; 
+        }
+        
         if (!string.IsNullOrEmpty(localized))
         {
             if (tmpText != null) tmpText.text = localized;
