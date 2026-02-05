@@ -21,6 +21,7 @@ public class FYT_dialogManager : MonoBehaviour
     public bool done;
 
     public GameObject[] images;
+    public GameObject mapText;
 
     public GameObject localNews;
     public GameObject timer;
@@ -137,6 +138,10 @@ public class FYT_dialogManager : MonoBehaviour
                     {
 
                         images[counter].SetActive(true);
+                    }
+                    if (counter == images.Length - 1)
+                    {
+                        mapText.SetActive(true);
                     }
 
                 }
