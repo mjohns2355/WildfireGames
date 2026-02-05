@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6734076, g: 0.51880187, b: 0.3468615, a: 1}
+  m_IndirectSpecularColor: {r: 0.6732208, g: 0.5181348, b: 0.3452837, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20087,6 +20087,7 @@ GameObject:
   - component: {fileID: 613308807}
   - component: {fileID: 613308809}
   - component: {fileID: 613308808}
+  - component: {fileID: 613308810}
   m_Layer: 0
   m_Name: You
   m_TagString: Untagged
@@ -20210,6 +20211,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613308806}
   m_CullTransparentMesh: 1
+--- !u!114 &613308810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613308806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: PlayerText
 --- !u!1001 &613432211
 PrefabInstance:
   m_ObjectHideFlags: 0
