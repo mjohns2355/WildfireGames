@@ -4,7 +4,7 @@ public static class TTSManager
 {
     private const float DefaultVolume = 0.20f;
 
-    public static bool IsEnabled => PlayerPrefs.GetInt("tts_enabled", 0) == 1;
+    public static bool IsEnabled => PlayerPrefs.GetInt("tts_enabled", 1) == 1;
 
     public static float Volume
     {
