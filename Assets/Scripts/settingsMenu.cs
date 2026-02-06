@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class settingsMenu : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class settingsMenu : MonoBehaviour
 
     public void ExitToMain()
     {
-
+        DOTween.KillAll();
         SceneManager.LoadScene(0);
     }
 }

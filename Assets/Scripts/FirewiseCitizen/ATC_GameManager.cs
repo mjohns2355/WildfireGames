@@ -296,11 +296,17 @@ public class GameManager : UnitySingleton<GameManager>
     public void BackToMainMenu()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.LoadScene("MainMenu");
-        Destroy(gameObject);
-        Destroy(ATC_UIController.Instance.gameObject);
-        // reset time scale
+        // Stop all coroutines and tweens before scene transition to prevent WebGL abort()
+        StopAllCoroutines();
+        DOTween.KillAll();
+        if (ATC_UIController.Instance != null && ATC_UIController.Instance.houseDialogManager != null)
+        {
+            ATC_UIController.Instance.houseDialogManager.StopAllCoroutines();
+        }
         Time.timeScale = 1f;
+        Destroy(ATC_UIController.Instance.gameObject);
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainMenu");
     }
     public void RestartGameFromTutorial()
     {

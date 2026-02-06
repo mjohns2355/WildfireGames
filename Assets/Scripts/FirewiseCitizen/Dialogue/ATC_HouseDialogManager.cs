@@ -389,9 +389,16 @@ public class ATC_HouseDialogManager : MonoBehaviour
         waitingForPlayerAudio = false;
         StopAndClearAudio();
 
-        // destroy all option message bubbles
+        // kill tweens and destroy all option message bubbles
         foreach (var option in optionMessageBubbles)
         {
+            if (option != null && option.gameObject != null)
+            {
+                DOTween.Kill(option.gameObject);
+                DOTween.Kill(option.transform);
+                if (option.backgroundImage != null)
+                    DOTween.Kill(option.backgroundImage);
+            }
             Destroy(option.gameObject);
         }
         optionMessageBubbles.Clear();
@@ -485,6 +492,13 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //int remainingCount = CountNodesFrom(nextId);
         //finalPathLength = currentPathIds.Count + remainingCount;
 
+        if (currentNode == null)
+        {
+            Debug.LogWarning($"Node not found for id: {nextId}");
+            EndDialog();
+            yield break;
+        }
+
         // Wait for player's audio to finish before showing next node
         // Player can click to skip (handled in Update)
         if (audioSource != null && audioSource.clip != null && audioSource.isPlaying)
@@ -573,7 +587,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             // Fade in highlight on current option bubble
             UnityEngine.UI.Outline outline = null;
-            if (bubbleIndex < optionMessageBubbles.Count)
+            if (bubbleIndex < optionMessageBubbles.Count && optionMessageBubbles[bubbleIndex] != null)
             {
                 var bubble = optionMessageBubbles[bubbleIndex];
                 bubble.backgroundImage.DOColor(optionHighlightColor, highlightFadeDuration);
@@ -609,7 +623,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             }
 
             // Fade out highlight (runs during the delay)
-            if (bubbleIndex < optionMessageBubbles.Count)
+            if (bubbleIndex < optionMessageBubbles.Count && optionMessageBubbles[bubbleIndex] != null)
             {
                 var bubble = optionMessageBubbles[bubbleIndex];
                 bubble.backgroundImage.DOColor(Color.white, highlightFadeDuration);
@@ -617,8 +631,10 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 // Fade out and destroy outline
                 if (outline != null)
                 {
-                    DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 0f, highlightFadeDuration)
-                        .OnComplete(() => { if (outline != null) Destroy(outline); });
+                    var capturedOutline = outline;
+                    DOTween.ToAlpha(() => capturedOutline.effectColor, c => capturedOutline.effectColor = c, 0f, highlightFadeDuration)
+                        .SetLink(capturedOutline.gameObject)
+                        .OnComplete(() => { if (capturedOutline != null) Destroy(capturedOutline); });
                 }
             }
 
@@ -685,7 +701,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
             optionBubble.transform.localScale = Vector3.zero;
             optionBubble.transform.DOScale(Vector3.one, 0.3f)
                                   .SetEase(Ease.OutBack)
-                                  .OnComplete(() => { optionBubble.messageBox.interactable = true; });
+                                  .SetLink(optionBubble.gameObject)
+                                  .OnComplete(() => { if (optionBubble != null) optionBubble.messageBox.interactable = true; });
 
             return optionBubble;
         }
@@ -730,12 +747,15 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         for (int i = 0; i < messagebBubblesContainer.childCount; i++)
         {
-            Destroy(messagebBubblesContainer.GetChild(i).gameObject);
+            var child = messagebBubblesContainer.GetChild(i).gameObject;
+            DOTween.Kill(child);
+            DOTween.Kill(child.transform);
+            Destroy(child);
         }
         optionMessageBubbles.Clear();
         characterPortrait.gameObject.SetActive(false);
         ResetScrollPosition();
-        DOTween.KillAll();
+        DOTween.Kill(gameObject);
     }
 
     public void SetSkipButton(bool isActive)
