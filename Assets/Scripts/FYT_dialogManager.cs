@@ -27,7 +27,8 @@ public class FYT_dialogManager : MonoBehaviour
     public GameObject timer;
 
     public GameObject voiceOn;
-
+    public bool gameStarted = false;
+    public bool isWarningPanel = false;
 
     private void Start()
     {
@@ -41,7 +42,12 @@ public class FYT_dialogManager : MonoBehaviour
         if (StringManager.Instance != null)
         {
             StringManager.Instance.OnStringsLoadedEvent += RefreshLocalization;
-            RefreshLocalization();
+            //RefreshLocalization();
+
+            if (!isWarningPanel) 
+            {
+                RefreshLocalization();
+            }
         }
     }
 
@@ -51,6 +57,12 @@ public class FYT_dialogManager : MonoBehaviour
         {
             StringManager.Instance.OnStringsLoadedEvent -= RefreshLocalization;
         }
+    }
+
+    public void StartGameSequence()
+    {
+        gameStarted = true;
+        StepTextForward();
     }
 
     public void RefreshLocalization()
@@ -67,10 +79,15 @@ public class FYT_dialogManager : MonoBehaviour
         {
             dialog.text = phaseOneDialog[counter - 1];
         }
-        else if (counter == 0 && !done)
+        /*else if (counter == 0 && !done)
         {
             StepTextForward();
-        }
+        }*/
+
+        /*if (gameStarted && !done && counter > 0 && counter <= phaseOneDialog.Length)
+        {
+            dialog.text = phaseOneDialog[counter - 1];
+        }*/
     }
 
     public void EndDialog()
@@ -131,6 +148,18 @@ public class FYT_dialogManager : MonoBehaviour
             }
             else
             {
+                if (counter >= phaseOneDialog.Length)
+                {
+                    Debug.Log("Reached end of dialogue for this panel.");
+                    
+                    if (isWarningPanel) 
+                    {
+                        if(timer != null) timer.GetComponent<FYTtimer>().UnPause();
+                        gameObject.SetActive(false);
+                    }
+                    return; 
+                }
+
                 if (images.Length >= counter + 1)
                 {
                     if (counter >= 1)
@@ -182,6 +211,32 @@ public class FYT_dialogManager : MonoBehaviour
                 Debug.LogWarning($"Audio clip not found: {audioPath}");
             }
         }
+    }
+
+    public void TriggerWarningDialogue(string warningKey)
+    {
+        counter = 0; 
+
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        if (StringManager.Instance != null)
+        {
+            dialog.text = StringManager.Instance.GetText(warningKey);
+            
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(DelayedAudio(warningKey));
+            }
+        }
+    }
+
+    private IEnumerator DelayedAudio(string key)
+    {
+        yield return new WaitForEndOfFrame();
+        PlayAudioForKey(key);
     }
 
 }
