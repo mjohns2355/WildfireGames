@@ -173,6 +173,7 @@ public class FYT_dialogManager : MonoBehaviour
             AudioClip clip = Resources.Load<AudioClip>(audioPath);
             if (clip != null && audioSource != null)
             {
+                audioSource.volume = TTSManager.Volume;
                 audioSource.clip = clip;
                 audioSource.Play();
             }

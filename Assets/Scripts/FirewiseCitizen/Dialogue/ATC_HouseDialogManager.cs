@@ -310,6 +310,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
             if (clip != null && audioSource != null)
             {
+                audioSource.volume = TTSManager.Volume;
                 audioSource.clip = clip;
                 audioSource.Play();
             }
@@ -413,6 +414,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
                 if (clip != null && audioSource != null)
                 {
+                    audioSource.volume = TTSManager.Volume;
                     audioSource.clip = clip;
                     audioSource.Play();
                 }
@@ -597,6 +599,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 {
                     StopAndClearAudio();
                     yield return null; // wait one frame for WebGL audio cleanup
+                    audioSource.volume = TTSManager.Volume;
                     audioSource.clip = clip;
                     audioSource.Play();
 
