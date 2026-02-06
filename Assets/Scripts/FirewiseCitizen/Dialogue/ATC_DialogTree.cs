@@ -107,6 +107,8 @@ public class DialogOption
     public string messageTextES;
     public string audioPath;
     public string audioPathES;
+    public string optionAudioPath;
+    public string optionAudioPathES;
     public string nextNodeId;
     public DialogCondition conditions;
     public string GetNextNodeId()

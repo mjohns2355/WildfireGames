@@ -574,16 +574,16 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 1f, highlightFadeDuration);
             }
 
-            // Select audio path based on language
-            string audioPath = option.audioPath;
-            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.audioPathES))
+            // Select option audio path based on language (plays the short optionText audio)
+            string optionAudio = option.optionAudioPath;
+            if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(option.optionAudioPathES))
             {
-                audioPath = option.audioPathES;
+                optionAudio = option.optionAudioPathES;
             }
 
-            if (!string.IsNullOrEmpty(audioPath))
+            if (!string.IsNullOrEmpty(optionAudio))
             {
-                AudioClip clip = Resources.Load<AudioClip>(audioPath);
+                AudioClip clip = Resources.Load<AudioClip>(optionAudio);
                 if (clip != null && audioSource != null)
                 {
                     audioSource.clip = clip;
