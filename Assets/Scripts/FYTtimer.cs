@@ -35,6 +35,7 @@ public class FYTtimer : MonoBehaviour
         //Debug.Log(timer);
         if (!startScreen.activeInHierarchy && !paused)
         {
+            //Debug.Log("This is the time: " + timer);
             timer -= Time.deltaTime;
             mins = (int)timer / 60;
             sec = (int)(timer - mins * 60);
@@ -50,24 +51,28 @@ public class FYTtimer : MonoBehaviour
 
             //Test condition to change the warning notif to be faster
             //if (timer < 355 && !warningChecker)
+            //if (timer < 10 && !warningChecker)
             if (timer < 180 && !warningChecker)
             {
                 paused = true;
+                warningChecker = true;
+                timerDisp.SetActive(true);
+                warning.SetActive(true);
                 string key = "alertText"; 
                 string translatedWarning = (StringManager.Instance != null) ? StringManager.Instance.GetText(key) : "Warning!";
 
                 if (warningDialogManager != null)
                 {
-                    warningDialogManager.RefreshLocalization();
+                    warningDialogManager.TriggerWarningDialogue("alertText");
                 }
-                warningChecker = true; 
-                startScreen.SetActive(false);
-                timerDisp.SetActive(true);
-                warning.SetActive(true);
+                //warningChecker = true; 
+                //startScreen.SetActive(false);
+                
             }
 
             if (timer < 0)
             {
+                timer = 0;
                 if (StringManager.Instance != null)
                 {
                     timerText.text = StringManager.Instance.GetText("gameOverText");

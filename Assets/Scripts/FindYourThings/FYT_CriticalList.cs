@@ -40,7 +40,7 @@ public class FYT_CriticalList : MonoBehaviour
     public void crossOffList(string item)
     {
         // Adds a time penalty if a item not on the Critical List is collected
-        if (item == "Bowling Ball" || item == "Detergent")
+        if (FYT_ItemCatalog.IsPenaltyItem(item))
         {
             GetComponent<FYT_Timer>().TimePenalty();
             StartCoroutine(WrongItem());

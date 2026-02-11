@@ -26,6 +26,11 @@ public class FYT_GameModeManager : MonoBehaviour
     private bool eyesAndEars;
     private bool pets;
 
+    void Start()
+    {
+        FYT_ItemCatalog.Load();
+    }
+
     void Update()
     {
         // If the select menu is currently active, continuously checks and stores the necessary boolean

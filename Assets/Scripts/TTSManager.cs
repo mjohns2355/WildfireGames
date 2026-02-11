@@ -2,7 +2,19 @@ using UnityEngine;
 
 public static class TTSManager
 {
-    public static bool IsEnabled => PlayerPrefs.GetInt("tts_enabled", 0) == 1;
+    private const float DefaultVolume = 0.20f;
+
+    public static bool IsEnabled => PlayerPrefs.GetInt("tts_enabled", 1) == 1;
+
+    public static float Volume
+    {
+        get => PlayerPrefs.GetFloat("tts_volume", DefaultVolume);
+        set
+        {
+            PlayerPrefs.SetFloat("tts_volume", Mathf.Clamp01(value));
+            PlayerPrefs.Save();
+        }
+    }
 
     public static void SetEnabled(bool enabled)
     {

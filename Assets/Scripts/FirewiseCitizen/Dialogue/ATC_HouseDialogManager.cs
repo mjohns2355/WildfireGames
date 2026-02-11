@@ -113,7 +113,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         float topTargetAlpha = (pos < 0.9f) ? 1f : 0f;
 
-        topEdgeFade?.DOFade(topTargetAlpha, 0.2f);
+        topEdgeFade?.DOFade(topTargetAlpha, 0.2f).SetLink(topFade);
     }
 
     public void LoadDialogTrees(string jsonFilePath)
@@ -195,7 +195,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             if (isWaitingForPlayer && canClick)
             {
                 canClick = false;
-                DOVirtual.DelayedCall(clickCooldown, () => canClick = true);
+                DOVirtual.DelayedCall(clickCooldown, () => canClick = true).SetLink(gameObject);
                 isWaitingForPlayer = false;
                 ProceedToNextNode();
             }
@@ -274,6 +274,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 canClick = true;
             })
                 .SetId(gameObject)
+                .SetLink(gameObject)
                 .OnComplete(() =>
             {
                 SetSkipButton(true);
@@ -310,6 +311,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
             if (clip != null && audioSource != null)
             {
+                audioSource.volume = TTSManager.Volume;
                 audioSource.clip = clip;
                 audioSource.Play();
             }
@@ -360,7 +362,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             isWaitingForPlayer = true;
             if (currentNode.isEndNode)
             {
-                DOVirtual.DelayedCall(2f,()=> { EndDialog(); }).SetId(gameObject);
+                DOVirtual.DelayedCall(2f,()=> { EndDialog(); }).SetId(gameObject).SetLink(gameObject);
             }
         }
         else
@@ -388,9 +390,11 @@ public class ATC_HouseDialogManager : MonoBehaviour
         waitingForPlayerAudio = false;
         StopAndClearAudio();
 
-        // destroy all option message bubbles
+        // kill tweens then destroy all option message bubbles
         foreach (var option in optionMessageBubbles)
         {
+            if (option != null)
+                DOTween.Kill(option.gameObject);
             Destroy(option.gameObject);
         }
         optionMessageBubbles.Clear();
@@ -413,6 +417,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 AudioClip clip = Resources.Load<AudioClip>(selectedAudioPath);
                 if (clip != null && audioSource != null)
                 {
+                    audioSource.volume = TTSManager.Volume;
                     audioSource.clip = clip;
                     audioSource.Play();
                 }
@@ -452,7 +457,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
             DOVirtual.DelayedCall(0.2f, () =>
             {
                 EndDialog();
-            }).SetId(gameObject);
+            }).SetId(gameObject).SetLink(gameObject);
 
             return;
         }
@@ -464,10 +469,12 @@ public class ATC_HouseDialogManager : MonoBehaviour
     IEnumerator OptionSelectedRoutine(float delay, DialogOption selectedOption)
     {
         yield return new WaitUntil(() => isWaitingForPlayer == false);
+        if (!gameObject.activeInHierarchy) yield break;
+
         if (selectedOption.optionText == "Skip to final decision" || selectedOption.optionText == "Skip to Final Decisions")
         {
             SkipDialogue();
-            yield return null;
+            yield break;
         }
 
         if (!(selectedOption.optionText == "Skip to Incentives"))
@@ -483,16 +490,30 @@ public class ATC_HouseDialogManager : MonoBehaviour
         //int remainingCount = CountNodesFrom(nextId);
         //finalPathLength = currentPathIds.Count + remainingCount;
 
+        if (currentNode == null)
+        {
+            Debug.LogWarning($"Node not found for id: {nextId}");
+            EndDialog();
+            yield break;
+        }
+
         // Wait for player's audio to finish before showing next node
         // Player can click to skip (handled in Update)
         if (audioSource != null && audioSource.clip != null && audioSource.isPlaying)
         {
             waitingForPlayerAudio = true;
-            yield return new WaitWhile(() => audioSource != null && audioSource.clip != null && audioSource.isPlaying);
+            float clipLength = audioSource.clip.length;
+            float elapsed = 0f;
+            while (elapsed < clipLength && audioSource != null && audioSource.isPlaying)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
             waitingForPlayerAudio = false;
         }
 
         yield return new WaitForSeconds(0.5f);
+        if (!gameObject.activeInHierarchy) yield break;
 
         isWaitingForPlayer = true;
         canClick = true;
@@ -571,16 +592,18 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             // Fade in highlight on current option bubble
             UnityEngine.UI.Outline outline = null;
-            if (bubbleIndex < optionMessageBubbles.Count)
+            if (bubbleIndex < optionMessageBubbles.Count && optionMessageBubbles[bubbleIndex] != null)
             {
                 var bubble = optionMessageBubbles[bubbleIndex];
-                bubble.backgroundImage.DOColor(optionHighlightColor, highlightFadeDuration);
+                bubble.backgroundImage.DOColor(optionHighlightColor, highlightFadeDuration)
+                    .SetLink(bubble.gameObject);
 
                 // Add outline and fade it in
                 outline = bubble.backgroundImage.gameObject.AddComponent<UnityEngine.UI.Outline>();
                 outline.effectDistance = outlineDistance;
                 outline.effectColor = new Color(outlineColor.r, outlineColor.g, outlineColor.b, 0f);
-                DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 1f, highlightFadeDuration);
+                DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 1f, highlightFadeDuration)
+                    .SetLink(bubble.gameObject);
             }
 
             // Select option audio path based on language (plays the short optionText audio)
@@ -597,25 +620,37 @@ public class ATC_HouseDialogManager : MonoBehaviour
                 {
                     StopAndClearAudio();
                     yield return null; // wait one frame for WebGL audio cleanup
+                    if (audioSource == null || !gameObject.activeInHierarchy) yield break;
+                    audioSource.volume = TTSManager.Volume;
                     audioSource.clip = clip;
                     audioSource.Play();
 
-                    // Wait until audio finishes
-                    yield return new WaitWhile(() => audioSource != null && audioSource.clip != null && audioSource.isPlaying);
+                    // Wait for clip to finish using timed wait instead of polling
+                    float clipLength = clip.length;
+                    float elapsed = 0f;
+                    while (elapsed < clipLength && audioSource != null && audioSource.isPlaying)
+                    {
+                        elapsed += Time.deltaTime;
+                        yield return null;
+                    }
+                    if (!gameObject.activeInHierarchy) yield break;
                 }
             }
 
             // Fade out highlight (runs during the delay)
-            if (bubbleIndex < optionMessageBubbles.Count)
+            if (bubbleIndex < optionMessageBubbles.Count && optionMessageBubbles[bubbleIndex] != null)
             {
                 var bubble = optionMessageBubbles[bubbleIndex];
-                bubble.backgroundImage.DOColor(Color.white, highlightFadeDuration);
+                bubble.backgroundImage.DOColor(Color.white, highlightFadeDuration)
+                    .SetLink(bubble.gameObject);
 
                 // Fade out and destroy outline
                 if (outline != null)
                 {
-                    DOTween.ToAlpha(() => outline.effectColor, c => outline.effectColor = c, 0f, highlightFadeDuration)
-                        .OnComplete(() => { if (outline != null) Destroy(outline); });
+                    var capturedOutline = outline;
+                    DOTween.ToAlpha(() => capturedOutline.effectColor, c => capturedOutline.effectColor = c, 0f, highlightFadeDuration)
+                        .SetLink(capturedOutline.gameObject)
+                        .OnComplete(() => { if (capturedOutline != null) Destroy(capturedOutline); });
                 }
             }
 
@@ -623,6 +658,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
             // 0.5 second delay between options
             yield return new WaitForSeconds(0.5f);
+            if (!gameObject.activeInHierarchy) yield break;
         }
 
         optionAudioCoroutine = null;
@@ -682,7 +718,8 @@ public class ATC_HouseDialogManager : MonoBehaviour
             optionBubble.transform.localScale = Vector3.zero;
             optionBubble.transform.DOScale(Vector3.one, 0.3f)
                                   .SetEase(Ease.OutBack)
-                                  .OnComplete(() => { optionBubble.messageBox.interactable = true; });
+                                  .SetLink(optionBubble.gameObject)
+                                  .OnComplete(() => { if (optionBubble != null) optionBubble.messageBox.interactable = true; });
 
             return optionBubble;
         }
@@ -712,7 +749,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
     public void ScrollToBottom()
     {
         Canvas.ForceUpdateCanvases();
-        scrollRect.DOVerticalNormalizedPos(0f, 0.3f);
+        scrollRect.DOVerticalNormalizedPos(0f, 0.3f).SetLink(scrollRect.gameObject);
     }
 
     public void ResetScrollPosition()
@@ -727,12 +764,14 @@ public class ATC_HouseDialogManager : MonoBehaviour
     {
         for (int i = 0; i < messagebBubblesContainer.childCount; i++)
         {
-            Destroy(messagebBubblesContainer.GetChild(i).gameObject);
+            var child = messagebBubblesContainer.GetChild(i).gameObject;
+            DOTween.Kill(child);
+            Destroy(child);
         }
         optionMessageBubbles.Clear();
         characterPortrait.gameObject.SetActive(false);
         ResetScrollPosition();
-        DOTween.KillAll();
+        DOTween.Kill(gameObject);
     }
 
     public void SetSkipButton(bool isActive)
