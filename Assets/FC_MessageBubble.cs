@@ -115,7 +115,7 @@ public class FC_MessageBubble : MonoBehaviour
                     namePlateBackgrondImage.sprite = config.petHomeNamePlate;
                     break;
 
-                case "Firefighter":
+                case "Firefighter" or "Bombero":
                     backgroundImage.sprite = (textWidth < minWidth || textHeight < 130f) ? config.firefighterBGShort : config.firefighterBGLong;
                     namePlateBackgrondImage.sprite = config.firefighterNamePlate;
                     break;
