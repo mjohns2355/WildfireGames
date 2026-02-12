@@ -323,6 +323,7 @@ public class ATC_HouseDialogManager : MonoBehaviour
 
         // Select dialogue text based on language
         string selectedDialogText = currentNode.dialogText; // default to English
+        string nameToDisplay = currentNode.characterName;
 
         if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(currentNode.dialogTextES))
         {
@@ -335,17 +336,21 @@ public class ATC_HouseDialogManager : MonoBehaviour
             canClick = true;
             return;
         }
-        if (string.IsNullOrEmpty(currentNode.characterName))
+        if (LocalizationManager.CurrentLanguage == "es" && !string.IsNullOrEmpty(currentNode.characterNameES))
+        {
+            nameToDisplay = currentNode.characterNameES;
+        }
+        if (string.IsNullOrEmpty(nameToDisplay))
         {
             SpawnAMessageBubble(selectedDialogText, null, false, false, true);
         }
-        else if (currentNode.characterName == "Player")
+        else if (nameToDisplay == "Player")
         {
             SpawnAMessageBubble(selectedDialogText, null, true, false, false);
         }
         else
         {
-            SpawnAMessageBubble(selectedDialogText, currentNode.characterName, false, false, false);
+            SpawnAMessageBubble(selectedDialogText, nameToDisplay, false, false, false);
         }
 
         if (!string.IsNullOrEmpty(currentNode.portraitPath))
