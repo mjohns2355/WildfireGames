@@ -160,6 +160,12 @@ public class FF_TutorialManager : UnitySingleton<FF_TutorialManager>
         tutorialText.text = text;
     }
 
+    public void UpdateTutorialTextWithAudio(string key)
+    {
+        tutorialText.text = StringManager.Instance.GetText(key);
+        PlayAudioForKey(key);
+    }
+
     private void PlayAudioForKey(string key)
     {
         if (!TTSManager.IsEnabled || StringManager.Instance == null) return;

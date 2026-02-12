@@ -56,8 +56,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     public void ShowInventoryButton()
     {
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(inventoryIntroKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(inventoryIntroKey);
 
         inventory.gameObject.SetActive(true);
 
@@ -86,7 +85,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
             yield return null;
         }
 
-        FF_TutorialManager.Instance.tutorialText.text = StringManager.Instance.GetText(inventoryReplaceKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(inventoryReplaceKey);
 
         CategoryButton[] allCategoryButtons = inventory.GetComponentsInChildren<CategoryButton>(true);
         foreach (var btn in allCategoryButtons)
@@ -108,8 +107,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
     void OnClickedNewItem()
     {
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(inventoryCompleteKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(inventoryCompleteKey);
 
         inventory.gameObject.SetActive(false);
         Destroy(bubble.gameObject);
@@ -120,8 +118,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
     {
         newItem.button.interactable = true;
 
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(inventoryRetryKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(inventoryRetryKey);
 
         oldItem.button.interactable = false;
         ScaleEffect(newItem.GetComponent<RectTransform>());
@@ -132,8 +129,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         plantModeToggle.SetActive(true);
         onClick.RemoveAllListeners();
 
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(toggleHouseModeKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(toggleHouseModeKey);
 
         Sequence toggleSequence = DOTween.Sequence();
         toggleSequence.Append(ScaleEffect(plantModeToggle.GetComponent<RectTransform>()));
@@ -155,8 +151,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
         plantModeToggle.GetComponent<Toggle>().interactable = false;
         HH_GameManager.Instance.IsPlantMode = false;
 
-        FF_TutorialManager.Instance.tutorialText.text =
-            StringManager.Instance.GetText(upgradeRoofIntroKey);
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(upgradeRoofIntroKey);
 
         canClick = false;
 
@@ -207,8 +202,7 @@ public class FF_TutorializedHousePart : FF_TutorializedObject
 
         if (part && part.HousePartType == partType)
         {
-            FF_TutorialManager.Instance.tutorialText.text =
-                StringManager.Instance.GetText(purchaseMaterialKey);
+            FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(purchaseMaterialKey);
         }
     }
 }
