@@ -30,7 +30,7 @@ public class FF_TutorializedCriticalZone : FF_TutorializedObject
         {
             criticalZoneHighlight.HighlightMeshes();
 
-            FF_TutorialManager.Instance.UpdateTutorialText(StringManager.Instance.GetText(criticalZoneInfoKey));
+            FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(criticalZoneInfoKey);
 
             plantModeToggle.GetComponent<Toggle>().interactable = false;
 

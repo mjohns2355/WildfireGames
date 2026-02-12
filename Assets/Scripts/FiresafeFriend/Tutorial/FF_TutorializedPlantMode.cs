@@ -29,9 +29,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     public void ShowBushes()
     {
-        FF_TutorialManager.Instance.UpdateTutorialText(
-            StringManager.Instance.GetText(removeBushesKey)
-        );
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(removeBushesKey);
 
         foreach (var bush in bushes)
         {
@@ -50,9 +48,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
     public void ShowDirtMound()
     {
-        FF_TutorialManager.Instance.UpdateTutorialText(
-            StringManager.Instance.GetText(plantModeIntroKey)
-        );
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(plantModeIntroKey);
 
         foreach (var mound in dirtMounds)
         {
@@ -64,9 +60,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
                 if (dirtMoundsNeededToFill <= 0)
                 {
-                    FF_TutorialManager.Instance.UpdateTutorialText(
-                        StringManager.Instance.GetText(plantModeCompleteKey)
-                    );
+                    FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(plantModeCompleteKey);
 
                     onClick.AddListener(() =>
                     {
@@ -110,7 +104,7 @@ public class FF_TutorializedPlantMode : FF_TutorializedObject
 
         Sequence arrowSequence = DOTween.Sequence();
 
-        FF_TutorialManager.Instance.UpdateTutorialText(StringManager.Instance.GetText(switchHouseKey));
+        FF_TutorialManager.Instance.UpdateTutorialTextWithAudio(switchHouseKey);
 
         arrowSequence.PrependInterval(1f);
         arrowSequence.Append(FadeIn(canvasGroup));
