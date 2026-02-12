@@ -24,6 +24,11 @@ public class StringManager : MonoBehaviour
 
     public void LoadSceneStrings(string fileName)
     {
+       if (currentFileName == fileName && IsReady)
+        {
+            OnStringsLoadedEvent?.Invoke();
+            return;
+        } 
         IsReady = false;
         currentFileName = fileName;
         LocalizedFileLoader.Load<StringCollection>(fileName, OnStringsLoaded);        
@@ -65,12 +70,20 @@ public class StringManager : MonoBehaviour
 
     public string GetText(string key)
     {
-        if (!IsReady || localizedStrings.Count == 0) return "";
+        if (!IsReady || localizedStrings == null || localizedStrings.Count == 0) 
+        {
+            return ""; 
+        }
+        //if (!IsReady || localizedStrings.Count == 0) return "";
         //if (localizedStrings.Count == 0) return null;
 
         if (!localizedStrings.ContainsKey(key))
         {
+            #if UNITY_EDITOR
             return $"[Missing: {key}]";
+            #else
+                return ""; 
+            #endif
         }
 
         return localizedStrings[key].GetText(LocalizationManager.CurrentLanguage);

@@ -72,22 +72,35 @@ public class BaseHousePartObject : FF_BaseCombustible
     public virtual void InitHousePartObject(HouseManager owner, HousePartInfo housePart = null)
     {
         var part = housePart == null ? partInfo : housePart;
+        if (part == null) {
+        Debug.LogError($"[Firesafe] No HousePartInfo found on {gameObject.name}");
+        return;
+        }
         HousePartType = part.housePartType;
         partInfo = part;
         combustibleInfo = partInfo;
         Owner = owner;
         ReplaceMeshMaterial(part.material);
-        switch (HousePartType)
+        if (ResourceManager.Instance != null && ResourceManager.Instance.VFXs != null)
         {
-            case HousePartType.Wall:
-                VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
-                break;
-            case HousePartType.Window:
-                VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
-                break;
-            case HousePartType.Fence:
-                VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
-                break;
+            switch (HousePartType)
+            {
+                case HousePartType.Wall:
+                    ResourceManager.Instance.VFXs.TryGetValue(HousePartType.Wall, out VFX);
+                    //VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
+                    break;
+                case HousePartType.Window:
+                    //VFX = ResourceManager.Instance.VFXs[HousePartType.Window];
+                    ResourceManager.Instance.VFXs.TryGetValue(HousePartType.Window, out VFX);
+                    break;
+                case HousePartType.Fence:
+                    //VFX = ResourceManager.Instance.VFXs[HousePartType.Wall];
+                    ResourceManager.Instance.VFXs.TryGetValue(HousePartType.Wall, out VFX);
+                    break;
+            }
+        }
+        else{
+            Debug.LogWarning("ResourceManager not ready for " + gameObject.name);    
         }
 
         defaultPartInfo = part;
@@ -103,9 +116,10 @@ public class BaseHousePartObject : FF_BaseCombustible
     void ReplaceMeshMaterial(Material material)
     {
         //Debug.Log($"Replace material with {material.name}");
+        if (meshes == null || material == null) return;
         foreach (var mesh in meshes)
         {
-            mesh.material = material;
+            if (mesh != null) mesh.material = material;
         }
         
     }

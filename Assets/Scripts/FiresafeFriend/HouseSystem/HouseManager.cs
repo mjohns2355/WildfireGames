@@ -47,8 +47,10 @@ namespace HappyHouse.HouseSystem
             clickBox = GetComponent<BoxCollider>();
             audioSource = GetComponent<AudioSource>();
 
-            while (StringManager.Instance == null) yield return null;
-            while (!StringManager.Instance.IsReady) yield return null;
+            while (StringManager.Instance == null || !StringManager.Instance.IsReady) yield return null;
+            while (ResourceManager.Instance == null || ResourceManager.Instance.allAvailableParts == null) yield return null;
+            yield return new WaitForEndOfFrame();
+
             InitHouseManager();
             //foreach(var bush in deadBushes)
             //{
@@ -151,10 +153,14 @@ namespace HappyHouse.HouseSystem
             var node = houseGraph.AddHousePart(part);
             part.houseNode = node;
             nodeDictionary[part.name] = node;
-            inventory.AddNewPartToInventory(part.partInfo);
-            if (!part.partInfo.isPublic)
+
+            if (part.partInfo != null)
             {
-                AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
+                inventory.AddNewPartToInventory(part.partInfo);
+                if (!part.partInfo.isPublic)
+                {
+                    AddMaterialToDictionary(part.HousePartType, part.partInfo.materialClass);
+                }
             }
         }
 
