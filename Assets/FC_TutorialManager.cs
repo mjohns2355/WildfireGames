@@ -23,6 +23,9 @@ public class FC_TutorialManager : MonoBehaviour
     [SerializeField] StructureManager structureManager;
     [SerializeField] ATC_HouseDialogManager houseDialogManager;
     public GameObject voiceOverToggle;
+    [SerializeField] AudioClip introAudioClip;
+    [SerializeField] AudioClip introAudioClipES;
+    private AudioSource audioSource;
 
     public void InitTutorialManager()
     {
@@ -39,6 +42,12 @@ public class FC_TutorialManager : MonoBehaviour
         houseDialogManager.OnDialogueNodeDisplayed -= CheckDialogueNode;
         houseDialogManager.OnDialogueOptionSelected -= CheckDialogueOption;
         fireStationIcon.onClick.RemoveAllListeners();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
         uiIcon = fireStationIcon.GetComponent<RectTransform>();
         // add listeners
@@ -258,6 +267,7 @@ public class FC_TutorialManager : MonoBehaviour
         {
             UpdateBottomDialog("Welcome to Firewise Residents! Tap on the Fire Station to Begin");
         }
+        PlayIntroAudio();
         fireStationIcon.interactable = false;
         fireStationIcon.gameObject.SetActive(true);
         ScaleEffect(uiIcon).OnComplete(() => fireStationIcon.interactable = true);
@@ -271,6 +281,25 @@ public class FC_TutorialManager : MonoBehaviour
                          .SetLoops(2, LoopType.Yoyo)
                          .SetEase(Ease.InOutQuad);
     }
+    void PlayIntroAudio()
+    {
+        if (!TTSManager.IsEnabled || audioSource == null) return;
+
+        AudioClip clip = introAudioClip;
+        if (LocalizationManager.CurrentLanguage == "es" && introAudioClipES != null)
+        {
+            clip = introAudioClipES;
+        }
+
+        if (clip != null)
+        {
+            audioSource.Stop();
+            audioSource.volume = TTSManager.Volume;
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
     void UpdateBottomDialog(string text)
     {
         bottomDialogBox.SetActive(true);
