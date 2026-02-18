@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FYTtimer : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class FYTtimer : MonoBehaviour
     public GameObject startScreen;
     private bool paused = false;
     public GameObject loseScreen;
+    public Button bagButton, mapButton;
 
     private bool warningChecker = false;
 
@@ -83,6 +85,8 @@ public class FYTtimer : MonoBehaviour
                 }
                 //timerText.text = "Game Over";
                 loseScreen.SetActive(true);
+                bagButton.interactable = false;
+                mapButton.interactable = false;
             }
         }
         //Original Yiyang Code
