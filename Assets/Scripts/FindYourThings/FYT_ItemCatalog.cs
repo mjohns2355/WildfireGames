@@ -11,18 +11,20 @@ public static class FYT_ItemCatalog
     public static void Load()
     {
         if (_loaded) return;
-        LocalizedFileLoader.Load<FYT_ItemCatalogData>("FYTItemCatalog.json", (data) =>
+        TextAsset jsonFile = Resources.Load<TextAsset>("FYTItemCatalog");
+        if (jsonFile != null)
         {
-            _lookup = new Dictionary<string, FYT_ItemEntry>();
+            FYT_ItemCatalogData data = JsonUtility.FromJson<FYT_ItemCatalogData>(jsonFile.text);
             if (data != null && data.items != null)
             {
+                _lookup = new Dictionary<string, FYT_ItemEntry>();
                 foreach (var entry in data.items)
                 {
                     _lookup[entry.name] = entry;
                 }
             }
-            _loaded = true;
-        });
+        }
+        _loaded = true;
     }
 
     public static ItemTier GetTier(string itemName)
