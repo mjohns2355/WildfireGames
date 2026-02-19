@@ -133,6 +133,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     }
     void OnSimEnd()
     {
+        pause.gameObject.SetActive(false);
+        toolBarBtns.SetActive(false);
         statsPanel.ShowResultText();
         dialogManager.GenerateResult();
         replayOverlay.SetActive(false);
@@ -334,6 +336,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
+        pause.gameObject.SetActive(true);
+        toolBarBtns.SetActive(true);
     }
 
     public void ShowDialog()
