@@ -75,10 +75,30 @@ public class FF_PlantMenuOption : MonoBehaviour
 
     public void OnClick()
     {
-        if (isRemoveButton)
+        StartCoroutine(PlantSequence());
+        /*if (isRemoveButton)
         {
             ownerMound.Shovel();
             return;
+        }
+
+        ownerMound.Plant(ownerPlant);*/
+    }
+
+    private IEnumerator PlantSequence()
+    {
+        if (this == null || gameObject == null) yield break;
+        //The comment line is if wanted default sizing
+        //var vfx = Instantiate(Resources.Load("ShrubsEffects"), ownerMound.transform.position, ownerMound.transform.rotation);
+        GameObject vfx = Instantiate(Resources.Load("ShrubsEffects"), ownerMound.transform.position, ownerMound.transform.rotation) as GameObject;
+        vfx.transform.localScale = Vector3.one * 3f;
+        yield return new WaitForSeconds(.5f);
+        Destroy(vfx);
+        if (isRemoveButton)
+        {
+            ownerMound.Shovel();
+            yield break;
+            //return;
         }
 
         ownerMound.Plant(ownerPlant);
