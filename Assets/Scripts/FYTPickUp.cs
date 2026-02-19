@@ -18,6 +18,13 @@ public class FYTPickUp : MonoBehaviour
     private float timer = 0.12f;
     public Image panel;
 
+    private AudioSource itemAudio;
+
+    private void Start()
+    {
+        itemAudio = gameObject.AddComponent<AudioSource>();
+    }
+
     private void Update()
     {
         if (closePopup)
@@ -51,11 +58,15 @@ public class FYTPickUp : MonoBehaviour
             {
                 car.hasKey = true;
             }
+
+            PlayItemAudio(selected.name);
         }
     }
 
     public void TakeItem()
     {
+        itemAudio.Stop();
+
         FYT_Bag bag = GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>();
         bag.AddItem(selected.name);
 
@@ -87,7 +98,28 @@ public class FYTPickUp : MonoBehaviour
 
     public void LeaveItem()
     {
-
+        itemAudio.Stop();
         closePopup = true;
+    }
+
+    private void PlayItemAudio(string key)
+    {
+        if (!TTSManager.IsEnabled || StringManager.Instance == null) return;
+
+        string audioPath = StringManager.Instance.GetAudioPath(key);
+        if (!string.IsNullOrEmpty(audioPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(audioPath);
+            if (clip != null)
+            {
+                itemAudio.volume = TTSManager.Volume;
+                itemAudio.clip = clip;
+                itemAudio.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Item audio clip not found: {audioPath}");
+            }
+        }
     }
 }
