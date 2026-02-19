@@ -49,9 +49,4 @@ public class FYT_Timer : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // Institutes a penalty
-    public void TimePenalty()
-    {
-        timePassed -= 20;
-    }
 }

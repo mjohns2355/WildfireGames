@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class FYT_ItemCatalog
 {
-    public enum ItemTier { Essential, Additional, Unnecessary }
+    public enum ItemTier { Essential, Additional }
 
     private static Dictionary<string, FYT_ItemEntry> _lookup;
     private static bool _loaded = false;
@@ -27,34 +27,22 @@ public static class FYT_ItemCatalog
 
     public static ItemTier GetTier(string itemName)
     {
+        Load();
         if (_lookup != null && _lookup.TryGetValue(itemName, out FYT_ItemEntry entry))
         {
             switch (entry.tier)
             {
                 case "Essential":  return ItemTier.Essential;
-                case "Additional": return ItemTier.Additional;
-                default:           return ItemTier.Unnecessary;
+                default:           return ItemTier.Additional;
             }
         }
-        return ItemTier.Unnecessary;
+        return ItemTier.Additional;
     }
 
-    public static bool IsUnnecessary(string itemName)
-    {
-        return GetTier(itemName) == ItemTier.Unnecessary;
-    }
-
-    public static bool IsPenaltyItem(string itemName)
-    {
-        if (_lookup != null && _lookup.TryGetValue(itemName, out FYT_ItemEntry entry))
-        {
-            return entry.penalty;
-        }
-        return false;
-    }
 
     public static int GetEssentialCount()
     {
+        Load();
         int count = 0;
         if (_lookup == null) return 0;
         foreach (var entry in _lookup.Values)
@@ -66,6 +54,7 @@ public static class FYT_ItemCatalog
 
     public static List<string> GetEssentialNames()
     {
+        Load();
         var names = new List<string>();
         if (_lookup == null) return names;
         foreach (var entry in _lookup.Values)
@@ -73,5 +62,20 @@ public static class FYT_ItemCatalog
             if (entry.tier == "Essential") names.Add(entry.name);
         }
         return names;
+    }
+
+    public static bool EnablesRadio(string itemName)
+    {
+        return itemName == "Radio";
+    }
+
+    public static bool IsKey(string itemName)
+    {
+        return itemName == "Car Key";
+    }
+
+    public static bool IsEssential(string itemName)
+    {
+        return GetTier(itemName) == ItemTier.Essential;
     }
 }
