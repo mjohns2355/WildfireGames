@@ -89,6 +89,21 @@ public class StringManager : MonoBehaviour
         return localizedStrings[key].GetText(LocalizationManager.CurrentLanguage);
     }
 
+    public string GetEnglishText(string key)
+    {
+        if (!IsReady || localizedStrings == null || localizedStrings.Count == 0)
+        {
+            return "";
+        }
+
+        if (!localizedStrings.ContainsKey(key))
+        {
+            return "";
+        }
+
+        return localizedStrings[key].GetText("en");
+    }
+
     public string GetAudioPath(string key)
     {
         if (localizedStrings.Count == 0) return null;

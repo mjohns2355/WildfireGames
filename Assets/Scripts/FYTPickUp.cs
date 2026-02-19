@@ -10,6 +10,7 @@ public class FYTPickUp : MonoBehaviour
     public TextMeshProUGUI itemText;
     private GameObject selected;
     private string selectedDisplayName;
+    private string selectedCatalogName;
     public FYT_evac car;
     public AudioSource goodSFX;
     public GameObject RadioBtn;
@@ -42,8 +43,11 @@ public class FYTPickUp : MonoBehaviour
             selectedDisplayName = (StringManager.Instance != null)
                 ? StringManager.Instance.GetText(selected.name)
                 : selected.name;
+            selectedCatalogName = (StringManager.Instance != null)
+                ? StringManager.Instance.GetEnglishText(selected.name)
+                : selected.name;
             itemText.text = selectedDisplayName;
-            if (FYT_ItemCatalog.IsKey(selectedDisplayName))
+            if (FYT_ItemCatalog.IsKey(selectedCatalogName))
             {
                 car.hasKey = true;
             }
@@ -55,7 +59,7 @@ public class FYTPickUp : MonoBehaviour
         FYT_Bag bag = GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>();
         bag.AddItem(selected.name);
 
-        bool essential = FYT_ItemCatalog.GetTier(selectedDisplayName) == FYT_ItemCatalog.ItemTier.Essential;
+        bool essential = FYT_ItemCatalog.GetTier(selectedCatalogName) == FYT_ItemCatalog.ItemTier.Essential;
 
         if (essential)
         {
@@ -67,12 +71,12 @@ public class FYTPickUp : MonoBehaviour
             Instantiate(Resources.Load("pickupFX"), selected.transform.position, Quaternion.identity);
         }
 
-        if (FYT_ItemCatalog.IsKey(selectedDisplayName))
+        if (FYT_ItemCatalog.IsKey(selectedCatalogName))
         {
             car.hasKey = true;
         }
 
-        if (FYT_ItemCatalog.EnablesRadio(selectedDisplayName))
+        if (FYT_ItemCatalog.EnablesRadio(selectedCatalogName))
         {
             RadioBtn.SetActive(true);
         }
