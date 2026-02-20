@@ -39,12 +39,6 @@ public class FYT_CriticalList : MonoBehaviour
     */
     public void crossOffList(string item)
     {
-        // Adds a time penalty if a item not on the Critical List is collected
-        if (FYT_ItemCatalog.IsPenaltyItem(item))
-        {
-            GetComponent<FYT_Timer>().TimePenalty();
-            StartCoroutine(WrongItem());
-        }
         // since parameter is used to find the collectable, the argument "item" must match
         // the name of the collectable exactly, and all collectables must be named exactly as they are
         // (e.g. "First Aid" instead of "FirstAid" or "firstAid")
@@ -78,11 +72,4 @@ public class FYT_CriticalList : MonoBehaviour
         endMenu.SetActive(true);
     }
 
-    // Makes the timer text briefly turn red when a time penalty is instituted
-    IEnumerator WrongItem()
-    {
-        timerText.color = Color.red;
-        yield return new WaitForSeconds(0.5f);
-        timerText.color = Color.black;
-    }
 }

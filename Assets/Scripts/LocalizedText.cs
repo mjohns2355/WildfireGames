@@ -8,6 +8,7 @@ public class LocalizedText : MonoBehaviour
     public string key;
     private TMP_Text tmpText;
     private Text uiText;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class LocalizedText : MonoBehaviour
 
         UpdateText();
         SetTextAlpha(1);
+        PlayAudio();
         /*while (StringManager.Instance == null)
         {
             yield return null;
@@ -60,6 +62,31 @@ public class LocalizedText : MonoBehaviour
     {
         if (StringManager.Instance != null)
             StringManager.Instance.OnStringsLoadedEvent -= UpdateText;
+    }
+
+    private void PlayAudio()
+    {
+        if (string.IsNullOrEmpty(key) || !TTSManager.IsEnabled || StringManager.Instance == null) return;
+
+        string audioPath = StringManager.Instance.GetAudioPath(key);
+        if (string.IsNullOrEmpty(audioPath)) return;
+
+        AudioClip clip = Resources.Load<AudioClip>(audioPath);
+        if (clip == null) return;
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        audioSource.Stop();
+        audioSource.volume = TTSManager.Volume;
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     public void UpdateText()

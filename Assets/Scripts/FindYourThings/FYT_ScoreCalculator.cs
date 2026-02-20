@@ -8,21 +8,10 @@ public static class FYT_ScoreCalculator
 
         foreach (string name in itemNames)
         {
-            FYT_ItemCatalog.ItemTier tier = FYT_ItemCatalog.GetTier(name);
-            switch (tier)
+            if (FYT_ItemCatalog.GetTier(name) == FYT_ItemCatalog.ItemTier.Essential)
             {
-                case FYT_ItemCatalog.ItemTier.Essential:
-                    FYT_ScoreData.essentialCollected++;
-                    FYT_ScoreData.collectedEssentials.Add(name);
-                    break;
-                case FYT_ItemCatalog.ItemTier.Additional:
-                    FYT_ScoreData.additionalCollected++;
-                    FYT_ScoreData.collectedAdditional.Add(name);
-                    break;
-                case FYT_ItemCatalog.ItemTier.Unnecessary:
-                    FYT_ScoreData.unnecessaryCollected++;
-                    FYT_ScoreData.collectedUnnecessary.Add(name);
-                    break;
+                FYT_ScoreData.essentialCollected++;
+                FYT_ScoreData.collectedEssentials.Add(name);
             }
         }
 

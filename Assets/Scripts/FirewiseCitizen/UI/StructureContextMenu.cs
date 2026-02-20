@@ -97,6 +97,11 @@ public class StructureContextMenu : MonoBehaviour
     {
         if(owner == null) return;
         //menuUI.SetActive(true);
+        if(ATC_UIController.Instance.pause != null){ 
+            ATC_UIController.Instance.pause.gameObject.SetActive(false);
+            ATC_UIController.Instance.toolBarBtns.SetActive(false);
+        }
+        
         HouseStructure house = (HouseStructure)owner;
 
         choicePicture.sprite = house.houseInfo.choicePicture;
@@ -120,6 +125,10 @@ public class StructureContextMenu : MonoBehaviour
 
     public void OnMenuDisable()
     {
+        if(ATC_UIController.Instance.pause != null){ 
+            ATC_UIController.Instance.pause.gameObject.SetActive(true);
+            ATC_UIController.Instance.toolBarBtns.SetActive(true);
+        }
         ATC_UIController.Instance.toolsBar.SetActive(true);
         foreach (var menu in ATC_UIController.Instance.contextMenus)
         {

@@ -27,6 +27,7 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     public GameObject startPrompt, dialoguePanel;
     //public Action OnRoadPlacement, OnHousePlacement, OnSpecialPlacement;
     public Button start, pause, learnMore, startAnyway, goBack, restartLevel, restartGame,resetCamera,skipSim;
+    public Toggle languageToggle;
     public CanvasGroup loadingScreen;
     public GameObject loadingCloud;
     public float loadingTime;
@@ -98,6 +99,10 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
             learnMore.interactable = true;
         });
 
+        languageToggle.onValueChanged.AddListener((bool isOn) => {
+            DOVirtual.DelayedCall(0.05f, () => UpdateObjectiveText());
+        });
+
         skipSim.onClick.AddListener(GameManager.Instance.SkipSimulation);
         HideLoadingScreen();
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
@@ -133,6 +138,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
     }
     void OnSimEnd()
     {
+        pause.gameObject.SetActive(false);
+        toolBarBtns.SetActive(false);
         statsPanel.ShowResultText();
         dialogManager.GenerateResult();
         replayOverlay.SetActive(false);
@@ -334,6 +341,8 @@ public class ATC_UIController : UnitySingleton<ATC_UIController>
         GameManager.Instance.SimStartsEvent.AddListener(OnSimStart);
 
         GameManager.Instance.SimEndsEvent.AddListener(OnSimEnd);
+        pause.gameObject.SetActive(true);
+        toolBarBtns.SetActive(true);
     }
 
     public void ShowDialog()
