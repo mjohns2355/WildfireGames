@@ -353,7 +353,14 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
         {
             Destroy(f.gameObject);
         }
-        uiManager.ShowEndScreen(true, p1.GetBurnedPercent(), p2.GetBurnedPercent());
+        float p1Burn = p1.GetBurnedPercent();
+        float p2Burn = p2.GetBurnedPercent();
+
+        float p1Stars = CalculateStars(p1Burn);
+        float p2Stars = CalculateStars(p2Burn);
+
+        uiManager.ShowEndScreen(true, p1Burn, p2Burn, p1Stars, p2Stars);
+        //uiManager.ShowEndScreen(true, p1.GetBurnedPercent(), p2.GetBurnedPercent());
         publicFencesRepaired = false;
 
         CurrentStage = GameStage.GameEnd;
@@ -388,8 +395,7 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
             p1.budgetManager.IncreaseBudget(rewardP1);
             p2.budgetManager.IncreaseBudget(rewardP2);
         };
-
-        uiManager.ShowEndScreen(isFire: false,p1Score ,p2Score);
+        uiManager.ShowEndScreen(false, p1Score, p2Score, 0f, 0f);
 
     }
 
@@ -639,5 +645,16 @@ public class HH_GameManager : UnitySingleton<HH_GameManager>
                 //RestartGame();
                 break;
         }
+    }
+
+    public float CalculateStars(float burnPercent)
+    {
+        if (burnPercent <= 0) return 3.0f;
+        if (burnPercent < 20) return 2.5f;
+        if (burnPercent < 40) return 2.0f;
+        if (burnPercent < 60) return 1.5f;
+        if (burnPercent < 80) return 1.0f;
+        if (burnPercent < 90) return 0.5f;
+        return 0f;
     }
 }

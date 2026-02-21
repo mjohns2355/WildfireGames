@@ -259,12 +259,12 @@ public class HH_UIManager : MonoBehaviour
         }
     }
 
-    public void ShowEndScreen(bool isFire, float p1Score, float p2Score)
+    public void ShowEndScreen(bool isFire, float p1Score, float p2Score, float p1Stars, float p2Stars)
     {
         if (isFire)
         {
             endScreenManager.gameObject.SetActive(true);
-            endScreenManager.ShowFireResultScreen(p1Score, p2Score);
+            endScreenManager.ShowFireResultScreen(p1Score, p2Score, p1Stars, p2Stars);
         }
         else
         {

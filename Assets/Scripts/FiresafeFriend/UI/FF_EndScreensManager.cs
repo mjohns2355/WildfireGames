@@ -8,14 +8,19 @@ public class FF_EndScreensManager : MonoBehaviour
 {
     public GameObject fireResultScreen, competitionResultScreen;
     public TextMeshProUGUI p1BurnPercentText, p2BurnPercentText, p1CompetitionScore, p2CompetitionScore, winnerText,p1Reward,p2Reward;
+    public Sprite emptyStar, halfStar, fullStar;
+    [SerializeField] List<Image> p1StarScore = new List<Image>();
+    [SerializeField] List<Image> p2StarScore = new List<Image>();
 
-    public void ShowFireResultScreen(float p1Score, float p2Score)
+    public void ShowFireResultScreen(float p1Score, float p2Score, float p1Stars, float p2Stars)
     {
         Debug.Log($"P1: {p1Score}, P2: {p2Score}");
         var p1 = p1Score < 1 ? p1Score : Mathf.Round(p1Score);
         var p2 = p2Score < 1 ? p2Score : Mathf.Round(p2Score); ;
         p1BurnPercentText.text = $"{p1}%";
         p2BurnPercentText.text = $"{p2}%";
+        UpdateStarVisuals(p1Stars, p1StarScore);
+        UpdateStarVisuals(p2Stars, p2StarScore);
         fireResultScreen.SetActive(true);
     }
 
@@ -67,5 +72,21 @@ public class FF_EndScreensManager : MonoBehaviour
         fireResultScreen.SetActive(false);
         competitionResultScreen.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public void UpdateStarVisuals(float stars, List<Image> starImages)
+    {
+        int fullStars = Mathf.FloorToInt(stars);
+        bool hasHalfStar = (stars - fullStars) >= 0.5f;
+
+        for (int i = 0; i < starImages.Count; i++)
+        {
+            if (i < fullStars)
+                starImages[i].sprite = fullStar;
+            else if (i == fullStars && hasHalfStar)
+                starImages[i].sprite = halfStar;
+            else
+                starImages[i].sprite = emptyStar;
+        }
     }
 }

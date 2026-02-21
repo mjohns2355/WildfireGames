@@ -634,6 +634,7 @@ namespace HappyHouse.HouseSystem
             float totalBurned = burnedWeight + currentDamageWeight;
             
             burnedPercent = Mathf.Clamp01(totalBurned / totalWeight);
+            //Debug.Log(burnedPercent * 100f);
             return burnedPercent * 100f;
             //Original code before partial burning fix
             /*if (totalWeight <= 0f)
