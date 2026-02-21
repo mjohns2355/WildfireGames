@@ -148,5 +148,14 @@ public class StorePanel : MonoBehaviour
         .OnComplete(() => budgetText.fontStyle = FontStyles.Normal);
     }
 
+    public void RefreshLanguage()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (StringManager.Instance != null)
+        {
+            typeCategoryText.text = StringManager.Instance.GetText(targetCategory.ToString());
+        }
+    }
     
 }

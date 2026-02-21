@@ -108,5 +108,33 @@ public class FF_PlantMenuOption : MonoBehaviour
     {
         button.onClick.RemoveAllListeners();
     }
+
+    public void RefreshLanguage()
+    {
+        if (StringManager.Instance == null) return;
+
+        if (isRemoveButton)
+        {
+            nameText.text = StringManager.Instance.GetText(removePlantKey);
+        }
+        else if (ownerPlant != null && ownerPlant.combustibleInfo != null) 
+        {
+            nameText.text = ownerPlant.combustibleInfo.GetLocalizedName();
+
+            string descriptionKey = ownerPlant.combustibleInfo.materialClass switch
+            {
+                MaterialClass.A => fireResistantKey,
+                MaterialClass.B => moderatelyFlammableKey,
+                MaterialClass.C => flammableKey,
+                MaterialClass.F => highlyFlammableKey,
+                _ => null
+            };
+
+            if (!string.IsNullOrEmpty(descriptionKey))
+            {
+                shortDescription.text = StringManager.Instance.GetText(descriptionKey);
+            }
+        }
+    }
 }
 

@@ -74,4 +74,12 @@ public class CategoryButton : MonoBehaviour
         owner.previousCategory.SetBG(false);
         SetBG(true);
     }
+
+    public void RefreshLanguage()
+    {
+        if (StringManager.Instance != null)
+        {
+            categoryText.text = StringManager.Instance.GetText(category.ToString());
+        }
+    }
 }
