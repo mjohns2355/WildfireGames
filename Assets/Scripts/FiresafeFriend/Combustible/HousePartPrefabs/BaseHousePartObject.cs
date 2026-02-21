@@ -256,4 +256,15 @@ public class BaseHousePartObject : FF_BaseCombustible
         fire.endPos = topPosition;
     }
 
+    //Helper function to help get partial burning
+    public float GetDamageRatio()
+    {
+        if (this == null) return 1f;
+        if (!isOnFire) return 0f;
+
+        float maxBurnTime = (durability / flammability) + baseBurnTime;
+        
+        float ratio = 1f - (burnTimer / maxBurnTime);
+        return Mathf.Clamp01(ratio);
+    }
 }

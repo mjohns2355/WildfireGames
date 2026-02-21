@@ -225,7 +225,14 @@ namespace HappyHouse.HouseSystem
 
         public void CalculateTotalHousePartWeight()
         {
-            if (burnedWeight != 0) return;
+            totalWeight = 0;
+            foreach(var node in houseGraph.nodes)
+            {
+                if(node != null)
+                    totalWeight += node.housePart.HousePartType.GetHousePartWeight();
+            }
+            //Original method before partial burning fix
+            /*if (burnedWeight != 0) return;
             totalWeight = 0;
             foreach(var node in houseGraph.nodes)
             {
@@ -233,7 +240,7 @@ namespace HappyHouse.HouseSystem
                 {
                     totalWeight += node.housePart.HousePartType.GetHousePartWeight();
                 }
-            }
+            }*/
         }
         public bool PurchaseHousePart(HousePartInfo partInfo)
         {
@@ -611,12 +618,30 @@ namespace HappyHouse.HouseSystem
 
         public float GetBurnedPercent()
         {
-            if (totalWeight <= 0f)
+            if (totalWeight <= 0f) return 0;
+
+            float currentDamageWeight = 0f;
+
+            foreach (var node in houseGraph.nodes)
+            {
+                if (node != null && node.housePart != null)
+                {
+                    float weight = node.housePart.HousePartType.GetHousePartWeight();
+                    currentDamageWeight += weight * node.housePart.GetDamageRatio();
+                }
+            }
+
+            float totalBurned = burnedWeight + currentDamageWeight;
+            
+            burnedPercent = Mathf.Clamp01(totalBurned / totalWeight);
+            return burnedPercent * 100f;
+            //Original code before partial burning fix
+            /*if (totalWeight <= 0f)
                 return 0;
 
             float rawPercent = (burnedWeight / totalWeight) * 100f;
             burnedPercent = rawPercent / 100f;
-            return rawPercent;
+            return rawPercent;*/
         }
 
         public float CalculateRating()
