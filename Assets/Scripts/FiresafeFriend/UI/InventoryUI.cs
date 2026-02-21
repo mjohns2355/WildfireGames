@@ -119,4 +119,17 @@ public class InventoryUI : MonoBehaviour
         }
         inventoryUI.SetActive(state);
     }
+
+    public void RefreshLanguage()
+    {
+        foreach (var c in categories)
+        {
+            c.Value.RefreshLanguage();
+        }
+
+        if (currentCategory != null)
+        {
+            UpdateInventoryUI(currentCategory.category);
+        }
+    }
 }

@@ -29,6 +29,7 @@ public class HH_UIManager : MonoBehaviour
 
     private bool firstCompetitionAnnouncement = true;
     private bool canShow = false;
+    public Toggle languageToggle;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,10 @@ public class HH_UIManager : MonoBehaviour
         {
             HH_GameManager.Instance.SwitchPlayer("P2");
         });
+        languageToggle.onValueChanged.AddListener((bool isOn) => {
+            DOVirtual.DelayedCall(0.01f, () => RefreshAllUI());
+        });
+    
 
         HH_GameManager.Instance.OnRoundStart += OnRoundStart;
         HH_GameManager.Instance.OnRoundEnd += OnRoundEnd;
@@ -333,5 +338,23 @@ public class HH_UIManager : MonoBehaviour
         );
 
         return seq;
+    }
+
+    public void RefreshAllUI()
+    {
+        if (storePanel.gameObject.activeInHierarchy)
+        {
+            storePanel.RefreshLanguage();
+        }
+
+        if (inventoryPanel.gameObject.activeInHierarchy)
+        {
+            inventoryPanel.RefreshLanguage();
+        }
+
+        if (plantsMenu != null && plantsMenu.gameObject.activeInHierarchy)
+        {
+            plantsMenu.RefreshLanguage();
+        }
     }
 }

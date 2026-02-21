@@ -99,4 +99,15 @@ public class FF_PlantsMenu : MonoBehaviour
         //PopulateOptions() ;
     }
     
+    public void RefreshLanguage()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        FF_PlantMenuOption[] options = grid.GetComponentsInChildren<FF_PlantMenuOption>();
+
+        foreach (var option in options)
+        {
+            option.RefreshLanguage();
+        }
+    }
 }
