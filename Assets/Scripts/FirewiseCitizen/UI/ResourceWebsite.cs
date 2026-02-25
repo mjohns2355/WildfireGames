@@ -53,4 +53,20 @@ public class ResourceWebsite : MonoBehaviour
         Application.OpenURL("https://wildfiregames.short.gy/FYT-GoBag");        
     }
 
+    //Main Menu
+
+    public void WildfireGames()
+    {
+        Application.OpenURL("https://be-wildfiregames.sites.ucsc.edu/");        
+    }
+
+    public void SetsLab()
+    {
+        Application.OpenURL("https://setlab.soe.ucsc.edu/");        
+    }
+
+    public void BaskinEngineering()
+    {
+        Application.OpenURL("https://engineering.ucsc.edu/");        
+    }
 }
