@@ -4,15 +4,15 @@ using TMPro;
 
 public class FYT_ResultsScreen : MonoBehaviour
 {
-    [Header("Top Section")]
+    [Header("Middle Column")]
     public GameObject[] starImages;
     public GameObject halfStarImage;
     public TextMeshProUGUI countText;
 
-    [Header("Left Column — All Collected")]
+    [Header("Items Collected")]
     public TextMeshProUGUI collectedListText;
 
-    [Header("Right Column — Essentials Checklist")]
+    [Header("Essentials Checklist")]
     public TextMeshProUGUI essentialsListText;
 
     [Header("Panel")]
@@ -46,7 +46,7 @@ public class FYT_ResultsScreen : MonoBehaviour
         }
 
         // Count
-        countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essentials collected";
+        countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essential items";
 
         // Left column — all collected items (translated)
         List<string> translatedCollected = new List<string>();
