@@ -32,5 +32,10 @@ public static class FYT_ScoreCalculator
             FYT_ScoreData.essentialScore =
                 (float)FYT_ScoreData.essentialCollected / FYT_ScoreData.essentialTotal;
         }
+
+        FYT_ScoreData.starRating = FYT_StarRating.Calculate(
+            FYT_ScoreData.essentialCollected,
+            FYT_ScoreData.essentialTotal
+        );
     }
 }
