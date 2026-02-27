@@ -69,6 +69,7 @@ public class FYTPickUp : MonoBehaviour
 
         FYT_Bag bag = GameObject.FindGameObjectWithTag("Bag").GetComponent<FYT_Bag>();
         bag.AddItem(selected.name);
+        bag.AddCatalogItem(selectedCatalogName);
 
         bool essential = FYT_ItemCatalog.GetTier(selectedCatalogName) == FYT_ItemCatalog.ItemTier.Essential;
 
