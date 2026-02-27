@@ -15,9 +15,11 @@ public class FYT_Bag : MonoBehaviour
     private string list2;
     private string list3;
     private int count = 0;
+    private List<string> collectedItems = new List<string>();
 
     public GameObject siren;
     public GameObject timer;
+    public FYT_ResultsScreen resultsScreen;
 
     public void OpenBag()
     {
@@ -39,6 +41,10 @@ public class FYT_Bag : MonoBehaviour
 
     public void Evac()
     {
+        FYT_ScoreCalculator.Calculate(collectedItems);
+        Debug.Log($"[FYT] Stars: {FYT_ScoreData.starRating} | Collected: {FYT_ScoreData.essentialCollected}/{FYT_ScoreData.essentialTotal}");
+        resultsScreen.gameObject.SetActive(true);
+        resultsScreen.Show(collectedItems);
         Destroy(siren);
         Destroy(timer);
     }
@@ -46,6 +52,11 @@ public class FYT_Bag : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void AddCatalogItem(string catalogName)
+    {
+        collectedItems.Add(catalogName);
     }
 
     public void AddItem(string item)
