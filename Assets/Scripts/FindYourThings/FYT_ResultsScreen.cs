@@ -10,13 +10,9 @@ public class FYT_ResultsScreen : MonoBehaviour
     public TextMeshProUGUI countText;
 
     [Header("Items Collected")]
-    public TextMeshProUGUI collectedListText;
-
-    [Header("Essentials Checklist")]
-    public TextMeshProUGUI essentialsListText;
-
-    [Header("Panel")]
-    public GameObject resultsPanel;
+    public GameObject itemPrefab;
+    public Transform collectedContainer;
+    public Transform essentialsContainer;
 
     private string Translate(string key)
     {
@@ -48,29 +44,24 @@ public class FYT_ResultsScreen : MonoBehaviour
         // Count
         countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essential items";
 
-        // Left column — all collected items (translated)
-        List<string> translatedCollected = new List<string>();
+        // Left column — all collected items
         foreach (string item in allCollected)
         {
-            translatedCollected.Add(Translate(item));
+            GameObject entry = Instantiate(itemPrefab, collectedContainer);
+            entry.GetComponentInChildren<TextMeshProUGUI>().text = Translate(item);
         }
-        collectedListText.text = string.Join("\n", translatedCollected);
 
-        // Right column — essentials checklist (translated)
-        List<string> lines = new List<string>();
-
+        // Right column — essentials checklist
         foreach (string item in FYT_ScoreData.collectedEssentials)
         {
-            lines.Add($"<color=green>\u2713 {Translate(item)}</color>");
+            GameObject entry = Instantiate(itemPrefab, essentialsContainer);
+            entry.GetComponentInChildren<TextMeshProUGUI>().text = $"<color=green>\u2713 {Translate(item)}</color>";
         }
 
         foreach (string item in FYT_ScoreData.missedEssentials)
         {
-            lines.Add($"<color=red>\u2717 {Translate(item)}</color>");
+            GameObject entry = Instantiate(itemPrefab, essentialsContainer);
+            entry.GetComponentInChildren<TextMeshProUGUI>().text = $"<color=red>\u2717 {Translate(item)}</color>";
         }
-
-        essentialsListText.text = string.Join("\n", lines);
-
-        resultsPanel.SetActive(true);
     }
 }

@@ -43,6 +43,7 @@ public class FYT_Bag : MonoBehaviour
     {
         FYT_ScoreCalculator.Calculate(collectedItems);
         Debug.Log($"[FYT] Stars: {FYT_ScoreData.starRating} | Collected: {FYT_ScoreData.essentialCollected}/{FYT_ScoreData.essentialTotal}");
+        resultsScreen.gameObject.SetActive(true);
         resultsScreen.Show(collectedItems);
         Destroy(siren);
         Destroy(timer);
