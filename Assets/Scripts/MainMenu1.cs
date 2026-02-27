@@ -12,6 +12,18 @@ public class MainMenu1 : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private GameObject chooseMiniGame;
 
+    private AudioSource audioSource;
+    private Coroutine audioCoroutine;
+
+    private static readonly Dictionary<string, (string titleEN, string descEN, string titleES, string descES)> sceneAudioPaths =
+        new Dictionary<string, (string, string, string, string)>
+        {
+            { "findYourThingsExport", ("FindYourThings/Audio/FindYourThings", "FindYourThings/Audio/FindYourThings/mainmenu_desc", "", "") },
+            { "FF_TutorialScene",    ("FirewiseCitizen/Audio/Firewise Residents", "FiresafeFriend/Audio/mainmenu_desc", "", "") },
+            { "FC_Level0",           ("FiresafeFriend/Audio/Firesafe Friend", "FirewiseCitizen/Audio/mainmenu_desc",
+                                      "FirewiseCitizen/Audio/ES/intro_id_50", "FirewiseCitizen/Audio/ES/intro_id_51") },
+        };
+
     private void Start()
     {
         AudioListener.pause = false;
@@ -23,8 +35,15 @@ public class MainMenu1 : MonoBehaviour
 
         if (chooseMiniGame != null)
         {
-            chooseMiniGame.SetActive(true);    
+            chooseMiniGame.SetActive(true);
         }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
     }
 
     public void SelectScene(string sceneName)
@@ -41,10 +60,14 @@ public class MainMenu1 : MonoBehaviour
         {
             chooseMiniGame.SetActive(false);
         }
+
+        PlaySceneAudio(sceneName);
     }
 
     public void PlaySelectedScene()
     {
+        StopAudio();
+
         if(!string.IsNullOrEmpty(selectedScene))
         {
             SceneManager.LoadScene(selectedScene);
@@ -71,5 +94,59 @@ public class MainMenu1 : MonoBehaviour
     public void KillFreeze()
     {
         Time.timeScale = 1f;
+    }
+
+    private void PlaySceneAudio(string sceneName)
+    {
+        StopAudio();
+
+        if (!TTSManager.IsEnabled) return;
+        if (!sceneAudioPaths.ContainsKey(sceneName)) return;
+
+        var paths = sceneAudioPaths[sceneName];
+        bool isSpanish = LocalizationManager.CurrentLanguage == "es";
+        string titlePath = isSpanish ? paths.titleES : paths.titleEN;
+        string descPath  = isSpanish ? paths.descES  : paths.descEN;
+
+        audioCoroutine = StartCoroutine(PlayTitleThenDescription(titlePath, descPath));
+    }
+
+    private IEnumerator PlayTitleThenDescription(string titlePath, string descPath)
+    {
+        yield return PlayClipFromPath(titlePath);
+        yield return PlayClipFromPath(descPath);
+        audioCoroutine = null;
+    }
+
+    private IEnumerator PlayClipFromPath(string path)
+    {
+        if (string.IsNullOrEmpty(path)) yield break;
+
+        AudioClip clip = Resources.Load<AudioClip>(path);
+        if (clip == null) yield break;
+
+        audioSource.clip = clip;
+        audioSource.volume = TTSManager.Volume;
+        audioSource.Play();
+
+        while (audioSource.isPlaying)
+        {
+            yield return null;
+        }
+    }
+
+    private void StopAudio()
+    {
+        if (audioCoroutine != null)
+        {
+            StopCoroutine(audioCoroutine);
+            audioCoroutine = null;
+        }
+
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+        }
     }
 }
