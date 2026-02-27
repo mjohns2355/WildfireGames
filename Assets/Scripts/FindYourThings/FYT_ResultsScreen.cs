@@ -22,11 +22,29 @@ public class FYT_ResultsScreen : MonoBehaviour
     {
         if (StringManager.Instance != null)
         {
+            if (key == "Salem's Vet Records") key = "catVetText";
             string translated = StringManager.Instance.GetText(key);
+
+            if (string.IsNullOrEmpty(translated) || translated.Contains("[Missing"))
+            {
+                string fixedKey = key.Replace(" ", "") + "Text";
+                fixedKey = char.ToLower(fixedKey[0]) + fixedKey.Substring(1);
+                translated = StringManager.Instance.GetText(fixedKey);
+            }
             if (!string.IsNullOrEmpty(translated) && !translated.Contains("[Missing"))
                 return translated;
         }
         return key;
+        //Original Code for Translation  
+        /*if (StringManager.Instance != null)
+        {
+            string translated = StringManager.Instance.GetText(key);
+            if (!string.IsNullOrEmpty(translated) && !translated.Contains("[Missing"))
+                return translated;
+        }else{
+            Debug.Log("StringManager Instance is NULL");
+        }
+        return key;*/
     }
 
     public void Show(List<string> allCollected)
