@@ -15,6 +15,9 @@ public class MainMenu1 : MonoBehaviour
     private AudioSource audioSource;
     private Coroutine audioCoroutine;
 
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Slider loadingSlider;
+
     private static readonly Dictionary<string, (string titleEN, string descEN, string titleES, string descES)> sceneAudioPaths =
         new Dictionary<string, (string, string, string, string)>
         {
@@ -70,7 +73,8 @@ public class MainMenu1 : MonoBehaviour
 
         if(!string.IsNullOrEmpty(selectedScene))
         {
-            SceneManager.LoadScene(selectedScene);
+            StartCoroutine(LoadSceneAsync(selectedScene));
+            //SceneManager.LoadScene(selectedScene);
         }else
         {
             Debug.LogWarning("Nothing is selected");
@@ -147,6 +151,34 @@ public class MainMenu1 : MonoBehaviour
         {
             audioSource.Stop();
             audioSource.clip = null;
+        }
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        if (loadingScreen != null) loadingScreen.SetActive(true);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        
+        operation.allowSceneActivation = false;
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            if (loadingSlider != null)
+            {
+                loadingSlider.value = progress;
+            }
+
+            if (operation.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(0.5f);
+
+                operation.allowSceneActivation = true;
+            }
+
+            yield return null;
         }
     }
 }
