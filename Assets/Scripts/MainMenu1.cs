@@ -18,10 +18,10 @@ public class MainMenu1 : MonoBehaviour
     private static readonly Dictionary<string, (string titleEN, string descEN, string titleES, string descES)> sceneAudioPaths =
         new Dictionary<string, (string, string, string, string)>
         {
-            { "findYourThingsExport", ("FindYourThings/Audio/FindYourThings", "FindYourThings/Audio/FindYourThings/mainmenu_desc", "", "") },
-            { "FF_TutorialScene",    ("FirewiseCitizen/Audio/Firewise Residents", "FiresafeFriend/Audio/mainmenu_desc", "", "") },
-            { "FC_Level0",           ("FiresafeFriend/Audio/Firesafe Friend", "FirewiseCitizen/Audio/mainmenu_desc",
-                                      "FirewiseCitizen/Audio/ES/intro_id_50", "FirewiseCitizen/Audio/ES/intro_id_51") },
+            { "findYourThingsExport", ("FindYourThings/Audio/FindYourThings", "FindYourThings/Audio/mainmenu_desc", "FindYourThings/Audio/ES/FindYourThings", "FindYourThings/Audio/ES/mainmenu_desc") },
+            { "FF_TutorialScene",    ("FiresafeFriend/Audio/Firesafe Friend", "FiresafeFriend/Audio/mainmenu_desc", "FiresafeFriend/Audio/ES/Firesafe Friend", "FiresafeFriend/Audio/ES/mainmenu_desc") },
+            { "FC_Level0",           ("FirewiseCitizen/Audio/Firewise Residents", "FirewiseCitizen/Audio/mainmenu_desc",
+                                      "FirewiseCitizen/Audio/ES/Firewise Residents", "FirewiseCitizen/Audio/ES/mainmenu_desc") },
         };
 
     private void Start()
