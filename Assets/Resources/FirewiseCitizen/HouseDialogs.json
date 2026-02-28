@@ -1901,8 +1901,10 @@
                         "nextNodeId": "300"
                     },
                     {
-                        "optionText": "Could you evacuate early?",
+                        "optionText": "Could you evacuate early?", 
                         "optionTextES": "¿Podría evacuar con tiempo?",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_CouldYouEvac",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_CouldYouEvac",
                         "messageText": "Evacuating with pets is tricky, maybe pre-evacuating with them on <b>Red Flag</b> days, when fire risk is high, could help?",
                         "messageTextES": "Evacuar con mascotas puede ser complicado. Tal vez evacuar con anticipación en días de bandera roja podría ayudar.",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYouEvac",
@@ -1939,6 +1941,8 @@
                     {
                         "optionText": "You can use items from the Go-Bag",
                         "optionTextES": "Puede usar los artículos de la mochila de emergencia.",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_YouCanUse",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_YouCanUse",
                         "messageText": "Even when items are in the Go-Bag you can still use them, so they can be gathered together but not go to waste.",
                         "messageTextES": "Aunque los artículos estén en la bolsa de emergencia, aún se pueden usar, así pueden mantenerse juntos sin desperdiciarse.",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_YouCanUse",
@@ -1959,7 +1963,10 @@
             {
                 "id": "200",
                 "characterName": "Player",
-                "dialogText": "It would be a great way to catch things you might have previously overlooked."
+                "dialogText": "It would be a great way to catch things you might have previously overlooked.",
+                "dialogTextES": "Sería una excelente manera de detectar cosas que quizás hayas pasado por alto anteriormente.",
+                "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_GreatWay",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/pet_opt_GreatWay"
             },
             {
                 "id": "201",
@@ -1981,7 +1988,9 @@
                 "options": [
                     {
                         "optionText": "Prep a Go-Bag",
-                         "optionTextES": "Preparar una mochila de emergencia",
+                        "optionTextES": "Preparar una mochila de emergencia",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_PrepGo",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_PrepGo",
                         "messageText": "Having a <b>Go-Bag</b> ready for each pet - food, water, medicine - makes a huge difference in a rush.",
                         "messageTextES": "Tener una bolsa de emergencia lista para cada mascota hace una gran diferencia cuando hay prisa",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_PrepaGo",
@@ -2018,6 +2027,8 @@
                     {
                         "optionText": "There are pet-friendly shelters.",
                         "optionTextES": "Hay refugios que aceptan mascotas.",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_ThereAre",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_ThereAre",
                         "messageText": "Some shelters or hotels allow pets, and leaving early can help you avoid last-minute panic.",
                         "messageTextES": "Algunos refugios u hoteles permiten mascotas, y salir temprano puede ayudarte a evitar el pánico de último momento.",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_ThereAre",
@@ -2026,6 +2037,8 @@
                     {
                         "optionText": "Could you stay with friends or family?",
                         "optionTextES": "¿Podría quedarse con amigos o familiares?",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_CouldYou",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_CouldYou",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
                         "messageTextES": "Si tienes familiares o amigos en una zona más segura, ¿tal vez podrías quedarte con ellos cuando haya riesgo?",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYou",
@@ -2062,6 +2075,8 @@
                     {
                         "optionText": "Could you stay with friends or family?",
                         "optionTextES": "¿Podría quedarse con amigos o familiares?",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_CouldYou",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_CouldYou",
                         "messageText": "If you have family or friends in a safer area, maybe you could stay with them when it's risky?",
                         "messageTextES": "Si tienes familiares o amigos en una zona más segura, ¿tal vez podrías quedarte con ellos cuando haya riesgo?",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_CouldYouStay",
@@ -2107,6 +2122,8 @@
                     {
                         "optionText": "Going through it could help them get used to it.",
                         "optionTextES": "Practicar el proceso podría ayudarles a acostumbrarse.",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/pet_option_Going",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/pet_option_Going",
                         "messageText": "Once they go through it a few times they might start to get more comfortable with it.",
                         "messageTextES": "Después de pasar por esto algunas veces, es posible que empiecen a sentirse más cómodos.",
                         "audioPath": "FirewiseCitizen/Audio/Player/pet_opt_Going",
@@ -2136,6 +2153,8 @@
                 "id": "500",
                 "dialogText": "<b>What is best for Genaro?</b>",
                 "dialogTextES": "<b>¿Qué es mejor para Genaro?</b>",
+                "audioPath": "FirewiseCitizen/Audio/pet_final",
+                "audioPathES": "FirewiseCitizen/Audio/ES/pet_final",
                 "isEndNode": "true"
             }
         ]
@@ -2166,9 +2185,9 @@
           "options": [
             {
               "optionText": "Review job (Play Tutorial)",
-              "optionAudioPath": "FirewiseCitizen/Audio/Player/intro_opt1_Review",
               "optionTextES": "Revisar trabajo (Jugar tutorial)",
-              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt1_Review",
+              "optionAudioPath": "FirewiseCitizen/Audio/intro_opt1_Review",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/intro_opt1_Review",
               "messageText": "I think a review of my tasks would be great!",
               "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_Review",
               "messageTextES": "Creo que revisar mis tareas sería genial.",
@@ -2178,7 +2197,7 @@
               "optionText": "Get started (Skip Tutorial)",
               "optionAudioPath": "FirewiseCitizen/Audio/Player/intro_opt2_Review",
               "optionTextES": "Empezar (Omitir tutorial)",
-              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt2_Review",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/intro_opt2_Review2",
               "messageText": "I think I'm ready now.",
               "messageTextES": "Creo que ya estoy listo.",
               "audioPath": "FirewiseCitizen/Audio/Player/intro_opt_Get",
@@ -2290,6 +2309,8 @@
             {
               "optionText": "What's worrying you?",
               "optionTextES": "¿Qué le preocupa?",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_Whats",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_Whats",
               "messageText": "What's worrying you this fire season?",
               "messageTextES": "¿Qué te preocupa esta temporada de incendios?",
               "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Whats",
@@ -2298,6 +2319,8 @@
             {
               "optionText": "Happy to help!",
               "optionTextES": "¡Feliz de ayudar!",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_Happy",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_Happy",
               "messageText": "Hi Mary, I'm happy to help you.",
               "messageTextES": "Hola Mary, con gusto te ayudo.",
               "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Happy",
@@ -2317,11 +2340,15 @@
             {
               "optionText": "That's amazing!",
               "optionTextES": "¡Eso es increíble!",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_Amazing",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_Amazing",
               "nextNodeId": "60"
             },
             {
               "optionText": "Pet evacuation?",
               "optionTextES": "¿Evacuación de mascotas?",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_Pet",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_Pet",
               "messageText": "Are you concerned about keeping your pets safe?",
               "messageTextES": "¿Te preocupa mantener a tus mascotas a salvo?",
               "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_Pet",
@@ -2391,6 +2418,8 @@
             {
               "optionText": "Got it! (Tell Mary)",
               "optionTextES": "¡Entendido! (Avisar a Mary)",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_GotIt",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_GotIt",
               "messageText": "You should prepare your pets' supplies as you would with your own! Creating a <b>Go-Bag</b> full of their necessary supplies, along with animal crates, is a great way to <b>stay ready,</b> and ensure you and your pets can leave at a moment's notice!",
               "messageTextES": "¡Debes preparar los suministros de tus mascotas igual que los tuyos! Crear una <b>bolsa de emergencia</b> con todo lo que necesitan, junto con transportadoras para animales, es una excelente manera de <b>mantenerse preparado</b> y asegurar que tú y tus mascotas puedan salir en cualquier momento.",
               "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_GotIt",
@@ -2411,6 +2440,8 @@
             {
               "optionText": "Happy to help! (End Conversation)",
               "optionTextES": "¡Feliz de ayudar! (Terminar conversación)",
+              "optionAudioPath": "FirewiseCitizen/Audio/Player/tutorial_option_Happy2",
+              "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/tutorial_option_Happy2",
               "messageText": "Happy to help!",
               "messageTextES": "¡Con gusto ayudo!",
               "audioPath": "FirewiseCitizen/Audio/Player/tutorial_opt_HappyToHelp",
@@ -2447,6 +2478,8 @@
                     {
                         "optionText": "Sounds good!",
                         "optionTextES": "¡Me parece bien!",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/outro_option_Sounds",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/outro_option_Sounds",
                         "messageText": "Sounds good! I think I'm ready now.",
                         "messageTextES": "¡Suena bien! Creo que ya estoy listo.",
                         "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_Sounds",
@@ -2545,6 +2578,8 @@
                     {
                         "optionText": "Yes (Begin Game)",
                         "optionTextES": "Sí (Comenzar juego)",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/outro_option_Yes",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/outro_option_Yes",
                         "messageText": "Yes",
                         "messageTextES": "Si",
                         "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_Yes",
@@ -2553,6 +2588,8 @@
                     {
                         "optionText": "No (Review Tutorial)",
                         "optionTextES": "No (Revisar tutorial)",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/outro_option_No",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/outro_option_No",
                         "messageText": "I wanna review the tutorial.",
                         "messageTextES": "Quiero revisar el tutorial.",
                         "audioPath": "FirewiseCitizen/Audio/Player/outro_opt_No",
@@ -2574,7 +2611,9 @@
                 "options": [
                     {
                         "optionText": "Start Game",
-                        "optionTextES": "Comenzar juego"
+                        "optionTextES": "Comenzar juego",
+                        "optionAudioPath": "FirewiseCitizen/Audio/Player/outro_option_Start",
+                        "optionAudioPathES": "FirewiseCitizen/Audio/ES/Player/outro_option_Start"
                     }
                 ]
             }
@@ -2596,7 +2635,10 @@
             {
                 "id": "2",
                 "characterName": "Player",
-                "dialogText": "What’s that for?"
+                "dialogText": "What’s that for?",
+                "dialogTextES": "¿Para qué sirve?",
+                "audioPath": "FirewiseCitizen/Audio/Player/incentives_id_2",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/incentives_id_2"
             },
             {
                 "id": "3",
@@ -2610,7 +2652,10 @@
             {
                 "id": "4",
                 "characterName": "Player",
-                "dialogText": "But why would I do that?"
+                "dialogText": "But why would I do that?",
+                "dialogTextES": "¿Pero por qué haría eso?",
+                "audioPath": "FirewiseCitizen/Audio/Player/incentives_id_4",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/incentives_id_4"
             },
             {
                 "id": "5",
@@ -2624,7 +2669,10 @@
             {
                 "id": "6",
                 "characterName": "Player",
-                "dialogText": "Got it."
+                "dialogText": "Got it.",
+                "dialogTextES": "Entendido.",
+                "audioPath": "FirewiseCitizen/Audio/Player/incentives_id_6",
+                "audioPathES": "FirewiseCitizen/Audio/ES/Player/incentives_id_6"
             },
             {
                 "id": "7",
