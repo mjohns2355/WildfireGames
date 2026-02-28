@@ -15,7 +15,7 @@ public class FYT_Bag : MonoBehaviour
     private string list2;
     private string list3;
     private int count = 0;
-    private List<string> collectedItems = new List<string>();
+    public List<string> collectedItems = new List<string>();
 
     public GameObject siren;
     public GameObject timer;

@@ -22,6 +22,9 @@ public class FYTtimer : MonoBehaviour
 
     private bool warningChecker = false;
 
+    public FYT_Bag playerBag;
+    public NewLoseScript resultsScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +78,19 @@ public class FYTtimer : MonoBehaviour
             if (timer < 0)
             {
                 timer = 0;
-                if (StringManager.Instance != null)
+                if (!loseScreen.activeInHierarchy)
+                {
+                    loseScreen.SetActive(true);
+                    
+                    if (resultsScreen != null && playerBag != null)
+                    {
+                        resultsScreen.Show(playerBag.collectedItems); 
+                    }
+
+                    bagButton.interactable = false;
+                    mapButton.interactable = false;
+                }
+                /*if (StringManager.Instance != null)
                 {
                     timerText.text = StringManager.Instance.GetText("gameOverText");
                 }
@@ -84,7 +99,7 @@ public class FYTtimer : MonoBehaviour
                     timerText.text = "Game Over";
                 }
                 //timerText.text = "Game Over";
-                loseScreen.SetActive(true);
+                loseScreen.SetActive(true);*/
                 bagButton.interactable = false;
                 mapButton.interactable = false;
             }
