@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class FC_TutorialManager : MonoBehaviour
 {
     public Button titleCard,fireStationIcon;
+    public GameObject titleCardParent;
     public GameObject bottomDialogBox, fireFighterDialogue, sideFirefighterPortrait;
     public TextMeshProUGUI bottomDialogText;
     //public ATC_HouseDialogManager dialogManager;
@@ -55,6 +56,7 @@ public class FC_TutorialManager : MonoBehaviour
         {
             if (GameManager.Instance.IsPaused) return;
             titleCard.gameObject.SetActive(false);
+            titleCardParent.SetActive(false);
             voiceOverToggle.SetActive(false);
             StartTutorial();
         });
@@ -353,6 +355,7 @@ public class FC_TutorialManager : MonoBehaviour
     {
 
         titleCard.gameObject.SetActive(true);
+        titleCardParent.SetActive(true);
         ATC_UIController.Instance.toolBarBtns.SetActive(false);
 
     }
