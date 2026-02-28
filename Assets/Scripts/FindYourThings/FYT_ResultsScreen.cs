@@ -67,7 +67,9 @@ public class FYT_ResultsScreen : MonoBehaviour
 
         UpdateFeedbackText(FYT_ScoreData.starRating);
         // Count
-        countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essential items";
+        //countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essential items";
+        string localizedFormat = Translate("essentialItemsText");
+        countText.text = string.Format(localizedFormat, FYT_ScoreData.essentialCollected, FYT_ScoreData.essentialTotal);
 
         // Left column — all collected items
         foreach (string item in allCollected)
