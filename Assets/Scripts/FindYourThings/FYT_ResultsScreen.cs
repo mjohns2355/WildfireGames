@@ -17,6 +17,7 @@ public class FYT_ResultsScreen : MonoBehaviour
 
     //Checklist Assets
     public Sprite greenContainer, redContainer;
+    public TextMeshProUGUI feedbackText;
 
     private string Translate(string key)
     {
@@ -64,6 +65,7 @@ public class FYT_ResultsScreen : MonoBehaviour
             halfStarImage.SetActive(hasHalf);
         }*/
 
+        UpdateFeedbackText(FYT_ScoreData.starRating);
         // Count
         countText.text = $"{FYT_ScoreData.essentialCollected} / {FYT_ScoreData.essentialTotal} essential items";
 
@@ -112,5 +114,21 @@ public class FYT_ResultsScreen : MonoBehaviour
             else
                 starImages[i].sprite = emptyStar;
         }
+    }
+
+    private void UpdateFeedbackText(float stars)
+    {
+        string feedbackKey;
+
+        if (stars >= 3f) 
+            feedbackKey = "excellentWorkText";
+        else if (stars >= 2.5f) 
+            feedbackKey = "greatJobText";
+        else if (stars >= 2f) 
+            feedbackKey = "goodJobText";
+        else 
+            feedbackKey = "goodEffortText";
+
+        feedbackText.text = Translate(feedbackKey);
     }
 }
