@@ -73,6 +73,14 @@ public class FF_QuizPopupUI : MonoBehaviour
         int index = -1;
         optionDict.TryGetValue(button, out index);
 
+        foreach (var i in optionDict)
+        {
+            if (i.Value == correctAnswerIndex)
+            {
+                i.Key.GetComponent<Image>().color = Color.green;
+            }
+        }
+
         if (index == correctAnswerIndex)
         {
             //Debug.Log("Correct Answer");
