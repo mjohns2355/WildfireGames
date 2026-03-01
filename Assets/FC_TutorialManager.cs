@@ -26,6 +26,9 @@ public class FC_TutorialManager : MonoBehaviour
     public GameObject voiceOverToggle;
     [SerializeField] AudioClip introAudioClip;
     [SerializeField] AudioClip introAudioClipES;
+    [SerializeField] AudioClip taskAudioClip;
+    [SerializeField] AudioClip taskAudioClipES;
+
     private AudioSource audioSource;
 
     public void InitTutorialManager()
@@ -229,6 +232,22 @@ public class FC_TutorialManager : MonoBehaviour
             message = text1 + "<b>Touch and drag to move </b>" + text2;
         }
         UpdateBottomDialog(message);
+        if (TTSManager.IsEnabled && audioSource != null)
+        {
+            AudioClip clip = taskAudioClip;
+            if (LocalizationManager.CurrentLanguage == "es" && taskAudioClipES != null)
+            {
+                clip = taskAudioClipES;
+            }
+
+            if (clip != null)
+            {
+                audioSource.Stop();
+                audioSource.volume = TTSManager.Volume;
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+        }
         GameManager.Instance.cameraMovement.ResetCam();
         tutorialHouse.contextMenu.icon.gameObject.SetActive(true);
         tutorialHouse.SetOutline(true);
