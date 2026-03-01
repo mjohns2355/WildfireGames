@@ -17,9 +17,33 @@ public class FYT_Bag : MonoBehaviour
     private int count = 0;
     public List<string> collectedItems = new List<string>();
 
+    private List<string> col1 = new List<string>();
+    private List<string> col2 = new List<string>();
+    private List<string> col3 = new List<string>();
+
     public GameObject siren;
     public GameObject timer;
     public FYT_ResultsScreen resultsScreen;
+
+    private void OnEnable()
+    {
+        LocalizationManager.OnLanguageChanged -= HandleLanguageChanged;
+        LocalizationManager.OnLanguageChanged += HandleLanguageChanged;
+    }
+
+    private void OnDisable()
+    {
+        LocalizationManager.OnLanguageChanged -= HandleLanguageChanged;
+    }
+
+    private void HandleLanguageChanged(string newLang)
+    {
+        if (this != null && bagPanel != null && bagPanel.activeInHierarchy)
+        {
+            RefreshBagText();
+        }
+        
+    }
 
     public void OpenBag()
     {
@@ -37,6 +61,43 @@ public class FYT_Bag : MonoBehaviour
         }
 
         packText.text = packedHeader;
+        RefreshBagText();
+    }
+
+   public void RefreshBagText()
+    {
+        col1.Clear();
+        col2.Clear();
+        col3.Clear();
+
+        for (int i = 0; i < collectedItems.Count; i++)
+        {
+            string key = collectedItems[i];
+
+            if (key == "Salem's Vet Records" || key == "Salem’s Vet Records") key = "catVetText";
+
+            string translated = key;
+
+            if (StringManager.Instance != null)
+            {
+                translated = StringManager.Instance.GetText(key);
+
+                if (string.IsNullOrEmpty(translated) || translated.Contains("[Missing"))
+                {
+                    string fixedKey = key.Replace(" ", "") + "Text";
+                    fixedKey = char.ToLower(fixedKey[0]) + fixedKey.Substring(1);
+                    translated = StringManager.Instance.GetText(fixedKey);
+                }
+            }
+            //18, then 36
+            if (i < 25) col1.Add(translated);
+            else if (i < 50) col2.Add(translated);
+            else col3.Add(translated);
+        }
+
+        bagList.text = string.Join("\n", col1);
+        bagList2.text = string.Join("\n", col2);
+        bagList3.text = string.Join("\n", col3);
     }
 
     public void Evac()
@@ -61,7 +122,9 @@ public class FYT_Bag : MonoBehaviour
 
     public void AddItem(string item)
     {
-        if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
+        collectedItems.Add(item);
+        //Original Bag Code
+        /*if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
         {
             count++;
 
@@ -85,6 +148,6 @@ public class FYT_Bag : MonoBehaviour
                 list3 += "\n" + translatedItem;
                 bagList3.text = list3;
             }
-        }
+        }*/
     }
 }
