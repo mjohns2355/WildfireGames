@@ -11,6 +11,7 @@ public class FYT_Bag : MonoBehaviour
     public TextMeshProUGUI bagList;
     public TextMeshProUGUI bagList2;
     public TextMeshProUGUI bagList3;
+    public TextMeshProUGUI bagList4;
     private string list;
     private string list2;
     private string list3;
@@ -20,6 +21,7 @@ public class FYT_Bag : MonoBehaviour
     private List<string> col1 = new List<string>();
     private List<string> col2 = new List<string>();
     private List<string> col3 = new List<string>();
+    private List<string> col4 = new List<string>();
 
     public GameObject siren;
     public GameObject timer;
@@ -38,10 +40,13 @@ public class FYT_Bag : MonoBehaviour
 
     private void HandleLanguageChanged(string newLang)
     {
-        if (this != null && bagPanel != null && bagPanel.activeInHierarchy)
+        if (this == null || bagPanel == null) return;
+
+        RefreshBagText();
+        /*if (this != null && bagPanel != null && bagPanel.activeInHierarchy)
         {
             RefreshBagText();
-        }
+        }*/
         
     }
 
@@ -69,6 +74,7 @@ public class FYT_Bag : MonoBehaviour
         col1.Clear();
         col2.Clear();
         col3.Clear();
+        col4.Clear();
 
         for (int i = 0; i < collectedItems.Count; i++)
         {
@@ -90,14 +96,16 @@ public class FYT_Bag : MonoBehaviour
                 }
             }
             //18, then 36
-            if (i < 25) col1.Add(translated);
-            else if (i < 50) col2.Add(translated);
-            else col3.Add(translated);
+            if (i < 32) col1.Add(translated);
+            else if (i < 64) col2.Add(translated);
+            else if (i < 96) col3.Add(translated);
+            else col4.Add(translated);
         }
 
         bagList.text = string.Join("\n", col1);
         bagList2.text = string.Join("\n", col2);
         bagList3.text = string.Join("\n", col3);
+        bagList4.text = string.Join("\n", col4);
     }
 
     public void Evac()
