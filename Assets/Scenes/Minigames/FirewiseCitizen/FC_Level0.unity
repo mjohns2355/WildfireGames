@@ -38166,6 +38166,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2663640598411158455, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 352.5184
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663640598411158455, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -7.2075
+      objectReference: {fileID: 0}
     - target: {fileID: 4056895095288198316, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
       propertyPath: m_Name
       value: Clouds
@@ -38174,11 +38182,36 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8488918923216728413, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 19093695319683311, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 270943326}
   m_SourcePrefab: {fileID: 100100000, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+--- !u!1 &270943325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 19093695319683311, guid: 40b551a6dd69a456096b9e661a67f17b, type: 3}
+  m_PrefabInstance: {fileID: 270943324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &270943326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270943325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda0735eef8144394b2586d1870c8fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: loadingText
 --- !u!4 &274212992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2100345786477648002, guid: 126bc1b54aa974c45b523eabbb58d51e, type: 3}
@@ -77598,8 +77631,6 @@ MonoBehaviour:
   voiceOverToggle: {fileID: 345436287}
   introAudioClip: {fileID: 8300000, guid: a5a0cccebd3c74e94926e11a0b70b813, type: 3}
   introAudioClipES: {fileID: 8300000, guid: fbed4e859b0474e868ea1f3a9a7ae6c2, type: 3}
-  taskAudioClip: {fileID: 8300000, guid: fbed4e859b0474e868ea1f3a9a7ae6c2, type: 3}
-  taskAudioClipES: {fileID: 8300000, guid: a5a0cccebd3c74e94926e11a0b70b813, type: 3}
 --- !u!1 &774286246
 GameObject:
   m_ObjectHideFlags: 0
