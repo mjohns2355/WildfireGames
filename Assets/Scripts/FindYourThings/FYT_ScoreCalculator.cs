@@ -6,9 +6,12 @@ public static class FYT_ScoreCalculator
     {
         FYT_ScoreData.Reset();
 
+        HashSet<string> seenEssentials = new HashSet<string>();
+
         foreach (string name in itemNames)
         {
-            if (FYT_ItemCatalog.GetTier(name) == FYT_ItemCatalog.ItemTier.Essential)
+            if (FYT_ItemCatalog.GetTier(name) == FYT_ItemCatalog.ItemTier.Essential
+                && seenEssentials.Add(name))
             {
                 FYT_ScoreData.essentialCollected++;
                 FYT_ScoreData.collectedEssentials.Add(name);
