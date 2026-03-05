@@ -6,7 +6,8 @@ public class ResourceWebsite : MonoBehaviour
 
     public void ActionPlan()
     {
-        Application.OpenURL("https://wildfiregames.short.gy/FF-ActionPlan");        
+        Application.OpenURL("https://www.readyforwildfire.org/prepare-for-wildfire/wildfire-action-plan/");        
+        //Application.OpenURL("https://wildfiregames.short.gy/FF-ActionPlan");        
     }
 
     public void Vegetation()
