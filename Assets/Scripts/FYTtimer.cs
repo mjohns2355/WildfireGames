@@ -136,6 +136,11 @@ public class FYTtimer : MonoBehaviour
 
     }
 
+    public void PauseTimer()
+    {
+        paused = true;
+    }
+
     public void UnPause()
     {
         paused = false;

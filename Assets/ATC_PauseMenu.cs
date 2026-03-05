@@ -52,11 +52,17 @@ public class ATC_PauseMenu : MonoBehaviour
     void ClearAllChoices()
     {
         GameManager.Instance.structureManager.ClearAllPlayerChoices();
-        foreach (var menu in ATC_UIController.Instance.contextMenus)
+        ATC_UIController.Instance.TalkedResidentsCount = 0; 
+
+        if (ATC_UIController.Instance != null && ATC_UIController.Instance.contextMenus != null)
         {
-            menu.ClearChoice();
-            menu.isSelected = false;
-            menu.icon.ToggleIconState(true);
+            foreach (var menu in ATC_UIController.Instance.contextMenus)
+            {
+                if (menu == null) continue;
+                menu.ClearChoice();
+                menu.isSelected = false;
+                if (menu.icon != null) menu.icon.ToggleIconState(true);
+            }
         }
     }
     void OpenInstructions()

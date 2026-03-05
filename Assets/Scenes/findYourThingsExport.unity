@@ -6338,6 +6338,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 666017854}
+        m_TargetAssemblyTypeName: FYTtimer, Assembly-CSharp
+        m_MethodName: UnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &148373433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7756,12 +7768,20 @@ PrefabInstance:
       value: Get Alerts
       objectReference: {fileID: 0}
     - target: {fileID: 3501145163126367172, guid: 163c293da4705a440ade13620f7f016b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 344.4996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501145163126367172, guid: 163c293da4705a440ade13620f7f016b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 47.4779
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501145163126367172, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -3.5672
       objectReference: {fileID: 0}
     - target: {fileID: 3501145163126367172, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -56
+      value: -46
       objectReference: {fileID: 0}
     - target: {fileID: 3628288787814558085, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_Name
@@ -7985,12 +8005,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_fontSize
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 07895fb532e0c4f2b9b51b7681549b8b, type: 2}
+    - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -8005,7 +8029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_fontSizeBase
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5335501439403618188, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_sharedMaterial
@@ -8141,7 +8165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -8174,7 +8198,7 @@ PrefabInstance:
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 890410185}
+      objectReference: {fileID: 666017854}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -8201,7 +8225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: LeaveItem
+      value: PauseTimer
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -8217,7 +8241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: FYTPickUp, Assembly-CSharp
+      value: FYTtimer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
@@ -8233,7 +8257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7581437447873189912, guid: 163c293da4705a440ade13620f7f016b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -45097,7 +45121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3f29a0604448451c91ce090fc653d66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7000127f054341b4aedf91466500864, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -58441,6 +58465,7 @@ GameObject:
   - component: {fileID: 1249516593}
   - component: {fileID: 1249516595}
   - component: {fileID: 1249516594}
+  - component: {fileID: 1249516596}
   m_Layer: 5
   m_Name: Transparent
   m_TagString: Untagged
@@ -58505,6 +58530,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249516592}
   m_CullTransparentMesh: 1
+--- !u!114 &1249516596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249516592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1249516594}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 666017854}
+        m_TargetAssemblyTypeName: FYTtimer, Assembly-CSharp
+        m_MethodName: UnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1250463853
 GameObject:
   m_ObjectHideFlags: 0
@@ -60902,6 +60983,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 666017854}
+        m_TargetAssemblyTypeName: FYTtimer, Assembly-CSharp
+        m_MethodName: UnPause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -68950,7 +69043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.2149963, y: -24.467499}
+  m_AnchoredPosition: {x: 1.2150269, y: -24.467499}
   m_SizeDelta: {x: 80.762, y: 78.2967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1451188791
