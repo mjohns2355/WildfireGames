@@ -280,6 +280,9 @@ public class GameManager : UnitySingleton<GameManager>
         ATC_UIController.Instance.ResetUI();
         
         fireSFX.Stop();
+        ATC_UIController.Instance.houseDialogManager.ForceStopAll();
+        if (tutorialManager != null)
+            tutorialManager.ForceStopAudio();
         ATC_AIDirector.Instance.currentCarNum = 0;
         ATC_AIDirector.Instance.spawnedCarNum = 0;
         var currentLevel = "FC_Level" + this.currentLevel.ToString();

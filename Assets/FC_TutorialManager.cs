@@ -321,6 +321,16 @@ public class FC_TutorialManager : MonoBehaviour
         }
     }
 
+    public void ForceStopAudio()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+        }
+        DOTween.Kill(gameObject);
+    }
+
     void UpdateBottomDialog(string text)
     {
         bottomDialogBox.SetActive(true);
