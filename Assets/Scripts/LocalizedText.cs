@@ -60,6 +60,11 @@ public class LocalizedText : MonoBehaviour
 
     private void OnDisable()
     {
+        StopAllCoroutines();
+
+        if (audioSource != null && audioSource.isPlaying)
+            audioSource.Stop();
+
         if (StringManager.Instance != null)
             StringManager.Instance.OnStringsLoadedEvent -= UpdateText;
     }

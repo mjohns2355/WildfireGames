@@ -100,6 +100,20 @@ public class ATC_HouseDialogManager : MonoBehaviour
         audioSource.clip = null;
     }
 
+    public void ForceStopAll()
+    {
+        StopAllCoroutines();
+        optionAudioCoroutine = null;
+        optionSelectedCoroutine = null;
+        waitingForPlayerAudio = false;
+        isWaitingForPlayer = false;
+        canClick = false;
+        currentNode = null;
+        currentDialogTree = null;
+        StopAndClearAudio();
+        DOTween.Kill(gameObject);
+    }
+
     private void UpdateEdgeFadeVisibility()
     {
         if (scrollRect == null || topFade == null || bottomFade == null) return;
