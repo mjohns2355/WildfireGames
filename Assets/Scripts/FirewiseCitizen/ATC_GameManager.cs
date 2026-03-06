@@ -276,6 +276,7 @@ public class GameManager : UnitySingleton<GameManager>
         // unpause the game
         isPaused = false;
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         ATC_UIController.Instance.ResetUI();
         
         fireSFX.Stop();
