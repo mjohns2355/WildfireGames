@@ -366,6 +366,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     public void OnFirestationIconClicked()
     {
+        ForceStopAudio();
         houseDialogManager.ClearMessages();
         GameManager.Instance.cameraMovement.MoveToHouse(fireStation);
         bottomDialogBox.SetActive(false);
