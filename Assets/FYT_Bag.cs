@@ -18,10 +18,14 @@ public class FYT_Bag : MonoBehaviour
     private int count = 0;
     public List<string> collectedItems = new List<string>();
 
-    private List<string> col1 = new List<string>();
+    //Old Text Strings of the Bag Panel
+    /*private List<string> col1 = new List<string>();
     private List<string> col2 = new List<string>();
     private List<string> col3 = new List<string>();
-    private List<string> col4 = new List<string>();
+    private List<string> col4 = new List<string>();*/
+
+    public GameObject itemPrefab;
+    public Transform collectedContainer;
 
     public GameObject siren;
     public GameObject timer;
@@ -71,7 +75,40 @@ public class FYT_Bag : MonoBehaviour
 
    public void RefreshBagText()
     {
-        col1.Clear();
+        
+        foreach (Transform child in collectedContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < collectedItems.Count; i++)
+        {
+            string key = collectedItems[i];
+
+            if (key == "Salem's Vet Records" || key == "Salem’s Vet Records") key = "catVetText";
+
+            string translated = key;
+
+            if (StringManager.Instance != null)
+            {
+                translated = StringManager.Instance.GetText(key);
+
+                if (string.IsNullOrEmpty(translated) || translated.Contains("[Missing"))
+                {
+                    string fixedKey = key.Replace(" ", "") + "Text";
+                    fixedKey = char.ToLower(fixedKey[0]) + fixedKey.Substring(1);
+                    translated = StringManager.Instance.GetText(fixedKey);
+                }
+            }
+
+            GameObject entry = Instantiate(itemPrefab, collectedContainer);
+            var textComp = entry.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComp != null)
+            {
+                textComp.text = translated;
+            }
+        }
+        /*col1.Clear();
         col2.Clear();
         col3.Clear();
         col4.Clear();
@@ -105,7 +142,7 @@ public class FYT_Bag : MonoBehaviour
         bagList.text = string.Join("\n", col1);
         bagList2.text = string.Join("\n", col2);
         bagList3.text = string.Join("\n", col3);
-        bagList4.text = string.Join("\n", col4);
+        bagList4.text = string.Join("\n", col4);*/
     }
 
     public void Evac()
@@ -131,6 +168,7 @@ public class FYT_Bag : MonoBehaviour
     public void AddItem(string item)
     {
         collectedItems.Add(item);
+        RefreshBagText();
         //Original Bag Code
         /*if (!bagList.text.Contains(item) && !bagList2.text.Contains(item) && !bagList3.text.Contains(item))
         {
