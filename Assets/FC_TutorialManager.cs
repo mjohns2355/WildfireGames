@@ -357,6 +357,7 @@ public class FC_TutorialManager : MonoBehaviour
 
     private void OnClickTutorialHouse()
     {
+        ForceStopAudio();
         ATC_UIController.Instance.toolBarBtns.SetActive(true);
         GameManager.Instance.cameraMovement.MoveToHouse(tutorialHouse);
         bottomDialogBox.SetActive(false);

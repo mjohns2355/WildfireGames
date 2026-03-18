@@ -3,15 +3,20 @@ using UnityEngine.UI;
 
 public class TTSButtonConnector : MonoBehaviour
 {
-    void Start()
+    //void Start()
+    void Awake()
     {
         // Try Toggle first
         Toggle toggle = GetComponent<Toggle>();
         if (toggle != null)
         {
-            toggle.isOn = TTSManager.IsEnabled;
+            toggle.SetIsOnWithoutNotify(TTSManager.IsEnabled);
+            
             toggle.onValueChanged.AddListener(TTSManager.SetEnabled);
             return;
+            //toggle.isOn = TTSManager.IsEnabled;
+            //toggle.onValueChanged.AddListener(TTSManager.SetEnabled);
+            //return;
         }
 
         // Fall back to Button

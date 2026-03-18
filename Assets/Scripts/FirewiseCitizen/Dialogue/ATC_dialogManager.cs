@@ -93,12 +93,24 @@ public class ATC_dialogManager : MonoBehaviour
     
     public string GetEndQuote(string houseType, string choice, string response)
     {
-        bool isSpanish = LocalizationManager.CurrentLanguage == "es";
-        //Debug.Log($"Get end qupte for house: {houseType}, Selected Choice: {choice}, Response: {response}");
+        bool isSpanish = LocalizationManager.CurrentLanguage.StartsWith("es", StringComparison.OrdinalIgnoreCase);
+        //bool isSpanish = LocalizationManager.CurrentLanguage == "es";
+        Debug.Log($"Get end qupte for house: {houseType}, Selected Choice: {choice}, Response: {response}");
         foreach (var entry in endQuoteData.quotes)
         {
             //if (entry.response == "Followed" && entry.choice != "Wait for Notice") continue;
-            if (string.Equals(entry.houseType,houseType, StringComparison.OrdinalIgnoreCase)
+            
+            if (string.Equals(entry.houseType.Trim(), houseType.Trim(), StringComparison.OrdinalIgnoreCase)
+            && string.Equals(entry.choice.Trim(), choice.Trim(), StringComparison.OrdinalIgnoreCase)
+            && string.Equals(entry.response.Trim(), response.Trim(), StringComparison.OrdinalIgnoreCase))
+            {
+                if (isSpanish && !string.IsNullOrEmpty(entry.quoteES))
+                {
+                    return entry.quoteES;
+                }
+                return entry.quote;
+            }
+            /*if (string.Equals(entry.houseType,houseType, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(entry.choice, choice, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(entry.response, response, StringComparison.OrdinalIgnoreCase))
             {
@@ -107,7 +119,7 @@ public class ATC_dialogManager : MonoBehaviour
                     return entry.quoteES;
                 }
                 return entry.quote;
-            }
+            }*/
         }
 
         return isSpanish ? "No hay comentario disponible." : "No quote available for this scenario.";
@@ -182,11 +194,56 @@ public class ATC_dialogManager : MonoBehaviour
         var rng = UnityEngine.Random.Range(0, availableHouseTypes.Count);
         var houseType = availableHouseTypes[rng];
 
-        foreach (var c in dict[houseType])
+        if (GameManager.Instance.houseResponses.ContainsKey(houseType))
         {
-            var choice = c.choiceName;
-            var response = GameManager.Instance.houseResponses[houseType];
-            allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
+            foreach (var c in dict[houseType])
+            {
+                string choice = c.choiceName;
+
+                choice = choice switch
+                {
+                    "waitForNoticeText" => "Wait for Notice",
+                    "evacuateEarlyText" => "Evacuate Early",
+
+                    // Two Car House
+                    "relocateCarText" => "Relocate 2nd Car",
+                    "leaveCarText" => "Leave one Car",
+                    "takeBothCarsText" => "Take both Cars",
+
+                    // Kids House
+                    "saferAtSchoolText" => "Safer at school",
+                    "pickUpChildrenText" => "Pick up children",
+
+                    // WUI House
+                    "inexpensiveHHText" => "Inexpensive Home Hardening",
+                    "fullHHText" => "Full Home Hardening",
+
+                    // Elderly & Pet
+                    "helpFromNeighborText" => "Help From Neighbor",
+                    "planAheadText" => "Plan Ahead",
+                    _ => choice
+                };
+
+                string response = "Disregarded"; 
+                if (GameManager.Instance.houseResponses.ContainsKey(houseType))
+                {
+                    response = GameManager.Instance.houseResponses[houseType];
+                }
+                else
+                {
+                    choice = "Wait for Notice";
+                    response = "Followed";
+                }
+
+                allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));
+
+                /*var choice = c.choiceName;
+                var response = GameManager.Instance.houseResponses[houseType];
+                allQuotes.Add(GetEndQuote(houseType.ToString(), choice, response));*/
+            }
+        }
+        else{
+            allQuotes.Add(GetEndQuote(houseType.ToString(), "Wait for Notice", "Followed"));
         }
 
         if (followedOrders)
